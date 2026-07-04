@@ -33,7 +33,10 @@ if not BIO:
     BIO = next((c for c in _cands if os.path.isdir(os.path.join(c, ".git"))), os.path.join(ROOT, "bio"))
 
 REPOS = [
-    {"key": "flora", "label": "Flora Mibaso", "emoji": "🌼", "akzent": "#2F4F3E"},
+    {"key": "flora", "label": "Flora Mibaso", "emoji": "🌼", "akzent": "#2F4F3E",
+     "pass": {"href": "pflanzenpass.html", "img": "images/bluetenoekologie.jpg",
+              "eyebrow": "Dein Forscherpass", "titel": "Sammle Blätter, werde Flora-Meister",
+              "sub": "Alle sechs Lernpfade an einem Ort — mit deinem Fortschritt."}},
     {"key": "fauna", "label": "Fauna Mibaso", "emoji": "🦋", "akzent": "#233D5C",
      "pass": {"href": "interaktiv/wiesenpass.html", "img": "images/wiese/wiese-sommer.png",
               "eyebrow": "Dein Forscherpass", "titel": "Sammle Blätter, werde Wiesen-Meister",
@@ -210,6 +213,15 @@ def build():
     copytree(os.path.join(ROOT, "flora", "ueber"),     os.path.join(BIO, "ueber"))
     copytree(os.path.join(ROOT, "flora", "impressum"), os.path.join(BIO, "impressum"))
     copytree(os.path.join(ROOT, "flora", "anleitung"), os.path.join(BIO, "anleitung"))
+    # Flora-Forscherpass liegt in der Flora-Wurzel (nicht in interaktiv/) → gezielt
+    # nach bio/flora/ kopieren, dazu das Banner-Bild der Flora-Unterseite.
+    _fpass = os.path.join(ROOT, "flora", "pflanzenpass.html")
+    if os.path.isfile(_fpass):
+        shutil.copy2(_fpass, os.path.join(BIO, "flora", "pflanzenpass.html"))
+    _fimg = os.path.join(ROOT, "flora", "images", "bluetenoekologie.jpg")
+    if os.path.isfile(_fimg):
+        os.makedirs(os.path.join(BIO, "flora", "images"), exist_ok=True)
+        shutil.copy2(_fimg, os.path.join(BIO, "flora", "images", "bluetenoekologie.jpg"))
     # eigenes bio-Icon (grün+blau Blatt) über die von Flora kopierten Icons legen
     BRAND = os.path.join(os.path.dirname(os.path.abspath(__file__)), "brand")
     copytree(BRAND, os.path.join(BIO, "assets"))

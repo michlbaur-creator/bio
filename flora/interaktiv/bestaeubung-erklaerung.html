@@ -856,6 +856,8 @@
       }
     });
     const fb = app.querySelector('#feedback');
+    /* Ergebnis an den Flora-Forscherpass melden (3/2/1 Blätter) */
+    if (placedCount() >= total) { (function(){var _b=right===total?3:right>=Math.ceil(total*0.6)?2:1;try{var _K="mibaso.flora.expedition",_d=JSON.parse(localStorage.getItem(_K)||"{}");if(!_d.bestaeubung||_b>(_d.bestaeubung.blaetter||0)){_d.bestaeubung={blaetter:_b,done:true,ts:Date.now()};localStorage.setItem(_K,JSON.stringify(_d));}}catch(e){}})(); }
     if (right === total) {
       fb.textContent = `Perfekt! Alle ${total} richtig! 🎉`;
       fb.className = 'good';

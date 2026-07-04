@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Expedition Wiese — Forscherpass · Flora Mibaso</title>
+<meta name="description" content="Dein Forscherpass für die Lernpfade rund um die Pflanzen: sammle Blätter, steig im Rang auf und werde Flora-Meister.">
+<meta name="theme-color" content="#2F4F3E">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Flora Mibaso">
+<style>
+  /* =========================================================================
+     „Expedition Wiese – Forscherpass“ (Flora)
+     Sammel-Übersicht über die Lernpfade der Pflanzen. Liest die Ergebnisse aus
+     dem localStorage (Schlüssel mibaso.flora.expedition), das jeder Pfad füllt.
+     Hausstil der Flora-App. Keine externen Bibliotheken.
+     ========================================================================= */
+  :root{
+    --gruen:#2F4F3E; --gruen-tief:#243d30; --gruen-mittel:#3A5F4A; --gruen-akzent:#5A8068;
+    --creme:#F7F3E8; --creme-tief:#EEE7D5; --pergament:#EDE3CC;
+    --tinte:#26312b; --honig:#C28A3A; --honig-tief:#a9762c;
+    --linie:#d8ccb2; --gruen-blass:#e6efe7; --gruen-dunkel:#2f6a45;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--creme);color:var(--tinte);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.5;
+    padding-top:calc(env(safe-area-inset-top) + min(2vh,14px));}
+  .huelle{max-width:680px;margin:0 auto;padding:clamp(8px,2.5vw,16px) clamp(12px,3.5vw,26px) 48px;}
+
+  .kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:var(--sans);}
+  .zurueck{font-size:13px;font-weight:600;color:var(--gruen);text-decoration:none;display:inline-flex;gap:5px;align-items:center;}
+  h1{font-size:clamp(21px,5.2vw,28px);line-height:1.1;margin:8px 0 2px;font-weight:normal;color:var(--gruen);}
+  .unter{font-family:var(--sans);font-size:13.5px;color:#6c7681;margin:0 0 6px;font-style:italic;}
+
+  /* Rang-Karte */
+  .rangkarte{background:linear-gradient(160deg,var(--gruen-mittel),var(--gruen-tief));color:var(--creme);
+    border-radius:18px;padding:18px 20px;margin:14px 0 6px;text-align:center;
+    box-shadow:0 6px 20px rgba(47,79,62,.22);}
+  .rangkarte .medaille{font-size:46px;line-height:1;}
+  .rangkarte .rang{font-size:clamp(21px,6vw,27px);margin:4px 0 2px;}
+  .rangkarte .summe{font-family:var(--sans);font-size:13px;letter-spacing:.04em;color:#d6e1d8;}
+  .rangkarte .summe b{color:#fff;}
+  .fortschritt{height:9px;background:rgba(255,255,255,.18);border-radius:5px;overflow:hidden;margin:12px 0 2px;}
+  .fortschritt div{height:100%;width:0;background:var(--honig);border-radius:5px;transition:width .7s ease;}
+  .rangkarte .naechster{font-family:var(--sans);font-size:11.5px;color:#c3d2c6;margin:6px 0 0;}
+
+  /* Stationsliste */
+  h2.abschnitt{font-size:clamp(17px,4.6vw,21px);font-weight:normal;margin:22px 0 8px;color:var(--gruen);
+    padding-bottom:6px;border-bottom:1px solid var(--linie);}
+  .stationen{display:flex;flex-direction:column;gap:11px;}
+  .station{display:flex;align-items:center;gap:13px;text-decoration:none;color:var(--tinte);
+    background:#fff;border:1px solid var(--linie);border-radius:15px;padding:13px 15px;
+    transition:transform .15s,box-shadow .15s,border-color .15s;}
+  .station:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(47,79,62,.1);border-color:var(--gruen-akzent);}
+  .station .stnr{flex:0 0 auto;width:34px;height:34px;border-radius:50%;background:var(--creme-tief);
+    display:flex;align-items:center;justify-content:center;font-size:19px;}
+  .station.fertig .stnr{background:var(--gruen-blass);}
+  .station .txt{flex:1 1 auto;min-width:0;}
+  .station .stt{font-size:16px;display:block;color:var(--gruen);}
+  .station .stb{font-family:var(--sans);font-size:12px;color:#8a8577;display:block;margin-top:1px;}
+  .station .stand{flex:0 0 auto;text-align:right;font-family:var(--sans);}
+  .station .blaetter{font-size:17px;letter-spacing:1px;white-space:nowrap;}
+  .station .blaetter .leer{opacity:.22;}
+  .station .status{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#8a8577;display:block;margin-top:2px;}
+  .station.fertig .status{color:var(--gruen-dunkel);}
+  .station .pf{flex:0 0 auto;color:#b9b09a;font-size:18px;}
+
+  .hinweis{font-family:var(--sans);font-size:12.5px;color:#8a8577;text-align:center;margin:18px 0 0;}
+  .reset{display:inline-block;margin-top:10px;font-family:var(--sans);font-size:12px;color:#a49a86;
+    background:none;border:none;text-decoration:underline;cursor:pointer;}
+
+  footer{margin-top:26px;font-family:var(--sans);font-size:12px;color:#8a8577;text-align:center;}
+  footer a{color:inherit;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+<div class="huelle">
+  <div class="kopf">
+    <a class="zurueck" href="index.html">‹ Startseite</a>
+  </div>
+  <h1>🌿 Expedition Wiese</h1>
+  <p class="unter">Dein Forscherpass — spiel die Pfade, sammle Blätter, steig im Rang auf.</p>
+
+  <div class="rangkarte" id="rangkarte"></div>
+
+  <h2 class="abschnitt">Deine Stationen</h2>
+  <div class="stationen" id="stationen"></div>
+
+  <p class="hinweis" id="hinweis"></p>
+
+  <footer>
+    Fortschritt wird auf diesem Gerät gespeichert.<br>
+    © 2026 <a href="ueber/">Michael Baur</a> · Flora Mibaso
+  </footer>
+</div>
+
+<script>
+/* ===========================================================================
+   Forscherpass (Flora) — liest die Ergebnisse der Pfade und zeigt Rang & Blätter.
+   Jeder Pfad schreibt beim Abschluss:
+     localStorage["mibaso.flora.expedition"] = { "<id>": {blaetter:1-3, done:true} }
+=========================================================================== */
+const KEY="mibaso.flora.expedition";
+
+/* Die Pfade der Reihe (Reihenfolge = Anzeige) */
+const PFADE = [
+  { id:"aufbau",     titel:"Aufbau der Pflanze",   kurz:"Wurzel, Blatt & Blüte richtig benennen",   datei:"interaktiv/pflanze-verstehen.html",   em:"🌱" },
+  { id:"energie",    titel:"Pflanzen & Energie",   kurz:"Photosynthese & Atmung verstehen",         datei:"interaktiv/pflanzen-energie.html",    em:"☀️" },
+  { id:"bluete",     titel:"Hinein in die Blüte",  kurz:"Zoom bis zur Samenanlage",                 datei:"interaktiv/bluete-zoom.html",         em:"🔍" },
+  { id:"bestaeubung",titel:"Bestäubung",           kurz:"Vom Pollen bis zum Keimling",              datei:"interaktiv/bestaeubung-erklaerung.html", em:"🐝" },
+  { id:"strategien", titel:"Überlebenskünstler",   kurz:"Wie Pflanzen sich behaupten",              datei:"interaktiv/pflanzenstrategien.html",  em:"🛡️" },
+  { id:"jahr",       titel:"Ein Jahr im Baum",     kurz:"Der Apfelbaum durch die Jahreszeiten",     datei:"interaktiv/jahreszeiten-baum.html",   em:"🍂" }
+];
+const MAX_BL = PFADE.length*3;   // 18 Blätter maximal
+
+/* Ränge nach gesammelten Blättern */
+const RAENGE = [
+  { ab:0,  name:"Frisch gesät",       med:"🌱" },
+  { ab:1,  name:"Pflanzen-Neuling",   med:"🌿" },
+  { ab:6,  name:"Pflanzen-Kenner",    med:"🍀" },
+  { ab:11, name:"Pflanzen-Forscher",  med:"🌾" },
+  { ab:16, name:"Flora-Meister",      med:"🏅" }
+];
+function rangFuer(bl){ let r=RAENGE[0]; RAENGE.forEach(x=>{ if(bl>=x.ab) r=x; }); return r; }
+function naechsterRang(bl){ return RAENGE.find(x=>x.ab>bl)||null; }
+
+function laden(){
+  try{ return JSON.parse(localStorage.getItem(KEY)||"{}"); }catch(e){ return {}; }
+}
+
+function blatterHTML(n){
+  let s="";
+  for(let k=0;k<3;k++) s+= k<n ? "🍃" : '<span class="leer">🍃</span>';
+  return s;
+}
+
+function render(){
+  const daten=laden();
+  let summe=0, fertige=0;
+  PFADE.forEach(p=>{ const e=daten[p.id]; if(e&&e.done){ summe+=(e.blaetter||0); fertige++; } });
+
+  // Rang-Karte
+  const rang=rangFuer(summe), naechst=naechsterRang(summe);
+  const rk=document.getElementById("rangkarte");
+  let rkHTML='<div class="medaille">'+rang.med+'</div>'+
+    '<div class="rang">'+rang.name+'</div>'+
+    '<div class="summe"><b>'+summe+'</b> / '+MAX_BL+' Blättern 🍃 · '+fertige+' / '+PFADE.length+' Pfade</div>'+
+    '<div class="fortschritt"><div id="fbar"></div></div>';
+  const fehlt=naechst?(naechst.ab-summe):0;
+  rkHTML += naechst
+    ? '<p class="naechster">Noch '+fehlt+(fehlt===1?' Blatt':' Blätter')+' bis „'+naechst.name+'“</p>'
+    : '<p class="naechster">Höchster Rang erreicht — Respekt! 🎉</p>';
+  rk.innerHTML=rkHTML;
+  requestAnimationFrame(()=>{ const b=document.getElementById("fbar"); if(b) b.style.width=(summe/MAX_BL*100)+"%"; });
+
+  // Stationen
+  const cont=document.getElementById("stationen");
+  cont.innerHTML="";
+  PFADE.forEach((p)=>{
+    const e=daten[p.id];
+    const done=!!(e&&e.done);
+    const bl=done?(e.blaetter||0):0;
+    const a=document.createElement("a");
+    a.className="station"+(done?" fertig":"");
+    a.href=p.datei;
+    a.innerHTML=
+      '<span class="stnr">'+p.em+'</span>'+
+      '<span class="txt"><span class="stt">'+p.titel+'</span><span class="stb">'+p.kurz+'</span></span>'+
+      '<span class="stand"><span class="blaetter">'+blatterHTML(bl)+'</span>'+
+        '<span class="status">'+(done?"Geschafft":"Noch offen")+'</span></span>'+
+      '<span class="pf">›</span>';
+    cont.appendChild(a);
+  });
+
+  // Hinweis + Reset
+  const hin=document.getElementById("hinweis");
+  hin.innerHTML = fertige===PFADE.length
+    ? "Alle Pfade geschafft! Du kannst jederzeit wiederkommen und deine Blätter verbessern."
+    : "Tipp: In jedem Pfad gibt es bis zu 🍃🍃🍃 — je besser, desto mehr.";
+  hin.innerHTML += '<br><button class="reset" id="resetBtn">Fortschritt zurücksetzen</button>';
+  document.getElementById("resetBtn").addEventListener("click",()=>{
+    if(confirm("Deinen gesammelten Fortschritt auf diesem Gerät wirklich löschen?")){
+      try{ localStorage.removeItem(KEY); }catch(e){}
+      render();
+    }
+  });
+
+  melde();
+}
+
+/* Höhe an iframe melden (WordPress-Einbindung) */
+function melde(){ if(window.parent!==window){ try{ window.parent.postMessage({flora:"height", height:document.body.scrollHeight}, "*"); }catch(e){} } }
+if("ResizeObserver" in window){ new ResizeObserver(melde).observe(document.body); }
+window.addEventListener("load", melde);
+window.addEventListener("pageshow", render);  // beim Zurückkommen aktualisieren
+
+render();
+</script>
+<script src="assets/app.js" defer></script>
+</body>
+</html>

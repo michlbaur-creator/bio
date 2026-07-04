@@ -385,6 +385,8 @@
     while (phasen[p].bis < t) p++;
     if (p !== letztePhase){
       letztePhase = p;
+      /* Letzte Jahresphase erreicht → Flora-Forscherpass: volle 3 Blätter */
+      if (p === phasen.length - 1) { try{var _K="mibaso.flora.expedition",_d=JSON.parse(localStorage.getItem(_K)||"{}");if(!_d.jahr||!_d.jahr.done){_d.jahr={blaetter:3,done:true,ts:Date.now()};localStorage.setItem(_K,JSON.stringify(_d));}}catch(e){} }
       titelEl.textContent = phasen[p].titel;
       textEl.textContent = phasen[p].text;
       erkl.classList.remove("wechsel");

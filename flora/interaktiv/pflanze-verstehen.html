@@ -998,6 +998,8 @@
       else { s.el.classList.add('wrong'); }
     });
     checked = true; setSelected(null);
+    /* Ergebnis an den Flora-Forscherpass melden (3/2/1 Blätter) */
+    (function(){var _b=richtig===slots.length?3:richtig>=Math.ceil(slots.length*0.6)?2:1;try{var _K="mibaso.flora.expedition",_d=JSON.parse(localStorage.getItem(_K)||"{}");if(!_d.aufbau||_b>(_d.aufbau.blaetter||0)){_d.aufbau={blaetter:_b,done:true,ts:Date.now()};localStorage.setItem(_K,JSON.stringify(_d));}}catch(e){}})();
     if (richtig === slots.length) {
       const rewards = [
         'Glanzleistung – die Pflanzen verbeugen sich vor dir! 🌿',

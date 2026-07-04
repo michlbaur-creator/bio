@@ -332,6 +332,8 @@
 
     btnH.disabled = (n === 0);
     btnR.textContent = (n === ebenen.length - 1) ? "Zur Übersicht" : "Näher heran";
+    /* Letzte Zoomstufe erreicht → Flora-Forscherpass: volle 3 Blätter */
+    if (n === ebenen.length - 1) { try{var _K="mibaso.flora.expedition",_d=JSON.parse(localStorage.getItem(_K)||"{}");if(!_d.bluete||!_d.bluete.done){_d.bluete={blaetter:3,done:true,ts:Date.now()};localStorage.setItem(_K,JSON.stringify(_d));}}catch(e){} }
 
     var dots = punkte.children;
     for (var i = 0; i < dots.length; i++){
