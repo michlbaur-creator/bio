@@ -43,12 +43,33 @@ SKIP_LISTING = {"tafel.html", "wiesenpass.html", "sammelpass.html"}
 # Einträge ohne Repo-Präfix gelten für beide; mit Präfix nur für ein Repo.
 EXCLUDE = {"tierquiz.html", "gesamttest.html", "pflanze-zuordnung.html", "verwandte-finden.html",
            "flora/systematik.html",
-           # Doppelte „Pflanzen & Energie" (energie-pfad bleibt) + alle „Warum"-Pfade
-           "pflanzen-energie.html", "blumen-nachts.html", "kletten.html",
-           "schaumzikaden.html", "sonnenblumen.html"}
+           # alle „Warum"-Pfade
+           "blumen-nachts.html", "kletten.html", "schaumzikaden.html", "sonnenblumen.html",
+           # Energie: die vollständige „Pflanzen & Energie" (pflanzen-energie) bleibt;
+           # die Übersichts-Hülle energie-pfad und „Der Gas-Kreislauf" raus.
+           "energie-pfad.html", "energie-kreislauf-anim.html"}
 def _excluded(key, fn):
     return (fn.endswith("-flyer.html") or fn.startswith("staunen-")
             or fn in EXCLUDE or f"{key}/{fn}" in EXCLUDE)
+
+# Stimmige Reihenfolge je Repo (nicht gelistete kommen alphabetisch danach).
+ORDER = {
+    "flora": ["pflanze-erklaerung.html", "pflanze-verstehen.html", "pflanzen-energie.html",
+              "bluete-zoom.html", "bestaeubung-erklaerung.html", "bestaeubung-animiert.html",
+              "bluetenoekologie.html", "samenverbreitung.html", "jahreszeiten-baum.html",
+              "kreislauf.html", "pflanzenstrategien.html"],
+    "fauna": ["schluessel.html", "systematik.html", "stammbaum.html", "verwandlung.html",
+              "bestaeubung.html", "lebensraum.html", "nahrungsnetz.html", "wiese-lebt.html",
+              "insektenschwund.html"],
+}
+# Typ-Kennzeichnung der Kacheln: „Übersicht" (Einzelseite) vs. „Lernpfad" (mehrstufig).
+UEBERSICHT = {"pflanze-erklaerung.html", "bestaeubung-erklaerung.html", "bluetenoekologie.html",
+              "samenverbreitung.html", "pflanzenstrategien.html", "insektenschwund.html"}
+def _typ(fn):
+    return "Übersicht" if fn in UEBERSICHT else "Lernpfad"
+def _ordidx(key, fn):
+    o = ORDER.get(key, [])
+    return o.index(fn) if fn in o else len(o) + 1
 
 IMG_RE   = re.compile(r'([A-Za-z0-9_][A-Za-z0-9_.\-]*\.(?:jpg|jpeg|png|gif|svg|webp))', re.I)
 SUBDIR_RE= re.compile(r'\.\./images/([A-Za-z0-9_\-/]+)/')  # auch verschachtelt, z.B. wiese/tiere
@@ -129,6 +150,8 @@ def build():
     copytree(os.path.join(ROOT, "flora", "ueber"),     os.path.join(BIO, "ueber"))
     copytree(os.path.join(ROOT, "flora", "impressum"), os.path.join(BIO, "impressum"))
     copytree(os.path.join(ROOT, "flora", "anleitung"), os.path.join(BIO, "anleitung"))
+    for k in listing:                       # stimmige Reihenfolge herstellen
+        listing[k].sort(key=lambda ti: _ordidx(k, ti[1]))
     write_hub(listing)
     for r in REPOS:
         write_sub(r, listing[r["key"]])
@@ -286,6 +309,9 @@ CSS = """
   .pfad:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.08);border-color:var(--akzent);}
   .pfad .dot{flex:0 0 auto;width:10px;height:10px;border-radius:50%;background:var(--akzent);}
   .pfad .pt{flex:1 1 auto;font-size:16px;} .pfad .pf{flex:0 0 auto;color:#b7b0a0;font-size:18px;}
+  .badge{flex:0 0 auto;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.03em;
+    padding:2px 8px;border-radius:999px;text-transform:uppercase;}
+  .badge-l{background:#e7efe4;color:#3a5f4a;} .badge-u{background:#efe6d2;color:#8a6a2e;}
   footer.fuss{background:linear-gradient(135deg,#26402F,#3A5F4A);color:#F7F3E8;margin-top:34px;
     padding:24px 18px;padding-bottom:max(28px,calc(env(safe-area-inset-bottom) + 16px));font-family:Georgia,serif;border-radius:16px;}
   footer.fuss .fin{max-width:640px;margin:0 auto;}
@@ -340,7 +366,9 @@ def write_hub(listing):
 def write_sub(r, items):
     lis = "".join(
         f'<a class="pfad" href="interaktiv/{html.escape(fn)}"><span class="dot"></span>'
-        f'<span class="pt">{html.escape(t)}</span><span class="pf">›</span></a>'
+        f'<span class="pt">{html.escape(t)}</span>'
+        f'<span class="badge badge-{"u" if _typ(fn)=="Übersicht" else "l"}">{_typ(fn)}</span>'
+        f'<span class="pf">›</span></a>'
         for t, fn in items)
     body = ('<div class="subkopf"><a class="zurueck" href="../index.html">‹ bio.mibaso</a></div>'
             + _chips()
