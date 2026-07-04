@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Fauna Mibaso">
+  <rect width="512" height="512" rx="112" fill="#233D5C"/>
+  <g fill="#F7F3E8">
+    <ellipse cx="256" cy="272" rx="13" ry="96"/>
+    <circle cx="256" cy="180" r="15"/>
+    <path d="M256 168 C236 132 206 118 182 110" stroke="#F7F3E8" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M256 168 C276 132 306 118 330 110" stroke="#F7F3E8" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <circle cx="182" cy="110" r="8"/><circle cx="330" cy="110" r="8"/>
+    <path d="M248 224 C150 150 60 168 54 222 C48 276 150 270 248 252 Z"/>
+    <path d="M248 296 C160 320 78 348 90 388 C102 426 196 380 248 332 Z"/>
+    <path d="M264 224 C362 150 452 168 458 222 C464 276 362 270 264 252 Z"/>
+    <path d="M264 296 C352 320 434 348 422 388 C410 426 316 380 264 332 Z"/>
+  </g>
+  <g fill="#233D5C" opacity="0.85">
+    <circle cx="150" cy="206" r="14"/><circle cx="362" cy="206" r="14"/>
+  </g>
+</svg>

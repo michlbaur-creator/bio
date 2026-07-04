@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2F4F3E">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Flora Mibaso">
+<title>Pflanzen &amp; Energie — Lernpfad · Flora Mibaso</title>
+<link rel="stylesheet" href="../assets/style.css">
+<meta name="description" content="Lernpfad in 5 Schritten: Photosynthese, Atmung und ihr Kreislauf — wie Pflanzen aus Licht Energie machen.">
+<style>
+  :root{
+    --en:#2F4F3E;
+    --en-hell:#4A6B58;
+    --en-akzent:#a8772a;
+    --en-bg:#d1ddd5;
+    --en-rand:#bccab4;
+  }
+  body{ background:var(--beige-hell, #f8f3e7); }
+
+  #en-root{
+    max-width:860px;
+    margin:0 auto;
+    padding:max(10px, env(safe-area-inset-top)) 12px 60px;
+  }
+
+  .en-kopfzeile{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px; margin:0 0 6px;
+  }
+  .en-home{
+    display:inline-flex; align-items:center;
+    color:var(--braun-mittel, #6b5340);
+    text-decoration:none; font-size:.9rem;
+  }
+  .en-home:hover{ color:var(--braun-dunkel, #3a2a1b); }
+
+  .en-titel{
+    font-family:Georgia, serif; text-align:center;
+    color:var(--en); margin:0 0 2px;
+    font-size:1.2rem; font-weight:600; line-height:1.2;
+  }
+  .en-untertitel{
+    text-align:center; color:#7a6d5c; font-style:italic;
+    margin:0 0 12px; font-size:.88rem;
+  }
+
+  /* Stepper */
+  .en-stepper{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap:2px; margin:0 0 14px; padding:0 2px;
+  }
+  .en-step{
+    flex:1; background:none; border:none; cursor:pointer;
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    padding:4px 1px; font-family:inherit; color:#7a6d5c; position:relative;
+    transition:color .15s ease;
+  }
+  .en-step .nummer{
+    width:30px; height:30px; border-radius:50%;
+    background:#fff; border:2px solid var(--en-rand); color:var(--en-hell);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:600; font-family:Georgia, serif; font-size:.95rem;
+    margin-bottom:4px; transition:all .15s ease;
+  }
+  .en-step .label{ font-size:.7rem; line-height:1.1; overflow-wrap:anywhere; hyphens:auto; }
+  .en-step.aktiv .nummer{ background:var(--en); border-color:var(--en); color:#fff; }
+  .en-step.aktiv .label{ color:var(--en); font-weight:600; }
+  .en-step.fertig .nummer{ background:var(--en-bg); border-color:var(--en); color:var(--en); }
+  .en-step:not(:last-child)::after{
+    content:""; position:absolute; top:21px;
+    left:calc(50% + 18px); right:calc(-50% + 18px);
+    height:2px; background:var(--en-rand); z-index:-1;
+  }
+  .en-step.fertig:not(:last-child)::after{ background:var(--en); }
+  @media (max-width:420px){
+    .en-step .label{ font-size:.6rem; }
+    .en-step .nummer{ width:26px; height:26px; font-size:.85rem; }
+    .en-step:not(:last-child)::after{ top:18px; }
+  }
+
+  /* Schritt-Sektionen */
+  .en-schritt{ display:none; }
+  .en-schritt.aktiv{ display:block; }
+
+  .en-frame-wrap{
+    background:#fff; border:1px solid var(--en-rand);
+    border-radius:14px; overflow:hidden; margin:0 0 12px;
+  }
+  .en-frame{ width:100%; border:0; display:block; min-height:480px; transition:height .25s ease; }
+
+  /* Poster-Leiste */
+  .en-poster-leiste{
+    display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+    margin:0 0 14px;
+  }
+  .en-poster-btn{
+    display:inline-flex; align-items:center; gap:7px;
+    font-family:inherit; font-size:.88rem; font-weight:500;
+    padding:7px 14px; min-width:96px; justify-content:center;
+    border-radius:10px; cursor:pointer; text-decoration:none;
+    border:1.5px solid var(--en-rand); background:#fff; color:var(--en);
+    transition:background .14s, border-color .14s;
+  }
+  .en-poster-btn:hover{ background:var(--en-bg); border-color:var(--en); }
+  .en-poster-btn.voll{ background:var(--en-akzent); color:#fff; border-color:var(--en-akzent); }
+  .en-poster-btn.voll:hover{ background:#8a6118; }
+
+  /* Bridge (Quiz-Schritt) */
+  .en-bridge{
+    background:#fff; border:1px solid var(--en-rand); border-radius:14px;
+    padding:22px 20px; text-align:center; margin:0 0 12px;
+  }
+  .en-bridge .icon-gross{ font-size:2.6rem; margin:0 0 10px; line-height:1; }
+  .en-bridge h2{ margin:0 0 8px; color:var(--en); font-family:Georgia, serif; font-size:1.2rem; }
+  .en-bridge p{ color:#3a3a3a; line-height:1.55; margin:0 0 16px; }
+  .en-bridge a.bridge-knopf{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--en); color:#fff; text-decoration:none;
+    padding:11px 20px; border-radius:10px; font-weight:600; font-size:1rem;
+    box-shadow:0 3px 8px rgba(47,79,62,.22);
+    transition:transform .12s ease, background .12s ease;
+  }
+  .en-bridge a.bridge-knopf:hover{ background:#1f3a2a; transform:translateY(-2px); }
+  .en-bridge .bridge-copy{ margin:18px 0 0; font-size:.78rem; color:#9a8d7c; }
+  .en-bridge .bridge-copy a{ color:inherit; }
+
+  /* Untere Navigation — schlanke Pill-Buttons */
+  .en-nav-unten{
+    display:flex; justify-content:space-between; align-items:center;
+    gap:10px; margin:18px 0 0;
+  }
+  .en-nav-unten button{
+    background:var(--en); color:#fff; border:1.5px solid var(--en);
+    border-radius:999px; padding:10px 24px; min-width:124px;
+    font-family:inherit; font-size:.94rem; font-weight:600; letter-spacing:.01em;
+    cursor:pointer; transition:background .15s ease, transform .08s ease, border-color .15s ease;
+  }
+  .en-nav-unten button:hover{ background:#1f3a2a; border-color:#1f3a2a; }
+  .en-nav-unten button:active{ transform:translateY(1px); }
+  .en-nav-unten button:disabled{
+    background:transparent; color:#b8b0a2; border-color:#e0dacf;
+    cursor:default; transform:none;
+  }
+  .en-nav-unten button.zurueck{
+    background:transparent; color:var(--en); border:1.5px solid var(--en-rand);
+    font-weight:500;
+  }
+  .en-nav-unten button.zurueck:hover{ background:var(--en-bg); border-color:var(--en); }
+  .en-nav-unten button.zurueck:disabled{ color:#cbc4b8; border-color:#ece7dd; background:transparent; }
+
+  /* Poster-Lightbox */
+  #en-lightbox{
+    position:fixed; inset:0; z-index:50;
+    background:rgba(20,28,22,.88);
+    display:none; align-items:center; justify-content:center;
+    padding:20px; cursor:zoom-out;
+  }
+  #en-lightbox.auf{ display:flex; }
+  #en-lightbox img{
+    max-width:100%; max-height:100%;
+    border-radius:8px; box-shadow:0 8px 40px rgba(0,0,0,.5);
+  }
+  #en-lightbox .schliessen{
+    position:absolute; top:16px; right:20px;
+    color:#fff; font-size:2rem; background:none; border:none; cursor:pointer;
+    line-height:1;
+  }
+
+  footer.bottom{ margin-top:32px; }
+</style>
+</head>
+<body>
+
+<main id="en-root">
+  <div class="en-kopfzeile">
+    <a class="en-home" href="../../index.html">‹ Startseite</a>
+    <span style="color:#7a6d5c;font-size:.82rem;" id="en-schritt-anzeige">Schritt 1 / 5</span>
+  </div>
+  <h2 class="en-titel">Pflanzen &amp; Energie</h2>
+  <p class="en-untertitel">Von Licht zu Leben — ein Lernpfad in 5 Schritten.</p>
+
+  <!-- Stepper -->
+  <nav class="en-stepper" aria-label="Schritt-Navigation">
+    <button class="en-step" data-schritt="1"><span class="nummer">1</span><span class="label">Photosynthese</span></button>
+    <button class="en-step" data-schritt="2"><span class="nummer">2</span><span class="label">Atmung</span></button>
+    <button class="en-step" data-schritt="3"><span class="nummer">3</span><span class="label">Kreislauf</span></button>
+    <button class="en-step" data-schritt="4"><span class="nummer">4</span><span class="label">Üben</span></button>
+    <button class="en-step" data-schritt="5"><span class="nummer">5</span><span class="label">Quiz</span></button>
+  </nav>
+
+  <!-- Schritt 1: Photosynthese -->
+  <section class="en-schritt" data-schritt="1">
+    <div class="en-frame-wrap">
+      <iframe class="en-frame" data-src="pflanzen-energie.html?embed=1&amp;teil=photo" title="Photosynthese — interaktive Grafik" loading="lazy"></iframe>
+    </div>
+    <div class="en-poster-leiste">
+      <button class="en-poster-btn voll" type="button" data-poster="../images/photosynthese.jpg">🔍 Poster ansehen</button>
+      <a class="en-poster-btn" href="../images/photosynthese.pdf" download>⬇ Als PDF</a>
+    </div>
+  </section>
+
+  <!-- Schritt 2: Atmung -->
+  <section class="en-schritt" data-schritt="2">
+    <div class="en-frame-wrap">
+      <iframe class="en-frame" data-src="pflanzen-energie.html?embed=1&amp;teil=atmung" title="Zellatmung — interaktive Grafik" loading="lazy"></iframe>
+    </div>
+    <div class="en-poster-leiste">
+      <button class="en-poster-btn voll" type="button" data-poster="../images/atmung.jpg">🔍 Poster ansehen</button>
+      <a class="en-poster-btn" href="../images/atmung.pdf" download>⬇ Als PDF</a>
+    </div>
+  </section>
+
+  <!-- Schritt 3: Kreislauf-Animation -->
+  <section class="en-schritt" data-schritt="3">
+    <div class="en-frame-wrap">
+      <iframe class="en-frame" data-src="energie-kreislauf-anim.html?embed=1" title="Der Gas-Kreislauf — Animation" loading="lazy"></iframe>
+    </div>
+  </section>
+
+  <!-- Schritt 4: Üben (Lückentext) -->
+  <section class="en-schritt" data-schritt="4">
+    <div class="en-frame-wrap">
+      <iframe class="en-frame" data-src="pflanzen-energie.html?embed=1&amp;teil=lueckentext" title="Lückentext zum Üben" loading="lazy"></iframe>
+    </div>
+  </section>
+
+  <!-- Schritt 5: Quiz-Brücke -->
+  <section class="en-schritt" data-schritt="5">
+    <div class="en-bridge">
+      <div class="icon-gross">🧠</div>
+      <h2>Wissen testen</h2>
+      <p>Du kennst jetzt Photosynthese, Atmung und ihren Kreislauf. Im Naturquiz warten Fragen auch zu diesen Themen — und im großen Flora-Test geht es quer durch alle Bereiche.</p>
+      <a class="bridge-knopf" href="../quiz/naturquiz.html">Zum Naturquiz <span>›</span></a>
+      <p class="bridge-copy">© 2026 <a href="../ueber/">Michael Baur</a> · Flora Mibaso</p>
+    </div>
+  </section>
+
+  <!-- Untere Navigation -->
+  <div class="en-nav-unten">
+    <button class="zurueck" id="en-vor" disabled>Zurück</button>
+    <button id="en-naechst">Weiter</button>
+  </div>
+</main>
+
+<!-- Poster-Lightbox -->
+<div id="en-lightbox" role="dialog" aria-modal="true" aria-label="Poster in voller Größe">
+  <button class="schliessen" id="en-lightbox-zu" aria-label="Schließen">×</button>
+  <img id="en-lightbox-img" src="" alt="Poster">
+</div>
+
+<footer class="bottom" style="margin-top:32px;">
+  <div class="wrap footer-text">
+    <p class="lizenz">© 2026 <a href="../ueber/">Michael Baur</a> · Flora Mibaso</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const MAX = 5;
+  let aktuell = 1;
+  const stepper   = document.querySelectorAll('.en-step');
+  const sektionen = document.querySelectorAll('.en-schritt');
+  const frames    = document.querySelectorAll('.en-frame');
+  const btnVor    = document.getElementById('en-vor');
+  const btnNach   = document.getElementById('en-naechst');
+  const elZaehler = document.getElementById('en-schritt-anzeige');
+
+  function zeige(n){
+    aktuell = Math.max(1, Math.min(MAX, n));
+    stepper.forEach(s => {
+      const nr = +s.dataset.schritt;
+      s.classList.toggle('aktiv', nr === aktuell);
+      s.classList.toggle('fertig', nr < aktuell);
+    });
+    sektionen.forEach(s => s.classList.toggle('aktiv', +s.dataset.schritt === aktuell));
+    // iframe erst laden, wenn der Schritt sichtbar wird
+    frames.forEach(f => {
+      const drin = f.closest('.en-schritt[data-schritt="' + aktuell + '"]');
+      if (drin && !f.src) f.src = f.dataset.src;
+    });
+    btnVor.disabled = (aktuell === 1);
+    btnNach.disabled = (aktuell === MAX);
+    btnNach.textContent = (aktuell === MAX) ? 'Geschafft!' : 'Weiter';
+    elZaehler.textContent = 'Schritt ' + aktuell + ' / ' + MAX;
+    try { history.replaceState(null, '', '#schritt-' + aktuell); } catch(e){}
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  stepper.forEach(s => s.addEventListener('click', () => zeige(+s.dataset.schritt)));
+  btnVor.addEventListener('click', () => zeige(aktuell - 1));
+  btnNach.addEventListener('click', () => zeige(aktuell + 1));
+
+  const hashStart = (location.hash.match(/schritt-(\d)/) || [])[1];
+  zeige(hashStart ? +hashStart : 1);
+
+  // Höhe von eingebetteten Seiten empfangen (quizHeight bzw. kreislaufHoehe)
+  window.addEventListener('message', (e) => {
+    const d = e.data || {};
+    const h = (typeof d.quizHeight === 'number') ? d.quizHeight
+            : (typeof d.kreislaufHoehe === 'number') ? d.kreislaufHoehe : null;
+    if (h === null) return;
+    frames.forEach(f => {
+      if (f.contentWindow === e.source) f.style.height = (h + 16) + 'px';
+    });
+  });
+
+  // Poster-Lightbox
+  const lb    = document.getElementById('en-lightbox');
+  const lbImg = document.getElementById('en-lightbox-img');
+  function oeffne(src){ lbImg.src = src; lb.classList.add('auf'); }
+  function schliesse(){ lb.classList.remove('auf'); lbImg.src = ''; }
+  document.querySelectorAll('.en-poster-btn[data-poster]').forEach(b => {
+    b.addEventListener('click', () => oeffne(b.dataset.poster));
+  });
+  lb.addEventListener('click', schliesse);
+  document.getElementById('en-lightbox-zu').addEventListener('click', schliesse);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') schliesse(); });
+})();
+</script>
+
+
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

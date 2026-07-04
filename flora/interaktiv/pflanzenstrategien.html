@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2F4F3E">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Flora Mibaso">
+<title>Strategien</title>
+<style>
+  #ps-app, #ps-app * { box-sizing: border-box; }
+  #ps-app {
+    font-family: Georgia, serif;
+    color: #2c2c2c;
+    background: #f8f5f0;
+    padding: 8px 0 14px;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  #ps-app .intro {
+    margin: 0 10px 14px;
+    padding: 2px 12px;
+    text-align: center;
+  }
+  #ps-app .intro h1 {
+    margin: 0 0 4px;
+    font-size: 1.25rem;
+    color: #2F4F3E;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+  }
+  #ps-app .intro p {
+    margin: 0;
+    color: #6b5340;
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+  #ps-app .karte {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+    margin: 0 10px 14px;
+    overflow: hidden;
+    padding: 18px 22px 22px;
+  }
+  #ps-app .karte img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  #ps-app .karte h2 {
+    margin: 0 0 6px;
+    font-size: 1.15rem;
+    color: #2F4F3E;
+    font-family: Georgia, serif;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+  }
+  #ps-app .karte h3 {
+    margin: 14px 0 4px;
+    font-size: 1rem;
+    color: #2F4F3E;
+    font-family: Georgia, serif;
+    font-weight: bold;
+  }
+  #ps-app .karte p { margin: 0 0 8px; line-height: 1.55; }
+  #ps-app .karte ul { margin: 4px 0 10px 22px; padding: 0; }
+  #ps-app .karte li { margin-bottom: 6px; line-height: 1.5; }
+  #ps-app .karte strong { color: #2F4F3E; }
+  #ps-app .pfeil { color: #5A8068; font-weight: bold; }
+  #ps-app .fazit {
+    margin-top: 18px;
+    padding: 10px 14px;
+    background: #f4f1eb;
+    border-left: 4px solid #5A8068;
+    border-radius: 4px;
+    font-style: italic;
+    color: #5a3a24;
+    line-height: 1.5;
+  }
+  #ps-app .fazit strong { color: #2F4F3E; font-style: normal; }
+
+  /* ── Lückentext-Quiz ── */
+  #ps-app #lt-app .lt-hinweis {
+    margin: -2px 0 14px;
+    color: #6b5340;
+    font-style: italic;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  #ps-app .lt-gruppe { margin-bottom: 14px; }
+  #ps-app .lt-gruppe h3 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+    color: #2F4F3E;
+    font-weight: bold;
+    border-bottom: 1px solid #ece4d6;
+    padding-bottom: 3px;
+  }
+  #ps-app .lt-satz { margin: 0 0 10px; line-height: 2.1; font-size: 0.98rem; color: #2c2c2c; }
+  #ps-app .lt-slot {
+    display: inline-block;
+    min-width: 92px;
+    padding: 1px 9px;
+    margin: 0 2px;
+    border-bottom: 2px dashed #b9a98c;
+    text-align: center;
+    color: #2F4F3E;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+    line-height: 1.4;
+  }
+  #ps-app .lt-slot.empty { color: #c3b9a6; font-weight: normal; }
+  #ps-app .lt-slot.sel { background: #eef4ee; border-bottom-color: #2F4F3E; }
+  #ps-app .lt-slot.correct { background: #e3f3e3; border-bottom: 2px solid #3A7D44; color: #256029; cursor: default; }
+  #ps-app .lt-slot.wrong { background: #fbe6e6; border-bottom: 2px solid #b3402f; color: #a3291a; cursor: default; }
+  #ps-app .lt-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin: 16px 0 8px;
+    padding: 14px 10px;
+    background: #f4f1eb;
+    border-radius: 10px;
+  }
+  #ps-app .lt-word {
+    font-family: Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 18px;
+    background: #fff;
+    border: 1.5px solid #2F4F3E;
+    color: #2F4F3E;
+    cursor: pointer;
+    transition: background 0.14s, transform 0.1s;
+  }
+  #ps-app .lt-word:hover { background: #f0f6f1; }
+  #ps-app .lt-word:active { transform: scale(0.96); }
+  #ps-app .lt-word.used { display: none; }
+  #ps-app .lt-actions { display: flex; gap: 10px; justify-content: center; margin-top: 14px; }
+  #ps-app .lt-btn {
+    font-family: Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: bold;
+    padding: 9px 22px;
+    border-radius: 22px;
+    border: none;
+    cursor: pointer;
+    background: #2F4F3E;
+    color: #fff;
+    transition: background 0.14s, transform 0.1s;
+  }
+  #ps-app .lt-btn:hover { background: #3f6b52; }
+  #ps-app .lt-btn:active { transform: scale(0.97); }
+  #ps-app .lt-btn.sekundaer { background: #fff; color: #2F4F3E; border: 1.5px solid #2F4F3E; }
+  #ps-app .lt-ergebnis {
+    text-align: center;
+    font-weight: bold;
+    color: #2F4F3E;
+    margin-top: 13px;
+    min-height: 1.2em;
+    font-size: 1.05rem;
+    line-height: 1.4;
+  }
+  #ps-app .lt-ergebnis.lt-warnung { color: #a3291a; }
+  #ps-app .lt-ergebnis.lt-super { color: #256029; }
+
+  @media (max-width: 520px) {
+    #ps-app .karte { margin: 0 6px 10px; padding: 14px 16px 16px; }
+    #ps-app .intro { margin: 0 6px 10px; }
+    #ps-app .intro h1 { font-size: 1.12rem; }
+    #ps-app .karte h2 { font-size: 1.05rem; }
+    #ps-app .karte p, #ps-app .karte li { font-size: 0.92rem; }
+    #ps-app .lt-satz { font-size: 0.95rem; line-height: 2.0; }
+    #ps-app .lt-slot { min-width: 80px; }
+    #ps-app .lt-word { font-size: 0.9rem; padding: 7px 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="ps-app">
+
+  <div class="intro">
+    <h1>Strategien</h1>
+    <p>Wie Pflanzen Bestäuber anlocken und ihre Samen auf Reisen schicken.</p>
+  </div>
+
+  <!-- 1) Blütenökologie -->
+  <section class="karte">
+    <h2>Blütenökologie – wer besucht wen?</h2>
+
+    <img src="../images/bluetenoekologie.jpg" alt="Blütenökologie: drei Blütenformen mit ihren Bestäubern – Löwenzahn mit Biene, Rotklee mit Schmetterling, Nachtkerze mit Nachtfalter.">
+
+    <p>Blüten sind angepasst – nicht zufällig gebaut.</p>
+
+    <ul>
+      <li><strong>Offene Blüten</strong> <span class="pfeil">→</span> für viele Insekten zugänglich (z.&nbsp;B. Löwenzahn)</li>
+      <li><strong>Röhrenblüten</strong> <span class="pfeil">→</span> nur für Spezialisten mit langem Rüssel</li>
+      <li><strong>Nachtblüher</strong> <span class="pfeil">→</span> hell und stark duftend (für Nachtfalter)</li>
+      <li><strong>Täuschblumen</strong> <span class="pfeil">→</span> locken ohne Belohnung</li>
+    </ul>
+
+    <div class="fazit">
+      👉 <strong>Fazit:</strong> Blütenform, Farbe und Duft bestimmen, <strong>welche Tiere kommen</strong> – und wer draußen bleibt.
+    </div>
+  </section>
+
+  <!-- 2) Samenverbreitung -->
+  <section class="karte">
+    <h2>Samenverbreitung – wie Pflanzen reisen</h2>
+
+    <img src="../images/samenverbreitung.jpg" alt="Samenverbreitung: drei Wege – Löwenzahn mit Flugschirmchen (Wind), Kletten (Tiere), Springkraut mit aufspringender Frucht (Selbstverbreitung).">
+
+    <p>Pflanzen sind ortsfest – ihre Samen nicht.</p>
+
+    <h3>Windverbreitung</h3>
+    <p>Leichte Samen mit „Flugapparat" – z.&nbsp;B. Löwenzahn.</p>
+
+    <h3>Tierverbreitung</h3>
+    <p>Samen haften im Fell oder werden gefressen <span class="pfeil">→</span> werden an anderer Stelle wieder ausgeschieden.</p>
+
+    <h3>Selbstausbreitung</h3>
+    <p>Früchte springen auf und schleudern Samen weg.</p>
+
+    <div class="fazit">
+      👉 <strong>Kurz gesagt:</strong> Pflanzen nutzen Wind, Tiere oder eigene Tricks, um neue Lebensräume zu erreichen.
+    </div>
+  </section>
+
+  <!-- Lückentext-Quiz -->
+  <section class="karte" id="lt-app">
+    <h2>Setze die richtigen Begriffe ein!</h2>
+    <p class="lt-hinweis">Tippe ein Wort aus der Wortbank an – es springt in die nächste Lücke. Eine gefüllte Lücke kannst du durch Antippen wieder leeren. Zum Schluss auf „Prüfen“ tippen.</p>
+    <div class="lt-saetze"></div>
+    <div class="lt-bank"></div>
+    <div class="lt-actions">
+      <button type="button" class="lt-btn" id="lt-pruefen">Prüfen</button>
+      <button type="button" class="lt-btn sekundaer" id="lt-nochmal">Nochmal</button>
+    </div>
+    <div class="lt-ergebnis"></div>
+  </section>
+
+</div>
+
+<script>
+/* Lückentext-Quiz: Vermehrungsstrategien (Blütenökologie + Samenverbreitung) */
+(function () {
+  const groups = [
+    { titel: "Blütenökologie", saetze: [
+      ["Offene Blüten wie der ", "Löwenzahn", " sind für viele Insekten leicht zugänglich."],
+      ["Tiefen Nektar in ", "Röhrenblüten", " erreicht nur ein Spezialist mit langem Rüssel."],
+      ["", "Nachtblüher", " duften nachts besonders stark und locken Nachtfalter an."],
+      ["", "Täuschblumen", " locken Besucher an, ohne eine Belohnung zu geben."]
+    ]},
+    { titel: "Samenverbreitung", saetze: [
+      ["Leichte Samen mit Flugschirmchen reisen mit dem ", "Wind", "."],
+      ["Kletten haften im ", "Fell", " vorbeilaufender Tiere und reisen so mit."],
+      ["Beim Springkraut ", "schleudert", " die reife Frucht ihre Samen weit weg."]
+    ]}
+  ];
+
+  const app        = document.getElementById('lt-app');
+  if (!app) return;
+  const saetzeWrap = app.querySelector('.lt-saetze');
+  const bankWrap   = app.querySelector('.lt-bank');
+  const pruefBtn   = app.querySelector('#lt-pruefen');
+  const nochBtn    = app.querySelector('#lt-nochmal');
+  const ergebnis   = app.querySelector('.lt-ergebnis');
+
+  let slots = [], words = [], selected = null, checked = false;
+
+  function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function build() {
+    saetzeWrap.innerHTML = ''; bankWrap.innerHTML = '';
+    slots = []; words = []; selected = null; checked = false;
+    ergebnis.textContent = ''; ergebnis.className = 'lt-ergebnis';
+    const answers = [];
+
+    groups.forEach(g => {
+      const gd = document.createElement('div'); gd.className = 'lt-gruppe';
+      const h = document.createElement('h3'); h.textContent = g.titel; gd.appendChild(h);
+      g.saetze.forEach(parts => {
+        const p = document.createElement('div'); p.className = 'lt-satz';
+        parts.forEach((part, i) => {
+          if (i % 2 === 1) {
+            const slot = document.createElement('span');
+            slot.className = 'lt-slot empty'; slot.textContent = '?';
+            const so = { el: slot, answer: part, filled: null };
+            slot.addEventListener('click', () => onSlot(so));
+            slots.push(so); answers.push(part);
+            p.appendChild(slot);
+          } else if (part) {
+            p.appendChild(document.createTextNode(part));
+          }
+        });
+        gd.appendChild(p);
+      });
+      saetzeWrap.appendChild(gd);
+    });
+
+    shuffle(answers.slice()).forEach(text => {
+      const w = document.createElement('button');
+      w.type = 'button'; w.className = 'lt-word'; w.textContent = text;
+      const wo = { el: w, text: text, used: false };
+      w.addEventListener('click', () => onWord(wo));
+      words.push(wo); bankWrap.appendChild(w);
+    });
+    sendH();
+  }
+
+  function setSelected(so) {
+    slots.forEach(s => s.el.classList.remove('sel'));
+    selected = so;
+    if (so) so.el.classList.add('sel');
+  }
+  function firstEmpty() { return slots.find(s => !s.filled) || null; }
+
+  function onSlot(so) {
+    if (checked) return;
+    if (so.filled) {
+      so.filled.used = false; so.filled.el.classList.remove('used'); so.filled = null;
+      so.el.textContent = '?'; so.el.classList.add('empty');
+    }
+    setSelected(so);
+  }
+
+  function onWord(wo) {
+    if (checked || wo.used) return;
+    const target = (selected && !selected.filled) ? selected : firstEmpty();
+    if (!target) return;
+    target.filled = wo; target.el.textContent = wo.text; target.el.classList.remove('empty');
+    wo.used = true; wo.el.classList.add('used');
+    setSelected(firstEmpty());
+  }
+
+  function pruefen() {
+    if (checked) return;
+    if (slots.some(s => !s.filled)) {
+      ergebnis.className = 'lt-ergebnis lt-warnung';
+      ergebnis.textContent = 'Bitte fülle erst alle Lücken.';
+      return;
+    }
+    let richtig = 0;
+    slots.forEach(s => {
+      if (s.filled.text === s.answer) { s.el.classList.add('correct'); richtig++; }
+      else { s.el.classList.add('wrong'); }
+    });
+    checked = true; setSelected(null);
+    if (richtig === slots.length) {
+      const rewards = [
+        'Glanzleistung – die Pflanzen verbeugen sich vor dir! 🌿',
+        'Botanik-Profi am Werk! Selbst der Löwenzahn nickt anerkennend.',
+        'Volltreffer! Da staunen sogar die Schmetterlinge.',
+        'Alle Lücken sitzen – du hast den grünen Daumen für Quizfragen!',
+        'Perfekt! Selbst Goethe hätte das nicht besser gewusst.',
+        'Glatte hundert Prozent – die Wiese applaudiert! 🌾',
+        'Wunderbar! Du bist eine wandelnde Flora.',
+        'Hat alles geklappt – ein echtes Blütenwunder! 🌸',
+        'Sauber! Die Wurzel hängt vor Staunen aus dem Boden.',
+        'Volle Punktzahl – jetzt darf Photosynthese-Pause sein.'
+      ];
+      ergebnis.className = 'lt-ergebnis lt-super';
+      ergebnis.textContent = rewards[Math.floor(Math.random() * rewards.length)];
+    } else {
+      ergebnis.className = 'lt-ergebnis';
+      ergebnis.textContent = richtig + ' von ' + slots.length + ' richtig. Tippe „Nochmal“ und probiere die roten Lücken erneut.';
+    }
+    sendH();
+  }
+
+  function sendH() {
+    try {
+      const a = document.getElementById('ps-app');
+      window.parent.postMessage({ quizHeight: a.offsetHeight + 20 }, '*');
+    } catch (_) {}
+  }
+
+  pruefBtn.addEventListener('click', pruefen);
+  nochBtn.addEventListener('click', build);
+  window.addEventListener('load', sendH);
+  window.addEventListener('resize', sendH);
+  build();
+})();
+</script>
+
+
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

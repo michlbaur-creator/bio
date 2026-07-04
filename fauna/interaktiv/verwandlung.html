@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Verwandlung — Lernpfad · Fauna Mibaso</title>
+<meta name="description" content="Lernpfad in 5 Schritten: vollständige und unvollständige Verwandlung – vom Ei zum Falter.">
+<meta name="theme-color" content="#233D5C">
+<style>
+  :root{
+    --blau:#233D5C; --blau-tief:#1a2f47; --creme:#F7F3E8; --creme-tief:#EEE7D5;
+    --pergament:#EDE3CC; --tinte:#1c2e42; --honig:#C28A3A; --linie:#c3ccd5;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--creme);color:var(--blau);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.5;}
+  .huelle{max-width:640px;margin:0 auto;padding:clamp(10px,3vw,20px) clamp(12px,3.5vw,28px) 48px;}
+
+  /* Kopf */
+  .kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .zurueck{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--blau);
+    text-decoration:none;display:inline-flex;gap:5px;align-items:center;}
+  .zaehler{font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a96a1;}
+  h1{font-size:clamp(22px,5.2vw,31px);line-height:1.06;margin:6px 0 2px;font-weight:normal;}
+  .unter{font-size:clamp(13.5px,3.6vw,15.5px);color:var(--tinte);margin:0;max-width:48ch;}
+
+  /* Schritt-Chips */
+  .chips{display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+    padding:10px 2px 4px;margin:2px -2px 0;scrollbar-width:none;}
+  .chips::-webkit-scrollbar{display:none;}
+  .chip{flex:0 0 auto;display:flex;align-items:center;gap:7px;cursor:pointer;
+    font-family:var(--sans);font-size:12.5px;color:#5a6675;background:#fff;
+    border:1px solid var(--linie);border-radius:999px;padding:7px 13px 7px 8px;white-space:nowrap;
+    transition:border-color .15s,color .15s,background .15s;}
+  .chip .nr{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;
+    border-radius:50%;background:var(--creme-tief);color:#8a96a1;font-weight:700;font-size:11.5px;}
+  .chip.aktiv{background:var(--blau);color:var(--creme);border-color:var(--blau);}
+  .chip.aktiv .nr{background:var(--honig);color:#fff;}
+  .chip.fertig:not(.aktiv) .nr{background:#cfe0d2;color:#3e7a55;}
+
+  /* Bühne / Illustration */
+  .buehne{margin-top:10px;}
+  .bildbox{position:relative;width:min(82%,300px);aspect-ratio:1/1;max-height:32vh;margin:0 auto;}
+  /* Foto-Sequenz (Pechlibelle): randlos & größer, kein Pergament-Rahmen */
+  .bildbox.fotos{width:min(96%,460px);aspect-ratio:3/2;max-height:48vh;}
+  .bildbox.fotos .bild img{object-fit:cover;background:none;border:none;}
+  .bild{position:absolute;inset:0;opacity:0;transition:opacity .5s ease;}
+  .bild.an{opacity:1;}
+  .bild img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+    background:var(--pergament);border:1px solid #cdbf9e;border-radius:10px;}
+  .bild img.weg{display:none;}
+  .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;text-align:center;background:var(--pergament);border:1px dashed #cdbf9e;border-radius:10px;padding:14px;}
+  .ph .gl{font-size:34px;line-height:1;opacity:.55;}
+  .ph .l{font-family:var(--sans);font-size:13px;font-weight:600;color:#7a6a48;}
+  .ph .f{font-family:var(--sans);font-size:10.5px;color:#a99a78;word-break:break-all;}
+
+  /* Hotspots */
+  .hotspot{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;
+    background:var(--honig);color:#fff;border:2px solid #fff;box-shadow:0 2px 7px rgba(35,61,92,.28);
+    font-family:var(--sans);font-weight:700;font-size:14px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;z-index:3;animation:puls 2.4s infinite;}
+  .hotspot.aktiv{background:var(--blau);animation:none;}
+  @keyframes puls{0%{box-shadow:0 2px 7px rgba(35,61,92,.28),0 0 0 0 rgba(194,138,58,.5);}
+    70%{box-shadow:0 2px 7px rgba(35,61,92,.28),0 0 0 11px rgba(194,138,58,0);}100%{box-shadow:0 2px 7px rgba(35,61,92,.28),0 0 0 0 rgba(194,138,58,0);}}
+
+  /* Sequenz-Steuerung */
+  .seq{margin-top:12px;}
+  .seqkopf{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .playbtn{flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:1px solid var(--blau);
+    background:var(--blau);color:var(--creme);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .playbtn:hover{background:var(--blau-tief);}
+  .stepbtn{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--blau);
+    background:#fff;color:var(--blau);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .stepbtn:disabled{opacity:.35;cursor:default;}
+  .stufenlabel{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--blau);}
+  .stufenlabel small{font-weight:400;color:#8a96a1;}
+  input[type=range].scrub{flex:1 1 auto;-webkit-appearance:none;appearance:none;height:6px;border-radius:999px;
+    background:linear-gradient(90deg,var(--honig) var(--p,0%),var(--creme-tief) var(--p,0%));outline:none;margin:0;}
+  input[type=range].scrub::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+    background:var(--blau);border:3px solid var(--creme);box-shadow:0 1px 4px rgba(35,61,92,.35);cursor:pointer;}
+  input[type=range].scrub::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--blau);
+    border:3px solid var(--creme);cursor:pointer;}
+  .scrubnote{font-family:var(--sans);font-size:11.5px;color:#9aa6b0;margin:6px 2px 0;}
+
+  /* Erklärtext + entdecken */
+  .erklaer{margin-top:12px;}
+  .erklaer h2{font-size:clamp(18px,5vw,23px);font-weight:normal;margin:0 0 7px;}
+  .erklaer p{font-size:clamp(14.5px,4vw,16.5px);color:var(--tinte);margin:0 0 10px;}
+  .entdeckhint{font-family:var(--sans);font-size:12.5px;color:var(--honig);font-weight:600;margin:4px 0 0;}
+  .infokarte{margin-top:12px;padding:13px 15px;border-radius:0 12px 12px 0;background:var(--creme-tief);
+    border-left:4px solid var(--honig);min-height:30px;}
+  .infokarte .it{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8a96a1;margin:0 0 3px;}
+  .infokarte h3{margin:0 0 4px;font-size:17px;font-weight:normal;}
+  .infokarte p{margin:0;font-size:14.5px;color:var(--tinte);}
+  .infokarte .leer{color:#8a96a1;font-style:italic;font-family:var(--sans);font-size:13px;}
+
+  .absprung{display:inline-flex;align-items:center;gap:7px;margin-top:14px;
+    font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--creme);background:var(--blau);
+    border-radius:999px;padding:10px 16px;text-decoration:none;}
+  .absprung:hover{background:var(--blau-tief);}
+
+  .schluepfbtn{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--blau);background:transparent;
+    border:1px solid var(--blau);border-radius:999px;padding:9px 15px;cursor:pointer;margin-top:12px;}
+  .schluepfbtn:hover{background:var(--blau);color:var(--creme);}
+  /* Schlüpf-Animation: Flügel entfalten */
+  .falter-unfold{transform-origin:center;}
+  .falter-unfold.zu{transform:scaleX(.08);opacity:.5;}
+  .falter-unfold.auf{transform:scaleX(1);opacity:1;transition:transform 1.4s cubic-bezier(.2,.7,.3,1),opacity 1.4s;}
+
+  /* Vergleich (Schritt 5) */
+  .umschalter{display:flex;gap:8px;margin:4px 0 14px;}
+  .umschalter button{flex:1 1 0;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--blau);
+    background:#fff;border:1px solid var(--linie);border-radius:11px;padding:11px 8px;cursor:pointer;line-height:1.25;}
+  .umschalter button.an{background:var(--blau);color:var(--creme);border-color:var(--blau);}
+  .vweg{margin-bottom:14px;}
+  .vweg .reihe{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-family:var(--sans);font-size:12.5px;}
+  .vweg .st{background:var(--creme-tief);border-radius:9px;padding:7px 11px;color:var(--blau);font-weight:600;}
+  .vweg .ar{color:var(--honig);font-size:16px;}
+  .gruppen{font-family:var(--sans);font-size:13.5px;color:var(--tinte);margin:0 0 6px;}
+  .gruppen b{color:var(--blau);}
+  .quiz{margin-top:14px;}
+  .quiz .ql{font-family:var(--sans);font-size:12.5px;color:#6f7b86;margin:0 0 8px;}
+  .quizchips{display:flex;flex-wrap:wrap;gap:8px;}
+  .quizchips button{font-family:var(--sans);font-size:13px;color:var(--blau);background:#fff;
+    border:1px solid var(--linie);border-radius:999px;padding:8px 13px;cursor:pointer;transition:.15s;}
+  .quizchips button.voll{background:#e6efe7;border-color:#bcd6c0;color:#2f6a45;}
+  .quizchips button.unvoll{background:#efe7da;border-color:#dcc9a8;color:#9a6a2a;}
+  .quizchips button .tag{font-size:11px;margin-left:6px;opacity:.85;}
+
+  /* Chip-Kategorien */
+  .chip.uebung{background:#e9eef3;border-color:#c0cedb;color:#3a5570;}
+  .chip.uebung .nr{background:#c0cedb;color:#2b405a;}
+  .chip.uebung.aktiv{background:#3a5570;border-color:#3a5570;color:#fff;}
+  .chip.uebung.aktiv .nr{background:#fff;color:#3a5570;}
+  .chip.quiz{background:var(--honig);border-color:var(--honig);color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(194,138,58,.3);}
+  .chip.quiz .nr{background:#fff;color:var(--honig);}
+  .chip.quiz.aktiv{background:var(--blau);border-color:var(--blau);color:#fff;}
+  .chip.quiz.aktiv .nr{background:var(--honig);color:#fff;}
+
+  /* Zuordnen-Station */
+  .zuliste{display:flex;flex-direction:column;gap:8px;margin:4px 0 14px;}
+  .zurow{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    background:#fff;border:1px solid var(--linie);border-radius:12px;padding:9px 12px;}
+  .zuname{font-family:var(--sans);font-size:14.5px;font-weight:600;color:var(--blau);}
+  .zuopt{display:flex;gap:6px;flex:0 0 auto;}
+  .zuopt button{font-family:var(--sans);font-size:12px;color:var(--blau);background:#fff;
+    border:1px solid var(--linie);border-radius:999px;padding:7px 11px;cursor:pointer;transition:.13s;white-space:nowrap;}
+  .zuopt button.sel{background:var(--blau);color:var(--creme);border-color:var(--blau);}
+  .zuopt button.ok{background:#e6efe7;border-color:#bcd6c0;color:#2f6a45;}
+  .zuopt button.no{background:#f2e2dd;border-color:#dcc9a8;color:#9a3f2a;}
+  .zufuss{display:flex;align-items:center;gap:12px;}
+  .zutally{font-family:var(--sans);font-size:14px;font-weight:700;color:var(--honig);}
+
+  /* Abschluss-Quiz */
+  .qkopf{font-family:var(--sans);font-size:13.5px;color:#6f7b86;border-top:1px solid var(--linie);
+    border-bottom:1px solid var(--linie);padding:9px 0;margin:0 0 12px;}
+  .qkopf b{color:var(--honig);}
+  .qbalken{height:6px;background:var(--creme-tief);border-radius:3px;overflow:hidden;margin:0 0 16px;}
+  .qbalken div{height:100%;width:0;background:var(--honig);transition:width .3s;}
+  .qtier{font-size:clamp(22px,6vw,30px);text-align:center;margin:6px 0 2px;}
+  .qfrage{font-family:var(--sans);font-size:13.5px;color:#6f7b86;text-align:center;margin:0 0 16px;}
+  .qwahl{display:flex;gap:10px;}
+  .qwahl button{flex:1 1 0;font-family:var(--sans);font-size:15px;font-weight:600;color:var(--blau);
+    background:#fff;border:1.5px solid var(--linie);border-radius:14px;padding:16px 10px;cursor:pointer;line-height:1.3;transition:.13s;}
+  .qwahl button small{font-weight:400;color:#8a96a1;font-size:12px;}
+  .qwahl button.ok{background:#e6efe7;border-color:#3E9A5E;color:#2f6a45;}
+  .qwahl button.ok small{color:#5a9a72;}
+  .qwahl button.no{background:#f2e2dd;border-color:#B5482F;color:#9a3f2a;}
+  .qwahl button:disabled{cursor:default;}
+  .qfb{font-family:var(--sans);font-size:14px;text-align:center;margin:14px 0 0;min-height:1.2em;}
+  .qfb.ok{color:#3E9A5E;font-weight:600;} .qfb.no{color:#B5482F;}
+  .qende{text-align:center;padding:6px 0;}
+  .qlabel{font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a96a1;margin:0;}
+  .qscore{font-family:Georgia,serif;font-size:clamp(40px,12vw,60px);line-height:1;color:var(--blau);margin:4px 0;}
+  .qscore small{font-size:.4em;color:#8a96a1;}
+  .qspruch{font-size:clamp(16px,4.6vw,19px);margin:8px auto 16px;max-width:30ch;}
+  .konffeld{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden;}
+  .konf{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;animation:konffall linear forwards;}
+  @keyframes konffall{0%{transform:translateY(-14px);opacity:1;}100%{transform:translateY(106vh) rotate(540deg);opacity:.9;}}
+  .konf{animation-duration:3.6s;}
+
+  /* Navigation */
+  .nav{display:flex;gap:9px;margin-top:24px;padding-top:16px;border-top:1px solid var(--linie);}
+  .knopf{font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--blau);background:transparent;
+    border:1px solid var(--blau);border-radius:999px;padding:10px 16px;cursor:pointer;transition:background .18s,color .18s;}
+  .knopf:hover:not(:disabled){background:var(--blau);color:var(--creme);}
+  .knopf:disabled{opacity:.38;cursor:default;}
+  .knopf.prim{background:var(--blau);color:var(--creme);margin-left:auto;}
+  .knopf.prim:hover{background:var(--blau-tief);color:var(--creme);}
+
+  footer{margin-top:30px;font-family:var(--sans);font-size:12px;color:#8a96a1;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+  body{padding-top:env(safe-area-inset-top);}
+  /* Einheitliches Pfad-Intro (Expedition Wiese) */
+  .pfad-intro{position:fixed;inset:0;z-index:9000;background:var(--creme);display:flex;
+    align-items:center;justify-content:center;padding:26px 20px;overflow-y:auto;transition:opacity .5s ease;}
+  .pfad-intro.weg{opacity:0;visibility:hidden;pointer-events:none;}
+  .pi-inner{max-width:440px;text-align:center;}
+  .pi-foto{width:100%;max-width:360px;aspect-ratio:16/10;object-fit:cover;border-radius:16px;
+    border:1px solid #cdbf9e;box-shadow:0 6px 20px rgba(35,61,92,.18);margin:0 auto 18px;display:block;}
+  .pi-eyebrow{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--honig-tief,#a9762c);margin-bottom:6px;}
+  .pi-titel{font-family:Georgia,serif;font-weight:normal;font-size:clamp(24px,7vw,32px);
+    color:var(--blau);margin:0 0 10px;line-height:1.1;}
+  .pi-lead{font-family:Georgia,serif;font-size:clamp(15px,4.2vw,17px);color:var(--tinte,#1c2e42);
+    margin:0 auto 22px;max-width:34ch;line-height:1.5;}
+  .pi-los{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--creme);background:var(--honig);
+    border:none;border-radius:999px;padding:14px 32px;cursor:pointer;box-shadow:0 3px 12px rgba(194,138,58,.35);
+    transition:transform .15s,background .18s;}
+  .pi-los:hover{background:var(--honig-tief,#a9762c);transform:translateY(-1px);}
+  @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
+</style>
+</head>
+<body>
+<div class="pfad-intro" id="pfadIntro">
+  <div class="pi-inner">
+    <img class="pi-foto" src="../images/fotos/kaisermantel.jpg" alt="" onerror="this.style.display='none'">
+    <div class="pi-eyebrow">🍃 Expedition Wiese · Lernpfad</div>
+    <h1 class="pi-titel">Verwandlung</h1>
+    <p class="pi-lead">Wie wird aus einem Ei ein fertiges Insekt? Manche verwandeln sich vollständig — mit Puppe wie der Schmetterling —, andere häuten sich Schritt für Schritt. Entdecke beide Wege.</p>
+    <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
+  </div>
+</div>
+<div class="huelle">
+  <div class="kopf">
+    <a class="zurueck" href="../../index.html">‹ Startseite</a>
+    <span class="zaehler" id="zaehler">Schritt 1 / 5</span>
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div class="buehne" id="buehne"></div>
+  <div class="erklaer" id="erklaer"></div>
+
+  <div class="nav">
+    <button class="knopf" id="zurueckBtn">‹ Zurück</button>
+    <button class="knopf prim" id="weiterBtn">Nächster Schritt ›</button>
+  </div>
+
+  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso</footer>
+</div>
+
+<script>
+/* ===========================================================================
+   Lernpfad „Verwandlung".
+   ►► MASSGEBLICHE FASSUNG – wird ab jetzt direkt hier im Repo gepflegt.
+      NICHT mehr aus dem externen Generator neu erzeugen, sonst gehen
+      Anpassungen (Pechlibelle, Safe-Area, Mini-Check, Module) verloren.
+   Bilder gehören nach ../assets/verwandlung/.
+   Fehlt ein Bild, zeigt das Gerüst einen Platzhalter mit dem erwarteten Namen.
+
+   Datenmodell pro Schritt:
+   { chip, titel, text, hint?, typ, ... }
+     typ "tafel"   : ein Bild + antippbare Hotspots (+ optional schluepfen:true)
+     typ "sequenz" : mehrere Stadien, Schieberegler + Play, je Stadium Bildunterschrift
+     typ "vergleich": Sonderansicht mit Umschalter + Mini-Quiz
+   Bild-Slot:  {src, label, glyph}
+=========================================================================== */
+const BASIS = "../assets/verwandlung/";
+
+const SCHRITTE = [
+  /* 1 */ {
+    chip:"Zwei Wege", titel:"Was heißt Verwandlung?",
+    text:"Viele Insekten leben zwei Leben: erst als gefräßige Larve, dann als erwachsenes, geflügeltes Tier (Imago). Dazwischen liegt die Verwandlung – auf zwei Wegen.",
+    hint:"Tippe die Punkte im Bild an.",
+    typ:"tafel",
+    bild:{src:"start-zwei-wege.png", label:"Raupe & Falter nebeneinander", glyph:"🐛"},
+    hotspots:[
+      {x:27,y:62,n:1,titel:"Larve",text:"Das jugendliche Fress-Stadium – Raupe, Engerling oder Made. Sieht oft völlig anders aus als das fertige Tier."},
+      {x:73,y:38,n:2,titel:"Imago",text:"Das erwachsene, geschlechtsreife Insekt – meist geflügelt. Seine Aufgabe: Partner finden und für Nachwuchs sorgen."},
+    ]
+  },
+  /* 2 */ {
+    chip:"Mit Puppe", titel:"Vollständige Verwandlung",
+    text:"Schmetterlinge, Käfer, Bienen und Fliegen durchlaufen vier ganz verschiedene Gestalten – mit Puppe.",
+    hint:"▶ abspielen oder mit ‹ › weiterklicken.",
+    typ:"sequenz",
+    absprung:{text:"Den ganzen Kreislauf beim Admiral ansehen ›", url:"../arten/admiral.html"},
+    absprung2:{text:"Vom Ei zum Schmetterling – als Tafel ›", url:"staunen-metamorphose-schmetterling.html"},
+    stufen:[
+      {name:"Ei", bild:{src:"voll-1-ei.png", label:"Eier an der Brennnessel", glyph:"🥚"},
+       text:"Alles beginnt klein. Das Weibchen klebt die Eier an die Futterpflanze – beim Tagpfauenauge an die Brennnessel."},
+      {name:"Raupe", bild:{src:"voll-2-raupe.png", label:"Raupe (Larve)", glyph:"🐛"},
+       text:"Eine Fressmaschine. Die Raupe häutet sich mehrfach und wird dabei immer größer."},
+      {name:"Puppe", bild:{src:"voll-3-puppe.png", label:"Puppe", glyph:"🛡️"},
+       text:"Scheinbare Ruhe: Außen reglos, doch im Inneren wird der ganze Körper umgebaut."},
+      {name:"Falter", bild:{src:"voll-4-falter.png", label:"Falter (Imago)", glyph:"🦋"},
+       text:"Fertig verwandelt schlüpft der Falter, pumpt die Flügel prall und fliegt davon."},
+    ]
+  },
+  /* 3 */ {
+    chip:"Die Puppe", titel:"Das Wunder dazwischen",
+    text:"In der Puppe wird der Raupenkörper fast vollständig aufgelöst und neu zusammengebaut – zu Flügeln, Beinen und Fühlern.",
+    hint:"Tippe die Punkte an – und sieh den Falter schlüpfen.",
+    typ:"tafel", schluepfen:true,
+    bild:{src:"voll-3-puppe.png", label:"Puppe (Detail)", glyph:"🛡️"},
+    schluepfBild:{src:"voll-5-schluepft.png", label:"Falter schlüpft", glyph:"🦋"},
+    hotspots:[
+      {x:66,y:50,n:1,titel:"Puppenhülle",text:"Eine feste Schutzhülle. Bei vielen Tagfaltern hängt sie kopfüber – die Stürzpuppe."},
+      {x:67,y:63,n:2,titel:"Flügelanlagen",text:"Schon von außen ahnt man die Flügel – als feine Linien auf der Hülle."},
+      {x:66,y:76,n:3,titel:"Schlüpfnaht",text:"Hier reißt die Hülle auf, wenn der fertige Falter sich herausschiebt."},
+    ]
+  },
+  /* 4 */ {
+    chip:"Ohne Puppe", titel:"Unvollständige Verwandlung",
+    text:"Libellen, Heuschrecken und Wanzen gehen den Weg ohne Puppe: Die Jungen ähneln den Großen und werden nur größer.",
+    hint:"▶ abspielen oder mit ‹ › weiterklicken.",
+    typ:"sequenz",
+    absprung:{text:"Im Stammbaum: die Hemimetabola ›", url:"../interaktiv/stammbaum.html"},
+    stufen:[
+      {name:"Ei", bild:{src:"unvoll-1-ei.png", label:"Eier / Gelege", glyph:"🥚"},
+       text:"Auch hier am Anfang das Ei, oft im Boden oder an Pflanzen abgelegt."},
+      {name:"Nymphe", bild:{src:"unvoll-2-nymphe.png", label:"Nymphe (Larvenstadium)", glyph:"🦗"},
+       text:"Die Nymphe sieht dem erwachsenen Tier schon ähnlich, nur kleiner und ohne fertige Flügel. Mit jeder Häutung wächst sie, die Flügelscheiden werden größer."},
+      {name:"Imago", bild:{src:"unvoll-3-imago.png", label:"Imago (erwachsen)", glyph:"🦗"},
+       text:"Nach der letzten Häutung ist das Tier erwachsen und voll geflügelt. Eine Puppe gab es nie."},
+    ]
+  },
+  /* 5 */ {
+    chip:"Pechlibelle", titel:"Live: die Pechlibelle",
+    text:"Ein echtes Beispiel für die Verwandlung ohne Puppe – die Große Pechlibelle (Ischnura elegans), Schritt für Schritt in eigenen Fotos.",
+    hint:"▶ abspielen oder mit ‹ › weiterklicken.",
+    typ:"sequenz", foto:true,
+    absprung:{text:"Libellen im Stammbaum ›", url:"../interaktiv/stammbaum.html"},
+    absprung2:{text:"Metamorphose der Libelle – als Tafel ›", url:"staunen-metamorphose-libelle.html"},
+    stufen:[
+      {name:"Paarungsrad", bild:{src:"pl-1-paarung.jpg", label:"Paarungsrad", glyph:"💙"},
+       text:"Es beginnt mit dem typischen „Paarungsrad“: Männchen und Weibchen bilden zusammen eine Herzform."},
+      {name:"Eiablage", bild:{src:"pl-2-eiablage.jpg", label:"Eiablage", glyph:"🥚"},
+       text:"Das Weibchen legt die Eier an Wasserpflanzen ab, oft dicht über oder unter der Wasseroberfläche."},
+      {name:"Larve (klein)", bild:{src:"pl-3-larve-klein.jpg", label:"junge Larve", glyph:"🦗"},
+       text:"Aus dem Ei schlüpft eine winzige Larve. Sie lebt und jagt unter Wasser – eine Puppe gibt es nie."},
+      {name:"Larve (groß)", bild:{src:"pl-4-larve-gross.jpg", label:"große Larve", glyph:"🦗"},
+       text:"Über viele Häutungen wächst die Larve heran; die Flügelscheiden werden langsam sichtbar."},
+      {name:"Frisch geschlüpft", bild:{src:"pl-6-frisch.jpg", label:"frisch geschlüpft", glyph:"✨"},
+       text:"Die junge Libelle zwängt sich heraus und pumpt die noch blassen Flügel prall – daneben bleibt die leere Larvenhaut zurück."},
+      {name:"Imago", bild:{src:"pl-7-imago.jpg", label:"erwachsene Pechlibelle", glyph:"💙"},
+       text:"Ausgefärbt und flugfähig: die erwachsene Pechlibelle mit dem leuchtend blauen Hinterleibsende."}
+    ]
+  },
+  /* 6 */ {
+    chip:"Vergleich", titel:"Zwei Wege im Vergleich",
+    text:"Der ganze Unterschied steckt in einem Schritt: der Puppe. Mit ihr wird aus der Raupe ein neues Tier – ohne sie wächst die Nymphe Stück für Stück heran.",
+    typ:"vergleich"
+  },
+  /* 7 */ {
+    chip:"Zuordnen", kat:"uebung", titel:"Mit oder ohne Puppe?",
+    text:"Übung: Ordne jedes Tier seinem Weg zu – mit Puppe (vollständig) oder ohne Puppe (unvollständig). Dann auf „Prüfen“ tippen.",
+    typ:"zuordnen"
+  },
+  /* 8 */ {
+    chip:"Quiz", kat:"quiz", titel:"Abschluss-Quiz",
+    text:"Zum Schluss der Test: Macht dieses Tier eine Verwandlung mit oder ohne Puppe?",
+    typ:"quiz"
+  },
+];
+
+/* Insekten fürs Mini-Quiz in Schritt 6 */
+const QUIZTIERE = [
+  {t:"Schmetterling", w:"voll"}, {t:"Marienkäfer", w:"voll"},
+  {t:"Biene", w:"voll"}, {t:"Stubenfliege", w:"voll"},
+  {t:"Libelle", w:"unvoll"}, {t:"Heuschrecke", w:"unvoll"}, {t:"Feuerwanze", w:"unvoll"},
+];
+
+/* Tiere für Zuordnen-Station & Abschluss-Quiz (voll = mit Puppe, unvoll = ohne Puppe) */
+const TIERE_TYP = [
+  {t:"Schmetterling", w:"voll"}, {t:"Käfer", w:"voll"}, {t:"Marienkäfer", w:"voll"},
+  {t:"Biene", w:"voll"}, {t:"Wespe", w:"voll"}, {t:"Fliege", w:"voll"},
+  {t:"Ameise", w:"voll"}, {t:"Mücke", w:"voll"}, {t:"Floh", w:"voll"},
+  {t:"Libelle", w:"unvoll"}, {t:"Heuschrecke", w:"unvoll"}, {t:"Grille", w:"unvoll"},
+  {t:"Feuerwanze", w:"unvoll"}, {t:"Ohrwurm", w:"unvoll"}, {t:"Zikade", w:"unvoll"},
+  {t:"Schabe", w:"unvoll"}, {t:"Eintagsfliege", w:"unvoll"}, {t:"Gottesanbeterin", w:"unvoll"}
+];
+function mischT(a){a=a.slice();for(var k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=a[k];a[k]=a[j];a[j]=t;}return a;}
+/* Auswahl mit Schwerpunkt auf der unvollständigen Verwandlung (Hemimetabola);
+   die Libelle ist immer dabei. */
+function zieheTiere(n){
+  var unvoll=TIERE_TYP.filter(x=>x.w==="unvoll"), voll=TIERE_TYP.filter(x=>x.w==="voll");
+  var nU=Math.round(n*0.6), nV=n-nU;
+  var lib=unvoll.find(x=>x.t==="Libelle");
+  var restU=mischT(unvoll.filter(x=>x.t!=="Libelle")).slice(0,Math.max(0,nU-1));
+  var pick=(lib?[lib]:[]).concat(restU, mischT(voll).slice(0,nV));
+  return mischT(pick);
+}
+
+/* ---- Bausteine ---- */
+function bildHTML(b, klasse){
+  return '<div class="bild '+(klasse||'')+'">'+
+    '<div class="ph"><span class="gl">'+b.glyph+'</span>'+
+      '<span class="l">'+b.label+'</span><span class="f">assets/verwandlung/'+b.src+'</span></div>'+
+    '<img src="'+BASIS+b.src+'" alt="'+b.label+'" onerror="this.classList.add(\'weg\')">'+
+  '</div>';
+}
+
+const elB=document.getElementById("buehne");
+const elE=document.getElementById("erklaer");
+const elChips=document.getElementById("chips");
+const elZaehler=document.getElementById("zaehler");
+let i=0;           // aktueller Schritt
+let stufe=0;       // aktuelles Stadium (Sequenz)
+let timer=null;    // Auto-Play
+const reduce=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+function chips(){
+  elChips.innerHTML="";
+  SCHRITTE.forEach((s,k)=>{
+    const c=document.createElement("button");
+    c.className="chip"+(s.kat?" "+s.kat:"")+(k===i?" aktiv":"")+(k<i?" fertig":"");
+    c.innerHTML='<span class="nr">'+(k+1)+'</span>'+s.chip;
+    c.addEventListener("click",()=>geheZu(k));
+    elChips.appendChild(c);
+  });
+  elZaehler.textContent="Schritt "+(i+1)+" / "+SCHRITTE.length;
+}
+
+function render(){
+  stopPlay();
+  const s=SCHRITTE[i];
+  if(s.typ==="sequenz") renderSequenz(s);
+  else if(s.typ==="vergleich") renderVergleich(s);
+  else if(s.typ==="zuordnen") renderZuordnen(s);
+  else if(s.typ==="quiz") renderQuiz(s);
+  else renderTafel(s);
+  document.getElementById("zurueckBtn").disabled = (i===0);
+  const wb=document.getElementById("weiterBtn");
+  wb.textContent = (i===SCHRITTE.length-1) ? "↺ Von vorn" : "Nächster Schritt ›";
+  chips(); melde();
+}
+
+/* --- Tafel mit Hotspots --- */
+function renderTafel(s){
+  let html='<div class="bildbox">'+bildHTML(s.bild,"an");
+  if(s.schluepfen && s.schluepfBild) html+=bildHTML(s.schluepfBild,"")
+    .replace('class="bild "','class="bild falter-unfold zu" id="schluepfBild" style="opacity:0;"');
+  s.hotspots.forEach(h=>{
+    html+='<button class="hotspot" data-n="'+h.n+'" style="left:'+h.x+'%;top:'+h.y+'%;">'+h.n+'</button>';
+  });
+  html+='</div>';
+  elB.innerHTML=html;
+
+  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p>';
+  if(s.hint) e+='<p class="entdeckhint">👇 '+s.hint+'</p>';
+  if(s.schluepfen) e+='<button class="schluepfbtn" id="schluepfBtn">▶ Schlüpfen ansehen</button>';
+  e+='<div class="infokarte" id="info"><p class="leer">Tippe eine Zahl im Bild an.</p></div>';
+  if(s.absprung) e+='<a class="absprung" href="'+s.absprung.url+'">'+s.absprung.text+'</a>';
+  if(s.absprung2) e+='<a class="absprung" style="margin-left:8px" href="'+s.absprung2.url+'">'+s.absprung2.text+'</a>';
+  elE.innerHTML=e;
+
+  const info=document.getElementById("info");
+  elB.querySelectorAll(".hotspot").forEach(b=>{
+    b.addEventListener("click",()=>{
+      elB.querySelectorAll(".hotspot").forEach(x=>x.classList.remove("aktiv"));
+      b.classList.add("aktiv");
+      const h=s.hotspots.find(z=>z.n==b.dataset.n);
+      info.innerHTML='<p class="it">Punkt '+h.n+'</p><h3>'+h.titel+'</h3><p>'+h.text+'</p>';
+      info.scrollIntoView({block:"nearest", behavior:reduce?"auto":"smooth"});
+      melde();
+    });
+  });
+  const sb=document.getElementById("schluepfBtn");
+  if(sb) sb.addEventListener("click",()=>{
+    const img=document.getElementById("schluepfBild");
+    if(!img) return;
+    img.style.opacity="1";
+    img.classList.remove("zu"); void img.offsetWidth; img.classList.add("auf");
+    elB.querySelectorAll(".hotspot").forEach(h=>{ h.style.transition="opacity .5s"; h.style.opacity="0"; setTimeout(()=>h.style.display="none",500); });
+    sb.disabled=true; sb.textContent="🦋 geschlüpft"; melde();
+  });
+}
+
+/* --- Sequenz mit Schieberegler --- */
+function renderSequenz(s){
+  stufe=0;
+  let html='<div class="bildbox'+(s.foto?' fotos':'')+'">';
+  s.stufen.forEach((st,k)=>{ html+=bildHTML(st.bild, k===0?"an":""); });
+  html+='</div>';
+  elB.innerHTML=html;
+
+  const max=s.stufen.length-1;
+  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p>';
+  if(s.hint) e+='<p class="entdeckhint">👇 '+s.hint+'</p>';
+  e+='<div class="seq"><div class="seqkopf">'+
+       '<button class="playbtn" id="play" aria-label="Abspielen">▶</button>'+
+       '<button class="stepbtn" id="prev" aria-label="Voriges Stadium">‹</button>'+
+       '<div class="stufenlabel" id="stl" style="flex:1 1 auto;text-align:center;"></div>'+
+       '<button class="stepbtn" id="next" aria-label="Nächstes Stadium">›</button>'+
+     '</div>'+
+     '<div class="infokarte" id="info"></div></div>';
+  if(s.absprung) e+='<a class="absprung" href="'+s.absprung.url+'">'+s.absprung.text+'</a>';
+  if(s.absprung2) e+='<a class="absprung" style="margin-left:8px" href="'+s.absprung2.url+'">'+s.absprung2.text+'</a>';
+  elE.innerHTML=e;
+
+  const setze=(v)=>{
+    stufe=Math.max(0,Math.min(max,v));
+    elB.querySelectorAll(".bild").forEach((b,k)=>b.classList.toggle("an",k===stufe));
+    const st=s.stufen[stufe];
+    document.getElementById("stl").innerHTML=st.name+' <small>· '+(stufe+1)+'/'+(max+1)+'</small>';
+    document.getElementById("info").innerHTML='<p>'+st.text+'</p>';
+    document.getElementById("prev").disabled=(stufe===0);
+    document.getElementById("next").disabled=(stufe===max);
+    melde();
+  };
+  document.getElementById("prev").addEventListener("click",()=>setze(stufe-1));
+  document.getElementById("next").addEventListener("click",()=>setze(stufe+1));
+  document.getElementById("play").addEventListener("click",function(){
+    if(timer){ stopPlay(); this.textContent="▶"; return; }
+    this.textContent="❚❚";
+    if(stufe>=max) setze(0);
+    timer=setInterval(()=>{
+      if(stufe>=max){ stopPlay(); document.getElementById("play").textContent="▶"; return; }
+      setze(stufe+1);
+    }, reduce?600:1100);
+  });
+  setze(0);
+}
+
+/* --- Vergleich (Schritt 5) --- */
+function renderVergleich(s){
+  elB.innerHTML="";
+  const wegVoll='<div class="vweg"><div class="reihe">'+
+    '<span class="st">Ei</span><span class="ar">→</span><span class="st">Raupe</span>'+
+    '<span class="ar">→</span><span class="st" style="background:#e6efe7;color:#2f6a45;">Puppe</span>'+
+    '<span class="ar">→</span><span class="st">Falter</span></div></div>';
+  const wegUnvoll='<div class="vweg"><div class="reihe">'+
+    '<span class="st">Ei</span><span class="ar">→</span><span class="st">Nymphe</span>'+
+    '<span class="ar">→</span><span class="st">Nymphe</span><span class="ar">→</span><span class="st">Imago</span></div>'+
+    '<p class="scrubnote">keine Puppe – die Nymphe wächst über mehrere Häutungen heran</p></div>';
+
+  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p>'+
+    '<div class="umschalter">'+
+      '<button id="bVoll" class="an">Mit Puppe<br><small>vollständig</small></button>'+
+      '<button id="bUnvoll">Ohne Puppe<br><small>unvollständig</small></button>'+
+    '</div>'+
+    '<div id="wegBox">'+wegVoll+'</div>'+
+    '<p class="gruppen" id="grp"></p>'+
+    '<div class="quiz"><p class="ql">Mini-Check: Tippe ein Insekt – welcher Weg ist es?</p><div class="quizchips" id="qz"></div></div>'+
+    '<a class="absprung" href="../interaktiv/stammbaum.html">Im Stammbaum: beide Äste zeigen ›</a>';
+  elE.innerHTML=e;
+
+  const grpVoll='<b>Mit Puppe (vollständig):</b> Schmetterlinge · Käfer · Bienen &amp; Wespen · Fliegen &amp; Mücken';
+  const grpUnvoll='<b>Ohne Puppe (unvollständig):</b> Libellen · Heuschrecken · Wanzen &amp; Zikaden';
+  const grp=document.getElementById("grp");
+  const wegBox=document.getElementById("wegBox");
+  const bV=document.getElementById("bVoll"), bU=document.getElementById("bUnvoll");
+  function zeige(v){
+    bV.classList.toggle("an",v); bU.classList.toggle("an",!v);
+    wegBox.innerHTML=v?wegVoll:wegUnvoll;
+    grp.innerHTML=v?grpVoll:grpUnvoll;
+    var qzEl=document.getElementById("qz");
+    if(qzEl){ qzEl.querySelectorAll("button").forEach(function(b){
+      b.classList.remove("voll","unvoll");
+      var t=b.querySelector(".tag"); if(t) t.parentNode.removeChild(t);
+    }); }
+    melde();
+  }
+  bV.addEventListener("click",()=>zeige(true));
+  bU.addEventListener("click",()=>zeige(false));
+  zeige(true);
+
+  const qz=document.getElementById("qz");
+  QUIZTIERE.forEach(t=>{
+    const b=document.createElement("button");
+    b.textContent=t.t;
+    b.addEventListener("click",()=>{
+      b.classList.add(t.w);
+      b.querySelector(".tag")||b.insertAdjacentHTML("beforeend",
+        '<span class="tag">'+(t.w==="voll"?"mit Puppe":"ohne Puppe")+'</span>');
+      melde();
+    });
+    qz.appendChild(b);
+  });
+}
+
+/* --- Zuordnen-Station (Worksheet: erst zuordnen, dann prüfen) --- */
+function renderZuordnen(s){
+  elB.innerHTML="";
+  const tiere=zieheTiere(8);
+  const wahl={}; let geprueft=false;
+  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p><div class="zuliste" id="zuliste"></div>'+
+    '<div class="zufuss"><button class="knopf prim" id="pruefBtn" style="margin:0;">Prüfen</button>'+
+    '<span class="zutally" id="zutally"></span></div>';
+  elE.innerHTML=e;
+  const liste=document.getElementById("zuliste");
+  tiere.forEach((tr,k)=>{
+    const row=document.createElement("div"); row.className="zurow";
+    row.innerHTML='<span class="zuname">'+tr.t+'</span>'+
+      '<span class="zuopt"><button data-w="voll">mit Puppe</button>'+
+      '<button data-w="unvoll">ohne Puppe</button></span>';
+    row.querySelectorAll("button").forEach(b=>{
+      b.addEventListener("click",()=>{
+        if(geprueft) return;
+        wahl[k]=b.dataset.w;
+        row.querySelectorAll("button").forEach(x=>x.classList.toggle("sel",x===b));
+        melde();
+      });
+    });
+    liste.appendChild(row);
+  });
+  const pb=document.getElementById("pruefBtn"), tally=document.getElementById("zutally");
+  pb.addEventListener("click",()=>{
+    if(!geprueft){
+      let r=0;
+      Array.from(liste.children).forEach((row,k)=>{
+        const richtig=tiere[k].w;
+        row.querySelectorAll("button").forEach(b=>{
+          b.disabled=true;
+          if(b.dataset.w===richtig) b.classList.add("ok");
+          if(wahl[k]===b.dataset.w && wahl[k]!==richtig) b.classList.add("no");
+        });
+        if(wahl[k]===richtig) r++;
+      });
+      tally.textContent=r+" / "+tiere.length+" richtig";
+      pb.textContent="Nochmal"; geprueft=true;
+    } else { renderZuordnen(s); }
+    melde();
+  });
+}
+
+/* --- Abschluss-Quiz: Mit oder ohne Puppe? --- */
+function renderQuiz(s){
+  const fragen=zieheTiere(8);
+  let q=0, score=0, sperre=false;
+  elB.innerHTML="";
+  function zeigeFrage(){
+    sperre=false;
+    const f=fragen[q];
+    let e='<div class="qkopf">Frage <b>'+(q+1)+'</b> / '+fragen.length+' · ✓ '+score+'</div>'+
+      '<div class="qbalken"><div style="width:'+(q/fragen.length*100)+'%"></div></div>'+
+      '<p class="qtier">'+f.t+'</p>'+
+      '<p class="qfrage">Verwandlung mit oder ohne Puppe?</p>'+
+      '<div class="qwahl" id="qwahl">'+
+        '<button data-w="voll">Mit Puppe<br><small>vollständig</small></button>'+
+        '<button data-w="unvoll">Ohne Puppe<br><small>unvollständig</small></button>'+
+      '</div><div class="qfb" id="qfb"></div>';
+    elE.innerHTML=e;
+    const wrap=document.getElementById("qwahl"), fb=document.getElementById("qfb");
+    wrap.querySelectorAll("button").forEach(b=>{
+      b.addEventListener("click",()=>{
+        if(sperre) return; sperre=true;
+        const richtig=(b.dataset.w===f.w);
+        wrap.querySelectorAll("button").forEach(x=>{
+          x.disabled=true; if(x.dataset.w===f.w) x.classList.add("ok");
+        });
+        if(richtig){ score++; fb.textContent="✓ Richtig!"; fb.className="qfb ok"; }
+        else{ b.classList.add("no"); fb.textContent="✗ "+(f.w==="voll"?"Mit Puppe (vollständig).":"Ohne Puppe (unvollständig)."); fb.className="qfb no"; }
+        melde();
+        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?850:1500);
+      });
+    });
+    melde();
+  }
+  function ende(){
+    const perfekt=score===fragen.length;
+    // Ergebnis an den Forscherpass melden (3/2/1 Blätter)
+    const blaetter = perfekt ? 3 : score>=Math.ceil(fragen.length*0.6) ? 2 : 1;
+    try{ const _K="mibaso.fauna.expedition"; const _d=JSON.parse(localStorage.getItem(_K)||"{}");
+      if(!_d.verwandlung || blaetter>_d.verwandlung.blaetter){ _d.verwandlung={blaetter:blaetter,done:true,ts:Date.now()}; localStorage.setItem(_K,JSON.stringify(_d)); } }catch(e){}
+    const sprueche=perfekt
+      ? ["Alles richtig – du hast die Verwandlung verstanden! 🦋","Volltreffer! Mit und ohne Puppe sitzen perfekt."]
+      : score>=Math.ceil(fragen.length*0.6)
+        ? ["Stark! Fast alles richtig.","Gut gemacht – ein paar Häutungen noch. 🐛"]
+        : ["Schau ruhig nochmal durch die Schritte – dann sitzt es.","Ein guter Anfang! Noch eine Runde?"];
+    elE.innerHTML='<div class="qende"><p class="qlabel">Ergebnis</p>'+
+      '<p class="qscore">'+score+'<small> / '+fragen.length+'</small></p>'+
+      '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
+      '<p class="qspruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
+      '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">'+
+        '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
+        '<a class="knopf" href="wiesenpass.html">🍃 Forscherpass</a></div></div>';
+    document.getElementById("qnochmal").addEventListener("click",()=>renderQuiz(s));
+    if(perfekt){ konfetti(); fanfare(); }
+    melde();
+  }
+  zeigeFrage();
+}
+
+/* kleines Konfetti + Fanfare (nur bei fehlerfreiem Quiz) */
+function konfetti(){
+  if(reduce) return;
+  const feld=document.createElement("div"); feld.className="konffeld";
+  const farben=['#C28A3A','#233D5C','#3E9A5E','#e8a020','#9b59b6','#e74c3c'];
+  for(let n=0;n<70;n++){
+    const k=document.createElement("span"); k.className="konf";
+    k.style.cssText='left:'+Math.random()*100+'%;background:'+farben[(Math.random()*farben.length)|0]+
+      ';animation-delay:'+(Math.random()*0.5).toFixed(2)+'s;transform:rotate('+(Math.random()*360)+'deg);';
+    feld.appendChild(k);
+  }
+  document.body.appendChild(feld); setTimeout(()=>feld.remove(),4200);
+}
+function fanfare(){
+  try{
+    const Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx) return;
+    const ctx=new Ctx(); if(ctx.state==="suspended") ctx.resume();
+    const t0=ctx.currentTime+0.05;
+    [[523.25,0,0.16,0.2],[659.25,0.15,0.16,0.2],[783.99,0.30,0.16,0.2],[1046.5,0.46,0.6,0.22]]
+    .forEach(([fr,st,du,vo])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type="triangle";o.frequency.value=fr;
+      g.gain.setValueAtTime(0,t0+st);g.gain.linearRampToValueAtTime(vo,t0+st+0.02);g.gain.exponentialRampToValueAtTime(0.001,t0+st+du);
+      o.connect(g).connect(ctx.destination);o.start(t0+st);o.stop(t0+st+du+0.05);});
+    setTimeout(()=>ctx.close().catch(()=>{}),1600);
+  }catch(e){}
+}
+
+/* ---- Navigation ---- */
+function geheZu(k){ if(k<0||k>=SCHRITTE.length) return; i=k; render(); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
+function stopPlay(){ if(timer){clearInterval(timer);timer=null;} }
+document.getElementById("zurueckBtn").addEventListener("click",()=>geheZu(i-1));
+document.getElementById("weiterBtn").addEventListener("click",()=>{
+  if(i===SCHRITTE.length-1) geheZu(0); else geheZu(i+1);
+});
+
+/* Wischen zwischen Schritten (außer auf Regler/Knopf/Hotspot) */
+let tx=0,ty=0,tig=false;
+document.addEventListener("touchstart",e=>{
+  if(e.target.closest("input,button,a,.hotspot")){tig=false;return;}
+  tig=true; tx=e.touches[0].clientX; ty=e.touches[0].clientY;
+},{passive:true});
+document.addEventListener("touchend",e=>{
+  if(!tig) return; tig=false;
+  const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)*1.6){ geheZu(i+(dx<0?1:-1)); }
+},{passive:true});
+
+/* Höhe an iframe melden */
+function melde(){
+  if(window.parent!==window){
+    try{ window.parent.postMessage({fauna:"height", height:document.body.scrollHeight}, "*"); }catch(e){}
+  }
+}
+if("ResizeObserver" in window){ new ResizeObserver(melde).observe(document.body); }
+window.addEventListener("load", melde);
+
+render();
+</script>
+</body>
+</html>

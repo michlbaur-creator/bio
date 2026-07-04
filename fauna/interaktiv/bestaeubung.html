@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wer bestäubt was? — Lernpfad · Fauna Mibaso</title>
+<meta name="description" content="Lernpfad: Insekten und Blüten – wer zu wem passt. Bestäubungssyndrome zum Durchblättern, mit Abschluss-Quiz.">
+<meta name="theme-color" content="#233D5C">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<style>
+  :root{
+    --blau:#233D5C; --blau-tief:#1a2f47; --creme:#F7F3E8; --creme-tief:#EEE7D5;
+    --pergament:#EDE3CC; --tinte:#1c2e42; --honig:#C28A3A; --linie:#c3ccd5;
+    --gruen:#3E9A5E; --rot:#B5482F;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--creme);color:var(--blau);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.5;}
+  .huelle{max-width:640px;margin:0 auto;padding:clamp(4px,1.5vw,10px) clamp(12px,3.5vw,28px) 40px;}
+
+  /* Kopf */
+  .kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .zurueck{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--blau);
+    text-decoration:none;display:inline-flex;gap:5px;align-items:center;}
+  .zaehler{font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a96a1;}
+  h1{font-size:clamp(19px,4.6vw,25px);line-height:1.05;margin:4px 0 0;font-weight:normal;}
+
+  /* Schritt-Chips */
+  .chips{display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+    padding:10px 2px 4px;margin:2px -2px 0;scrollbar-width:none;}
+  .chips::-webkit-scrollbar{display:none;}
+  .chip{flex:0 0 auto;display:flex;align-items:center;gap:7px;cursor:pointer;
+    font-family:var(--sans);font-size:12.5px;color:#5a6675;background:#fff;
+    border:1px solid var(--linie);border-radius:999px;padding:7px 13px 7px 8px;white-space:nowrap;
+    transition:border-color .15s,color .15s,background .15s;}
+  .chip .nr{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;
+    border-radius:50%;background:var(--creme-tief);color:#8a96a1;font-weight:700;font-size:11.5px;}
+  .chip.aktiv{background:var(--blau);color:var(--creme);border-color:var(--blau);}
+  .chip.aktiv .nr{background:var(--honig);color:#fff;}
+  .chip.fertig:not(.aktiv) .nr{background:#cfe0d2;color:#3e7a55;}
+  /* Extra-Stationen (UV, Trickfalle) – thematisch anders */
+  .chip.extra{background:#f4ead7;border-color:#e3cda0;color:#9a6f2e;}
+  .chip.extra .nr{background:#e3cda0;color:#7a5520;}
+  .chip.extra.aktiv{background:#9a6f2e;border-color:#9a6f2e;color:#fff;}
+  .chip.extra.aktiv .nr{background:#fff;color:#9a6f2e;}
+  /* Quiz – prominent */
+  .chip.quiz{background:var(--honig);border-color:var(--honig);color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(194,138,58,.32);}
+  .chip.quiz .nr{background:#fff;color:var(--honig);}
+  .chip.quiz.aktiv{background:var(--blau);border-color:var(--blau);color:#fff;}
+  .chip.quiz.aktiv .nr{background:var(--honig);color:#fff;}
+
+  /* Bühne */
+  .buehne{margin-top:22px;}
+  .bildbox{position:relative;width:min(82%,300px);aspect-ratio:1/1;max-height:32vh;margin:0 auto;}
+  .bild{position:absolute;inset:0;opacity:0;transition:opacity .5s ease;}
+  .bild.an{opacity:1;}
+  .bild img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+    background:var(--pergament);border:1px solid #cdbf9e;border-radius:10px;}
+  .bild img.weg{display:none;}
+  .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;text-align:center;background:var(--pergament);border:1px dashed #cdbf9e;border-radius:10px;padding:14px;}
+  .ph .gl{font-size:34px;line-height:1;opacity:.55;}
+  .ph .l{font-family:var(--sans);font-size:13px;font-weight:600;color:#7a6a48;}
+  .ph .f{font-family:var(--sans);font-size:10.5px;color:#a99a78;word-break:break-all;}
+  .svgbox{position:relative;width:min(86%,320px);margin:0 auto;}
+  .svgbox svg{display:block;width:100%;height:auto;background:var(--pergament);
+    border:1px solid #cdbf9e;border-radius:12px;}
+  .svgbox.fotobox{width:min(96%,460px);}
+  .svgbox .kbild{display:block;width:100%;height:auto;border-radius:12px;}
+
+  /* Paar: Blüten-Galerie mit Bestäuber-Inset */
+  .paar{display:flex;flex-direction:column;align-items:center;gap:4px;}
+  .best-inset{position:absolute;top:8px;left:8px;z-index:4;display:flex;flex-direction:column;align-items:center;gap:2px;}
+  .best-inset img{width:58px;height:58px;object-fit:cover;border-radius:50%;border:2.5px solid #fff;
+    box-shadow:0 2px 8px rgba(35,61,92,.32);background:var(--creme-tief);}
+  .best-inset span{font-family:var(--sans);font-size:10px;font-weight:700;color:#fff;
+    background:rgba(26,47,71,.7);border-radius:999px;padding:2px 7px;white-space:nowrap;}
+  .bluetenbox{position:relative;width:min(94%,400px);aspect-ratio:4/3;max-height:44vh;margin:0 auto;}
+  .bl{position:absolute;inset:0;opacity:0;transition:opacity .45s ease;}
+  .bl.an{opacity:1;}
+  .bl img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    border:1px solid #cdbf9e;border-radius:12px;background:var(--pergament);}
+  .bl img.weg{display:none;}
+  .blcap{position:absolute;left:0;right:0;bottom:0;padding:7px 9px;border-radius:0 0 12px 12px;
+    background:linear-gradient(transparent,rgba(26,47,71,.82));color:#fff;font-family:var(--sans);}
+  .blcap .bn{display:block;font-size:13px;font-weight:700;}
+  .blcap .bla{display:block;font-size:10.5px;font-style:italic;opacity:.85;}
+  .galsteu{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:10px;}
+  .punkte{display:flex;gap:6px;}
+  .punkte span{width:8px;height:8px;border-radius:50%;background:var(--creme-tief);border:1px solid var(--linie);}
+  .punkte span.an{background:var(--honig);border-color:var(--honig);}
+  .stepbtn{flex:0 0 auto;width:36px;height:36px;border-radius:50%;border:1px solid var(--blau);
+    background:#fff;color:var(--blau);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .stepbtn:disabled{opacity:.32;cursor:default;}
+
+  /* Hotspots */
+  .hotspot{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;
+    background:var(--honig);color:#fff;border:2px solid #fff;box-shadow:0 2px 7px rgba(35,61,92,.28);
+    font-family:var(--sans);font-weight:700;font-size:14px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;z-index:3;animation:puls 2.4s infinite;}
+  .hotspot.aktiv{background:var(--blau);animation:none;}
+  @keyframes puls{0%{box-shadow:0 2px 7px rgba(35,61,92,.28),0 0 0 0 rgba(194,138,58,.5);}
+    70%{box-shadow:0 2px 7px rgba(35,61,92,.28),0 0 0 11px rgba(194,138,58,0);}100%{box-shadow:0 2px 7px rgba(35,61,92,.28),0 0 0 0 rgba(194,138,58,0);}}
+
+  /* Erklärtext */
+  .erklaer{margin-top:14px;}
+  .erklaer h2{font-size:clamp(18px,5vw,23px);font-weight:normal;margin:0 0 7px;}
+  .erklaer p{font-size:clamp(14.5px,4vw,16.5px);color:var(--tinte);margin:0 0 10px;}
+  .merkmale{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 10px;}
+  .merkmale span{font-family:var(--sans);font-size:12px;color:var(--blau);background:#fff;
+    border:1px solid var(--linie);border-radius:999px;padding:5px 11px;}
+  .entdeckhint{font-family:var(--sans);font-size:12.5px;color:var(--honig);font-weight:600;margin:4px 0 0;}
+  .infokarte{margin-top:12px;padding:13px 15px;border-radius:0 12px 12px 0;background:var(--creme-tief);
+    border-left:4px solid var(--honig);min-height:30px;}
+  .infokarte .it{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8a96a1;margin:0 0 3px;}
+  .infokarte h3{margin:0 0 4px;font-size:17px;font-weight:normal;}
+  .infokarte p{margin:0;font-size:14.5px;color:var(--tinte);}
+  .infokarte .leer{color:#8a96a1;font-style:italic;font-family:var(--sans);font-size:13px;}
+
+  .umschalter{display:flex;gap:8px;margin:2px 0 12px;}
+  .umschalter button{flex:1 1 0;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--blau);
+    background:#fff;border:1px solid var(--linie);border-radius:11px;padding:11px 8px;cursor:pointer;line-height:1.25;}
+  .umschalter button.an{background:var(--blau);color:var(--creme);border-color:var(--blau);}
+
+  .absprung{display:inline-flex;align-items:center;gap:7px;margin-top:14px;
+    font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--creme);background:var(--blau);
+    border-radius:999px;padding:10px 16px;text-decoration:none;}
+  .absprung:hover{background:var(--blau-tief);}
+
+  /* Quiz */
+  .quizkopf{display:flex;align-items:center;gap:12px;font-family:var(--sans);font-size:14px;
+    border-top:1px solid var(--linie);border-bottom:1px solid var(--linie);padding:10px 0;margin:0 0 12px;}
+  .quizkopf b{color:var(--honig);}
+  .qbalken{height:6px;background:var(--creme-tief);border-radius:3px;overflow:hidden;margin:0 0 14px;}
+  .qbalken div{height:100%;width:0;background:var(--honig);transition:width .3s;}
+  .qfrage{font-size:clamp(17px,4.6vw,21px);margin:0 0 12px;font-weight:normal;}
+  .qopt{display:flex;flex-direction:column;gap:9px;}
+  .qopt button{font-family:var(--sans);font-size:14.5px;color:var(--blau);background:#fff;text-align:left;
+    border:1.5px solid var(--linie);border-radius:13px;padding:13px 15px;cursor:pointer;transition:.13s;}
+  .qopt button:hover:not(:disabled){border-color:#9bb0c6;}
+  .qopt button.richtig{background:#e6efe7;border-color:var(--gruen);color:#2f6a45;font-weight:600;}
+  .qopt button.falsch{background:#f2e2dd;border-color:var(--rot);color:#9a3f2a;}
+  .qopt button:disabled{cursor:default;}
+  .qende{text-align:center;padding:6px 0;}
+  .qende .gross{font-family:Georgia,serif;font-size:clamp(38px,11vw,58px);line-height:1;color:var(--blau);margin:6px 0 2px;}
+  .qende .gross small{font-size:.4em;color:#8a96a1;}
+  .qende .spruch{font-size:clamp(16px,4.6vw,19px);margin:10px auto 16px;max-width:30ch;}
+  .konffeld{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden;}
+  .konf{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;animation:konffall 3.6s linear forwards;}
+  @keyframes konffall{0%{transform:translateY(-14px);opacity:1;}100%{transform:translateY(106vh) rotate(540deg);opacity:.9;}}
+  @media (prefers-reduced-motion:reduce){.konf{display:none;}}
+
+  /* Navigation */
+  .nav{display:flex;gap:9px;margin-top:24px;padding-top:16px;border-top:1px solid var(--linie);}
+  .knopf{font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--blau);background:transparent;
+    border:1px solid var(--blau);border-radius:999px;padding:10px 16px;cursor:pointer;transition:background .18s,color .18s;}
+  .knopf:hover:not(:disabled){background:var(--blau);color:var(--creme);}
+  .knopf:disabled{opacity:.38;cursor:default;}
+  .knopf.prim{background:var(--blau);color:var(--creme);margin-left:auto;}
+  .knopf.prim:hover{background:var(--blau-tief);color:var(--creme);}
+
+  footer{margin-top:30px;font-family:var(--sans);font-size:12px;color:#8a96a1;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+  body{padding-top:calc(env(safe-area-inset-top) + min(2vh,16px));}
+  /* Einheitliches Pfad-Intro (Expedition Wiese) */
+  .pfad-intro{position:fixed;inset:0;z-index:9000;background:var(--creme);display:flex;
+    align-items:center;justify-content:center;padding:26px 20px;overflow-y:auto;transition:opacity .5s ease;}
+  .pfad-intro.weg{opacity:0;visibility:hidden;pointer-events:none;}
+  .pi-inner{max-width:440px;text-align:center;}
+  .pi-foto{width:100%;max-width:360px;aspect-ratio:16/10;object-fit:cover;border-radius:16px;
+    border:1px solid #cdbf9e;box-shadow:0 6px 20px rgba(35,61,92,.18);margin:0 auto 18px;display:block;}
+  .pi-eyebrow{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--honig-tief,#a9762c);margin-bottom:6px;}
+  .pi-titel{font-family:Georgia,serif;font-weight:normal;font-size:clamp(24px,7vw,32px);
+    color:var(--blau);margin:0 0 10px;line-height:1.1;}
+  .pi-lead{font-family:Georgia,serif;font-size:clamp(15px,4.2vw,17px);color:var(--tinte,#1c2e42);
+    margin:0 auto 22px;max-width:34ch;line-height:1.5;}
+  .pi-los{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--creme);background:var(--honig);
+    border:none;border-radius:999px;padding:14px 32px;cursor:pointer;box-shadow:0 3px 12px rgba(194,138,58,.35);
+    transition:transform .15s,background .18s;}
+  .pi-los:hover{background:var(--honig-tief,#a9762c);transform:translateY(-1px);}
+  @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
+</style>
+</head>
+<body>
+<div class="pfad-intro" id="pfadIntro">
+  <div class="pi-inner">
+    <img class="pi-foto" src="../images/blueten/hummel-beinwell.jpg" alt="" onerror="this.style.display='none'">
+    <div class="pi-eyebrow">🍃 Expedition Wiese · Lernpfad</div>
+    <h1 class="pi-titel">Wer bestäubt was?</h1>
+    <p class="pi-lead">Blüte und Bestäuber passen zusammen wie Schlüssel und Schloss. Finde heraus, welches Insekt zu welcher Blüte gehört — und warum das kein Zufall ist.</p>
+    <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
+  </div>
+</div>
+<div class="huelle">
+  <div class="kopf">
+    <a class="zurueck" href="../../index.html">‹ Startseite</a>
+    <span class="zaehler" id="zaehler">Station 1 / 9</span>
+  </div>
+  <h1>Wer bestäubt was?</h1>
+  <div class="chips" id="chips"></div>
+
+  <div class="buehne" id="buehne"></div>
+  <div class="erklaer" id="erklaer"></div>
+
+  <div class="nav" id="nav">
+    <button class="knopf" id="zurueckBtn">‹ Zurück</button>
+    <button class="knopf prim" id="weiterBtn">Nächste Station ›</button>
+  </div>
+
+  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso</footer>
+</div>
+
+<script>
+/* ===========================================================================
+   Lernpfad „Wer bestäubt was?" – Insekten & Blüten, wer zu wem passt.
+   Fotos: Insekten aus ../images/fotos/, Blüten aus ../images/blueten/.
+   Fehlt ein Bild, erscheint ein Platzhalter mit dem erwarteten Dateinamen.
+
+   Stationstypen:
+   • "konzept" : SVG-Illustration + antippbare Hotspots (optional Umschalter)
+   • "paar"    : Bestäuber-Hero + durchblätterbare Blüten-Galerie (warum passt?)
+   • "quiz"    : Abschluss-Quiz – Blüte zeigen, passenden Bestäuber wählen
+=========================================================================== */
+const FOTO = "../images/fotos/";
+const BLUETE = "../images/blueten/";
+
+/* ---------- SVG-Illustrationen (Konzept-Stationen) ---------- */
+function svgSchluessel(){
+  return '<svg viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Blüte mit tiefem Nektar">'+
+    '<path d="M118,150 C114,200 120,236 121,266" stroke="#3E9A5E" stroke-width="9" fill="none" stroke-linecap="round"/>'+
+    '<path d="M119,212 C150,196 178,206 184,228 C152,238 128,230 119,224 Z" fill="#57A457"/>'+
+    '<path d="M62,46 C62,22 178,22 178,46 L150,150 C150,176 90,176 90,150 Z" fill="#8E6BB0"/>'+
+    '<path d="M62,46 C90,30 150,30 178,46 L168,60 C140,48 100,48 72,60 Z" fill="#a487c4"/>'+
+    '<ellipse cx="120" cy="46" rx="58" ry="15" fill="#5f4288"/>'+
+    '<ellipse cx="120" cy="46" rx="40" ry="9" fill="#3f2c5e"/>'+
+    '<path d="M104,150 q16,16 32,0" stroke="#caa94e" stroke-width="3" fill="none"/>'+
+    '<circle cx="120" cy="150" r="10" fill="#F2C84B"/><circle cx="116" cy="146" r="3" fill="#fff" opacity=".7"/>'+
+    '</svg>';
+}
+function svgBlume(uv){
+  var petal=uv?'#6a4a99':'#ffffff', stroke=uv?'#4f3680':'#ded7c4';
+  var p="";
+  for(var a=0;a<360;a+=30){
+    p+='<g transform="rotate('+a+' 120 120)"><ellipse cx="120" cy="58" rx="14" ry="40" fill="'+petal+'" stroke="'+stroke+'" stroke-width="1.5"/></g>';
+  }
+  var mitte = uv
+    ? '<circle cx="120" cy="120" r="46" fill="#b79bd8"/><circle cx="120" cy="120" r="30" fill="#3f2c5e"/>'
+    : '<circle cx="120" cy="120" r="34" fill="#F2C84B"/><circle cx="120" cy="120" r="20" fill="#e0ad2e"/>';
+  return '<svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Blüte">'+
+    p+mitte+'</svg>';
+}
+function svgAronstab(){
+  return '<svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Aronstab im Querschnitt">'+
+    /* Hüllblatt (Spatha) */
+    '<path d="M70,40 C30,70 40,150 70,150 L70,150 C40,170 40,250 120,270 C200,250 200,170 170,150 C200,150 210,70 170,40 C150,28 90,28 70,40 Z" fill="#dfe9cf" stroke="#bcd0a0" stroke-width="2"/>'+
+    /* Innenraum Kessel */
+    '<path d="M82,158 C58,178 62,238 120,256 C178,238 182,178 158,158 C140,168 100,168 82,158 Z" fill="#eef3e2"/>'+
+    /* Kolben (Spadix) */
+    '<rect x="111" y="36" width="18" height="118" rx="9" fill="#7a4a2c"/>'+
+    '<ellipse cx="120" cy="40" rx="13" ry="9" fill="#8c5733"/>'+
+    /* Reusenhaare */
+    '<g stroke="#9a7c4e" stroke-width="2.4" stroke-linecap="round">'+
+    '<line x1="92" y1="150" x2="100" y2="166"/><line x1="106" y1="152" x2="112" y2="168"/>'+
+    '<line x1="120" y1="152" x2="124" y2="169"/><line x1="134" y1="152" x2="138" y2="168"/>'+
+    '<line x1="148" y1="150" x2="140" y2="166"/></g>'+
+    /* Blüten unten */
+    '<circle cx="111" cy="150" r="4" fill="#caa94e"/><circle cx="129" cy="150" r="4" fill="#caa94e"/>'+
+    '<circle cx="120" cy="146" r="4" fill="#caa94e"/>'+
+    /* Mücke im Kessel */
+    '<g transform="translate(120 222)"><ellipse cx="0" cy="0" rx="9" ry="4" fill="#33424f"/>'+
+    '<ellipse cx="-9" cy="-2" rx="7" ry="3" fill="#7d8893" opacity=".7"/>'+
+    '<ellipse cx="9" cy="-2" rx="7" ry="3" fill="#7d8893" opacity=".7"/></g>'+
+    '</svg>';
+}
+
+/* ---------- Stationen ---------- */
+const SCHRITTE = [
+  /* 0 */ {
+    chip:"Prinzip", titel:"Schlüssel & Schloss",
+    text:"Eine Blüte und ihr Bestäuber passen zusammen wie Schlüssel und Schloss. Form, Farbe, Duft und die Tiefe des Nektars verraten, wer eine Blüte bestäubt. Forscher nennen diese eingespielten Paare <b>Bestäubungssyndrome</b> – kein Zufall, sondern das Ergebnis von Jahrmillionen gemeinsamer Entwicklung.",
+    hint:"Tippe die Punkte in der Blüte an.",
+    typ:"konzept", bild:"prinzip-blume.jpg",
+    hotspots:[
+      {x:30,y:60,n:1,titel:"Der Nektar",text:"Die Belohnung sitzt tief im Sporn der Blüte. Wie tief der Nektar liegt, entscheidet, wer ihn erreicht – hier kommt nur der lange Rüssel des Taubenschwänzchens heran."},
+      {x:45,y:46,n:2,titel:"Die Blütenröhre",text:"Die Form ist das Schloss. Eine enge, tiefe Röhre sperrt die meisten Besucher aus – nur der passende „Schlüssel“ kommt durch."},
+      {x:28,y:27,n:3,titel:"Farbe & Duft",text:"Die Werbung. Farbe und Duft locken genau die Bestäuber an, die zur Blüte passen – Bienen eher Blau, Falter eher Rot, Nachtfalter folgen dem Duft."}
+    ]
+  },
+  /* 1 */ {
+    chip:"Bienen", titel:"Hummeln & Bienen",
+    text:"Kräftig, lernfähig, langzüngig: Hummeln und Bienen erreichen tief verborgenen Nektar in Lippen- und Schmetterlingsblüten.",
+    typ:"paar",
+    best:{src:"ackerhummel.jpg", name:"Hummeln & Wildbienen", kurz:"Hummeln & Bienen"},
+    blueten:[
+      {src:"biene-rhododendron.jpg", name:"Wildbiene am Rhododendron", lat:"",
+       warum:"Live erwischt: Die Wildbiene taucht kopfüber in die Blüte und sammelt Pollen – genau dafür ist sie gebaut."},
+      {src:"vespa-vulgaris.jpg", name:"Wespe am Sommerflieder", lat:"",
+       warum:"Wespen sind enge Verwandte der Bienen und naschen ebenfalls Nektar – dabei tragen sie Pollen von Blüte zu Blüte."},
+      {src:"hummel.jpg", name:"Hummel an der Wicke", lat:"",
+       warum:"Die kräftige Hummel drückt die Schmetterlingsblüte der Wicke auf und erreicht mit langer Zunge den Nektar."},
+      {src:"hummel-beinwell.jpg", name:"Hummel am Beinwell", lat:"",
+       warum:"Live erwischt: Nur die langzüngige Hummel erreicht den tief sitzenden Nektar der hängenden Beinwell-Glocken."}
+    ]
+  },
+  /* 2 */ {
+    chip:"Tagfalter", titel:"Tagfalter",
+    text:"Mit ihrem langen Rüssel saugen Tagfalter Nektar aus tiefen Röhren – brauchen dabei aber eine Sitzfläche.",
+    typ:"paar",
+    best:{src:"admiral.jpg", name:"Tagfalter", kurz:"Tagfalter"},
+    blueten:[
+      {src:"zitronenfalter-dost.jpg", name:"Zitronenfalter am Dost", lat:"",
+       warum:"Der lange Rüssel reicht tief in die winzigen Röhrenblüten des Wilden Dosts – ein Lieblingsplatz vieler Falter."},
+      {src:"falter-sommerflieder.jpg", name:"Falter am Sommerflieder", lat:"",
+       warum:"Nicht umsonst „Schmetterlingsstrauch“: Die duftenden Rispen sind ein Magnet für Tagfalter."},
+      {src:"kaisermantel-dost.jpg", name:"Kaisermantel am Dost", lat:"",
+       warum:"Auch der große Kaisermantel sitzt zum Saugen – Dost-Polster bieten Nektar und sichere Landefläche."},
+      {src:"aurorafalter-fruehling.jpg", name:"Aurorafalter im Frühling", lat:"",
+       warum:"Früh im Jahr zählt jede Nektarquelle – der Aurorafalter nutzt die ersten violetten Blüten."},
+      {src:"braundickkopffalter.jpg", name:"Braun-Dickkopffalter", lat:"",
+       warum:"Live: mit dem Rüssel tief in der Witwenblume (Knautia) – Tagfalter brauchen Sitzfläche und tiefe Röhrchen."}
+    ]
+  },
+  /* 3 */ {
+    chip:"Nachtfalter", titel:"Nachtfalter & Schwärmer",
+    text:"In der Dämmerung steuern Nachtfalter und Schwärmer weiße, stark duftende Blüten an – oft schwebend, statt zu landen.",
+    typ:"paar",
+    best:{src:"mittlerer-weinschwaermer.jpg", name:"Schwärmer & Nachtfalter", kurz:"Nachtfalter"},
+    blueten:[
+      {src:"lonicera-periclymenum.jpg", name:"Wald-Geißblatt", lat:"Lonicera periclymenum",
+       warum:"Öffnet sich abends, duftet süß und trägt sehr lange Röhren – wie gemacht für schwebende Nachtschwärmer."},
+      {src:"silene-latifolia.jpg", name:"Weiße Lichtnelke", lat:"Silene latifolia",
+       warum:"Bleibt tagsüber fast geschlossen und leuchtet erst in der Dämmerung weiß auf, wenn auch der Duft kommt."},
+      {src:"saponaria-officinalis.jpg", name:"Echtes Seifenkraut", lat:"Saponaria officinalis",
+       warum:"Blasse Blüten, die abends stark duften – die Nektartiefe passt genau zum langen Rüssel der Nachtfalter."}
+    ]
+  },
+  /* 4 */ {
+    chip:"Fliegen", titel:"Schwebfliegen & Fliegen",
+    text:"Kurzer Rüssel, wenig Flugkunst: Fliegen und Schwebfliegen brauchen offenen Nektar auf flachen Dolden und Körbchen.",
+    typ:"paar",
+    best:{src:"mistbiene.jpg", name:"Schwebfliegen & Fliegen", kurz:"Fliegen"},
+    blueten:[
+      {src:"keilfleckschwebfliege.jpg", name:"Schwebfliege auf Dolde", lat:"",
+       warum:"Live: Eine Schwebfliege betupft die offene Dolde – mit kurzem Rüssel kommt sie an den frei liegenden Nektar."},
+      {src:"raupenfliege.jpg", name:"Raupenfliege auf Goldrute", lat:"",
+       warum:"Live: Auch echte Fliegen bestäuben – die vielen winzigen Blüten der Goldrute bieten Nektar auf bequemer Höhe."},
+      {src:"heracleum-sphondylium.jpg", name:"Wiesen-Bärenklau", lat:"Heracleum sphondylium",
+       warum:"Eine große, flache Dolde mit offenem Nektar – bequem erreichbar für den kurzen Rüssel von Fliegen und Schwebfliegen."}
+    ]
+  },
+  /* 5 */ {
+    chip:"Käfer", titel:"Käfer",
+    text:"Die ältesten Bestäuber: Käfer fressen Pollen auf robusten, weit offenen Blüten – plump, aber wirksam.",
+    typ:"paar",
+    best:{src:"fleckenhoerniger-halsbock.jpg", name:"Blütenkäfer", kurz:"Käfer"},
+    blueten:[
+      {src:"rosenkaefer-dolde.jpg", name:"Rosenkäfer auf Doldenblüte", lat:"",
+       warum:"Live erwischt: Der goldglänzende Rosenkäfer frisst Pollen auf einer offenen Dolde – plump, aber wirksam."},
+      {src:"bockkaefer-dolde.jpg", name:"Bockkäfer auf Doldenblüte", lat:"",
+       warum:"Live: Ein Bockkäfer weidet Pollen auf einer offenen Dolde – robuste Schalen tragen auch plumpe Besucher."}
+    ]
+  },
+  /* 6 */ {
+    chip:"UV-Blick", kat:"extra", titel:"Bienen sehen anders",
+    text:"Bienen nehmen die Welt anders wahr als wir: Sie sehen ultraviolettes Licht, dafür kein Rot. Viele Blüten tragen UV-Muster, die für uns unsichtbar sind – „Saftmale“, die wie Landebahnen direkt zum Nektar führen.",
+    typ:"konzept", uv:true,
+    bild:"uv-ohne.jpg", bildUV:"uv-mit.jpg",
+    umschalter:["So sehen wir","So sieht die Biene"],
+    hotspots:[
+      {x:50,y:50,n:1,titel:"Das Saftmal",text:"Im UV-Licht erscheint die Blütenmitte als dunkles Ziel mit hellem Ring – eine Markierung, die die Biene direkt zum Nektar lotst. Für unser Auge ist sie unsichtbar."}
+    ]
+  },
+  /* 7 */ {
+    chip:"Trickfalle", kat:"extra", titel:"Die Aronstab-Falle",
+    text:"Nicht jede Blüte spielt fair. Der Aronstab lockt mit Aas-Geruch und Wärme – und fängt seine Bestäuber in einer Kesselfalle. Über Nacht zappeln kleine Mücken in der Kammer, bestäuben dabei die Blüten und werden am Morgen mit frischem Pollen wieder freigelassen.",
+    hint:"Tippe die Punkte an.",
+    typ:"konzept", bild:"aronstab.jpg",
+    hotspots:[
+      {x:53,y:24,n:1,titel:"Der Kolben",text:"Er heizt sich auf und verströmt einen Aas- oder Kot-Geruch. Das lockt Aasmücken an, die hier eigentlich ihre Eier ablegen wollen."},
+      {x:66,y:42,n:2,titel:"Die Gleitzone",text:"Die Wände sind glatt wie eine Rutsche – die Mücken verlieren den Halt und fallen hinunter in die Kammer."},
+      {x:42,y:57,n:3,titel:"Die Blüten & Reusenhaare",text:"Im Kessel sitzen die kleinen Blüten, darüber steife Haare wie eine Reuse. Hinein geht es leicht, hinaus zunächst nicht."},
+      {x:52,y:74,n:4,titel:"Der Kesselraum",text:"Hier krabbeln die gefangenen Mücken umher und bestäuben die Blüten. Am nächsten Tag welken die Haare – der Weg nach draußen ist frei."}
+    ]
+  },
+  /* 8 */ {
+    chip:"Quiz", kat:"quiz", titel:"Wer passt zusammen?",
+    text:"Geschafft! Zum Abschluss der Test: Errätst du, wer welche Blüte bestäubt?",
+    typ:"quiz"
+  }
+];
+
+/* ---------- Quiz-Daten ---------- */
+const TYPEN = {
+  bienen:"Hummeln & Bienen", tagfalter:"Tagfalter", nacht:"Nachtfalter & Schwärmer",
+  fliegen:"Schwebfliegen & Fliegen", kaefer:"Käfer"
+};
+const QUIZPOOL = [
+  {f:"salvia-pratensis.jpg",   name:"Wiesensalbei",    typ:"bienen"},
+  {f:"symphytum-officinale.jpg",name:"Beinwell",       typ:"bienen"},
+  {f:"eupatorium-cannabinum.jpg",name:"Wasserdost",    typ:"tagfalter"},
+  {f:"dianthus-deltoides.jpg", name:"Heide-Nelke",     typ:"tagfalter"},
+  {f:"lonicera-periclymenum.jpg",name:"Wald-Geißblatt",typ:"nacht"},
+  {f:"silene-latifolia.jpg",   name:"Weiße Lichtnelke",typ:"nacht"},
+  {f:"daucus-carota.jpg",      name:"Wilde Möhre",     typ:"fliegen"},
+  {f:"aegopodium-podagraria.jpg",name:"Giersch",       typ:"fliegen"},
+  {f:"rosa-canina.jpg",        name:"Hundsrose",       typ:"kaefer"}
+];
+
+/* ---------- Bausteine ---------- */
+function misch(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function fotoBild(src, basis, label, glyph, klasse){
+  return '<div class="bild '+(klasse||'')+'">'+
+    '<div class="ph"><span class="gl">'+(glyph||"🖼️")+'</span>'+
+      '<span class="l">'+label+'</span><span class="f">'+basis.replace("../","")+src+'</span></div>'+
+    '<img src="'+basis+src+'" alt="'+label+'" onerror="this.classList.add(\'weg\')">'+
+  '</div>';
+}
+
+const elB=document.getElementById("buehne");
+const elE=document.getElementById("erklaer");
+const elNav=document.getElementById("nav");
+const elChips=document.getElementById("chips");
+const elZaehler=document.getElementById("zaehler");
+let i=0, gal=0;
+const reduce=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+function chips(){
+  elChips.innerHTML="";
+  SCHRITTE.forEach((s,k)=>{
+    const c=document.createElement("button");
+    c.className="chip"+(s.kat?" "+s.kat:"")+(k===i?" aktiv":"")+(k<i?" fertig":"");
+    c.innerHTML='<span class="nr">'+(k+1)+'</span>'+s.chip;
+    c.addEventListener("click",()=>geheZu(k));
+    elChips.appendChild(c);
+  });
+  elZaehler.textContent="Station "+(i+1)+" / "+SCHRITTE.length;
+}
+
+function render(){
+  const s=SCHRITTE[i];
+  elNav.style.display="flex";
+  if(s.typ==="paar") renderPaar(s);
+  else if(s.typ==="quiz") renderQuiz(s);
+  else renderKonzept(s);
+  document.getElementById("zurueckBtn").disabled=(i===0);
+  const wb=document.getElementById("weiterBtn");
+  wb.textContent=(i===SCHRITTE.length-1)?"↺ Von vorn":"Nächste Station ›";
+  chips(); melde();
+}
+
+/* --- Konzept: SVG ODER Foto + Hotspots (optional Umschalter) --- */
+function renderKonzept(s){
+  elB.innerHTML='<div class="svgbox'+(s.bild?' fotobox':'')+'" id="svgbox"></div>';
+  const box=document.getElementById("svgbox");
+  let uvOn=false;
+
+  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p>';
+  if(s.uv) e+='<div class="umschalter"><button id="uA" class="an">'+s.umschalter[0]+'</button>'+
+              '<button id="uB">'+s.umschalter[1]+'</button></div>';
+  if(s.hint) e+='<p class="entdeckhint">👇 '+s.hint+'</p>';
+  e+='<div class="infokarte" id="info"><p class="leer">Tippe eine Zahl im Bild an.</p></div>';
+  elE.innerHTML=e;
+  const info=document.getElementById("info");
+
+  function medium(){
+    if(s.bild) return '<img class="kbild" src="'+BLUETE+(uvOn?s.bildUV:s.bild)+'" alt="'+s.titel+'" '+
+      'onerror="this.style.opacity=.15">';
+    return uvOn?s.svgUV:s.svg;
+  }
+  function malen(){
+    box.innerHTML=medium();
+    s.hotspots.forEach(h=>{
+      const b=document.createElement("button");
+      b.className="hotspot"; b.dataset.n=h.n; b.textContent=h.n;
+      b.style.cssText="position:absolute;left:"+h.x+"%;top:"+h.y+"%;";
+      b.addEventListener("click",()=>{
+        box.querySelectorAll(".hotspot").forEach(x=>x.classList.remove("aktiv"));
+        b.classList.add("aktiv");
+        const hh=s.hotspots.find(z=>z.n==b.dataset.n);
+        info.innerHTML='<p class="it">Punkt '+hh.n+'</p><h3>'+hh.titel+'</h3><p>'+hh.text+'</p>';
+        info.scrollIntoView({block:"nearest",behavior:reduce?"auto":"smooth"});
+        melde();
+      });
+      box.appendChild(b);
+    });
+  }
+  malen();
+
+  if(s.uv){
+    const uA=document.getElementById("uA"), uB=document.getElementById("uB");
+    uA.addEventListener("click",()=>{ uvOn=false; uA.classList.add("an"); uB.classList.remove("an"); malen(); melde(); });
+    uB.addEventListener("click",()=>{ uvOn=true; uB.classList.add("an"); uA.classList.remove("an"); malen(); melde(); });
+  }
+}
+
+/* --- Paar: Bestäuber + Blüten-Galerie --- */
+function renderPaar(s){
+  gal=0;
+  let html='<div class="paar"><div class="bluetenbox">'+
+    '<span class="best-inset"><img src="'+FOTO+s.best.src+'" alt="'+s.best.name+'" '+
+      'onerror="this.style.visibility=\'hidden\'"><span>'+s.best.kurz+'</span></span>';
+  s.blueten.forEach((b,k)=>{
+    html+='<figure class="bl '+(k===0?"an":"")+'" style="margin:0;">'+
+      '<img src="'+BLUETE+b.src+'" alt="'+b.name+'" onerror="this.classList.add(\'weg\')">'+
+      '<figcaption class="blcap"><span class="bn">'+b.name+'</span>'+
+        (b.lat?'<span class="bla">'+b.lat+'</span>':'')+'</figcaption>'+
+    '</figure>';
+  });
+  html+='</div>'+
+    '<div class="galsteu">'+
+      '<button class="stepbtn" id="gp" aria-label="Vorige Blüte">‹</button>'+
+      '<div class="punkte" id="gpunkte"></div>'+
+      '<button class="stepbtn" id="gn" aria-label="Nächste Blüte">›</button>'+
+    '</div></div>';
+  elB.innerHTML=html;
+
+  let e='<p>'+s.text+'</p><div class="infokarte" id="info"></div>';
+  elE.innerHTML=e;
+
+  const pkt=document.getElementById("gpunkte");
+  pkt.innerHTML=s.blueten.map((b,k)=>'<span'+(k===0?' class="an"':'')+'></span>').join("");
+  const max=s.blueten.length-1;
+  const setze=(v)=>{
+    gal=Math.max(0,Math.min(max,v));
+    elB.querySelectorAll(".bl").forEach((b,k)=>b.classList.toggle("an",k===gal));
+    pkt.querySelectorAll("span").forEach((p,k)=>p.classList.toggle("an",k===gal));
+    document.getElementById("info").innerHTML=
+      '<p class="it">'+s.blueten[gal].name+'</p><p>'+s.blueten[gal].warum+'</p>';
+    document.getElementById("gp").disabled=(gal===0);
+    document.getElementById("gn").disabled=(gal===max);
+    melde();
+  };
+  document.getElementById("gp").addEventListener("click",()=>setze(gal-1));
+  document.getElementById("gn").addEventListener("click",()=>setze(gal+1));
+  setze(0);
+}
+
+/* --- Quiz --- */
+function renderQuiz(s){
+  const fragen=misch(QUIZPOOL).slice(0,6);
+  let q=0, score=0, sperre=false;
+  elB.innerHTML="";
+  elNav.style.display="none";
+
+  function zeigeFrage(){
+    sperre=false;
+    const f=fragen[q];
+    const opts=misch(Object.keys(TYPEN));
+    let html='<div class="quizkopf"><span>Frage <b>'+(q+1)+'</b> / '+fragen.length+'</span>'+
+      '<span>· Richtig: <b>'+score+'</b></span></div>'+
+      '<div class="qbalken"><div style="width:'+(q/fragen.length*100)+'%"></div></div>'+
+      '<div class="bluetenbox" style="width:min(70%,240px);margin:0 auto 14px;">'+
+        fotoBild(f.f, BLUETE, f.name, "🌸", "an").replace('class="bild an"','class="bl an" style="position:relative;height:100%;"')+
+      '</div>'+
+      '<h2 class="qfrage">Wer bestäubt die <b>'+f.name+'</b>?</h2>'+
+      '<div class="qopt" id="qopt"></div>';
+    elE.innerHTML=html;
+    const wrap=document.getElementById("qopt");
+    opts.forEach(key=>{
+      const b=document.createElement("button");
+      b.textContent=TYPEN[key];
+      b.addEventListener("click",()=>{
+        if(sperre) return; sperre=true;
+        const richtig=(key===f.typ);
+        if(richtig){ b.classList.add("richtig"); score++; }
+        else{
+          b.classList.add("falsch");
+          Array.from(wrap.children).forEach(x=>{ if(x.textContent===TYPEN[f.typ]) x.classList.add("richtig"); });
+        }
+        Array.from(wrap.children).forEach(x=>x.disabled=true);
+        melde();
+        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?900:1600);
+      });
+      wrap.appendChild(b);
+    });
+    melde();
+  }
+  function ende(){
+    // Ergebnis an den Forscherpass melden (3/2/1 Blätter)
+    const blaetter = score===fragen.length ? 3 : score>=Math.ceil(fragen.length*0.6) ? 2 : 1;
+    try{ const _K="mibaso.fauna.expedition"; const _d=JSON.parse(localStorage.getItem(_K)||"{}");
+      if(!_d.bestaeubung || blaetter>_d.bestaeubung.blaetter){ _d.bestaeubung={blaetter:blaetter,done:true,ts:Date.now()}; localStorage.setItem(_K,JSON.stringify(_d)); } }catch(e){}
+    const perfekt=["Volltreffer! Du bist ein wahrer Bestäubungs-Profi. 🐝","Alles richtig – die Blüten hätten dich gern als Stammgast!"];
+    const gut=["Stark! Du hast den Dreh raus.","Gut gemacht – Schlüssel passt fast immer ins Schloss."];
+    const ok=["Schau ruhig nochmal durch die Stationen – dann sitzt es.","Ein guter Anfang! Noch eine Runde?"];
+    let spruch = score===fragen.length ? perfekt[Math.floor(Math.random()*perfekt.length)]
+      : score>=Math.ceil(fragen.length*0.6) ? gut[Math.floor(Math.random()*gut.length)]
+      : ok[Math.floor(Math.random()*ok.length)];
+    elE.innerHTML='<div class="qende"><p class="it" style="font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a96a1;">Ergebnis</p>'+
+      '<p class="gross">'+score+'<small> / '+fragen.length+'</small></p>'+
+      '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
+      '<p class="spruch">'+spruch+'</p>'+
+      '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">'+
+        '<button class="knopf prim" id="nochmal" style="margin:0;">Nochmal</button>'+
+        '<a class="knopf" href="wiesenpass.html">🍃 Forscherpass</a>'+
+      '</div></div>';
+    document.getElementById("nochmal").addEventListener("click",()=>renderQuiz(s));
+    if(score===fragen.length){ konfetti(); fanfare(); }
+    melde();
+  }
+  zeigeFrage();
+}
+
+/* Konfetti + Fanfare (bei fehlerfreiem Quiz) */
+function konfetti(){
+  if(reduce) return;
+  const feld=document.createElement("div"); feld.className="konffeld";
+  const farben=['#C28A3A','#233D5C','#3E9A5E','#e8a020','#9b59b6','#e74c3c'];
+  for(let n=0;n<70;n++){
+    const k=document.createElement("span"); k.className="konf";
+    k.style.cssText='left:'+Math.random()*100+'%;background:'+farben[(Math.random()*farben.length)|0]+
+      ';animation-delay:'+(Math.random()*0.5).toFixed(2)+'s;transform:rotate('+(Math.random()*360)+'deg);';
+    feld.appendChild(k);
+  }
+  document.body.appendChild(feld); setTimeout(()=>feld.remove(),4200);
+}
+function fanfare(){
+  try{
+    const Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx) return;
+    const ctx=new Ctx(); if(ctx.state==="suspended") ctx.resume();
+    const t0=ctx.currentTime+0.05;
+    [[523.25,0,0.16,0.2],[659.25,0.15,0.16,0.2],[783.99,0.30,0.16,0.2],[1046.5,0.46,0.6,0.22]]
+    .forEach(([fr,st,du,vo])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type="triangle";o.frequency.value=fr;
+      g.gain.setValueAtTime(0,t0+st);g.gain.linearRampToValueAtTime(vo,t0+st+0.02);g.gain.exponentialRampToValueAtTime(0.001,t0+st+du);
+      o.connect(g).connect(ctx.destination);o.start(t0+st);o.stop(t0+st+du+0.05);});
+    setTimeout(()=>ctx.close().catch(()=>{}),1600);
+  }catch(e){}
+}
+
+/* ---- Navigation ---- */
+function geheZu(k){ if(k<0||k>=SCHRITTE.length) return; i=k; render(); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
+document.getElementById("zurueckBtn").addEventListener("click",()=>geheZu(i-1));
+document.getElementById("weiterBtn").addEventListener("click",()=>{
+  if(i===SCHRITTE.length-1) geheZu(0); else geheZu(i+1);
+});
+
+/* Wischen zwischen Stationen (außer auf Knopf/Bild/Hotspot) */
+let tx=0,ty=0,tig=false;
+document.addEventListener("touchstart",e=>{
+  if(e.target.closest("input,button,a,.hotspot,.bluetenbox")){tig=false;return;}
+  tig=true; tx=e.touches[0].clientX; ty=e.touches[0].clientY;
+},{passive:true});
+document.addEventListener("touchend",e=>{
+  if(!tig) return; tig=false;
+  const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)*1.6){ geheZu(i+(dx<0?1:-1)); }
+},{passive:true});
+
+/* Höhe an iframe melden (WordPress-Einbindung) */
+function melde(){
+  if(window.parent!==window){
+    try{ window.parent.postMessage({fauna:"height", height:document.body.scrollHeight}, "*"); }catch(e){}
+  }
+}
+if("ResizeObserver" in window){ new ResizeObserver(melde).observe(document.body); }
+window.addEventListener("load", melde);
+
+render();
+</script>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

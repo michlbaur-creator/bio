@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2F4F3E">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Flora Mibaso">
+<title>Der Gas-Kreislauf — Photosynthese & Atmung · Flora Mibaso</title>
+<meta name="description" content="Animierter Kreislauf: Wie Sauerstoff und Kohlendioxid zwischen Photosynthese und Atmung wandern — bei Tag und bei Nacht.">
+<style>
+  :root{
+    --gruen:#2F4F3E;
+    --gruen-hell:#4A6B58;
+    --honig:#a8772a;
+    --o2:#3f86c4;
+    --co2:#7d8590;
+    --rand:#cdd9d0;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    font-family:'Iowan Old Style','Palatino Linotype',Palatino,'Noto Serif',Georgia,serif;
+    background:var(--beige-hell, #f8f3e7);
+    color:#2c2c2c;
+    padding:10px;
+  }
+  #ek-app{ max-width:720px; margin:0 auto; }
+
+  .ek-kopf{ text-align:center; margin:4px 0 10px; }
+  .ek-kopf h1{ font-size:1.2rem; color:var(--gruen); font-weight:600; }
+  .ek-kopf p{ font-size:.9rem; color:#7a6d5c; font-style:italic; margin-top:2px; }
+
+  .ek-buehne{
+    background:#fff;
+    border:1px solid var(--rand);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 2px 12px rgba(47,79,62,.08);
+  }
+  .ek-svg-wrap{ position:relative; }
+  svg.ek-svg{ display:block; width:100%; height:auto; }
+
+  /* Tag/Nacht-Umschalter */
+  .ek-schalter{
+    display:flex;
+    justify-content:center;
+    gap:0;
+    margin:12px 0 2px;
+  }
+  .ek-schalter button{
+    font-family:inherit;
+    font-size:.95rem;
+    padding:9px 22px;
+    border:1.5px solid var(--gruen);
+    background:#fff;
+    color:var(--gruen);
+    cursor:pointer;
+    transition:background .15s, color .15s;
+  }
+  .ek-schalter button:first-child{ border-radius:999px 0 0 999px; border-right:none; }
+  .ek-schalter button:last-child{ border-radius:0 999px 999px 0; }
+  .ek-schalter button.aktiv{ background:var(--gruen); color:#fff; }
+
+  /* Erklärungsfeld */
+  .ek-text{
+    padding:14px 20px 18px;
+    border-top:1px solid var(--rand);
+    margin-top:12px;
+  }
+  .ek-text h2{
+    font-size:1.05rem;
+    color:var(--gruen);
+    margin:0 0 6px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .ek-text p{ font-size:.97rem; line-height:1.55; color:#3a3a3a; }
+  .ek-text .formel{
+    margin-top:10px;
+    font-size:.9rem;
+    color:#5a5045;
+    background:#f4efe4;
+    border-radius:8px;
+    padding:8px 12px;
+    font-family:'Iowan Old Style',Georgia,serif;
+  }
+  .ek-text.wechsel{ animation:ek-ein .4s ease; }
+  @keyframes ek-ein{ from{opacity:0; transform:translateY(5px);} to{opacity:1; transform:none;} }
+
+  footer{ text-align:center; font-size:.82rem; color:#9a8d7c; padding:16px 10px 24px; }
+  footer a{ color:inherit; }
+
+  /* Molekül-Beschriftung */
+  .mol-label{ font:600 13px Georgia, serif; }
+
+  /* Tag/Nacht-Zustände */
+  .ek-svg .nacht-only{ opacity:0; transition:opacity .6s; }
+  .ek-svg .tag-only{ opacity:1; transition:opacity .6s; }
+  .ek-svg.ist-nacht .nacht-only{ opacity:1; }
+  .ek-svg.ist-nacht .tag-only{ opacity:0; }
+
+  /* Photosynthese-Gruppe ruht nachts — sichtbar gedämpft, aber lesbar */
+  .ek-svg .photo-fluss{ transition:opacity .6s; }
+  .ek-svg.ist-nacht .photo-fluss{ opacity:.4; }
+
+  /* Himmel */
+  .himmel-tag{ transition:opacity .6s; }
+  .himmel-nacht{ opacity:0; transition:opacity .6s; }
+  .ek-svg.ist-nacht .himmel-tag{ opacity:0; }
+  .ek-svg.ist-nacht .himmel-nacht{ opacity:1; }
+
+  @media (prefers-reduced-motion: reduce){
+    .ek-svg animateMotion{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="ek-app">
+
+  <div class="ek-kopf">
+    <h1>🔄 Der Stoff-Kreislauf</h1>
+    <p>Wasser, Zucker, Sauerstoff und Kohlendioxid wandern im Kreis — Teamwork der Natur.</p>
+  </div>
+
+  <div class="ek-buehne">
+    <div class="ek-svg-wrap">
+      <svg class="ek-svg ist-tag" viewBox="0 0 720 430" xmlns="http://www.w3.org/2000/svg" role="img"
+           aria-label="Kreislauf von Wasser, Zucker, Sauerstoff und Kohlendioxid zwischen Photosynthese und Atmung">
+
+        <!-- Himmel -->
+        <defs>
+          <linearGradient id="himmelTag" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#cfe8f7"/>
+            <stop offset="1" stop-color="#eaf6ec"/>
+          </linearGradient>
+          <linearGradient id="himmelNacht" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#3a4f73"/>
+            <stop offset="1" stop-color="#52668a"/>
+          </linearGradient>
+        </defs>
+        <rect class="himmel-tag"   x="0" y="0" width="720" height="430" fill="url(#himmelTag)"/>
+        <rect class="himmel-nacht" x="0" y="0" width="720" height="430" fill="url(#himmelNacht)"/>
+
+        <!-- Sonne (Tag) -->
+        <g class="tag-only">
+          <circle cx="360" cy="60" r="26" fill="#f6c244"/>
+          <g stroke="#f6c244" stroke-width="3" stroke-linecap="round">
+            <line x1="360" y1="16" x2="360" y2="2"/>
+            <line x1="360" y1="118" x2="360" y2="104"/>
+            <line x1="316" y1="60" x2="302" y2="60"/>
+            <line x1="418" y1="60" x2="404" y2="60"/>
+            <line x1="329" y1="29" x2="319" y2="19"/>
+            <line x1="401" y1="101" x2="391" y2="91"/>
+            <line x1="391" y1="29" x2="401" y2="19"/>
+            <line x1="319" y1="101" x2="329" y2="91"/>
+          </g>
+        </g>
+        <!-- Mond + Sterne (Nacht) -->
+        <g class="nacht-only">
+          <path d="M372 44 a24 24 0 1 0 8 42 a19 19 0 0 1 -8 -42 z" fill="#e8edf2"/>
+          <g fill="#f4f7fb">
+            <circle cx="180" cy="48" r="1.8"/><circle cx="250" cy="86" r="1.4"/>
+            <circle cx="480" cy="40" r="1.8"/><circle cx="560" cy="78" r="1.5"/>
+            <circle cx="610" cy="40" r="1.3"/><circle cx="135" cy="96" r="1.4"/>
+          </g>
+        </g>
+
+        <!-- Boden -->
+        <rect x="0" y="392" width="720" height="38" fill="#7a5638"/>
+        <rect x="0" y="392" width="720" height="8" fill="#8a6342"/>
+
+        <!-- ================= O₂-Bogen (Photosynthese gibt ab) ================= -->
+        <!-- Pfad von der Pflanze (links) hinauf und zur Zelle (rechts) -->
+        <path id="o2pfad" class="photo-fluss" d="M205,250 C260,120 460,120 515,250"
+              fill="none" stroke="#9ccb8e" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>
+        <g class="photo-fluss">
+          <polygon points="515,250 508,236 522,236" fill="#5a9a4a"/>
+          <rect x="296" y="103" width="128" height="25" rx="12.5" fill="#ffffff" stroke="#5a9a4a" stroke-width="1.5"/>
+          <text x="360" y="120" text-anchor="middle" class="mol-label" fill="#2f6b32">O₂ + Zucker →</text>
+        </g>
+
+        <!-- ================= CO₂-Bogen (Atmung gibt ab) ================= -->
+        <path id="co2pfad" d="M515,300 C460,408 260,408 205,300"
+              fill="none" stroke="#b9bec5" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>
+        <g>
+          <polygon points="205,300 212,314 198,314" fill="#6b7079"/>
+          <rect x="268" y="355" width="184" height="25" rx="12.5" fill="#ffffff" stroke="#9aa0a8" stroke-width="1.5"/>
+          <text x="360" y="372" text-anchor="middle" class="mol-label" fill="#4a5159">← CO₂ – Kohlendioxid</text>
+        </g>
+
+        <!-- ================= Linker Knoten: Pflanze / Photosynthese ================= -->
+        <g>
+          <circle cx="150" cy="275" r="74" fill="#ffffff" stroke="#5a9a4a" stroke-width="2.5"/>
+          <!-- kleine Pflanze -->
+          <path d="M150 322 V250" stroke="#4a7a3a" stroke-width="5" stroke-linecap="round"/>
+          <path d="M150 270 C124 258 116 232 120 218 C146 222 154 248 150 270 Z" fill="#6ab04c"/>
+          <path d="M150 282 C176 270 184 244 180 230 C154 234 146 260 150 282 Z" fill="#5a9a4a"/>
+          <ellipse cx="150" cy="332" rx="40" ry="7" fill="#6ab04c" opacity=".4"/>
+          <rect x="83" y="353" width="134" height="26" rx="13" fill="#ffffff" stroke="#5a9a4a" stroke-width="1.5"/>
+          <text x="150" y="371" text-anchor="middle" fill="#2f6b32" font-weight="600" font-size="15">Photosynthese</text>
+          <!-- Status-Pille über dem Kreis: Tag läuft / Nacht ruht -->
+          <g class="tag-only">
+            <rect x="106" y="160" width="88" height="26" rx="13" fill="#ffffff" stroke="#5a9a4a" stroke-width="1.5"/>
+            <text x="150" y="178" text-anchor="middle" font-size="13" font-weight="600" fill="#2f6b32">☀️ läuft</text>
+          </g>
+          <g class="nacht-only">
+            <rect x="108" y="160" width="84" height="26" rx="13" fill="#ffffff" stroke="#8a93a0" stroke-width="1.5"/>
+            <text x="150" y="178" text-anchor="middle" font-size="13" font-weight="600" fill="#54606e">🌙 ruht</text>
+          </g>
+        </g>
+
+        <!-- nachts: Pflanze atmet auch (kleine CO₂-Wolke) -->
+        <g class="nacht-only">
+          <circle cx="92" cy="214" r="7" fill="#cdd3da" opacity=".7"/>
+          <circle cx="104" cy="205" r="5" fill="#cdd3da" opacity=".7"/>
+          <text x="74" y="232" font-size="11" font-weight="600" fill="#e3e8ee">CO₂</text>
+        </g>
+
+        <!-- ================= Rechter Knoten: Zelle / Atmung ================= -->
+        <g>
+          <circle cx="570" cy="275" r="74" fill="#ffffff" stroke="#a8772a" stroke-width="2.5"/>
+          <!-- Mitochondrium -->
+          <ellipse cx="570" cy="266" rx="44" ry="27" fill="#e7b25a" stroke="#a8772a" stroke-width="2"/>
+          <path d="M534 266 q12 -14 24 0 q12 14 24 0" fill="none" stroke="#9a6a22" stroke-width="3" stroke-linecap="round"/>
+          <path d="M540 256 q10 12 22 0 q10 -12 22 0" fill="none" stroke="#9a6a22" stroke-width="2.2" stroke-linecap="round" opacity=".7"/>
+          <rect x="514" y="353" width="112" height="26" rx="13" fill="#ffffff" stroke="#a8772a" stroke-width="1.5"/>
+          <text x="570" y="371" text-anchor="middle" fill="#8a5a16" font-weight="600" font-size="15">Zellatmung</text>
+          <g>
+            <rect x="486" y="160" width="168" height="26" rx="13" fill="#ffffff" stroke="#a8772a" stroke-width="1.5"/>
+            <text x="570" y="178" text-anchor="middle" font-size="13" font-weight="600" fill="#8a5a16">🔋 läuft Tag &amp; Nacht</text>
+          </g>
+        </g>
+
+        <!-- ================= Wandernde Moleküle ================= -->
+        <!-- Oberer Bogen Pflanze → Zelle: O₂ (blau) + Zucker (grüne Sechsecke) -->
+        <g class="photo-fluss">
+          <!-- O₂-Kreise -->
+          <g fill="#3f86c4">
+            <circle r="9"><animateMotion dur="4s" repeatCount="indefinite" path="M205,250 C260,120 460,120 515,250"/></circle>
+            <circle r="9"><animateMotion dur="4s" begin="2s" repeatCount="indefinite" path="M205,250 C260,120 460,120 515,250"/></circle>
+          </g>
+          <g fill="#fff" font-size="9" font-weight="700" text-anchor="middle" pointer-events="none">
+            <text dy="3"><animateMotion dur="4s" repeatCount="indefinite" path="M205,250 C260,120 460,120 515,250"/>O₂</text>
+            <text dy="3"><animateMotion dur="4s" begin="2s" repeatCount="indefinite" path="M205,250 C260,120 460,120 515,250"/>O₂</text>
+          </g>
+          <!-- Zucker-Sechsecke (Glukose) -->
+          <g fill="#84bf5c" stroke="#4f7d2c" stroke-width="1.2">
+            <polygon points="9,0 4.5,7.8 -4.5,7.8 -9,0 -4.5,-7.8 4.5,-7.8"><animateMotion dur="4s" begin="1s" repeatCount="indefinite" path="M205,250 C260,120 460,120 515,250"/></polygon>
+            <polygon points="9,0 4.5,7.8 -4.5,7.8 -9,0 -4.5,-7.8 4.5,-7.8"><animateMotion dur="4s" begin="3s" repeatCount="indefinite" path="M205,250 C260,120 460,120 515,250"/></polygon>
+          </g>
+        </g>
+
+        <!-- CO₂ (grau) Zelle → Pflanze, entlang des unteren Bogens -->
+        <g fill="#7d8590">
+          <circle r="9"><animateMotion dur="4.4s" repeatCount="indefinite" path="M515,300 C460,408 260,408 205,300"/></circle>
+          <circle r="9"><animateMotion dur="4.4s" begin="1.5s" repeatCount="indefinite" path="M515,300 C460,408 260,408 205,300"/></circle>
+          <circle r="9"><animateMotion dur="4.4s" begin="3s" repeatCount="indefinite" path="M515,300 C460,408 260,408 205,300"/></circle>
+        </g>
+        <g fill="#fff" font-size="8" font-weight="700" text-anchor="middle" pointer-events="none">
+          <text dy="2.5"><animateMotion dur="4.4s" repeatCount="indefinite" path="M515,300 C460,408 260,408 205,300"/>CO₂</text>
+          <text dy="2.5"><animateMotion dur="4.4s" begin="1.5s" repeatCount="indefinite" path="M515,300 C460,408 260,408 205,300"/>CO₂</text>
+          <text dy="2.5"><animateMotion dur="4.4s" begin="3s" repeatCount="indefinite" path="M515,300 C460,408 260,408 205,300"/>CO₂</text>
+        </g>
+
+        <!-- ================= Wasseraufnahme aus dem Boden (Photosynthese-Input) ================= -->
+        <g class="photo-fluss">
+          <!-- Aufnahme-Pfad aus dem Boden in die Pflanze -->
+          <path id="h2opfad" d="M58,408 C64,366 74,330 100,298" fill="none"
+                stroke="#7fb8e0" stroke-width="2.5" stroke-dasharray="2 7" stroke-linecap="round" opacity=".85"/>
+          <polygon points="100,298 93,310 105,309" fill="#3f86c4"/>
+          <rect x="30" y="372" width="52" height="22" rx="11" fill="#ffffff" stroke="#7fb8e0" stroke-width="1.5"/>
+          <text x="56" y="388" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2f6b9c">H₂O</text>
+          <!-- aufsteigende Wassertropfen aus dem Boden -->
+          <g fill="#4aa3e0">
+            <circle r="5.5"><animateMotion dur="3.6s" repeatCount="indefinite" path="M58,408 C64,366 74,330 100,298"/></circle>
+            <circle r="5.5"><animateMotion dur="3.6s" begin="1.8s" repeatCount="indefinite" path="M58,408 C64,366 74,330 100,298"/></circle>
+          </g>
+        </g>
+
+      </svg>
+    </div>
+
+    <div class="ek-schalter" role="group" aria-label="Tag oder Nacht wählen">
+      <button id="ek-tag" class="aktiv" type="button">☀️ Tag</button>
+      <button id="ek-nacht" type="button">🌙 Nacht</button>
+    </div>
+
+    <div class="ek-text wechsel" id="ek-text">
+      <!-- wird per JS gefüllt -->
+    </div>
+  </div>
+
+  <footer>© 2026 <a href="../ueber/">Michael Baur</a> · Flora Mibaso</footer>
+</div>
+
+<script>
+(function(){
+  const svg   = document.querySelector('.ek-svg');
+  const txt   = document.getElementById('ek-text');
+  const bTag  = document.getElementById('ek-tag');
+  const bNacht= document.getElementById('ek-nacht');
+
+  const INHALT = {
+    tag: {
+      titel: '☀️ Am Tag: Beides zugleich',
+      text: 'Im Licht betreibt die grüne Pflanze <strong>Photosynthese</strong>: Sie nimmt CO₂ aus der Luft und <strong>Wasser</strong> über die Wurzeln auf und baut daraus <strong>Zucker</strong> — den Treibstoff für die Zelle. Als Nebenprodukt gibt sie <strong>O₂</strong> ab. Gleichzeitig läuft in allen Zellen die <strong>Atmung</strong>, die genau diesen Zucker und Sauerstoff wieder verbraucht.',
+      formel: 'Photosynthese:  CO₂ + Wasser + Licht  →  Zucker + O₂'
+    },
+    nacht: {
+      titel: '🌙 In der Nacht: Nur Atmung',
+      text: 'Ohne Licht <strong>ruht die Photosynthese</strong>. Jetzt atmen Pflanzen und Tiere nur noch: Sie nehmen <strong>O₂</strong> auf und geben <strong>CO₂</strong> ab. Den Sauerstoff von heute liefern die Pflanzen — den verbrauchen nachts alle gemeinsam.',
+      formel: 'Atmung:  Zucker + O₂  →  Energie (ATP) + CO₂ + Wasser'
+    }
+  };
+
+  function zeige(modus){
+    const d = INHALT[modus];
+    svg.classList.toggle('ist-nacht', modus === 'nacht');
+    svg.classList.toggle('ist-tag',  modus === 'tag');
+    bTag.classList.toggle('aktiv',   modus === 'tag');
+    bNacht.classList.toggle('aktiv', modus === 'nacht');
+    txt.innerHTML = '<h2>' + d.titel + '</h2><p>' + d.text + '</p><div class="formel">' + d.formel + '</div>';
+    txt.classList.remove('wechsel'); void txt.offsetWidth; txt.classList.add('wechsel');
+    sendHeight();
+  }
+
+  bTag.addEventListener('click', () => zeige('tag'));
+  bNacht.addEventListener('click', () => zeige('nacht'));
+  zeige('tag');
+
+  // Einbett-Modus: Kopf + Footer ausblenden, Höhe an Eltern posten
+  const params = new URLSearchParams(location.search);
+  if (params.get('embed') === '1' || window.self !== window.top){
+    document.body.style.background = 'transparent';
+    document.querySelector('.ek-kopf').style.display = 'none';
+    document.querySelector('#ek-app footer').style.display = 'none';
+  }
+  function sendHeight(){
+    const h = document.getElementById('ek-app').offsetHeight + 16;
+    try { window.parent.postMessage({ quizHeight: h }, '*'); } catch(_){}
+  }
+  window.addEventListener('load', sendHeight);
+  window.addEventListener('resize', sendHeight);
+})();
+</script>
+
+
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

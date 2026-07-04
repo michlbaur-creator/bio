@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>bio.mibaso — Lernpfade für den Unterricht</title>
+<meta name="description" content="Interaktive Lernpfade aus Flora und Fauna Mibaso, gebündelt für den Biologie-Unterricht.">
+<meta name="theme-color" content="#2F4F3E">
+<style>
+  :root{--gruen:#2F4F3E;--blau:#233D5C;--creme:#F7F3E8;--creme-tief:#EEE7D5;
+    --honig:#C28A3A;--linie:#d8ccb2;--tinte:#26312b;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{margin:0;background:var(--creme);color:var(--tinte);font-family:Georgia,"Times New Roman",serif;
+    line-height:1.5;padding:calc(env(safe-area-inset-top) + 4vh) 0 60px;}
+  .huelle{max-width:720px;margin:0 auto;padding:0 clamp(14px,4vw,28px);}
+  header{text-align:center;margin-bottom:6px;}
+  .marke{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--honig);}
+  h1{font-size:clamp(26px,7vw,38px);font-weight:normal;margin:8px 0 6px;color:var(--gruen);}
+  .unter{font-family:var(--sans);font-size:14.5px;color:#5c6b60;max-width:46ch;margin:0 auto 8px;}
+  .gruppe{margin-top:30px;}
+  .gruppe h2{font-family:Georgia,serif;font-weight:normal;font-size:clamp(19px,5vw,24px);
+    color:var(--akzent);border-bottom:2px solid var(--akzent);padding-bottom:8px;margin:0 0 12px;}
+  .gruppe h2 .ge{font-size:1.1em;}
+  .liste{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
+  .pfad{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--tinte);
+    background:#fff;border:1px solid var(--linie);border-radius:13px;padding:13px 15px;
+    transition:transform .14s,box-shadow .14s,border-color .14s;}
+  .pfad:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.08);border-color:var(--akzent);}
+  .pfad .dot{flex:0 0 auto;width:10px;height:10px;border-radius:50%;background:var(--akzent);}
+  .pfad .pt{flex:1 1 auto;font-size:16px;}
+  .pfad .pf{flex:0 0 auto;color:#b7b0a0;font-size:18px;}
+  footer{margin-top:38px;text-align:center;font-family:var(--sans);font-size:12.5px;color:#8a8578;}
+  footer a{color:inherit;}
+</style>
+</head>
+<body>
+<div class="huelle">
+  <header>
+    <div class="marke">bio.mibaso</div>
+    <h1>Lernpfade für den Unterricht</h1>
+    <p class="unter">Interaktive Stationen aus Flora und Fauna Mibaso — zum Erkunden, Verstehen und Selbst-Ausprobieren. Ganz ohne Konto, direkt im Browser.</p>
+  </header>
+  <section class="gruppe" style="--akzent:#2F4F3E">
+    <h2><span class="ge">🌼</span> Flora — Pflanzen</h2>
+    <div class="liste">
+<a class="pfad" href="flora/interaktiv/bestaeubung-animiert.html"><span class="dot"></span><span class="pt">Bestäubung Schritt für Schritt</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/bestaeubung-erklaerung.html"><span class="dot"></span><span class="pt">Bestäubung</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/bluete-zoom.html"><span class="dot"></span><span class="pt">Hinein in die Blüte</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/bluetenoekologie.html"><span class="dot"></span><span class="pt">Blütenökologie</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/blumen-nachts.html"><span class="dot"></span><span class="pt">Warum schließen Blumen nachts?</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/energie-kreislauf-anim.html"><span class="dot"></span><span class="pt">Der Gas-Kreislauf</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/energie-pfad.html"><span class="dot"></span><span class="pt">Pflanzen &amp; Energie</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/jahreszeiten-baum.html"><span class="dot"></span><span class="pt">Ein Jahr im Apfelbaum</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/kletten.html"><span class="dot"></span><span class="pt">Warum kleben Kletten?</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/kreislauf.html"><span class="dot"></span><span class="pt">Der ewige Kreislauf</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/pflanze-erklaerung.html"><span class="dot"></span><span class="pt">Aufbau einer Pflanze</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/pflanze-verstehen.html"><span class="dot"></span><span class="pt">Wurzel, Blatt, Blüte</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/pflanze-zuordnung.html"><span class="dot"></span><span class="pt">Anatomie-Check</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/pflanzen-energie.html"><span class="dot"></span><span class="pt">Pflanzen &amp; Energie</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/pflanzenstrategien.html"><span class="dot"></span><span class="pt">Strategien</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/samenverbreitung.html"><span class="dot"></span><span class="pt">Samenverbreitung</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/schaumzikaden.html"><span class="dot"></span><span class="pt">Warum „regnet&quot; es unter Weiden?</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/sonnenblumen.html"><span class="dot"></span><span class="pt">Warum drehen Sonnenblumen?</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/staunen-ahorn.html"><span class="dot"></span><span class="pt">Warum haben Ahornsamen Flügel?</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/staunen-brennnessel.html"><span class="dot"></span><span class="pt">Warum brennen Brennnesseln?</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/staunen-loewenzahn.html"><span class="dot"></span><span class="pt">Warum haben Löwenzahnsamen Fallschirme?</span><span class="pf">›</span></a>
+<a class="pfad" href="flora/interaktiv/systematik.html"><span class="dot"></span><span class="pt">Pflanzen ordnen</span><span class="pf">›</span></a>
+    </div>
+  </section>
+  <section class="gruppe" style="--akzent:#233D5C">
+    <h2><span class="ge">🦋</span> Fauna — Tiere &amp; Insekten</h2>
+    <div class="liste">
+<a class="pfad" href="fauna/interaktiv/bestaeubung.html"><span class="dot"></span><span class="pt">Wer bestäubt was?</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/gesamttest.html"><span class="dot"></span><span class="pt">Der große Fauna-Test</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/insektenschwund.html"><span class="dot"></span><span class="pt">Wo sind die Insekten geblieben?</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/lebensraum.html"><span class="dot"></span><span class="pt">Was brauchen Insekten wirklich?</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/nahrungsnetz.html"><span class="dot"></span><span class="pt">Wer frisst wen?</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/schluessel.html"><span class="dot"></span><span class="pt">Was kreucht und fleucht denn hier?</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/stammbaum.html"><span class="dot"></span><span class="pt">Stammbaum der Tiere</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/staunen-bienen.html"><span class="dot"></span><span class="pt">Warum summen Bienen?</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/staunen-gluehwuermchen.html"><span class="dot"></span><span class="pt">Warum leuchten Glühwürmchen?</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/staunen-grillen.html"><span class="dot"></span><span class="pt">Warum zirpen Grillen und Heuschrecken?</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/staunen-marienkaefer.html"><span class="dot"></span><span class="pt">Warum haben Marienkäfer Punkte?</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/staunen-metamorphose-libelle.html"><span class="dot"></span><span class="pt">Metamorphose einer Libelle</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/staunen-metamorphose-schmetterling.html"><span class="dot"></span><span class="pt">Vom Ei zum Schmetterling</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/systematik.html"><span class="dot"></span><span class="pt">Systematik &amp; Ränge</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/tierquiz.html"><span class="dot"></span><span class="pt">Tierquiz</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/verwandlung.html"><span class="dot"></span><span class="pt">Verwandlung</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/verwandte-finden.html"><span class="dot"></span><span class="pt">Verwandte finden</span><span class="pf">›</span></a>
+<a class="pfad" href="fauna/interaktiv/wiese-lebt.html"><span class="dot"></span><span class="pt">Die Wiese lebt</span><span class="pf">›</span></a>
+    </div>
+  </section>
+  <footer>© 2026 Michael Baur · Zusammengestellt für den Biologie-Unterricht<br>
+    Teil des Mibaso-Universums · <a href="https://fauna.mibaso.de">fauna</a> · <a href="https://flora.mibaso.de">flora</a></footer>
+</div>
+</body>
+</html>

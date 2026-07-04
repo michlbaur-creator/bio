@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2F4F3E">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Flora Mibaso">
+<title>Samenverbreitung – wie Pflanzen reisen</title>
+<style>
+  #sv-app, #sv-app * { box-sizing: border-box; }
+  #sv-app {
+    font-family: Georgia, serif;
+    color: #2c2c2c;
+    background: #f8f5f0;
+    padding: 8px 0 14px;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  #sv-app .karte {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+    margin: 0 10px 14px;
+    overflow: hidden;
+    padding: 18px 22px 22px;
+  }
+  #sv-app .karte img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  #sv-app .karte h2 {
+    margin: 0 0 10px;
+    font-size: 1.15rem;
+    color: #2F4F3E;
+    font-family: Georgia, serif;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+  }
+  #sv-app .karte h3 {
+    margin: 14px 0 4px;
+    font-size: 1rem;
+    color: #2F4F3E;
+    font-family: Georgia, serif;
+    font-weight: bold;
+  }
+  #sv-app .karte p { margin: 0 0 8px; line-height: 1.55; }
+  #sv-app .karte strong { color: #2F4F3E; }
+  #sv-app .pfeil { color: #5A8068; font-weight: bold; }
+  #sv-app .untertitel {
+    color: var(--text-leise, #6b5340);
+    font-style: italic;
+    margin: 0 0 14px;
+    line-height: 1.5;
+  }
+  #sv-app .kurz {
+    margin-top: 18px;
+    padding: 10px 14px;
+    background: #f4f1eb;
+    border-left: 4px solid #5A8068;
+    border-radius: 4px;
+    font-style: italic;
+    color: #5a3a24;
+    line-height: 1.5;
+  }
+  #sv-app .kurz strong { color: #2F4F3E; font-style: normal; }
+  @media (max-width: 520px) {
+    #sv-app .karte { margin: 0 6px 10px; padding: 14px 16px 16px; }
+    #sv-app .karte h2 { font-size: 1.05rem; }
+    #sv-app .karte p { font-size: 0.92rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="sv-app">
+  <section class="karte">
+    <img src="../images/samenverbreitung.jpg" alt="Samenverbreitung: drei Wege – Löwenzahn mit Flugschirmchen (Wind), Kletten (Tiere), Springkraut mit aufspringender Frucht (Selbstverbreitung).">
+
+    <h2>Pflanzen sind ortsfest – ihre Samen nicht</h2>
+
+    <h3>Windverbreitung</h3>
+    <p>Leichte Samen mit „Flugapparat" – z.&nbsp;B. Löwenzahn.</p>
+
+    <h3>Tierverbreitung</h3>
+    <p>Samen haften im Fell oder werden gefressen <span class="pfeil">→</span> werden an anderer Stelle wieder ausgeschieden.</p>
+
+    <h3>Selbstausbreitung</h3>
+    <p>Früchte springen auf und schleudern Samen weg.</p>
+
+    <div class="kurz">
+      👉 <strong>Kurz gesagt:</strong> Pflanzen nutzen Wind, Tiere oder eigene Tricks, um neue Lebensräume zu erreichen.
+    </div>
+  </section>
+</div>
+
+
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

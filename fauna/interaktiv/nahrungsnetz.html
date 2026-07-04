@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wer frisst wen? — Lernpfad · Fauna Mibaso</title>
+<meta name="description" content="Lernpfad: Nahrungsnetz und Nahrungspyramide der Wiese. Von der Kette zum Netz, Energiestufen, Zersetzer und was passiert, wenn ein Glied fehlt.">
+<meta name="theme-color" content="#233D5C">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<style>
+  /* =========================================================================
+     „Wer frisst wen?“ – Nahrungsnetz & Nahrungspyramide der Wiese
+     Teil der Reihe „Expedition Wiese“. Hausstil der Fauna-App.
+     Keine externen Bibliotheken. Optimiert für Handy und Tablet.
+     ========================================================================= */
+  :root{
+    --blau:#233D5C; --blau-tief:#1a2f47; --creme:#F7F3E8; --creme-tief:#EEE7D5;
+    --pergament:#EDE3CC; --tinte:#1c2e42; --honig:#C28A3A; --honig-tief:#a9762c;
+    --linie:#c3ccd5; --gruen:#3E9A5E; --gruen-tief:#2f6a45; --rot:#B5482F;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--creme);color:var(--blau);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.5;
+    padding-top:calc(env(safe-area-inset-top) + min(2vh,14px));}
+  .huelle{max-width:680px;margin:0 auto;padding:clamp(8px,2.5vw,16px) clamp(12px,3.5vw,26px) 48px;}
+
+  .kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:var(--sans);}
+  .zurueck{font-size:13px;font-weight:600;color:var(--blau);text-decoration:none;display:inline-flex;gap:5px;align-items:center;}
+  .zaehler{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a96a1;}
+  .zaehler b{color:var(--honig);}
+  h1{font-size:clamp(19px,4.8vw,26px);line-height:1.1;margin:6px 0 4px;font-weight:normal;}
+  .balken{height:6px;background:var(--creme-tief);border-radius:3px;overflow:hidden;margin:10px 0 4px;}
+  .balken div{height:100%;width:0;background:var(--honig);transition:width .4s ease;}
+
+  /* Szene */
+  .szene{position:relative;width:100%;max-width:560px;margin:14px auto 0;aspect-ratio:16/10;
+    border-radius:16px;overflow:hidden;border:1px solid #cdbf9e;background:var(--pergament);}
+  .szene>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .6s ease;}
+  .szene .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;text-align:center;padding:16px;background:linear-gradient(160deg,#dfe6d2,#c9d3b6);}
+  .szene .ph .gl{font-size:40px;opacity:.5;}
+  .szene .ph .l{font-family:var(--sans);font-size:13px;font-weight:600;color:#5f6b4e;}
+  .szene .ph .f{font-family:var(--sans);font-size:10.5px;color:#7d876a;word-break:break-all;}
+
+  .stufe{animation:einblenden .45s ease;}
+  @keyframes einblenden{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .intro{font-size:clamp(15px,4vw,17px);color:var(--tinte);margin:12px 0 4px;}
+  .erklaer h2{font-size:clamp(18px,5vw,23px);font-weight:normal;margin:14px 0 7px;}
+  .erklaer p{font-size:clamp(14.5px,4vw,16.5px);color:var(--tinte);margin:0 0 10px;}
+  .entdeckhint{font-family:var(--sans);font-size:12.5px;color:var(--honig);font-weight:600;margin:4px 0 0;}
+
+  /* runde Tierfotos mit Emoji-Fallback */
+  .tierfoto{flex:0 0 auto;width:40px;height:40px;border-radius:50%;object-fit:cover;
+    background:var(--creme-tief);border:1px solid var(--linie);box-shadow:0 1px 3px rgba(35,61,92,.15);}
+
+  /* Netz-Diagramm (Kette → Netz) */
+  .netzdia{position:relative;width:100%;max-width:520px;margin:6px auto 0;aspect-ratio:1/1;
+    background:var(--pergament);border:1px solid #cdbf9e;border-radius:14px;overflow:hidden;}
+  .netzdia svg{position:absolute;inset:0;width:100%;height:100%;}
+  .netzdia svg line{stroke:#b9c2cc;stroke-width:2.5;opacity:0;transition:opacity .5s ease;}
+  .netzdia svg line.kette{stroke:var(--honig);stroke-width:4;}
+  .netzdia svg line.an{opacity:.9;}
+  .nknoten{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px;
+    z-index:2;font-family:var(--sans);font-size:11px;color:var(--blau);text-align:center;width:64px;}
+  .nknoten .kreis{width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid var(--linie);
+    display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden;box-shadow:0 1px 4px rgba(35,61,92,.18);}
+  .nknoten .kreis img{width:100%;height:100%;object-fit:cover;}
+  .nknoten.dim{opacity:.28;filter:grayscale(1);transition:opacity .5s,filter .5s;}
+  .nknoten .boom{color:var(--rot);font-weight:700;}
+
+  .umschalter{display:flex;gap:8px;margin:12px 0;}
+  .umschalter button{flex:1 1 0;font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--blau);
+    background:#fff;border:1px solid var(--linie);border-radius:11px;padding:11px 8px;cursor:pointer;}
+  .umschalter button.an{background:var(--blau);color:var(--creme);border-color:var(--blau);}
+
+  /* Pyramide */
+  .pyramide{display:flex;flex-direction:column;align-items:center;gap:6px;margin:10px 0;}
+  .stufe-band{position:relative;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;
+    min-height:56px;border:2px dashed #cbb98f;border-radius:12px;background:#fff6e6;padding:8px;transition:.2s;}
+  .stufe-band.ziel{border-color:var(--honig);background:#fbeecd;}
+  .stufe-band .bandlbl{position:absolute;left:8px;top:4px;font-family:var(--sans);font-size:10px;
+    letter-spacing:.06em;text-transform:uppercase;color:#a08a5a;}
+  .stufe-band .fach{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:22px;background:var(--creme-tief);overflow:hidden;}
+  .stufe-band .fach img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+  /* Breiten der Pyramidenstufen */
+  .b-spitze{width:38%;} .b-raeuber{width:58%;} .b-pflanzenfresser{width:78%;} .b-produzenten{width:96%;}
+
+  .vorrat{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0 4px;}
+  .org{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;
+    font-family:var(--sans);font-size:11.5px;color:var(--blau);background:#fff;border:1.5px solid var(--linie);
+    border-radius:12px;padding:8px 8px 6px;width:78px;transition:.15s;}
+  .org .kreis{width:40px;height:40px;border-radius:50%;background:var(--creme-tief);display:flex;align-items:center;
+    justify-content:center;font-size:22px;overflow:hidden;}
+  .org .kreis img{width:100%;height:100%;object-fit:cover;}
+  .org.aktiv{border-color:var(--blau);background:#eef3f8;box-shadow:0 2px 8px rgba(35,61,92,.18);}
+  .org.platziert{opacity:.35;pointer-events:none;}
+
+  /* Entscheidungen / Störungs-Buttons */
+  .entscheid{display:flex;flex-direction:column;gap:10px;margin:8px 0;}
+  .entscheid button{font-family:var(--sans);font-size:15px;color:var(--blau);background:#fff;text-align:left;
+    border:1.5px solid var(--linie);border-radius:14px;padding:14px 16px;cursor:pointer;transition:.13s;display:flex;gap:11px;align-items:center;}
+  .entscheid button .em{font-size:24px;flex:0 0 auto;}
+  .entscheid button:hover:not(:disabled){border-color:#9bb0c6;}
+  .entscheid button.geklickt{background:#eef3f8;border-color:var(--blau);}
+
+  .infokarte{margin-top:14px;padding:13px 15px;border-radius:0 12px 12px 0;background:var(--creme-tief);
+    border-left:4px solid var(--honig);display:none;}
+  .infokarte.an{display:block;animation:einblenden .35s ease;}
+  .infokarte .it{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 4px;color:#8a96a1;}
+  .infokarte.ok .it{color:var(--gruen);} .infokarte.no .it{color:var(--rot);} .infokarte.tipp .it{color:var(--honig-tief);}
+  .infokarte h3{margin:0 0 4px;font-size:17px;font-weight:normal;}
+  .infokarte p{margin:0;font-size:14.5px;color:var(--tinte);} .infokarte p+p{margin-top:7px;}
+
+  /* Nav */
+  .nav{display:flex;gap:9px;margin-top:20px;padding-top:16px;border-top:1px solid var(--linie);}
+  .knopf{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--blau);background:transparent;
+    border:1px solid var(--blau);border-radius:999px;padding:11px 18px;cursor:pointer;transition:background .18s,color .18s,opacity .18s;}
+  .knopf:hover:not(:disabled){background:var(--blau);color:var(--creme);}
+  .knopf:disabled{opacity:.34;cursor:default;}
+  .knopf.prim{background:var(--blau);color:var(--creme);margin-left:auto;border-color:var(--blau);}
+  .knopf.prim:hover{background:var(--blau-tief);}
+  .knopf.prim:disabled{background:var(--linie);border-color:var(--linie);color:#fff;}
+
+  /* Start */
+  .start{text-align:center;padding:6px 0 0;}
+  .start .lead{font-size:clamp(15.5px,4.2vw,18px);color:var(--tinte);max-width:34ch;margin:16px auto 0;}
+  .start .los{display:inline-block;margin:20px auto 0;font-family:var(--sans);font-size:16px;font-weight:700;
+    color:var(--creme);background:var(--honig);border:none;border-radius:999px;padding:14px 30px;cursor:pointer;
+    box-shadow:0 3px 12px rgba(194,138,58,.35);transition:transform .15s,background .18s;}
+  .start .los:hover{background:var(--honig-tief);transform:translateY(-1px);}
+
+  /* Quiz */
+  .qkopf{font-family:var(--sans);font-size:14px;border-top:1px solid var(--linie);border-bottom:1px solid var(--linie);padding:10px 0;margin:0 0 12px;}
+  .qkopf b{color:var(--honig);}
+  .qbalken{height:6px;background:var(--creme-tief);border-radius:3px;overflow:hidden;margin:0 0 14px;}
+  .qbalken div{height:100%;width:0;background:var(--honig);transition:width .3s;}
+  .qfrage{font-size:clamp(17px,4.6vw,21px);margin:0 0 12px;font-weight:normal;}
+  .qopt{display:flex;flex-direction:column;gap:9px;}
+  .qopt button{font-family:var(--sans);font-size:14.5px;color:var(--blau);background:#fff;text-align:left;
+    border:1.5px solid var(--linie);border-radius:13px;padding:13px 15px;cursor:pointer;transition:.13s;}
+  .qopt button:hover:not(:disabled){border-color:#9bb0c6;}
+  .qopt button.richtig{background:#e6efe7;border-color:var(--gruen);color:var(--gruen-tief);font-weight:600;}
+  .qopt button.falsch{background:#f2e2dd;border-color:var(--rot);color:#9a3f2a;}
+  .qopt button:disabled{cursor:default;}
+  .qende{text-align:center;padding:6px 0;}
+  .qende .gross{font-family:Georgia,serif;font-size:clamp(38px,11vw,58px);line-height:1;color:var(--blau);margin:6px 0 2px;}
+  .qende .gross small{font-size:.4em;color:#8a96a1;}
+  .qende .blaetter{font-size:30px;letter-spacing:4px;margin:2px 0 6px;}
+  .qende .spruch{font-size:clamp(16px,4.6vw,19px);margin:10px auto 16px;max-width:32ch;}
+  .qlabel{font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a96a1;margin:0;}
+
+  footer{margin-top:30px;font-family:var(--sans);font-size:12px;color:#8a96a1;text-align:center;}
+  footer a{color:inherit;}
+  .passlink{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:13px;font-weight:600;
+    color:var(--blau);text-decoration:none;}
+
+  .konffeld{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden;}
+  .konf{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;animation:konffall 3.6s linear forwards;}
+  @keyframes konffall{0%{transform:translateY(-14px);opacity:1;}100%{transform:translateY(106vh) rotate(540deg);opacity:.9;}}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+</style>
+</head>
+<body>
+<div class="huelle">
+  <div class="kopf">
+    <a class="zurueck" href="../../index.html">‹ Startseite</a>
+    <span class="zaehler" id="zaehler"></span>
+  </div>
+  <h1>Wer frisst wen?</h1>
+  <div class="balken"><div id="balken"></div></div>
+
+  <div id="buehne"></div>
+  <div class="infokarte" id="info"></div>
+  <div class="nav" id="nav">
+    <button class="knopf" id="zurueckBtn">‹ Zurück</button>
+    <button class="knopf prim" id="weiterBtn">Weiter ›</button>
+  </div>
+
+  <footer>
+    <a class="passlink" href="wiesenpass.html">🍃 Forscherpass</a><br>
+    © 2026 <a href="../ueber/">Michael Baur</a> · Fauna Mibaso
+  </footer>
+</div>
+
+<script>
+/* ===========================================================================
+   „Wer frisst wen?“ — Nahrungsnetz & Nahrungspyramide
+   Screens: intro · Kette→Netz · Pyramide bauen · Energie-Regel · Zersetzer ·
+            Störung im Netz · Quiz
+   Tierfotos: ../images/wiese/tiere/ (fehlt eines → Emoji-Fallback).
+=========================================================================== */
+const SZENE = "../images/wiese/";
+const TIERE = "../images/wiese/tiere/";
+
+/* --- Expedition „Forscherpass“: Ergebnis geräteweit merken --- */
+const EXP_ID = "nahrungsnetz";
+function meldeExpedition(id, blaetter){
+  try{
+    const K="mibaso.fauna.expedition";
+    const d=JSON.parse(localStorage.getItem(K)||"{}");
+    if(!d[id] || blaetter>d[id].blaetter){
+      d[id]={blaetter:blaetter, done:true, ts:Date.now()};
+      localStorage.setItem(K, JSON.stringify(d));
+    }
+  }catch(e){}
+}
+function blaetterAus(anteil){ return anteil>=0.999 ? 3 : anteil>=0.6 ? 2 : 1; }
+
+/* Icon: Tierfoto (o.img) mit Emoji-Fallback */
+function icon(o, kreisKlasse){
+  const inner = o.img
+    ? '<img src="'+TIERE+o.img+'" alt="'+(o.label||"")+'" onerror="this.outerHTML=\''+o.em+'\'">'
+    : o.em;
+  return '<span class="'+(kreisKlasse||"kreis")+'">'+inner+'</span>';
+}
+
+/* Organismen (Wiederverwendung in mehreren Screens) */
+/* img wird optimistisch gesetzt: fehlt die Datei, zeigt onerror das Emoji.
+   Neue Tierfotos also einfach als tier-<name>.png in images/wiese/tiere/ ablegen. */
+const ORG = {
+  gras:        {label:"Gras & Kräuter", em:"🌱", img:"tier-gras.png"},
+  bluete:      {label:"Wiesenblüte",    em:"🌼", img:"tier-bluete.png"},
+  blattlaus:   {label:"Blattlaus",      em:"🐜", img:"tier-blattlaus.png"},
+  raupe:       {label:"Raupe",          em:"🐛", img:"tier-raupe.png"},
+  heuschrecke: {label:"Heuschrecke",    em:"🦗", img:"tier-heuschrecke.png"},
+  marienkaefer:{label:"Marienkäfer",    em:"🐞", img:"tier-marienkaefer.png"},
+  spinne:      {label:"Spinne",         em:"🕷️", img:"tier-spinne.png"},
+  vogel:       {label:"Vogel",          em:"🐦", img:"tier-vogel.png"},
+  regenwurm:   {label:"Regenwurm",      em:"🪱", img:"tier-regenwurm.png"},
+  assel:       {label:"Assel",          em:"🪳", img:"tier-assel.png"},
+  pilz:        {label:"Pilze",          em:"🍄", img:"tier-pilz.png"}
+};
+
+const SCREENS = [
+
+  /* 0 — Einstieg */
+  { id:"intro", type:"intro",
+    titel:"Wer frisst wen?",
+    szene:"wiese-sommer.png", szeneLabel:"Strukturreiche Sommerwiese voller Leben",
+    lead:"Auf einer Wiese frisst und wird gefressen — den ganzen Tag. Aber es ist keine "+
+         "einfache Reihe, sondern ein dichtes Netz aus vielen Fäden. In diesem Pfad "+
+         "spannst du dieses Netz, baust die Nahrungspyramide und erlebst, was passiert, "+
+         "wenn plötzlich ein Glied fehlt.",
+    startText:"Netz erkunden" },
+
+  /* 1 — Von der Kette zum Netz */
+  { id:"kettenetz", type:"kettenetz",
+    titel:"Von der Kette zum Netz",
+    intro:"Im Schulbuch steht oft eine einfache Kette: Gras → Heuschrecke → Vogel. "+
+          "In Wirklichkeit hängt viel mehr zusammen. Schalte um und sieh selbst.",
+    umschalter:["Einfache Kette","Das ganze Netz"],
+    hint:"Tippe „Das ganze Netz“ — plötzlich tauchen viele weitere Fäden auf.",
+    knoten:[
+      {id:"gras",        org:"gras",        x:50, y:88},
+      {id:"blattlaus",   org:"blattlaus",   x:20, y:62},
+      {id:"raupe",       org:"raupe",       x:50, y:64},
+      {id:"heuschrecke", org:"heuschrecke", x:80, y:62},
+      {id:"marienkaefer",org:"marienkaefer",x:24, y:34},
+      {id:"spinne",      org:"spinne",      x:64, y:34},
+      {id:"vogel",       org:"vogel",       x:50, y:12}
+    ],
+    /* kette = der einfache Pfad; netz = alle zusätzlichen Fäden */
+    kette:[ ["gras","heuschrecke"], ["heuschrecke","vogel"] ],
+    netz:[
+      ["gras","blattlaus"], ["gras","raupe"],
+      ["blattlaus","marienkaefer"], ["marienkaefer","vogel"],
+      ["raupe","spinne"], ["raupe","vogel"],
+      ["heuschrecke","spinne"], ["spinne","vogel"]
+    ],
+    text:"Eine Kette reißt, wenn ein Glied fehlt. Ein Netz fängt den Verlust auf — "+
+         "es gibt fast immer einen anderen Weg. Deshalb ist ein artenreiches Netz stabiler." },
+
+  /* 2 — Pyramide bauen */
+  { id:"pyramide", type:"pyramide",
+    titel:"Baue die Nahrungspyramide",
+    intro:"Jedes Tier hat seine Stufe. Tippe ein Lebewesen an, dann die passende Stufe "+
+          "der Pyramide — von den Pflanzen unten bis zum Spitzenräuber oben.",
+    stufen:[ /* oben → unten */
+      {id:"spitze",         label:"Spitzenräuber",                breite:"b-spitze"},
+      {id:"raeuber",        label:"Räuber (Konsumenten)",         breite:"b-raeuber"},
+      {id:"pflanzenfresser",label:"Pflanzenfresser (Konsumenten)",breite:"b-pflanzenfresser"},
+      {id:"produzenten",    label:"Pflanzen (Produzenten)",       breite:"b-produzenten"}
+    ],
+    organismen:[
+      {org:"bluete",       stufe:"produzenten",     feedback:"Pflanzen sind die Produzenten: Sie bauen aus Licht Nahrung — die Basis von allem."},
+      {org:"raupe",        stufe:"pflanzenfresser",  feedback:"Die Raupe frisst Blätter — ein klassischer Pflanzenfresser."},
+      {org:"heuschrecke",  stufe:"pflanzenfresser",  feedback:"Auch die Heuschrecke lebt von Pflanzen."},
+      {org:"marienkaefer", stufe:"raeuber",          feedback:"Der Marienkäfer jagt Blattläuse — ein Räuber."},
+      {org:"spinne",       stufe:"raeuber",          feedback:"Die Spinne fängt Insekten: ebenfalls ein Räuber."},
+      {org:"vogel",        stufe:"spitze",           feedback:"Der Vogel steht ganz oben — er frisst die Räuber und Pflanzenfresser."}
+    ] },
+
+  /* 3 — Energie-Regel (Konzept mit Hotspots) */
+  { id:"energie", type:"konzept",
+    titel:"Warum eine Pyramide?",
+    text:"Warum sitzen oben nur wenige Räuber? Weil bei jeder Stufe fast alle Energie "+
+         "verloren geht — für Bewegung und Wärme. Nur etwa ein Zehntel wird weitergereicht. "+
+         "Darum kann eine Wiese viele Pflanzen tragen, aber nur wenige Greifvögel.",
+    hint:"Tippe die Zahlen an der Pyramide an.",
+    svg:"energiePyramide",
+    hotspots:[
+      {x:50,y:84,n:1,titel:"Produzenten — 10.000",text:"Ganz unten steht die größte Menge: unzählige Pflanzen fangen Sonnenenergie ein."},
+      {x:50,y:60,n:2,titel:"Pflanzenfresser — 1.000",text:"Nur ein Zehntel der Pflanzen-Energie landet in den Pflanzenfressern. Der Rest geht verloren."},
+      {x:50,y:38,n:3,titel:"Räuber — 100",text:"Wieder bleibt nur ein Zehntel übrig. Räuber sind deshalb schon deutlich seltener."},
+      {x:50,y:17,n:4,titel:"Spitzenräuber — 10",text:"Ganz oben reicht die Energie nur für sehr wenige Tiere. Darum gibt es kaum Greifvögel."}
+    ] },
+
+  /* 4 — Zersetzer (Konzept mit Hotspots) */
+  { id:"zersetzer", type:"konzept",
+    titel:"Die heimlichen Aufräumer",
+    text:"Die Pyramide hat eine unsichtbare Grundlage: die Zersetzer (Destruenten). Sie "+
+         "verwandeln totes Laub, Kot und gestorbene Tiere wieder in Erde und Nährstoffe — und "+
+         "schließen so den Kreislauf. Ohne sie würde die Wiese unter ihren eigenen Resten ersticken.",
+    hint:"Tippe die Aufräumer an.",
+    svg:"kreislauf",
+    hotspots:[
+      {x:26,y:70,n:1,titel:"Regenwurm",text:"Zieht Laub in den Boden und macht daraus fruchtbaren Humus."},
+      {x:74,y:70,n:2,titel:"Assel",text:"Zerkleinert totes Pflanzenmaterial — die erste Stufe der Zersetzung."},
+      {x:50,y:26,n:3,titel:"Pilze & Bakterien",text:"Sie zersetzen den Rest bis auf die Nährstoffe, die die Pflanzen wieder aufnehmen."}
+    ] },
+
+  /* 5 — Störung im Netz */
+  { id:"stoerung", type:"stoerung",
+    titel:"Ein Glied fehlt — was nun?",
+    intro:"Jetzt der Test fürs Netz: Entferne ein Lebewesen und sieh, was geschieht. "+
+          "Probiere ruhig alle drei aus.",
+    faelle:[
+      { label:"Entferne die Marienkäfer & Spinnen", em:"🐞", entfernt:["marienkaefer","spinne"],
+        boom:["blattlaus","raupe","heuschrecke"],
+        text:"Ohne ihre Jäger vermehren sich Blattläuse und Raupen explosionsartig — "+
+             "die Pflanzen leiden. Zum Glück fressen jetzt die Vögel mehr davon: das Netz federt ab." },
+      { label:"Entferne die Vögel", em:"🐦", entfernt:["vogel"],
+        boom:["spinne","marienkaefer"],
+        text:"Ohne die Spitzenräuber nehmen Spinnen und Räuberinsekten zu — die halten dafür "+
+             "die Pflanzenfresser stärker in Schach. Verschoben, aber nicht zusammengebrochen." },
+      { label:"Entferne die Pflanzen", em:"🌱", entfernt:["gras","bluete","blattlaus","raupe","heuschrecke","marienkaefer","spinne","vogel"],
+        boom:[],
+        text:"Das ist fatal: Ohne die Produzenten fehlt allen die Grundlage. Nach und nach "+
+             "bricht das ganze Netz zusammen. Die unterste Stufe trägt wirklich alles." }
+    ],
+    knoten:[
+      {id:"gras",org:"gras",x:50,y:88},{id:"blattlaus",org:"blattlaus",x:20,y:62},
+      {id:"raupe",org:"raupe",x:50,y:64},{id:"heuschrecke",org:"heuschrecke",x:80,y:62},
+      {id:"marienkaefer",org:"marienkaefer",x:24,y:34},{id:"spinne",org:"spinne",x:64,y:34},
+      {id:"vogel",org:"vogel",x:50,y:12}
+    ],
+    netz:[
+      ["gras","blattlaus"],["gras","raupe"],["gras","heuschrecke"],
+      ["blattlaus","marienkaefer"],["marienkaefer","vogel"],
+      ["raupe","spinne"],["raupe","vogel"],["heuschrecke","spinne"],["spinne","vogel"]
+    ],
+    fazit:"Merke: In einem Netz gibt es Umwege — fällt ein Glied aus, tragen andere weiter. "+
+          "Nur die Produzenten ganz unten sind unersetzlich." },
+
+  /* 6 — Quiz */
+  { id:"quiz", type:"quiz", titel:"Kleiner Test" }
+];
+
+/* ---------- Quiz-Fragen ---------- */
+const QUIZ = [
+  { f:"Was bilden die unterste Stufe jeder Nahrungspyramide?",
+    opt:["Räuber","Produzenten (Pflanzen)","Zersetzer","Pflanzenfresser"], richtig:1 },
+  { f:"Warum gibt es viel weniger Greifvögel als Pflanzen?",
+    opt:["Sie legen zu wenige Eier","Bei jeder Stufe geht fast alle Energie verloren","Sie fressen einander","Pflanzen sind giftig"], richtig:1 },
+  { f:"Was macht ein Nahrungsnetz stabiler als eine einzelne Kette?",
+    opt:["Es ist kürzer","Es gibt mehrere Wege — fällt einer weg, bleiben andere","Es hat keine Räuber","Alle fressen dasselbe"], richtig:1 },
+  { f:"Welche Rolle haben Regenwurm, Assel und Pilze?",
+    opt:["Sie sind Spitzenräuber","Sie bestäuben Blüten","Sie zersetzen Totes und schließen den Kreislauf","Sie fressen Vögel"], richtig:2 },
+  { f:"Der Marienkäfer frisst Blattläuse. Auf welcher Stufe steht er?",
+    opt:["Produzent","Pflanzenfresser","Räuber","Zersetzer"], richtig:2 },
+  { f:"Welche Gruppe ist wirklich unersetzlich — ohne sie bricht alles zusammen?",
+    opt:["Die Spitzenräuber","Die Produzenten","Die Räuberinsekten","Die Vögel"], richtig:1 }
+];
+
+/* =========================================================================
+   SVG-Illustrationen
+   ========================================================================= */
+function svgEnergiePyramide(){
+  // vier gestapelte Trapeze, unten breit
+  return '<svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Energiepyramide">'+
+    '<polygon points="20,210 220,210 190,162 50,162" fill="#5aa06a"/>'+
+    '<polygon points="50,160 190,160 165,112 75,112" fill="#7bb885"/>'+
+    '<polygon points="75,110 165,110 140,62 100,62" fill="#c9a34e"/>'+
+    '<polygon points="100,60 140,60 120,18 120,18" fill="#b5482f"/>'+
+    '<line x1="120" y1="14" x2="120" y2="214" stroke="#ffffff" stroke-width="0" />'+
+    '</svg>';
+}
+function svgKreislauf(){
+  return '<svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nährstoff-Kreislauf">'+
+    '<path d="M120 34 A86 86 0 1 1 119.9 34" fill="none" stroke="#c9a34e" stroke-width="6" stroke-dasharray="4 10" stroke-linecap="round"/>'+
+    '<polygon points="120,20 132,40 108,40" fill="#c9a34e"/>'+
+    '<circle cx="120" cy="120" r="52" fill="#eef3e2" stroke="#cbb98f" stroke-width="2"/>'+
+    '<text x="120" y="116" text-anchor="middle" font-family="Georgia" font-size="15" fill="#3e7a55">Nährstoff-</text>'+
+    '<text x="120" y="134" text-anchor="middle" font-family="Georgia" font-size="15" fill="#3e7a55">Kreislauf</text>'+
+    '</svg>';
+}
+
+/* =========================================================================
+   Engine
+   ========================================================================= */
+const $=id=>document.getElementById(id);
+const elB=$("buehne"), elInfo=$("info"), elNav=$("nav");
+const reduce=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+let i=0;
+const erledigt={};
+
+function szeneHTML(s){
+  if(!s.szene) return "";
+  return '<div class="szene" id="szene">'+
+    '<div class="ph"><span class="gl">🌻</span><span class="l">'+(s.szeneLabel||"")+'</span>'+
+      '<span class="f">images/wiese/'+s.szene+'</span></div>'+
+    '<img src="'+SZENE+s.szene+'" alt="'+(s.szeneLabel||"")+'" onerror="this.style.display=\'none\'">'+
+  '</div>';
+}
+function zeigeInfo(art,titel,texte){
+  elInfo.className="infokarte an "+art;
+  const abs=(Array.isArray(texte)?texte:[texte]).map(t=>'<p>'+t+'</p>').join("");
+  elInfo.innerHTML='<p class="it">'+titel+'</p>'+abs;
+  elInfo.scrollIntoView({block:"nearest",behavior:reduce?"auto":"smooth"});
+}
+function versteckeInfo(){ elInfo.className="infokarte"; elInfo.innerHTML=""; }
+function setzeWeiter(an,text){ const w=$("weiterBtn"); w.disabled=!an; if(text) w.textContent=text; }
+function weiterKlick(){ if(i<SCREENS.length-1) geheZu(i+1); }
+
+function rahmen(){
+  const s=SCREENS[i];
+  if(s.type==="intro") $("zaehler").textContent="";
+  else if(s.type==="quiz") $("zaehler").textContent="Test";
+  else $("zaehler").innerHTML="Station "+i+" / "+(SCREENS.length-2);
+  $("balken").style.width=(i/(SCREENS.length-1)*100)+"%";
+}
+
+function render(){
+  const s=SCREENS[i];
+  versteckeInfo();
+  elNav.style.display="flex";
+  $("zurueckBtn").disabled=(i===0);
+  $("weiterBtn").onclick=weiterKlick;
+  setzeWeiter(true,"Weiter ›");
+  if(s.type==="intro")           renderIntro(s);
+  else if(s.type==="kettenetz")  renderKetteNetz(s);
+  else if(s.type==="pyramide")   renderPyramide(s);
+  else if(s.type==="konzept")    renderKonzept(s);
+  else if(s.type==="stoerung")   renderStoerung(s);
+  else if(s.type==="quiz")       renderQuiz(s);
+  rahmen(); melde();
+}
+
+/* ---- Intro ---- */
+function renderIntro(s){
+  elB.innerHTML='<div class="stufe">'+szeneHTML(s)+
+    '<div class="start"><p class="lead">'+s.lead+'</p>'+
+    '<button class="los" id="losBtn">'+s.startText+' →</button></div></div>';
+  elNav.style.display="none";
+  $("losBtn").addEventListener("click",()=>geheZu(i+1));
+}
+
+/* ---- Diagramm-Helfer: Knoten + Linien in eine .netzdia-Box ---- */
+function baueDiagramm(knoten){
+  let html='<div class="netzdia" id="dia"><svg id="diasvg" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>';
+  knoten.forEach(k=>{
+    const o=ORG[k.org];
+    html+='<div class="nknoten" id="k_'+k.id+'" style="left:'+k.x+'%;top:'+k.y+'%;">'+
+      icon(o)+'<span>'+o.label+'</span></div>';
+  });
+  html+='</div>';
+  return html;
+}
+function zeichneLinien(knoten, kanten, klasse){
+  const svg=$("diasvg"); if(!svg) return [];
+  const pos={}; knoten.forEach(k=>pos[k.id]=[k.x,k.y]);
+  const els=[];
+  kanten.forEach(([a,b])=>{
+    if(!pos[a]||!pos[b]) return;
+    const ln=document.createElementNS("http://www.w3.org/2000/svg","line");
+    ln.setAttribute("x1",pos[a][0]);ln.setAttribute("y1",pos[a][1]);
+    ln.setAttribute("x2",pos[b][0]);ln.setAttribute("y2",pos[b][1]);
+    if(klasse) ln.setAttribute("class",klasse);
+    svg.appendChild(ln); els.push(ln);
+  });
+  return els;
+}
+
+/* ---- Kette → Netz ---- */
+function renderKetteNetz(s){
+  elB.innerHTML='<div class="stufe"><p class="intro">'+s.intro+'</p>'+baueDiagramm(s.knoten)+
+    '<div class="umschalter"><button id="uA" class="an">'+s.umschalter[0]+'</button>'+
+    '<button id="uB">'+s.umschalter[1]+'</button></div>'+
+    '<p class="entdeckhint" id="hint">👇 '+s.hint+'</p></div>';
+  // Kettenlinien sofort
+  const ketteEls=zeichneLinien(s.knoten, s.kette, "kette");
+  const netzEls =zeichneLinien(s.knoten, s.netz, "");
+  const zeige=(els)=>els.forEach(e=>requestAnimationFrame(()=>e.classList.add("an")));
+  const verstecke=(els)=>els.forEach(e=>e.classList.remove("an"));
+  // nur Kette anzeigen, Netz-Knoten teils ausblenden
+  function nurKette(){
+    zeige(ketteEls); verstecke(netzEls);
+    s.knoten.forEach(k=>{ const el=$("k_"+k.id);
+      const inKette=["gras","heuschrecke","vogel"].includes(k.id);
+      el.classList.toggle("dim",!inKette);
+    });
+  }
+  function ganzesNetz(){
+    zeige(ketteEls); zeige(netzEls);
+    s.knoten.forEach(k=>$("k_"+k.id).classList.remove("dim"));
+  }
+  nurKette();
+  $("uA").addEventListener("click",()=>{ $("uA").classList.add("an");$("uB").classList.remove("an"); nurKette(); versteckeInfo(); });
+  $("uB").addEventListener("click",()=>{ $("uB").classList.add("an");$("uA").classList.remove("an"); ganzesNetz();
+    erledigt[s.id]=true; zeigeInfo("ok","Ein Netz, keine Kette",s.text); });
+}
+
+/* ---- Pyramide bauen (tap Organismus → tap Stufe) ---- */
+function renderPyramide(s){
+  if(!s._platziert) s._platziert=new Set();
+  let html='<div class="stufe"><p class="intro">'+s.intro+'</p><div class="pyramide">';
+  s.stufen.forEach(st=>{
+    html+='<div class="stufe-band '+st.breite+'" data-stufe="'+st.id+'"><span class="bandlbl">'+st.label+'</span></div>';
+  });
+  html+='</div><div class="vorrat" id="vorrat">';
+  s.organismen.forEach((o,k)=>{
+    if(s._platziert.has(k)) return;
+    const org=ORG[o.org];
+    html+='<button class="org" data-k="'+k+'">'+icon(org)+'<span>'+org.label+'</span></button>';
+  });
+  html+='</div></div>';
+  elB.innerHTML=html;
+
+  // schon platzierte Organismen in ihre Bänder setzen
+  s._platziert.forEach(k=>legeAblage(s,k));
+
+  setzeWeiter(true,"Weiter ›");
+  const gesamt=s.organismen.length;
+  if(s._platziert.size===gesamt){ erledigt[s.id]=true;
+    zeigeInfo("ok","Pyramide steht","Unten viele Pflanzen, oben wenige Räuber — so trägt sich das Leben."); }
+
+  let aktiv=null;
+  elB.querySelectorAll("#vorrat .org").forEach(b=>{
+    b.addEventListener("click",()=>{
+      elB.querySelectorAll("#vorrat .org").forEach(x=>x.classList.remove("aktiv"));
+      b.classList.add("aktiv"); aktiv=+b.dataset.k;
+    });
+  });
+  elB.querySelectorAll(".stufe-band").forEach(band=>{
+    band.addEventListener("click",()=>{
+      if(aktiv===null){ zeigeInfo("tipp","Erst ein Lebewesen wählen","Tippe unten ein Lebewesen an, dann die Stufe."); return; }
+      const o=s.organismen[aktiv];
+      if(band.dataset.stufe===o.stufe){
+        s._platziert.add(aktiv); legeAblage(s,aktiv);
+        const btn=elB.querySelector('#vorrat .org[data-k="'+aktiv+'"]'); if(btn) btn.remove();
+        zeigeInfo("ok","Richtig",o.feedback);
+        aktiv=null;
+        if(s._platziert.size===gesamt){ erledigt[s.id]=true;
+          zeigeInfo("ok","Pyramide steht","Unten die Produzenten (Pflanzen), in der Mitte die Konsumenten (Pflanzen- und Fleischfresser), oben die wenigen Spitzenräuber — so trägt sich das Leben."); }
+      } else {
+        band.classList.add("ziel"); setTimeout(()=>band.classList.remove("ziel"),500);
+        zeigeInfo("no","Nicht diese Stufe","Überleg: Frisst dieses Lebewesen Pflanzen, andere Tiere — oder ist es selbst die Pflanze?");
+      }
+    });
+  });
+}
+function legeAblage(s,k){
+  const o=s.organismen[k], org=ORG[o.org];
+  const band=elB.querySelector('.stufe-band[data-stufe="'+o.stufe+'"]');
+  if(!band) return;
+  const f=document.createElement("span"); f.className="fach";
+  f.innerHTML = org.img ? '<img src="'+TIERE+org.img+'" alt="'+org.label+'" onerror="this.outerHTML=\''+org.em+'\'">' : org.em;
+  band.appendChild(f);
+}
+
+/* ---- Konzept: SVG + Hotspots ---- */
+function renderKonzept(s){
+  let e='<div class="stufe erklaer"><h2>'+s.titel+'</h2>'+
+    '<div class="netzdia" id="dia" style="aspect-ratio:1/1;max-width:340px;">'+
+      (s.svg==="energiePyramide"?svgEnergiePyramide():svgKreislauf())+'</div>';
+  if(s.hint) e+='<p class="entdeckhint">👇 '+s.hint+'</p>';
+  e+='<p>'+s.text+'</p>'+
+     '<div class="infokarte" id="ho" style="display:block;background:var(--creme-tief);"><p class="it">Zum Antippen</p><p>Tippe eine Zahl an.</p></div></div>';
+  elB.innerHTML=e;
+  const dia=$("dia");
+  s.hotspots.forEach(h=>{
+    const b=document.createElement("button");
+    b.className="hotspot"; b.textContent=h.n;
+    b.style.cssText="position:absolute;left:"+h.x+"%;top:"+h.y+"%;transform:translate(-50%,-50%);"+
+      "width:30px;height:30px;border-radius:50%;background:var(--honig);color:#fff;border:2px solid #fff;"+
+      "font-family:var(--sans);font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 2px 7px rgba(35,61,92,.28);z-index:3;";
+    b.addEventListener("click",()=>{
+      $("ho").innerHTML='<p class="it">Punkt '+h.n+'</p><h3>'+h.titel+'</h3><p>'+h.text+'</p>';
+      erledigt[s.id]=true;
+    });
+    dia.appendChild(b);
+  });
+}
+
+/* ---- Störung: Fälle durchspielen ---- */
+function renderStoerung(s){
+  if(!s._probiert) s._probiert=new Set();
+  let html='<div class="stufe"><p class="intro">'+s.intro+'</p>'+baueDiagramm(s.knoten)+
+    '<div class="entscheid" id="faelle">';
+  s.faelle.forEach((f,k)=>{
+    html+='<button data-k="'+k+'"><span class="em">'+f.em+'</span>'+f.label+'</button>';
+  });
+  html+='</div></div>';
+  elB.innerHTML=html;
+  const linien=zeichneLinien(s.knoten, s.netz||[], "");   // Netz als Kulisse
+  linien.forEach(e=>requestAnimationFrame(()=>e.classList.add("an")));
+  // alle Knoten sichtbar
+  function reset(){ s.knoten.forEach(k=>{ const el=$("k_"+k.id); el.classList.remove("dim"); el.querySelector("span:last-child").classList.remove("boom"); }); }
+  reset();
+  setzeWeiter(s._probiert.size>0,"Weiter ›");
+
+  elB.querySelectorAll("#faelle button").forEach(b=>{
+    b.addEventListener("click",()=>{
+      const f=s.faelle[+b.dataset.k];
+      reset();
+      elB.querySelectorAll("#faelle button").forEach(x=>x.classList.remove("geklickt"));
+      b.classList.add("geklickt");
+      f.entfernt.forEach(id=>{ const el=$("k_"+id); if(el) el.classList.add("dim"); });
+      f.boom.forEach(id=>{ const el=$("k_"+id); if(el) el.querySelector("span:last-child").classList.add("boom"); });
+      s._probiert.add(+b.dataset.k);
+      const alle=s._probiert.size===s.faelle.length;
+      zeigeInfo(f.boom.length? "tipp":"no","Folge", alle? [f.text, s.fazit] : f.text);
+      if(alle) erledigt[s.id]=true;
+      setzeWeiter(true,"Weiter ›");
+    });
+  });
+}
+
+/* ---- Quiz ---- */
+function misch(a){a=a.slice();for(let n=a.length-1;n>0;n--){const j=Math.floor(Math.random()*(n+1));[a[n],a[j]]=[a[j],a[n]];}return a;}
+function renderQuiz(s){
+  const fragen=misch(QUIZ).slice(0,5);
+  let q=0, score=0, sperre=false;
+  elNav.style.display="none";
+  function zeigeFrage(){
+    sperre=false;
+    const fr=fragen[q];
+    // Optionen mischen, richtige Antwort mitführen
+    const opts=fr.opt.map((t,idx)=>({t, ok:idx===fr.richtig}));
+    const gem=misch(opts);
+    let html='<div class="stufe"><div class="qkopf">Frage <b>'+(q+1)+'</b> / '+fragen.length+' · Richtig: <b>'+score+'</b></div>'+
+      '<div class="qbalken"><div style="width:'+(q/fragen.length*100)+'%"></div></div>'+
+      '<h2 class="qfrage">'+fr.f+'</h2><div class="qopt" id="qopt"></div></div>';
+    elB.innerHTML=html;
+    const wrap=$("qopt");
+    gem.forEach(o=>{
+      const b=document.createElement("button"); b.textContent=o.t;
+      b.addEventListener("click",()=>{
+        if(sperre) return; sperre=true;
+        if(o.ok){ b.classList.add("richtig"); score++; }
+        else{ b.classList.add("falsch");
+          Array.from(wrap.children).forEach(x=>{ if(x.textContent===fr.opt[fr.richtig]) x.classList.add("richtig"); }); }
+        Array.from(wrap.children).forEach(x=>x.disabled=true);
+        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, o.ok?850:1500);
+      });
+      wrap.appendChild(b);
+    });
+    melde();
+  }
+  function ende(){
+    const anteil=score/fragen.length;
+    const blaetter=blaetterAus(anteil);
+    meldeExpedition(EXP_ID, blaetter);          // Ergebnis an den Forscherpass melden
+    const perfekt=score===fragen.length;
+    const spruch = perfekt ? "Volltreffer! Du hast das Netz durchschaut. 🕸️"
+      : anteil>=0.6 ? "Stark! Der Kreislauf sitzt fast." : "Schau ruhig nochmal durch die Stationen.";
+    elB.innerHTML='<div class="stufe qende"><p class="qlabel">Ergebnis</p>'+
+      '<p class="gross">'+score+'<small> / '+fragen.length+'</small></p>'+
+      '<p class="blaetter">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
+      '<p class="qspruch spruch">'+spruch+'</p>'+
+      '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">'+
+        '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
+        '<a class="knopf" href="wiesenpass.html">🍃 Zum Forscherpass</a></div></div>';
+    $("qnochmal").addEventListener("click",()=>renderQuiz(s));
+    if(perfekt){ konfetti(); fanfare(); }
+    $("balken").style.width="100%";
+    melde();
+  }
+  zeigeFrage();
+}
+
+/* ---- Navigation ---- */
+function geheZu(k){ if(k<0||k>=SCREENS.length) return; i=k; render(); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
+$("zurueckBtn").addEventListener("click",()=>geheZu(i-1));
+
+/* Wischen */
+let tx=0,ty=0,tig=false;
+document.addEventListener("touchstart",e=>{
+  if(e.target.closest("button,a,.org,.stufe-band,.nknoten,.netzdia")){tig=false;return;}
+  tig=true; tx=e.touches[0].clientX; ty=e.touches[0].clientY;
+},{passive:true});
+document.addEventListener("touchend",e=>{
+  if(!tig) return; tig=false;
+  const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.6){
+    if(dx<0){ if(!$("weiterBtn").disabled || elNav.style.display==="none") geheZu(i+1); } else geheZu(i-1);
+  }
+},{passive:true});
+
+/* Konfetti + Fanfare */
+function konfetti(){
+  if(reduce) return;
+  const feld=document.createElement("div"); feld.className="konffeld";
+  const farben=['#C28A3A','#233D5C','#3E9A5E','#e8a020','#9b59b6','#e74c3c'];
+  for(let n=0;n<70;n++){ const k=document.createElement("span"); k.className="konf";
+    k.style.cssText='left:'+Math.random()*100+'%;background:'+farben[(Math.random()*farben.length)|0]+
+      ';animation-delay:'+(Math.random()*0.5).toFixed(2)+'s;transform:rotate('+(Math.random()*360)+'deg);';
+    feld.appendChild(k); }
+  document.body.appendChild(feld); setTimeout(()=>feld.remove(),4200);
+}
+function fanfare(){
+  try{ const Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx) return;
+    const ctx=new Ctx(); if(ctx.state==="suspended") ctx.resume();
+    const t0=ctx.currentTime+0.05;
+    [[523.25,0,0.16,0.2],[659.25,0.15,0.16,0.2],[783.99,0.30,0.16,0.2],[1046.5,0.46,0.6,0.22]]
+    .forEach(([fr,st,du,vo])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type="triangle";o.frequency.value=fr;
+      g.gain.setValueAtTime(0,t0+st);g.gain.linearRampToValueAtTime(vo,t0+st+0.02);g.gain.exponentialRampToValueAtTime(0.001,t0+st+du);
+      o.connect(g).connect(ctx.destination);o.start(t0+st);o.stop(t0+st+du+0.05);});
+    setTimeout(()=>ctx.close().catch(()=>{}),1600);
+  }catch(e){}
+}
+
+/* Höhe an iframe melden */
+function melde(){ if(window.parent!==window){ try{ window.parent.postMessage({fauna:"height", height:document.body.scrollHeight}, "*"); }catch(e){} } }
+if("ResizeObserver" in window){ new ResizeObserver(melde).observe(document.body); }
+window.addEventListener("load", melde);
+
+render();
+</script>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

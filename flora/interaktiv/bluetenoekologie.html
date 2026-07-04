@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2F4F3E">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Flora Mibaso">
+<title>Blütenökologie – wer besucht wen?</title>
+<style>
+  #bo-app, #bo-app * { box-sizing: border-box; }
+  #bo-app {
+    font-family: Georgia, serif;
+    color: #2c2c2c;
+    background: #f8f5f0;
+    padding: 8px 0 14px;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  #bo-app .karte {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+    margin: 0 10px 14px;
+    overflow: hidden;
+    padding: 18px 22px 22px;
+  }
+  #bo-app .karte img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  #bo-app .karte h2 {
+    margin: 0 0 6px;
+    font-size: 1.15rem;
+    color: #2F4F3E;
+    font-family: Georgia, serif;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+  }
+  #bo-app .karte h3 {
+    margin: 14px 0 4px;
+    font-size: 1rem;
+    color: #2F4F3E;
+    font-family: Georgia, serif;
+    font-weight: bold;
+  }
+  #bo-app .karte p { margin: 0 0 8px; line-height: 1.55; }
+  #bo-app .karte ul { margin: 4px 0 10px 22px; padding: 0; }
+  #bo-app .karte li { margin-bottom: 6px; line-height: 1.5; }
+  #bo-app .karte strong { color: #2F4F3E; }
+  #bo-app .pfeil { color: #5A8068; font-weight: bold; }
+  #bo-app .fazit {
+    margin-top: 18px;
+    padding: 10px 14px;
+    background: #f4f1eb;
+    border-left: 4px solid #5A8068;
+    border-radius: 4px;
+    font-style: italic;
+    color: #5a3a24;
+    line-height: 1.5;
+  }
+  #bo-app .fazit strong { color: #2F4F3E; font-style: normal; }
+  @media (max-width: 520px) {
+    #bo-app .karte { margin: 0 6px 10px; padding: 14px 16px 16px; }
+    #bo-app .karte h2 { font-size: 1.05rem; }
+    #bo-app .karte p, #bo-app .karte li { font-size: 0.92rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="bo-app">
+  <section class="karte">
+    <img src="../images/bluetenoekologie.jpg" alt="Blütenökologie: drei Blütenformen mit ihren Bestäubern – Löwenzahn mit Biene, Rotklee mit Schmetterling, Nachtkerze mit Nachtfalter.">
+
+    <h2>Blüten sind angepasst – nicht zufällig gebaut</h2>
+
+    <ul>
+      <li><strong>Offene Blüten</strong> <span class="pfeil">→</span> für viele Insekten zugänglich (z.&nbsp;B. Löwenzahn)</li>
+      <li><strong>Röhrenblüten</strong> <span class="pfeil">→</span> nur für Spezialisten mit langem Rüssel</li>
+      <li><strong>Nachtblüher</strong> <span class="pfeil">→</span> hell und stark duftend (für Nachtfalter)</li>
+      <li><strong>Täuschblumen</strong> <span class="pfeil">→</span> locken ohne Belohnung</li>
+    </ul>
+
+    <div class="fazit">
+      👉 <strong>Fazit:</strong> Blütenform, Farbe und Duft bestimmen, <strong>welche Tiere kommen</strong> – und wer draußen bleibt.
+    </div>
+  </section>
+</div>
+
+
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

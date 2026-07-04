@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2F4F3E">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Flora Mibaso">
+<title>Aufbau einer Pflanze</title>
+</head>
+<body>
+<style>
+#ph-root*{box-sizing:border-box!important;margin:0;padding:0;}
+#ph-root{max-width:500px!important;margin:0 auto!important;font-family:"Segoe UI",Arial,sans-serif!important;padding:10px 0 20px!important;}
+#ph-root .ph-wrap{position:relative!important;background:#fff!important;border-radius:14px!important;box-shadow:0 4px 20px rgba(0,0,0,.12)!important;padding:10px!important;}
+#ph-root .ph-wrap img{width:100%!important;height:auto!important;display:block!important;border-radius:6px!important;}
+
+/* Kreise */
+#ph-root .ph-btn{
+  position:absolute!important;
+  width:28px!important;height:28px!important;
+  border-radius:50%!important;
+  background:rgba(46,125,50,0.12)!important;
+  border:2.5px solid #2e7d32!important;
+  cursor:pointer!important;
+  z-index:20!important;
+  box-shadow:0 2px 6px rgba(0,0,0,.2)!important;
+  transition:background .15s!important;
+  user-select:none!important;
+  display:block!important;
+}
+#ph-root .ph-btn:hover{background:rgba(46,125,50,0.28)!important;}
+#ph-root .ph-btn.ph-open{background:#2e7d32!important;border-color:#1b5e20!important;}
+
+/* Erklärungs-Panel UNTER dem Bild – ruhig und filigran */
+#ph-root #ph-panel{
+  margin:10px 0 0!important;
+  background:#fff!important;
+  border:1px solid #d6e0d6!important;
+  border-radius:12px!important;
+  box-shadow:0 2px 10px rgba(0,0,0,.06)!important;
+  overflow:hidden!important;
+  min-height:62px!important;
+}
+#ph-root #ph-panel .ph-hint{
+  padding:14px 16px!important;
+  text-align:center!important;
+  color:#6a6a6a!important;
+  font-size:.85rem!important;
+  font-style:italic!important;
+  line-height:1.5!important;
+  display:block!important;
+}
+#ph-root #ph-panel.active .ph-hint{
+  display:none!important;
+}
+#ph-root #ph-panel .ph-tip-content{
+  display:none!important;
+}
+#ph-root #ph-panel.active .ph-tip-content{
+  display:block!important;
+  animation:ph-fade .18s ease!important;
+}
+#ph-root .ph-tip-head{
+  background:#2e7d32!important;color:#fff!important;
+  font-size:.85rem!important;font-weight:600!important;
+  letter-spacing:.02em!important;
+  padding:8px 14px!important;
+}
+#ph-root .ph-tip-body{
+  font-size:.88rem!important;color:#333!important;
+  padding:11px 14px 12px!important;line-height:1.55!important;
+}
+@keyframes ph-fade{
+  from{opacity:0;transform:translateY(2px);}
+  to  {opacity:1;transform:translateY(0);}
+}
+</style>
+
+<div id="ph-root">
+  <div class="ph-wrap" id="ph-wrap">
+    <img src="../images/interaktiv/pflanze-anatomie.jpg" alt="Aufbau einer Pflanze" draggable="false">
+
+  <div class="ph-btn" id="ph-btn-bluete"
+       style="left:calc(33% - 14px);top:calc(9% - 14px);"
+       data-label="Blüte"
+       data-text="Der große Auftritt! Die Kronblätter sind das bunte Schaufenster der Pflanze – sie locken Bienen, Schmetterlinge und Co. mit Farbe und Duft an. Ohne sie kein Besuch, ohne Besuch keine Bestäubung."
+       onclick="phToggle(this)"
+       role="button" aria-label="Blüte anzeigen">
+  </div>
+  <div class="ph-btn" id="ph-btn-narbe"
+       style="left:calc(46% - 14px);top:calc(10% - 14px);"
+       data-label="Narbe"
+       data-text="Klebrig, aber mit Absicht! Die Narbe ist der Empfangsschalter des Stempels. Hier landet der Pollen anreisender Bestäuber und haftet sofort fest – kein Entkommen mehr."
+       onclick="phToggle(this)"
+       role="button" aria-label="Narbe anzeigen">
+  </div>
+  <div class="ph-btn" id="ph-btn-staubblatt"
+       style="left:calc(39% - 14px);top:calc(15% - 14px);"
+       data-label="Staubblatt"
+       data-text="Die Pollenkanone! Das Staubblatt besteht aus dem Staubbeutel oben (hier wird Pollen produziert) und dem Staubfaden unten (der hält alles in Position). Zusammen das männliche Organ der Blüte."
+       onclick="phToggle(this)"
+       role="button" aria-label="Staubblatt anzeigen">
+  </div>
+  <div class="ph-btn" id="ph-btn-fruchtknoten"
+       style="left:calc(43% - 14px);top:calc(19% - 14px);"
+       data-label="Fruchtknoten"
+       data-text="Die Schatztruhe der Pflanze. Im Fruchtknoten liegen die Samenanlagen gut geschützt. Nach erfolgreicher Bestäubung wird aus ihm die Frucht – aus den Samenanlagen die Samen."
+       onclick="phToggle(this)"
+       role="button" aria-label="Fruchtknoten anzeigen">
+  </div>
+  <div class="ph-btn" id="ph-btn-kelchblatt"
+       style="left:calc(52% - 14px);top:calc(21% - 14px);"
+       data-label="Kelchblatt"
+       data-text="Der grüne Bodyguard! Die Kelchblätter hüllen die Blütenknospe ein und schützen sie, solange sie noch zart und verletzlich ist. Wenn die Blüte aufgeht, treten sie einen Schritt zurück."
+       onclick="phToggle(this)"
+       role="button" aria-label="Kelchblatt anzeigen">
+  </div>
+  <div class="ph-btn" id="ph-btn-staengel"
+       style="left:calc(44% - 14px);top:calc(45% - 14px);"
+       data-label="Stängel"
+       data-text="Das Rückgrat der Pflanze – buchstäblich. Der Stängel hält alles aufrecht und ist gleichzeitig die Autobahn für Wasser und Nährstoffe: von der Wurzel nach oben in die Blüte, von den Blättern nach unten."
+       onclick="phToggle(this)"
+       role="button" aria-label="Stängel anzeigen">
+  </div>
+  <div class="ph-btn" id="ph-btn-blatt"
+       style="left:calc(67% - 14px);top:calc(52% - 14px);"
+       data-label="Blatt"
+       data-text="Die grüne Solaranlage. Mit Sonnenlicht, Wasser und CO₂ produziert das Blatt Zucker – der Treibstoff für die gesamte Pflanze. Nebenbei gibt es Sauerstoff ab. Die Pflanze also, die uns am Leben hält."
+       onclick="phToggle(this)"
+       role="button" aria-label="Blatt anzeigen">
+  </div>
+  <div class="ph-btn" id="ph-btn-wurzel"
+       style="left:calc(62% - 14px);top:calc(83% - 14px);"
+       data-label="Wurzel"
+       data-text="Unsichtbar, aber unverzichtbar. Die Wurzel verankert die Pflanze fest im Boden und saugt dabei fleißig Wasser und gelöste Mineralien auf. Ihr ganzes Leben spielt sich im Verborgenen ab – und das ist gut so."
+       onclick="phToggle(this)"
+       role="button" aria-label="Wurzel anzeigen">
+  </div>
+  </div>
+  <!-- Erklärungs-Panel UNTER dem Bild – verdeckt die Grafik nicht mehr -->
+  <div id="ph-panel">
+    <div class="ph-hint">Tippe auf einen der grünen Punkte im Bild, um mehr zu erfahren.</div>
+    <div class="ph-tip-content">
+      <div class="ph-tip-head" id="ph-tip-head"></div>
+      <div class="ph-tip-body" id="ph-tip-body"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var openBtn = null;
+  var panel   = document.getElementById('ph-panel');
+  var tipHead = document.getElementById('ph-tip-head');
+  var tipBody = document.getElementById('ph-tip-body');
+
+  function showHint(){
+    if(openBtn){ openBtn.classList.remove('ph-open'); openBtn = null; }
+    panel.classList.remove('active');
+  }
+
+  window.phToggle = function(btn){
+    if(btn === openBtn){ showHint(); return; }
+    if(openBtn) openBtn.classList.remove('ph-open');
+
+    tipHead.textContent = btn.dataset.label;
+    tipBody.textContent = btn.dataset.text;
+    btn.classList.add('ph-open');
+    openBtn = btn;
+    panel.classList.add('active');
+  };
+
+  // Klick außerhalb von Punkt + Panel → zurück zum Hinweis
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('#ph-root .ph-btn') &&
+       !e.target.closest('#ph-panel')) showHint();
+  });
+})();
+</script>
+
+
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

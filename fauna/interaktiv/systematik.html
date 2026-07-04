@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Systematik &amp; Ränge – Fauna Mibaso</title>
+<meta name="description" content="Wie die biologische Rangordnung funktioniert – und wie die Ränge zu den Farben im Stammbaum passen. Beispiel: der Admiral.">
+<meta name="theme-color" content="#233D5C">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/icon.svg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Fauna Mibaso">
+<style>
+  :root{
+    --blau:#233D5C; --blau-tief:#1a2f47; --creme:#F7F3E8; --creme-tief:#EEE7D5;
+    --tinte:#1c2e42; --honig:#C28A3A; --linie:#d7cfba;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--creme);color:var(--blau);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.55;}
+  .huelle{max-width:640px;margin:0 auto;padding:clamp(18px,5vw,40px) clamp(14px,4vw,28px) 56px;}
+
+  .zurueck{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--blau);
+    text-decoration:none;display:inline-flex;gap:6px;align-items:center;padding:4px 0;}
+  .augenbraue{font-family:var(--sans);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--honig);font-weight:600;margin:14px 0 8px;}
+  h1{font-size:clamp(26px,7vw,40px);line-height:1.08;margin:0 0 10px;font-weight:normal;}
+  .intro{font-size:clamp(15px,4.2vw,17.5px);color:var(--tinte);margin:0 0 8px;}
+
+  h2{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--honig);font-weight:700;margin:34px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--linie);}
+
+  /* Rang-Leiter */
+  .leiter{display:flex;flex-wrap:wrap;align-items:center;gap:7px 4px;margin:0 0 6px;}
+  .leiter .stufe{font-family:var(--sans);font-weight:700;font-size:14px;color:var(--blau);
+    background:#fff;border:1px solid var(--linie);border-radius:999px;padding:7px 13px;}
+  .leiter .pf{color:var(--honig);font-weight:700;}
+  .leiter-note{font-family:var(--sans);font-size:12.5px;color:#6f7b86;margin:8px 0 0;}
+
+  /* Beispiel-Tabelle Admiral, Ränge mit Baumfarben */
+  .karte{background:#fff;border:1px solid var(--linie);border-radius:16px;
+    padding:16px 18px;box-shadow:0 2px 8px rgba(35,61,92,.06);}
+  .karte .kt{font-family:var(--sans);font-size:13px;color:#6f7b86;margin:0 0 12px;}
+  .karte .kt b{color:var(--blau);}
+  .zeile{display:grid;grid-template-columns:20px 84px 1fr;align-items:center;gap:11px;
+    padding:8px 0;border-bottom:1px solid #eee4cf;}
+  .zeile:last-child{border-bottom:none;}
+  .zeile .sw{width:17px;height:17px;border-radius:5px;}
+  .zeile .rk{font-family:var(--sans);font-weight:700;font-size:12.5px;color:var(--blau);letter-spacing:.02em;}
+  .zeile .tx{font-size:15px;color:var(--tinte);}
+  .zeile .tx .lt{font-family:var(--sans);font-style:italic;font-size:12.5px;color:#8a96a1;margin-left:3px;}
+
+  /* Farbskala */
+  .skala{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:16px 0 4px;
+    font-family:var(--sans);font-size:12.5px;color:#6f7b86;}
+  .skala .felder{display:flex;gap:3px;}
+  .skala .felder span{width:15px;height:15px;border-radius:3px;}
+
+  .text{font-size:15.5px;color:var(--tinte);margin:0 0 14px;}
+  .hinweis{font-family:var(--sans);font-size:13px;color:#5a6675;background:var(--creme-tief);
+    border-radius:12px;padding:13px 15px;line-height:1.5;margin:6px 0 0;}
+
+  .cta{display:block;text-align:center;margin:30px 0 0;font-family:var(--sans);font-size:15px;
+    font-weight:600;color:var(--creme);background:var(--blau);border-radius:14px;
+    padding:16px 20px;text-decoration:none;}
+  .cta:hover{background:var(--blau-tief);}
+  .cta small{display:block;font-weight:400;font-size:12.5px;color:#b9c7d6;margin-top:3px;}
+
+  footer{margin-top:38px;padding-top:16px;border-top:1px solid var(--linie);
+    font-family:var(--sans);font-size:12px;color:#8a93a0;}
+  body{padding-top:env(safe-area-inset-top);}
+</style>
+</head>
+<body>
+<div class="huelle">
+  <a class="zurueck" href="../">‹ Zur Startseite</a>
+  <p class="augenbraue">Natur vor der Haustür</p>
+  <h1>Systematik &amp; Ränge</h1>
+  <p class="intro">Jedes Tier hat seinen Platz in einer großen Ordnung – vom weiten Reich bis hinunter zur einzelnen Art. Diese Stufen heißen <b>Ränge</b>.</p>
+
+  <h2>Die Rangordnung – von grob nach fein</h2>
+  <div class="leiter">
+    <span class="stufe">Reich</span><span class="pf">›</span>
+    <span class="stufe">Stamm</span><span class="pf">›</span>
+    <span class="stufe">Klasse</span><span class="pf">›</span>
+    <span class="stufe">Ordnung</span><span class="pf">›</span>
+    <span class="stufe">Familie</span><span class="pf">›</span>
+    <span class="stufe">Gattung</span><span class="pf">›</span>
+    <span class="stufe">Art</span>
+  </div>
+  <p class="leiter-note">Je weiter rechts, desto enger verwandt sind die Tiere einer Gruppe.</p>
+
+  <h2>So passen die Ränge zu den Farben</h2>
+  <p class="text">Im Stammbaum bekommt jede <b>Ebene</b> eine eigene Farbe – von tiefem Blau an der Wurzel bis zu hellem Grün bei den Arten. Am Beispiel des <b>Admirals</b> sieht man, welche Farbe zu welchem Rang gehört:</p>
+
+  <div class="karte">
+    <p class="kt">Beispiel: <b>Admiral</b> <i>(Vanessa atalanta)</i> – ein Tagfalter</p>
+    <div id="beispiel"></div>
+  </div>
+
+  <div class="skala">
+    <span>Ebenen:</span>
+    <span class="felder" id="felder"></span>
+    <span>Wurzel → Arten</span>
+  </div>
+
+  <p class="hinweis">Die Farben zeigen die <b>Stufe im Baum</b>, nicht den klassischen Rang. Klassische Ränge liegen unterschiedlich tief – dazwischen gibt es weitere Verzweigungen (sogenannte Kladen) ohne eigenen Rang. Darum hat nicht jede „Klasse“ exakt dieselbe Farbe.</p>
+
+  <a class="cta" href="stammbaum.html">Zum interaktiven Stammbaum ↗
+    <small>Alle Gruppen aufklappen, antippen und bis zur Art verfolgen</small></a>
+
+  <footer>© 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso</footer>
+</div>
+
+<script>
+const farbe=['#1E3A52','#1F5168','#1E6670','#1F7A6F','#2A8C66','#3E9A5E','#57A457','#6FAD52','#86B44F','#9BBA50','#A9BE59','#B3C168','#BBC474','#C0C77F','#C5C98A'];
+const bsp=[
+  ["Reich","Tiere","Animalia",0],
+  ["Stamm","Gliederfüßer","Arthropoda",5],
+  ["Klasse","Insekten","Insecta",8],
+  ["Ordnung","Schmetterlinge","Lepidoptera",12],
+  ["Familie","Edelfalter","Nymphalidae",14],
+  ["Art","Admiral","Vanessa atalanta",14]
+];
+document.getElementById("beispiel").innerHTML = bsp.map(function(r){
+  var c=farbe[Math.min(r[3],farbe.length-1)];
+  return '<div class="zeile"><span class="sw" style="background:'+c+'"></span>'+
+    '<span class="rk">'+r[0]+'</span>'+
+    '<span class="tx">'+r[1]+'<span class="lt">'+r[2]+'</span></span></div>';
+}).join("");
+document.getElementById("felder").innerHTML = farbe.slice(0,13).map(function(c){
+  return '<span style="background:'+c+'"></span>';
+}).join("");
+</script>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

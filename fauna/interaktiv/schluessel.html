@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Was kreucht und fleucht denn hier? · Bestimmen · Fauna Mibaso</title>
+<meta name="description" content="Geführtes Bestimmen für Laien: ein paar Fragen nach Sichtbarem – und du landest bei der Tiergruppe oder beim Schmetterling.">
+<style>
+  :root{
+    --blau:#233D5C; --blau-tief:#1a2f47; --creme:#F7F3E8; --creme-tief:#EEE7D5;
+    --tinte:#1c2e42; --honig:#C28A3A; --linie:#c3ccd5;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--creme);color:var(--blau);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.5;}
+  .huelle{max-width:640px;margin:0 auto;padding:clamp(18px,5vw,40px) clamp(12px,3.5vw,28px) 60px;}
+
+  .augenbraue{font-family:var(--sans);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--honig);font-weight:600;margin:0 0 10px;}
+  h1{font-size:clamp(23px,6.6vw,38px);line-height:1.08;margin:0 0 10px;font-weight:normal;}
+  .intro{font-size:clamp(15px,4.2vw,18px);max-width:52ch;margin:0;color:var(--tinte);}
+
+  /* Fortschrittspfad */
+  .pfad{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:20px 0 0;
+    padding-bottom:14px;border-bottom:1px solid var(--linie);min-height:20px;}
+  .pfad .pchip{font-family:var(--sans);font-size:12px;color:var(--blau);background:var(--creme-tief);
+    border:none;border-radius:999px;padding:5px 11px;cursor:pointer;line-height:1.2;
+    transition:background .15s;}
+  .pfad .pchip:hover{background:#e2dac6;}
+  .pfad .pfeil{color:#b3bcc6;font-family:var(--sans);font-size:12px;}
+  .pfad .start{color:#8a96a1;font-family:var(--sans);font-size:12px;letter-spacing:.04em;}
+
+  /* Frage */
+  .frage{margin-top:20px;}
+  .frage h2{font-size:clamp(19px,5.4vw,24px);font-weight:normal;margin:0 0 4px;line-height:1.25;}
+  .frage .sub{font-family:var(--sans);font-size:13px;color:#6f7b86;margin:0 0 16px;}
+
+  .opt{display:flex;align-items:center;gap:13px;width:100%;text-align:left;cursor:pointer;
+    background:#fff;border:1px solid var(--linie);border-radius:14px;padding:14px 15px;margin-bottom:11px;
+    color:inherit;font:inherit;
+    transition:transform .14s, box-shadow .14s, border-color .14s;}
+  .opt:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(35,61,92,.10);border-color:#b9c2cd;}
+  .opt:active{transform:translateY(0);}
+  .opt .ic{flex:0 0 auto;width:42px;height:42px;border-radius:11px;background:var(--creme-tief);
+    display:flex;align-items:center;justify-content:center;}
+  .opt .ic svg{display:block;}
+  .opt .ic .swatch{width:24px;height:24px;border-radius:50%;border:1.5px solid rgba(28,46,66,.25);}
+  .opt .tx{flex:1 1 auto;min-width:0;}
+  .opt .t{display:block;font-size:16.5px;line-height:1.25;}
+  .opt .h{display:block;font-family:var(--sans);font-size:12.5px;color:#5a6675;margin-top:3px;line-height:1.35;}
+  .opt .pf{flex:0 0 auto;color:var(--honig);font-size:20px;font-family:var(--sans);}
+
+  /* Ergebnis */
+  .ergebnis{margin-top:20px;padding:17px 18px;border-radius:0 12px 12px 0;
+    background:var(--creme-tief);border-left:4px solid var(--honig);}
+  .ergebnis .rang{font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    color:#8a96a1;margin:0 0 4px;}
+  .ergebnis h2{margin:0 0 2px;font-size:clamp(21px,6vw,27px);font-weight:normal;}
+  .ergebnis .lat{font-family:var(--sans);font-size:12.5px;color:#8a96a1;font-style:italic;margin:0 0 11px;}
+  .ergebnis p{margin:0 0 4px;font-size:clamp(14.5px,4vw,16px);color:var(--tinte);}
+  .ergebnis .knoepfe{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px;}
+  .ergebnis a, .ergebnis button.weiter{font-family:var(--sans);font-size:13.5px;font-weight:600;
+    text-decoration:none;border-radius:999px;padding:11px 17px;cursor:pointer;border:1px solid var(--blau);}
+  .btn-prim{background:var(--blau);color:var(--creme);border-color:var(--blau)!important;}
+  .btn-prim:hover{background:var(--blau-tief);}
+  .btn-sek{background:transparent;color:var(--blau);}
+  .btn-sek:hover{background:rgba(35,61,92,.06);}
+
+  /* Steuerung */
+  .steuer{display:flex;gap:9px;margin-top:22px;padding-top:16px;border-top:1px solid var(--linie);}
+  .knopf{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--blau);
+    background:transparent;border:1px solid var(--blau);border-radius:999px;padding:8px 15px;cursor:pointer;
+    transition:background .18s,color .18s;}
+  .knopf:hover{background:var(--blau);color:var(--creme);}
+  .knopf:disabled{opacity:.38;cursor:default;}
+  .knopf:disabled:hover{background:transparent;color:var(--blau);}
+  .stammlink{margin-left:auto;font-family:var(--sans);font-size:12.5px;color:#67737e;
+    align-self:center;text-decoration:none;}
+  .stammlink:hover{color:var(--blau);}
+
+  .legende{margin-top:26px;padding-top:16px;border-top:1px solid var(--linie);
+    font-family:var(--sans);font-size:12.5px;color:#67737e;}
+  .legende b{color:var(--blau);font-weight:600;}
+  .legende a{color:var(--blau);}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+<div class="huelle">
+  <p class="augenbraue">Frag dich durch · Bestimmen</p>
+  <h1>Was kreucht und fleucht denn hier?</h1>
+  <p class="intro">Du hast ein kleines Tier entdeckt? Beantworte ein paar Fragen nach dem, was du <b>siehst</b> – Beine, Schale, Flügel, Farbe – und der Schlüssel führt dich zur Tiergruppe und bei vielen Gruppen weiter bis zur einzelnen Art.</p>
+
+  <div class="pfad" id="pfad"></div>
+
+  <div class="frage" id="frage"></div>
+  <div class="ergebnis" id="ergebnis" style="display:none"></div>
+
+  <div class="steuer">
+    <button class="knopf" id="zurueck">‹ Zurück</button>
+    <button class="knopf" id="vonvorn">↺ Von vorn</button>
+    <a class="stammlink" href="stammbaum.html">Lieber im Stammbaum stöbern ↗</a>
+  </div>
+
+  <div class="legende">
+    <b>So funktioniert's:</b> Jede Frage fragt nur nach Sichtbarem. Tippe die Antwort, die am besten passt – über die Pfad-Punkte oben kommst du jederzeit zu einer früheren Frage zurück. Endpunkte sind entweder eine <b>Tiergruppe</b> (mit Weg in den Stammbaum) oder eine einzelne <b>Art</b> mit eigener Seite. Im Zweifel hilft der Blick auf zwei ähnliche Kandidaten.
+  </div>
+</div>
+
+<script>
+/* ----------------------------------------------------------------------------
+   Bestimmungsschlüssel – ein geschachtelter Entscheidungsbaum.
+   Erweitern: neuen Knoten in KNOTEN ergänzen und per "ziel" verlinken.
+   Fragen-Knoten:  { frage, sub?, optionen:[ {t,h?,ic?,sw?,kurz,ziel} ] }
+   Gruppen-Ende:   { gruppe:true, de, lat, text }
+   Art-Ende:       { art:true,    de, lat, text, url }
+   Sonder-Ende:    { de, lat, text, weiterZiel?, weiterText? }   (z. B. Raupe)
+---------------------------------------------------------------------------- */
+const START = "beine";
+const KNOTEN = {
+
+  beine:{ frage:"Schau dir das Tier in Ruhe an: Hat es Beine?",
+    optionen:[
+      {t:"Keine Beine – es kriecht oder schlängelt", ic:"wurm", kurz:"keine Beine", ziel:"kriecher"},
+      {t:"Ja, ich sehe Beine und kann sie zählen", ic:"beine", kurz:"mit Beinen", ziel:"beinzahl"},
+    ]},
+
+  kriecher:{ frage:"Kein Bein in Sicht – wie sieht der weiche Körper aus?",
+    optionen:[
+      {t:"Mit Schneckenhaus – oder nackt, schleimig, kriecht auf einem Fuß", h:"Schnecke oder Nacktschnecke", ic:"schale", kurz:"Schale/Schleim", ziel:"g_schnecken"},
+      {t:"Langer Körper aus vielen gleichen Ringen, ohne Kopf mit Beinen", h:"wie ein Regenwurm", ic:"ringe", kurz:"geringelt", ziel:"g_wuermer"},
+      {t:"Weich, mit vielen kurzen Stummelfüßen, frisst an Blättern", h:"das könnte eine Raupe sein", ic:"raupe", kurz:"Stummelfüße", ziel:"e_raupe"},
+    ]},
+
+  beinzahl:{ frage:"Zähle die Beine – wie viele sind es?",
+    optionen:[
+      {t:"Sechs Beine (drei Paare)", h:"das ist ein Insekt", ic:"n6", kurz:"6 Beine", ziel:"insekt"},
+      {t:"Acht Beine (vier Paare)", h:"Spinne, Weberknecht, Skorpion, Milbe", ic:"n8", kurz:"8 Beine", ziel:"k_spinnen"},
+      {t:"Mehr als acht Beine", h:"viele Beinpaare", ic:"nviel", kurz:"viele Beine", ziel:"vielbeiner"},
+    ]},
+
+  vielbeiner:{ frage:"Viele Beine – wie ist der Körper gebaut?",
+    optionen:[
+      {t:"Sehr lang und wurmförmig, an fast jedem Ring Beine", h:"Doppel- oder Hundertfüßer", ic:"ringe", kurz:"lang & vielbeinig", ziel:"g_tausend"},
+      {t:"Gedrungen, gepanzert, etwa 14 Beine; feucht-dunkler Ort, rollt sich evtl. zur Kugel", h:"Kellerassel & Co.", ic:"panzer", kurz:"Assel", ziel:"g_asseln"},
+    ]},
+
+  insekt:{ frage:"Sechs Beine – das ist ein Insekt! Sieh dir nun die Flügel an.",
+    optionen:[
+      {t:"Breite Flügel, oft bunt, wie mit feinem Staub (Schuppen) bedeckt", h:"ein Falter / Schmetterling", ic:"falter", kurz:"Falter", ziel:"falter"},
+      {t:"Andere Flügel: harte Decken, glasklar, Sprungbeine, Stechrüssel …", h:"Käfer, Biene, Fliege, Libelle …", ic:"insekt", kurz:"anderes Insekt", ziel:"insektorders"},
+    ]},
+
+  insektorders:{ frage:"Welches Insekt passt am besten?", sub:"Endet in der jeweiligen Gruppe – im Stammbaum siehst du, wie sie eingeordnet ist.",
+    optionen:[
+      {t:"Harte Deckflügel, die sich in gerader Linie über dem Rücken treffen", h:"Käfer", kurz:"Käfer", ziel:"k_kaefer"},
+      {t:"Schmale Wespentaille, oft gelb-schwarz, glasklare Flügel", h:"Biene, Wespe, Hummel, Ameise", kurz:"Hautflügler", ziel:"k_hymenoptera"},
+      {t:"Nur ein Paar Flügel, flink und surrend", h:"Fliege oder Mücke", kurz:"Zweiflügler", ziel:"k_diptera"},
+      {t:"Vier lange glasklare Flügel, langer schlanker Körper, am Wasser", h:"Libelle", kurz:"Libelle", ziel:"k_libellen"},
+      {t:"Kräftige Sprung-Hinterbeine, zirpt", h:"Heuschrecke oder Grille", kurz:"Heuschrecke", ziel:"k_heuschrecken"},
+      {t:"Stechrüssel; Vorderflügel halb hart, halb häutig – oder springende Zikade", h:"Wanze / Zikade", kurz:"Schnabelkerf", ziel:"k_wanzen"},
+      {t:"Langer Kopf-„Schnabel“; Männchen mit skorpionartig aufgebogenem Hinterleib", h:"Skorpionsfliege", kurz:"Skorpionsfliege", ziel:"a_gemeine-skorpionsfliege"},
+      {t:"Dunkel und träge am Wasser, große dachartig getragene, geäderte Flügel", h:"Schlammfliege", kurz:"Schlammfliege", ziel:"a_gemeine-schlammfliege"},
+      {t:"Zange am Hinterleibsende; flink, versteckt sich gern in Spalten", h:"Ohrwurm", kurz:"Ohrwurm", ziel:"a_gemeiner-ohrwurm"},
+      {t:"Zarte, hochgestellte Flügel und lange Schwanzfäden; am Wasser", h:"Eintagsfliege", kurz:"Eintagsfliege", ziel:"a_grosse-eintagsfliege"},
+    ]},
+
+  /* ---- Käfer ---- */
+  k_kaefer:{ frage:"Ein Käfer! Welcher passt am besten?", sub:"Triffst du keinen davon, geht es zur Gruppe.",
+    optionen:[
+      {t:"Halbrund, rot oder gelb mit schwarzen Punkten", h:"ein Marienkäfer", sw:"#C0392B", kurz:"Punkte", ziel:"k_marienkaefer"},
+      {t:"Länglich, rot-schwarz gebändert, Vorderkörper metallisch blaugrün; auf Blüten", h:"Bienenkäfer", sw:"#2f4a8a", kurz:"rot-blau, Blüte", ziel:"a_bienenkaefer"},
+      {t:"Länglich mit sehr langen Fühlern (fast körperlang)", h:"ein Bockkäfer", sw:"#9a9384", kurz:"Bockkäfer", ziel:"k_bockkaefer"},
+      {t:"Gedrungen, hellbraune Flügeldecken, dunkler Vorderkörper; schwärmt im Frühsommer", h:"Gartenlaubkäfer", sw:"#7a5a2a", kurz:"brauner Laubkäfer", ziel:"a_gartenlaubkaefer"},
+      {t:"Länglich, mit weichen, biegsamen Flügeldecken; rot/schwarz, auf Wiesen", h:"Weichkäfer", sw:"#9a2f2f", kurz:"Weichkäfer", ziel:"k_weichkaefer"},
+      {t:"Metallisch grün glänzend; auf Rosen und Doldenblüten", h:"Rosenkäfer", sw:"#2e7d32", kurz:"metallgrün", ziel:"a_rosenkaefer"},
+      {t:"Groß, kastanienbraun, mit Fächerfühlern; schwärmt abends im Mai", h:"Maikäfer", sw:"#7a3b1f", kurz:"Maikäfer", ziel:"a_feldmaikaefer"},
+      {t:"Leuchtend rot, klein; an Lilien im Beet", h:"Lilienhähnchen", sw:"#C0392B", kurz:"rot, Lilie", ziel:"a_lilienhaehnchen"},
+      {t:"Gelb mit schwarzen Längsstreifen; an Kartoffelpflanzen", h:"Kartoffelkäfer", sw:"#E3C012", kurz:"gestreift", ziel:"a_kartoffelkaefer"},
+      {t:"Groß, mattschwarz, läuft flink am Boden; nachtaktiv", h:"Laufkäfer", sw:"#2c2c2c", kurz:"schwarzer Läufer", ziel:"a_lederlaufkaefer"},
+      {t:"Kräftig, blau-violett glänzend, gewölbt; an Dung und Waldwegen", h:"Mistkäfer", sw:"#3b3b6b", kurz:"Mistkäfer", ziel:"a_waldmistkaefer"},
+      {t:"Schlank, metallisch blau-grün, auf Blüten – aber ohne lange Bock-Fühler", h:"Scheinbockkäfer", sw:"#1f6f8a", kurz:"blau, schlank", ziel:"a_blauer-scheinbockkaefer"},
+      {t:"Dunkel, gedrungen, mit kurzem Rüssel; Fraßbuchten am Blattrand", h:"Dickmaulrüssler", sw:"#4a4a4a", kurz:"Rüssel", ziel:"a_dickmaulruessler"},
+      {t:"Leuchtet nachts grünlich auf Wiesen", h:"Glühwürmchen", sw:"#6b8e23", kurz:"Glühwürmchen", ziel:"a_grosser-leuchtkaefer"},
+      {t:"Klein, braun mit heller Binde; an Vorräten oder in Sammlungen", h:"Speckkäfer", sw:"#7a5a3a", kurz:"Vorratsgast", ziel:"a_gemeiner-speckkaefer"},
+      {t:"Winzig, glänzend, in Massen auf Raps und gelben Blüten", h:"Glanzkäfer", sw:"#2e7d32", kurz:"winzig, Raps", ziel:"a_gemeiner-glanzkaefer"},
+      {t:"Ein anderer Käfer", h:"zur Gruppe", kurz:"anderer Käfer", ziel:"g_kaefer"},
+    ]},
+
+  k_bockkaefer:{ frage:"Ein Bockkäfer – welcher?", sub:"Lange Fühler, schlanker Körper.",
+    optionen:[
+      {t:"Schwarz mit gelben Querbinden, wespenähnlich; läuft nervös über Holz und Blüten", h:"Echter Widderbock", sw:"#E8B11E", kurz:"wespenähnlich", ziel:"a_echter-widderbock"},
+      {t:"Schwarz mit einigen gelben Flecken; auf Doldenblüten", h:"Fleckenhörniger Halsbock", sw:"#2c2c2c", kurz:"schwarz, gelbe Flecken", ziel:"a_fleckenhoerniger-halsbock"},
+      {t:"Grau gepunktet; an jungen Pappeln/Espen, oft mit spindelförmigen Gallen", h:"Pappel-Bockkäfer", sw:"#9a9384", kurz:"grau, Pappel", ziel:"a_kleiner-pappel-bockkaefer"},
+      {t:"Sehr schlank und zierlich; auf Doldenblüten", h:"Schmalbock", sw:"#9a9384", kurz:"schlank", ziel:"a_kleiner-schmalbock"},
+      {t:"Gelblich-grün, sehr lange geringelte Fühler; auf Disteln", h:"Scheckhorn-Distelbock", sw:"#8a8a4a", kurz:"Distelbock", ziel:"a_scheckhornbock"},
+      {t:"Blau-grün schimmernd, riecht nach Moschus; an alten Weiden", h:"Moschuskäfer", sw:"#2f6f5a", kurz:"Moschus", ziel:"a_moschuskaefer"},
+      {t:"Gelb-schwarz gefleckt, wespenähnlich; auf Doldenblüten", h:"Gemeiner Fleckenbock", sw:"#E8B11E", kurz:"gefleckt", ziel:"a_gemeiner-fleckenbock"},
+      {t:"Ein anderer Bockkäfer", h:"zur Gruppe", kurz:"anderer", ziel:"g_kaefer"},
+    ]},
+
+  k_weichkaefer:{ frage:"Ein Weichkäfer – welcher?",
+    optionen:[
+      {t:"Rot-schwarz gezeichnet, eher klein", sw:"#C0392B", kurz:"rot-schwarz", ziel:"a_rotschwarzer-weichkaefer"},
+      {t:"Größer, schwarze Flügeldecken mit rotem Halsschild", sw:"#7a2f2f", kurz:"schwarz, roter Hals", ziel:"a_gemeiner-weichkaefer"},
+      {t:"Ein anderer Weichkäfer", h:"zur Gruppe", kurz:"anderer", ziel:"g_kaefer"},
+    ]},
+
+  k_marienkaefer:{ frage:"Ein Marienkäfer – welcher?",
+    optionen:[
+      {t:"Rot mit sieben schwarzen Punkten", sw:"#C0392B", kurz:"7 Punkte", ziel:"a_siebenpunkt-marienkaefer"},
+      {t:"Sehr variabel, orange bis schwarz, oft weißes „M“ am Halsschild", sw:"#d35400", kurz:"variabel, M", ziel:"a_asiatischer-marienkaefer"},
+      {t:"Klein, gelb mit vielen (22) schwarzen Punkten", sw:"#E3C012", kurz:"gelb, 22", ziel:"a_zweiundzwanzigpunkt-marienkaefer"},
+      {t:"Ein anderer Marienkäfer", kurz:"anderer", ziel:"g_kaefer"},
+    ]},
+
+  /* ---- Hautflügler: Bienen, Hummeln, Wespen ---- */
+  k_hymenoptera:{ frage:"Biene, Wespe oder Hummel? Sieh auf Pelz und Taille.",
+    optionen:[
+      {t:"Dick und pelzig", h:"Hummel oder Biene", sw:"#4a3b2a", kurz:"pelzig", ziel:"k_bienen"},
+      {t:"Glatt, gelb-schwarz, mit deutlicher Wespentaille", h:"Wespe oder Hornisse", sw:"#E8B11E", kurz:"glatt, Taille", ziel:"k_wespen"},
+      {t:"Schlank und fast unbehaart, klein, wespenähnlich – an Blüten", h:"kleine Wildbiene", sw:"#8a8f99", kurz:"schlanke Wildbiene", ziel:"k_wildbienen"},
+      {t:"Mit langem „Bohrturm“ (Legebohrer) am Hinterleib", h:"Holzwespe oder Schlupfwespe", sw:"#6b4a2a", kurz:"Legebohrer", ziel:"k_bohrer"},
+      {t:"Schwarz oder schwarz-rot; gräbt im Sand oder baut Lehmgefäße und jagt Beute", h:"Grabwespe", sw:"#9a3b1f", kurz:"Grabwespe", ziel:"k_grabwespen"},
+      {t:"Wespenähnlich, aber OHNE Wespentaille (Körper breit verbunden)", h:"Pflanzenwespe", sw:"#E8B11E", kurz:"keine Taille", ziel:"k_pflanzenwespen"},
+      {t:"Flügellos, läuft in Spuren über den Boden", h:"Ameise", sw:"#2c2c2c", kurz:"Ameise", ziel:"k_ameisen"},
+      {t:"Etwas anderes", h:"zur Gruppe", kurz:"andere", ziel:"g_hymenoptera"},
+    ]},
+  k_wildbienen:{ frage:"Schlanke, wespenähnliche Wildbiene – welche?",
+    optionen:[
+      {t:"Winzig, schwarz, mit heller Gesichtsmaske", sw:"#2c2c2c", kurz:"Maske", ziel:"a_maskenbiene"},
+      {t:"Gelb-schwarz oder rötlich wie eine kleine Wespe (Kuckucksbiene)", sw:"#E8B11E", kurz:"wespenähnlich", ziel:"a_wespenbiene"},
+      {t:"Eine andere Wildbiene", kurz:"andere", ziel:"g_hymenoptera"},
+    ]},
+  k_bienen:{ frage:"Pelzig – welche Hummel oder Biene?",
+    optionen:[
+      {t:"Schwarz mit zwei gelben Binden und weißem Hinterende", sw:"#E3C012", kurz:"weißes Ende", ziel:"a_dunkle-erdhummel"},
+      {t:"Tiefschwarz mit leuchtend rot-orangem Hinterende", sw:"#C0392B", kurz:"rotes Ende", ziel:"a_steinhummel"},
+      {t:"Sehr groß, ganz schwarz, Flügel blau-violett schimmernd", sw:"#5b4b8a", kurz:"groß, blau-schwarz", ziel:"a_grosse-holzbiene"},
+      {t:"Durchgehend rostbraun/orange pelzig, ohne weißes Hinterende", sw:"#9a5a2a", kurz:"rostbraun", ziel:"a_ackerhummel"},
+      {t:"Rostrot behaart, rundlich, sehr früh im Jahr", sw:"#a8551f", kurz:"Mauerbiene", ziel:"a_rote-mauerbiene"},
+      {t:"Schwarz pelzig vorn, rostrote Bürste hinten, „Hörnchen“ im Gesicht; sehr früh", sw:"#a8551f", kurz:"Hörnchen", ziel:"a_gehoernte-mauerbiene"},
+      {t:"Brust fuchsrot/orange, Hinterleib schwarz, Hinterende weiß", sw:"#9a4a1f", kurz:"fuchsige Brust", ziel:"a_baumhummel"},
+      {t:"Schwarz mit gelben Binden und weißer Spitze, auffällig langes Gesicht", sw:"#E3C012", kurz:"langes Gesicht", ziel:"a_gartenhummel"},
+      {t:"Klein: gelber Kragen, gelbes Band, rotorange Spitze; sehr früh", sw:"#C8531F", kurz:"klein, rote Spitze", ziel:"a_wiesenhummel"},
+      {t:"Schlanker, nur bräunlich behaart; am Bienenstock oder an Waben", sw:"#8a6a3a", kurz:"Honigbiene", ziel:"a_honigbiene"},
+      {t:"Kompakt, schwirrt im zeitigen Frühjahr an Lungenkraut/Taubnessel", sw:"#5a4a3a", kurz:"Pelzbiene", ziel:"a_gemeine-pelzbiene"},
+      {t:"Pelzig; Männchen mit körperlangen Fühlern (an Klee/Wicken)", sw:"#8a6a3a", kurz:"Langhornbiene", ziel:"a_mai-langhornbiene"},
+      {t:"Schwarz mit weißen Haarbüscheln (Kuckucksbiene)", sw:"#2c2c2c", kurz:"Trauerbiene", ziel:"a_gemeine-trauerbiene"},
+      {t:"Schwarz mit blau-weißen Punktreihen (Kuckucksbiene)", sw:"#2f4a8a", kurz:"Fleckenbiene", ziel:"a_fleckenbiene"},
+      {t:"Eine andere Biene oder Hummel", kurz:"andere", ziel:"g_hymenoptera"},
+    ]},
+  k_wespen:{ frage:"Glatt und gelb-schwarz – wie groß?",
+    optionen:[
+      {t:"Mittelgroß, leuchtend gelb-schwarz; oft am Kuchen oder Saftglas", sw:"#E8B11E", kurz:"mittel", ziel:"a_gemeine-wespe"},
+      {t:"Sehr groß, braun-rot mit gelb; brummt laut", sw:"#9a5a2a", kurz:"sehr groß", ziel:"a_hornisse"},
+      {t:"Wie die Gemeine Wespe – Unterschied nur an feinen Punkten im Gesicht", sw:"#E8B11E", kurz:"Kuchen-Wespe", ziel:"a_deutsche-wespe"},
+      {t:"Schlank, lange im Flug baumelnde Beine, orange Fühler; kleines offenes Nest", sw:"#E8B11E", kurz:"schlank, lange Beine", ziel:"a_haus-feldwespe"},
+      {t:"Eine andere Wespe", kurz:"andere", ziel:"g_hymenoptera"},
+    ]},
+
+  k_bohrer:{ frage:"Mit langem „Bohrturm“ am Hinterleib – wie sieht er aus?",
+    optionen:[
+      {t:"Kräftig, an Nadelholz; Bohrer kürzer als der Körper", sw:"#6b4a2a", kurz:"Holzwespe", ziel:"a_holzwespen-schlupfwespe"},
+      {t:"Sehr schlank, Bohrer so lang wie der Körper oder länger; im Wald", sw:"#2c2c2c", kurz:"Schlupfwespe", ziel:"a_grosse-schlupfwespe"},
+      {t:"Etwas anderes", kurz:"andere", ziel:"g_hymenoptera"},
+    ]},
+  k_grabwespen:{ frage:"Eine Grabwespe – woran erkennst du sie?",
+    optionen:[
+      {t:"Gräbt blitzschnell im offenen Sand; trägt Fliegen ein", sw:"#caa45a", kurz:"Sandbagger", ziel:"a_sandwespe"},
+      {t:"Schwarzer Körper, rostrot geringelter Hinterleib, lange Beine; jagt Heuschrecken", sw:"#9a3b1f", kurz:"schwarz-rot", ziel:"a_grabwespe"},
+      {t:"Baut kleine Tongefäße aus Lehm an Mauern; füllt sie mit Spinnen", sw:"#7a5a3a", kurz:"Lehmtöpfe", ziel:"a_toepfergrabwespe"},
+      {t:"Eine andere", kurz:"andere", ziel:"g_hymenoptera"},
+    ]},
+  k_ameisen:{ frage:"Eine Ameise – welche?",
+    optionen:[
+      {t:"Rotbraun-schwarz, groß; an riesigem Nadelhügel im Wald", sw:"#9a3b1f", kurz:"Waldameise", ziel:"a_rote-waldameise"},
+      {t:"Klein, dunkelbraun-schwarz; an Wegen, Mauern, auf der Terrasse", sw:"#2c2c2c", kurz:"am Weg", ziel:"a_schwarze-wegameise"},
+      {t:"Blassgelb, fast nur unterirdisch; baut Erdhügel auf der Wiese", sw:"#caa45a", kurz:"gelb, Hügel", ziel:"a_gelbe-wegameise"},
+      {t:"Eine andere Ameise", kurz:"andere", ziel:"g_hymenoptera"},
+    ]},
+  k_pflanzenwespen:{ frage:"Wespenähnlich, aber ohne Wespentaille – eine Pflanzenwespe.",
+    optionen:[
+      {t:"Gelb-schwarz, an Doldenblüten; Larven an Laubblättern", sw:"#E8B11E", kurz:"Breitblattwespe", ziel:"a_gemeine-breitblattwespe"},
+      {t:"Rotbraun-schwarz, Männchen mit gefiederten Fühlern; an Kiefern", sw:"#9a3b1f", kurz:"an Kiefer", ziel:"a_kiefernbuschhornblattwespe"},
+      {t:"Eine andere", kurz:"andere", ziel:"g_hymenoptera"},
+    ]},
+
+  /* ---- Zweiflügler ---- */
+  k_diptera:{ frage:"Eine Fliege oder Mücke – was passt am besten?",
+    optionen:[
+      {t:"Pummelig wie eine Honigbiene, schwebt vor Blüten", h:"Mistbiene", sw:"#8a6a3a", kurz:"bienenartig", ziel:"a_mistbiene"},
+      {t:"Schlank, gelb-schwarz gebändert, steht ruhig in der Luft", h:"Hainschwebfliege", sw:"#E0A020", kurz:"schwebt, gestreift", ziel:"a_hainschwebfliege"},
+      {t:"Metallisch grün-golden glänzend", h:"Goldfliege", sw:"#3a7a3a", kurz:"metallgrün", ziel:"a_goldfliege"},
+      {t:"Sitzt kopfüber an Baumstämmen; schlank, langbeinig", h:"Schnepfenfliege", sw:"#8a7a5a", kurz:"kopfüber", ziel:"a_schwarzfuessige-schnepfenfliege"},
+      {t:"Langer, nach unten gerichteter Stechrüssel; jagt Insekten", h:"Tanzfliege", sw:"#6b6b6b", kurz:"Stechrüssel", ziel:"a_helle-tanzfliege"},
+      {t:"Grau, mittelgroß, an Fenstern und in Räumen", h:"Stubenfliege", sw:"#6b6b6b", kurz:"Stubenfliege", ziel:"a_stubenfliege"},
+      {t:"Wie eine Stubenfliege, sticht aber (nach vorn gerichteter Rüssel)", h:"Stechfliege", sw:"#5a5a5a", kurz:"sticht", ziel:"a_gemeine-stechfliege"},
+      {t:"Kräftig, metallisch stahlblau, brummt laut; an Aas/Abfall", h:"Blaue Schmeißfliege", sw:"#2f4a8a", kurz:"blau, brummt", ziel:"a_blaue-schmeissfliege"},
+      {t:"Grau mit schwarz-grauem Schachbrettmuster, rote Augen", h:"Fleischfliege", sw:"#8a8a8a", kurz:"Schachbrett", ziel:"a_gemeine-fleischfliege"},
+      {t:"Winzig, gelblich, rote Augen; an reifem Obst", h:"Taufliege", sw:"#c87a3a", kurz:"Obstfliege", ziel:"a_taufliege"},
+      {t:"Sehr schlank – lange Beine oder lange Fühler; eine Mücke oder Schnake", h:"Mücke/Schnake", sw:"#8a7a5a", kurz:"Mücke/Schnake", ziel:"k_muecken"},
+      {t:"Eine andere Fliege oder Mücke", h:"zur Gruppe", kurz:"andere", ziel:"g_diptera"},
+    ]},
+
+  k_muecken:{ frage:"Eine Mücke oder Schnake – welche?",
+    optionen:[
+      {t:"Sehr groß, extrem lange Beine; sticht nicht (Schnake/„Schneider“)", sw:"#8a7a5a", kurz:"Schnake", ziel:"k_schnaken"},
+      {t:"Schlank, summt nachts und sticht – eine Stechmücke", sw:"#7a5a3a", kurz:"Stechmücke", ziel:"k_stechmuecken"},
+      {t:"Mückenartig, sticht aber nicht; tanzt abends im Schwarm", sw:"#9a8a6a", kurz:"Zuckmücke", ziel:"a_gemeine-zuckmuecke"},
+      {t:"Winzig, herzförmige behaarte Flügel; an Abflüssen", sw:"#6b6b6b", kurz:"Abflussmücke", ziel:"a_schmetterlingsmuecke"},
+      {t:"Schwarz, behaart, träge tief fliegend im Frühling", sw:"#2c2c2c", kurz:"Haarmücke", ziel:"a_schwarzauge"},
+      {t:"Winzig und unscheinbar; im Herbst massenhaft an sonnigen Wänden", sw:"#8a8a6a", kurz:"Rasenhalmfliege", ziel:"a_rasenhalmfliege"},
+      {t:"Eine andere Mücke", kurz:"andere", ziel:"g_diptera"},
+    ]},
+  k_schnaken:{ frage:"Eine Schnake – welche?",
+    optionen:[
+      {t:"Sehr groß; an feuchten Wäldern, Mooren und Sümpfen", sw:"#7a5a3a", kurz:"Riesen-Schnake", ziel:"a_riesen-schnake"},
+      {t:"Häufig in Gärten, auf Wiesen und Feldern", sw:"#8a7a5a", kurz:"Kohlschnake", ziel:"a_kohlschnake"},
+      {t:"Eine andere Schnake", kurz:"andere", ziel:"g_diptera"},
+    ]},
+  k_stechmuecken:{ frage:"Eine Stechmücke – welche?",
+    optionen:[
+      {t:"Unscheinbar braun – die „normale“ Hausmücke", sw:"#7a5a3a", kurz:"Gemeine", ziel:"a_gemeine-stechmuecke"},
+      {t:"Groß, mit auffällig geringelten Beinen", sw:"#8a7a5a", kurz:"Ringelmücke", ziel:"a_ringelmuecke"},
+      {t:"Schwarz-weiß gemustert, tagaktiv (eingeschleppt)", sw:"#2c2c2c", kurz:"Tigermücke", ziel:"a_asiatische-tigermuecke"},
+      {t:"Eine andere Stechmücke", kurz:"andere", ziel:"g_diptera"},
+    ]},
+
+  /* ---- Schnabelkerfe: Wanzen & Läuse ---- */
+  k_wanzen:{ frage:"Schnabelkerf – welche Form und Farbe?",
+    optionen:[
+      {t:"Rot-schwarz, rundlich; in Gruppen an Mauern und Linden", h:"Feuerwanze", sw:"#C0392B", kurz:"rot-schwarz, Pulk", ziel:"a_gemeine-feuerwanze"},
+      {t:"Rot-schwarz längsgestreift; auf Doldenblüten wie Fenchel und Dill", h:"Streifenwanze", sw:"#C8451F", kurz:"längsgestreift", ziel:"a_streifenwanze"},
+      {t:"Winzig, weich, in dichten Kolonien an Trieben", h:"Blattläuse", sw:"#2c2c2c", kurz:"winzig, Kolonie", ziel:"k_blattlaeuse"},
+      {t:"Schlank, orange-rot gestreift; im Frühling auf Eichen", h:"Eichen-Schmuckwanze", sw:"#C8451F", kurz:"Eiche, gestreift", ziel:"a_eichen-schmuckwanze"},
+      {t:"Springt blitzschnell weg – eine Zikade", h:"Zikaden", sw:"#C0392B", kurz:"Zikade", ziel:"k_zikaden"},
+      {t:"Breit und braun, ledrig wirkend, kleine Hörnchen am Kopf; an Ampfer", h:"Lederwanze", sw:"#7a5a3a", kurz:"braun, ledrig", ziel:"a_lederwanze"},
+      {t:"Schwarz mit roter/weißer Zeichnung auf Kohl und Kreuzblütlern", h:"Kohlwanze", sw:"#2c2c2c", kurz:"Kohl", ziel:"a_kohlwanze"},
+      {t:"Rot-schwarz, schlank, mit kräftigem Muster; an Wolfsmilch/Schwalbenwurz", h:"Ritterwanze", sw:"#C0392B", kurz:"rot-schwarz, schlank", ziel:"a_ritterwanze"},
+      {t:"Ganz grün, breit und schildförmig (Stinkwanze)", h:"Grüne Stinkwanze", sw:"#3a7a3a", kurz:"grün, breit", ziel:"a_gruene-stinkwanze"},
+      {t:"Graubraun, groß, schildförmig; oft im Herbst am Haus", h:"Graue Gartenwanze", sw:"#7a7a6a", kurz:"grau, am Haus", ziel:"a_graue-gartenwanze"},
+      {t:"Klein, grünlich-braun gefleckt; auf Wiesen und an Stauden", h:"Wiesenwanze", sw:"#8a8a4a", kurz:"klein, gefleckt", ziel:"a_wiesenwanze"},
+      {t:"Eine andere Wanze oder eine Zikade", h:"zur Gruppe", kurz:"andere", ziel:"g_wanzen"},
+    ]},
+
+  k_heuschrecken:{ frage:"Heuschrecke oder Grille – welche?",
+    optionen:[
+      {t:"Groß, leuchtend grün, sehr lange Fühler; im Gebüsch", sw:"#3a7a3a", kurz:"Heupferd", ziel:"a_gruenes-heupferd"},
+      {t:"Schwarz, gedrungen, kurze Flügel; singt vor der Erdröhre", sw:"#2c2c2c", kurz:"Feldgrille", ziel:"a_feldgrille"},
+      {t:"Schlank, grün-braun, kurze Fühler; zirpt auf Wiesen", sw:"#7a8a4a", kurz:"Grashüpfer", ziel:"a_gemeiner-grashuepfer"},
+      {t:"Wie ein Grashüpfer, aber „schwirrender“ Gesang; sehr häufig", sw:"#8a8a4a", kurz:"Nachtigall-Grashüpfer", ziel:"a_nachtigall-grashuepfer"},
+      {t:"Eine andere Heuschrecke", kurz:"andere", ziel:"g_heuschrecken"},
+    ]},
+  k_zikaden:{ frage:"Eine Zikade – welche?",
+    optionen:[
+      {t:"Schwarz mit leuchtend roten Flecken", sw:"#C0392B", kurz:"rot-schwarz", ziel:"a_gemeine-blutzikade"},
+      {t:"Ganz grün, kräftig; auf feuchten Wiesen", sw:"#3a7a3a", kurz:"grün", ziel:"a_gruene-flachkopfzikade"},
+      {t:"An kleinen Schaumnestern („Kuckucksspucke“) auf Pflanzen", sw:"#8a8a6a", kurz:"Schaumnest", ziel:"a_wiesenschaumzikade"},
+      {t:"Klein, bräunlich, mit breiten blattartigen Fühlern", sw:"#7a5a3a", kurz:"Paddel-Fühler", ziel:"a_blattschneiderzikade"},
+      {t:"Eine andere Zikade", kurz:"andere", ziel:"g_wanzen"},
+    ]},
+  k_blattlaeuse:{ frage:"Eine Blattlaus – welche?",
+    optionen:[
+      {t:"Schwarz, in dichten Kolonien an Trieben", sw:"#2c2c2c", kurz:"schwarz", ziel:"a_schwarze-blattlaus"},
+      {t:"Grün, groß, an Rosentrieben und Knospen", sw:"#3a7a3a", kurz:"an Rosen", ziel:"a_grosse-rosenblattlaus"},
+      {t:"Klein, blassgrün; an vielen Gemüse- und Zierpflanzen", sw:"#7a9a5a", kurz:"überall", ziel:"a_gruene-pfirsichblattlaus"},
+      {t:"Eine andere Blattlaus", kurz:"andere", ziel:"g_wanzen"},
+    ]},
+
+  /* ---- Libellen ---- */
+  k_libellen:{ frage:"Eine Libelle! Wie hält sie die Flügel in Ruhe?",
+    optionen:[
+      {t:"Zart und schlank, Flügel zusammengeklappt; leuchtend rot", h:"Adonislibelle", sw:"#C0392B", kurz:"rot, zart", ziel:"a_fruehe-adonislibelle"},
+      {t:"Zart und schlank, Flügel zusammengeklappt; himmelblau mit schwarz", h:"Azurjungfer", sw:"#4a7fc0", kurz:"blau, zart", ziel:"a_hufeisen-azurjungfer"},
+      {t:"Kräftig, Flügel flach ausgebreitet; Hinterleib breit, hellblau bereift", h:"Großlibelle", sw:"#7fa8d0", kurz:"breit, blau", ziel:"a_plattbauch"},
+      {t:"Eine andere Libelle", h:"zur Gruppe", kurz:"andere", ziel:"g_libellen"},
+    ]},
+
+  /* ---- feiner Schmetterlings-Schlüssel ---- */
+  falter:{ frage:"Ein Schmetterling! Welcher erste Eindruck passt am besten?",
+    optionen:[
+      {t:"Vor allem weiß oder gelb, kaum bunt", sw:"#EFE7C8", kurz:"weiß/gelb", ziel:"s_weiss"},
+      {t:"Orange bis rotbraun, dunkel gescheckt", sw:"#C8531F", kurz:"orange", ziel:"s_orange"},
+      {t:"Große, bunte „Augen“ auf den Flügeln", h:"Schreckflecken", sw:"#1f3a6a", kurz:"Augenflecken", ziel:"s_augen"},
+      {t:"Stark gemustert: schwarz-weiß, blau-weiß oder fein vergittert", sw:"#2c2c2c", kurz:"gemustert", ziel:"s_muster"},
+      {t:"Dicker, pelziger Körper; rosa-olivgrün, schwirrt in der Dämmerung", h:"ein Schwärmer", sw:"#C76A95", kurz:"Schwärmer", ziel:"a_mittlerer-weinschwaermer"},
+    ]},
+
+  s_weiss:{ frage:"Weiß oder gelb – sieh genauer hin.",
+    optionen:[
+      {t:"Groß, gelb mit kräftiger schwarzer Zeichnung; blaue Binde, roter Fleck und Schwänzchen am Hinterflügel", h:"unverwechselbar", sw:"#E3CE5A", kurz:"gelb, Schwänzchen", ziel:"a_schwalbenschwanz"},
+      {t:"Gelb (Männchen leuchtend) oder blassgrün, einfarbig; Flügel zugespitzt, blattförmig, je ein oranger Punkt", h:"überwintert als Falter", sw:"#E6D24A", kurz:"gelb, blattförmig", ziel:"a_zitronenfalter"},
+      {t:"Rein weiß", sw:"#F3EFE2", kurz:"weiß", ziel:"s_weiss2"},
+    ]},
+  s_weiss2:{ frage:"Weiße Flügel – welche Zeichnung?",
+    optionen:[
+      {t:"Oranger Fleck auf der Vorderflügelspitze (♂) bzw. grün marmorierte Unterseite (♀); eher klein, Frühling", kurz:"oranger Spitzenfleck", ziel:"a_aurorafalter"},
+      {t:"Kräftige, breite schwarze Flügelspitzen; groß, evtl. zwei schwarze Punkte", kurz:"schwarze Spitzen", ziel:"a_grosser-kohlweissling"},
+    ]},
+
+  s_orange:{ frage:"Orange bis rotbraun – schau zuerst auf die Flügelränder.",
+    optionen:[
+      {t:"Stark gezackt, wie zerfranst (welkes-Blatt-Form); Unterseite mit weißem „C“", kurz:"zerfranst, „C“", ziel:"a_c-falter"},
+      {t:"Ränder glatt oder nur fein gezähnt", kurz:"Ränder glatt", ziel:"s_orange2"},
+    ]},
+  s_orange2:{ frage:"Welche Zeichnung dominiert?",
+    optionen:[
+      {t:"Schwarzer Grund mit leuchtend roten Querbinden und weißen Spitzenflecken", kurz:"rote Binden", ziel:"a_admiral"},
+      {t:"Überwiegend orange gescheckt", kurz:"orange gescheckt", ziel:"s_orange3"},
+    ]},
+  s_orange3:{ frage:"Wie groß ist der Falter – und wo fliegt er?",
+    optionen:[
+      {t:"Groß, sattes Orange wie ein Leopard (schwarze Punkte/Linien); Waldfalter, Unterseite silbrig", kurz:"groß, Leopard", ziel:"a_kaisermantel"},
+      {t:"Kleiner bis mittelgroß", kurz:"kleiner", ziel:"s_orange4"},
+    ]},
+  s_orange4:{ frage:"Sieh dir Ränder und Unterseite genau an.",
+    optionen:[
+      {t:"Ziegelrot; vorn schwarz-gelbe Flecken, am Rand eine Reihe blauer Halbmonde", kurz:"blaue Randmonde", ziel:"a_kleiner-fuchs"},
+      {t:"Lachs-orange stark gescheckt, Spitzen schwarz-weiß, Unterseite marmoriert; rastloser Wanderer", kurz:"marmoriert, rastlos", ziel:"a_distelfalter"},
+      {t:"Klein; im Frühling orange-schwarz, im Sommer fast schwarz-weiß; Unterseite mit Landkarten-Netz", kurz:"Landkarten-Netz", ziel:"a_landkaertchen"},
+    ]},
+
+  s_augen:{ frage:"Wie viele Augen – und welcher Grund?",
+    optionen:[
+      {t:"Vier große, bunte Augenflecken auf rotbraunem Grund", kurz:"vier Augen", ziel:"a_tagpfauenauge"},
+      {t:"Schlicht braun, nur ein orange umrandeter Augenfleck je Vorderflügel", kurz:"ein Auge, braun", ziel:"a_grosses-ochsenauge"},
+    ]},
+
+  s_muster:{ frage:"Welches Muster genau?",
+    optionen:[
+      {t:"Schwarz-weißes Schachbrett-Muster", kurz:"Schachbrett", ziel:"a_schachbrettfalter"},
+      {t:"Blauschwarz mit breitem weißem Querband; segelt/gleitet im Wald", kurz:"blau-weiß, Gleitflug", ziel:"a_kleiner-eisvogel"},
+      {t:"Klein, fein vergittert braun-cremeweiß; flach ausgebreitet, Fühler ohne Knopf", kurz:"vergittert, klein", ziel:"a_kleespanner"},
+    ]},
+
+  /* ---- Spinnentiere ---- */
+  k_spinnen:{ frage:"Acht Beine – eine Spinne! Welche?", sub:"Triffst du keine davon, geht es zur Gruppe.",
+    optionen:[
+      {t:"Großes Radnetz; helles Kreuz aus Punkten auf dem Hinterleib", h:"Gartenkreuzspinne", sw:"#8a6a3a", kurz:"Kreuz", ziel:"a_kreuzspinne"},
+      {t:"Winzig; leuchtend grüner, kugeliger Hinterleib", h:"Kürbisspinne", sw:"#5a8a3a", kurz:"grün, klein", ziel:"a_kuerbisspinne"},
+      {t:"Andere Spinne, Weberknecht, Skorpion oder Milbe", h:"zur Gruppe", kurz:"andere", ziel:"g_spinnen"},
+    ]},
+
+  /* ---- Endpunkte: Tiergruppen ---- */
+  g_schnecken:{ gruppe:true, de:"Schnecken", lat:"Gastropoda",
+    text:"Weichtiere, die auf einem einzigen muskulösen Fuß kriechen – meist mit Schleimspur. Mit gedrehtem Gehäuse (Schnecke) oder ganz ohne (Nacktschnecke)."},
+  g_wuermer:{ gruppe:true, de:"Ringelwürmer", lat:"Annelida",
+    text:"Ein langer, weicher Körper aus vielen gleichen Ringen, ganz ohne Beine – wie beim Regenwurm. (Ein weiches „Würmchen“ mit deutlichem Kopf dagegen ist oft die Larve eines Insekts.)"},
+  g_spinnen:{ gruppe:true, de:"Spinnentiere", lat:"Arachnida",
+    text:"Acht Beine und keine Fühler; der Körper meist in zwei Abschnitte geteilt. Dazu gehören Webspinnen, Weberknechte, Skorpione und die winzigen Milben."},
+  g_tausend:{ gruppe:true, de:"Tausendfüßer", lat:"Myriapoda",
+    text:"Langer, gegliederter Körper mit sehr vielen Beinpaaren. Die Doppelfüßer fressen langsam an Pflanzen, die flinken Hundertfüßer jagen mit Giftklauen."},
+  g_asseln:{ gruppe:true, de:"Asseln", lat:"Crustacea (Isopoda)",
+    text:"An Land vor allem die Asseln: gepanzert, mit sieben Beinpaaren, an feuchten, dunklen Orten; manche rollen sich zur Kugel. Sie sind echte Krebstiere – verwandt mit Krebs und Krabbe."},
+  g_kaefer:{ gruppe:true, de:"Käfer", lat:"Coleoptera",
+    text:"Harte Deckflügel schützen die häutigen Flugflügel darunter und treffen sich in einer geraden Linie über dem Rücken. Die artenreichste Insektenordnung überhaupt."},
+  g_hymenoptera:{ gruppe:true, de:"Hautflügler", lat:"Hymenoptera",
+    text:"Bienen, Hummeln, Wespen und Ameisen – oft mit schmaler Wespentaille und glasklaren Flügeln. Viele leben in Staaten und bestäuben unsere Blüten."},
+  g_diptera:{ gruppe:true, de:"Zweiflügler", lat:"Diptera",
+    text:"Fliegen und Mücken besitzen nur ein Flügelpaar; das zweite ist zu winzigen Schwingkölbchen umgebaut, die im Flug stabilisieren."},
+  g_libellen:{ gruppe:true, de:"Libellen", lat:"Odonata",
+    text:"Räuber der Lüfte mit vier langen, glasklaren Flügeln und langem Hinterleib. Ihre Larven jagen unter Wasser."},
+  g_heuschrecken:{ gruppe:true, de:"Heuschrecken", lat:"Orthoptera",
+    text:"Kräftige Sprungbeine hinten; viele zirpen. Laubheuschrecken und Grillen haben lange, fadenförmige Fühler, Feldheuschrecken kurze."},
+  g_wanzen:{ gruppe:true, de:"Schnabelkerfe", lat:"Hemiptera",
+    text:"Wanzen und Zikaden saugen mit einem Stechrüssel. Bei den Wanzen ist der Vorderflügel halb hart, halb häutig; Zikaden springen weit."},
+
+  /* ---- Sonder-Ende: Raupe ---- */
+  e_raupe:{ de:"Eine Raupe", lat:"Schmetterlingslarve", larve:true,
+    text:"Das ist die Larve eines Schmetterlings – ein junges Tier mitten in der Verwandlung. Aus ihr wird über die Puppe ein Falter. Welche Art es wird, verraten nur wenige Raupen sicher; am fertigen Falter ist es viel leichter.",
+    weiterZiel:"falter", weiterText:"Falter bestimmen →"},
+
+  /* ---- Endpunkte: Schmetterlings-Arten ---- */
+  "a_admiral":{ art:true, de:"Admiral", lat:"Vanessa atalanta", url:"../arten/admiral.html",
+    text:"Schwarzbraun mit leuchtend roten Binden und weißen Spitzenflecken – ein Zugfalter aus dem Süden."},
+  "a_aurorafalter":{ art:true, de:"Aurorafalter", lat:"Anthocharis cardamines", url:"../arten/aurorafalter.html",
+    text:"Der erste Farbtupfer des Frühlings – das Männchen mit großem orangem Spitzenfleck."},
+  "a_c-falter":{ art:true, de:"C-Falter", lat:"Polygonia c-album", url:"../arten/c-falter.html",
+    text:"Zerfranste Flügelränder wie ein welkes Blatt – und ein weißes „C“ auf der Unterseite."},
+  "a_distelfalter":{ art:true, de:"Distelfalter", lat:"Vanessa cardui", url:"../arten/distelfalter.html",
+    text:"Lachs-orange gescheckt, rastlos – der am weitesten verbreitete Tagfalter der Welt."},
+  "a_grosser-kohlweissling":{ art:true, de:"Großer Kohlweißling", lat:"Pieris brassicae", url:"../arten/grosser-kohlweissling.html",
+    text:"Der größte heimische Weißling: weiß mit kräftigen, breiten schwarzen Flügelspitzen."},
+  "a_grosses-ochsenauge":{ art:true, de:"Großes Ochsenauge", lat:"Maniola jurtina", url:"../arten/grosses-ochsenauge.html",
+    text:"Schlicht braun, mit einem orange umrandeten Augenfleck – der häufigste Tagfalter Mitteleuropas."},
+  "a_kaisermantel":{ art:true, de:"Kaisermantel", lat:"Argynnis paphia", url:"../arten/kaisermantel.html",
+    text:"Groß und leoparden-orange, mit silbrig glänzender Unterseite – ein Waldfalter."},
+  "a_kleespanner":{ art:true, de:"Kleespanner", lat:"Chiasmia clathrata", url:"../arten/kleespanner.html",
+    text:"Ein tagaktiver Spanner mit feinem Gittermuster – streng genommen ein Nachtfalter."},
+  "a_kleiner-eisvogel":{ art:true, de:"Kleiner Eisvogel", lat:"Limenitis camilla", url:"../arten/kleiner-eisvogel.html",
+    text:"Blauschwarz mit breitem weißem Band, elegant gleitend durch lichte Wälder."},
+  "a_kleiner-fuchs":{ art:true, de:"Kleiner Fuchs", lat:"Aglais urticae", url:"../arten/kleiner-fuchs.html",
+    text:"Ziegelrot mit blauen Randmonden – einer der häufigsten und vertrautesten Gartenfalter."},
+  "a_landkaertchen":{ art:true, de:"Landkärtchen", lat:"Araschnia levana", url:"../arten/landkaertchen.html",
+    text:"Zwei Kleider im Jahr – und ein feines Landkarten-Netz auf der Unterseite."},
+  "a_mittlerer-weinschwaermer":{ art:true, de:"Mittlerer Weinschwärmer", lat:"Deilephila elpenor", url:"../arten/mittlerer-weinschwaermer.html",
+    text:"Rosa und olivgrün zugleich – ein Nachtflieger, der wie ein Hubschrauber vor Blüten schwirrt."},
+  "a_schachbrettfalter":{ art:true, de:"Schachbrettfalter", lat:"Melanargia galathea", url:"../arten/schachbrettfalter.html",
+    text:"Ein lebendes Schachbrett über der Magerwiese – unverwechselbar schwarz-weiß."},
+  "a_schwalbenschwanz":{ art:true, de:"Schwalbenschwanz", lat:"Papilio machaon", url:"../arten/schwalbenschwanz.html",
+    text:"Der größte und eleganteste heimische Tagfalter – gelb, mit Schwänzchen am Hinterflügel."},
+  "a_tagpfauenauge":{ art:true, de:"Tagpfauenauge", lat:"Aglais io", url:"../arten/tagpfauenauge.html",
+    text:"Vier große, leuchtende Augenflecken als Schreckbild – kaum zu verwechseln."},
+  "a_zitronenfalter":{ art:true, de:"Zitronenfalter", lat:"Gonepteryx rhamni", url:"../arten/zitronenfalter.html",
+    text:"Leuchtend gelb und blattförmig – mit der längsten Lebensdauer aller heimischen Tagfalter."},
+
+  /* ---- Endpunkte: weitere Insekten-Arten ---- */
+  "a_dunkle-erdhummel":{ art:true, rang:"Insekt · Art", de:"Dunkle Erdhummel", lat:"Bombus terrestris", url:"../arten/dunkle-erdhummel.html",
+    text:"Pelzige Hummel mit zwei gelben Binden und weißem Hinterende – wichtige Bestäuberin und Frühaufsteherin."},
+  "a_steinhummel":{ art:true, rang:"Insekt · Art", de:"Steinhummel", lat:"Bombus lapidarius", url:"../arten/steinhummel.html",
+    text:"Tiefschwarz mit leuchtend rot-orangem Hinterende; nistet gern unter Steinen und ist sehr friedlich."},
+  "a_grosse-holzbiene":{ art:true, rang:"Insekt · Art", de:"Blauviolette Holzbiene", lat:"Xylocopa violacea", url:"../arten/grosse-holzbiene.html",
+    text:"Größte heimische Wildbiene: fast schwarz mit blau-violett schimmernden Flügeln, brummt laut – aber harmlos."},
+  "a_gemeine-wespe":{ art:true, rang:"Insekt · Art", de:"Gemeine Wespe", lat:"Vespula vulgaris", url:"../arten/gemeine-wespe.html",
+    text:"Die gelb-schwarze Wespe am Kuchen: staatenbildend, baut Nester aus selbst gemachtem „Papier“."},
+  "a_hornisse":{ art:true, rang:"Insekt · Art", de:"Hornisse", lat:"Vespa crabro", url:"../arten/hornisse.html",
+    text:"Größte heimische soziale Wespe – trotz ihres Rufs friedlich und besonders geschützt."},
+  "a_honigbiene":{ art:true, rang:"Insekt · Art", de:"Honigbiene", lat:"Apis mellifera", url:"../arten/honigbiene.html",
+    text:"Unscheinbar bräunlich, am Stock und an Waben; staatenbildend, verständigt sich per Schwänzeltanz."},
+  "a_baumhummel":{ art:true, rang:"Insekt · Art", de:"Baumhummel", lat:"Bombus hypnorum", url:"../arten/baumhummel.html",
+    text:"Fuchsrote Brust, schwarzer Hinterleib, weiße Spitze; nistet gern in Nistkästen."},
+  "a_gartenhummel":{ art:true, rang:"Insekt · Art", de:"Gartenhummel", lat:"Bombus hortorum", url:"../arten/gartenhummel.html",
+    text:"Schwarz-gelb mit weißer Spitze und auffällig langem Gesicht – eine Langzungen-Hummel."},
+  "a_wiesenhummel":{ art:true, rang:"Insekt · Art", de:"Wiesenhummel", lat:"Bombus pratorum", url:"../arten/wiesenhummel.html",
+    text:"Klein und früh: gelber Kragen, ein gelbes Band, rotorange Spitze."},
+  "a_gemeine-pelzbiene":{ art:true, rang:"Insekt · Art", de:"Gemeine Pelzbiene", lat:"Anthophora plumipes", url:"../arten/gemeine-pelzbiene.html",
+    text:"Pelzig und hummelartig, schwirrt im zeitigen Frühjahr an Lungenkraut und Taubnessel."},
+  "a_mai-langhornbiene":{ art:true, rang:"Insekt · Art", de:"Mai-Langhornbiene", lat:"Eucera longicornis", url:"../arten/mai-langhornbiene.html",
+    text:"Pelzige Wildbiene; Männchen mit körperlangen Fühlern. An Klee und Wicken, nistet im Boden."},
+  "a_gemeine-trauerbiene":{ art:true, rang:"Insekt · Art", de:"Gemeine Trauerbiene", lat:"Melecta albifrons", url:"../arten/gemeine-trauerbiene.html",
+    text:"Schwarz mit weißen Haarbüscheln; Kuckucksbiene, die ihre Eier in Pelzbienen-Nester legt."},
+  "a_fleckenbiene":{ art:true, rang:"Insekt · Art", de:"Fleckenbiene", lat:"Thyreus orbatus", url:"../arten/fleckenbiene.html",
+    text:"Schwarz mit blau-weißen Punktreihen; hübsche Kuckucksbiene bei der Pelzbiene."},
+  "a_gehoernte-mauerbiene":{ art:true, rang:"Insekt · Art", de:"Gehörnte Mauerbiene", lat:"Osmia cornuta", url:"../arten/gehoernte-mauerbiene.html",
+    text:"Schwarz pelzig mit rostroter Bauchbürste und winzigen „Hörnchen“ im Gesicht; sehr früh im Jahr."},
+  "a_deutsche-wespe":{ art:true, rang:"Insekt · Art", de:"Deutsche Wespe", lat:"Vespula germanica", url:"../arten/deutsche-wespe.html",
+    text:"Wie die Gemeine Wespe am Kuchentisch – zu unterscheiden nur an feinen schwarzen Gesichtszeichen."},
+  "a_haus-feldwespe":{ art:true, rang:"Insekt · Art", de:"Haus-Feldwespe", lat:"Polistes dominula", url:"../arten/haus-feldwespe.html",
+    text:"Schlanke, langbeinige Wespe; baut kleine offene Waben und ist sehr friedlich."},
+  "a_sandwespe":{ art:true, rang:"Insekt · Art", de:"Sandwespe", lat:"Bembix rostrata", url:"../arten/sandwespe.html",
+    text:"Größere Grabwespe; gräbt im offenen Sand und liefert ihrer Larve laufend frische Fliegen."},
+  "a_grabwespe":{ art:true, rang:"Insekt · Art", de:"Grabwespe", lat:"Sphex funerarius", url:"../arten/grabwespe.html",
+    text:"Schwarzer Körper, rostrot geringelter Hinterleib; jagt Heuschrecken als Larvenproviant."},
+  "a_toepfergrabwespe":{ art:true, rang:"Insekt · Art", de:"Töpfergrabwespe", lat:"Sceliphron curvatum", url:"../arten/toepfergrabwespe.html",
+    text:"Baut kleine Tongefäße aus Lehm an Mauern und füllt sie mit gelähmten Spinnen."},
+  "a_grosse-schlupfwespe":{ art:true, rang:"Insekt · Art", de:"Große Schlupfwespe", lat:"Rhyssa persuasoria", url:"../arten/grosse-schlupfwespe.html",
+    text:"Sehr schlank, mit körperlangem Legebohrer; parasitiert Holzwespen-Larven tief im Holz – harmlos."},
+  "a_rote-waldameise":{ art:true, rang:"Insekt · Art", de:"Rote Waldameise", lat:"Formica rufa", url:"../arten/rote-waldameise.html",
+    text:"Baut meterhohe Nadelhügel im Wald; spritzt Ameisensäure, ihre Nester sind geschützt."},
+  "a_schwarze-wegameise":{ art:true, rang:"Insekt · Art", de:"Schwarze Wegameise", lat:"Lasius niger", url:"../arten/schwarze-wegameise.html",
+    text:"Die häufige kleine Ameise an Wegen, Mauern und Terrassen; großer Hochzeitsflug im Sommer."},
+  "a_gelbe-wegameise":{ art:true, rang:"Insekt · Art", de:"Gelbe Wegameise", lat:"Lasius flavus", url:"../arten/gelbe-wegameise.html",
+    text:"Blassgelb, lebt fast nur unterirdisch; baut die kleinen Erdhügel auf Magerwiesen."},
+  "a_gemeine-breitblattwespe":{ art:true, rang:"Insekt · Art", de:"Gemeine Breitblattwespe", lat:"Tenthredo mistura", url:"../arten/gemeine-breitblattwespe.html",
+    text:"Wespenähnlich, aber ohne Wespentaille und ohne Stachel; Larven fressen an Laubblättern."},
+  "a_kiefernbuschhornblattwespe":{ art:true, rang:"Insekt · Art", de:"Rote Kiefernbuschhornblattwespe", lat:"Diprion pini", url:"../arten/kiefernbuschhornblattwespe.html",
+    text:"Rotbraun-schwarz, Männchen mit gefiederten Fühlern; Larven fressen an Kiefernnadeln."},
+  "a_mistbiene":{ art:true, rang:"Insekt · Art", de:"Mistbiene", lat:"Eristalis tenax", url:"../arten/mistbiene.html",
+    text:"Eine Schwebfliege in perfekter Honigbienen-Tarnung – ohne Stachel. Ihre Larve ist die „Rattenschwanzlarve“."},
+  "a_hainschwebfliege":{ art:true, rang:"Insekt · Art", de:"Hainschwebfliege", lat:"Episyrphus balteatus", url:"../arten/hainschwebfliege.html",
+    text:"Trägt ein Wespen-Warnkleid, ist aber harmlos; die Larve ist ein gefräßiger Blattlausjäger."},
+  "a_siebenpunkt-marienkaefer":{ art:true, rang:"Insekt · Art", de:"Siebenpunkt-Marienkäfer", lat:"Coccinella septempunctata", url:"../arten/siebenpunkt-marienkaefer.html",
+    text:"Der rote Glückskäfer mit sieben Punkten – Blattlausvertilger Nummer eins im Garten."},
+  "a_bienenkaefer":{ art:true, rang:"Insekt · Art", de:"Bienenkäfer", lat:"Trichodes apiarius", url:"../arten/bienenkaefer.html",
+    text:"Hübsch rot-blau gebändert auf Blüten – seine Larve lebt räuberisch in Wildbienennestern."},
+  "a_kleiner-pappel-bockkaefer":{ art:true, rang:"Insekt · Art", de:"Kleiner Pappel-Bockkäfer", lat:"Saperda populnea", url:"../arten/kleiner-pappel-bockkaefer.html",
+    text:"Grau gepunkteter Bockkäfer mit langen Fühlern; erzeugt spindelförmige Gallen an jungen Pappeln."},
+  "a_gemeine-feuerwanze":{ art:true, rang:"Insekt · Art", de:"Gemeine Feuerwanze", lat:"Pyrrhocoris apterus", url:"../arten/gemeine-feuerwanze.html",
+    text:"Rot-schwarz und gesellig – sammelt sich im Frühjahr in großen Pulks an Mauern und Linden. Völlig harmlos."},
+  "a_streifenwanze":{ art:true, rang:"Insekt · Art", de:"Streifenwanze", lat:"Graphosoma lineatum", url:"../arten/streifenwanze.html",
+    text:"Im rot-schwarzen Ringelpulli auf Doldenblüten; eine Baumwanze mit wehrhaften Stinkdrüsen."},
+  "a_schwarze-blattlaus":{ art:true, rang:"Insekt · Art", de:"Schwarze Blattlaus", lat:"Aphis fabae", url:"../arten/schwarze-blattlaus.html",
+    text:"Bildet riesige Kolonien an Trieben und wird von Ameisen „gemolken“ – Lieblingsspeise vieler Nützlinge."},
+
+  /* ---- Endpunkte: weitere Insekten-Arten (Runde 2) ---- */
+  "a_ackerhummel":{ art:true, rang:"Insekt · Art", de:"Ackerhummel", lat:"Bombus pascuorum", url:"../arten/ackerhummel.html",
+    text:"Durchgehend rostbraun behaart, ohne weißes Hinterende – eine der häufigsten und friedlichsten Hummeln."},
+  "a_gartenlaubkaefer":{ art:true, rang:"Insekt · Art", de:"Gartenlaubkäfer", lat:"Phyllopertha horticola", url:"../arten/gartenlaubkaefer.html",
+    text:"Kleiner „Junikäfer“, der im Frühsommer über Wiesen schwärmt; die Larve frisst an Graswurzeln."},
+  "a_fleckenhoerniger-halsbock":{ art:true, rang:"Insekt · Art", de:"Fleckenhörniger Halsbock", lat:"Anoplodera sexguttata", url:"../arten/fleckenhoerniger-halsbock.html",
+    text:"Schlanker Bockkäfer, schwarz mit gelben Flecken; Blütenbesucher, Larve im Totholz."},
+  "a_echter-widderbock":{ art:true, rang:"Insekt · Art", de:"Echter Widderbock", lat:"Clytus arietis", url:"../arten/echter-widderbock.html",
+    text:"Schwarz-gelb wie eine Wespe – Mimikry pur; die Larve entwickelt sich im Totholz."},
+  "a_gemeine-blutzikade":{ art:true, rang:"Insekt · Art", de:"Gemeine Blutzikade", lat:"Cercopis vulnerata", url:"../arten/gemeine-blutzikade.html",
+    text:"Schwarz mit leuchtend roten Warnflecken; springt blitzschnell davon. Larven leben an Wurzeln."},
+  "a_gruenes-heupferd":{ art:true, rang:"Insekt · Art", de:"Grünes Heupferd", lat:"Tettigonia viridissima", url:"../arten/gruenes-heupferd.html",
+    text:"Große grüne Laubheuschrecke mit körperlangen Fühlern; schwirrt bis in die Nacht."},
+  "a_feldgrille":{ art:true, rang:"Insekt · Art", de:"Feldgrille", lat:"Gryllus campestris", url:"../arten/feldgrille.html",
+    text:"Tiefschwarze Grille; das Männchen zirpt laut vor seiner selbst gegrabenen Erdröhre."},
+  "a_gemeiner-grashuepfer":{ art:true, rang:"Insekt · Art", de:"Gemeiner Grashüpfer", lat:"Chorthippus parallelus", url:"../arten/gemeiner-grashuepfer.html",
+    text:"Häufigster Wiesenhüpfer; zirpt mit den Hinterschenkeln, Weibchen oft kurzflügelig."},
+  "a_nachtigall-grashuepfer":{ art:true, rang:"Insekt · Art", de:"Nachtigall-Grashüpfer", lat:"Chorthippus biguttulus", url:"../arten/nachtigall-grashuepfer.html",
+    text:"Dem Gemeinen Grashüpfer sehr ähnlich; sicher nur am schwirrenden Gesang zu trennen."},
+  "a_ritterwanze":{ art:true, rang:"Insekt · Art", de:"Ritterwanze", lat:"Lygaeus equestris", url:"../arten/ritterwanze.html",
+    text:"Auffällig rot-schwarz gemustert; wärmeliebend, an Wolfsmilch und Schwalbenwurz."},
+  "a_wiesenwanze":{ art:true, rang:"Insekt · Art", de:"Wiesenwanze", lat:"Lygus pratensis", url:"../arten/wiesenwanze.html",
+    text:"Kleine, grün-bräunliche Weichwanze; sehr häufig auf Wiesen und im Garten."},
+  "a_gruene-stinkwanze":{ art:true, rang:"Insekt · Art", de:"Grüne Stinkwanze", lat:"Palomena viridissima", url:"../arten/gruene-stinkwanze.html",
+    text:"Breite grüne Baumwanze mit Wehrdrüsen; verfärbt sich im Herbst bronzefarben."},
+  "a_graue-gartenwanze":{ art:true, rang:"Insekt · Art", de:"Graue Gartenwanze", lat:"Rhaphigaster nebulosa", url:"../arten/graue-gartenwanze.html",
+    text:"Große graubraune Baumwanze; überwintert gern an Hauswänden, im Herbst oft drinnen."},
+  "a_wiesenschaumzikade":{ art:true, rang:"Insekt · Art", de:"Wiesenschaumzikade", lat:"Philaenus spumarius", url:"../arten/wiesenschaumzikade.html",
+    text:"Unscheinbar; ihre Larve steckt im Schaumnest („Kuckucksspucke“), springt enorm weit."},
+  "a_gruene-flachkopfzikade":{ art:true, rang:"Insekt · Art", de:"Grüne Flachkopfzikade", lat:"Cicadella viridis", url:"../arten/gruene-flachkopfzikade.html",
+    text:"Leuchtend grün mit blaugrünen Flügeln; auf feuchten Wiesen, springt blitzschnell."},
+  "a_blattschneiderzikade":{ art:true, rang:"Insekt · Art", de:"Blattschneiderzikade", lat:"Asiraca clavicornis", url:"../arten/blattschneiderzikade.html",
+    text:"Kleine Spornzikade mit auffällig verbreiterten, blattartigen Fühlern."},
+  "a_grosse-rosenblattlaus":{ art:true, rang:"Insekt · Art", de:"Große Rosenblattlaus", lat:"Macrosiphum rosae", url:"../arten/grosse-rosenblattlaus.html",
+    text:"Grün, an Rosentrieben und Knospen; eine der größten Blattläuse, wird von Ameisen gemolken."},
+  "a_gruene-pfirsichblattlaus":{ art:true, rang:"Insekt · Art", de:"Grüne Pfirsichblattlaus", lat:"Myzus persicae", url:"../arten/gruene-pfirsichblattlaus.html",
+    text:"Winzig und blassgrün; an vielen Pflanzen und gefürchtete Überträgerin von Pflanzenviren."},
+  "a_eichen-schmuckwanze":{ art:true, rang:"Insekt · Art", de:"Eichen-Schmuckwanze", lat:"Rhabdomiris striatellus", url:"../arten/eichen-schmuckwanze.html",
+    text:"Schlanke, orange-rot gestreifte Weichwanze; lebt im Frühling in den Kronen von Eichen."},
+  "a_fruehe-adonislibelle":{ art:true, rang:"Insekt · Art", de:"Frühe Adonislibelle", lat:"Pyrrhosoma nymphula", url:"../arten/fruehe-adonislibelle.html",
+    text:"Leuchtend rote Kleinlibelle und eine der ersten im Jahr – schon ab April am Teichrand."},
+  "a_plattbauch":{ art:true, rang:"Insekt · Art", de:"Plattbauch", lat:"Libellula depressa", url:"../arten/plattbauch.html",
+    text:"Großlibelle mit auffällig flachem, breitem Hinterleib; Männchen hellblau bereift. Pionier neuer Tümpel."},
+  "a_gemeine-skorpionsfliege":{ art:true, rang:"Insekt · Art", de:"Gemeine Skorpionsfliege", lat:"Panorpa communis", url:"../arten/gemeine-skorpionsfliege.html",
+    text:"Langer Kopf-„Schnabel“, Männchen mit skorpionartig aufgebogenem Hinterleib – harmloser Aasräuber."},
+  "a_gemeine-schlammfliege":{ art:true, rang:"Insekt · Art", de:"Gemeine Schlammfliege", lat:"Sialis lutaria", url:"../arten/gemeine-schlammfliege.html",
+    text:"Dunkel und träge am Wasser, mit großen dachartigen Flügeln; die Larve jagt im Bodenschlamm."},
+
+  /* ---- Endpunkte: weitere Insekten-Arten (Runde 3) ---- */
+  "a_kleiner-schmalbock":{ art:true, rang:"Insekt · Art", de:"Kleiner Schmalbock", lat:"Leptura aethiops", url:"../arten/kleiner-schmalbock.html",
+    text:"Zierlicher Bockkäfer; verbringt den Sommer auf Doldenblüten, die Larve im Totholz."},
+  "a_scheckhornbock":{ art:true, rang:"Insekt · Art", de:"Scheckhorn-Distelbock", lat:"Agapanthia villosoviridescens", url:"../arten/scheckhornbock.html",
+    text:"Schlanker, grünlich behaarter Bockkäfer mit sehr langen geringelten Fühlern; die Larve lebt in Distelstängeln."},
+  "a_rotschwarzer-weichkaefer":{ art:true, rang:"Insekt · Art", de:"Rotschwarzer Weichkäfer", lat:"Cantharis pellucida", url:"../arten/rotschwarzer-weichkaefer.html",
+    text:"Weiche Flügeldecken, rot-schwarz; jagt Blattläuse und ist ein nützlicher Helfer."},
+  "a_gemeiner-weichkaefer":{ art:true, rang:"Insekt · Art", de:"Gemeiner Weichkäfer", lat:"Cantharis fusca", url:"../arten/gemeiner-weichkaefer.html",
+    text:"Schwarze Flügeldecken, roter Halsschild; häufiger Räuber auf Wiesen und Blüten."},
+  "a_moschuskaefer":{ art:true, rang:"Insekt · Art", de:"Moschuskäfer", lat:"Aromia moschata", url:"../arten/moschuskaefer.html",
+    text:"Blau-grün schimmernder Bockkäfer mit moschusartigem Duft; Larve in alten Weiden."},
+  "a_blauer-scheinbockkaefer":{ art:true, rang:"Insekt · Art", de:"Blauer Scheinbockkäfer", lat:"Ischnomera cyanea", url:"../arten/blauer-scheinbockkaefer.html",
+    text:"Schlank, metallisch blau-grün; auf Blüten, Larve in morschem Laubholz. Kein echter Bock."},
+  "a_lederlaufkaefer":{ art:true, rang:"Insekt · Art", de:"Lederlaufkäfer", lat:"Carabus coriaceus", url:"../arten/lederlaufkaefer.html",
+    text:"Größter heimischer Laufkäfer, mattschwarz und flugunfähig; nächtlicher Schneckenjäger."},
+  "a_asiatischer-marienkaefer":{ art:true, rang:"Insekt · Art", de:"Asiatischer Marienkäfer", lat:"Harmonia axyridis", url:"../arten/asiatischer-marienkaefer.html",
+    text:"Sehr variabel, oft mit weißem „M“ am Halsschild; eingeführt, heute überall und invasiv."},
+  "a_gemeiner-speckkaefer":{ art:true, rang:"Insekt · Art", de:"Gemeiner Speckkäfer", lat:"Dermestes lardarius", url:"../arten/gemeiner-speckkaefer.html",
+    text:"Braun-schwarz mit heller Binde; Larven fressen Fell, Federn und Trockenfleisch – Sammlungsschädling."},
+  "a_grosser-leuchtkaefer":{ art:true, rang:"Insekt · Art", de:"Großer Leuchtkäfer", lat:"Lampyris noctiluca", url:"../arten/grosser-leuchtkaefer.html",
+    text:"Das „Glühwürmchen“: flügelloses Weibchen leuchtet grünlich in lauen Sommernächten."},
+  "a_feldmaikaefer":{ art:true, rang:"Insekt · Art", de:"Feldmaikäfer", lat:"Melolontha melolontha", url:"../arten/feldmaikaefer.html",
+    text:"Kastanienbraun mit Fächerfühlern; schwärmt abends im Mai, Engerling lebt Jahre im Boden."},
+  "a_lilienhaehnchen":{ art:true, rang:"Insekt · Art", de:"Lilienhähnchen", lat:"Lilioceris lilii", url:"../arten/lilienhaehnchen.html",
+    text:"Leuchtend rot; frisst an Lilien, quietscht bei Gefahr, Larven tarnen sich mit Kot."},
+  "a_rosenkaefer":{ art:true, rang:"Insekt · Art", de:"Gemeiner Rosenkäfer", lat:"Cetonia aurata", url:"../arten/rosenkaefer.html",
+    text:"Metallisch grün glänzend; fliegt mit eingeklappten Flügeldecken, Larve im Kompost."},
+  "a_kartoffelkaefer":{ art:true, rang:"Insekt · Art", de:"Kartoffelkäfer", lat:"Leptinotarsa decemlineata", url:"../arten/kartoffelkaefer.html",
+    text:"Gelb mit zehn schwarzen Längsstreifen; eingeschleppter Schädling an Kartoffeln."},
+  "a_waldmistkaefer":{ art:true, rang:"Insekt · Art", de:"Waldmistkäfer", lat:"Anoplotrupes stercorosus", url:"../arten/waldmistkaefer.html",
+    text:"Blau-violett glänzend; vergräbt Dung und Aas, wichtiger Verwerter auf Waldwegen."},
+  "a_gemeiner-fleckenbock":{ art:true, rang:"Insekt · Art", de:"Gemeiner Fleckenbock", lat:"Rutpela maculata", url:"../arten/gemeiner-fleckenbock.html",
+    text:"Gelb-schwarz gefleckt, wespenähnlich; häufiger Blütenbesucher, Larve im Totholz."},
+  "a_dickmaulruessler":{ art:true, rang:"Insekt · Art", de:"Gefurchter Dickmaulrüssler", lat:"Otiorhynchus sulcatus", url:"../arten/dickmaulruessler.html",
+    text:"Dunkel, flugunfähig, nachtaktiv; typische Fraßbuchten am Blattrand, Garten-Schädling."},
+  "a_zweiundzwanzigpunkt-marienkaefer":{ art:true, rang:"Insekt · Art", de:"Zweiundzwanzigpunkt-Marienkäfer", lat:"Psyllobora vigintiduopunctata", url:"../arten/zweiundzwanzigpunkt-marienkaefer.html",
+    text:"Klein, gelb mit 22 Punkten; frisst Mehltau statt Blattläusen."},
+  "a_gemeiner-glanzkaefer":{ art:true, rang:"Insekt · Art", de:"Gemeiner Glanzkäfer", lat:"Meligethes aeneus", url:"../arten/gemeiner-glanzkaefer.html",
+    text:"Nur wenige Millimeter, metallisch glänzend; als Rapsglanzkäfer in Massen im Raps."},
+  "a_lederwanze":{ art:true, rang:"Insekt · Art", de:"Lederwanze", lat:"Coreus marginatus", url:"../arten/lederwanze.html",
+    text:"Breite, ledrig wirkende Randwanze mit kleinen Kopfhörnchen; saugt an Ampfer. Harmlos."},
+  "a_kohlwanze":{ art:true, rang:"Insekt · Art", de:"Kohlwanze", lat:"Eurydema", url:"../arten/kohlwanze.html",
+    text:"Schwarz mit roter oder weißer Warnzeichnung; saugt an Kohl und anderen Kreuzblütlern."},
+  "a_goldfliege":{ art:true, rang:"Insekt · Art", de:"Goldfliege", lat:"Lucilia sericata", url:"../arten/goldfliege.html",
+    text:"Metallisch grün-golden glänzend; ihre Maden gehören zu den wichtigsten Aaszersetzern."},
+  "a_gemeine-stechmuecke":{ art:true, rang:"Insekt · Art", de:"Gemeine Stechmücke", lat:"Culex pipiens", url:"../arten/gemeine-stechmuecke.html",
+    text:"Die häufige heimische Stechmücke; nur die Weibchen stechen, summt nachts ums Ohr."},
+  "a_ringelmuecke":{ art:true, rang:"Insekt · Art", de:"Ringelmücke", lat:"Culiseta annulata", url:"../arten/ringelmuecke.html",
+    text:"Große Hausmücke mit geringelten Beinen; robust und auch an milden Wintertagen aktiv."},
+  "a_asiatische-tigermuecke":{ art:true, rang:"Insekt · Art", de:"Asiatische Tigermücke", lat:"Aedes albopictus", url:"../arten/asiatische-tigermuecke.html",
+    text:"Schwarz-weiß gemustert und tagaktiv; eingeschleppt, möglicher Krankheitsüberträger."},
+  "a_gemeine-zuckmuecke":{ art:true, rang:"Insekt · Art", de:"Gemeine Zuckmücke", lat:"Chironomus plumosus", url:"../arten/gemeine-zuckmuecke.html",
+    text:"Mückenähnlich, aber stechfrei; tanzt abends im Schwarm, rote Larven im Wasser."},
+  "a_schmetterlingsmuecke":{ art:true, rang:"Insekt · Art", de:"Schmetterlingsmücke", lat:"Psychoda alternata", url:"../arten/schmetterlingsmuecke.html",
+    text:"Winzig, pelzig, mit herzförmigen Flügeln; harmlose „Abflussfliege“ in Bad und Küche."},
+  "a_riesen-schnake":{ art:true, rang:"Insekt · Art", de:"Riesen-Schnake", lat:"Tipula maxima", url:"../arten/riesen-schnake.html",
+    text:"Größte heimische Schnake mit sehr langen Beinen; sticht nicht, liebt feuchte Wälder."},
+  "a_kohlschnake":{ art:true, rang:"Insekt · Art", de:"Kohlschnake", lat:"Tipula oleracea", url:"../arten/kohlschnake.html",
+    text:"Häufige Garten- und Wiesenschnake; harmlos, Larven („Erdschnaken“) fressen Wurzeln."},
+  "a_taufliege":{ art:true, rang:"Insekt · Art", de:"Taufliege", lat:"Drosophila melanogaster", url:"../arten/taufliege.html",
+    text:"Winzig, gelblich mit roten Augen; an reifem Obst, berühmtes Versuchstier der Genetik."},
+  "a_stubenfliege":{ art:true, rang:"Insekt · Art", de:"Stubenfliege", lat:"Musca domestica", url:"../arten/stubenfliege.html",
+    text:"Der klassische Kulturfolger; sticht nicht, aber wichtiger Hygiene-Faktor."},
+  "a_gemeine-stechfliege":{ art:true, rang:"Insekt · Art", de:"Gemeine Stechfliege", lat:"Stomoxys calcitrans", url:"../arten/gemeine-stechfliege.html",
+    text:"Sieht aus wie die Stubenfliege, sticht aber – der „Wadenstecher“ an Vieh und Mensch."},
+  "a_blaue-schmeissfliege":{ art:true, rang:"Insekt · Art", de:"Blaue Schmeißfliege", lat:"Calliphora vomitoria", url:"../arten/blaue-schmeissfliege.html",
+    text:"Kräftig, metallisch stahlblau, brummt laut; Maden zersetzen Aas."},
+  "a_gemeine-fleischfliege":{ art:true, rang:"Insekt · Art", de:"Gemeine Fleischfliege", lat:"Sarcophaga carnaria", url:"../arten/gemeine-fleischfliege.html",
+    text:"Grau mit Schachbrettmuster und roten Augen; setzt lebende Larven ab."},
+  "a_rasenhalmfliege":{ art:true, rang:"Insekt · Art", de:"Gemeine Rasenhalmfliege", lat:"Thaumatomyia notata", url:"../arten/rasenhalmfliege.html",
+    text:"Winzige Wiesenfliege; sammelt sich im Herbst oft massenhaft an Hauswänden. Larven fressen Wurzelläuse."},
+  "a_schwarzauge":{ art:true, rang:"Insekt · Art", de:"Schwarzauge", lat:"Bibio marci", url:"../arten/schwarzauge.html",
+    text:"Die Märzhaarmücke um den Markustag – schwarz, behaart, tief und träge fliegend."},
+  "a_schwarzfuessige-schnepfenfliege":{ art:true, rang:"Insekt · Art", de:"Schwarzfüßige Schnepfenfliege", lat:"Rhagio scolopaceus", url:"../arten/schwarzfuessige-schnepfenfliege.html",
+    text:"Sitzt typisch kopfüber an Baumstämmen und startet blitzschnell zur Jagd."},
+  "a_helle-tanzfliege":{ art:true, rang:"Insekt · Art", de:"Helle Tanzfliege", lat:"Empis livida", url:"../arten/helle-tanzfliege.html",
+    text:"Räuberische Fliege mit langem Stechrüssel; Männchen balzen mit einem Brautgeschenk."},
+  "a_holzwespen-schlupfwespe":{ art:true, rang:"Insekt · Art", de:"Holzwespen-Schlupfwespe", lat:"Sirex juvencus", url:"../arten/holzwespen-schlupfwespe.html",
+    text:"Holzwespe mit langem Legebohrer; die Larve bohrt sich jahrelang durch Nadelholz. Harmlos."},
+  "a_maskenbiene":{ art:true, rang:"Insekt · Art", de:"Maskenbiene", lat:"Hylaeus spec.", url:"../arten/maskenbiene.html",
+    text:"Winzige, fast nackte Wildbiene mit heller Gesichtsmaske; trägt Pollen im Kropf."},
+  "a_rote-mauerbiene":{ art:true, rang:"Insekt · Art", de:"Rote Mauerbiene", lat:"Osmia bicornis", url:"../arten/rote-mauerbiene.html",
+    text:"Frühe, rostrote Wildbiene und Top-Bestäuberin; baut Lehmzellen, liebt Insektenhotels."},
+  "a_wespenbiene":{ art:true, rang:"Insekt · Art", de:"Wespenbiene", lat:"Nomada spec.", url:"../arten/wespenbiene.html",
+    text:"Wespenähnliche „Kuckucksbiene“ ohne Pollenkörbchen – schmuggelt Eier in fremde Nester."},
+  "a_gemeiner-ohrwurm":{ art:true, rang:"Insekt · Art", de:"Gemeiner Ohrwurm", lat:"Forficula auricularia", url:"../arten/gemeiner-ohrwurm.html",
+    text:"Mit Zange am Hinterleib und fürsorglicher Brutpflege; kriecht trotz Namens nicht ins Ohr."},
+  "a_grosse-eintagsfliege":{ art:true, rang:"Insekt · Art", de:"Große Eintagsfliege", lat:"Ephemera danica", url:"../arten/grosse-eintagsfliege.html",
+    text:"Lebt jahrelang als Larve im Wasser, als geflügeltes Tier oft nur Stunden bis Tage."},
+  "a_hufeisen-azurjungfer":{ art:true, rang:"Insekt · Art", de:"Hufeisen-Azurjungfer", lat:"Coenagrion puella", url:"../arten/hufeisen-azurjungfer.html",
+    text:"Himmelblaue Kleinlibelle mit schwarzem Hufeisen-Zeichen; sehr häufig am Gartenteich."},
+  "a_kreuzspinne":{ art:true, rang:"Spinne · Art", de:"Kreuzspinne", lat:"Araneus diadematus", url:"../arten/kreuzspinne.html",
+    text:"Berühmt für das helle Kreuz auf dem Hinterleib und ihre kunstvollen Radnetze."},
+  "a_kuerbisspinne":{ art:true, rang:"Spinne · Art", de:"Kürbisspinne", lat:"Araniella cucurbitina", url:"../arten/kuerbisspinne.html",
+    text:"Winzige Spinne mit leuchtend grünem, kugeligem Hinterleib – ein „Mini-Kürbis“ im Gebüsch."},
+};
+
+/* ---- kleine Inline-Icons ---- */
+const ICON = {
+  wurm:'<svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#233D5C" stroke-width="2" stroke-linecap="round"><path d="M3 16c3-5 5 5 8 0s5 5 8 0 4 1 4 1"/></svg>',
+  ringe:'<svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#233D5C" stroke-width="1.7"><rect x="3" y="9" width="5" height="8" rx="2"/><rect x="8.5" y="9" width="5" height="8" rx="2"/><rect x="14" y="9" width="5" height="8" rx="2"/><rect x="19.5" y="9" width="3.5" height="8" rx="1.7"/></svg>',
+  schale:'<svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#233D5C" stroke-width="1.8"><path d="M13 13m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M13 13m-5 0a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><circle cx="13" cy="13" r="1.4" fill="#233D5C" stroke="none"/></svg>',
+  raupe:'<svg width="30" height="22" viewBox="0 0 30 22" fill="#233D5C"><circle cx="6" cy="13" r="5"/><circle cx="13" cy="12" r="5.2"/><circle cx="20" cy="13" r="5"/><circle cx="25" cy="14" r="4"/><circle cx="4" cy="11" r="1" fill="#fff"/></svg>',
+  beine:'<svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#233D5C" stroke-width="1.8" stroke-linecap="round"><ellipse cx="13" cy="13" rx="4.5" ry="7"/><path d="M8.5 9 3 6M8.5 13H2.5M8.5 17 3 20M17.5 9 23 6M17.5 13H23.5M17.5 17 23 20"/></svg>',
+  n6:'<svg width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="12.5" fill="none" stroke="#233D5C" stroke-width="1.8"/><text x="14" y="18.5" text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#233D5C">6</text></svg>',
+  n8:'<svg width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="12.5" fill="none" stroke="#233D5C" stroke-width="1.8"/><text x="14" y="18.5" text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#233D5C">8</text></svg>',
+  nviel:'<svg width="28" height="28" viewBox="0 0 28 28"><circle cx="14" cy="14" r="12.5" fill="none" stroke="#233D5C" stroke-width="1.8"/><text x="14" y="18" text-anchor="middle" font-family="Georgia,serif" font-size="11.5" fill="#233D5C">8+</text></svg>',
+  panzer:'<svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#233D5C" stroke-width="1.7" stroke-linecap="round"><path d="M5 13a8 6 0 0 1 16 0"/><path d="M5 13a8 6 0 0 0 16 0" stroke-opacity=".35"/><path d="M9 8.5v9M13 7.7v10.6M17 8.5v9"/></svg>',
+  falter:'<svg width="28" height="24" viewBox="0 0 28 24" fill="#233D5C"><ellipse cx="14" cy="12" rx="1.4" ry="7"/><path d="M13 8C8 3 2 4 2 8s6 4 11 3Z"/><path d="M13 14C8 17 3 19 4 22s8-2 9-6Z"/><path d="M15 8c5-5 11-4 11 0s-6 4-11 3Z"/><path d="M15 14c5 3 10 5 9 8s-8-2-9-6Z"/></svg>',
+  insekt:'<svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#233D5C" stroke-width="1.8" stroke-linecap="round"><ellipse cx="13" cy="14" rx="4" ry="7"/><circle cx="13" cy="6" r="2.4"/><path d="M11 5 8.5 2.5M15 5l2.5-2.5"/><path d="M9 11 3.5 9M9 14H3M9 18l-5.5 2M17 11l5.5-2M17 14h6M17 18l5.5 2"/></svg>',
+};
+function iconHTML(o){
+  if(o.sw) return '<span class="swatch" style="background:'+o.sw+'"></span>';
+  if(o.ic && ICON[o.ic]) return ICON[o.ic];
+  return '';
+}
+
+/* ---- Zustand & Rendern ---- */
+const elPfad=document.getElementById("pfad");
+const elFrage=document.getElementById("frage");
+const elErg=document.getElementById("ergebnis");
+const btnZurueck=document.getElementById("zurueck");
+
+let aktuell=START;            // aktueller Knoten-Schlüssel
+let verlauf=[];               // [{node, kurz}] der beantworteten Fragen
+
+function zeigeFrage(key){
+  const n=KNOTEN[key];
+  if(!n){ return; }
+  aktuell=key;
+  if(n.frage){
+    elErg.style.display="none";
+    let html="<h2>"+n.frage+"</h2>";
+    if(n.sub) html+='<p class="sub">'+n.sub+'</p>';
+    n.optionen.forEach((o,i)=>{
+      const ic=iconHTML(o);
+      html+='<button class="opt" data-i="'+i+'">'+
+            (ic?'<span class="ic">'+ic+'</span>':'')+
+            '<span class="tx"><span class="t">'+o.t+'</span>'+
+            (o.h?'<span class="h">'+o.h+'</span>':'')+'</span>'+
+            '<span class="pf">›</span></button>';
+    });
+    elFrage.innerHTML=html;
+    elFrage.style.display="block";
+    elFrage.querySelectorAll(".opt").forEach(b=>{
+      b.addEventListener("click",()=>{
+        const o=n.optionen[+b.dataset.i];
+        verlauf.push({node:key, kurz:o.kurz});
+        const ziel=KNOTEN[o.ziel];
+        if(ziel && ziel.frage) zeigeFrage(o.ziel);
+        else zeigeErgebnis(o.ziel);
+        bildPfad(); steuerung(); melde();
+      });
+    });
+  }
+  bildPfad(); steuerung(); melde();
+}
+
+function zeigeErgebnis(key){
+  const n=KNOTEN[key];
+  aktuell=key;
+  elFrage.style.display="none";
+  let rang = n.art ? (n.rang || "Schmetterling · Art") : (n.larve ? "Larve · noch kein Falter" : "Tiergruppe");
+  let html='<p class="rang">'+rang+'</p><h2>'+n.de+'</h2>';
+  if(n.lat) html+='<p class="lat">'+n.lat+'</p>';
+  html+='<p>'+n.text+'</p><div class="knoepfe">';
+  if(n.art){
+    html+='<a class="btn-prim" href="'+n.url+'">Zur Art →</a>';
+    html+='<a class="btn-sek" href="stammbaum.html">Im Stammbaum zeigen ↗</a>';
+  } else if(n.larve){
+    html+='<button class="weiter btn-prim" id="weiterBtn">'+n.weiterText+'</button>';
+    html+='<a class="btn-sek" href="stammbaum.html">Im Stammbaum zeigen ↗</a>';
+  } else {
+    html+='<a class="btn-prim" href="stammbaum.html">Im Stammbaum zeigen ↗</a>';
+  }
+  html+='</div>';
+  elErg.innerHTML=html;
+  elErg.style.display="block";
+  const wb=document.getElementById("weiterBtn");
+  if(wb) wb.addEventListener("click",()=>{
+    verlauf.push({node:key, kurz:"Raupe"});
+    zeigeFrage(n.weiterZiel); bildPfad(); steuerung(); melde();
+  });
+}
+
+function bildPfad(){
+  let html='<span class="start">Start</span>';
+  verlauf.forEach((v,i)=>{
+    html+='<span class="pfeil">›</span>'+
+          '<button class="pchip" data-i="'+i+'">'+v.kurz+'</button>';
+  });
+  elPfad.innerHTML=html;
+  elPfad.querySelectorAll(".pchip").forEach(c=>{
+    c.addEventListener("click",()=>{
+      const i=+c.dataset.i;
+      const ziel=verlauf[i].node;   // zurück zu der Frage, die hier beantwortet wurde
+      verlauf=verlauf.slice(0,i);
+      zeigeFrage(ziel);
+    });
+  });
+}
+function steuerung(){ btnZurueck.disabled = verlauf.length===0; }
+
+btnZurueck.addEventListener("click",()=>{
+  if(verlauf.length===0) return;
+  const letzte=verlauf.pop();
+  zeigeFrage(letzte.node);
+});
+document.getElementById("vonvorn").addEventListener("click",()=>{
+  verlauf=[]; zeigeFrage(START);
+});
+
+/* Auto-Höhe an die einbettende Seite melden (iframe in WordPress) */
+function melde(){
+  if(window.parent!==window){
+    try{ window.parent.postMessage({fauna:"height", height:document.body.scrollHeight}, "*"); }catch(e){}
+  }
+}
+if("ResizeObserver" in window){ new ResizeObserver(melde).observe(document.body); }
+window.addEventListener("load", melde);
+
+zeigeFrage(START);
+</script>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

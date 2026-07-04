@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Die Wiese lebt — Lernpfad · Fauna Mibaso</title>
+<meta name="description" content="Interaktiver Lernpfad: Baue und pflege ein stabiles Mini-Ökosystem. Deine Entscheidungen verändern das Leben auf der Wiese.">
+<meta name="theme-color" content="#233D5C">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<style>
+  /* =========================================================================
+     „Die Wiese lebt“ – Baue ein stabiles Mini-Ökosystem
+     Eigenständiger Lernpfad im Hausstil der Fauna-App.
+     Farben: Marineblau #233D5C, Creme #F7F3E8, Amber/Honig #C28A3A, Schrift Georgia.
+     Keine externen Bibliotheken. Optimiert für Handy und Tablet.
+     ========================================================================= */
+  :root{
+    --blau:#233D5C; --blau-tief:#1a2f47; --creme:#F7F3E8; --creme-tief:#EEE7D5;
+    --pergament:#EDE3CC; --tinte:#1c2e42; --honig:#C28A3A; --honig-tief:#a9762c;
+    --linie:#c3ccd5; --gruen:#3E9A5E; --gruen-tief:#2f6a45; --rot:#B5482F;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--creme);color:var(--blau);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.5;
+    padding-top:calc(env(safe-area-inset-top) + min(2vh,14px));}
+  .huelle{max-width:680px;margin:0 auto;padding:clamp(8px,2.5vw,16px) clamp(12px,3.5vw,26px) 48px;}
+
+  /* ---------- Kopf ---------- */
+  .kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:var(--sans);}
+  .zurueck{font-size:13px;font-weight:600;color:var(--blau);text-decoration:none;display:inline-flex;gap:5px;align-items:center;}
+  .zaehler{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a96a1;}
+  .zaehler b{color:var(--honig);}
+  h1{font-size:clamp(19px,4.8vw,26px);line-height:1.1;margin:6px 0 4px;font-weight:normal;}
+
+  /* Fortschrittsbalken */
+  .balken{height:6px;background:var(--creme-tief);border-radius:3px;overflow:hidden;margin:10px 0 4px;}
+  .balken div{height:100%;width:0;background:var(--honig);transition:width .4s ease;}
+
+  /* ---------- Öko-Barometer (Dashboard) ---------- */
+  .barometer{background:#fff;border:1px solid var(--linie);border-radius:14px;
+    padding:11px 14px;margin:12px 0 4px;display:none;}
+  .barometer.an{display:block;animation:einblenden .4s ease;}
+  .barometer h2{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:#8a96a1;font-weight:700;margin:0 0 8px;}
+  .baro-zeile{display:flex;align-items:center;gap:8px;margin:5px 0;font-family:var(--sans);font-size:12.5px;}
+  .baro-zeile .lbl{flex:0 0 92px;color:var(--blau);}
+  .baro-punkte{display:flex;gap:5px;}
+  .baro-punkte span{width:11px;height:11px;border-radius:50%;background:var(--creme-tief);
+    border:1px solid var(--linie);transition:background .35s ease,border-color .35s ease,transform .35s ease;}
+  .baro-punkte span.voll{background:var(--honig);border-color:var(--honig);}
+  .baro-punkte span.puls{transform:scale(1.35);}
+
+  /* ---------- Szene / Bühne ---------- */
+  .szene{position:relative;width:100%;max-width:560px;margin:14px auto 0;aspect-ratio:16/10;
+    border-radius:16px;overflow:hidden;border:1px solid #cdbf9e;background:var(--pergament);}
+  .szene>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .6s ease,filter .8s ease;}
+  .szene .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;text-align:center;padding:16px;background:linear-gradient(160deg,#dfe6d2,#c9d3b6);}
+  .szene .ph .gl{font-size:40px;opacity:.5;}
+  .szene .ph .l{font-family:var(--sans);font-size:13px;font-weight:600;color:#5f6b4e;}
+  .szene .ph .f{font-family:var(--sans);font-size:10.5px;color:#7d876a;word-break:break-all;}
+  /* Nacht-Zustand: Szene abdunkeln */
+  .szene.nacht>img{filter:brightness(.4) saturate(.7) hue-rotate(200deg);}
+  .szene.nacht .ph{background:linear-gradient(160deg,#26324a,#1a2438);}
+  .szene.nacht .ph .l,.szene.nacht .ph .f{color:#b9c4d6;}
+  /* schwebende Tier-Icons, die als Reaktion erscheinen */
+  .krabbler{position:absolute;font-size:22px;opacity:0;transform:translateY(8px) scale(.6);
+    transition:opacity .5s ease,transform .5s ease;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.25));}
+  .krabbler.da{opacity:1;transform:translateY(0) scale(1);}
+  /* Glühpunkte für die Nacht */
+  .gluehen{position:absolute;width:9px;height:9px;border-radius:50%;background:#d8ff9a;opacity:0;
+    box-shadow:0 0 10px 3px rgba(200,255,140,.8);animation:glimmern 2.4s ease-in-out infinite;}
+  @keyframes glimmern{0%,100%{opacity:.15;}50%{opacity:.95;}}
+
+  /* ---------- Interaktions-Fläche ---------- */
+  .stufe{animation:einblenden .45s ease;}
+  @keyframes einblenden{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .intro{font-size:clamp(15px,4vw,17px);color:var(--tinte);margin:12px 0 4px;}
+  .frage{font-size:clamp(16.5px,4.4vw,20px);font-weight:normal;margin:14px 0 10px;}
+
+  /* Auswahl-Kacheln (Bausteine, Zuordnung) */
+  .wahlgitter{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin:8px 0;}
+  .wahl{position:relative;display:flex;align-items:center;gap:10px;text-align:left;cursor:pointer;
+    font-family:var(--sans);font-size:14px;color:var(--blau);background:#fff;
+    border:1.5px solid var(--linie);border-radius:14px;padding:12px 13px;transition:.15s;}
+  .wahl:hover:not(:disabled){border-color:#9bb0c6;}
+  .wahl .em{font-size:24px;flex:0 0 auto;line-height:1;}
+  /* Echte Tierfotos als runde Insets (mit Emoji-Fallback) */
+  .tierfoto{flex:0 0 auto;width:40px;height:40px;border-radius:50%;object-fit:cover;
+    background:var(--creme-tief);border:1px solid var(--linie);box-shadow:0 1px 3px rgba(35,61,92,.15);}
+  .knoten .tierfoto{width:46px;height:46px;}
+  .wahl.gewaehlt{border-color:var(--honig);background:#fbf3e3;}
+  .wahl.gewaehlt::after{content:"✓";position:absolute;top:7px;right:9px;color:var(--honig);font-weight:700;font-family:var(--sans);}
+  .wahl.richtig{border-color:var(--gruen);background:#e6efe7;color:var(--gruen-tief);}
+  .wahl.falsch{border-color:var(--rot);background:#f2e2dd;color:#9a3f2a;}
+  .wahl:disabled{cursor:default;}
+
+  /* Entscheidungs-Buttons (eine Wahl) */
+  .entscheid{display:flex;flex-direction:column;gap:10px;margin:8px 0;}
+  .entscheid button{font-family:var(--sans);font-size:15px;color:var(--blau);background:#fff;text-align:left;
+    border:1.5px solid var(--linie);border-radius:14px;padding:14px 16px;cursor:pointer;transition:.13s;
+    display:flex;gap:11px;align-items:center;}
+  .entscheid button .em{font-size:24px;flex:0 0 auto;}
+  .entscheid button:hover:not(:disabled){border-color:#9bb0c6;}
+  .entscheid button.gut{background:#e6efe7;border-color:var(--gruen);color:var(--gruen-tief);}
+  .entscheid button.mittel{background:#fbf3e3;border-color:var(--honig);color:var(--honig-tief);}
+  .entscheid button.schlecht{background:#f2e2dd;border-color:var(--rot);color:#9a3f2a;}
+  .entscheid button:disabled{cursor:default;opacity:.85;}
+
+  /* Nahrungsnetz */
+  .netzwrap{position:relative;margin:8px 0;}
+  .netz-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+  .netz-svg line{stroke:var(--honig);stroke-width:3;stroke-linecap:round;opacity:0;
+    transition:opacity .5s ease;stroke-dasharray:6 5;}
+  .netz-svg line.da{opacity:.9;animation:stricheln 12s linear infinite;}
+  @keyframes stricheln{to{stroke-dashoffset:-220;}}
+  .netz-spalten{position:relative;display:flex;justify-content:space-between;gap:14px;z-index:2;}
+  .netz-spalte{flex:1 1 0;display:flex;flex-direction:column;gap:12px;}
+  .netz-spalte .kopfz{font-family:var(--sans);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:#8a96a1;text-align:center;}
+  .knoten{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;
+    font-family:var(--sans);font-size:12.5px;color:var(--blau);background:#fff;
+    border:1.5px solid var(--linie);border-radius:14px;padding:9px 6px;transition:.15s;}
+  .knoten .em{font-size:26px;line-height:1;}
+  .knoten.aktiv{border-color:var(--blau);background:#eef3f8;box-shadow:0 2px 8px rgba(35,61,92,.18);}
+  .knoten.satt{border-color:var(--gruen);background:#e6efe7;}
+
+  /* Feedback-Karte */
+  .infokarte{margin-top:14px;padding:13px 15px;border-radius:0 12px 12px 0;background:var(--creme-tief);
+    border-left:4px solid var(--honig);display:none;}
+  .infokarte.an{display:block;animation:einblenden .35s ease;}
+  .infokarte .it{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 4px;color:#8a96a1;}
+  .infokarte.ok .it{color:var(--gruen);} .infokarte.no .it{color:var(--rot);} .infokarte.tipp .it{color:var(--honig-tief);}
+  .infokarte p{margin:0;font-size:14.5px;color:var(--tinte);}
+  .infokarte p+p{margin-top:7px;}
+
+  /* Navigation */
+  .nav{display:flex;gap:9px;margin-top:20px;padding-top:16px;border-top:1px solid var(--linie);}
+  .knopf{font-family:var(--sans);font-size:14px;font-weight:600;color:var(--blau);background:transparent;
+    border:1px solid var(--blau);border-radius:999px;padding:11px 18px;cursor:pointer;transition:background .18s,color .18s,opacity .18s;}
+  .knopf:hover:not(:disabled){background:var(--blau);color:var(--creme);}
+  .knopf:disabled{opacity:.34;cursor:default;}
+  .knopf.prim{background:var(--blau);color:var(--creme);margin-left:auto;border-color:var(--blau);}
+  .knopf.prim:hover{background:var(--blau-tief);}
+  .knopf.prim:disabled{background:var(--linie);border-color:var(--linie);color:#fff;}
+
+  /* Start-Screen */
+  .start{text-align:center;padding:6px 0 0;}
+  .start .lead{font-size:clamp(15.5px,4.2vw,18px);color:var(--tinte);max-width:34ch;margin:16px auto 0;}
+  .start .los{display:inline-block;margin:20px auto 0;font-family:var(--sans);font-size:16px;font-weight:700;
+    color:var(--creme);background:var(--honig);border:none;border-radius:999px;padding:14px 30px;cursor:pointer;
+    box-shadow:0 3px 12px rgba(194,138,58,.35);transition:transform .15s,background .18s;}
+  .start .los:hover{background:var(--honig-tief);transform:translateY(-1px);}
+
+  /* Ergebnis */
+  .ergebnis{text-align:center;padding:4px 0;}
+  .ergebnis .stufe-titel{font-size:clamp(24px,7vw,34px);color:var(--blau);margin:12px 0 2px;line-height:1.1;}
+  .ergebnis .punkte-gross{font-family:var(--sans);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#8a96a1;margin:0 0 12px;}
+  .ergebnis .punkte-gross b{color:var(--honig);font-size:16px;}
+  .ergebnis .beschrieb{font-size:clamp(14.5px,4vw,16.5px);color:var(--tinte);max-width:40ch;margin:0 auto 14px;text-align:left;}
+  .ergebnis .knoepfe{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px;}
+  .medaille{font-size:54px;line-height:1;margin:6px 0 0;}
+
+  footer{margin-top:30px;font-family:var(--sans);font-size:12px;color:#8a96a1;text-align:center;}
+  footer a{color:inherit;}
+
+  /* Konfetti */
+  .konffeld{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden;}
+  .konf{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;animation:konffall 3.6s linear forwards;}
+  @keyframes konffall{0%{transform:translateY(-14px);opacity:1;}100%{transform:translateY(106vh) rotate(540deg);opacity:.9;}}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+</style>
+</head>
+<body>
+<div class="huelle">
+  <div class="kopf">
+    <a class="zurueck" href="../../index.html">‹ Startseite</a>
+    <span class="zaehler" id="zaehler"></span>
+  </div>
+  <h1>Die Wiese lebt</h1>
+  <div class="balken"><div id="balken"></div></div>
+
+  <!-- Öko-Barometer: erscheint ab der ersten Entscheidung -->
+  <div class="barometer" id="barometer">
+    <h2>Öko-Barometer deiner Wiese</h2>
+    <div id="baroZeilen"></div>
+  </div>
+
+  <!-- Bühne: wird pro Screen neu gefüllt -->
+  <div id="buehne"></div>
+
+  <!-- Feedback -->
+  <div class="infokarte" id="info"></div>
+
+  <!-- Navigation -->
+  <div class="nav" id="nav">
+    <button class="knopf" id="zurueckBtn">‹ Zurück</button>
+    <button class="knopf prim" id="weiterBtn">Weiter ›</button>
+  </div>
+
+  <footer>© 2026 <a href="../ueber/">Michael Baur</a> · Fauna Mibaso</footer>
+</div>
+
+<script>
+/* ===========================================================================
+   „Die Wiese lebt“ — Spiel-Logik
+   ---------------------------------------------------------------------------
+   Aufbau: ein linearer Lernpfad aus 8 Screens. Der Nutzer trifft
+   Entscheidungen, die sechs ökologische Werte verändern. Ein Öko-Barometer
+   zeigt den Zustand der Wiese, am Ende gibt es eine Auswertung in vier Stufen.
+
+   Bilder: Szenen liegen in ../images/wiese/ , Tier-/Objekt-PNGs (transparent)
+   in ../images/wiese/tiere/ . Fehlt ein Bild, erscheint ein Platzhalter mit
+   dem erwarteten Dateinamen — später einfach die PNG/JPG dort ablegen.
+
+   Vereinfachung fürs Handy: „Drag & Drop“ ist als „antippen → Ziel antippen“
+   umgesetzt. Auf Touchgeräten deutlich zuverlässiger, gleiche Didaktik.
+=========================================================================== */
+
+const SZENE  = "../images/wiese/";
+const TIERE  = "../images/wiese/tiere/";
+
+/* --- Expedition „Forscherpass“: Ergebnis geräteweit merken --- */
+const EXP_ID = "wiese";
+function meldeExpedition(id, blaetter){
+  try{
+    const K="mibaso.fauna.expedition";
+    const d=JSON.parse(localStorage.getItem(K)||"{}");
+    if(!d[id] || blaetter>d[id].blaetter){
+      d[id]={blaetter:blaetter, done:true, ts:Date.now()};
+      localStorage.setItem(K, JSON.stringify(d));
+    }
+  }catch(e){}
+}
+
+/* ---------- Die sechs Öko-Werte ---------- */
+const WERTE = {
+  bluetenangebot: 0,
+  raupenfutter:   0,
+  verstecke:      0,
+  nahrungsnetz:   0,
+  ueberwinterung: 0,
+  nachtlebensraum:0
+};
+/* Anzeige-Namen fürs Barometer (Reihenfolge = Anzeige-Reihenfolge) */
+const WERT_LABELS = [
+  ["bluetenangebot", "Blüten"],
+  ["raupenfutter",   "Raupenfutter"],
+  ["verstecke",      "Verstecke"],
+  ["nahrungsnetz",   "Nahrungsnetz"],
+  ["ueberwinterung", "Überwinterung"],
+  ["nachtlebensraum","Nachtleben"]
+];
+const BARO_MAX = 5; // Zahl der Punkte je Zeile
+
+/* Effekte auf die Werte anwenden (mit kleiner Puls-Animation im Barometer) */
+function wirke(effekte){
+  Object.keys(effekte||{}).forEach(k=>{ WERTE[k]=(WERTE[k]||0)+effekte[k]; });
+}
+function gesamt(){
+  return WERT_LABELS.reduce((s,[k])=>s+WERTE[k],0);
+}
+
+/* ---------- Screen-Definitionen ---------- */
+/* type: intro | bausteine | entscheidung | zuordnen | netz | auswertung */
+const SCREENS = [
+
+  /* 0 — Einstieg -------------------------------------------------------- */
+  {
+    id:"einstieg", type:"intro",
+    titel:"Die Wiese lebt",
+    szene:"wiese-fruehling.png", szeneLabel:"Wiese im Frühling, noch wenig belebt",
+    lead:"Eine Wiese ist mehr als Gras. Sie ist ein kleines Ökosystem aus Blüten, "+
+         "Kräutern, Boden, Totholz und tausend Tieren. In diesem Lernpfad baust und "+
+         "pflegst du deine eigene Wiese — jede Entscheidung verändert, wie viel Leben "+
+         "hier Platz findet. Am Ende siehst du: Wie lebendig ist deine Wiese geworden?",
+    startText:"Wiese erkunden"
+  },
+
+  /* 1 — Lebensraum-Bausteine (Mehrfachauswahl) -------------------------- */
+  {
+    id:"bausteine", type:"bausteine",
+    titel:"Mehr als nur Gras",
+    szene:"wiese-sommer.png", szeneLabel:"Strukturreiche Sommerwiese",
+    intro:"Welche Strukturen machen deine Wiese für Tiere wertvoll? Wähle mit Bedacht — "+
+          "nicht alles, was grün und hübsch aussieht, ist auch wertvoll. Dann bestätige.",
+    optionen:[
+      { label:"Blühende Wildkräuter", em:"🌼", gut:true, krabbler:"🌼",
+        effekte:{bluetenangebot:2},
+        feedback:"Heimische Wildblumen liefern Nektar und Pollen für Bienen, Hummeln und Falter." },
+      { label:"Brennnessel-Ecke", em:"🌿", gut:true, krabbler:"🐛",
+        effekte:{raupenfutter:2},
+        feedback:"Unscheinbar, aber unverzichtbar: Raupenfutter für viele Schmetterlinge." },
+      { label:"Totholz & Laub", em:"🪵", gut:true, krabbler:"🪲",
+        effekte:{verstecke:2},
+        feedback:"Verstecke und Kinderstube für Käfer, Asseln und Spinnen." },
+      { label:"Alte Stängel stehen lassen", em:"🌾", gut:true, krabbler:"🐝",
+        effekte:{ueberwinterung:2},
+        feedback:"In hohlen Halmen überwintern Wildbienen und andere Insekten." },
+      { label:"Offene Bodenstelle", em:"🟫", gut:true, krabbler:"🐜",
+        effekte:{verstecke:1},
+        feedback:"Nackter, warmer Boden ist Nistplatz für viele bodennistende Wildbienen." },
+      // --- Fallen: sehen nützlich aus, sind es aber nicht ---
+      { label:"Gefüllte Zierblüten", em:"🌹", gut:false,
+        effekte:{},
+        feedback:"Sieht üppig aus, ist aber eine Sackgasse: Gefüllte Zuchtblüten haben "+
+                 "kaum Nektar und keinen Pollen — für Insekten wertlos." },
+      { label:"Mähroboter fürs ordentliche Grün", em:"🤖", gut:false,
+        effekte:{verstecke:-2},
+        feedback:"Eine echte Gefahr: Der Roboter hält alles kurz, zerhäckselt Kleintiere "+
+                 "und verletzt nachts Igel. Er nimmt der Wiese jede Struktur." },
+      { label:"Kirschlorbeer-Hecke", em:"🌳", gut:false,
+        effekte:{},
+        feedback:"Immergrün und beliebt, aber ökologisch tot: Heimische Insekten können "+
+                 "mit dem exotischen Kirschlorbeer nichts anfangen." }
+    ],
+    hinweis:"Merke: „Unordnung“ ist kein Makel — aber „grün und gepflegt“ ist noch kein Lebensraum."
+  },
+
+  /* 2 — Blattlaus-Alarm (Entscheidung) ---------------------------------- */
+  {
+    id:"blattlaus", type:"entscheidung",
+    titel:"Blattlaus-Alarm",
+    szene:"wiese-sommer.png", szeneLabel:"Blattläuse an einem Stängel",
+    intro:"An deinen Pflanzen sitzen plötzlich viele Blattläuse. Was tust du?",
+    optionen:[
+      { label:"Mit Gift bekämpfen", em:"🧴", klasse:"schlecht", effekte:{},
+        feedback:"Das Gift trifft auch Marienkäfer, Schwebfliegen und ihre Larven — "+
+                 "genau die Tiere, die Blattläuse fressen. Die Wiese verliert ihr Gleichgewicht." },
+      { label:"Alle absammeln", em:"✋", klasse:"mittel", effekte:{},
+        feedback:"Gut gemeint, aber du nimmst der Wiese eine wichtige Futterquelle. "+
+                 "Ohne Blattläuse verhungern ihre Jäger." },
+      { label:"Marienkäfer aus dem Handel aussetzen", em:"🛒", klasse:"schlecht", effekte:{},
+        feedback:"Die Falle: Im Handel sind meist Asiatische Marienkäfer — eine invasive Art, "+
+                 "die unsere heimischen verdrängt. Deine Wiese hat ihre Jäger längst selbst." },
+      { label:"Beobachten und dulden", em:"👀", klasse:"gut", effekte:{nahrungsnetz:2}, richtig:true,
+        feedback:"Richtig! Blattläuse sind nicht nur „Schädlinge“ — sie sind Futter für "+
+                 "Marienkäferlarven, Schwebfliegenlarven, Florfliegen und Vögel. "+
+                 "Meist regelt sich die Zahl von selbst. So knüpft sich ein Nahrungsnetz." }
+    ]
+  },
+
+  /* 3 — Wer lebt wo? (Zuordnung) ---------------------------------------- */
+  {
+    id:"werlebtwo", type:"zuordnen",
+    titel:"Wer lebt wo?",
+    szene:"boden-querschnitt.png", szeneLabel:"Bodenquerschnitt mit Wurzeln und Tierverstecken",
+    intro:"Jedes Tier braucht seinen Platz. Tippe ein Tier an, dann seinen passenden "+
+          "Lebensraum. Für jede richtige Zuordnung wächst dein Wert „Verstecke“.",
+    zonen:[
+      { id:"boden",   label:"Boden & Wurzeln",   em:"🟫" },
+      { id:"laub",    label:"Laub & Totholz",    em:"🪵" },
+      { id:"blueten", label:"Blüten & Kräuter",  em:"🌼" },
+      { id:"staengel",label:"Alte Stängel",      em:"🌾" }
+    ],
+    tiere:[
+      { label:"Regenwurm",        em:"🪱", img:"tier-regenwurm.png", zone:"boden",
+        feedback:"Der Regenwurm lockert und düngt den Boden — die unsichtbare Gärtnerei der Wiese." },
+      { label:"Assel",            em:"🪳", img:"tier-assel.png", zone:"laub",
+        feedback:"Asseln zersetzen Laub und Totholz zu Humus. Ohne sie stapelt sich das tote Material." },
+      { label:"Marienkäferlarve", em:"🐞", img:"tier-marienkaeferlarve.png", zone:"blueten",
+        feedback:"Die gefräßige Larve jagt Blattläuse an Kräutern und Blüten — nicht im Boden." },
+      { label:"Wildbiene",        em:"🐝", img:"tier-wildbiene.png", zone:"staengel",
+        feedback:"Die Falle: Wildbienen besuchen Blüten, aber sie NISTEN in hohlen, stehen gelassenen Stängeln." },
+      { label:"Florfliegenlarve", em:"🦟", img:"tier-florfliegenlarve.png", zone:"blueten",
+        feedback:"Auch die Florfliegenlarve jagt Blattläuse dort, wo sie sitzen: an Kräutern und Blüten." },
+      { label:"Ohrwurm",          em:"🦂", img:"tier-ohrwurm.png", zone:"laub",
+        feedback:"Der Ohrwurm klettert zwar in Blüten, versteckt sich tagsüber aber in Laub, Ritzen und Totholz." }
+    ],
+    proRichtig:{verstecke:1}
+  },
+
+  /* 4 — Nahrungsnetz bauen (Verbindungen) ------------------------------- */
+  {
+    id:"nahrungsnetz", type:"netz",
+    titel:"Baue ein Nahrungsnetz",
+    szene:"wiese-sommer.png", szeneLabel:"Strukturreiche Sommerwiese voller Leben",
+    intro:"Ein Nahrungsnetz ist mehr als eine Kette — viele Wege kreuzen sich. "+
+          "Tippe eine Beute an, dann einen Jäger, der sie frisst. Finde alle Verbindungen.",
+    beute:[
+      { id:"blattlaus", label:"Blattlaus", em:"🐜", img:"tier-blattlaus.png" },
+      { id:"raupe",     label:"Raupe",     em:"🐛", img:"tier-raupe.png" },
+      { id:"spinne",    label:"Spinne",    em:"🕷️", img:"tier-spinne.png" }
+    ],
+    jaeger:[
+      { id:"mklarve",     label:"Marienkäferlarve", em:"🐞", img:"tier-marienkaeferlarve.png" },
+      { id:"sflarve",     label:"Schwebfliegenlarve",em:"🪰", img:"tier-schwebfliegenlarve.png" },
+      { id:"vogel",       label:"Vogel",             em:"🐦", img:"tier-vogel.png" },
+      { id:"schlupfwespe",label:"Schlupfwespe",      em:"🐝", img:"tier-schlupfwespe.png" }
+    ],
+    /* gültige „frisst/befällt“-Beziehungen (Beute → Jäger).
+       Fallen: Marienkäferlarve frisst NUR Blattläuse (nicht Raupen),
+       die Schlupfwespe sieht aus wie eine Biene, ist aber ein Raupen-Parasit. */
+    verbindungen:[
+      { von:"blattlaus", zu:"mklarve",     text:"Marienkäferlarven vertilgen Unmengen an Blattläusen." },
+      { von:"blattlaus", zu:"sflarve",     text:"Auch Schwebfliegenlarven leben fast nur von Blattläusen." },
+      { von:"raupe",     zu:"vogel",       text:"Raupen sind das wichtigste Vogelfutter für die Jungenaufzucht." },
+      { von:"raupe",     zu:"schlupfwespe",text:"Die Schlupfwespe legt ihre Eier in Raupen — von innen aufgefressen." },
+      { von:"spinne",    zu:"vogel",       text:"Spinnen wiederum landen selbst im Schnabel der Vögel." }
+    ],
+    proVerbindung:{nahrungsnetz:1}
+  },
+
+  /* 5 — Du pflegst die Wiese: Mähen (Entscheidung) ---------------------- */
+  {
+    id:"maehen", type:"entscheidung",
+    titel:"Du pflegst die Wiese",
+    szene:"wiese-kurzmahd.png", szeneLabel:"Wiese nach der Mahd",
+    intro:"Der Sommer ist vorbei, die Wiese wird hoch. Wie mähst du?",
+    optionen:[
+      { label:"Alles auf einmal kurz mähen", em:"🚜", klasse:"schlecht", effekte:{},
+        feedback:"Über Nacht verschwinden Nahrung, Verstecke und Winterquartiere — "+
+                 "Insekten, Larven und Eier werden mitgemäht. Die Wiese fällt in Schockstarre." },
+      { label:"Abschnittsweise, Ecken stehen lassen", em:"🌾", klasse:"gut",
+        effekte:{verstecke:2, ueberwinterung:2}, richtig:true,
+        feedback:"Genau so! Wer nur Teile mäht und wilde Ecken lässt, gibt Tieren immer "+
+                 "einen Rückzugsort. In Altgras und Stängeln überwintern unzählige Insekten." },
+      { label:"Gar nicht mähen", em:"🌳", klasse:"mittel", effekte:{ueberwinterung:1},
+        feedback:"Kurzfristig okay, doch ohne jede Mahd verbuscht die Wiese mit den Jahren — "+
+                 "und die lichtliebenden Blütenpflanzen verschwinden." },
+      { label:"Mulchen: Schnittgut liegen lassen", em:"🌱", klasse:"schlecht", effekte:{},
+        feedback:"Die Falle: Klingt naturnah, ist aber das Gegenteil. Das liegende Schnittgut "+
+                 "überdüngt den Boden — wenige Gräser wuchern, die zarten Blüten verschwinden." }
+    ]
+  },
+
+  /* 6 — Nacht auf der Wiese: Lichtverschmutzung (Entscheidung) ---------- */
+  {
+    id:"nacht", type:"entscheidung", nacht:true,
+    titel:"Nacht auf der Wiese",
+    szene:"wiese-nacht.png", szeneLabel:"Wiese bei Nacht",
+    intro:"Es wird dunkel — jetzt beginnt die zweite Schicht: Nachtfalter und "+
+          "Glühwürmchen. Am Rand steht eine helle Gartenlampe. Was tust du?",
+    optionen:[
+      { label:"Lampe hell leuchten lassen", em:"💡", klasse:"schlecht", effekte:{},
+        feedback:"Nachtfalter umkreisen die Lampe bis zur Erschöpfung, statt Blüten zu bestäuben. "+
+                 "Und Glühwürmchen-Weibchen gehen im hellen Licht unter — die Männchen finden sie nicht mehr." },
+      { label:"Lampe dimmen, warmweiß", em:"🔅", klasse:"mittel", effekte:{nachtlebensraum:1},
+        feedback:"Besser: Warmes, gedämpftes Licht zieht weniger Insekten an. "+
+                 "Ganz dunkel wäre für die Nachttiere aber noch wertvoller." },
+      { label:"Solar-Bewegungsmelder anbringen", em:"🔦", klasse:"schlecht", effekte:{},
+        feedback:"Die Falle: „Solar“ klingt öko, doch das Licht springt genau dann an, "+
+                 "wenn sich nachts etwas bewegt — also immer dann, wenn die Nachttiere aktiv sind." },
+      { label:"Lampe ausschalten", em:"🌙", klasse:"gut", effekte:{nachtlebensraum:3}, richtig:true,
+        feedback:"Richtig! Dunkelheit ist ein Lebensraum. Ohne Lichtverschmutzung "+
+                 "bestäuben Nachtfalter ungestört, und Glühwürmchen finden zueinander." }
+    ]
+  },
+
+  /* 7 — Auswertung ------------------------------------------------------ */
+  { id:"auswertung", type:"auswertung", titel:"Deine Wiese" }
+];
+
+/* ---------- Auswertungs-Stufen ---------- */
+function ergebnisStufe(total){
+  if(total<=4)  return {
+    name:"Öko-Wüste", medaille:"🏜️", szene:"ergebnis-wueste.png",
+    text:"Diese Wiese ist ordentlich — aber leer. Es fehlen Blüten, Verstecke und "+
+         "Winterquartiere, also auch die Tiere, die davon leben. Artenvielfalt entsteht "+
+         "nicht durch maximale Ordnung, sondern durch passende Strukturen." };
+  if(total<=9)  return {
+    name:"Wiese mit Potenzial", medaille:"🌱", szene:"ergebnis-potenzial.png",
+    text:"Ein guter Anfang! Erste Strukturen sind da. Mit mehr Raupenfutter, wilden "+
+         "Ecken und Rücksicht bei Mahd und Licht kann hier viel mehr Leben einziehen." };
+  if(total<=15) return {
+    name:"Lebendige Wiese", medaille:"🦋", szene:"ergebnis-lebendig.png",
+    text:"Stark! Deine Wiese bietet Nahrung, Verstecke und Nachtleben. Tag- und "+
+         "Nachtschicht funktionieren, das Nahrungsnetz trägt sich selbst." };
+  return {
+    name:"Artenreiches Mini-Ökosystem", medaille:"🌾", szene:"ergebnis-artenreich.png",
+    text:"Sehr stabil! Diese Wiese bietet Nahrung, Nistplätze, Jagdräume, Raupenfutter "+
+         "und Winterquartiere. Genau so entsteht Artenvielfalt: nicht durch maximale "+
+         "Ordnung, sondern durch passende Strukturen. Tipp: abschnittsweise pflegen, "+
+         "nicht alles gleichzeitig mähen und wilde Ecken zulassen." };
+}
+
+/* =========================================================================
+   Rendering
+   ========================================================================= */
+const $=id=>document.getElementById(id);
+const elB=$("buehne"), elInfo=$("info"), elNav=$("nav");
+const elBaro=$("barometer"), elBaroZ=$("baroZeilen");
+const reduce=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+let i=0;                        // aktueller Screen
+const erledigt={};              // pro Screen: schon gewertet? (verhindert Doppel-Punkte)
+
+/* Szene-HTML mit Foto-Platzhalter */
+function szeneHTML(s){
+  if(!s.szene) return "";
+  const nachtKl = s.nacht ? " nacht" : "";
+  return '<div class="szene'+nachtKl+'" id="szene">'+
+    '<div class="ph"><span class="gl">'+(s.nacht?"🌙":"🌻")+'</span>'+
+      '<span class="l">'+(s.szeneLabel||"")+'</span>'+
+      '<span class="f">images/wiese/'+s.szene+'</span></div>'+
+    '<img src="'+SZENE+s.szene+'" alt="'+(s.szeneLabel||"")+'" '+
+      'onerror="this.style.display=\'none\'">'+
+  '</div>';
+}
+
+/* Icon einer Option: echtes Tierfoto (falls o.img gesetzt) sonst Emoji.
+   Fällt das Foto aus, ersetzt onerror es durch das Emoji. */
+function icon(o){
+  if(o.img){
+    return '<img class="tierfoto" src="'+TIERE+o.img+'" alt="'+o.label+'" '+
+      'onerror="this.outerHTML=\'<span class=&quot;em&quot;>'+o.em+'</span>\'">';
+  }
+  return '<span class="em">'+o.em+'</span>';
+}
+
+/* kleine Tier-Icons in die Szene setzen (Reaktion auf Auswahl) */
+function setzeKrabbler(em){
+  const sz=$("szene"); if(!sz||!em) return;
+  const k=document.createElement("span");
+  k.className="krabbler";
+  k.textContent=em;
+  k.style.left=(12+Math.random()*72)+"%";
+  k.style.top =(30+Math.random()*55)+"%";
+  sz.appendChild(k);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>k.classList.add("da")));
+}
+
+/* Öko-Barometer zeichnen */
+function zeichneBarometer(pulsKeys){
+  elBaroZ.innerHTML="";
+  WERT_LABELS.forEach(([key,label])=>{
+    const voll=Math.max(0,Math.min(BARO_MAX,WERTE[key]));
+    let punkte="";
+    for(let n=0;n<BARO_MAX;n++){
+      const aktiv=n<voll;
+      const puls=(pulsKeys&&pulsKeys.includes(key)&&n===voll-1)?" puls":"";
+      punkte+='<span class="'+(aktiv?"voll":"")+puls+'"></span>';
+    }
+    elBaroZ.insertAdjacentHTML("beforeend",
+      '<div class="baro-zeile"><span class="lbl">'+label+'</span>'+
+      '<span class="baro-punkte">'+punkte+'</span></div>');
+  });
+  // Puls nach kurzer Zeit zurücknehmen
+  if(pulsKeys&&pulsKeys.length&&!reduce){
+    setTimeout(()=>{ elBaroZ.querySelectorAll(".puls").forEach(x=>x.classList.remove("puls")); },400);
+  }
+}
+
+/* Feedback-Karte anzeigen */
+function zeigeInfo(art,titel,texte){
+  elInfo.className="infokarte an "+art;
+  const abs=(Array.isArray(texte)?texte:[texte]).map(t=>'<p>'+t+'</p>').join("");
+  elInfo.innerHTML='<p class="it">'+titel+'</p>'+abs;
+  elInfo.scrollIntoView({block:"nearest",behavior:reduce?"auto":"smooth"});
+}
+function versteckeInfo(){ elInfo.className="infokarte"; elInfo.innerHTML=""; }
+
+/* Kopf/Balken/Barometer aktualisieren */
+function rahmen(){
+  const s=SCREENS[i];
+  if(s.type==="intro"){ $("zaehler").textContent=""; }
+  else if(s.type==="auswertung"){ $("zaehler").textContent="Auswertung"; }
+  else { $("zaehler").innerHTML="Station "+i+" / "+(SCREENS.length-2); }
+  $("balken").style.width=(i/(SCREENS.length-1)*100)+"%";
+  // Barometer ab Screen 1 zeigen
+  if(i>=1 && s.type!=="auswertung"){ elBaro.classList.add("an"); zeichneBarometer(); }
+  else if(s.type==="auswertung"){ elBaro.classList.remove("an"); }
+  else { elBaro.classList.remove("an"); }
+}
+
+/* Weiter-Button steuern */
+function setzeWeiter(an,text){
+  const w=$("weiterBtn");
+  w.disabled=!an;
+  if(text) w.textContent=text;
+}
+
+/* -------- Haupt-Render -------- */
+function render(){
+  const s=SCREENS[i];
+  versteckeInfo();
+  elNav.style.display="flex";
+  $("zurueckBtn").disabled=(i===0);
+  $("weiterBtn").onclick=weiterKlick;   // Standard: eine Station vor
+  setzeWeiter(true,"Weiter ›");
+
+  if(s.type==="intro")        renderIntro(s);
+  else if(s.type==="bausteine")   renderBausteine(s);
+  else if(s.type==="entscheidung")renderEntscheidung(s);
+  else if(s.type==="zuordnen")    renderZuordnen(s);
+  else if(s.type==="netz")        renderNetz(s);
+  else if(s.type==="auswertung")  renderAuswertung(s);
+
+  rahmen();
+  melde();
+}
+
+/* ---- Screen 0: Einstieg ---- */
+function renderIntro(s){
+  elB.innerHTML=
+    '<div class="stufe">'+szeneHTML(s)+
+    '<div class="start"><p class="lead">'+s.lead+'</p>'+
+    '<button class="los" id="losBtn">'+s.startText+' →</button></div></div>';
+  elNav.style.display="none";
+  $("losBtn").addEventListener("click",()=>geheZu(i+1));
+}
+
+/* ---- Screen 1: Bausteine (Mehrfachauswahl) ---- */
+function renderBausteine(s){
+  const vorbei=!!erledigt[s.id];
+  let html='<div class="stufe">'+szeneHTML(s)+
+    '<p class="intro">'+s.intro+'</p><div class="wahlgitter" id="gitter">';
+  s.optionen.forEach((o,k)=>{
+    const gew=vorbei && s._gewaehlt && s._gewaehlt.includes(k);
+    const kl=gew ? (o.gut?" richtig":" falsch") : "";   // beim Wiederbesuch grün/rot
+    html+='<button class="wahl'+kl+'" data-k="'+k+'"'+(vorbei?" disabled":"")+'>'+
+      '<span class="em">'+o.em+'</span>'+o.label+'</button>';
+  });
+  html+='</div></div>';
+  elB.innerHTML=html;
+
+  if(vorbei){ setzeWeiter(true,"Weiter ›"); zeigeInfo("tipp","Deine Auswahl",s.hinweis); return; }
+
+  // Auswahl merken, bestätigen mit Weiter
+  const gewaehlt=new Set();
+  setzeWeiter(false,"Auswahl bestätigen");
+  elB.querySelectorAll(".wahl").forEach(b=>{
+    b.addEventListener("click",()=>{
+      const k=+b.dataset.k;
+      if(gewaehlt.has(k)){ gewaehlt.delete(k); b.classList.remove("gewaehlt"); }
+      else { gewaehlt.add(k); b.classList.add("gewaehlt"); }
+      setzeWeiter(gewaehlt.size>0,"Auswahl bestätigen");
+    });
+  });
+
+  // Bestätigen: Effekte anwenden (einmalig), dann normaler Weiter-Handler
+  $("weiterBtn").onclick=()=>{
+    if(erledigt[s.id]) return;
+    s._gewaehlt=[...gewaehlt];
+    const pulsKeys=[];
+    let gutGewaehlt=0;
+    s._gewaehlt.forEach(k=>{
+      const o=s.optionen[k];
+      if(o.gut) gutGewaehlt++;
+      wirke(o.effekte);
+      Object.keys(o.effekte||{}).forEach(x=>pulsKeys.push(x));
+      setzeKrabbler(o.krabbler);
+    });
+    erledigt[s.id]=true;
+    // gute Auswahl grün, Fallen rot markieren
+    elB.querySelectorAll(".wahl").forEach(b=>{
+      b.disabled=true;
+      const o=s.optionen[+b.dataset.k];
+      if(s._gewaehlt.includes(+b.dataset.k)) b.classList.add(o.gut?"richtig":"falsch");
+    });
+    zeichneBarometer(pulsKeys);
+    const gutTexte=s._gewaehlt.filter(k=>s.optionen[k].gut).map(k=>s.optionen[k].feedback);
+    const fallenTexte=s._gewaehlt.filter(k=>!s.optionen[k].gut).map(k=>s.optionen[k].feedback);
+    const texte=[ gutTexte.length?gutTexte.join(" ")
+                  :"Mit dieser Auswahl bleibt die Wiese lebensarm." ];
+    if(fallenTexte.length) texte.push("⚠️ "+fallenTexte.join(" "));
+    else texte.push(s.hinweis);
+    zeigeInfo(fallenTexte.length?"tipp":(gutGewaehlt>0?"ok":"no"),"Deine Wiese wächst",texte);
+    setzeWeiter(true,"Weiter ›");
+    $("weiterBtn").onclick=weiterKlick;   // ab jetzt normal weiterblättern
+  };
+}
+
+/* ---- Entscheidung (eine Wahl mit Folgen) ---- */
+function renderEntscheidung(s){
+  const vorbei=!!erledigt[s.id];
+  let html='<div class="stufe">'+szeneHTML(s)+
+    '<p class="intro">'+s.intro+'</p><div class="entscheid" id="opt">';
+  s.optionen.forEach((o,k)=>{
+    const markiert = vorbei && s._wahl===k ? " "+o.klasse : "";
+    html+='<button data-k="'+k+'"'+(vorbei?" disabled":"")+' class="'+(markiert.trim())+'">'+
+      '<span class="em">'+o.em+'</span>'+o.label+'</button>';
+  });
+  html+='</div></div>';
+  elB.innerHTML=html;
+
+  if(vorbei){ setzeWeiter(true,"Weiter ›"); const o=s.optionen[s._wahl];
+    zeigeInfo(o.richtig?"ok":(o.klasse==="mittel"?"tipp":"no"),
+      o.richtig?"Gute Entscheidung":"Zum Nachdenken", o.feedback); return; }
+
+  setzeWeiter(false,"Weiter ›");
+  elB.querySelectorAll("#opt button").forEach(b=>{
+    b.addEventListener("click",()=>{
+      const k=+b.dataset.k, o=s.optionen[k];
+      s._wahl=k;
+      elB.querySelectorAll("#opt button").forEach(x=>x.disabled=true);
+      b.classList.add(o.klasse);
+      if(!erledigt[s.id]){
+        wirke(o.effekte); erledigt[s.id]=true;
+        zeichneBarometer(Object.keys(o.effekte||{}));
+        if(s.nacht) nachtReaktion(o);
+        else if(o.krabbler) setzeKrabbler(o.krabbler);
+      }
+      zeigeInfo(o.richtig?"ok":(o.klasse==="mittel"?"tipp":"no"),
+        o.richtig?"Gute Entscheidung":"Zum Nachdenken", o.feedback);
+      setzeWeiter(true,"Weiter ›");
+    });
+  });
+}
+/* Nacht-Reaktion: Glühwürmchen erscheinen, wenn Licht aus */
+function nachtReaktion(o){
+  const sz=$("szene"); if(!sz) return;
+  if(o.richtig || o.klasse==="mittel"){
+    for(let n=0;n<7;n++){
+      const g=document.createElement("span"); g.className="gluehen";
+      g.style.left=(12+Math.random()*76)+"%"; g.style.top=(35+Math.random()*50)+"%";
+      g.style.animationDelay=(Math.random()*2).toFixed(2)+"s";
+      sz.appendChild(g);
+    }
+  } else {
+    setzeKrabbler("💡"); // Nachtfalter kreist um die Lampe
+  }
+}
+
+/* ---- Zuordnen: Tier → Lebensraum (tap–tap) ----
+   Persistenter, überspringbarer Zustand:
+   - s._geloest merkt sich gelöste Tiere über Screen-Wechsel hinweg.
+   - Punkte gibt es nur EINMAL pro Tier (beim ersten korrekten Zuordnen),
+     dadurch kein Doppelzählen beim Vor-/Zurückblättern.
+   - Weiter ist immer möglich (wer überspringt, bekommt keine Punkte). */
+function renderZuordnen(s){
+  if(!s._geloest) s._geloest=new Set();   // Indizes bereits gelöster Tiere
+  let html='<div class="stufe">'+szeneHTML(s)+'<p class="intro">'+s.intro+'</p>';
+  html+='<p class="frage" style="font-size:14px;color:#8a96a1;font-family:var(--sans);letter-spacing:.06em;text-transform:uppercase;">Tiere</p><div class="wahlgitter" id="tiere">';
+  s.tiere.forEach((t,k)=>{
+    const fertig=s._geloest.has(k);
+    html+='<button class="wahl'+(fertig?" richtig":"")+'" data-t="'+k+'"'+(fertig?" disabled":"")+'>'+
+      icon(t)+t.label+'</button>';
+  });
+  html+='</div>';
+  html+='<p class="frage" style="font-size:14px;color:#8a96a1;font-family:var(--sans);letter-spacing:.06em;text-transform:uppercase;margin-top:14px;">Lebensräume</p><div class="wahlgitter" id="zonen">';
+  s.zonen.forEach(z=>{
+    html+='<button class="wahl" data-z="'+z.id+'"><span class="em">'+z.em+'</span>'+z.label+'</button>';
+  });
+  html+='</div></div>';
+  elB.innerHTML=html;
+
+  const gesamtT=s.tiere.length;
+  setzeWeiter(true,"Weiter ›");        // überspringbar
+  if(s._geloest.size===gesamtT){
+    erledigt[s.id]=true;
+    zeigeInfo("ok","Alles zugeordnet","Jedes Tier hat seinen Platz — und jede Struktur ihre Bewohner.");
+  }
+
+  let aktivT=null;
+  const tierBtns=elB.querySelectorAll("#tiere .wahl");
+  const zonBtns =elB.querySelectorAll("#zonen .wahl");
+
+  tierBtns.forEach(b=>{
+    b.addEventListener("click",()=>{
+      if(b.disabled) return;
+      tierBtns.forEach(x=>x.classList.remove("gewaehlt"));
+      b.classList.add("gewaehlt"); aktivT=+b.dataset.t;
+    });
+  });
+  zonBtns.forEach(zb=>{
+    zb.addEventListener("click",()=>{
+      if(aktivT===null){ zeigeInfo("tipp","Erst ein Tier wählen","Tippe zuerst ein Tier an, dann seinen Lebensraum."); return; }
+      const t=s.tiere[aktivT];
+      const tb=elB.querySelector('[data-t="'+aktivT+'"]');
+      if(zb.dataset.z===t.zone){
+        tb.classList.remove("gewaehlt"); tb.classList.add("richtig"); tb.disabled=true;
+        zb.classList.add("satt"); setTimeout(()=>zb.classList.remove("satt"),450);
+        if(!s._geloest.has(aktivT)){                 // Punkte nur beim ersten Mal
+          s._geloest.add(aktivT);
+          wirke(s.proRichtig); zeichneBarometer(Object.keys(s.proRichtig));
+        }
+        zeigeInfo("ok","Passt!",t.feedback);
+        aktivT=null;
+        if(s._geloest.size===gesamtT){ erledigt[s.id]=true; }
+      } else {
+        tb.classList.remove("gewaehlt"); tb.classList.add("falsch");
+        setTimeout(()=>tb.classList.remove("falsch"),600);
+        zeigeInfo("no","Nicht ganz","Dieses Tier lebt woanders — probier einen anderen Lebensraum.");
+        aktivT=null;
+      }
+    });
+  });
+}
+
+/* ---- Nahrungsnetz: Beute → Jäger verbinden ----
+   Ebenfalls persistent (s._gefunden) und überspringbar; Punkte je Verbindung
+   nur einmal. */
+function renderNetz(s){
+  if(!s._gefunden) s._gefunden=new Set();  // gefundene Schlüssel "von>zu"
+  let html='<div class="stufe">'+szeneHTML(s)+'<p class="intro">'+s.intro+'</p>'+
+    '<p class="frage" id="netzstand" style="font-size:14px;color:var(--honig-tief);font-family:var(--sans);">'+
+      s._gefunden.size+' / '+s.verbindungen.length+' Verbindungen</p>'+
+    '<div class="netzwrap" id="netzwrap">'+
+      '<svg class="netz-svg" id="netzsvg" preserveAspectRatio="none"></svg>'+
+      '<div class="netz-spalten">'+
+        '<div class="netz-spalte" id="spBeute"><div class="kopfz">Beute</div>'+
+          s.beute.map(b=>'<button class="knoten" data-b="'+b.id+'">'+icon(b)+b.label+'</button>').join("")+
+        '</div>'+
+        '<div class="netz-spalte" id="spJaeger"><div class="kopfz">Jäger</div>'+
+          s.jaeger.map(j=>'<button class="knoten" data-j="'+j.id+'">'+icon(j)+j.label+'</button>').join("")+
+        '</div>'+
+      '</div>'+
+    '</div></div>';
+  elB.innerHTML=html;
+
+  const svg=$("netzsvg"), wrap=$("netzwrap");
+  let aktivB=null;
+
+  function linie(vonEl,zuEl){
+    const wr=wrap.getBoundingClientRect();
+    const a=vonEl.getBoundingClientRect(), b=zuEl.getBoundingClientRect();
+    const x1=a.right-wr.left, y1=a.top-wr.top+a.height/2;
+    const x2=b.left -wr.left, y2=b.top-wr.top+b.height/2;
+    const ln=document.createElementNS("http://www.w3.org/2000/svg","line");
+    ln.setAttribute("x1",x1);ln.setAttribute("y1",y1);ln.setAttribute("x2",x2);ln.setAttribute("y2",y2);
+    svg.appendChild(ln);
+    requestAnimationFrame(()=>ln.classList.add("da"));
+    return ln;
+  }
+  function neuZeichnen(){ // alle gefundenen Linien (neu) zeichnen
+    if(!s._gefunden || !svg.isConnected) return;   // Screen schon verlassen/zurückgesetzt
+    svg.innerHTML="";
+    s._gefunden.forEach(key=>{
+      const [von,zu]=key.split(">");
+      const bEl=elB.querySelector('[data-b="'+von+'"]'), jEl=elB.querySelector('[data-j="'+zu+'"]');
+      if(bEl&&jEl) linie(bEl,jEl);
+    });
+  }
+
+  // bereits gefundene Verbindungen visuell wiederherstellen
+  s._gefunden.forEach(key=>{
+    const [von,zu]=key.split(">");
+    elB.querySelector('[data-b="'+von+'"]').classList.add("satt");
+    elB.querySelector('[data-j="'+zu+'"]').classList.add("satt");
+  });
+  requestAnimationFrame(neuZeichnen);
+
+  setzeWeiter(true,"Weiter ›");    // überspringbar
+  if(s._gefunden.size===s.verbindungen.length){
+    erledigt[s.id]=true;
+    zeigeInfo("ok","Nahrungsnetz steht","Kein einzelner Faden, sondern ein Netz: Fällt ein Tier aus, tragen andere Wege weiter.");
+  }
+
+  const beuteBtns=elB.querySelectorAll('[data-b]');
+  const jaegerBtns=elB.querySelectorAll('[data-j]');
+
+  beuteBtns.forEach(b=>b.addEventListener("click",()=>{
+    beuteBtns.forEach(x=>x.classList.remove("aktiv"));
+    b.classList.add("aktiv"); aktivB=b.dataset.b;
+  }));
+  jaegerBtns.forEach(jb=>jb.addEventListener("click",()=>{
+    if(!aktivB){ zeigeInfo("tipp","Erst Beute wählen","Tippe zuerst eine Beute an, dann ihren Jäger."); return; }
+    const key=aktivB+">"+jb.dataset.j;
+    const match=s.verbindungen.find(v=>v.von===aktivB && v.zu===jb.dataset.j);
+    const bEl=elB.querySelector('[data-b="'+aktivB+'"]');
+    if(match && !s._gefunden.has(key)){
+      s._gefunden.add(key);
+      linie(bEl,jb);
+      bEl.classList.add("satt"); jb.classList.add("satt");
+      wirke(s.proVerbindung); zeichneBarometer(Object.keys(s.proVerbindung));
+      $("netzstand").textContent=s._gefunden.size+" / "+s.verbindungen.length+" Verbindungen";
+      zeigeInfo("ok","Verbindung geknüpft",match.text);
+      if(s._gefunden.size===s.verbindungen.length){ erledigt[s.id]=true; }
+    } else if(s._gefunden.has(key)){
+      zeigeInfo("tipp","Schon verbunden","Diese Verbindung hast du bereits gefunden.");
+    } else {
+      zeigeInfo("no","Kein direkter Weg","Diese beiden hängen nicht direkt zusammen — wer frisst hier wen?");
+    }
+    beuteBtns.forEach(x=>x.classList.remove("aktiv")); aktivB=null;
+  }));
+
+  if("ResizeObserver" in window){ new ResizeObserver(()=>{ if(s._gefunden && s._gefunden.size) neuZeichnen(); }).observe(wrap); }
+}
+
+/* ---- Auswertung ---- */
+function renderAuswertung(s){
+  const total=gesamt();
+  const erg=ergebnisStufe(total);
+  // Öko-Punkte → Blätter für den Forscherpass: 16+ =3, 10-15 =2, sonst 1
+  const blaetter = total>=16 ? 3 : total>=10 ? 2 : 1;
+  meldeExpedition(EXP_ID, blaetter);
+  elNav.style.display="none";
+  let html='<div class="stufe ergebnis">'+
+    szeneHTML({szene:erg.szene, szeneLabel:"Ergebnisbild: "+erg.name})+
+    '<div class="medaille">'+erg.medaille+'</div>'+
+    '<h2 class="stufe-titel">'+erg.name+'</h2>'+
+    '<p class="punkte-gross">Öko-Punkte: <b>'+total+'</b></p>'+
+    '<p class="blaetter" style="font-size:28px;letter-spacing:4px;margin:2px 0 8px;">'+
+      "🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
+    '<p class="beschrieb">'+erg.text+'</p>';
+  // Barometer als Zusammenfassung
+  html+='<div class="barometer an" style="display:block;max-width:340px;margin:0 auto 16px;">'+
+    '<h2>Deine Wiese im Überblick</h2><div id="baroEnd"></div></div>';
+  html+='<div class="knoepfe">'+
+    '<button class="knopf prim" id="nochmal" style="margin:0;">Noch einmal spielen</button>'+
+    '<a class="knopf" href="wiesenpass.html">🍃 Zum Forscherpass</a></div></div>';
+  elB.innerHTML=html;
+
+  // End-Barometer zeichnen
+  const ziel=$("baroEnd");
+  WERT_LABELS.forEach(([key,label])=>{
+    const voll=Math.max(0,Math.min(BARO_MAX,WERTE[key]));
+    let punkte="";
+    for(let n=0;n<BARO_MAX;n++) punkte+='<span class="'+(n<voll?"voll":"")+'"></span>';
+    ziel.insertAdjacentHTML("beforeend",
+      '<div class="baro-zeile"><span class="lbl">'+label+'</span>'+
+      '<span class="baro-punkte">'+punkte+'</span></div>');
+  });
+
+  $("balken").style.width="100%";
+  $("nochmal").addEventListener("click",neustart);
+  if(total>=16){ konfetti(); fanfare(); }
+}
+
+/* Weiter-Klick-Handler (Standard) */
+function weiterKlick(){
+  if(i<SCREENS.length-1) geheZu(i+1);
+}
+
+/* =========================================================================
+   Navigation
+   ========================================================================= */
+function geheZu(k){
+  if(k<0||k>=SCREENS.length) return;
+  i=k; render();
+  window.scrollTo({top:0,behavior:reduce?"auto":"smooth"});
+}
+$("zurueckBtn").addEventListener("click",()=>geheZu(i-1));
+
+function neustart(){
+  Object.keys(WERTE).forEach(k=>WERTE[k]=0);
+  Object.keys(erledigt).forEach(k=>delete erledigt[k]);
+  SCREENS.forEach(s=>{ delete s._gewaehlt; delete s._wahl; delete s._geloest; delete s._gefunden; });
+  geheZu(0);
+}
+
+/* Wischen zwischen Screens (nicht auf Buttons/Bildern) */
+let tx=0,ty=0,tig=false;
+document.addEventListener("touchstart",e=>{
+  if(e.target.closest("button,a,.knoten,.wahl,.szene")){tig=false;return;}
+  tig=true; tx=e.touches[0].clientX; ty=e.touches[0].clientY;
+},{passive:true});
+document.addEventListener("touchend",e=>{
+  if(!tig) return; tig=false;
+  const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.6){
+    const s=SCREENS[i];
+    // nur vorwärts, wenn Screen abgeschlossen oder ohne Wertung
+    if(dx<0){ if(!$("weiterBtn").disabled || elNav.style.display==="none") geheZu(i+1); }
+    else geheZu(i-1);
+  }
+},{passive:true});
+
+/* Konfetti + Fanfare (bei artenreichem Ergebnis) */
+function konfetti(){
+  if(reduce) return;
+  const feld=document.createElement("div"); feld.className="konffeld";
+  const farben=['#C28A3A','#233D5C','#3E9A5E','#e8a020','#9b59b6','#e74c3c'];
+  for(let n=0;n<70;n++){
+    const k=document.createElement("span"); k.className="konf";
+    k.style.cssText='left:'+Math.random()*100+'%;background:'+farben[(Math.random()*farben.length)|0]+
+      ';animation-delay:'+(Math.random()*0.5).toFixed(2)+'s;transform:rotate('+(Math.random()*360)+'deg);';
+    feld.appendChild(k);
+  }
+  document.body.appendChild(feld); setTimeout(()=>feld.remove(),4200);
+}
+function fanfare(){
+  try{
+    const Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx) return;
+    const ctx=new Ctx(); if(ctx.state==="suspended") ctx.resume();
+    const t0=ctx.currentTime+0.05;
+    [[523.25,0,0.16,0.2],[659.25,0.15,0.16,0.2],[783.99,0.30,0.16,0.2],[1046.5,0.46,0.6,0.22]]
+    .forEach(([fr,st,du,vo])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type="triangle";o.frequency.value=fr;
+      g.gain.setValueAtTime(0,t0+st);g.gain.linearRampToValueAtTime(vo,t0+st+0.02);g.gain.exponentialRampToValueAtTime(0.001,t0+st+du);
+      o.connect(g).connect(ctx.destination);o.start(t0+st);o.stop(t0+st+du+0.05);});
+    setTimeout(()=>ctx.close().catch(()=>{}),1600);
+  }catch(e){}
+}
+
+/* Höhe an iframe melden (WordPress-Einbindung) */
+function melde(){
+  if(window.parent!==window){
+    try{ window.parent.postMessage({fauna:"height", height:document.body.scrollHeight}, "*"); }catch(e){}
+  }
+}
+if("ResizeObserver" in window){ new ResizeObserver(melde).observe(document.body); }
+window.addEventListener("load", melde);
+
+/* Start */
+render();
+</script>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

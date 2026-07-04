@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Verwandte finden · Fauna Mibaso</title>
+<meta name="description" content="Vier Tiere – drei sind verwandt. Welches fällt aus dem Rahmen? Das Verwandtschafts-Quiz von Fauna Mibaso.">
+<meta name="theme-color" content="#233D5C">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/icon.svg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Fauna Mibaso">
+<style>
+  :root{
+    --blau:#233D5C; --blau-tief:#1a2f47; --creme:#F7F3E8; --creme-tief:#EEE7D5;
+    --tinte:#1c2e42; --honig:#C28A3A; --linie:#c3ccd5; --gruen:#3f8a52; --rot:#b5402f;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--creme);color:var(--blau);font-family:Georgia,"Times New Roman",serif;line-height:1.5;}
+  .huelle{max-width:640px;margin:0 auto;padding:clamp(16px,4.5vw,34px) clamp(12px,3.5vw,26px) 56px;}
+  .zurueck{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--blau);text-decoration:none;
+    display:inline-flex;gap:6px;align-items:center;padding:6px 0;}
+  .augenbraue{font-family:var(--sans);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--honig);font-weight:700;margin:8px 0 6px;}
+  h1{font-size:clamp(24px,7vw,38px);margin:0 0 6px;font-weight:normal;}
+  .intro{font-family:var(--sans);font-size:13.5px;color:#5a6675;margin:0 0 18px;}
+  .deko{display:flex;gap:8px;margin:0 0 16px;}
+  .deko span{flex:1 1 0;aspect-ratio:1/1;border-radius:12px;border:1px solid var(--linie);
+    background:var(--creme-tief) center/cover no-repeat;box-shadow:0 1px 4px rgba(35,61,92,.06);}
+  .wahl{display:flex;gap:12px;flex-wrap:wrap;}
+  .wahl button{flex:1 1 0;min-width:120px;font-family:var(--sans);cursor:pointer;background:#fff;
+    border:1px solid var(--linie);border-radius:16px;padding:20px 14px;transition:transform .14s,box-shadow .14s,border-color .14s;}
+  .wahl button:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(35,61,92,.10);border-color:#9bb0c6;}
+  .wahl .z{display:block;font-family:Georgia,serif;font-size:30px;color:var(--blau);line-height:1;}
+  .wahl .l{display:block;font-size:12.5px;color:#6f7b86;margin-top:6px;}
+
+  .leiste{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid var(--linie);
+    border-bottom:1px solid var(--linie);padding:10px 0;margin-bottom:8px;font-family:var(--sans);font-size:14px;}
+  .leiste .score b{color:var(--honig);}
+  .leiste .abbruch{margin-left:auto;font-size:12.5px;color:#6f7b86;background:none;border:none;cursor:pointer;font-family:inherit;text-decoration:underline;}
+  .balken{height:6px;background:var(--creme-tief);border-radius:3px;overflow:hidden;margin:0 0 16px;}
+  .balken div{height:100%;width:0;background:var(--honig);transition:width .3s;}
+  .frage{font-size:clamp(18px,5vw,22px);margin:0 0 4px;font-weight:normal;}
+  .flat{font-family:var(--sans);font-size:12.5px;color:#8a96a1;margin:0 0 14px;min-height:1em;}
+  .flat b{color:var(--blau);font-style:normal;}
+  .gitter{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+  .opt{padding:0;border:2px solid var(--linie);border-radius:14px;overflow:hidden;background:#fff;cursor:pointer;
+    position:relative;transition:transform .12s,box-shadow .12s,border-color .12s;}
+  .opt:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(35,61,92,.12);}
+  .opt img{display:block;width:100%;height:clamp(84px,21vh,150px);object-fit:cover;object-position:center;background:var(--creme-tief);}
+  .opt.richtig{border-color:var(--gruen);}
+  .opt.falsch{border-color:var(--rot);}
+  .opt .mark{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;display:none;
+    align-items:center;justify-content:center;color:#fff;font-family:var(--sans);font-size:17px;font-weight:700;}
+  .opt.richtig .mark{display:flex;background:var(--gruen);}
+  .opt.falsch .mark{display:flex;background:var(--rot);}
+  .opt[disabled]{cursor:default;} .opt[disabled]:hover{transform:none;box-shadow:none;}
+
+  .ende{text-align:center;padding:8px 0;}
+  .ende .gross{font-family:Georgia,serif;font-size:clamp(40px,12vw,64px);line-height:1;color:var(--blau);margin:6px 0 2px;}
+  .ende .gross small{font-size:.4em;color:#8a96a1;}
+  .ende .spruch{font-size:clamp(16px,4.6vw,19px);margin:10px auto 18px;max-width:30ch;}
+  .ende .knoepfe{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+  .btn{font-family:var(--sans);font-size:14px;font-weight:600;text-decoration:none;border-radius:999px;
+    padding:12px 20px;cursor:pointer;border:1px solid var(--blau);}
+  .btn-prim{background:var(--blau);color:var(--creme);} .btn-prim:hover{background:var(--blau-tief);}
+  .btn-sek{background:transparent;color:var(--blau);} .btn-sek:hover{background:rgba(35,61,92,.06);}
+  .weiter{display:none;margin:16px auto 0;}
+  .weiter.an{display:block;}
+  .versteckt{display:none;}
+
+  .feier{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden;}
+  .konf{position:absolute;top:-16px;border-radius:2px;animation:konf-fall linear forwards;}
+  @keyframes konf-fall{0%{transform:translateY(-16px) rotate(0);opacity:1}85%{opacity:1}100%{transform:translateY(106vh) rotate(680deg);opacity:0}}
+  @media (prefers-reduced-motion:reduce){.konf{display:none;} *{transition:none!important;}}
+  body{padding-top:calc(env(safe-area-inset-top) + min(2vh,14px));}
+</style>
+</head>
+<body>
+<div class="huelle">
+  <a class="zurueck" href="../">‹ Zur Startseite</a>
+  <p class="augenbraue">Ordnen</p>
+  <h1>Verwandte finden</h1>
+
+  <div id="start">
+    <div class="deko" id="deko" aria-hidden="true"></div>
+    <p class="intro">Vier Tiere – drei sind verwandt, eines fällt aus dem Rahmen. Wie viele Runden möchtest du?</p>
+    <div class="wahl">
+      <button type="button" data-n="5"><span class="z">5</span><span class="l">kurz</span></button>
+      <button type="button" data-n="10"><span class="z">10</span><span class="l">mittel</span></button>
+      <button type="button" data-n="15"><span class="z">15</span><span class="l">lang</span></button>
+    </div>
+  </div>
+
+  <div id="spiel" class="versteckt">
+    <div class="leiste">
+      <span class="score">Runde <b id="nr">1</b> / <span id="ges">5</span></span>
+      <span class="score">· Richtig: <b id="richtig">0</b></span>
+      <button class="abbruch" id="abbruch" type="button">Abbrechen</button>
+    </div>
+    <div class="balken"><div id="balken"></div></div>
+    <h2 class="frage">Welches Tier gehört <b>nicht</b> dazu?</h2>
+    <p class="flat" id="flat">Drei sind verwandt – tippe den Außenseiter.</p>
+    <div class="gitter" id="gitter"></div>
+    <button class="btn btn-prim weiter" id="weiter" type="button">Weiter ›</button>
+  </div>
+
+  <div id="ende" class="ende versteckt">
+    <p class="augenbraue" id="ende-label">Ergebnis</p>
+    <p class="gross"><span id="ende-richtig">0</span><small> / <span id="ende-ges">5</span></small></p>
+    <p class="spruch" id="ende-spruch"></p>
+    <div class="knoepfe">
+      <button class="btn btn-prim" id="nochmal" type="button">Nochmal spielen</button>
+      <a class="btn btn-sek" href="stammbaum.html">Im Stammbaum stöbern ↗</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var pool=[], byGroup={}, trioGroups=[], N=0, idx=0, richtig=0, oddSlug=null, trioName="", sperre=false;
+  var $=function(id){return document.getElementById(id);};
+  var elStart=$("start"), elSpiel=$("spiel"), elEnde=$("ende"),
+      elFlat=$("flat"), elGitter=$("gitter"), elNr=$("nr"), elGes=$("ges"),
+      elRichtig=$("richtig"), elBalken=$("balken");
+
+  function misch(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+  function pick(a){return a[Math.floor(Math.random()*a.length)];}
+  function zeige(el){elStart.classList.add("versteckt");elSpiel.classList.add("versteckt");elEnde.classList.add("versteckt");el.classList.remove("versteckt");}
+
+  function start(n){ N=n; idx=0; richtig=0; elGes.textContent=N; elRichtig.textContent=0; zeige(elSpiel); naechste(); }
+
+  function naechste(){
+    idx++;
+    if(idx>N){ ende(); return; }
+    sperre=false;
+    $("weiter").classList.remove("an");
+    elNr.textContent=idx;
+    elBalken.style.width=Math.round((idx-1)/N*100)+"%";
+    elFlat.innerHTML="Drei sind verwandt – tippe den Außenseiter.";
+    var G=pick(trioGroups);
+    trioName=G;
+    var drei=misch(byGroup[G]).slice(0,3);
+    var andere=pool.filter(function(t){return t.gruppe!==G;});
+    var odd=pick(andere);
+    oddSlug=odd.slug;
+    var opt=misch(drei.concat([odd]));
+    elGitter.innerHTML="";
+    opt.forEach(function(t){
+      var b=document.createElement("button"); b.className="opt"; b.type="button";
+      b.innerHTML='<img src="../images/fotos/'+t.slug+'.jpg" alt="Tier-Foto" loading="lazy"><span class="mark"></span>';
+      b.addEventListener("click",function(){ waehle(b,t); });
+      elGitter.appendChild(b);
+    });
+  }
+
+  function waehle(btn,t){
+    if(sperre) return; sperre=true;
+    var korrekt = t.slug===oddSlug;
+    if(korrekt) richtig++;
+    Array.prototype.forEach.call(elGitter.children,function(b){
+      b.setAttribute("disabled","");
+      var img=b.querySelector("img"), mark=b.querySelector(".mark");
+      if(img.getAttribute("src").indexOf("/"+oddSlug+".jpg")>=0){ b.classList.add("richtig"); mark.textContent="✓"; }
+    });
+    if(!korrekt){ btn.classList.add("falsch"); btn.querySelector(".mark").textContent="✕"; }
+    elRichtig.textContent=richtig;
+    elBalken.style.width=Math.round(idx/N*100)+"%";
+    elFlat.innerHTML="Die anderen drei sind <b>"+trioName+"</b>.";
+    var w=$("weiter");
+    w.textContent = (idx>=N) ? "Zum Ergebnis ›" : "Weiter ›";
+    w.classList.add("an");
+  }
+
+  function ende(){
+    zeige(elEnde);
+    $("ende-richtig").textContent=richtig; $("ende-ges").textContent=N;
+    var perfekt=richtig===N;
+    $("ende-label").textContent = perfekt ? "Perfekt!" : "Ergebnis";
+    $("ende-spruch").textContent = perfekt ? perfektSpruch() : normalSpruch(richtig,N);
+    if(perfekt) feiere();
+  }
+  function perfektSpruch(){return pick([
+    "🏆 Alles richtig! Du durchschaust jede Verwandtschaft.",
+    "🧬 Lückenlos – ein echter Systematik-Profi!",
+    "🔍 Kein Außenseiter konnte sich verstecken. Stark!",
+    "🐝 Perfekt sortiert – die Stammbäume jubeln!"
+  ]);}
+  function normalSpruch(r,n){
+    var p=r/n;
+    if(p===0) return "Knifflig! Ein Blick in den Stammbaum hilft beim Sortieren.";
+    if(p<0.5) return "Ein Anfang – Verwandtschaften erkennt man mit etwas Übung.";
+    if(p<0.8) return "Schon richtig gut im Sortieren!";
+    return "Stark! Nur ein Hauch zum perfekten Lauf.";
+  }
+
+  function fanfare(){
+    try{
+      var Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx) return;
+      var ctx=new Ctx(); if(ctx.state==="suspended") ctx.resume();
+      var t0=ctx.currentTime+0.04;
+      var noten=[[523.25,0,.16,.20],[659.25,.15,.16,.20],[783.99,.30,.16,.20],[1046.5,.46,.70,.22],[783.99,.46,.70,.12]];
+      noten.forEach(function(x){
+        var o=ctx.createOscillator(), g=ctx.createGain();
+        o.type="triangle"; o.frequency.value=x[0];
+        g.gain.setValueAtTime(0,t0+x[1]); g.gain.linearRampToValueAtTime(x[3],t0+x[1]+0.02);
+        g.gain.exponentialRampToValueAtTime(0.001,t0+x[1]+x[2]);
+        o.connect(g).connect(ctx.destination); o.start(t0+x[1]); o.stop(t0+x[1]+x[2]+0.05);
+      });
+      setTimeout(function(){ctx.close&&ctx.close().catch(function(){});},1800);
+    }catch(e){}
+  }
+  function feiere(){
+    fanfare();
+    var farben=["#C28A3A","#233D5C","#3f8a52","#e2a72e","#b5402f","#5b7da0","#e8c060","#7ab37f"];
+    var ov=document.createElement("div"); ov.className="feier"; var html="";
+    for(var i=0;i<90;i++){
+      var c=farben[(Math.random()*farben.length)|0], left=(Math.random()*98).toFixed(1),
+          delay=(Math.random()*1.1).toFixed(2), dur=(1.8+Math.random()*1.8).toFixed(2),
+          w=6+((Math.random()*7)|0), h=6+((Math.random()*8)|0);
+      html+='<span class="konf" style="left:'+left+'%;width:'+w+'px;height:'+h+'px;background:'+c+';animation-delay:'+delay+'s;animation-duration:'+dur+'s"></span>';
+    }
+    ov.innerHTML=html; document.body.appendChild(ov);
+    setTimeout(function(){ if(ov.parentNode) ov.parentNode.removeChild(ov); },5200);
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll(".wahl button"),function(b){
+    b.addEventListener("click",function(){ start(parseInt(b.dataset.n,10)); });
+  });
+  $("nochmal").addEventListener("click",function(){ zeige(elStart); });
+  $("abbruch").addEventListener("click",function(){ zeige(elStart); });
+  $("weiter").addEventListener("click",function(){ naechste(); });
+
+  fetch("../tiere.json").then(function(r){return r.json();}).then(function(daten){
+    pool=daten.filter(function(t){return t.foto;});
+    byGroup={}; pool.forEach(function(t){ (byGroup[t.gruppe]=byGroup[t.gruppe]||[]).push(t); });
+    trioGroups=Object.keys(byGroup).filter(function(g){ return g!=="Andere" && byGroup[g].length>=3; });
+    if(trioGroups.length<1 || pool.length<5){ elStart.innerHTML='<p class="intro">Zu wenige Fotos für dieses Quiz.</p>'; return; }
+    var deko=$("deko");
+    if(deko){ misch(pool).slice(0,4).forEach(function(t){ var s=document.createElement("span"); s.style.backgroundImage="url(../images/fotos/"+t.slug+".jpg)"; deko.appendChild(s); }); }
+  }).catch(function(){ elStart.innerHTML='<p class="intro">Quiz konnte nicht geladen werden.</p>'; });
+
+  function melde(){ if(window.parent!==window){ try{ window.parent.postMessage({fauna:"height",height:document.body.scrollHeight},"*"); }catch(e){} } }
+  if("ResizeObserver" in window){ new ResizeObserver(melde).observe(document.body); }
+  window.addEventListener("load",melde);
+})();
+</script>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

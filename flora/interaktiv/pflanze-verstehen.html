@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2F4F3E">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Flora Mibaso">
+<title>Wurzel, Blatt, Blüte – Aufbau einer Pflanze</title>
+<style>
+
+#ph-root*{box-sizing:border-box!important;margin:0;padding:0;}
+#ph-root{max-width:500px!important;margin:0 auto!important;font-family:"Segoe UI",Arial,sans-serif!important;padding:10px 0 20px!important;}
+#ph-root .ph-wrap{position:relative!important;background:#fff!important;border-radius:14px!important;box-shadow:0 4px 20px rgba(0,0,0,.12)!important;padding:10px!important;}
+#ph-root .ph-wrap img{width:100%!important;height:auto!important;display:block!important;border-radius:6px!important;}
+
+/* Kreise */
+#ph-root .ph-btn{
+  position:absolute!important;
+  width:28px!important;height:28px!important;
+  border-radius:50%!important;
+  background:rgba(46,125,50,0.12)!important;
+  border:2.5px solid #2e7d32!important;
+  cursor:pointer!important;
+  z-index:20!important;
+  box-shadow:0 2px 6px rgba(0,0,0,.2)!important;
+  transition:background .15s!important;
+  user-select:none!important;
+  display:block!important;
+}
+#ph-root .ph-btn:hover{background:rgba(46,125,50,0.28)!important;}
+#ph-root .ph-btn.ph-open{background:#2e7d32!important;border-color:#1b5e20!important;}
+
+/* Erklärungs-Panel UNTER dem Bild – ruhig und filigran */
+#ph-root .ph-headline{
+  text-align:center!important;
+  margin:0 12px 8px!important;
+  font-family:Georgia,serif!important;
+}
+#ph-root .ph-headline h2{
+  margin:0 0 2px!important;
+  color:#2F4F3E!important;
+  font-size:1.15rem!important;
+  font-weight:bold!important;
+  letter-spacing:.02em!important;
+}
+#ph-root .ph-headline p{
+  margin:0!important;
+  color:#6b5340!important;
+  font-style:italic!important;
+  font-size:.95rem!important;
+  line-height:1.45!important;
+}
+#ph-root #ph-panel{
+  margin:10px 0 0!important;
+  background:#fff!important;
+  border:1px solid #d6e0d6!important;
+  border-radius:12px!important;
+  box-shadow:0 2px 10px rgba(0,0,0,.06)!important;
+  overflow:hidden!important;
+  min-height:62px!important;
+}
+#ph-root #ph-panel:not(.active){ display:none!important; }
+#ph-root #ph-panel .ph-hint{
+  padding:14px 16px!important;
+  text-align:center!important;
+  color:#6a6a6a!important;
+  font-size:.85rem!important;
+  font-style:italic!important;
+  line-height:1.5!important;
+  display:block!important;
+}
+#ph-root #ph-panel.active .ph-hint{
+  display:none!important;
+}
+#ph-root #ph-panel .ph-tip-content{
+  display:none!important;
+}
+#ph-root #ph-panel.active .ph-tip-content{
+  display:block!important;
+  animation:ph-fade .18s ease!important;
+}
+#ph-root .ph-tip-head{
+  background:#2e7d32!important;color:#fff!important;
+  font-size:.85rem!important;font-weight:600!important;
+  letter-spacing:.02em!important;
+  padding:8px 14px!important;
+}
+#ph-root .ph-tip-body{
+  font-size:.88rem!important;color:#333!important;
+  padding:11px 14px 12px!important;line-height:1.55!important;
+}
+@keyframes ph-fade{
+  from{opacity:0;transform:translateY(2px);}
+  to  {opacity:1;transform:translateY(0);}
+}
+
+  #pz-app, #pz-app * { box-sizing: border-box; }
+  #pz-app {
+    font-family: Georgia, serif;
+    color: #2c2c2c;
+    background: #f8f5f0;
+    padding: 6px 0 8px;
+  }
+
+  #pz-app #quiz-box {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+    margin: 0 auto 10px;
+    overflow: hidden;
+    /* deutlich breiter, damit das Bild unten und die Felder gut Platz haben */
+    max-width: 560px;
+    width: calc(100% - 16px);
+  }
+
+  #pz-app #diagram-wrap {
+    position: relative;
+    width: 100%;
+    background: #ffffff;
+    line-height: 0;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  #pz-app #diagram-wrap img {
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+  }
+
+  /* Verdeckt die vorgedruckten Etiketten + Leitlinien rechts im Bild –
+     weiß, damit sie im Bildhintergrund praktisch unsichtbar verschwinden */
+  #pz-app .label-cover {
+    position: absolute;
+    background: #ffffff;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  /* Kleine Nummern-Badges sitzen direkt am Pflanzenteil */
+  #pz-app .num-badge {
+    position: absolute;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #3A5F4A;
+    color: white;
+    font-size: 0.86rem;
+    font-weight: bold;
+    font-family: Georgia, serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.28);
+    border: 2px solid white;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  /* Hinweisleiste */
+  #pz-app .hinweis {
+    background: #f4f1eb;
+    padding: 6px 12px 7px;
+    text-align: center;
+    color: #6a6a6a;
+    font-size: 0.78rem;
+    font-style: italic;
+    line-height: 1.35;
+    border-top: 1px solid #e8e0d4;
+  }
+  #pz-app .hinweis strong { color: #3A5F4A; font-style: normal; }
+
+  /* Drop-Felder in 2x3-Raster UNTER dem Bild – keine Überlappung mit Pflanze */
+  #pz-app #zones-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 8px 12px 4px;
+    background: #f4f1eb;
+  }
+  #pz-app .dz {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    min-height: 40px;
+    border: 2px dashed #7A8F44;
+    border-radius: 9px;
+    background: white;
+    font-family: Georgia, serif;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, border-style 0.2s;
+    text-align: left;
+    overflow: hidden;
+  }
+  #pz-app .dz.over    { background: rgba(232,244,237,0.95); border-color: #3A5F4A; border-style: solid; }
+  #pz-app .dz.filled  { background: rgba(232,244,237,0.95); border-color: #3A5F4A; border-style: solid; }
+  #pz-app .dz.correct { background: rgba(212,237,218,0.96); border-color: #2F4F3E; border-style: solid; }
+  #pz-app .dz.wrong   { background: rgba(248,215,218,0.96); border-color: #c0392b; border-style: solid; }
+  #pz-app .dz-num {
+    flex-shrink: 0;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: #3A5F4A;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #pz-app .dz-slot {
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    font-size: 0.82rem;
+    color: #a8aa97;
+    font-style: italic;
+    overflow: hidden;
+  }
+
+  /* Pool unterhalb des Rasters */
+  #pz-app #pool-wrap {
+    padding: 4px 12px 8px;
+    background: #f4f1eb;
+  }
+  #pz-app #pool-title {
+    font-size: 0.78rem;
+    color: #888;
+    font-style: italic;
+    margin: 4px 0 6px;
+    text-align: center;
+  }
+  #pz-app #pool {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    min-height: 0;
+  }
+  #pz-app .chip {
+    background: white;
+    border: 1.5px solid #3A5F4A;
+    color: #2F4F3E;
+    border-radius: 22px;
+    padding: 8px 16px;
+    font-family: Georgia, serif;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    white-space: nowrap;
+  }
+  #pz-app .chip:hover { background: #f0f6f1; transform: translateY(-1px); }
+  #pz-app .chip.dragging { opacity: 0.55; cursor: grabbing; }
+  #pz-app .chip.selected {
+    background: #fff9e6;
+    box-shadow: 0 0 0 3px #f4c430;
+    transform: translateY(-1px);
+  }
+
+  /* Wenn ein Chip in einer Zone landet, verliert er die Pillen-Optik */
+  #pz-app .dz .chip {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    font-size: 0.92rem !important;
+    font-weight: bold !important;
+    color: #1F3F2E !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    line-height: 1.1 !important;
+    max-width: 100% !important;
+    text-align: center;
+  }
+  #pz-app .dz.correct .chip { color: #1A3528 !important; }
+  #pz-app .dz.wrong .chip   { color: #721c24 !important; }
+
+  #pz-app #controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 6px 12px 8px;
+    background: #f4f1eb;
+    flex-wrap: wrap;
+  }
+  #pz-app button {
+    font-family: Georgia, serif;
+    font-size: 0.85rem;
+    font-weight: bold;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+  }
+  #pz-app #check { background: #3A5F4A; color: white; }
+  #pz-app #check:hover { background: #2F4F3E; }
+  #pz-app #reset { background: white; color: #3A5F4A; border: 1.5px solid #3A5F4A; }
+  #pz-app #reset:hover { background: #f0f6f1; }
+  #pz-app button:active { transform: scale(0.97); }
+
+  #pz-app #feedback {
+    text-align: center;
+    padding: 4px 14px 10px;
+    font-size: 0.85rem;
+    background: #f4f1eb;
+    min-height: 1.1em;
+    color: #888;
+  }
+  #pz-app #feedback.good { color: #2F4F3E; font-weight: bold; }
+  #pz-app #feedback.bad  { color: #c0392b; font-weight: bold; }
+
+  #pz-app #sieger-wrap {
+    display: none;
+    position: relative;
+    text-align: center;
+    padding: 18px 14px 28px;
+    background: #f4f1eb;
+    overflow: hidden;
+  }
+  #pz-app #sieger-msg {
+    font-size: 1.05rem;
+    color: #2F4F3E;
+    font-weight: bold;
+    animation: pz-bounce 0.9s ease;
+    position: relative;
+    z-index: 2;
+  }
+  @keyframes pz-bounce {
+    0%   { transform: scale(0.5); opacity: 0; }
+    60%  { transform: scale(1.18); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+  #pz-app #konfetti-feld { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  #pz-app .konfetti-stueck {
+    position: absolute;
+    top: -20px;
+    border-radius: 2px;
+    animation: pz-fall linear forwards;
+  }
+  @keyframes pz-fall {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(420px) rotate(720deg); opacity: 0; }
+  }
+
+  @media (max-width: 380px) {
+    #pz-app .num-badge { width: 24px; height: 24px; font-size: 0.78rem; }
+    #pz-app .chip { font-size: 0.82rem; padding: 7px 13px; }
+    #pz-app .dz .chip { font-size: 0.85rem !important; }
+    #pz-app .dz-slot { font-size: 0.76rem; }
+    #pz-app .dz-num { width: 22px; height: 22px; font-size: 0.78rem; }
+    #pz-app button { font-size: 0.84rem; padding: 7px 14px; }
+  }
+
+  /* Trenner zwischen Erklärung und Zuordnung */
+  .np-trenner{max-width:560px;margin:8px auto 2px;padding:16px 16px 2px;text-align:center;font-family:Georgia,serif;border-top:1px solid #e6ddcb;}
+  .np-trenner h2{margin:10px 0 4px;color:#2F4F3E;font-size:1.15rem;font-weight:bold;letter-spacing:0.02em;}
+  .np-trenner p{margin:0;color:#6b5340;font-style:italic;font-size:0.95rem;line-height:1.45;}
+
+  /* ── Lückentext-Quiz ── */
+  #lt-app {
+    max-width: 560px;
+    margin: 18px auto 16px;
+    font-family: Georgia, serif;
+    color: #2c2c2c;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+    padding: 18px 22px 22px;
+  }
+  #lt-app, #lt-app * { box-sizing: border-box; }
+  #lt-app h2 {
+    margin: 0 0 6px;
+    font-size: 1.15rem;
+    color: #2F4F3E;
+    font-weight: bold;
+    font-family: Georgia, serif;
+  }
+  #lt-app .lt-hinweis { margin: 0 0 14px; color: #6b5340; font-style: italic; font-size: 0.9rem; line-height: 1.5; }
+  #lt-app .lt-hinweis strong { color: #a3291a; font-style: normal; }
+  #lt-app .lt-gruppe { margin-bottom: 14px; }
+  #lt-app .lt-gruppe h3 {
+    margin: 0 0 6px; font-size: 1rem; color: #2F4F3E; font-weight: bold;
+    border-bottom: 1px solid #ece4d6; padding-bottom: 3px;
+  }
+  #lt-app .lt-satz { margin: 0 0 10px; line-height: 2.1; font-size: 0.98rem; color: #2c2c2c; }
+  #lt-app .lt-slot {
+    display: inline-block; min-width: 96px; padding: 1px 9px; margin: 0 2px;
+    border-bottom: 2px dashed #b9a98c; text-align: center; color: #2F4F3E;
+    font-weight: bold; cursor: pointer; border-radius: 5px 5px 0 0; line-height: 1.4;
+  }
+  #lt-app .lt-slot.empty { color: #c3b9a6; font-weight: normal; }
+  #lt-app .lt-slot.sel { background: #eef4ee; border-bottom-color: #2F4F3E; }
+  #lt-app .lt-slot.correct { background: #e3f3e3; border-bottom: 2px solid #3A7D44; color: #256029; cursor: default; }
+  #lt-app .lt-slot.wrong { background: #fbe6e6; border-bottom: 2px solid #b3402f; color: #a3291a; cursor: default; }
+  #lt-app .lt-bank {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    margin: 16px 0 8px; padding: 14px 10px; background: #f4f1eb; border-radius: 10px;
+  }
+  #lt-app .lt-word {
+    font-family: Georgia, serif; font-size: 0.95rem; font-weight: bold;
+    padding: 8px 15px; border-radius: 18px; background: #fff;
+    border: 1.5px solid #2F4F3E; color: #2F4F3E; cursor: pointer;
+    transition: background 0.14s, transform 0.1s;
+  }
+  #lt-app .lt-word:hover { background: #f0f6f1; }
+  #lt-app .lt-word:active { transform: scale(0.96); }
+  #lt-app .lt-word.used { display: none; }
+  #lt-app .lt-actions { display: flex; gap: 10px; justify-content: center; margin-top: 14px; }
+  #lt-app .lt-btn {
+    font-family: Georgia, serif; font-size: 0.95rem; font-weight: bold;
+    padding: 9px 22px; border-radius: 22px; border: none; cursor: pointer;
+    background: #2F4F3E; color: #fff; transition: background 0.14s, transform 0.1s;
+  }
+  #lt-app .lt-btn:hover { background: #3f6b52; }
+  #lt-app .lt-btn:active { transform: scale(0.97); }
+  #lt-app .lt-btn.sekundaer { background: #fff; color: #2F4F3E; border: 1.5px solid #2F4F3E; }
+  #lt-app .lt-ergebnis { text-align: center; font-weight: bold; color: #2F4F3E; margin-top: 13px; min-height: 1.2em; font-size: 1.05rem; line-height: 1.4; }
+  #lt-app .lt-ergebnis.lt-warnung { color: #a3291a; }
+  #lt-app .lt-ergebnis.lt-super { color: #256029; }
+  @media (max-width: 520px) {
+    #lt-app { margin: 14px 6px 12px; padding: 14px 16px 16px; }
+    #lt-app .lt-satz { font-size: 0.95rem; line-height: 2.0; }
+    #lt-app .lt-slot { min-width: 82px; }
+    #lt-app .lt-word { font-size: 0.9rem; padding: 7px 13px; }
+  }
+
+</style>
+</head>
+<body>
+
+<div id="ph-root">
+
+  <div class="ph-headline">
+    <h2>Wer macht hier eigentlich was?</h2>
+    <p>Tippe auf einen der grünen Punkte im Bild.</p>
+  </div>
+
+  <div class="ph-wrap" id="ph-wrap">
+    <img src="../images/interaktiv/pflanze-anatomie.jpg" alt="Aufbau einer Pflanze" draggable="false">
+
+  <div class="ph-btn" id="ph-btn-bluete"
+       style="left:calc(33% - 14px);top:calc(9% - 14px);"
+       data-label="Blüte"
+       data-text="Der große Auftritt! Die Kronblätter sind das bunte Schaufenster der Pflanze – sie locken Bienen, Schmetterlinge und Co. mit Farbe und Duft an. Ohne sie kein Besuch, ohne Besuch keine Bestäubung."
+       onclick="phToggle(this)"
+       role="button" aria-label="Blüte anzeigen">
+  </div>
+  <div class="ph-btn" id="ph-btn-narbe"
+       style="left:calc(46% - 14px);top:calc(10% - 14px);"
+       data-label="Narbe"
+       data-text="Klebrig, aber mit Absicht! Die Narbe ist der Empfangsschalter des Stempels. Hier landet der Pollen anreisender Bestäuber und haftet sofort fest – kein Entkommen mehr."
+       onclick="phToggle(this)"
+       role="button" aria-label="Narbe anzeigen">
+  </div>
+  <div class="ph-btn" id="ph-btn-staubblatt"
+       style="left:calc(39% - 14px);top:calc(15% - 14px);"
+       data-label="Staubblatt"
+       data-text="Die Pollenkanone! Das Staubblatt besteht aus dem Staubbeutel oben (hier wird Pollen produziert) und dem Staubfaden unten (der hält alles in Position). Zusammen das männliche Organ der Blüte."
+       onclick="phToggle(this)"
+       role="button" aria-label="Staubblatt anzeigen">
+  </div>
+  <div class="ph-btn" id="ph-btn-fruchtknoten"
+       style="left:calc(43% - 14px);top:calc(19% - 14px);"
+       data-label="Fruchtknoten"
+       data-text="Die Schatztruhe der Pflanze. Im Fruchtknoten liegen die Samenanlagen gut geschützt. Nach erfolgreicher Bestäubung wird aus ihm die Frucht – aus den Samenanlagen die Samen."
+       onclick="phToggle(this)"
+       role="button" aria-label="Fruchtknoten anzeigen">
+  </div>
+  <div class="ph-btn" id="ph-btn-kelchblatt"
+       style="left:calc(52% - 14px);top:calc(21% - 14px);"
+       data-label="Kelchblatt"
+       data-text="Der grüne Bodyguard! Die Kelchblätter hüllen die Blütenknospe ein und schützen sie, solange sie noch zart und verletzlich ist. Wenn die Blüte aufgeht, treten sie einen Schritt zurück."
+       onclick="phToggle(this)"
+       role="button" aria-label="Kelchblatt anzeigen">
+  </div>
+  <div class="ph-btn" id="ph-btn-staengel"
+       style="left:calc(44% - 14px);top:calc(45% - 14px);"
+       data-label="Stängel"
+       data-text="Das Rückgrat der Pflanze – buchstäblich. Der Stängel hält alles aufrecht und ist gleichzeitig die Autobahn für Wasser und Nährstoffe: von der Wurzel nach oben in die Blüte, von den Blättern nach unten."
+       onclick="phToggle(this)"
+       role="button" aria-label="Stängel anzeigen">
+  </div>
+  <div class="ph-btn" id="ph-btn-blatt"
+       style="left:calc(67% - 14px);top:calc(52% - 14px);"
+       data-label="Blatt"
+       data-text="Die grüne Solaranlage. Mit Sonnenlicht, Wasser und CO₂ produziert das Blatt Zucker – der Treibstoff für die gesamte Pflanze. Nebenbei gibt es Sauerstoff ab. Die Pflanze also, die uns am Leben hält."
+       onclick="phToggle(this)"
+       role="button" aria-label="Blatt anzeigen">
+  </div>
+  <div class="ph-btn" id="ph-btn-wurzel"
+       style="left:calc(62% - 14px);top:calc(83% - 14px);"
+       data-label="Wurzel"
+       data-text="Unsichtbar, aber unverzichtbar. Die Wurzel verankert die Pflanze fest im Boden und saugt dabei fleißig Wasser und gelöste Mineralien auf. Ihr ganzes Leben spielt sich im Verborgenen ab – und das ist gut so."
+       onclick="phToggle(this)"
+       role="button" aria-label="Wurzel anzeigen">
+  </div>
+  </div>
+  <!-- Erklärungs-Panel UNTER dem Bild – verdeckt die Grafik nicht mehr -->
+  <div id="ph-panel">
+    <div class="ph-tip-content">
+      <div class="ph-tip-head" id="ph-tip-head"></div>
+      <div class="ph-tip-body" id="ph-tip-body"></div>
+    </div>
+  </div>
+</div>
+
+<div class="np-trenner">
+  <h2>Was gehört wohin?</h2>
+</div>
+
+<div id="pz-app">
+
+  <div id="quiz-box">
+
+    <div class="hinweis">
+      <strong>So geht's:</strong> Tippe auf einen Begriff – dann auf das Feld mit der passenden Nummer.
+    </div>
+
+    <!-- Drop-Felder in 2-Spalten-Raster UNTER dem Bild -->
+    <div id="zones-grid">
+      <div class="dz" data-num="1" data-correct="kronblatt">
+        <span class="dz-num">1</span><span class="dz-slot">hier ablegen</span>
+      </div>
+      <div class="dz" data-num="2" data-correct="staubblatt">
+        <span class="dz-num">2</span><span class="dz-slot">hier ablegen</span>
+      </div>
+      <div class="dz" data-num="3" data-correct="kelch">
+        <span class="dz-num">3</span><span class="dz-slot">hier ablegen</span>
+      </div>
+      <div class="dz" data-num="4" data-correct="blatt">
+        <span class="dz-num">4</span><span class="dz-slot">hier ablegen</span>
+      </div>
+      <div class="dz" data-num="5" data-correct="staengel">
+        <span class="dz-num">5</span><span class="dz-slot">hier ablegen</span>
+      </div>
+      <div class="dz" data-num="6" data-correct="wurzel">
+        <span class="dz-num">6</span><span class="dz-slot">hier ablegen</span>
+      </div>
+    </div>
+
+    <div id="pool-wrap">
+      <div id="pool-title">Begriffe zum Zuordnen:</div>
+      <div id="pool">
+        <div class="chip" data-id="kronblatt"  draggable="true">Kronblatt</div>
+        <div class="chip" data-id="staubblatt" draggable="true">Staubblatt</div>
+        <div class="chip" data-id="kelch"      draggable="true">Kelch</div>
+        <div class="chip" data-id="blatt"      draggable="true">Blatt</div>
+        <div class="chip" data-id="staengel"   draggable="true">Stängel</div>
+        <div class="chip" data-id="wurzel"     draggable="true">Wurzel</div>
+      </div>
+    </div>
+
+    <div id="controls">
+      <button id="check">Auflösung anzeigen</button>
+      <button id="reset">Neu starten</button>
+    </div>
+
+    <div id="feedback">0 von 6 Feldern belegt</div>
+
+    <div id="sieger-wrap">
+      <div id="konfetti-feld"></div>
+      <div id="sieger-msg"></div>
+    </div>
+
+    <div id="diagram-wrap">
+      <img src="../images/interaktiv/pflanze-bauteile.jpg" alt="Pflanze" draggable="false">
+
+      <!-- Kein Cover mehr – die gedruckten Leitlinien dürfen sichtbar bleiben.
+           Die Badges sitzen am rechten Linien-Ende und überdecken die gedruckten Etiketten-Kästchen wie eigene Label-Marker. -->
+      <!-- Restliche gedruckte Etiketten rechts mit weißem Streifen abdecken -->
+      <div class="label-cover" style="left:73%; top:5%; width:27%; height:90%;"></div>
+      <!-- Kleiner Cover für die untere Restlinie unter Badge 3 -->
+      <div class="label-cover" style="left:42%; top:24.0%; width:31%; height:4%;"></div>
+
+      <!-- Nummern-Badges am Linien-Ende rechts (statt auf dem Pflanzenteil) -->
+      <div class="num-badge" style="left:81%; top:7.6%;">1</div>
+      <div class="num-badge" style="left:81%; top:13.5%;">2</div>
+      <div class="num-badge" style="left:81%; top:21.5%;">3</div>
+      <div class="num-badge" style="left:81%; top:52.8%;">4</div>
+      <div class="num-badge" style="left:81%; top:66.5%;">5</div>
+      <div class="num-badge" style="left:81%; top:82.5%;">6</div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Lückentext-Quiz: Pflanzenteile und ihre Funktionen -->
+<section id="lt-app">
+  <h2>Bauteile und ihre Aufgaben</h2>
+  <p class="lt-hinweis">Tippe ein Wort aus der Wortbank an – es springt in die nächste Lücke. Eine gefüllte Lücke kannst du durch Antippen wieder leeren. <strong>Achtung: Zwei Wörter passen in keine Lücke!</strong></p>
+  <div class="lt-saetze"></div>
+  <div class="lt-bank"></div>
+  <div class="lt-actions">
+    <button type="button" class="lt-btn" id="lt-pruefen">Prüfen</button>
+    <button type="button" class="lt-btn sekundaer" id="lt-nochmal">Nochmal</button>
+  </div>
+  <div class="lt-ergebnis"></div>
+</section>
+
+<footer style="text-align:center;font-size:.85rem;color:#7a8b6f;padding:14px 10px 26px;">
+  © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Flora Mibaso
+</footer>
+
+<script>
+
+(function(){
+  var openBtn = null;
+  var panel   = document.getElementById('ph-panel');
+  var tipHead = document.getElementById('ph-tip-head');
+  var tipBody = document.getElementById('ph-tip-body');
+
+  function showHint(){
+    if(openBtn){ openBtn.classList.remove('ph-open'); openBtn = null; }
+    panel.classList.remove('active');
+  }
+
+  window.phToggle = function(btn){
+    if(btn === openBtn){ showHint(); return; }
+    if(openBtn) openBtn.classList.remove('ph-open');
+
+    tipHead.textContent = btn.dataset.label;
+    tipBody.textContent = btn.dataset.text;
+    btn.classList.add('ph-open');
+    openBtn = btn;
+    panel.classList.add('active');
+  };
+
+  // Klick außerhalb von Punkt + Panel → zurück zum Hinweis
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('#ph-root .ph-btn') &&
+       !e.target.closest('#ph-panel')) showHint();
+  });
+})();
+
+</script>
+<script>
+
+(function() {
+  const app   = document.getElementById('pz-app');
+  const pool  = app.querySelector('#pool');
+  const zones = app.querySelectorAll('.dz');
+  const total = zones.length;
+
+  function shufflePool() {
+    const chips = Array.from(pool.children);
+    for (let i = chips.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [chips[i], chips[j]] = [chips[j], chips[i]];
+    }
+    chips.forEach(c => pool.appendChild(c));
+  }
+  shufflePool();
+
+  let draggedChip = null;
+
+  // Drag & Drop für Desktop
+  app.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('dragstart', (e) => {
+      draggedChip = chip;
+      chip.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      try { e.dataTransfer.setData('text/plain', chip.dataset.id); } catch(_) {}
+    });
+    chip.addEventListener('dragend', () => {
+      chip.classList.remove('dragging');
+      draggedChip = null;
+    });
+  });
+
+  zones.forEach(zone => {
+    zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('over'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('over'));
+    zone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      zone.classList.remove('over');
+      if (draggedChip) placeChipInZone(draggedChip, zone);
+    });
+  });
+
+  pool.addEventListener('dragover', (e) => { if (draggedChip) e.preventDefault(); });
+  pool.addEventListener('drop', (e) => {
+    e.preventDefault();
+    if (!draggedChip) return;
+    const fromZone = draggedChip.parentElement;
+    if (fromZone && fromZone.classList.contains('dz')) {
+      returnChipToPool(fromZone);
+    } else {
+      pool.appendChild(draggedChip);
+    }
+  });
+
+  // Tap-Tap für Mobile
+  let selectedChip = null;
+
+  function highlightSelected(chip) {
+    app.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+    if (chip) chip.classList.add('selected');
+  }
+
+  app.addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    const zone = e.target.closest('.dz');
+
+    if (chip && !zone) {
+      // Chip in Zone → zurück in Pool
+      if (chip.parentElement && chip.parentElement.classList.contains('dz')) {
+        returnChipToPool(chip.parentElement);
+        selectedChip = null;
+        highlightSelected(null);
+      } else {
+        // Pool-Chip: an/abwählen
+        selectedChip = (selectedChip === chip) ? null : chip;
+        highlightSelected(selectedChip);
+      }
+      return;
+    }
+
+    if (zone) {
+      if (selectedChip) {
+        placeChipInZone(selectedChip, zone);
+        selectedChip = null;
+        highlightSelected(null);
+      } else if (zone.dataset.placedId) {
+        // Feld leeren beim Antippen
+        returnChipToPool(zone);
+      }
+    }
+  });
+
+  function placeChipInZone(chip, zone) {
+    if (zone.dataset.placedId) returnChipToPool(zone);
+    // Slot und Nummer leeren bis auf Nummer
+    const num = zone.querySelector('.dz-num');
+    zone.innerHTML = '';
+    if (num) zone.appendChild(num);
+    zone.appendChild(chip);
+    chip.classList.remove('selected');
+    zone.classList.add('filled');
+    zone.classList.remove('correct', 'wrong');
+    zone.dataset.placedId = chip.dataset.id;
+    updateFeedback();
+  }
+
+  function returnChipToPool(zone) {
+    const chip = zone.querySelector('.chip');
+    if (chip) {
+      pool.appendChild(chip);
+      chip.classList.remove('selected');
+    }
+    zone.classList.remove('filled', 'correct', 'wrong');
+    delete zone.dataset.placedId;
+    // Slot-Pseudo-Text wiederherstellen
+    if (!zone.querySelector('.dz-slot')) {
+      const slot = document.createElement('span');
+      slot.className = 'dz-slot';
+      slot.textContent = 'hier ablegen';
+      zone.appendChild(slot);
+    }
+    updateFeedback();
+  }
+
+  function placedCount() {
+    return Array.from(zones).filter(z => z.dataset.placedId).length;
+  }
+
+  function updateFeedback() {
+    const fb = app.querySelector('#feedback');
+    const n = placedCount();
+    fb.className = '';
+    fb.textContent = n === total
+      ? `Alle ${total} Felder belegt — jetzt prüfen!`
+      : `${n} von ${total} Feldern belegt`;
+    sendHeight();
+  }
+
+  app.querySelector('#check').addEventListener('click', () => {
+    let right = 0;
+    zones.forEach(z => {
+      if (!z.dataset.placedId) return;
+      if (z.dataset.placedId === z.dataset.correct) {
+        z.classList.remove('wrong'); z.classList.add('correct');
+        right++;
+      } else {
+        z.classList.remove('correct'); z.classList.add('wrong');
+      }
+    });
+    const fb = app.querySelector('#feedback');
+    if (right === total) {
+      fb.textContent = `Perfekt! Alle ${total} richtig! 🌿`;
+      fb.className = 'good';
+      feiern();
+    } else if (placedCount() < total) {
+      fb.textContent = `${right} von ${placedCount()} richtig — noch nicht alle Felder belegt.`;
+      fb.className = 'bad';
+    } else {
+      fb.textContent = `${right} von ${total} richtig — die roten Felder nochmal probieren.`;
+      fb.className = 'bad';
+    }
+    sendHeight();
+  });
+
+  app.querySelector('#reset').addEventListener('click', () => {
+    zones.forEach(z => returnChipToPool(z));
+    shufflePool();
+    const fb = app.querySelector('#feedback');
+    fb.textContent = `0 von ${total} Feldern belegt`;
+    fb.className = '';
+    app.querySelector('#sieger-wrap').style.display = 'none';
+    sendHeight();
+  });
+
+  function feiern() {
+    const sprueche = [
+      "🌿 Bravo! Du kennst jeden Teil dieser Pflanze beim Namen!",
+      "🌸 Glanzleistung! Vom Kronblatt bis zur Wurzel – alles richtig!",
+      "🏆 Top! Du bist bereit für jede Botanik-Exkursion!",
+      "🌱 Perfekt! Eine waschechte Pflanzenkennerin!",
+      "🍃 Sensationell! Ein echter grüner Daumen – fürs Erkennen!"
+    ];
+    const spruch = sprueche[Math.floor(Math.random() * sprueche.length)];
+    const colors = ['#3A5F4A','#2F4F3E','#6aab7a','#f4c430','#e8a020','#c0392b','#3498db','#9b59b6'];
+    const sw = app.querySelector('#sieger-wrap');
+    const kf = app.querySelector('#konfetti-feld');
+    let html = '';
+    for (let i = 0; i < 55; i++) {
+      const c = colors[Math.floor(Math.random() * colors.length)];
+      const left = (Math.random() * 96).toFixed(1);
+      const delay = (Math.random() * 2.2).toFixed(2);
+      const dur = (1.3 + Math.random() * 1.2).toFixed(2);
+      const w = 5 + Math.floor(Math.random() * 7);
+      const h = 5 + Math.floor(Math.random() * 7);
+      html += `<div class="konfetti-stueck" style="background:${c};left:${left}%;width:${w}px;height:${h}px;animation-delay:${delay}s;animation-duration:${dur}s"></div>`;
+    }
+    kf.innerHTML = html;
+    app.querySelector('#sieger-msg').textContent = spruch;
+    sw.style.display = 'block';
+    sendHeight();
+  }
+
+  function sendHeight() {
+    const h = app.offsetHeight + 20;
+    try { window.parent.postMessage({ quizHeight: h }, '*'); } catch(_) {}
+  }
+  window.addEventListener('load', sendHeight);
+  window.addEventListener('resize', sendHeight);
+  const mo = new MutationObserver(sendHeight);
+  mo.observe(app, { childList: true, subtree: true, attributes: true });
+
+  const img = app.querySelector('#diagram-wrap img');
+  if (img) {
+    if (img.complete) sendHeight();
+    else img.addEventListener('load', sendHeight);
+  }
+})();
+
+</script>
+
+<script>
+/* Lückentext-Quiz: Pflanzenteile + Funktionen (mit Ablenkern) */
+(function () {
+  const groups = [
+    { titel: "Aufbau und Aufgabe", saetze: [
+      ["Die ", "Wurzel", " verankert die Pflanze im Boden und nimmt Wasser und Mineralien auf."],
+      ["Der ", "Stängel", " hält die Pflanze aufrecht und transportiert Wasser und Nährstoffe."],
+      ["Im ", "Blatt", " entsteht durch Photosynthese aus Licht, Wasser und CO₂ der Zucker."],
+      ["Die ", "Blüte", " lockt mit Farbe und Duft Bestäuber an – sie dient der Fortpflanzung."]
+    ]},
+    { titel: "Genauer hingeschaut", saetze: [
+      ["Am Blatt wird als Nebenprodukt ", "Sauerstoff", " frei, den wir zum Atmen brauchen."],
+      ["Das Staubblatt ist das männliche Organ der Blüte und bildet den ", "Pollen", "."],
+      ["Die klebrige ", "Narbe", " fängt den Pollen auf, den Bestäuber vorbeibringen."],
+      ["Im ", "Fruchtknoten", " liegen die Samenanlagen – aus ihm wird später die Frucht."]
+    ]}
+  ];
+  const distraktoren = ["Zucker", "Kelchblatt"];
+
+  const app        = document.getElementById('lt-app');
+  if (!app) return;
+  const saetzeWrap = app.querySelector('.lt-saetze');
+  const bankWrap   = app.querySelector('.lt-bank');
+  const pruefBtn   = app.querySelector('#lt-pruefen');
+  const nochBtn    = app.querySelector('#lt-nochmal');
+  const ergebnis   = app.querySelector('.lt-ergebnis');
+
+  let slots = [], words = [], selected = null, checked = false;
+
+  function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function build() {
+    saetzeWrap.innerHTML = ''; bankWrap.innerHTML = '';
+    slots = []; words = []; selected = null; checked = false;
+    ergebnis.textContent = ''; ergebnis.className = 'lt-ergebnis';
+    const answers = [];
+
+    groups.forEach(g => {
+      const gd = document.createElement('div'); gd.className = 'lt-gruppe';
+      const h = document.createElement('h3'); h.textContent = g.titel; gd.appendChild(h);
+      g.saetze.forEach(parts => {
+        const p = document.createElement('div'); p.className = 'lt-satz';
+        parts.forEach((part, i) => {
+          if (i % 2 === 1) {
+            const slot = document.createElement('span');
+            slot.className = 'lt-slot empty'; slot.textContent = '?';
+            const so = { el: slot, answer: part, filled: null };
+            slot.addEventListener('click', () => onSlot(so));
+            slots.push(so); answers.push(part);
+            p.appendChild(slot);
+          } else if (part) {
+            p.appendChild(document.createTextNode(part));
+          }
+        });
+        gd.appendChild(p);
+      });
+      saetzeWrap.appendChild(gd);
+    });
+
+    shuffle(answers.concat(distraktoren)).forEach(text => {
+      const w = document.createElement('button');
+      w.type = 'button'; w.className = 'lt-word'; w.textContent = text;
+      const wo = { el: w, text: text, used: false };
+      w.addEventListener('click', () => onWord(wo));
+      words.push(wo); bankWrap.appendChild(w);
+    });
+    sendH();
+  }
+
+  function setSelected(so) {
+    slots.forEach(s => s.el.classList.remove('sel'));
+    selected = so;
+    if (so) so.el.classList.add('sel');
+  }
+  function firstEmpty() { return slots.find(s => !s.filled) || null; }
+
+  function onSlot(so) {
+    if (checked) return;
+    if (so.filled) {
+      so.filled.used = false; so.filled.el.classList.remove('used'); so.filled = null;
+      so.el.textContent = '?'; so.el.classList.add('empty');
+    }
+    setSelected(so);
+  }
+
+  function onWord(wo) {
+    if (checked || wo.used) return;
+    const target = (selected && !selected.filled) ? selected : firstEmpty();
+    if (!target) return;
+    target.filled = wo; target.el.textContent = wo.text; target.el.classList.remove('empty');
+    wo.used = true; wo.el.classList.add('used');
+    setSelected(firstEmpty());
+  }
+
+  function pruefen() {
+    if (checked) return;
+    if (slots.some(s => !s.filled)) {
+      ergebnis.className = 'lt-ergebnis lt-warnung';
+      ergebnis.textContent = 'Bitte fülle erst alle Lücken.';
+      return;
+    }
+    let richtig = 0;
+    slots.forEach(s => {
+      if (s.filled.text === s.answer) { s.el.classList.add('correct'); richtig++; }
+      else { s.el.classList.add('wrong'); }
+    });
+    checked = true; setSelected(null);
+    if (richtig === slots.length) {
+      const rewards = [
+        'Glanzleistung – die Pflanzen verbeugen sich vor dir! 🌿',
+        'Botanik-Profi am Werk! Selbst der Löwenzahn nickt anerkennend.',
+        'Volltreffer! Da staunen sogar die Schmetterlinge.',
+        'Alle Lücken sitzen – du hast den grünen Daumen für Quizfragen!',
+        'Perfekt! Selbst Goethe hätte das nicht besser gewusst.',
+        'Glatte hundert Prozent – die Wiese applaudiert! 🌾',
+        'Wunderbar! Du bist eine wandelnde Flora.',
+        'Hat alles geklappt – ein echtes Blütenwunder! 🌸',
+        'Sauber! Die Wurzel hängt vor Staunen aus dem Boden.',
+        'Volle Punktzahl – jetzt darf Photosynthese-Pause sein.'
+      ];
+      ergebnis.className = 'lt-ergebnis lt-super';
+      ergebnis.textContent = rewards[Math.floor(Math.random() * rewards.length)];
+    } else {
+      ergebnis.className = 'lt-ergebnis';
+      ergebnis.textContent = richtig + ' von ' + slots.length + ' richtig. Tippe „Nochmal“ und probiere die roten Lücken erneut.';
+    }
+    sendH();
+  }
+
+  function sendH() {
+    try { window.parent.postMessage({ quizHeight: document.body.scrollHeight + 20 }, '*'); } catch (_) {}
+  }
+
+  pruefBtn.addEventListener('click', pruefen);
+  nochBtn.addEventListener('click', build);
+  window.addEventListener('load', sendH);
+  window.addEventListener('resize', sendH);
+  build();
+})();
+</script>
+
+
+<script src="../assets/app.js" defer></script>
+</body>
+</html>
