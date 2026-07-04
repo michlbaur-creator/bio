@@ -52,7 +52,7 @@ GROUPS = {
         ("Blüte & Bestäubung", "#2C7A6A",
          ["bluete-zoom.html", "bestaeubung-erklaerung.html", "bestaeubung-animiert.html", "bluetenoekologie.html"]),
         ("Samen, Jahr & Strategien", "#C4603A",
-         ["samenverbreitung.html", "jahreszeiten-baum.html", "kreislauf.html", "pflanzenstrategien.html"]),
+         ["samenverbreitung.html", "jahreszeiten-baum.html", "pflanzenstrategien.html"]),
     ],
     "fauna": [
         ("Bestimmen & Verwandtschaft", "#5A6B7A",
@@ -110,7 +110,10 @@ EXCLUDE = {"tierquiz.html", "gesamttest.html", "pflanze-zuordnung.html", "verwan
            "blumen-nachts.html", "kletten.html", "schaumzikaden.html", "sonnenblumen.html",
            # Energie: die vollständige „Pflanzen & Energie" (pflanzen-energie) bleibt;
            # die Übersichts-Hülle energie-pfad und „Der Gas-Kreislauf" raus.
-           "energie-pfad.html", "energie-kreislauf-anim.html"}
+           "energie-pfad.html", "energie-kreislauf-anim.html",
+           # „Der ewige Kreislauf" raus — seine Stationen (Blüte-Zoom, Jahr im Baum)
+           # stecken jetzt einzeln im Forscherpass.
+           "kreislauf.html"}
 def _excluded(key, fn):
     return (fn.endswith("-flyer.html") or fn.startswith("staunen-")
             or fn in EXCLUDE or f"{key}/{fn}" in EXCLUDE)
@@ -120,7 +123,7 @@ ORDER = {
     "flora": ["pflanze-erklaerung.html", "pflanze-verstehen.html", "pflanzen-energie.html",
               "bluete-zoom.html", "bestaeubung-erklaerung.html", "bestaeubung-animiert.html",
               "bluetenoekologie.html", "samenverbreitung.html", "jahreszeiten-baum.html",
-              "kreislauf.html", "pflanzenstrategien.html"],
+              "pflanzenstrategien.html"],
     "fauna": ["schluessel.html", "systematik.html", "stammbaum.html", "verwandlung.html",
               "bestaeubung.html", "lebensraum.html", "nahrungsnetz.html", "wiese-lebt.html",
               "insektenschwund.html"],
