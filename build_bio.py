@@ -312,14 +312,20 @@ CSS = """
   .badge{flex:0 0 auto;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.03em;
     padding:2px 8px;border-radius:999px;text-transform:uppercase;}
   .badge-l{background:#e7efe4;color:#3a5f4a;} .badge-u{background:#efe6d2;color:#8a6a2e;}
-  footer.fuss{background:linear-gradient(135deg,#26402F,#3A5F4A);color:#F7F3E8;margin-top:34px;
-    padding:24px 18px;padding-bottom:max(28px,calc(env(safe-area-inset-bottom) + 16px));font-family:Georgia,serif;border-radius:16px;}
+  footer.fuss{background:var(--creme-tief);border-top:3px solid var(--honig);margin-top:34px;
+    padding:18px;padding-bottom:max(22px,calc(env(safe-area-inset-bottom) + 14px));border-radius:0 0 14px 14px;}
   footer.fuss .fin{max-width:640px;margin:0 auto;}
-  footer.fuss .echips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
-  footer.fuss .echip{background:rgba(247,243,232,.12);border:1px solid rgba(247,243,232,.35);border-radius:999px;
-    padding:4px 11px;font-family:var(--sans);font-size:12.5px;color:#F7F3E8;text-decoration:none;}
-  footer.fuss .klein{font-family:var(--sans);font-size:13px;color:rgba(247,243,232,.9);line-height:1.9;}
-  footer.fuss a{color:#F7F3E8;}
+  footer.fuss .echips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+  footer.fuss .echip{font-family:var(--sans);font-size:12.5px;color:var(--honig-tief);text-decoration:none;
+    border:1px solid var(--honig);border-radius:999px;padding:4px 11px;}
+  footer.fuss .echip:hover{background:var(--honig);color:#fff;}
+  footer.fuss .klein{font-family:var(--sans);font-size:12.5px;color:#8a8578;line-height:1.9;}
+  footer.fuss a{color:var(--honig-tief);}
+  .topbar{display:flex;justify-content:flex-end;margin:0 0 12px;}
+  .topbtn{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:13px;font-weight:600;
+    color:var(--honig-tief);background:#fff;border:1px solid var(--honig);border-radius:999px;padding:6px 14px;text-decoration:none;}
+  .topbtn:hover{background:var(--honig);color:#fff;}
+  .lead a{color:var(--gruen);font-weight:600;text-decoration:none;border-bottom:1.5px solid var(--honig);}
   .anl h2{font-family:Georgia,serif;font-weight:normal;color:var(--gruen);font-size:21px;margin:22px 0 6px;}
   .anl ol{font-family:var(--sans);font-size:15px;padding-left:22px;margin:6px 0;} .anl li{margin:6px 0;}
   .anl .tipp{font-family:var(--sans);font-size:13px;color:#6b5340;background:var(--creme-tief);border-radius:10px;padding:10px 13px;margin:10px 0 0;}
@@ -339,7 +345,6 @@ def _chips():
 
 def _footer(base=""):
     return (f'<footer class="fuss"><div class="fin"><div class="echips">'
-            f'<a class="echip" href="{base}anleitung.html">📲 Als App installieren</a>'
             f'<a class="echip" href="{base}ueber/">Über mich</a>'
             f'<a class="echip" href="{base}impressum/">Impressum &amp; Datenschutz</a></div>'
             f'<div class="klein">© 2026 Michael Baur · Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a><br>'
@@ -348,12 +353,13 @@ def _footer(base=""):
 
 def write_hub(listing):
     nf, na = len(listing["flora"]), len(listing["fauna"])
-    body = (_chips() +
+    body = ('<div class="topbar"><a class="topbtn" href="anleitung.html">📲 App aufs Handy</a></div>'
         '<div class="hero"><img src="fauna/images/wiese/wiese-sommer.png" alt="Blühende Wiese" '
         'onerror="this.style.display=\'none\'"><div class="cap"><div class="marke">bio.mibaso</div>'
         '<h1>Lernpfade für den Unterricht</h1></div></div>'
-        '<p class="lead">Interaktive Stationen aus Flora und Fauna Mibaso — zum Erkunden, Verstehen '
-        'und Selbst-Ausprobieren. Ohne Konto, direkt im Browser.</p>'
+        '<p class="lead">Interaktive Stationen aus '
+        '<a href="https://flora.mibaso.de/">Flora</a> und '
+        '<a href="https://fauna.mibaso.de/">Fauna</a> Mibaso — zum Erkunden, Verstehen und Selbst-Ausprobieren.</p>'
         '<div class="kacheln">'
         f'<a class="kachel k-flora" href="flora/"><span class="ke">🌼</span>'
         f'<span class="kt">Flora Mibaso</span><span class="kb">{nf} Lernpfade rund um Pflanzen</span></a>'
@@ -371,7 +377,6 @@ def write_sub(r, items):
         f'<span class="pf">›</span></a>'
         for t, fn in items)
     body = ('<div class="subkopf"><a class="zurueck" href="../index.html">‹ bio.mibaso</a></div>'
-            + _chips()
             + f'<div class="subtitel"><span>{r["emoji"]}</span> {html.escape(r["label"])}</div>'
             + f'<div class="liste">{lis}</div>' + _footer("../"))
     open(os.path.join(BIO, r["key"], "index.html"), "w", encoding="utf-8").write(
