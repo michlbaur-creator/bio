@@ -34,8 +34,68 @@ if not BIO:
 
 REPOS = [
     {"key": "flora", "label": "Flora Mibaso", "emoji": "🌼", "akzent": "#2F4F3E"},
-    {"key": "fauna", "label": "Fauna Mibaso", "emoji": "🦋", "akzent": "#233D5C"},
+    {"key": "fauna", "label": "Fauna Mibaso", "emoji": "🦋", "akzent": "#233D5C",
+     "pass": {"href": "interaktiv/wiesenpass.html", "img": "images/wiese/wiese-sommer.png",
+              "eyebrow": "Dein Forscherpass", "titel": "Sammle Blätter, werde Wiesen-Meister",
+              "sub": "Alle fünf Pfade an einem Ort — mit deinem Fortschritt."}},
 ]
+
+# Thematische Gruppen je Repo: (Überschrift, Farbe, [Dateien]). Farben aus der Hausfarb-
+# Palette (Schiefer / Teal / Korall). Nicht zugeordnete Pfade landen unter „Mehr entdecken".
+GROUPS = {
+    "flora": [
+        ("Aufbau & Wachstum", "#5A6B7A",
+         ["pflanze-erklaerung.html", "pflanze-verstehen.html", "pflanzen-energie.html"]),
+        ("Blüte & Bestäubung", "#2C7A6A",
+         ["bluete-zoom.html", "bestaeubung-erklaerung.html", "bestaeubung-animiert.html", "bluetenoekologie.html"]),
+        ("Samen, Jahr & Strategien", "#C4603A",
+         ["samenverbreitung.html", "jahreszeiten-baum.html", "kreislauf.html", "pflanzenstrategien.html"]),
+    ],
+    "fauna": [
+        ("Bestimmen & Verwandtschaft", "#5A6B7A",
+         ["schluessel.html", "systematik.html", "stammbaum.html"]),
+        ("Verwandlung & Bestäubung", "#2C7A6A",
+         ["verwandlung.html", "bestaeubung.html"]),
+        ("Wiese & Lebensraum", "#C4603A",
+         ["lebensraum.html", "nahrungsnetz.html", "wiese-lebt.html", "insektenschwund.html"]),
+    ],
+}
+
+# Kleine Linien-Icons je Pfad (Inline-SVG-Innenteil, 24er Raster). Fallback: Blatt.
+_G = {
+    "leaf":   'M5 21c0-9 7-16 16-16 0 9-7 16-16 16z M6 20c4-4 8-6 12-8',
+    "layers": 'M12 3l8 4-8 4-8-4 8-4z M4 12l8 4 8-4 M4 16l8 4 8-4',
+    "sprout": 'M12 21v-9 M12 12c-3 0-5-2-5-5 3 0 5 2 5 5z M12 12c0-2.5 2-4.5 5-4.5 0 2.5-2 4.5-5 4.5z',
+    "sun":    'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z M12 2v2 M12 20v2 M4 12H2 M22 12h-2 M5 5l1.5 1.5 M17.5 17.5 19 19 M19 5l-1.5 1.5 M6.5 17.5 5 19',
+    "zoom":   'M11 5a6 6 0 1 0 0 12 6 6 0 0 0 0-12z M20 20l-4.3-4.3',
+    "flower": 'M12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z M12 9.5V5 M12 14.5V19 M9.5 12H5 M14.5 12H19',
+    "cycle":  'M4.5 12a7.5 7.5 0 0 1 12.8-5.3 M19.5 12a7.5 7.5 0 0 1-12.8 5.3 M17 3v4h-4 M7 21v-4h4',
+    "network":'M12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z M5 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4z M19 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4z M5 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4z M19 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4z M6.6 7.4l3.6 3.4 M17.4 7.4l-3.6 3.4 M6.6 16.6l3.6-3.4 M17.4 16.6l-3.6-3.4',
+    "wind":   'M4 8h9a3 3 0 1 0-3-3 M4 12h13a3 3 0 1 1-3 3 M4 16h7',
+    "tree":   'M12 8a6 6 0 1 0 0 .001 M12 8v13 M8.5 18h7',
+    "shield": 'M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z',
+    "fork":   'M7 3v5 M7 8a5 5 0 0 0 5 5 M17 3v5 M17 8a5 5 0 0 1-5 5 M12 13v6',
+    "sitemap":'M9.5 3h5v4h-5z M3.5 17h5v4h-5z M15.5 17h5v4h-5z M12 7v4 M6 17v-2h12v2 M12 11v2',
+    "hier":   'M12 3a2.3 2.3 0 1 0 0 4.6A2.3 2.3 0 0 0 12 3z M6 17a2.3 2.3 0 1 0 0 4.6A2.3 2.3 0 0 0 6 17z M18 17a2.3 2.3 0 1 0 0 4.6A2.3 2.3 0 0 0 18 17z M12 7.6 6.7 15 M12 7.6 17.3 15',
+    "biotop": 'M12 21v-6 M12 15c-3 0-5-2-5-5 3 0 5 2 5 5z M12 13c0-2.5 2-4.5 5-4.5 0 2.5-2 4.5-5 4.5z M4 21h16',
+    "grass":  'M12 21c0-6 0-9 0-12 M12 21c-2-4-4-6-7-7 M12 21c2-4 4-6 7-7 M8 21c0-3-1-5-3-6 M16 21c0-3 1-5 3-6',
+    "alert":  'M12 4l9 16H3l9-16z M12 10v5 M12 17.5h.01',
+}
+ICON = {
+    "pflanze-erklaerung.html": "layers", "pflanze-verstehen.html": "sprout",
+    "pflanzen-energie.html": "sun", "bluete-zoom.html": "zoom",
+    "bestaeubung-erklaerung.html": "flower", "bestaeubung-animiert.html": "cycle",
+    "bluetenoekologie.html": "network", "samenverbreitung.html": "wind",
+    "jahreszeiten-baum.html": "tree", "kreislauf.html": "cycle",
+    "pflanzenstrategien.html": "shield",
+    "schluessel.html": "fork", "systematik.html": "sitemap", "stammbaum.html": "hier",
+    "verwandlung.html": "cycle", "bestaeubung.html": "flower", "lebensraum.html": "biotop",
+    "nahrungsnetz.html": "network", "wiese-lebt.html": "grass", "insektenschwund.html": "alert",
+}
+def _icon(fn):
+    d = _G.get(ICON.get(fn, "leaf"), _G["leaf"])
+    return ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" '
+            f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{d}"/></svg>')
 # Kopiert, aber nicht auf der Startseite gelistet (z.B. der Pass als Footer-Ziel)
 SKIP_LISTING = {"tafel.html", "wiesenpass.html", "sammelpass.html"}
 # Ganz aus bio ausschließen (nicht kopieren, nicht listen): Staunen-Häppchen,
@@ -150,6 +210,10 @@ def build():
     copytree(os.path.join(ROOT, "flora", "ueber"),     os.path.join(BIO, "ueber"))
     copytree(os.path.join(ROOT, "flora", "impressum"), os.path.join(BIO, "impressum"))
     copytree(os.path.join(ROOT, "flora", "anleitung"), os.path.join(BIO, "anleitung"))
+    # eigenes bio-Icon (grün+blau Blatt) über die von Flora kopierten Icons legen
+    BRAND = os.path.join(os.path.dirname(os.path.abspath(__file__)), "brand")
+    copytree(BRAND, os.path.join(BIO, "assets"))
+    open(os.path.join(BIO, "manifest.webmanifest"), "w", encoding="utf-8").write(MANIFEST)
     for k in listing:                       # stimmige Reihenfolge herstellen
         listing[k].sort(key=lambda ti: _ordidx(k, ti[1]))
     write_hub(listing)
@@ -207,6 +271,22 @@ jobs:
 '''
 
 GITIGNORE = "/bio/\n_src/\n.DS_Store\n**/.DS_Store\n"
+
+MANIFEST = '''{
+  "name": "bio.mibaso",
+  "short_name": "bio.mibaso",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F3E8",
+  "theme_color": "#2F4F3E",
+  "icons": [
+    {"src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "/assets/icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable"},
+    {"src": "/assets/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
+'''
 
 SYNC_YML = '''name: bio Auto-Sync (flora + fauna)
 on:
@@ -272,7 +352,7 @@ jobs:
 
 CSS = """
   :root{--gruen:#2F4F3E;--blau:#233D5C;--creme:#F7F3E8;--creme-tief:#EEE7D5;--pergament:#EDE3CC;
-    --honig:#C28A3A;--honig-tief:#a9762c;--linie:#d8ccb2;--tinte:#26312b;--akzent:#2F4F3E;
+    --honig:#C28A3A;--honig-tief:#a9762c;--orange:#C4603A;--linie:#d8ccb2;--tinte:#26312b;--akzent:#2F4F3E;
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html{-webkit-text-size-adjust:100%;}
@@ -312,8 +392,22 @@ CSS = """
   .badge{flex:0 0 auto;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.03em;
     padding:2px 8px;border-radius:999px;text-transform:uppercase;}
   .badge-l{background:#e7efe4;color:#3a5f4a;} .badge-u{background:#efe6d2;color:#8a6a2e;}
-  footer.fuss{background:var(--creme-tief);border-top:3px solid var(--honig);margin-top:34px;
-    padding:18px;padding-bottom:max(22px,calc(env(safe-area-inset-bottom) + 14px));border-radius:0 0 14px 14px;}
+  .pfad .pic{flex:0 0 auto;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+  .pfad .pic svg{width:19px;height:19px;}
+  .gt{font-family:Georgia,serif;font-weight:normal;font-size:20px;color:var(--gc);
+    margin:22px 0 10px;padding-bottom:3px;border-bottom:2px solid var(--gc);display:inline-block;}
+  .aktion-banner{display:flex;align-items:center;gap:14px;margin:6px 0 8px;text-decoration:none;
+    background:#fff;border:1px solid var(--linie);border-left:4px solid var(--honig);border-radius:14px;
+    padding:12px 14px;color:var(--akzent);box-shadow:0 2px 10px rgba(0,0,0,.06);transition:transform .12s,border-color .15s;}
+  .aktion-banner:hover{transform:translateY(-2px);border-color:#cdbf9e;}
+  .aktion-banner img{flex:0 0 auto;width:56px;height:76px;object-fit:cover;border-radius:8px;border:1px solid var(--linie);background:var(--creme-tief);}
+  .aktion-banner .ab-tx{flex:1;min-width:0;}
+  .ab-eyebrow{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--honig);font-weight:700;}
+  .aktion-banner strong{display:block;font-size:1.1rem;font-weight:normal;margin:2px 0;line-height:1.15;}
+  .ab-sub{display:block;font-family:var(--sans);font-size:12.5px;color:#6f7b86;line-height:1.35;}
+  .ab-pf{margin-left:auto;color:var(--honig);font-size:20px;flex:0 0 auto;}
+  footer.fuss{background:#fff;border:1px solid var(--linie);border-top:3px solid var(--orange);margin-top:34px;
+    padding:18px;padding-bottom:max(22px,calc(env(safe-area-inset-bottom) + 14px));border-radius:14px;}
   footer.fuss .fin{max-width:640px;margin:0 auto;}
   footer.fuss .echips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
   footer.fuss .echip{font-family:var(--sans);font-size:12.5px;color:var(--honig-tief);text-decoration:none;
@@ -336,7 +430,14 @@ def _shell(title, theme, body, akzent=None):
     return ('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">'
             '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
             f'<title>{title}</title><meta name="theme-color" content="{theme}">'
-            '<link rel="icon" href="assets/icon.svg" type="image/svg+xml">'
+            '<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">'
+            '<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">'
+            '<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">'
+            '<link rel="manifest" href="/manifest.webmanifest">'
+            '<meta name="apple-mobile-web-app-capable" content="yes">'
+            '<meta name="mobile-web-app-capable" content="yes">'
+            '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'
+            '<meta name="apple-mobile-web-app-title" content="bio.mibaso">'
             f'<style>{CSS}</style></head><body{style}><div class="huelle">{body}</div></body></html>')
 
 def _chips():
@@ -362,23 +463,48 @@ def write_hub(listing):
         '<a href="https://fauna.mibaso.de/">Fauna</a> Mibaso — zum Erkunden, Verstehen und Selbst-Ausprobieren.</p>'
         '<div class="kacheln">'
         f'<a class="kachel k-flora" href="flora/"><span class="ke">🌼</span>'
-        f'<span class="kt">Flora Mibaso</span><span class="kb">{nf} Lernpfade rund um Pflanzen</span></a>'
+        f'<span class="kt">Flora Mibaso</span><span class="kb">{nf} Lernpfade rund um die Welt der Pflanzen</span></a>'
         f'<a class="kachel k-fauna" href="fauna/"><span class="ke">🦋</span>'
-        f'<span class="kt">Fauna Mibaso</span><span class="kb">{na} Lernpfade rund um Tiere &amp; Insekten</span></a>'
+        f'<span class="kt">Fauna Mibaso</span><span class="kb">{na} Lernpfade rund um die Welt der Tiere</span></a>'
         '</div>' + _footer(""))
     open(os.path.join(BIO, "index.html"), "w", encoding="utf-8").write(
         _shell("bio.mibaso — Lernpfade für den Unterricht", "#2F4F3E", body))
 
+def _pfad(t, fn, col):
+    b = "u" if _typ(fn) == "Übersicht" else "l"
+    return (f'<a class="pfad" href="interaktiv/{html.escape(fn)}">'
+            f'<span class="pic" style="background:{col}1f;color:{col}">{_icon(fn)}</span>'
+            f'<span class="pt">{html.escape(t)}</span>'
+            f'<span class="badge badge-{b}">{_typ(fn)}</span>'
+            f'<span class="pf">›</span></a>')
+
+def _pass_banner(p):
+    return (f'<a class="aktion-banner" href="{p["href"]}">'
+            f'<img src="{p["img"]}" alt="" aria-hidden="true" onerror="this.style.display=\'none\'">'
+            f'<span class="ab-tx"><span class="ab-eyebrow">{html.escape(p["eyebrow"])}</span>'
+            f'<strong>{html.escape(p["titel"])}</strong>'
+            f'<span class="ab-sub">{html.escape(p["sub"])}</span></span>'
+            f'<span class="ab-pf" aria-hidden="true">›</span></a>')
+
 def write_sub(r, items):
-    lis = "".join(
-        f'<a class="pfad" href="interaktiv/{html.escape(fn)}"><span class="dot"></span>'
-        f'<span class="pt">{html.escape(t)}</span>'
-        f'<span class="badge badge-{"u" if _typ(fn)=="Übersicht" else "l"}">{_typ(fn)}</span>'
-        f'<span class="pf">›</span></a>'
-        for t, fn in items)
+    key = r["key"]
+    by_fn = {fn: t for t, fn in items}
+    used, sections = set(), []
+    for gt, col, fns in GROUPS.get(key, []):
+        rows = [_pfad(by_fn[fn], fn, col) for fn in fns if fn in by_fn]
+        used.update(fn for fn in fns if fn in by_fn)
+        if rows:
+            sections.append(f'<h2 class="gt" style="--gc:{col}">{html.escape(gt)}</h2>'
+                            f'<div class="liste">{"".join(rows)}</div>')
+    rest = [(t, fn) for t, fn in items if fn not in used]
+    if rest:
+        rows = "".join(_pfad(t, fn, "#5F5E5A") for t, fn in rest)
+        sections.append('<h2 class="gt" style="--gc:#5F5E5A">Mehr entdecken</h2>'
+                        f'<div class="liste">{rows}</div>')
+    banner = _pass_banner(r["pass"]) if r.get("pass") else ""
     body = ('<div class="subkopf"><a class="zurueck" href="../index.html">‹ bio.mibaso</a></div>'
             + f'<div class="subtitel"><span>{r["emoji"]}</span> {html.escape(r["label"])}</div>'
-            + f'<div class="liste">{lis}</div>' + _footer("../"))
+            + banner + "".join(sections) + _footer("../"))
     open(os.path.join(BIO, r["key"], "index.html"), "w", encoding="utf-8").write(
         _shell(r["label"] + " — bio.mibaso", r["akzent"], body, akzent=r["akzent"]))
 
