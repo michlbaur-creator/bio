@@ -25,17 +25,27 @@ def _find_root(start):
         p = os.path.dirname(p)
     return os.path.dirname(os.path.dirname(start))
 
-ROOT = _find_root(os.path.dirname(os.path.abspath(__file__)))  # Documents/GitHub
-# Ziel = das echte git-Repo (kann verschachtelt sein: bio/ oder bio/bio/)
-_cands = [os.path.join(ROOT, "bio", "bio"), os.path.join(ROOT, "bio")]
-BIO = next((c for c in _cands if os.path.isdir(os.path.join(c, ".git"))), os.path.join(ROOT, "bio"))
+# Quellen- und Zielordner: in der CI per Umgebungsvariablen gesetzt, lokal automatisch.
+ROOT = os.environ.get("BIO_SRC_ROOT") or _find_root(os.path.dirname(os.path.abspath(__file__)))
+BIO = os.environ.get("BIO_OUT")
+if not BIO:
+    _cands = [os.path.join(ROOT, "bio", "bio"), os.path.join(ROOT, "bio")]
+    BIO = next((c for c in _cands if os.path.isdir(os.path.join(c, ".git"))), os.path.join(ROOT, "bio"))
 
 REPOS = [
-    {"key": "flora", "label": "Flora — Pflanzen", "emoji": "🌼", "akzent": "#2F4F3E"},
-    {"key": "fauna", "label": "Fauna — Tiere & Insekten", "emoji": "🦋", "akzent": "#233D5C"},
+    {"key": "flora", "label": "Flora Mibaso", "emoji": "🌼", "akzent": "#2F4F3E"},
+    {"key": "fauna", "label": "Fauna Mibaso", "emoji": "🦋", "akzent": "#233D5C"},
 ]
-# Diese Dateien sind keine echten Lernpfade -> nicht auf der Startseite listen
+# Kopiert, aber nicht auf der Startseite gelistet (z.B. der Pass als Footer-Ziel)
 SKIP_LISTING = {"tafel.html", "wiesenpass.html", "sammelpass.html"}
+# Ganz aus bio ausschließen (nicht kopieren, nicht listen): Staunen-Häppchen,
+# Quizze/Tests und Ordnen-/Zuordnungs-Spiele — bio zeigt nur die echten Lernpfade.
+# Einträge ohne Repo-Präfix gelten für beide; mit Präfix nur für ein Repo.
+EXCLUDE = {"tierquiz.html", "gesamttest.html", "pflanze-zuordnung.html", "verwandte-finden.html",
+           "flora/systematik.html"}
+def _excluded(key, fn):
+    return (fn.endswith("-flyer.html") or fn.startswith("staunen-")
+            or fn in EXCLUDE or f"{key}/{fn}" in EXCLUDE)
 
 IMG_RE   = re.compile(r'([A-Za-z0-9_][A-Za-z0-9_.\-]*\.(?:jpg|jpeg|png|gif|svg|webp))', re.I)
 SUBDIR_RE= re.compile(r'\.\./images/([A-Za-z0-9_\-/]+)/')  # auch verschachtelt, z.B. wiese/tiere
@@ -84,6 +94,7 @@ def build():
 
         for fn in sorted(os.listdir(src_inter)):
             if not fn.endswith(".html"): continue
+            if _excluded(key, fn): continue     # aus bio ganz raus
             raw = open(os.path.join(src_inter, fn), encoding="utf-8").read()
 
             # Bilder gezielt kopieren
@@ -107,7 +118,7 @@ def build():
             # Pfad-HTML mit umgebogenen Rücklinks schreiben
             open(os.path.join(dst, "interaktiv", fn), "w", encoding="utf-8").write(rewrite_links(raw))
 
-            if fn not in SKIP_LISTING and not fn.endswith("-flyer.html"):
+            if fn not in SKIP_LISTING:
                 m = TITLE_RE.search(raw)
                 listing[key].append((clean_title(m.group(1)) if m else fn, key + "/interaktiv/" + fn))
 
@@ -117,7 +128,10 @@ def build():
     wf_dst = os.path.join(BIO, ".github", "workflows", "deploy.yml")
     os.makedirs(os.path.dirname(wf_dst), exist_ok=True)
     open(wf_dst, "w", encoding="utf-8").write(DEPLOY_YML)
-    # .gitignore (schließt evtl. verschachtelten Build-Junk aus)
+    # Auto-Sync-Workflow (holt flora/fauna, baut neu, committet & deployt)
+    sy_dst = os.path.join(BIO, ".github", "workflows", "sync.yml")
+    open(sy_dst, "w", encoding="utf-8").write(SYNC_YML)
+    # .gitignore (schließt Build-Junk und die CI-Quell-Checkouts aus)
     open(os.path.join(BIO, ".gitignore"), "w", encoding="utf-8").write(GITIGNORE)
 
     n = sum(len(v) for v in listing.values())
@@ -159,7 +173,69 @@ jobs:
         uses: actions/deploy-pages@v4
 '''
 
-GITIGNORE = "/bio/\n.DS_Store\n**/.DS_Store\n"
+GITIGNORE = "/bio/\n_src/\n.DS_Store\n**/.DS_Store\n"
+
+SYNC_YML = '''name: bio Auto-Sync (flora + fauna)
+on:
+  schedule:
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: bio holen
+        uses: actions/checkout@v4
+      - name: flora holen
+        uses: actions/checkout@v4
+        with:
+          repository: michlbaur-creator/flora
+          path: _src/flora
+      - name: fauna holen
+        uses: actions/checkout@v4
+        with:
+          repository: michlbaur-creator/fauna
+          path: _src/fauna
+      - name: Alten Build entfernen
+        run: rm -rf flora fauna index.html
+      - name: Neu zusammenbauen
+        env:
+          BIO_SRC_ROOT: ${{ github.workspace }}/_src
+          BIO_OUT: ${{ github.workspace }}
+        run: python3 build_bio.py
+      - name: Aenderungen sichern
+        run: |
+          rm -rf _src
+          git config user.name "bio-sync"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Keine Aenderungen."
+          else
+            git commit -m "Auto-Sync: Lernpfade aus flora/fauna aktualisiert"
+            git push
+          fi
+      - name: Pages vorbereiten
+        uses: actions/configure-pages@v5
+      - name: Seite verpacken
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Veroeffentlichen
+        id: deployment
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+'''
 
 def write_index(listing):
     parts = []
@@ -199,10 +275,11 @@ INDEX_TMPL = '''<!DOCTYPE html>
     text-transform:uppercase;color:var(--honig);}
   h1{font-size:clamp(26px,7vw,38px);font-weight:normal;margin:8px 0 6px;color:var(--gruen);}
   .unter{font-family:var(--sans);font-size:14.5px;color:#5c6b60;max-width:46ch;margin:0 auto 8px;}
-  .gruppe{margin-top:30px;}
-  .gruppe h2{font-family:Georgia,serif;font-weight:normal;font-size:clamp(19px,5vw,24px);
-    color:var(--akzent);border-bottom:2px solid var(--akzent);padding-bottom:8px;margin:0 0 12px;}
-  .gruppe h2 .ge{font-size:1.1em;}
+  .gruppe{margin-top:26px;}
+  .gruppe h2{display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-weight:700;
+    font-size:14px;letter-spacing:.02em;color:#fff;background:var(--akzent);
+    border-radius:8px;padding:6px 13px;margin:0 0 12px;}
+  .gruppe h2 .ge{font-size:1.15em;}
   .liste{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
   .pfad{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--tinte);
     background:#fff;border:1px solid var(--linie);border-radius:13px;padding:13px 15px;
