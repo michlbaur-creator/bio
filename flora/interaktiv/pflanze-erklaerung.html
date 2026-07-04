@@ -13,6 +13,23 @@
 </head>
 <body>
 <style>
+.pfad-intro{position:fixed;inset:0;z-index:9000;background:#F7F3E8;display:flex;align-items:center;
+  justify-content:center;padding:26px 20px;overflow-y:auto;transition:opacity .5s ease;}
+.pfad-intro.weg{opacity:0;visibility:hidden;pointer-events:none;}
+.pi-inner{max-width:440px;text-align:center;font-family:Georgia,'Times New Roman',serif;}
+.pi-foto{width:100%;max-width:360px;aspect-ratio:16/10;object-fit:cover;border-radius:16px;
+  border:1px solid #cdbf9e;box-shadow:0 6px 20px rgba(40,60,45,.18);margin:0 auto 18px;display:block;}
+.pi-eyebrow{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:12px;
+  font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#a9762c;margin-bottom:6px;}
+.pi-titel{font-weight:normal;font-size:clamp(24px,7vw,32px);color:#2F4F3E;margin:0 0 10px;line-height:1.12;}
+.pi-lead{font-size:clamp(15px,4.2vw,17px);color:#26312b;margin:0 auto 22px;max-width:34ch;line-height:1.5;}
+.pi-los{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:16px;font-weight:700;
+  color:#F7F3E8;background:#C28A3A;border:none;border-radius:999px;padding:14px 32px;cursor:pointer;
+  box-shadow:0 3px 12px rgba(194,138,58,.35);}
+.pi-los:hover{background:#a9762c;}
+@media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
+</style><div class="pfad-intro" id="pfadIntro"><div class="pi-inner"><img class="pi-foto" src="../images/fotos/chelidonium-majus-1.jpg" alt="" onerror="this.style.display='none'"><div class="pi-eyebrow">🌼 Flora Mibaso · Übersicht</div><h1 class="pi-titel">Aufbau einer Pflanze</h1><p class="pi-lead">Wurzel, Stängel, Blatt und Blüte — woraus eine Pflanze besteht und wozu jeder Teil da ist.</p><button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button></div></div>
+<style>
 #ph-root*{box-sizing:border-box!important;margin:0;padding:0;}
 #ph-root{max-width:500px!important;margin:0 auto!important;font-family:"Segoe UI",Arial,sans-serif!important;padding:10px 0 20px!important;}
 #ph-root .ph-wrap{position:relative!important;background:#fff!important;border-radius:14px!important;box-shadow:0 4px 20px rgba(0,0,0,.12)!important;padding:10px!important;}
