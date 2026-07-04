@@ -130,6 +130,9 @@ UEBERSICHT = {"pflanze-erklaerung.html", "bestaeubung-erklaerung.html", "blueten
               "samenverbreitung.html", "pflanzenstrategien.html", "insektenschwund.html"}
 def _typ(fn):
     return "Übersicht" if fn in UEBERSICHT else "Lernpfad"
+# Kacheln ohne Typ-Badge (weder „Lernpfad" noch „Übersicht"): Bestimmen-/Verwandtschaft-
+# Werkzeuge, die keine schrittweisen Lernpfade sind.
+NO_BADGE = {"schluessel.html", "systematik.html", "stammbaum.html"}
 def _ordidx(key, fn):
     o = ORDER.get(key, [])
     return o.index(fn) if fn in o else len(o) + 1
@@ -496,10 +499,11 @@ def write_hub(listing):
 
 def _pfad(t, fn, col):
     b = "u" if _typ(fn) == "Übersicht" else "l"
+    badge = "" if fn in NO_BADGE else f'<span class="badge badge-{b}">{_typ(fn)}</span>'
     return (f'<a class="pfad" href="interaktiv/{html.escape(fn)}">'
             f'<span class="pic" style="background:{col}1f;color:{col}">{_icon(fn)}</span>'
             f'<span class="pt">{html.escape(t)}</span>'
-            f'<span class="badge badge-{b}">{_typ(fn)}</span>'
+            f'{badge}'
             f'<span class="pf">›</span></a>')
 
 def _pass_banner(p):
