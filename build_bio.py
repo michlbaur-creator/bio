@@ -214,6 +214,18 @@ def build():
     BRAND = os.path.join(os.path.dirname(os.path.abspath(__file__)), "brand")
     copytree(BRAND, os.path.join(BIO, "assets"))
     open(os.path.join(BIO, "manifest.webmanifest"), "w", encoding="utf-8").write(MANIFEST)
+    # Bilder, die Über-mich/Impressum per ../images/… referenzieren, aus Flora mitkopieren
+    for page in ("ueber", "impressum"):
+        pg = os.path.join(BIO, page, "index.html")
+        if not os.path.isfile(pg):
+            continue
+        txt = open(pg, encoding="utf-8").read()
+        for rel in set(re.findall(r'\.\./images/([A-Za-z0-9_\-/.]+\.(?:jpg|jpeg|png|webp|svg|gif))', txt, re.I)):
+            s = os.path.join(ROOT, "flora", "images", rel)
+            if os.path.isfile(s):
+                d = os.path.join(BIO, "images", rel)
+                os.makedirs(os.path.dirname(d), exist_ok=True)
+                shutil.copy2(s, d)
     for k in listing:                       # stimmige Reihenfolge herstellen
         listing[k].sort(key=lambda ti: _ordidx(k, ti[1]))
     write_hub(listing)
@@ -381,8 +393,8 @@ CSS = """
   @media (max-width:520px){.kacheln{grid-template-columns:1fr;}}
   .subkopf{font-family:var(--sans);margin:2px 0 4px;}
   .zurueck{font-size:13px;font-weight:600;color:var(--akzent);text-decoration:none;}
-  .subtitel{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-weight:700;
-    font-size:15px;color:#fff;background:var(--akzent);border-radius:8px;padding:7px 14px;margin:8px 0 16px;}
+  .subtitel{display:flex;align-items:center;gap:8px;font-family:var(--sans);font-weight:700;
+    font-size:15px;color:#fff;background:var(--akzent);border-radius:8px;padding:9px 16px;margin:8px 0 18px;}
   .liste{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;}
   .pfad{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--tinte);background:#fff;
     border:1px solid var(--linie);border-radius:13px;padding:13px 15px;transition:transform .14s,box-shadow .14s,border-color .14s;}
@@ -394,8 +406,8 @@ CSS = """
   .badge-l{background:#e7efe4;color:#3a5f4a;} .badge-u{background:#efe6d2;color:#8a6a2e;}
   .pfad .pic{flex:0 0 auto;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
   .pfad .pic svg{width:19px;height:19px;}
-  .gt{font-family:Georgia,serif;font-weight:normal;font-size:20px;color:var(--gc);
-    margin:22px 0 10px;padding-bottom:3px;border-bottom:2px solid var(--gc);display:inline-block;}
+  .gt{font-family:Georgia,serif;font-weight:normal;font-size:21px;color:var(--gc);margin:26px 0 12px 2px;}
+  .gt::after{content:"";display:block;width:42px;height:3px;border-radius:2px;background:var(--gc);margin-top:8px;}
   .aktion-banner{display:flex;align-items:center;gap:14px;margin:6px 0 8px;text-decoration:none;
     background:#fff;border:1px solid var(--linie);border-left:4px solid var(--honig);border-radius:14px;
     padding:12px 14px;color:var(--akzent);box-shadow:0 2px 10px rgba(0,0,0,.06);transition:transform .12s,border-color .15s;}
