@@ -260,9 +260,41 @@ def build():
     open(sy_dst, "w", encoding="utf-8").write(SYNC_YML)
     # .gitignore (schließt Build-Junk und die CI-Quell-Checkouts aus)
     open(os.path.join(BIO, ".gitignore"), "w", encoding="utf-8").write(GITIGNORE)
+    # Service Worker: network-first für Seiten (immer aktuell, kein „App schließen")
+    open(os.path.join(BIO, "sw.js"), "w", encoding="utf-8").write(SW_JS)
 
     n = sum(len(v) for v in listing.values())
     print(f"OK: {n} Pfade gelistet, {total_imgs} Bilder kopiert.")
+
+SW_JS = '''/* bio Service Worker — network-first für Seiten (immer aktuell), SWR für Bilder.
+   Kein „Neue Version"-Banner nötig: online lädt jede Seite frisch, offline aus dem Cache. */
+const CACHE = "bio-cache-v1";
+self.addEventListener("install", (e) => { self.skipWaiting(); });
+self.addEventListener("activate", (e) => { e.waitUntil(self.clients.claim()); });
+self.addEventListener("message", (e) => { if (e.data && e.data.type === "SKIP_WAITING") self.skipWaiting(); });
+self.addEventListener("fetch", (e) => {
+  const req = e.request;
+  if (req.method !== "GET") return;
+  const accept = req.headers.get("accept") || "";
+  const isPage = req.mode === "navigate" || accept.includes("text/html");
+  if (isPage) {
+    e.respondWith(
+      fetch(req).then((res) => {
+        const copy = res.clone(); caches.open(CACHE).then((c) => c.put(req, copy)); return res;
+      }).catch(() => caches.match(req).then((r) => r || caches.match("/index.html")))
+    );
+  } else {
+    e.respondWith(
+      caches.match(req).then((cached) => {
+        const net = fetch(req).then((res) => {
+          const copy = res.clone(); caches.open(CACHE).then((c) => c.put(req, copy)); return res;
+        }).catch(() => cached);
+        return cached || net;
+      })
+    );
+  }
+});
+'''
 
 DEPLOY_YML = '''name: bio zu GitHub Pages veroeffentlichen
 on:
@@ -478,7 +510,11 @@ def _shell(title, theme, body, akzent=None):
             '<meta name="mobile-web-app-capable" content="yes">'
             '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'
             '<meta name="apple-mobile-web-app-title" content="bio.mibaso">'
-            f'<style>{CSS}</style></head><body{style}><div class="huelle">{body}</div></body></html>')
+            f'<style>{CSS}</style></head><body{style}><div class="huelle">{body}</div>'
+            '<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js");'
+            'navigator.serviceWorker.addEventListener("controllerchange",function(){'
+            'if(window.__reloaded)return;window.__reloaded=true;location.reload();});}</script>'
+            '</body></html>')
 
 def _chips():
     return ('<nav class="chips"><a class="chip" href="https://flora.mibaso.de/">🌼 Flora</a>'
@@ -486,9 +522,6 @@ def _chips():
 
 def _footer(base=""):
     return (f'<footer class="fuss"><div class="fin">'
-            f'<div class="app-btns">'
-            f'<a class="appbtn app-flora" href="https://flora.mibaso.de/">🌼 Flora</a>'
-            f'<a class="appbtn app-fauna" href="https://fauna.mibaso.de/">🦋 Fauna</a></div>'
             f'<div class="echips"><a class="echip" href="{base}ueber/">Über mich</a>'
             f'<a class="echip" href="{base}impressum/">Impressum &amp; Datenschutz</a></div>'
             f'<div class="klein">© 2026 Michael Baur · Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a></div>'
@@ -503,9 +536,10 @@ def write_hub(listing):
         '<a class="happ" href="https://fauna.mibaso.de/">🦋 Fauna</a></div>'
         '<div class="cap"><div class="marke">bio.mibaso</div>'
         '<h1>Lernpfade für Naturentdecker</h1></div></div>'
-        '<p class="lead">Interaktive Lernstationen — zum Erkunden, Verstehen und Ausprobieren. '
-        'Hier findest du die Lernpfade der beiden Mibaso-Apps Flora und Fauna gebündelt an '
-        'einem Ort — ohne Konto, direkt im Browser.</p>'
+        '<p class="lead">Hier findest du deinen Lernort als Ergänzung zu den beiden Mibaso-Apps '
+        '<a href="https://flora.mibaso.de/">Flora</a> und <a href="https://fauna.mibaso.de/">Fauna</a>. '
+        'Interaktive Lernstationen — zum Erkunden, Verstehen und Ausprobieren. '
+        'Fülle deinen Forscherpass mit Leben!</p>'
         '<div class="kacheln">'
         f'<a class="kachel k-flora" href="flora/"><span class="ke">🌼</span>'
         f'<span class="kt">Flora verstehen</span><span class="kb">{nf} Lernpfade zur Welt der Pflanzen</span></a>'
