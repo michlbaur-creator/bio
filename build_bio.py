@@ -443,11 +443,17 @@ CSS = """
   footer.fuss .echip{font-family:var(--sans);font-size:12.5px;color:var(--honig-tief);text-decoration:none;
     border:1px solid var(--honig);border-radius:999px;padding:4px 11px;}
   footer.fuss .echip:hover{background:var(--honig);color:#fff;}
-  footer.fuss .klein{font-family:var(--sans);font-size:12.5px;color:#8a8578;line-height:1.9;}
+  footer.fuss .klein{font-family:var(--sans);font-size:12px;color:#8a8578;line-height:1.8;}
   footer.fuss a{color:var(--honig-tief);}
+  footer.fuss .essenz{font-family:Georgia,serif;font-style:italic;font-size:14px;color:#5c6b60;margin:0 0 12px;}
+  footer.fuss .app-btns{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px;}
+  footer.fuss .appbtn{display:inline-flex;align-items:center;gap:7px;font-family:Georgia,serif;font-size:15px;
+    color:#F7F3E8;text-decoration:none;border-radius:12px;padding:9px 15px;}
+  footer.fuss .app-flora{background:#2F4F3E;} footer.fuss .app-fauna{background:#233D5C;}
+  footer.fuss .appbtn:hover{opacity:.9;}
   .topbar{display:flex;justify-content:flex-end;margin:0 0 12px;}
-  .topbtn{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:13px;font-weight:600;
-    color:var(--honig-tief);background:#fff;border:1px solid var(--honig);border-radius:999px;padding:6px 14px;text-decoration:none;}
+  .topbtn{display:inline-flex;align-items:center;gap:5px;font-family:var(--sans);font-size:12px;font-weight:600;
+    color:var(--honig-tief);background:#fff;border:1px solid var(--honig);border-radius:999px;padding:4px 11px;text-decoration:none;}
   .topbtn:hover{background:var(--honig);color:#fff;}
   .lead a{color:var(--gruen);font-weight:600;text-decoration:none;border-bottom:1.5px solid var(--honig);}
   .anl h2{font-family:Georgia,serif;font-weight:normal;color:var(--gruen);font-size:21px;margin:22px 0 6px;}
@@ -475,30 +481,34 @@ def _chips():
             '<a class="chip" href="https://fauna.mibaso.de/">🦋 Fauna</a></nav>')
 
 def _footer(base=""):
-    return (f'<footer class="fuss"><div class="fin"><div class="echips">'
-            f'<a class="echip" href="{base}ueber/">Über mich</a>'
+    return (f'<footer class="fuss"><div class="fin">'
+            f'<div class="app-btns">'
+            f'<a class="appbtn app-flora" href="https://flora.mibaso.de/">🌼 Flora Mibaso</a>'
+            f'<a class="appbtn app-fauna" href="https://fauna.mibaso.de/">🦋 Fauna Mibaso</a></div>'
+            f'<p class="essenz">Die Essenz aus Flora &amp; Fauna Mibaso für Naturentdecker.</p>'
+            f'<div class="echips"><a class="echip" href="{base}ueber/">Über mich</a>'
             f'<a class="echip" href="{base}impressum/">Impressum &amp; Datenschutz</a></div>'
-            f'<div class="klein">© 2026 Michael Baur · Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a><br>'
-            f'Lernpfade aus Flora &amp; Fauna Mibaso — zusammengestellt für den Biologie-Unterricht.</div>'
+            f'<div class="klein">© 2026 Michael Baur · Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a></div>'
             f'</div></footer>')
 
 def write_hub(listing):
     nf, na = len(listing["flora"]), len(listing["fauna"])
-    body = ('<div class="topbar"><a class="topbtn" href="anleitung.html">📲 App aufs Handy</a></div>'
+    body = ('<div class="topbar"><a class="topbtn" id="installBtn" href="anleitung.html">📱 Als App aufs Handy</a></div>'
         '<div class="hero"><img src="fauna/images/wiese/wiese-sommer.png" alt="Blühende Wiese" '
         'onerror="this.style.display=\'none\'"><div class="cap"><div class="marke">bio.mibaso</div>'
-        '<h1>Lernpfade für den Unterricht</h1></div></div>'
-        '<p class="lead">Interaktive Stationen aus '
-        '<a href="https://flora.mibaso.de/">Flora</a> und '
-        '<a href="https://fauna.mibaso.de/">Fauna</a> Mibaso — zum Erkunden, Verstehen und Selbst-Ausprobieren.</p>'
+        '<h1>Lernpfade für Naturentdecker</h1></div></div>'
+        '<p class="lead">Interaktive Lernstationen aus Flora und Fauna Mibaso — '
+        'zum Erkunden, Verstehen und Ausprobieren.</p>'
         '<div class="kacheln">'
         f'<a class="kachel k-flora" href="flora/"><span class="ke">🌼</span>'
-        f'<span class="kt">Flora Mibaso</span><span class="kb">{nf} Lernpfade rund um die Welt der Pflanzen</span></a>'
+        f'<span class="kt">Flora Mibaso</span><span class="kb">{nf} Lernpfade zur Welt der Pflanzen</span></a>'
         f'<a class="kachel k-fauna" href="fauna/"><span class="ke">🦋</span>'
-        f'<span class="kt">Fauna Mibaso</span><span class="kb">{na} Lernpfade rund um die Welt der Tiere</span></a>'
-        '</div>' + _footer(""))
+        f'<span class="kt">Fauna Mibaso</span><span class="kb">{na} Lernpfade zur Welt der Tiere</span></a>'
+        '</div>' + _footer("") +
+        '<script>if(window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone)'
+        '{var b=document.getElementById("installBtn");if(b)b.style.display="none";}</script>')
     open(os.path.join(BIO, "index.html"), "w", encoding="utf-8").write(
-        _shell("bio.mibaso — Lernpfade für den Unterricht", "#2F4F3E", body))
+        _shell("bio.mibaso — Lernpfade für Naturentdecker", "#2F4F3E", body))
 
 def _pfad(t, fn, col):
     b = "u" if _typ(fn) == "Übersicht" else "l"
