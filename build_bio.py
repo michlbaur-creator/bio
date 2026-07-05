@@ -36,11 +36,11 @@ REPOS = [
     {"key": "flora", "label": "Flora Mibaso", "emoji": "🌼", "akzent": "#2F4F3E",
      "pass": {"href": "pflanzenpass.html", "img": "images/bluetenoekologie.jpg",
               "eyebrow": "Dein Forscherpass", "titel": "Sammle Blätter, werde Flora-Meister",
-              "sub": "Alle sechs Lernpfade an einem Ort — mit deinem Fortschritt."}},
+              "sub": "Alle Lernpfade an einem Ort"}},
     {"key": "fauna", "label": "Fauna Mibaso", "emoji": "🦋", "akzent": "#233D5C",
      "pass": {"href": "interaktiv/wiesenpass.html", "img": "images/wiese/wiese-sommer.png",
               "eyebrow": "Dein Forscherpass", "titel": "Sammle Blätter, werde Wiesen-Meister",
-              "sub": "Alle fünf Pfade an einem Ort — mit deinem Fortschritt."}},
+              "sub": "Alle Lernpfade an einem Ort"}},
 ]
 
 # Thematische Gruppen je Repo: (Überschrift, Farbe, [Dateien]). Farben aus der Hausfarb-
