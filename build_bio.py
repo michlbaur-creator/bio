@@ -519,7 +519,11 @@ def _shell(title, theme, body, akzent=None):
             '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'
             '<meta name="apple-mobile-web-app-title" content="bio.mibaso">'
             f'<style>{CSS}</style></head><body{style}><div class="huelle">{body}</div>'
-            '<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js");'
+            '<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js")'
+            '.then(function(reg){if(reg){reg.update();'
+            'document.addEventListener("visibilitychange",function(){'
+            'if(document.visibilityState==="visible")reg.update();});'
+            'setInterval(function(){reg.update();},60*60*1000);}});'
             'navigator.serviceWorker.addEventListener("controllerchange",function(){'
             'if(window.__reloaded)return;window.__reloaded=true;location.reload();});}</script>'
             '</body></html>')
