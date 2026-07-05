@@ -447,10 +447,10 @@ CSS = """
   footer.fuss a{color:var(--honig-tief);}
   footer.fuss .essenz{font-family:Georgia,serif;font-style:italic;font-size:14px;color:#5c6b60;margin:0 0 12px;}
   footer.fuss .app-btns{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px;}
-  footer.fuss .appbtn{display:inline-flex;align-items:center;gap:7px;font-family:Georgia,serif;font-size:15px;
-    color:#F7F3E8;text-decoration:none;border-radius:12px;padding:9px 15px;}
-  footer.fuss .app-flora{background:#2F4F3E;} footer.fuss .app-fauna{background:#233D5C;}
-  footer.fuss .appbtn:hover{opacity:.9;}
+  footer.fuss .appbtn{display:inline-flex;align-items:center;gap:7px;font-family:var(--sans);font-size:14px;font-weight:600;
+    background:#fff;border:1px solid #d8ccb2;border-radius:999px;padding:7px 15px;text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+  footer.fuss .app-flora{color:#2F4F3E;border-color:#bcd0a0;} footer.fuss .app-fauna{color:#233D5C;border-color:#a9c0dc;}
+  footer.fuss .appbtn:hover{border-color:#8a96a1;}
   .topbar{display:flex;justify-content:flex-end;margin:0 0 12px;}
   .topbtn{display:inline-flex;align-items:center;gap:5px;font-family:var(--sans);font-size:12px;font-weight:600;
     color:var(--honig-tief);background:#fff;border:1px solid var(--honig);border-radius:999px;padding:4px 11px;text-decoration:none;}
@@ -483,8 +483,8 @@ def _chips():
 def _footer(base=""):
     return (f'<footer class="fuss"><div class="fin">'
             f'<div class="app-btns">'
-            f'<a class="appbtn app-flora" href="https://flora.mibaso.de/">🌼 Flora Mibaso</a>'
-            f'<a class="appbtn app-fauna" href="https://fauna.mibaso.de/">🦋 Fauna Mibaso</a></div>'
+            f'<a class="appbtn app-flora" href="https://flora.mibaso.de/">🌼 Flora</a>'
+            f'<a class="appbtn app-fauna" href="https://fauna.mibaso.de/">🦋 Fauna</a></div>'
             f'<p class="essenz">Die Essenz aus Flora &amp; Fauna Mibaso für Naturentdecker.</p>'
             f'<div class="echips"><a class="echip" href="{base}ueber/">Über mich</a>'
             f'<a class="echip" href="{base}impressum/">Impressum &amp; Datenschutz</a></div>'
@@ -497,7 +497,9 @@ def write_hub(listing):
         '<div class="hero"><img src="fauna/images/wiese/wiese-sommer.png" alt="Blühende Wiese" '
         'onerror="this.style.display=\'none\'"><div class="cap"><div class="marke">bio.mibaso</div>'
         '<h1>Lernpfade für Naturentdecker</h1></div></div>'
-        '<p class="lead">Interaktive Lernstationen aus Flora und Fauna Mibaso — '
+        '<p class="lead">Interaktive Lernstationen aus '
+        '<a href="https://flora.mibaso.de/">Flora</a> und '
+        '<a href="https://fauna.mibaso.de/">Fauna</a> Mibaso — '
         'zum Erkunden, Verstehen und Ausprobieren.</p>'
         '<div class="kacheln">'
         f'<a class="kachel k-flora" href="flora/"><span class="ke">🌼</span>'
