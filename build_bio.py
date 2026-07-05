@@ -456,6 +456,10 @@ CSS = """
     color:var(--honig-tief);background:#fff;border:1px solid var(--honig);border-radius:999px;padding:4px 11px;text-decoration:none;}
   .topbtn:hover{background:var(--honig);color:#fff;}
   .lead a{color:var(--gruen);font-weight:600;text-decoration:none;border-bottom:1.5px solid var(--honig);}
+  .hero-apps{position:absolute;top:10px;right:10px;display:flex;gap:7px;z-index:2;}
+  .hero-apps .happ{display:inline-flex;align-items:center;gap:5px;font-family:var(--sans);font-size:12.5px;font-weight:600;
+    color:#26312b;background:rgba(255,255,255,.93);border-radius:999px;padding:5px 11px;text-decoration:none;box-shadow:0 1px 5px rgba(20,30,20,.28);}
+  .hero-apps .happ:hover{background:#fff;}
   .anl h2{font-family:Georgia,serif;font-weight:normal;color:var(--gruen);font-size:21px;margin:22px 0 6px;}
   .anl ol{font-family:var(--sans);font-size:15px;padding-left:22px;margin:6px 0;} .anl li{margin:6px 0;}
   .anl .tipp{font-family:var(--sans);font-size:13px;color:#6b5340;background:var(--creme-tief);border-radius:10px;padding:10px 13px;margin:10px 0 0;}
@@ -485,7 +489,6 @@ def _footer(base=""):
             f'<div class="app-btns">'
             f'<a class="appbtn app-flora" href="https://flora.mibaso.de/">🌼 Flora</a>'
             f'<a class="appbtn app-fauna" href="https://fauna.mibaso.de/">🦋 Fauna</a></div>'
-            f'<p class="essenz">Die Essenz aus Flora &amp; Fauna Mibaso für Naturentdecker.</p>'
             f'<div class="echips"><a class="echip" href="{base}ueber/">Über mich</a>'
             f'<a class="echip" href="{base}impressum/">Impressum &amp; Datenschutz</a></div>'
             f'<div class="klein">© 2026 Michael Baur · Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a></div>'
@@ -495,17 +498,19 @@ def write_hub(listing):
     nf, na = len(listing["flora"]), len(listing["fauna"])
     body = ('<div class="topbar"><a class="topbtn" id="installBtn" href="anleitung.html">📱 Als App aufs Handy</a></div>'
         '<div class="hero"><img src="fauna/images/wiese/wiese-sommer.png" alt="Blühende Wiese" '
-        'onerror="this.style.display=\'none\'"><div class="cap"><div class="marke">bio.mibaso</div>'
+        'onerror="this.style.display=\'none\'">'
+        '<div class="hero-apps"><a class="happ" href="https://flora.mibaso.de/">🌼 Flora</a>'
+        '<a class="happ" href="https://fauna.mibaso.de/">🦋 Fauna</a></div>'
+        '<div class="cap"><div class="marke">bio.mibaso</div>'
         '<h1>Lernpfade für Naturentdecker</h1></div></div>'
-        '<p class="lead">Interaktive Lernstationen aus '
-        '<a href="https://flora.mibaso.de/">Flora</a> und '
-        '<a href="https://fauna.mibaso.de/">Fauna</a> Mibaso — '
-        'zum Erkunden, Verstehen und Ausprobieren.</p>'
+        '<p class="lead">Interaktive Lernstationen — zum Erkunden, Verstehen und Ausprobieren. '
+        'Hier findest du die Lernpfade der beiden Mibaso-Apps Flora und Fauna gebündelt an '
+        'einem Ort — ohne Konto, direkt im Browser.</p>'
         '<div class="kacheln">'
         f'<a class="kachel k-flora" href="flora/"><span class="ke">🌼</span>'
-        f'<span class="kt">Flora Mibaso</span><span class="kb">{nf} Lernpfade zur Welt der Pflanzen</span></a>'
+        f'<span class="kt">Flora verstehen</span><span class="kb">{nf} Lernpfade zur Welt der Pflanzen</span></a>'
         f'<a class="kachel k-fauna" href="fauna/"><span class="ke">🦋</span>'
-        f'<span class="kt">Fauna Mibaso</span><span class="kb">{na} Lernpfade zur Welt der Tiere</span></a>'
+        f'<span class="kt">Fauna verstehen</span><span class="kb">{na} Lernpfade zur Welt der Tiere</span></a>'
         '</div>' + _footer("") +
         '<script>if(window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone)'
         '{var b=document.getElementById("installBtn");if(b)b.style.display="none";}</script>')
