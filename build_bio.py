@@ -43,8 +43,10 @@ REPOS = [
               "sub": "Alle Lernpfade an einem Ort"}},
 ]
 
-# Thematische Gruppen je Repo: (Überschrift, Farbe, [Dateien]). Farben aus der Hausfarb-
-# Palette (Schiefer / Teal / Korall). Nicht zugeordnete Pfade landen unter „Mehr entdecken".
+# Thematische Gruppen je Repo: (Überschrift, Farbe, [Dateien]). Seit dem Fauna-Stil-
+# Umbau (Juli 2026) werden die Farben NICHT mehr benutzt: Gruppen-Titel sind einheitlich
+# Honiggold-Kapitälchen mit feiner Linie, Icons tragen die Seiten-Akzentfarbe.
+# Nicht zugeordnete Pfade landen unter „Mehr entdecken".
 GROUPS = {
     "flora": [
         ("Aufbau & Wachstum", "#5A6B7A",
@@ -414,7 +416,7 @@ jobs:
 
 CSS = """
   :root{--gruen:#2F4F3E;--blau:#233D5C;--creme:#F7F3E8;--creme-tief:#EEE7D5;--pergament:#EDE3CC;
-    --honig:#C28A3A;--honig-tief:#a9762c;--orange:#C4603A;--linie:#d8ccb2;--tinte:#26312b;--akzent:#2F4F3E;
+    --honig:#C28A3A;--honig-tief:#a9762c;--orange:#C4603A;--linie:#d7cfba;--tinte:#26312b;--akzent:#2F4F3E;
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html{-webkit-text-size-adjust:100%;}
@@ -456,8 +458,8 @@ CSS = """
   .badge-l{background:#e7efe4;color:#3a5f4a;} .badge-u{background:#efe6d2;color:#8a6a2e;}
   .pfad .pic{flex:0 0 auto;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
   .pfad .pic svg{width:19px;height:19px;}
-  .gt{font-family:Georgia,serif;font-weight:normal;font-size:21px;color:var(--gc);margin:26px 0 12px 2px;}
-  .gt::after{content:"";display:block;width:42px;height:3px;border-radius:2px;background:var(--gc);margin-top:8px;}
+  .gt{font-family:var(--sans);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--honig);font-weight:700;margin:26px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--linie);}
   .aktion-banner{display:flex;align-items:center;gap:14px;margin:6px 0 8px;text-decoration:none;
     background:#fff;border:1px solid var(--linie);border-left:4px solid var(--honig);border-radius:14px;
     padding:12px 14px;color:var(--akzent);box-shadow:0 2px 10px rgba(0,0,0,.06);transition:transform .12s,border-color .15s;}
@@ -573,15 +575,15 @@ def write_sub(r, items):
     by_fn = {fn: t for t, fn in items}
     used, sections = set(), []
     for gt, col, fns in GROUPS.get(key, []):
-        rows = [_pfad(by_fn[fn], fn, col) for fn in fns if fn in by_fn]
+        rows = [_pfad(by_fn[fn], fn, r["akzent"]) for fn in fns if fn in by_fn]
         used.update(fn for fn in fns if fn in by_fn)
         if rows:
-            sections.append(f'<h2 class="gt" style="--gc:{col}">{html.escape(gt)}</h2>'
+            sections.append(f'<h2 class="gt">{html.escape(gt)}</h2>'
                             f'<div class="liste">{"".join(rows)}</div>')
     rest = [(t, fn) for t, fn in items if fn not in used]
     if rest:
-        rows = "".join(_pfad(t, fn, "#5F5E5A") for t, fn in rest)
-        sections.append('<h2 class="gt" style="--gc:#5F5E5A">Mehr entdecken</h2>'
+        rows = "".join(_pfad(t, fn, r["akzent"]) for t, fn in rest)
+        sections.append('<h2 class="gt">Mehr entdecken</h2>'
                         f'<div class="liste">{rows}</div>')
     banner = _pass_banner(r["pass"]) if r.get("pass") else ""
     body = ('<div class="subkopf"><a class="zurueck" href="../index.html">‹ bio.mibaso</a></div>'
