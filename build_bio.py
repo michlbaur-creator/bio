@@ -158,6 +158,12 @@ def rewrite_links(txt):
     # Andere App-Rücklinks auf dieselbe Unterseite biegen.
     for a in ("../bestimmen.html", "../quiz/", "../interaktiv/"):
         txt = txt.replace('href="' + a + '"', 'href="../index.html"')
+    # In bio existieren weder der arten/-Ordner noch die „Warum/Staunen"-Tafeln
+    # (siehe EXCLUDE). „Absprung"-Buttons in den Lernpfad-Daten, die dorthin
+    # zeigen, würden ins Leere führen — hier für bio herausnehmen (Fauna behält sie).
+    # Trifft absprung:{...} und absprung2:{...} mit url auf ../arten/… oder staunen-…
+    txt = re.sub(r'\s*absprung2?:\{[^}]*url:"[^"]*(?:\.\./arten/|staunen-)[^"]*"\},',
+                 '', txt)
     return txt
 
 def copytree(src, dst):
