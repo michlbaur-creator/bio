@@ -15,7 +15,8 @@
   .hero img{display:block;width:100%;height:clamp(160px,32vw,250px);object-fit:cover;}
   .hero .cap{position:absolute;left:0;right:0;bottom:0;padding:18px;
     background:linear-gradient(transparent,rgba(18,28,20,.74));color:#fff;}
-  .hero .marke{font-family:var(--sans);font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;opacity:.92;}
+  .hero .marke{font-family:var(--sans);font-size:clamp(19px,5vw,26px);font-weight:800;
+    letter-spacing:.04em;color:#FFD86B;text-shadow:0 1px 6px rgba(0,0,0,.55);margin-bottom:2px;}
   .hero h1{font-family:Georgia,serif;font-weight:normal;font-size:clamp(24px,6vw,34px);margin:2px 0 0;color:#fff;}
   .lead{font-family:var(--sans);font-size:14.5px;color:#5c6b60;text-align:center;max-width:48ch;margin:14px auto 22px;}
   .kacheln{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
@@ -54,7 +55,7 @@
   .aktion-banner strong{display:block;font-size:1.1rem;font-weight:normal;margin:2px 0;line-height:1.15;}
   .ab-sub{display:block;font-family:var(--sans);font-size:12.5px;color:#6f7b86;line-height:1.35;}
   .ab-pf{margin-left:auto;color:var(--honig);font-size:20px;flex:0 0 auto;}
-  footer.fuss{background:#fff;border:1px solid var(--linie);border-top:3px solid var(--orange);margin-top:34px;
+  footer.fuss{background:#fff;border:1px solid var(--linie);margin-top:34px;
     padding:18px;padding-bottom:max(22px,calc(env(safe-area-inset-bottom) + 14px));border-radius:14px;}
   footer.fuss .fin{max-width:640px;margin:0 auto;}
   footer.fuss .echips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}

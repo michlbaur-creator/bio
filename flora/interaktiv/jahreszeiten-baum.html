@@ -43,7 +43,8 @@
     overflow:hidden;
     box-shadow:0 2px 8px rgba(47,79,62,.08);
   }
-  .buehne{ display:block; width:100%; height:auto; }
+  .buehne{ position:relative; width:100%; aspect-ratio:4/3; background:#26312b; }
+  .buehne img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
 
   /* ---------- Schieberegler ---------- */
   .regler{ padding:16px 22px 4px; border-top:1px solid var(--linie); }
@@ -154,41 +155,19 @@
   box-shadow:0 3px 12px rgba(194,138,58,.35);}
 .pi-los:hover{background:#a9762c;}
 @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
-</style><div class="pfad-intro" id="pfadIntro"><div class="pi-inner"><img class="pi-foto" src="../images/fotos/muscari-botryoides-1.jpg" alt="" onerror="this.style.display='none'"><div class="pi-eyebrow">🌼 Flora Mibaso · Lernpfad</div><h1 class="pi-titel">Ein Jahr im Apfelbaum</h1><p class="pi-lead">Frühling, Sommer, Herbst, Winter — ein Jahr im Leben eines Apfelbaums.</p><button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button></div></div>
+</style><div class="pfad-intro" id="pfadIntro"><div class="pi-inner"><img class="pi-foto" src="../images/fotos/apfelbaum-intro.jpg" alt="" onerror="this.style.display='none'"><div class="pi-eyebrow">🌼 Flora Mibaso · Lernpfad</div><h1 class="pi-titel">Ein Jahr im Apfelbaum</h1><p class="pi-lead">Frühling, Sommer, Herbst, Winter — ein Jahr im Leben eines Apfelbaums.</p><button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button></div></div>
 <a class="back" href="../pflanzenpass.html" style="display:inline-block;margin:12px 14px 0;color:#6b5340;text-decoration:none;font-size:.95rem;">‹ Zurück zur Übersicht</a>
 
 <main>
   <div class="karte">
-    <svg class="buehne" id="svg" viewBox="0 0 900 560" role="img"
-         aria-label="Grafik eines Apfelbaums, der sich mit dem Schieberegler durch das Jahr verändert: Knospen, Blüten, Blätter, Früchte und Laubfall.">
-      <rect id="himmel" x="0" y="0" width="900" height="480" fill="#EDF2F0"/>
-      <circle id="sonne" cx="780" cy="90" r="38" fill="#F2D98B" opacity=".8"/>
-      <rect id="boden" x="0" y="480" width="900" height="80" fill="#A8BC8A"/>
-      <line x1="0" y1="480" x2="900" y2="480" stroke="#8FA876" stroke-width="3"/>
-
-      <!-- Stamm und Äste -->
-      <g stroke="#6E513B" fill="none" stroke-linecap="round">
-        <path d="M450,482 C 446,420 452,380 448,330" stroke-width="26"/>
-        <path d="M448,360 C 410,330 370,300 340,265" stroke-width="13"/>
-        <path d="M448,345 C 490,310 530,290 575,265" stroke-width="13"/>
-        <path d="M448,332 C 440,290 435,250 430,215" stroke-width="11"/>
-        <path d="M340,265 C 320,250 305,240 330,250" stroke-width="7"/>
-        <path d="M430,215 C 410,195 470,200 490,185" stroke-width="7"/>
-        <path d="M575,265 C 595,255 605,250 600,268" stroke-width="7"/>
-      </g>
-
-      <!-- vom Skript gefüllte Ebenen -->
-      <g id="g-blaetter"></g>
-      <g id="g-knospen"></g>
-      <g id="g-blueten"></g>
-      <g id="g-fruechte"></g>
-      <g id="g-fallend" opacity="0"></g>
-      <g id="g-schnee" opacity="0">
-        <ellipse cx="450" cy="484" rx="240" ry="10" fill="#FFFFFF" opacity=".85"/>
-        <ellipse cx="150" cy="492" rx="120" ry="8" fill="#FFFFFF" opacity=".7"/>
-        <ellipse cx="760" cy="492" rx="110" ry="8" fill="#FFFFFF" opacity=".7"/>
-      </g>
-    </svg>
+    <div class="buehne" id="buehne" role="img"
+         aria-label="Ein Apfelbaum im Lauf des Jahres — mit dem Schieberegler von Winter über Frühling und Sommer bis zum Herbst.">
+      <img src="../images/apfelbaum/winter.jpg"    alt="Apfelbaum im Winter, kahl" style="opacity:1"  onerror="this.style.display='none'">
+      <img src="../images/apfelbaum/fruehling.jpg" alt="Apfelbaum in der Blüte im Frühling" style="opacity:0" onerror="this.style.display='none'">
+      <img src="../images/apfelbaum/sommer.jpg"    alt="Apfelbaum mit Blättern und Äpfeln im Sommer" style="opacity:0" onerror="this.style.display='none'">
+      <img src="../images/apfelbaum/herbst.jpg"    alt="Apfelbaum im Herbst mit buntem Laub und Fallobst" style="opacity:0" onerror="this.style.display='none'">
+      <img src="../images/apfelbaum/winter.jpg"    alt="Apfelbaum im Winter, kahl" style="opacity:0" onerror="this.style.display='none'">
+    </div>
 
     <div class="regler">
       <p class="monat">Monat: <strong id="monat">Januar</strong></p>
@@ -212,78 +191,14 @@
 
 <script>
 (function(){
-  /* ---------- Hilfsfunktionen ---------- */
+  /* ---------- Hilfsfunktion ---------- */
   function clamp01(x){ return Math.max(0, Math.min(1, x)); }
-  function rampe(t, a, b){ return clamp01((t - a) / (b - a)); }
-  function mischeFarbe(h1, h2, t){
-    var a = parseInt(h1.slice(1), 16), b = parseInt(h2.slice(1), 16);
-    var r = Math.round(((a>>16)&255) + (((b>>16)&255) - ((a>>16)&255)) * t);
-    var g = Math.round(((a>>8)&255)  + (((b>>8)&255)  - ((a>>8)&255))  * t);
-    var bl= Math.round((a&255)       + ((b&255)       - (a&255))       * t);
-    return "rgb(" + r + "," + g + "," + bl + ")";
-  }
-  var NS = "http://www.w3.org/2000/svg";
-  function el(name, attrs, parent){
-    var e = document.createElementNS(NS, name);
-    for (var k in attrs) e.setAttribute(k, attrs[k]);
-    parent.appendChild(e);
-    return e;
-  }
 
-  /* ---------- Positionen in der Baumkrone ---------- */
-  var krone = [
-    [330,255],[300,232],[365,205],[420,180],[470,168],[520,182],
-    [575,210],[610,255],[585,305],[535,330],[480,345],[425,340],
-    [370,318],[335,290],[455,300],[505,280],[400,250],[545,250],
-    [445,220],[355,260]
-  ];
-  var zweigspitzen = [
-    [302,238],[332,250],[368,208],[428,185],[490,172],[548,196],
-    [600,250],[605,270],[455,200],[395,225],[520,235],[350,275]
-  ];
-  var fruchtplaetze = [
-    [350,270],[415,235],[480,205],[545,240],[580,290],[455,310],
-    [385,300],[515,310]
-  ];
-
-  /* ---------- Elemente erzeugen ---------- */
-  var blaetter = krone.map(function(p, i){
-    return el("ellipse", {
-      cx:p[0], cy:p[1], rx:40, ry:30,
-      transform:"rotate(" + ((i*37)%50 - 25) + " " + p[0] + " " + p[1] + ")"
-    }, document.getElementById("g-blaetter"));
-  });
-
-  var knospen = zweigspitzen.map(function(p){
-    return el("circle", { cx:p[0], cy:p[1], r:4, fill:"#9C4A3C", stroke:"#6E2F26", "stroke-width":1 },
-      document.getElementById("g-knospen"));
-  });
-
-  var blueten = zweigspitzen.map(function(p){
-    var g = el("g", { transform:"translate(" + p[0] + " " + p[1] + ")" },
-      document.getElementById("g-blueten"));
-    for (var w = 0; w < 5; w++){
-      var a = w / 5 * Math.PI * 2;
-      el("circle", { cx:Math.cos(a)*6, cy:Math.sin(a)*6, r:5, fill:"#FBE6EA", stroke:"#E2A7B4", "stroke-width":1 }, g);
-    }
-    el("circle", { cx:0, cy:0, r:3, fill:"#E3B23C" }, g);
-    return g;
-  });
-
-  var fruechte = fruchtplaetze.map(function(p, i){
-    var g = el("g", {}, document.getElementById("g-fruechte"));
-    var apfel = el("circle", { cx:p[0], cy:p[1], r:5 }, g);
-    el("line", { x1:p[0], y1:p[1]-5, x2:p[0], y2:p[1]-11, stroke:"#6E513B", "stroke-width":2 }, g);
-    return { g:g, apfel:apfel, x:p[0], y:p[1], d:(i%4) * 2.2 };
-  });
-
-  /* fallende Blätter */
-  var fallend = document.getElementById("g-fallend");
-  [[360,260],[430,230],[500,210],[555,260],[470,300],[395,290]].forEach(function(p, i){
-    var L = el("ellipse", { cx:p[0], cy:p[1], rx:9, ry:5, fill:"#C77A35", "class":"fallblatt" }, fallend);
-    L.style.animationDelay = (i * 0.8) + "s";
-    L.style.animationDuration = (4.4 + i * 0.5) + "s";
-  });
+  /* ---------- Jahreszeiten-Fotos (Cross-Fade mit dem Schieber) ---------- */
+  var fotos = Array.prototype.slice.call(document.querySelectorAll("#buehne img"));
+  /* Chronologische Mittelpunkte im Jahr (0–100):
+     Winter → Frühling → Sommer → Herbst → Winter (fünf Bilder, Winter am Anfang und Ende) */
+  var zentren = [0, 33, 62, 85, 100];
 
   /* ---------- Texte ---------- */
   var phasen = [
@@ -316,66 +231,16 @@
   function male(){
     var t = parseFloat(slider.value);
 
-    /* Winteranteil (Anfang und Ende des Jahres) */
-    var winter = Math.max(1 - rampe(t, 4, 14), rampe(t, 90, 99));
-
-    /* Himmel, Sonne, Boden, Schnee */
-    document.getElementById("himmel").setAttribute("fill", mischeFarbe("#F4F8EA", "#EDF2F0", winter));
-    document.getElementById("sonne").setAttribute("opacity", 0.35 + 0.55 * (1 - winter));
-    document.getElementById("boden").setAttribute("fill", mischeFarbe("#A8BC8A", "#E9EDE6", winter));
-    document.getElementById("g-schnee").setAttribute("opacity", rampe(winter, 0.55, 1));
-
-    /* Knospen: erscheinen im Vorfrühling, gehen in Blüten über */
-    var kAuf = rampe(t, 8, 16), kZu = 1 - rampe(t, 26, 34);
-    knospen.forEach(function(k, i){
-      var o = Math.min(kAuf, kZu);
-      k.setAttribute("opacity", o);
-      k.setAttribute("r", 2.5 + 3 * rampe(t, 8, 24) );
+    /* Die zwei benachbarten Jahreszeiten-Fotos ineinander überblenden.
+       seg = linkes Bild, seg+1 = rechtes Bild, f = Übergang 0…1. Bilder bis
+       einschließlich seg bleiben voll deckend (liegen darunter), seg+1 wird
+       mit f eingeblendet, spätere Bilder sind unsichtbar. */
+    var seg = 0;
+    while (seg < zentren.length - 2 && t > zentren[seg + 1]) seg++;
+    var f = clamp01((t - zentren[seg]) / (zentren[seg + 1] - zentren[seg]));
+    fotos.forEach(function(img, i){
+      img.style.opacity = (i <= seg) ? 1 : (i === seg + 1 ? f : 0);
     });
-
-    /* Blüten: kurze, prächtige Phase */
-    var bAuf = rampe(t, 24, 31), bZu = 1 - rampe(t, 40, 48);
-    blueten.forEach(function(b, i){
-      var vers = (i % 3) * 1.5;
-      var o = Math.min(rampe(t, 24 + vers, 31 + vers), bZu);
-      b.setAttribute("opacity", o);
-    });
-
-    /* Blätter: Farbe und Deckkraft */
-    var frisch = "#8AB868", sommer = "#4F7E3E", herbst1 = "#D9913C", herbst2 = "#B65C2B";
-    blaetter.forEach(function(b, i){
-      var vers = (i % 5) - 2; /* leichte Streuung */
-      var auf = rampe(t, 30 + vers, 42 + vers);
-      var ab  = 1 - rampe(t, 84 + vers, 95 + vers);
-      b.setAttribute("opacity", Math.min(auf, ab));
-      var farbe;
-      if (t < 58){
-        farbe = mischeFarbe(frisch, sommer, rampe(t, 34, 58));
-      } else {
-        var h = rampe(t, 70 + vers, 88 + vers);
-        farbe = mischeFarbe(sommer, (i % 2 ? herbst1 : herbst2), h);
-      }
-      b.setAttribute("fill", farbe);
-    });
-
-    /* Früchte: wachsen, färben sich, fallen */
-    fruechte.forEach(function(f){
-      var auf = rampe(t, 44 + f.d * 0.5, 52 + f.d * 0.5);
-      var weg = 1 - rampe(t, 90, 96);
-      f.g.setAttribute("opacity", Math.min(auf, weg));
-      f.apfel.setAttribute("r", 4 + 8 * rampe(t, 46, 76));
-      f.apfel.setAttribute("fill", mischeFarbe("#7FA85A", "#C84B3A", rampe(t, 56, 76)));
-      f.apfel.setAttribute("stroke", "#7E3A2D");
-      f.apfel.setAttribute("stroke-width", 1);
-      /* Fallen im Herbst */
-      var fall = rampe(t, 78 + f.d, 86 + f.d);
-      var dy = (472 - f.y) * fall * fall; /* beschleunigt nach unten */
-      f.g.setAttribute("transform", "translate(0 " + dy.toFixed(1) + ")");
-    });
-
-    /* fallende Blätter nur im Herbst zeigen */
-    var laubfall = Math.min(rampe(t, 80, 85), 1 - rampe(t, 93, 97));
-    fallend.setAttribute("opacity", laubfall);
 
     /* Monat */
     monatEl.textContent = monate[Math.min(11, Math.floor(t / 100 * 12))];
