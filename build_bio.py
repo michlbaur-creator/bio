@@ -227,6 +227,15 @@ def build():
     copytree(os.path.join(ROOT, "flora", "ueber"),     os.path.join(BIO, "ueber"))
     copytree(os.path.join(ROOT, "flora", "impressum"), os.path.join(BIO, "impressum"))
     copytree(os.path.join(ROOT, "flora", "anleitung"), os.path.join(BIO, "anleitung"))
+    # bio-eigener Über-mich-Schlusssatz (statt Flora-Version) + Namens-Korrekturen
+    _uidx = os.path.join(BIO, "ueber", "index.html")
+    if os.path.isfile(_uidx):
+        _u = open(_uidx, encoding="utf-8").read()
+        _u = _u.replace(
+            "Möge sie als digitaler Kompass durch die wunderbare Welt der Botanik dienen. Viel Spaß beim virtuellen Botanisieren! 😉",
+            "Ich hoffe, diese App bietet dir eine spannende Entdeckungsreise durch die Welt der Pflanzen und Tiere. Klick dich durch die Pfade und werde selbst zum Natur-Experten! 😉")
+        _u = _u.replace("Flora Mibaso", "bio.mibaso")
+        open(_uidx, "w", encoding="utf-8").write(_u)
     # Flora-Forscherpass liegt in der Flora-Wurzel (nicht in interaktiv/) → gezielt
     # nach bio/flora/ kopieren, dazu das Banner-Bild der Flora-Unterseite.
     _fpass = os.path.join(ROOT, "flora", "pflanzenpass.html")

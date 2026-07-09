@@ -31,9 +31,14 @@
   .back{display:inline-block;margin-bottom:18px;color:var(--blau);text-decoration:none;
     font-family:var(--sans);font-size:.95rem;font-weight:600;}
   .back:hover{text-decoration:underline;}
-  .portrait-wrap{width:100%;aspect-ratio:16/10;background:var(--creme-tief);border-radius:16px;
-    overflow:hidden;margin-bottom:24px;box-shadow:0 3px 14px rgba(35,61,92,.10);position:relative;}
+  .portrait-wrap{max-width:300px;margin:0 auto 26px;aspect-ratio:3/4;background:var(--creme-tief);border-radius:16px;
+    overflow:hidden;box-shadow:0 3px 14px rgba(35,61,92,.10);position:relative;}
   .portrait-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+  .frage{font-size:1.3rem;font-weight:600;color:var(--blau);margin:0 0 12px;}
+  .strand-wrap{width:100%;aspect-ratio:16/10;border-radius:16px;overflow:hidden;margin:28px 0 6px;
+    box-shadow:0 3px 14px rgba(35,61,92,.10);background:var(--creme-tief);}
+  .strand-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+  .bildunterschrift{text-align:center;font-style:italic;font-size:.9rem;color:#6f7b86;margin:8px 0 0;}
   .portrait-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
     color:#6f7b86;font-style:italic;font-size:.95rem;text-align:center;padding:20px;}
   .bio p{margin:0 0 14px;}
@@ -70,7 +75,7 @@
   <a class="back" href="../">‹ Zurück zur Startseite</a>
 
   <div class="portrait-wrap">
-    <img src="../images/portrait-logo.jpg" alt="Michael Baur mit Hund am Strand" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <img src="../images/portrait-garten.jpg" alt="Michael Baur im Garten" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
     <div class="portrait-fallback" style="display:none">
       Hier kannst du dein Porträtfoto einfügen<br>
       (lege es als <code>images/portrait-logo.jpg</code> ab)
@@ -78,16 +83,20 @@
   </div>
 
   <div class="bio">
-    <p>35 Jahre lang arbeitete ich als Biologielehrer an der Gesamtschule Hungen. Außerdem war ich für das Land Hessen in der Redaktion des Hessischen Bildungsservers und als Fachberater für Medienkompetenz tätig.</p>
+    <h2 class="frage">Wer steckt dahinter?</h2>
+    <p>Drei Jahrzehnte Biologie, Chemie und Kreidestaub an der Gesamtschule Hungen waren der Anfang. Um die Jahrtausendwende obsiegte die digitale Neugier: Ab 2001 ging es als Fachberater für Medienkompetenz und Redakteur beim Hessischen Bildungsserver in die Online-Welt.</p>
 
-    <p>Auch im Ruhestand ist meine Begeisterung für Natur, Fotografie und neue Medien ungebrochen. Heute bleibt endlich Zeit für Projekte, die im Berufsalltag oft zu kurz kamen: beobachten, fotografieren, gestalten, erklären und Neues ausprobieren.</p>
+    <p>Inzwischen bin ich im offiziellen „Unruhestand“ angekommen – was im Klartext bedeutet: Endlich Zeit für all die Projekte, die schon viel zu lange in der Warteschleife hingen!</p>
 
-    <p>So entstanden nach und nach <a href="https://mibaso.de/" target="_blank" rel="noopener">mibaso.de</a>, <a href="https://flora.mibaso.de/" target="_blank" rel="noopener">flora.mibaso.de</a>, <a href="https://fauna.mibaso.de/" target="_blank" rel="noopener">fauna.mibaso.de</a>, kleine Lern-Apps, Quizideen und naturkundliche Materialien für Interessierte, Schulen, Exkursionen und für meine VHS-Kurse.</p>
+    <p>Neben meinen ehrenamtlichen Coachings für Neue Medien und meiner Tätigkeit als VHS-Kursleiter gehört dazu nun auch die Entwicklung dieser App – ein Versuch, Wissen, Neugier und ein bisschen Freude am Entdecken zusammenzubringen.</p>
 
-    <p>Diese App ist handgeprüft, aber nicht handgeschnitzt: Einige Inhalte entstanden mit KI-Unterstützung und wurden anschließend von mir überarbeitet.</p>
-
-    <p>Mehr Projekte und Material gibt es auf <a href="https://mibaso.de/" target="_blank" rel="noopener">mibaso.de</a>.</p>
+    <p>Möge sie der Einen oder dem Anderen als digitaler Feldstecher für die heimische Tierwelt dienen. Klick dich schlau! 😉</p>
   </div>
+
+  <div class="strand-wrap">
+    <img src="../images/portrait-logo.jpg" alt="Michael Baur mit Hund am Strand" loading="lazy">
+  </div>
+  <p class="bildunterschrift">Draußen unterwegs – am liebsten mit Hund und Kamera.</p>
 
   <a class="webseite-banner" href="https://mibaso.de/" target="_blank" rel="noopener" aria-label="Zu meiner Website mibaso.de">
     <img src="../images/mibaso-banner.jpg" alt="Meine neue Webseite – mibaso.de: Rezepte, Makrofotos, VHS-Materialien">
