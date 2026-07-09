@@ -120,6 +120,26 @@ def _excluded(key, fn):
     return (fn.endswith("-flyer.html") or fn.startswith("staunen-")
             or fn in EXCLUDE or f"{key}/{fn}" in EXCLUDE)
 
+# --- Forscherpass-Pfade („Expedition") wohnen seit Juli 2026 NUR in bio -----------
+# flora/fauna enthalten dafür nur noch schlanke Weiterleitungen. Diese Dateien werden
+# deshalb NICHT mehr aus der Quelle kopiert (sonst überschrieben die Weiterleitungs-
+# Stubs die bio-Master), aber weiterhin auf der bio-Startseite gelistet. Titel/Inhalt
+# kommen dann direkt aus den bio-Dateien. Der Forscherpass selbst (pflanzenpass.html /
+# wiesenpass.html) ebenso — er wird unten NICHT mehr kopiert.
+# WICHTIG: bei einem kompletten Neubau bio/flora & bio/fauna NICHT komplett leeren,
+# sonst gehen diese Master verloren.
+NATIVE_LIST = {
+    "flora": ["pflanze-verstehen.html", "bluete-zoom.html", "bestaeubung-erklaerung.html",
+              "jahreszeiten-baum.html", "pflanzenstrategien.html", "pflanzen-energie.html"],
+    "fauna": ["verwandlung.html", "bestaeubung.html", "lebensraum.html",
+              "nahrungsnetz.html", "wiese-lebt.html"],
+}
+# beim Kopieren zu überspringen: die Expeditions-Pfade + der Forscherpass selbst
+NATIVE_SKIP = {
+    "flora": set(NATIVE_LIST["flora"]),
+    "fauna": set(NATIVE_LIST["fauna"]) | {"wiesenpass.html"},
+}
+
 # Stimmige Reihenfolge je Repo (nicht gelistete kommen alphabetisch danach).
 ORDER = {
     "flora": ["pflanze-erklaerung.html", "pflanze-verstehen.html", "pflanzen-energie.html",
@@ -172,8 +192,9 @@ def copytree(src, dst):
 
 def build():
     # Kein Vorab-Löschen (im verbundenen Ordner nicht erlaubt) — Dateien werden
-    # überschrieben. Für einen komplett sauberen Neubau bio/flora & bio/fauna
-    # vorher von Hand leeren.
+    # überschrieben. ACHTUNG: bio/flora & bio/fauna NICHT komplett leeren! Dort liegen
+    # die einzigen Master der Forscherpass-Pfade (siehe NATIVE_LIST) — sie würden sonst
+    # unwiederbringlich verschwinden.
     os.makedirs(BIO, exist_ok=True)
 
     listing = {r["key"]: [] for r in REPOS}
@@ -195,6 +216,7 @@ def build():
         for fn in sorted(os.listdir(src_inter)):
             if not fn.endswith(".html"): continue
             if _excluded(key, fn): continue     # aus bio ganz raus
+            if fn in NATIVE_SKIP.get(key, ()): continue  # lebt nativ in bio, nicht überkopieren
             raw = open(os.path.join(src_inter, fn), encoding="utf-8").read()
 
             # Bilder gezielt kopieren
@@ -236,11 +258,9 @@ def build():
             "Ich hoffe, diese App bietet dir eine spannende Entdeckungsreise durch die Welt der Pflanzen und Tiere. Klick dich durch die Pfade und werde selbst zum Natur-Experten! 😉")
         _u = _u.replace("Flora Mibaso", "bio.mibaso")
         open(_uidx, "w", encoding="utf-8").write(_u)
-    # Flora-Forscherpass liegt in der Flora-Wurzel (nicht in interaktiv/) → gezielt
-    # nach bio/flora/ kopieren, dazu das Banner-Bild der Flora-Unterseite.
-    _fpass = os.path.join(ROOT, "flora", "pflanzenpass.html")
-    if os.path.isfile(_fpass):
-        shutil.copy2(_fpass, os.path.join(BIO, "flora", "pflanzenpass.html"))
+    # Der Flora-Forscherpass (pflanzenpass.html) wird NICHT mehr aus der Quelle kopiert –
+    # er lebt jetzt nativ in bio (flora/ enthält nur eine Weiterleitung). Nur das
+    # Banner-Bild der Flora-Unterseite weiterhin gezielt mitkopieren.
     _fimg = os.path.join(ROOT, "flora", "images", "bluetenoekologie.jpg")
     if os.path.isfile(_fimg):
         os.makedirs(os.path.join(BIO, "flora", "images"), exist_ok=True)
@@ -261,6 +281,16 @@ def build():
                 d = os.path.join(BIO, "images", rel)
                 os.makedirs(os.path.dirname(d), exist_ok=True)
                 shutil.copy2(s, d)
+    # Bio-eigene Forscherpass-Pfade (leben nur in bio) mit auflisten – Titel aus bio.
+    for r in REPOS:
+        key = r["key"]; di = os.path.join(BIO, key, "interaktiv")
+        have = {fn for _, fn in listing[key]}
+        for fn in NATIVE_LIST.get(key, ()):
+            p = os.path.join(di, fn)
+            if os.path.isfile(p) and fn not in have and fn not in SKIP_LISTING and not _excluded(key, fn):
+                m = TITLE_RE.search(open(p, encoding="utf-8").read())
+                listing[key].append((clean_title(m.group(1)) if m else fn, fn))
+
     for k in listing:                       # stimmige Reihenfolge herstellen
         listing[k].sort(key=lambda ti: _ordidx(k, ti[1]))
     write_hub(listing)
@@ -272,9 +302,14 @@ def build():
     wf_dst = os.path.join(BIO, ".github", "workflows", "deploy.yml")
     os.makedirs(os.path.dirname(wf_dst), exist_ok=True)
     open(wf_dst, "w", encoding="utf-8").write(DEPLOY_YML)
-    # Auto-Sync-Workflow (holt flora/fauna, baut neu, committet & deployt)
-    sy_dst = os.path.join(BIO, ".github", "workflows", "sync.yml")
-    open(sy_dst, "w", encoding="utf-8").write(SYNC_YML)
+    # Auto-Sync-Workflow BEWUSST NICHT mehr schreiben: sein „rm -rf flora fauna"
+    # würde die Forscherpass-Master löschen, die seit Juli 2026 nur in bio leben.
+    # bio wird daher von Hand gebaut (python3 bio/bio/build_bio.py). Eine evtl. alte
+    # sync.yml wird entfernt.
+    _sy_old = os.path.join(BIO, ".github", "workflows", "sync.yml")
+    if os.path.isfile(_sy_old):
+        try: os.remove(_sy_old)
+        except OSError: pass
     # .gitignore (schließt Build-Junk und die CI-Quell-Checkouts aus)
     open(os.path.join(BIO, ".gitignore"), "w", encoding="utf-8").write(GITIGNORE)
     # Service Worker: network-first für Seiten (immer aktuell, kein „App schließen")
