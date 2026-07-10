@@ -39,7 +39,9 @@
 
   /* ---- Garten-Bühne (wächst mit dem Fortschritt) ---- */
   .buehne{position:relative;border-radius:18px;overflow:hidden;margin:14px 0 6px;
-    box-shadow:0 6px 20px rgba(47,79,62,.22);background:#bfe0ec;}
+    box-shadow:0 6px 20px rgba(47,79,62,.22);background:#bfe0ec;aspect-ratio:2.86/1;}
+  .wlayer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
+    transition:opacity .9s ease;}
   .buehne svg{display:block;width:100%;height:auto;}
   .rangchip{position:absolute;left:12px;top:12px;display:flex;align-items:center;gap:8px;
     background:rgba(36,61,48,.82);color:var(--creme);font-family:var(--sans);
@@ -163,9 +165,13 @@
 
   <!-- Wachsender Garten -->
   <div class="buehne">
+    <img class="wlayer" src="images/wiese/wiese-1.jpg" alt="" onerror="this.style.display='none'">
+    <img class="wlayer" src="images/wiese/wiese-2.jpg" alt="" onerror="this.style.display='none'">
+    <img class="wlayer" src="images/wiese/wiese-3.jpg" alt="" onerror="this.style.display='none'">
+    <img class="wlayer" src="images/wiese/wiese-4.jpg" alt="" onerror="this.style.display='none'">
+    <img class="wlayer" src="images/wiese/wiese-5.jpg" alt="Deine Wiese" onerror="this.style.display='none'">
     <div class="rangchip" id="rangchip"></div>
     <div class="zaehler" id="zaehler"></div>
-    <div id="wiese"></div>
   </div>
   <div class="fbalken"><div id="fbar"></div></div>
   <p class="naechster" id="naechster"></p>
@@ -250,61 +256,22 @@ function blatterHTML(n){
   let s=""; for(let k=0;k<3;k++) s+= k<n ? "🍃" : '<span class="leer">🍃</span>'; return s;
 }
 
-/* ---- Garten zeichnen: wächst mit summe / füllt sich mit fertigen Pfaden ---- */
+/* ---- Wiese als Foto-Reihe: blendet je nach Fortschritt von Stufe 1 (karg) bis
+   Stufe 5 (volle Blüte) über. Nutzt die Bilder images/wiese/wiese-1..5.jpg ---- */
 function zeichneWiese(daten,h){
-  const W=680, H=240;
-  const grad = h.summe / MAX_BL;
-  const himOben = mix("#a9d6e8","#bfe6f2",grad);
-  const himUnten= mix("#dcefe0","#eaf6e6",grad);
-  let svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dein Garten">`;
-  svg += `<defs><linearGradient id="him" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="${himOben}"/><stop offset="1" stop-color="${himUnten}"/></linearGradient>
-    <linearGradient id="bod" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#6fae5e"/><stop offset="1" stop-color="#4d8a45"/></linearGradient></defs>`;
-  svg += `<rect width="${W}" height="${H}" fill="url(#him)"/>`;
-  const sonneY = 60 - grad*26;
-  svg += `<circle cx="596" cy="${sonneY}" r="26" fill="#ffd873" opacity="${0.35+grad*0.6}"/>`;
-  svg += `<path d="M0 175 Q170 150 340 172 T680 168 V240 H0 Z" fill="url(#bod)"/>`;
-  svg += `<path d="M0 200 Q200 182 400 200 T680 196 V240 H0 Z" fill="#3E9A5E" opacity=".55"/>`;
-
-  const halme = Math.round(10 + grad*46);
-  for(let i=0;i<halme;i++){
-    const x = 14 + (i/halme)*(W-28) + (i%3)*4;
-    const hoehe = 12 + grad*30 + (i%4)*4;
-    const bx = x + (i%2? 5 : -5);
-    const gruen = i%3===0? "#4f9a4a" : (i%3===1? "#3E9A5E":"#5aa85a");
-    svg += `<path d="M${x} 214 Q${bx} ${214-hoehe} ${x+(i%2?3:-3)} ${214-hoehe-4}" stroke="${gruen}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
-  }
-
-  // Motiv-Positionen gleichmäßig über die Breite verteilt (funktioniert für 5 oder 6 Pfade)
-  const xs = PFADE.map((_,i)=> Math.round(60 + i*((W-120)/(PFADE.length-1))));
-  PFADE.forEach((p,idx)=>{
-    const e=daten[p.id];
-    if(e&&e.done){
-      const b=e.blaetter||1;
-      const size = 24 + b*7;
-      const yBoden = 205 - (b-1)*4;
-      const y = p.fliegt ? (100 - b*16) : yBoden;
-      svg += `<text x="${xs[idx]}" y="${y}" font-size="${size}" text-anchor="middle">${p.mot}</text>`;
-      if(b>=3){
-        svg += `<text x="${xs[idx]-22}" y="212" font-size="16" text-anchor="middle">🌸</text>`;
-        svg += `<text x="${xs[idx]+22}" y="216" font-size="14" text-anchor="middle">🌷</text>`;
-      }
-    }
+  const layers=document.querySelectorAll(".wlayer");
+  if(!layers.length) return;
+  const N=layers.length;                         // 5 Stufen
+  const grad=Math.max(0,Math.min(1, h.summe/MAX_BL));
+  const pos=grad*(N-1);                           // 0 … 4
+  const lo=Math.floor(pos), hi=Math.ceil(pos), frac=pos-lo;
+  layers.forEach((el,i)=>{
+    let op=0;
+    if(i===lo) op=1;                              // untere Stufe voll sichtbar
+    if(i===hi) op=(lo===hi)?1:frac;               // nächste Stufe eingeblendet
+    el.style.opacity=op;
   });
-
-  if(h.fertige===0){
-    svg += `<text x="${W/2}" y="120" font-size="15" text-anchor="middle" fill="#4d8a45" font-family="sans-serif">Noch ist es kahl hier … starte deinen ersten Pfad!</text>`;
-  }
-  svg += `</svg>`;
-  document.getElementById("wiese").innerHTML = svg;
 }
-function mix(a,b,t){
-  const pa=hex(a), pb=hex(b);
-  const r=Math.round(pa[0]+(pb[0]-pa[0])*t), g=Math.round(pa[1]+(pb[1]-pa[1])*t), bl=Math.round(pa[2]+(pb[2]-pa[2])*t);
-  return `rgb(${r},${g},${bl})`;
-}
-function hex(h){ h=h.replace('#',''); return [parseInt(h.substr(0,2),16),parseInt(h.substr(2,2),16),parseInt(h.substr(4,2),16)]; }
 
 /* ---- Rendern ---- */
 function render(){
