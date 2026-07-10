@@ -667,49 +667,22 @@
 </script>
 
 <div style="max-width:560px; margin:14px auto 0; padding:0 10px;">
-  <h2 style="text-align:center; font-family:Georgia,serif; font-size:1.1rem; color:#2F4F3E; margin:24px 0 4px; font-weight:bold;">Jetzt selbst zuordnen</h2>
-  <p style="text-align:center; font-family:Georgia,serif; font-size:0.92rem; font-style:italic; color:#6a6a6a; margin:0 0 14px;">Tippe einen Begriff an – dann auf das passende Feld im Bild.</p>
+  <h2 style="text-align:center; font-family:Georgia,serif; font-size:1.1rem; color:#2F4F3E; margin:24px 0 4px; font-weight:bold;">Jetzt selbst ordnen</h2>
+  <p style="text-align:center; font-family:Georgia,serif; font-size:0.92rem; font-style:italic; color:#6a6a6a; margin:0 0 14px;">Bring die acht Schritte in die richtige Reihenfolge – vom Pollen bis zum Keimling. Verschiebe die Karten mit ▲ und ▼, dann prüfe.</p>
 </div>
 
 <div id="bestaeubung2-app">
 
   <div id="quiz-box">
 
-    <div id="diagram-wrap">
-      <img src="../images/interaktiv/bestaeubung-diagramm.jpg" alt="Bestäubungsdiagramm">
-
-      <!-- 8 Drop-Zonen - dashed border kommt jetzt vom CSS, daher pixelgenau -->
-      <!-- Image: 1024x1110, height 7.0%, vertically centered on badge y -->
-      <div class="dz" data-num="1" data-correct="staubbeutel"            style="left:15.62%;top:4.16%; width:29.79%;height:7.00%"></div>
-      <div class="dz" data-num="2" data-correct="pollen-uebertragung"    style="left:15.62%;top:42.90%;width:29.79%;height:7.00%"></div>
-      <div class="dz" data-num="3" data-correct="bestaeubung"            style="left:60.55%;top:4.16%; width:31.25%;height:7.00%"></div>
-      <div class="dz" data-num="4" data-correct="pollenschlauch"         style="left:60.55%;top:42.90%;width:31.25%;height:7.00%"></div>
-      <div class="dz" data-num="5" data-correct="befruchtung"            style="left:15.62%;top:56.41%;width:29.79%;height:7.00%"></div>
-      <div class="dz" data-num="6" data-correct="samenanlage"            style="left:15.62%;top:89.29%;width:29.79%;height:7.00%"></div>
-      <div class="dz" data-num="7" data-correct="frucht"                 style="left:60.55%;top:56.41%;width:31.25%;height:7.00%"></div>
-      <div class="dz" data-num="8" data-correct="keimling"               style="left:60.55%;top:89.29%;width:31.25%;height:7.00%"></div>
-    </div>
-
-    <div id="pool-wrap">
-      <div id="pool-title">Begriffe zum Zuordnen:</div>
-      <div id="pool">
-        <div class="chip" data-id="staubbeutel"         draggable="true">Staubbeutel</div>
-        <div class="chip" data-id="pollen-uebertragung" draggable="true">Pollenübertragung</div>
-        <div class="chip" data-id="bestaeubung"         draggable="true">Bestäubung</div>
-        <div class="chip" data-id="pollenschlauch"      draggable="true">Pollenschlauchwachstum</div>
-        <div class="chip" data-id="befruchtung"         draggable="true">Befruchtung</div>
-        <div class="chip" data-id="samenanlage"         draggable="true">Samenanlage</div>
-        <div class="chip" data-id="frucht"              draggable="true">Frucht</div>
-        <div class="chip" data-id="keimling"            draggable="true">Keimling</div>
-      </div>
-    </div>
+    <ol id="seq"></ol>
 
     <div id="controls">
       <button id="check">Auflösung anzeigen</button>
-      <button id="reset">Neu starten</button>
+      <button id="reset">Neu mischen</button>
     </div>
 
-    <div id="feedback">0 von 8 Feldern belegt</div>
+    <div id="feedback">Bring die Karten in die richtige Reihenfolge – dann prüfe.</div>
 
     <div id="sieger-wrap">
       <div id="konfetti-feld"></div>
@@ -719,168 +692,121 @@
   </div>
 
 </div>
+
+<style>
+  #bestaeubung2-app #seq{list-style:none;margin:6px auto 0;padding:0;max-width:440px;
+    display:flex;flex-direction:column;gap:8px;}
+  #bestaeubung2-app #seq li{display:flex;align-items:center;gap:10px;background:#fff;
+    border:1px solid #d8ccb2;border-radius:12px;padding:8px 9px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    transition:border-color .15s,background .15s;}
+  #bestaeubung2-app #seq li .pos{flex:0 0 auto;width:26px;height:26px;border-radius:50%;
+    background:#eef3ee;color:#2F4F3E;font-weight:700;display:flex;align-items:center;
+    justify-content:center;font-size:13px;}
+  #bestaeubung2-app #seq li .txt{flex:1 1 auto;font-size:15px;color:#26312b;}
+  #bestaeubung2-app #seq li .arr{flex:0 0 auto;display:flex;gap:5px;}
+  #bestaeubung2-app #seq li .arr button{width:34px;height:34px;border:1px solid #cdbf9e;
+    background:#f7f3e8;border-radius:8px;font-size:15px;line-height:1;cursor:pointer;color:#2F4F3E;}
+  #bestaeubung2-app #seq li .arr button:active{background:#eee7d5;}
+  #bestaeubung2-app #seq li .arr button:disabled{opacity:.3;cursor:default;}
+  #bestaeubung2-app #seq li.correct{border-color:#3a8a54;background:#eef7ef;}
+  #bestaeubung2-app #seq li.wrong{border-color:#c0392b;background:#fbeeec;}
+</style>
 <script>
-(function() {
-  const app   = document.getElementById('bestaeubung2-app');
-  const pool  = app.querySelector('#pool');
-  const zones = app.querySelectorAll('.dz');
-  const total = zones.length;
+(function () {
+  const app = document.getElementById('bestaeubung2-app');
+  const seq = app.querySelector('#seq');
+  const ITEMS = [
+    { id: 'staubbeutel',         label: 'Staubbeutel' },
+    { id: 'pollen-uebertragung', label: 'Pollenübertragung' },
+    { id: 'bestaeubung',         label: 'Bestäubung' },
+    { id: 'pollenschlauch',      label: 'Pollenschlauchwachstum' },
+    { id: 'befruchtung',         label: 'Befruchtung' },
+    { id: 'samenanlage',         label: 'Samenanlage' },
+    { id: 'frucht',              label: 'Frucht' },
+    { id: 'keimling',            label: 'Keimling' }
+  ];
+  const ORDER = ITEMS.map(x => x.id);
+  const total = ITEMS.length;
+  let cur = [];
 
-  function shufflePool() {
-    const chips = Array.from(pool.children);
-    for (let i = chips.length - 1; i > 0; i--) {
+  function shuffle(a) {
+    a = a.slice();
+    for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [chips[i], chips[j]] = [chips[j], chips[i]];
+      [a[i], a[j]] = [a[j], a[i]];
     }
-    chips.forEach(c => pool.appendChild(c));
+    return a;
   }
-  shufflePool();
+  function ensureShuffled() {
+    do { cur = shuffle(ITEMS); } while (cur.every((x, i) => x.id === ORDER[i]));
+  }
 
-  let draggedChip = null;
-
-  app.querySelectorAll('.chip').forEach(chip => {
-    chip.addEventListener('dragstart', (e) => {
-      draggedChip = chip;
-      chip.classList.add('dragging');
-      e.dataTransfer.effectAllowed = 'move';
-      try { e.dataTransfer.setData('text/plain', chip.dataset.id); } catch(_) {}
+  function render() {
+    seq.innerHTML = '';
+    cur.forEach((it, i) => {
+      const li = document.createElement('li');
+      li.dataset.id = it.id;
+      li.innerHTML =
+        '<span class="pos">' + (i + 1) + '</span>' +
+        '<span class="txt">' + it.label + '</span>' +
+        '<span class="arr">' +
+          '<button class="up" '   + (i === 0         ? 'disabled' : '') + ' aria-label="nach oben">▲</button>' +
+          '<button class="down" ' + (i === total - 1 ? 'disabled' : '') + ' aria-label="nach unten">▼</button>' +
+        '</span>';
+      seq.appendChild(li);
     });
-    chip.addEventListener('dragend', () => {
-      chip.classList.remove('dragging');
-      draggedChip = null;
-    });
-  });
-
-  zones.forEach(zone => {
-    zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('over'); });
-    zone.addEventListener('dragleave', () => zone.classList.remove('over'));
-    zone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      zone.classList.remove('over');
-      if (draggedChip) placeChipInZone(draggedChip, zone);
-    });
-  });
-
-  pool.addEventListener('dragover', (e) => { if (draggedChip) e.preventDefault(); });
-  pool.addEventListener('drop', (e) => {
-    e.preventDefault();
-    if (!draggedChip) return;
-    const fromZone = draggedChip.parentElement;
-    if (fromZone && fromZone.classList.contains('dz')) {
-      returnChipToPool(fromZone);
-    } else {
-      pool.appendChild(draggedChip);
-    }
-  });
-
-  let selectedChip = null;
-
-  function highlightSelected(chip) {
-    app.querySelectorAll('.chip').forEach(c => c.style.boxShadow = '');
-    if (chip) chip.style.boxShadow = '0 0 0 3px #f4c430';
-  }
-
-  app.addEventListener('click', (e) => {
-    const chip = e.target.closest('.chip');
-    const zone = e.target.closest('.dz');
-
-    if (chip && !zone) {
-      if (chip.parentElement && chip.parentElement.classList.contains('dz')) {
-        returnChipToPool(chip.parentElement);
-        selectedChip = null;
-        highlightSelected(null);
-      } else {
-        selectedChip = (selectedChip === chip) ? null : chip;
-        highlightSelected(selectedChip);
-      }
-      return;
-    }
-
-    if (zone) {
-      if (zone.dataset.placedId && !selectedChip) {
-        returnChipToPool(zone);
-      } else if (selectedChip) {
-        placeChipInZone(selectedChip, zone);
-        selectedChip = null;
-        highlightSelected(null);
-      }
-    }
-  });
-
-  function placeChipInZone(chip, zone) {
-    if (zone.dataset.placedId) returnChipToPool(zone);
-    zone.innerHTML = '';
-    zone.appendChild(chip);
-    chip.classList.add('placed');           // KEY: ensures CSS .chip.placed wins
-    zone.classList.add('filled');
-    zone.classList.remove('correct', 'wrong');
-    zone.dataset.placedId = chip.dataset.id;
-    chip.style.boxShadow = '';
-    updateFeedback();
-  }
-
-  function returnChipToPool(zone) {
-    const chip = zone.querySelector('.chip');
-    if (chip) {
-      pool.appendChild(chip);
-      chip.classList.remove('placed');
-      chip.style.boxShadow = '';
-    }
-    zone.classList.remove('filled', 'correct', 'wrong');
-    delete zone.dataset.placedId;
-    updateFeedback();
-  }
-
-  function placedCount() {
-    return Array.from(zones).filter(z => z.dataset.placedId).length;
-  }
-
-  function updateFeedback() {
-    const fb = app.querySelector('#feedback');
-    const n = placedCount();
-    fb.className = '';
-    fb.textContent = n === total
-      ? `Alle ${total} Felder belegt — jetzt prüfen!`
-      : `${n} von ${total} Feldern belegt`;
     sendHeight();
   }
 
+  function resetFeedback() {
+    const fb = app.querySelector('#feedback');
+    fb.className = '';
+    fb.textContent = 'Bring die Karten in die richtige Reihenfolge – dann prüfe.';
+    app.querySelector('#sieger-wrap').style.display = 'none';
+  }
+
+  function move(i, d) {
+    const j = i + d;
+    if (j < 0 || j >= total) return;
+    [cur[i], cur[j]] = [cur[j], cur[i]];
+    resetFeedback();
+    render();
+  }
+
+  seq.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const li = e.target.closest('li');
+    const i = Array.from(seq.children).indexOf(li);
+    move(i, btn.classList.contains('up') ? -1 : 1);
+  });
+
   app.querySelector('#check').addEventListener('click', () => {
     let right = 0;
-    zones.forEach(z => {
-      if (!z.dataset.placedId) return;
-      if (z.dataset.placedId === z.dataset.correct) {
-        z.classList.remove('wrong'); z.classList.add('correct');
-        right++;
-      } else {
-        z.classList.remove('correct'); z.classList.add('wrong');
-      }
+    Array.from(seq.children).forEach((li, i) => {
+      li.classList.remove('correct', 'wrong');
+      if (li.dataset.id === ORDER[i]) { li.classList.add('correct'); right++; }
+      else { li.classList.add('wrong'); }
     });
     const fb = app.querySelector('#feedback');
     /* Ergebnis an den Flora-Forscherpass melden (3/2/1 Blätter) */
-    if (placedCount() >= total) { (function(){var _b=right===total?3:right>=Math.ceil(total*0.6)?2:1;try{var _K="mibaso.flora.expedition",_d=JSON.parse(localStorage.getItem(_K)||"{}");if(!_d.bestaeubung||_b>(_d.bestaeubung.blaetter||0)){_d.bestaeubung={blaetter:_b,done:true,ts:Date.now()};localStorage.setItem(_K,JSON.stringify(_d));}}catch(e){}})(); }
+    (function(){var _b=right===total?3:right>=Math.ceil(total*0.6)?2:1;try{var _K="mibaso.flora.expedition",_d=JSON.parse(localStorage.getItem(_K)||"{}");if(!_d.bestaeubung||_b>(_d.bestaeubung.blaetter||0)){_d.bestaeubung={blaetter:_b,done:true,ts:Date.now()};localStorage.setItem(_K,JSON.stringify(_d));}}catch(e){}})();
     if (right === total) {
-      fb.textContent = `Perfekt! Alle ${total} richtig! 🎉`;
+      fb.textContent = 'Perfekt! Alle ' + total + ' in der richtigen Reihenfolge! 🎉';
       fb.className = 'good';
       feiern();
-    } else if (placedCount() < total) {
-      fb.textContent = `${right} von ${placedCount()} richtig — noch nicht alle Felder belegt.`;
-      fb.className = 'bad';
     } else {
-      fb.textContent = `${right} von ${total} richtig — die roten Felder nochmal probieren.`;
+      fb.textContent = right + ' von ' + total + ' an der richtigen Stelle — die roten Karten noch verschieben.';
       fb.className = 'bad';
     }
     sendHeight();
   });
 
   app.querySelector('#reset').addEventListener('click', () => {
-    zones.forEach(z => returnChipToPool(z));
-    shufflePool();
-    const fb = app.querySelector('#feedback');
-    fb.textContent = `0 von ${total} Feldern belegt`;
-    fb.className = '';
-    app.querySelector('#sieger-wrap').style.display = 'none';
-    sendHeight();
+    ensureShuffled();
+    resetFeedback();
+    render();
   });
 
   function feiern() {
@@ -903,7 +829,7 @@
       const dur = (1.3 + Math.random() * 1.2).toFixed(2);
       const w = 5 + Math.floor(Math.random() * 7);
       const h = 5 + Math.floor(Math.random() * 7);
-      html += `<div class="konfetti-stück" style="background:${c};left:${left}%;width:${w}px;height:${h}px;animation-delay:${delay}s;animation-duration:${dur}s"></div>`;
+      html += '<div class="konfetti-stück" style="background:' + c + ';left:' + left + '%;width:' + w + 'px;height:' + h + 'px;animation-delay:' + delay + 's;animation-duration:' + dur + 's"></div>';
     }
     kf.innerHTML = html;
     app.querySelector('#sieger-msg').textContent = spruch;
@@ -917,14 +843,10 @@
   }
   window.addEventListener('load', sendHeight);
   window.addEventListener('resize', sendHeight);
-  const mo = new MutationObserver(sendHeight);
-  mo.observe(app, { childList: true, subtree: true, attributes: true });
+  new MutationObserver(sendHeight).observe(app, { childList: true, subtree: true, attributes: true });
 
-  const img = app.querySelector('#diagram-wrap img');
-  if (img) {
-    if (img.complete) sendHeight();
-    else img.addEventListener('load', sendHeight);
-  }
+  ensureShuffled();
+  render();
 })();
 </script>
 
