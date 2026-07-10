@@ -711,6 +711,10 @@
   #bestaeubung2-app #seq li .arr button:disabled{opacity:.3;cursor:default;}
   #bestaeubung2-app #seq li.correct{border-color:#3a8a54;background:#eef7ef;}
   #bestaeubung2-app #seq li.wrong{border-color:#c0392b;background:#fbeeec;}
+  #bestaeubung2-app #seq li .grip{flex:0 0 auto;color:#b9b09a;font-size:16px;cursor:grab;
+    padding:0 2px;user-select:none;}
+  #bestaeubung2-app #seq li.dragging{opacity:.5;}
+  #bestaeubung2-app #seq li.dropmark{border-top:3px solid #C28A3A;}
 </style>
 <script>
 (function () {
@@ -747,7 +751,9 @@
     cur.forEach((it, i) => {
       const li = document.createElement('li');
       li.dataset.id = it.id;
+      li.draggable = true;
       li.innerHTML =
+        '<span class="grip" aria-hidden="true">⠿</span>' +
         '<span class="pos">' + (i + 1) + '</span>' +
         '<span class="txt">' + it.label + '</span>' +
         '<span class="arr">' +
@@ -780,6 +786,40 @@
     const li = e.target.closest('li');
     const i = Array.from(seq.children).indexOf(li);
     move(i, btn.classList.contains('up') ? -1 : 1);
+  });
+
+  /* Umsortieren per Ziehen (Desktop); die Pfeile bleiben fürs Handy. */
+  let dragFrom = -1;
+  seq.addEventListener('dragstart', (e) => {
+    const li = e.target.closest('li');
+    if (!li) return;
+    dragFrom = Array.from(seq.children).indexOf(li);
+    li.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    try { e.dataTransfer.setData('text/plain', ''); } catch (_) {}
+  });
+  seq.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    const li = e.target.closest('li');
+    Array.from(seq.children).forEach(x => x.classList.remove('dropmark'));
+    if (li) li.classList.add('dropmark');
+  });
+  seq.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const li = e.target.closest('li');
+    if (!li || dragFrom < 0) return;
+    const to = Array.from(seq.children).indexOf(li);
+    if (to !== dragFrom) {
+      const [it] = cur.splice(dragFrom, 1);
+      cur.splice(to, 0, it);
+      resetFeedback();
+      render();
+    }
+    dragFrom = -1;
+  });
+  seq.addEventListener('dragend', () => {
+    dragFrom = -1;
+    Array.from(seq.children).forEach(x => x.classList.remove('dragging', 'dropmark'));
   });
 
   app.querySelector('#check').addEventListener('click', () => {

@@ -149,9 +149,46 @@
   .feierkarte button{font-family:var(--sans);font-size:14px;font-weight:600;color:#fff;
     background:var(--honig);border:none;border-radius:999px;padding:11px 26px;cursor:pointer;}
 
+  /* --- Meister-Urkunde --- */
+  .urkunde-overlay{position:fixed;inset:0;z-index:70;display:none;align-items:flex-start;
+    justify-content:center;background:rgba(30,44,34,.55);backdrop-filter:blur(2px);padding:18px;overflow:auto;}
+  .urkunde-overlay.an{display:flex;}
+  .urkunde{background:#fffdf6;width:100%;max-width:460px;border-radius:14px;
+    box-shadow:0 18px 50px rgba(0,0,0,.35);overflow:hidden;animation:pop .5s cubic-bezier(.18,1.3,.4,1);}
+  .urkunde .rahmen{border:2px solid var(--honig);margin:10px;border-radius:10px;padding:22px 20px 24px;position:relative;}
+  .urkunde .rahmen::before{content:"";position:absolute;inset:4px;border:1px solid #e6d3a8;border-radius:7px;pointer-events:none;}
+  .urk-eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--honig-tief);text-align:center;}
+  .urk-med{font-size:52px;text-align:center;line-height:1;margin:6px 0 0;}
+  .urk-titel{font-family:Georgia,serif;font-size:27px;color:var(--gruen);text-align:center;margin:2px 0;}
+  .urk-sub{font-family:var(--sans);font-size:12.5px;color:#6c7681;text-align:center;margin:0 0 14px;}
+  .urk-satz{font-family:Georgia,serif;font-size:14px;color:var(--tinte);text-align:center;margin:0;}
+  .urk-name{display:block;margin:8px auto 12px;width:280px;max-width:100%;text-align:center;
+    font-family:Georgia,serif;font-size:20px;color:var(--gruen);border:none;border-bottom:1.5px dashed #cdbf9e;
+    background:transparent;padding:4px 6px;outline:none;}
+  .urk-name:focus{border-bottom-color:var(--honig);}
+  .urk-tabelle{border-top:1px solid var(--linie);margin:14px 0 0;}
+  .urk-zeile{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    font-family:var(--sans);font-size:13px;padding:6px 2px;border-bottom:1px solid #efe7d4;}
+  .urk-zeile .un{color:var(--tinte);}
+  .urk-zeile .ub{white-space:nowrap;letter-spacing:1px;}
+  .urk-zeile .ub .leer{opacity:.22;}
+  .urk-summe{display:flex;justify-content:space-between;font-family:var(--sans);font-size:13.5px;
+    font-weight:700;color:var(--gruen);margin:10px 2px 0;}
+  .urk-fuss{display:flex;justify-content:space-between;font-family:var(--sans);font-size:11.5px;color:#8a8577;margin:14px 2px 0;}
+  .urk-btns{display:flex;gap:10px;justify-content:center;padding:0 20px 18px;}
+  .urk-btns button{font-family:var(--sans);font-size:14px;font-weight:600;border-radius:999px;padding:10px 20px;cursor:pointer;border:none;}
+  .urk-btns .druck{background:var(--honig);color:#fff;}
+  .urk-btns .zu{background:#eee7d5;color:var(--gruen);}
+
   @media (prefers-reduced-motion:reduce){
     *{transition:none!important;animation:none!important;}
     .regen{display:none!important;}
+  }
+  @media print{
+    body.drucken > *{display:none!important;}
+    body.drucken .urkunde-overlay{display:block!important;position:static;background:none;backdrop-filter:none;padding:0;}
+    body.drucken .urkunde{box-shadow:none;max-width:100%;animation:none;}
+    body.drucken .urk-btns{display:none!important;}
   }
 </style>
 </head>
@@ -201,6 +238,27 @@
     <h3 id="feierTitel">Neuer Rang!</h3>
     <p class="fsub" id="feierSub"></p>
     <button id="feierBtn">Weiter</button>
+  </div>
+</div>
+
+<div class="urkunde-overlay" id="urkunde">
+  <div class="urkunde">
+    <div class="rahmen">
+      <div class="urk-eyebrow">Expedition Wiese · Forscherpass</div>
+      <div class="urk-med" id="urkMed">🏅</div>
+      <div class="urk-titel">Urkunde</div>
+      <div class="urk-sub" id="urkSub"></div>
+      <div class="urk-satz">Diese Urkunde bestätigt, dass</div>
+      <input class="urk-name" id="urkName" placeholder="Dein Name" aria-label="Dein Name">
+      <div class="urk-satz" id="urkSatz2"></div>
+      <div class="urk-tabelle" id="urkTab"></div>
+      <div class="urk-summe" id="urkSumme"></div>
+      <div class="urk-fuss"><span id="urkDatum"></span><span>Flora Mibaso</span></div>
+    </div>
+    <div class="urk-btns">
+      <button class="druck" id="urkDruck">🖨️ Drucken</button>
+      <button class="zu" id="urkZu">Schließen</button>
+    </div>
   </div>
 </div>
 
@@ -332,8 +390,7 @@ function render(){
     : '<div class="meister gesperrt"><span class="mi">🔒</span><span class="mt"><b>Meister-Urkunde</b>'
       +'<span>Schließe alle '+PFADE.length+' Stationen ab, um sie freizuschalten ('+h.fertige+'/'+PFADE.length+').</span></span></div>';
   if(alleFertig){
-    document.getElementById("urkundeBtn").addEventListener("click",()=>zeigeFeier("🏅","Flora-Meister!",
-      "Du hast alle Stationen der Expedition gemeistert. Bravo!"));
+    document.getElementById("urkundeBtn").addEventListener("click",zeigeUrkunde);
   }
 
   const alb=document.getElementById("album");
@@ -409,6 +466,32 @@ function zeigeFeier(med,titel,sub){
 document.getElementById("feierBtn").addEventListener("click",()=>{
   document.getElementById("feier").classList.remove("an");
 });
+
+/* ---- Meister-Urkunde mit Ergebnis-Aufschlüsselung (druckbar) ---- */
+const NAMEKEY="mibaso.flora.name";
+function urkBlatt(n){ let s=""; for(let k=0;k<3;k++) s+= k<n ? "🍃" : '<span class="leer">🍃</span>'; return s; }
+function zeigeUrkunde(){
+  const daten=laden(), h=kennzahlen(daten);
+  const rang=RAENGE[rangIndex(h.summe)];
+  document.getElementById("urkMed").textContent=rang.med;
+  document.getElementById("urkSub").textContent="Rang: "+rang.name;
+  document.getElementById("urkSatz2").textContent="alle "+PFADE.length+" Stationen der Expedition Wiese gemeistert hat.";
+  const nameEl=document.getElementById("urkName");
+  try{ nameEl.value=localStorage.getItem(NAMEKEY)||""; }catch(e){}
+  let rows="";
+  PFADE.forEach(p=>{
+    const e=daten[p.id]; const bl=(e&&e.done)?(e.blaetter||0):0;
+    rows+='<div class="urk-zeile"><span class="un">'+p.titel+'</span><span class="ub">'+urkBlatt(bl)+'</span></div>';
+  });
+  document.getElementById("urkTab").innerHTML=rows;
+  document.getElementById("urkSumme").innerHTML='<span>Gesammelt</span><span>'+h.summe+' / '+MAX_BL+' 🍃</span>';
+  document.getElementById("urkDatum").textContent=new Date().toLocaleDateString('de-DE',{day:'2-digit',month:'long',year:'numeric'});
+  document.getElementById("urkunde").classList.add("an");
+}
+document.getElementById("urkName").addEventListener("input",e=>{ try{ localStorage.setItem(NAMEKEY, e.target.value); }catch(_){} });
+document.getElementById("urkZu").addEventListener("click",()=>document.getElementById("urkunde").classList.remove("an"));
+document.getElementById("urkDruck").addEventListener("click",()=>{ document.body.classList.add("drucken"); window.print(); });
+window.addEventListener("afterprint",()=>document.body.classList.remove("drucken"));
 
 /* iframe-Höhe melden (WordPress-Einbindung) */
 function melde(){ if(window.parent!==window){ try{ window.parent.postMessage({flora:"height", height:document.body.scrollHeight}, "*"); }catch(e){} } }
