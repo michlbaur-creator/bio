@@ -398,15 +398,15 @@ const TYPEN = {
   fliegen:"Schwebfliegen & Fliegen", kaefer:"Käfer"
 };
 const QUIZPOOL = [
-  {f:"salvia-pratensis.jpg",   name:"Wiesensalbei",    typ:"bienen"},
-  {f:"symphytum-officinale.jpg",name:"Beinwell",       typ:"bienen"},
-  {f:"eupatorium-cannabinum.jpg",name:"Wasserdost",    typ:"tagfalter"},
-  {f:"dianthus-deltoides.jpg", name:"Heide-Nelke",     typ:"tagfalter"},
-  {f:"lonicera-periclymenum.jpg",name:"Wald-Geißblatt",typ:"nacht"},
-  {f:"silene-latifolia.jpg",   name:"Weiße Lichtnelke",typ:"nacht"},
-  {f:"daucus-carota.jpg",      name:"Wilde Möhre",     typ:"fliegen"},
-  {f:"aegopodium-podagraria.jpg",name:"Giersch",       typ:"fliegen"},
-  {f:"rosa-canina.jpg",        name:"Hundsrose",       typ:"kaefer"}
+  {f:"salvia-pratensis.jpg",   name:"Wiesensalbei",    art:"den", typ:"bienen"},
+  {f:"symphytum-officinale.jpg",name:"Beinwell",       art:"den", typ:"bienen"},
+  {f:"eupatorium-cannabinum.jpg",name:"Wasserdost",    art:"den", typ:"tagfalter"},
+  {f:"dianthus-deltoides.jpg", name:"Heide-Nelke",     art:"die", typ:"tagfalter"},
+  {f:"lonicera-periclymenum.jpg",name:"Wald-Geißblatt",art:"das", typ:"nacht"},
+  {f:"silene-latifolia.jpg",   name:"Weiße Lichtnelke",art:"die", typ:"nacht"},
+  {f:"daucus-carota.jpg",      name:"Wilde Möhre",     art:"die", typ:"fliegen"},
+  {f:"aegopodium-podagraria.jpg",name:"Giersch",       art:"den", typ:"fliegen"},
+  {f:"rosa-canina.jpg",        name:"Hundsrose",       art:"die", typ:"kaefer"}
 ];
 
 /* ---------- Bausteine ---------- */
@@ -555,7 +555,7 @@ function renderQuiz(s){
       '<div class="bluetenbox" style="width:min(70%,240px);margin:0 auto 14px;">'+
         fotoBild(f.f, BLUETE, f.name, "🌸", "an").replace('class="bild an"','class="bl an" style="position:relative;height:100%;"')+
       '</div>'+
-      '<h2 class="qfrage">Wer bestäubt die <b>'+f.name+'</b>?</h2>'+
+      '<h2 class="qfrage">Wer bestäubt '+f.art+' <b>'+f.name+'</b>?</h2>'+
       '<div class="qopt" id="qopt"></div>';
     elE.innerHTML=html;
     const wrap=document.getElementById("qopt");

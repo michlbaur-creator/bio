@@ -35,12 +35,12 @@ if not BIO:
 REPOS = [
     {"key": "flora", "label": "Flora Mibaso", "emoji": "🌼", "akzent": "#2F4F3E",
      "pass": {"href": "pflanzenpass.html", "img": "images/bluetenoekologie.jpg",
-              "eyebrow": "Dein Forscherpass", "titel": "Sammle Blätter, werde Flora-Meister",
-              "sub": "Alle Lernpfade an einem Ort"}},
+              "eyebrow": "Dein Forscherpass", "titel": "Expedition Wiese",
+              "sub": "Spiel die Pfade, lass deinen Garten wachsen und kröne dich zum Flora-Meister."}},
     {"key": "fauna", "label": "Fauna Mibaso", "emoji": "🦋", "akzent": "#233D5C",
      "pass": {"href": "interaktiv/wiesenpass.html", "img": "images/wiese/wiese-sommer.png",
-              "eyebrow": "Dein Forscherpass", "titel": "Sammle Blätter, werde Wiesen-Meister",
-              "sub": "Alle Lernpfade an einem Ort"}},
+              "eyebrow": "Dein Forscherpass", "titel": "Expedition Wiese",
+              "sub": "Spiel die Pfade, lass deine Wiese wachsen und kröne dich zum Wiesen-Meister."}},
 ]
 
 # Thematische Gruppen je Repo: (Überschrift, Farbe, [Dateien]). Seit dem Fauna-Stil-

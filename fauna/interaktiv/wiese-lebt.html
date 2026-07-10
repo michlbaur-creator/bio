@@ -388,17 +388,14 @@ const SCREENS = [
     jaeger:[
       { id:"mklarve",     label:"Marienkäferlarve", em:"🐞", img:"tier-marienkaeferlarve.png" },
       { id:"sflarve",     label:"Schwebfliegenlarve",em:"🪰", img:"tier-schwebfliegenlarve.png" },
-      { id:"vogel",       label:"Vogel",             em:"🐦", img:"tier-vogel.png" },
-      { id:"schlupfwespe",label:"Schlupfwespe",      em:"🐝", img:"tier-schlupfwespe.png" }
+      { id:"vogel",       label:"Vogel",             em:"🐦", img:"tier-vogel.png" }
     ],
     /* gültige „frisst/befällt“-Beziehungen (Beute → Jäger).
-       Fallen: Marienkäferlarve frisst NUR Blattläuse (nicht Raupen),
-       die Schlupfwespe sieht aus wie eine Biene, ist aber ein Raupen-Parasit. */
+       Falle: Marienkäferlarve frisst NUR Blattläuse (nicht Raupen). */
     verbindungen:[
       { von:"blattlaus", zu:"mklarve",     text:"Marienkäferlarven vertilgen Unmengen an Blattläusen." },
       { von:"blattlaus", zu:"sflarve",     text:"Auch Schwebfliegenlarven leben fast nur von Blattläusen." },
       { von:"raupe",     zu:"vogel",       text:"Raupen sind das wichtigste Vogelfutter für die Jungenaufzucht." },
-      { von:"raupe",     zu:"schlupfwespe",text:"Die Schlupfwespe legt ihre Eier in Raupen — von innen aufgefressen." },
       { von:"spinne",    zu:"vogel",       text:"Spinnen wiederum landen selbst im Schnabel der Vögel." }
     ],
     proVerbindung:{nahrungsnetz:1}
