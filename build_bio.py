@@ -50,11 +50,11 @@ REPOS = [
 GROUPS = {
     "flora": [
         ("Wie ist eine Pflanze aufgebaut?", "#5A6B7A",
-         ["pflanze-verstehen.html", "pflanzen-energie.html"]),
+         ["pflanze-verstehen.html"]),
         ("Wie entstehen neue Pflanzen?", "#2C7A6A",
          ["bestaeubung-erklaerung.html", "bluetenoekologie.html"]),
         ("Wie meistern Pflanzen das Leben?", "#C4603A",
-         ["jahreszeiten-baum.html", "pflanzenstrategien.html"]),
+         ["jahreszeiten-baum.html", "pflanzenstrategien.html", "pflanzen-energie.html"]),
     ],
     "fauna": [
         ("Bestimmen & Verwandtschaft", "#5A6B7A",
@@ -165,7 +165,7 @@ ORDER = {
 }
 # Typ-Kennzeichnung der Kacheln: „Übersicht" (Einzelseite) vs. „Lernpfad" (mehrstufig).
 UEBERSICHT = {"pflanze-erklaerung.html", "bestaeubung-erklaerung.html", "bluetenoekologie.html",
-              "samenverbreitung.html", "pflanzenstrategien.html", "insektenschwund.html"}
+              "samenverbreitung.html", "insektenschwund.html"}
 def _typ(fn):
     return "Übersicht" if fn in UEBERSICHT else "Lernpfad"
 # Kacheln ohne Typ-Badge (weder „Lernpfad" noch „Übersicht"): Bestimmen-/Verwandtschaft-
@@ -190,6 +190,7 @@ def clean_title(raw):
 TITLE_OVERRIDE = {
     "bluetenoekologie.html": "Blüten und ihre Gäste",
     "pflanzenstrategien.html": "Überlebenskünstler",
+    "pflanzen-energie.html": "Wie Pflanzen Sonnenlicht essen",
 }
 def label_for(fn, raw):
     return TITLE_OVERRIDE.get(fn) or (clean_title(raw) if raw else fn)
