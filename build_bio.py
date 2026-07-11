@@ -52,7 +52,7 @@ GROUPS = {
         ("Wie ist eine Pflanze aufgebaut?", "#5A6B7A",
          ["pflanze-verstehen.html", "pflanzen-energie.html"]),
         ("Wie entstehen neue Pflanzen?", "#2C7A6A",
-         ["bluete-zoom.html", "bestaeubung-erklaerung.html", "bestaeubung-animiert.html", "bluetenoekologie.html"]),
+         ["bestaeubung-erklaerung.html", "bestaeubung-animiert.html", "bluetenoekologie.html"]),
         ("Wie meistern Pflanzen das Leben?", "#C4603A",
          ["jahreszeiten-baum.html", "pflanzenstrategien.html"]),
     ],
@@ -115,6 +115,10 @@ EXCLUDE = {"tierquiz.html", "gesamttest.html", "pflanze-zuordnung.html", "verwan
            # „Aufbau einer Pflanze" wohnt jetzt als erste Station im Lernpfad
            # „Wurzel, Blatt, Blüte" (pflanze-verstehen), die Einzel-Kachel entfällt.
            "flora/samenverbreitung.html", "flora/pflanze-erklaerung.html",
+           # „Hinein in die Blüte" wohnt jetzt eingebettet als erste Station im Pfad
+           # „Aufbau der Pflanze" (pflanze-verstehen) → eigene Kachel + Pass-Station entfallen.
+           # Die Datei bluete-zoom.html bleibt liegen (wird als iframe eingebunden).
+           "flora/bluete-zoom.html",
            # alle „Warum"-Pfade
            "blumen-nachts.html", "kletten.html", "schaumzikaden.html", "sonnenblumen.html",
            # Energie: die vollständige „Pflanzen & Energie" (pflanzen-energie) bleibt;

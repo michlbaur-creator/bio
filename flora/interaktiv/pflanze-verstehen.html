@@ -460,6 +460,24 @@
 <style>body.embed a.back{display:none!important;}</style>
 <script>if(window.self!==window.top){document.body.classList.add('embed');}</script>
 
+<!-- Erste Station: „Hinein in die Blüte" – Zoom-Animation (eingebettet, ganz oben) -->
+<div id="blz-embed" style="max-width:500px;margin:10px auto 0;padding:0 14px;">
+  <div class="ph-headline">
+    <h2>Hinein in die Blüte</h2>
+    <p>Zoome Stufe für Stufe ins Innere — von der ganzen Pflanze bis zur winzigen Samenanlage.</p>
+  </div>
+  <iframe id="blz-frame" src="bluete-zoom.html?embed=1" title="Hinein in die Blüte — Zoom-Animation"
+    scrolling="no" loading="lazy"
+    style="width:100%;border:0;display:block;border-radius:14px;background:transparent;height:560px;"></iframe>
+</div>
+<script>
+(function(){var f=document.getElementById('blz-frame');if(!f)return;
+  window.addEventListener('message',function(e){
+    if(e&&e.data&&e.data.kreislaufHoehe){ f.style.height=(e.data.kreislaufHoehe+6)+'px'; }
+  });
+})();
+</script>
+
 <div id="ph-root">
 
   <div class="ph-headline">
