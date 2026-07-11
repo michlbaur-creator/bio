@@ -478,6 +478,22 @@
 </style><div class="pfad-intro" id="pfadIntro"><div class="pi-inner"><img class="pi-foto" src="../images/fotos/bestaeubung-intro.jpg" alt="" onerror="this.style.display='none'"><div class="pi-eyebrow">🌼 Flora Mibaso · Übersicht</div><h1 class="pi-titel">Bestäubung</h1><p class="pi-lead">Der Trick mit dem Pollen: Wer bestäubt wie — und warum das kein Zufall ist.</p><button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button></div></div>
 <a class="back" href="../pflanzenpass.html" style="display:inline-block;margin:12px 14px 0;color:#6b5340;text-decoration:none;font-size:.95rem;">‹ Zurück zur Übersicht</a>
 
+<!-- Erste Station: „Bestäubung Schritt für Schritt" – Animation (eingebettet, ganz oben) -->
+<div id="bst-embed" style="max-width:560px;margin:10px auto 0;padding:0 14px;">
+  <h2 style="font-family:Georgia,serif;font-weight:normal;color:#2F4F3E;font-size:1.2rem;margin:0 0 4px;">Bestäubung Schritt für Schritt</h2>
+  <p style="margin:0 0 8px;font-size:.95rem;color:#5a6b57;">Verfolge die Reise eines Pollenkorns — von der Blüte bis zur Frucht.</p>
+  <iframe id="bst-frame" src="bestaeubung-animiert.html?embed=1" title="Bestäubung Schritt für Schritt — Animation"
+    scrolling="no" loading="lazy"
+    style="width:100%;border:0;display:block;border-radius:14px;background:transparent;height:560px;"></iframe>
+</div>
+<script>
+(function(){var f=document.getElementById('bst-frame');if(!f)return;
+  window.addEventListener('message',function(e){
+    if(e&&e.data&&e.data.kreislaufHoehe){ f.style.height=(e.data.kreislaufHoehe+6)+'px'; }
+  });
+})();
+</script>
+
 <div id="bestaeubung1-app">
 
   <!-- Übersicht: Bild + erklärender Text vor der interaktiven Grafik -->
@@ -521,9 +537,6 @@
       <div class="num-btn" data-num="8" style="left:51.5%;top:89.6%; transform-origin:center;"></div>
     </div>
 
-    <div id="hint-bar">
-      © 2026 <a href="../ueber/">Michael Baur</a> · Flora Mibaso
-    </div>
   </div>
 
   <!-- Erklärungs-Panel unter dem Diagramm -->

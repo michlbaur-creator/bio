@@ -52,7 +52,7 @@ GROUPS = {
         ("Wie ist eine Pflanze aufgebaut?", "#5A6B7A",
          ["pflanze-verstehen.html", "pflanzen-energie.html"]),
         ("Wie entstehen neue Pflanzen?", "#2C7A6A",
-         ["bestaeubung-erklaerung.html", "bestaeubung-animiert.html", "bluetenoekologie.html"]),
+         ["bestaeubung-erklaerung.html", "bluetenoekologie.html"]),
         ("Wie meistern Pflanzen das Leben?", "#C4603A",
          ["jahreszeiten-baum.html", "pflanzenstrategien.html"]),
     ],
@@ -105,7 +105,9 @@ def _icon(fn):
     return ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" '
             f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{d}"/></svg>')
 # Kopiert, aber nicht auf der Startseite gelistet (z.B. der Pass als Footer-Ziel)
-SKIP_LISTING = {"tafel.html", "wiesenpass.html", "sammelpass.html"}
+# kopiert, aber nicht als eigene Kachel gelistet (bestaeubung-animiert wird als iframe
+# in „Bestäubung" eingebunden – Datei muss vorhanden sein, Kachel entfällt).
+SKIP_LISTING = {"tafel.html", "wiesenpass.html", "sammelpass.html", "bestaeubung-animiert.html"}
 # Ganz aus bio ausschließen (nicht kopieren, nicht listen): Staunen-Häppchen,
 # Quizze/Tests und Ordnen-/Zuordnungs-Spiele — bio zeigt nur die echten Lernpfade.
 # Einträge ohne Repo-Präfix gelten für beide; mit Präfix nur für ein Repo.
