@@ -387,8 +387,8 @@ jobs:
 GITIGNORE = "/bio/\n_src/\n.DS_Store\n**/.DS_Store\n"
 
 MANIFEST = '''{
-  "name": "bio.mibaso",
-  "short_name": "bio.mibaso",
+  "name": "Bio Mibaso",
+  "short_name": "Bio Mibaso",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#F7F3E8",
@@ -563,7 +563,7 @@ def _shell(title, theme, body, akzent=None):
             '<meta name="apple-mobile-web-app-capable" content="yes">'
             '<meta name="mobile-web-app-capable" content="yes">'
             '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'
-            '<meta name="apple-mobile-web-app-title" content="bio.mibaso">'
+            '<meta name="apple-mobile-web-app-title" content="Bio Mibaso">'
             f'<style>{CSS}</style></head><body{style}><div class="huelle">{body}</div>'
             '<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js")'
             '.then(function(reg){if(reg){reg.update();'
@@ -655,16 +655,11 @@ def write_anleitung():
         'font-size:clamp(24px,6vw,32px);margin:6px 0 4px;">Als App aufs Handy legen</h1>'
         '<p class="lead" style="text-align:left;margin:8px 0 4px;max-width:none;">So liegt bio.mibaso wie '
         'eine echte App auf dem Startbildschirm — praktisch für den Unterricht.</p>'
-        '<h2>📱 iPhone</h2>'
-        '<p style="font-family:var(--sans);font-size:14px;margin:0 0 4px;"><strong>In Safari (am einfachsten):</strong></p>'
-        '<ol><li>Oben auf das <em>Teilen-Symbol</em> (Kästchen mit Pfeil nach oben)</li>'
-        '<li><em>„Zum Home-Bildschirm"</em> antippen (evtl. vorher <em>„Mehr anzeigen"</em>)</li>'
-        '<li>Oben rechts auf <em>„Hinzufügen"</em></li></ol>'
-        '<p style="font-family:var(--sans);font-size:14px;margin:8px 0 4px;"><strong>In einem anderen Browser '
-        '(Chrome, Google-App &amp; Co.):</strong></p>'
-        '<ol><li>Oben auf das <em>Teilen-Symbol</em> → <em>„In Safari öffnen"</em></li>'
-        '<li>Dort oben nochmal das <em>Teilen-Symbol</em></li>'
-        '<li><em>„Zum Home-Bildschirm"</em> → <em>„Hinzufügen"</em></li></ol>'
+        '<h2>📱 iPhone / iPad</h2>'
+        '<ol><li>Im Browser oben rechts auf das <em>Teilen-Symbol</em></li>'
+        '<li><em>„In Chrome (alternativ Safari) öffnen"</em></li>'
+        '<li>Dort noch einmal auf das <em>Teilen-Symbol</em> (evtl. vorher <em>„Mehr anzeigen"</em>) → '
+        '<em>„Zum Home-Bildschirm"</em> → <em>„Hinzufügen"</em></li></ol>'
         '<h2>🤖 Android</h2>'
         '<p style="font-family:var(--sans);font-size:14px;margin:0 0 4px;"><strong>In Chrome:</strong></p>'
         '<ol><li>Oben rechts auf das <em>Drei-Punkte-Menü</em> (⋮)</li>'
