@@ -58,7 +58,7 @@ GROUPS = {
     ],
     "fauna": [
         ("Bestimmen & Verwandtschaft", "#5A6B7A",
-         ["schluessel.html", "systematik.html", "stammbaum.html"]),
+         ["grundlagen.html", "schluessel.html", "systematik.html", "stammbaum.html"]),
         ("Verwandlung & Bestäubung", "#2C7A6A",
          ["verwandlung.html", "bestaeubung.html"]),
         ("Wiese & Lebensraum", "#C4603A",
@@ -85,6 +85,7 @@ _G = {
     "biotop": 'M12 21v-6 M12 15c-3 0-5-2-5-5 3 0 5 2 5 5z M12 13c0-2.5 2-4.5 5-4.5 0 2.5-2 4.5-5 4.5z M4 21h16',
     "grass":  'M12 21c0-6 0-9 0-12 M12 21c-2-4-4-6-7-7 M12 21c2-4 4-6 7-7 M8 21c0-3-1-5-3-6 M16 21c0-3 1-5 3-6',
     "alert":  'M12 4l9 16H3l9-16z M12 10v5 M12 17.5h.01',
+    "lupe":   'M11 4a6 6 0 1 0 0 12 6 6 0 0 0 0-12z M15.5 15.5 20 20 M8.5 9.5h5 M11 7v5',
 }
 ICON = {
     "pflanze-erklaerung.html": "layers", "pflanze-verstehen.html": "sprout",
@@ -93,6 +94,7 @@ ICON = {
     "bluetenoekologie.html": "network", "samenverbreitung.html": "wind",
     "jahreszeiten-baum.html": "tree", "kreislauf.html": "cycle",
     "pflanzenstrategien.html": "shield",
+    "grundlagen.html": "lupe",
     "schluessel.html": "fork", "systematik.html": "sitemap", "stammbaum.html": "hier",
     "verwandlung.html": "cycle", "bestaeubung.html": "flower", "lebensraum.html": "biotop",
     "nahrungsnetz.html": "network", "wiese-lebt.html": "grass", "insektenschwund.html": "alert",
@@ -132,7 +134,7 @@ def _excluded(key, fn):
 NATIVE_LIST = {
     "flora": ["pflanze-verstehen.html", "bluete-zoom.html", "bestaeubung-erklaerung.html",
               "jahreszeiten-baum.html", "pflanzenstrategien.html", "pflanzen-energie.html"],
-    "fauna": ["verwandlung.html", "bestaeubung.html", "lebensraum.html",
+    "fauna": ["grundlagen.html", "verwandlung.html", "bestaeubung.html", "lebensraum.html",
               "nahrungsnetz.html", "wiese-lebt.html", "bodenleben.html"],
 }
 # beim Kopieren zu überspringen: die Expeditions-Pfade + der Forscherpass selbst
@@ -147,7 +149,7 @@ ORDER = {
               "bluete-zoom.html", "bestaeubung-erklaerung.html", "bestaeubung-animiert.html",
               "bluetenoekologie.html", "samenverbreitung.html", "jahreszeiten-baum.html",
               "pflanzenstrategien.html"],
-    "fauna": ["schluessel.html", "systematik.html", "stammbaum.html", "verwandlung.html",
+    "fauna": ["grundlagen.html", "schluessel.html", "systematik.html", "stammbaum.html", "verwandlung.html",
               "bestaeubung.html", "lebensraum.html", "nahrungsnetz.html", "wiese-lebt.html",
               "bodenleben.html", "insektenschwund.html"],
 }

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wer gehört zur Wiese? — Lernpfad · Fauna Mibaso</title>
+<meta name="description" content="Grundlagen-Lernpfad: Was ist ein Insekt, wer nicht, die wichtigsten Gruppen und ein kleiner Stammbaum der Wiesentiere.">
+<meta name="theme-color" content="#233D5C">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<style>
+  :root{
+    --blau:#233D5C; --blau-tief:#1a2f47; --creme:#F7F3E8; --creme-tief:#EEE7D5;
+    --pergament:#EDE3CC; --tinte:#1c2e42; --honig:#C28A3A; --honig-tief:#a9762c; --linie:#c3ccd5;
+    --gruen:#3E9A5E; --rot:#B5482F;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--creme);color:var(--blau);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.5;padding-top:env(safe-area-inset-top);}
+  .huelle{max-width:640px;margin:0 auto;padding:clamp(10px,3vw,20px) clamp(12px,3.5vw,28px) 48px;}
+
+  .kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .zurueck{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--blau);
+    text-decoration:none;display:inline-flex;gap:5px;align-items:center;}
+  .zaehler{font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a96a1;}
+  h1{font-size:clamp(22px,5.2vw,31px);line-height:1.06;margin:6px 0 2px;font-weight:normal;}
+
+  /* Schritt-Chips */
+  .chips{display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+    padding:10px 2px 4px;margin:2px -2px 0;scrollbar-width:none;}
+  .chips::-webkit-scrollbar{display:none;}
+  .chip{flex:0 0 auto;display:flex;align-items:center;gap:7px;cursor:pointer;
+    font-family:var(--sans);font-size:12.5px;color:#5a6675;background:#fff;
+    border:1px solid var(--linie);border-radius:999px;padding:7px 13px 7px 8px;white-space:nowrap;
+    transition:border-color .15s,color .15s,background .15s;}
+  .chip .nr{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;
+    border-radius:50%;background:var(--creme-tief);color:#8a96a1;font-weight:700;font-size:11.5px;}
+  .chip.aktiv{background:var(--blau);color:var(--creme);border-color:var(--blau);}
+  .chip.aktiv .nr{background:var(--honig);color:#fff;}
+  .chip.fertig:not(.aktiv) .nr{background:#cfe0d2;color:#3e7a55;}
+  .chip.uebung{background:#e9eef3;border-color:#c0cedb;color:#3a5570;}
+  .chip.uebung .nr{background:#c0cedb;color:#2b405a;}
+  .chip.uebung.aktiv{background:#3a5570;border-color:#3a5570;color:#fff;}
+  .chip.uebung.aktiv .nr{background:#fff;color:#3a5570;}
+  .chip.quiz{background:var(--honig);border-color:var(--honig);color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(194,138,58,.3);}
+  .chip.quiz .nr{background:#fff;color:var(--honig);}
+  .chip.quiz.aktiv{background:var(--blau);border-color:var(--blau);color:#fff;}
+  .chip.quiz.aktiv .nr{background:var(--honig);color:#fff;}
+
+  /* Bühne / Illustration */
+  .buehne{margin-top:10px;}
+  .bildbox{position:relative;width:min(96%,460px);aspect-ratio:2.2/1;max-height:46vh;margin:0 auto;}
+  .bild{position:absolute;inset:0;opacity:0;transition:opacity .5s ease;}
+  .bild.an{opacity:1;}
+  .bild img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    background:var(--pergament);border:1px solid #cdbf9e;border-radius:12px;}
+  .bild img.weg{display:none;}
+  .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;text-align:center;border-radius:12px;padding:14px;
+    background:linear-gradient(160deg,#dfe9d6,#c7d8bd);}
+  .ph .gl{font-size:40px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));}
+  .ph .l{font-family:var(--sans);font-size:13px;font-weight:600;color:#4c5a3e;}
+  .ph .f{font-family:var(--sans);font-size:10.5px;color:#6f7a5c;word-break:break-all;}
+
+  /* Hotspots */
+  .hotspot{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;
+    background:var(--honig);color:#fff;border:2px solid #fff;box-shadow:0 2px 7px rgba(35,61,92,.28);
+    font-family:var(--sans);font-weight:700;font-size:14px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;z-index:3;animation:puls 2.4s infinite;}
+  .hotspot.aktiv{background:var(--blau);animation:none;}
+  @keyframes puls{0%{box-shadow:0 2px 7px rgba(35,61,92,.28),0 0 0 0 rgba(194,138,58,.5);}
+    70%{box-shadow:0 2px 7px rgba(35,61,92,.28),0 0 0 11px rgba(194,138,58,0);}100%{box-shadow:0 2px 7px rgba(35,61,92,.28),0 0 0 0 rgba(194,138,58,0);}}
+
+  /* Erklärtext + Infokarte */
+  .erklaer{margin-top:12px;}
+  .erklaer h2{font-size:clamp(18px,5vw,23px);font-weight:normal;margin:0 0 7px;}
+  .erklaer p.txt{font-size:clamp(14.5px,4vw,16.5px);color:var(--tinte);margin:0 0 10px;}
+  .entdeckhint{font-family:var(--sans);font-size:12.5px;color:var(--honig-tief);font-weight:600;margin:4px 0 0;}
+  .infokarte{margin-top:12px;padding:13px 15px;border-radius:0 12px 12px 0;background:var(--creme-tief);
+    border-left:4px solid var(--honig);min-height:30px;}
+  .infokarte.ok{border-left-color:var(--gruen);} .infokarte.no{border-left-color:var(--rot);}
+  .infokarte .it{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8a96a1;margin:0 0 3px;}
+  .infokarte.ok .it{color:var(--gruen);} .infokarte.no .it{color:var(--rot);}
+  .infokarte h3{margin:0 0 4px;font-size:17px;font-weight:normal;}
+  .infokarte p{margin:0;font-size:14.5px;color:var(--tinte);}
+  .infokarte .leer{color:#8a96a1;font-style:italic;font-family:var(--sans);font-size:13px;}
+
+  /* Zuordnen */
+  .zuliste{display:flex;flex-direction:column;gap:8px;margin:4px 0 12px;}
+  .zurow{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+    background:#fff;border:1px solid var(--linie);border-radius:12px;padding:9px 12px;}
+  .zuname{font-family:var(--sans);font-size:14.5px;font-weight:600;color:var(--blau);display:flex;align-items:center;gap:8px;}
+  .zuname .em{font-size:20px;}
+  .zuopt{display:flex;gap:6px;flex-wrap:wrap;flex:0 0 auto;}
+  .zuopt button{font-family:var(--sans);font-size:12px;color:var(--blau);background:#fff;
+    border:1px solid var(--linie);border-radius:999px;padding:7px 11px;cursor:pointer;transition:.13s;white-space:nowrap;}
+  .zuopt button.sel{background:var(--blau);color:var(--creme);border-color:var(--blau);}
+  .zuopt button.ok{background:#e6efe7;border-color:#bcd6c0;color:#2f6a45;}
+  .zuopt button.no{background:#f2e2dd;border-color:#dcc9a8;color:#9a3f2a;}
+
+  /* Gruppen-Karten */
+  .gliste{display:grid;grid-template-columns:1fr;gap:9px;margin:4px 0 8px;}
+  @media(min-width:480px){.gliste{grid-template-columns:1fr 1fr;}}
+  .gcard{background:#fff;border:1px solid var(--linie);border-radius:13px;padding:12px 14px;cursor:pointer;transition:border-color .15s,box-shadow .15s;}
+  .gcard:hover{border-color:var(--honig);}
+  .gcard.auf{border-color:var(--blau);box-shadow:0 3px 12px rgba(35,61,92,.1);}
+  .gcard .gk{display:flex;align-items:center;gap:10px;}
+  .gcard .gdot{width:16px;height:16px;border-radius:50%;flex:0 0 auto;}
+  .gcard .gname{font-family:var(--sans);font-size:15.5px;font-weight:600;color:var(--blau);flex:1 1 auto;}
+  .gcard .gpf{color:#b7c0ca;font-family:var(--sans);font-size:16px;}
+  .gcard .gmerk{font-size:14px;color:var(--tinte);margin:8px 0 0;display:none;line-height:1.5;}
+  .gcard.auf .gmerk{display:block;}
+  .gcard .gbsp{font-family:var(--sans);font-size:12.5px;color:#6f7b86;margin:6px 0 0;display:none;}
+  .gcard.auf .gbsp{display:block;}
+
+  /* Stammbaum */
+  .baum{font-family:var(--sans);margin:2px 0 8px;}
+  .baum ul{list-style:none;margin:0;padding-left:20px;}
+  .baum > ul{padding-left:0;}
+  .baum ul ul{border-left:1px dashed #c9d2da;margin-left:9px;}
+  .baum li{margin:5px 0;padding-left:6px;}
+  .knoten{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:14px;
+    background:#fff;border:1px solid var(--linie);border-radius:10px;padding:7px 12px;cursor:pointer;color:var(--tinte);text-align:left;}
+  .knoten:hover{border-color:var(--honig);}
+  .knoten.aktiv{background:var(--blau);color:#fff;border-color:var(--blau);}
+  .knoten.insekten{background:#eef7f0;border-color:#9fd0ad;}
+  .knoten.insekten.aktiv{background:var(--blau);border-color:var(--blau);}
+  .knoten .em{font-size:16px;}
+
+  .pruefzeile{display:flex;align-items:center;gap:12px;margin-top:6px;}
+  .tally{font-family:var(--sans);font-size:14px;font-weight:700;color:var(--honig-tief);}
+
+  /* Quiz */
+  .qkopf{font-family:var(--sans);font-size:13.5px;color:#6f7b86;border-top:1px solid var(--linie);
+    border-bottom:1px solid var(--linie);padding:9px 0;margin:0 0 12px;}
+  .qkopf b{color:var(--honig);}
+  .qbalken{height:6px;background:var(--creme-tief);border-radius:3px;overflow:hidden;margin:0 0 16px;}
+  .qbalken div{height:100%;width:0;background:var(--honig);transition:width .3s;}
+  .qfrage{font-size:clamp(16.5px,4.5vw,20px);text-align:center;margin:6px 0 16px;}
+  .qwahl{display:flex;flex-direction:column;gap:9px;}
+  .qwahl button{font-family:var(--sans);font-size:15px;color:var(--tinte);text-align:left;
+    background:#fff;border:1.5px solid var(--linie);border-radius:13px;padding:13px 15px;cursor:pointer;transition:.13s;}
+  .qwahl button.ok{background:#e6efe7;border-color:#3E9A5E;color:#2f6a45;}
+  .qwahl button.no{background:#f2e2dd;border-color:#B5482F;color:#9a3f2a;}
+  .qwahl button:disabled{cursor:default;}
+  .qfb{font-family:var(--sans);font-size:14px;margin:14px 0 0;min-height:1.2em;color:var(--tinte);}
+  .qende{text-align:center;padding:6px 0;}
+  .qlabel{font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a96a1;margin:0;}
+  .qscore{font-family:Georgia,serif;font-size:clamp(40px,12vw,60px);line-height:1;color:var(--blau);margin:4px 0;}
+  .qscore small{font-size:.4em;color:#8a96a1;}
+  .qspruch{font-size:clamp(16px,4.6vw,19px);margin:8px auto 10px;max-width:32ch;}
+  /* Forscher-Brücke */
+  .bruecke{background:linear-gradient(160deg,#fff8ec,#fdefd4);border:1px solid var(--honig);
+    border-radius:15px;padding:16px 16px 18px;margin:8px 0 4px;text-align:center;}
+  .bruecke p{font-family:var(--sans);font-size:14px;color:#6b5a34;margin:0 0 12px;line-height:1.5;}
+  .bruecke .stammbtn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:15px;
+    font-weight:700;color:#fff;background:var(--honig);border:none;border-radius:999px;padding:12px 22px;
+    text-decoration:none;box-shadow:0 3px 12px rgba(194,138,58,.3);}
+
+  .konffeld{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden;}
+  .konf{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;animation:konffall 3.6s linear forwards;}
+  @keyframes konffall{0%{transform:translateY(-14px);opacity:1;}100%{transform:translateY(106vh) rotate(540deg);opacity:.9;}}
+
+  .nav{display:flex;gap:9px;margin-top:24px;padding-top:16px;border-top:1px solid var(--linie);}
+  .knopf{font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--blau);background:transparent;
+    border:1px solid var(--blau);border-radius:999px;padding:10px 16px;cursor:pointer;transition:background .18s,color .18s;}
+  .knopf:hover:not(:disabled){background:var(--blau);color:var(--creme);}
+  .knopf:disabled{opacity:.38;cursor:default;}
+  .knopf.prim{background:var(--blau);color:var(--creme);margin-left:auto;}
+  .knopf.prim:hover{background:var(--blau-tief);color:var(--creme);}
+
+  footer{margin-top:30px;font-family:var(--sans);font-size:12px;color:#8a96a1;text-align:center;}
+  footer a{color:inherit;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}.konf{display:none;}}
+
+  /* Einheitliches Pfad-Intro */
+  .pfad-intro{position:fixed;inset:0;z-index:9000;background:var(--creme);display:flex;
+    align-items:center;justify-content:center;padding:26px 20px;overflow-y:auto;transition:opacity .5s ease;}
+  .pfad-intro.weg{opacity:0;visibility:hidden;pointer-events:none;}
+  .pi-inner{max-width:440px;text-align:center;}
+  .pi-foto{width:100%;max-width:360px;aspect-ratio:16/10;object-fit:cover;border-radius:16px;
+    border:1px solid #cdbf9e;box-shadow:0 6px 20px rgba(35,61,92,.18);margin:0 auto 18px;display:block;}
+  .pi-eyebrow{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--honig-tief);margin-bottom:6px;}
+  .pi-titel{font-family:Georgia,serif;font-weight:normal;font-size:clamp(24px,7vw,32px);
+    color:var(--blau);margin:0 0 10px;line-height:1.1;}
+  .pi-lead{font-family:Georgia,serif;font-size:clamp(15px,4.2vw,17px);color:var(--tinte);
+    margin:0 auto 22px;max-width:34ch;line-height:1.5;}
+  .pi-los{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--creme);background:var(--honig);
+    border:none;border-radius:999px;padding:14px 32px;cursor:pointer;box-shadow:0 3px 12px rgba(194,138,58,.35);
+    transition:transform .15s,background .18s;}
+  .pi-los:hover{background:var(--honig-tief);transform:translateY(-1px);}
+  @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
+</style>
+</head>
+<body>
+<div class="pfad-intro" id="pfadIntro">
+  <div class="pi-inner">
+    <img class="pi-foto" src="../images/wiese/wiese-sommer.png" alt="" onerror="this.style.display='none'">
+    <div class="pi-eyebrow">🍃 Expedition Wiese · Grundlagen</div>
+    <h1 class="pi-titel">Wer gehört zur Wiese?</h1>
+    <p class="pi-lead">Bevor wir die Wiese erforschen: Was ist überhaupt ein Insekt, wer ist keins – und welche großen Tiergruppen krabbeln und fliegen hier herum? Dein Grundkurs.</p>
+    <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
+  </div>
+</div>
+<div class="huelle">
+  <div class="kopf">
+    <a class="zurueck" href="../index.html">‹ Startseite</a>
+    <span class="zaehler" id="zaehler"></span>
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div class="buehne" id="buehne"></div>
+  <div class="erklaer" id="erklaer"></div>
+
+  <div class="nav">
+    <button class="knopf" id="zurueckBtn">‹ Zurück</button>
+    <button class="knopf prim" id="weiterBtn">Nächster Schritt ›</button>
+  </div>
+
+  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso</footer>
+</div>
+
+<script>
+/* ===========================================================================
+   Lernpfad „Wer gehört zur Wiese? — Grundlagen & Mini-Systematik"
+   ►► MASSGEBLICHE FASSUNG – native in bio.
+   Interaktionstypen:
+     "tafel"    : Insekten-Körperbau beschriften (Hotspots)
+     "zuordnen" : Insekt – oder kein Insekt?
+     "gruppen"  : die wichtigsten Gruppen als aufklappbare Karten
+     "baum"     : kleiner interaktiver Stammbaum (Knoten antippen)
+     "quiz"     : Abschluss → schreibt Blätter + Brücke zum großen Stammbaum
+   Einziges Bild: ../images/grundlagen/insekt-koerperbau.jpg (Platzhalter bis dahin).
+   Forscherpass-Kontrakt: localStorage["mibaso.fauna.expedition"].grundlagen = {blaetter,done,ts}
+=========================================================================== */
+const BASIS="../images/grundlagen/";
+
+/* Die wichtigsten Insektengruppen (Farbe = Erkennungspunkt in Karten & Baum) */
+const GRUPPEN = [
+  {id:"kaefer",       name:"Käfer",          farbe:"#B5482F", merk:"Harte Deckflügel wie ein Panzer, darunter die zarten Flughäute. Die artenreichste Tiergruppe der Welt.", bsp:"z. B. Marienkäfer, Laufkäfer"},
+  {id:"schmetter",    name:"Schmetterlinge", farbe:"#C28A3A", merk:"Zwei große, bunt beschuppte Flügel und ein Saugrüssel. Aus dem Ei wird erst eine Raupe.", bsp:"z. B. Tagpfauenauge, Kohlweißling"},
+  {id:"hautfluegler", name:"Hautflügler",    farbe:"#E0A81E", merk:"Bienen, Wespen und Ameisen. Dünne „Wespentaille“, zwei Paar hauchdünne Flügel. Viele leben in Staaten.", bsp:"z. B. Honigbiene, Hummel"},
+  {id:"zweifluegler", name:"Zweiflügler",    farbe:"#5A6B7A", merk:"Fliegen und Mücken. Nur EIN Paar Flügel – das hintere ist zu winzigen Schwingkölbchen geschrumpft.", bsp:"z. B. Schwebfliege, Stubenfliege"},
+  {id:"libellen",     name:"Libellen",       farbe:"#2C7A6A", merk:"Zwei Paar lange, glasklare Flügel, riesige Augen, blitzschnelle Jäger. Ihre Larven leben im Wasser.", bsp:"z. B. Pechlibelle, Plattbauch"},
+  {id:"wanzen",       name:"Wanzen",         farbe:"#8a3f2a", merk:"Ein Stechrüssel zum Saugen und oft ein dreieckiges Rückenschild. Manche stinken zur Abwehr.", bsp:"z. B. Feuerwanze, Bettwanze"},
+  {id:"heuschrecken", name:"Heuschrecken",   farbe:"#3E9A5E", merk:"Kräftige Sprungbeine und oft ein Zirpen zur Balz. Sie können weit springen.", bsp:"z. B. Grünes Heupferd, Feldgrille"}
+];
+function gruppe(id){ return GRUPPEN.find(g=>g.id===id); }
+
+const SCHRITTE = [
+  /* 1 — Beschriften: Insekten-Körperbau ----------------------------------- */
+  { chip:"Was ist ein Insekt?", titel:"Wer ist ein Insekt?",
+    text:"Ein Insekt erkennst du an vier Dingen: <b>6 Beine</b>, <b>3 Körperabschnitte</b> (Kopf, Brust, Hinterleib), meist <b>Flügel</b> und ein Paar <b>Fühler</b>. Tippe die Punkte an.",
+    hint:"Tippe die Zahlen im Bild an.",
+    typ:"tafel",
+    bild:{src:"insekt-koerperbau.jpg", label:"Insekt mit Körperbau", glyph:"🐞"},
+    hotspots:[
+      {x:16,y:38,n:1,titel:"Kopf",text:"Am Kopf sitzen die großen Augen und das Fühlerpaar. Hier wird gesehen, gerochen und gefressen."},
+      {x:42,y:44,n:2,titel:"Brust (Thorax)",text:"Das Kraftpaket in der Mitte: An der Brust hängen alle sechs Beine und die Flügel."},
+      {x:72,y:50,n:3,titel:"Hinterleib (Abdomen)",text:"Der hintere Abschnitt. Hier wird verdaut und für den Nachwuchs gesorgt."},
+      {x:48,y:74,n:4,titel:"Sechs Beine",text:"Immer genau sechs! Das ist das sicherste Kennzeichen – wer mehr oder weniger hat, ist kein Insekt."},
+      {x:10,y:22,n:5,titel:"Fühler",text:"Mit den beiden Fühlern riecht und tastet das Insekt seine Umgebung ab."},
+      {x:60,y:26,n:6,titel:"Flügel",text:"Die meisten Insekten haben Flügel – oft sogar zwei Paar. Damit sind sie die einzigen fliegenden Wirbellosen."}
+    ]
+  },
+
+  /* 2 — Zuordnen: Insekt oder nicht? -------------------------------------- */
+  { chip:"Insekt oder nicht?", kat:"uebung", titel:"Insekt – oder kein Insekt?",
+    text:"Jetzt kommt der Aha-Test: Zähl die Beine! Ordne jedes Tier zu – Insekt (6 Beine) oder kein Insekt. Dann auf „Prüfen“ tippen.",
+    typ:"zuordnen",
+    optionen:[ {w:"ja",kurz:"Insekt"}, {w:"nein",kurz:"kein Insekt"} ],
+    tiere:[
+      {t:"Marienkäfer",  em:"🐞", w:"ja",   fb:"6 Beine, 3 Abschnitte, Deckflügel – ein echter Käfer."},
+      {t:"Schmetterling",em:"🦋", w:"ja",   fb:"6 Beine und beschuppte Flügel – ein Insekt."},
+      {t:"Heuschrecke",  em:"🦗", w:"ja",   fb:"6 Beine mit kräftigen Sprungbeinen – ein Insekt."},
+      {t:"Libelle",      em:"🌊", w:"ja",   fb:"6 Beine, vier Flügel – ein Insekt (auch wenn die Larve im Wasser lebt)."},
+      {t:"Spinne",       em:"🕷️", w:"nein", fb:"8 Beine und nur zwei Körperteile → Spinnentier, kein Insekt."},
+      {t:"Regenwurm",    em:"🪱", w:"nein", fb:"Gar keine Beine → ein Wurm, kein Insekt."},
+      {t:"Schnecke",     em:"🐌", w:"nein", fb:"Kriecht auf einem Fuß, hat ein Haus → ein Weichtier, kein Insekt."},
+      {t:"Assel",        em:"🪳", w:"nein", fb:"Sieben Beinpaare und Kiemen → ein Krebstier an Land, kein Insekt."},
+      {t:"Tausendfüßer", em:"🐛", w:"nein", fb:"Sehr viele Beinpaare → Tausendfüßer, kein Insekt."}
+    ]
+  },
+
+  /* 3 — Gruppen als aufklappbare Karten ----------------------------------- */
+  { chip:"Die Gruppen", titel:"Die wichtigsten Gruppen der Wiese",
+    text:"Insekten teilt man in große Gruppen ein. Tippe jede Karte an und lies die zwei, drei Erkennungsmerkmale.",
+    hint:"Tippe eine Karte an, um sie aufzuklappen.",
+    typ:"gruppen"
+  },
+
+  /* 4 — Kleiner Stammbaum -------------------------------------------------- */
+  { chip:"Stammbaum", titel:"Der kleine Stammbaum",
+    text:"So hängt alles zusammen. Tippe einen Ast an, um zu erfahren, was ihn ausmacht. Die grüne Verzweigung sind die Insekten.",
+    hint:"Tippe die Äste an.",
+    typ:"baum"
+  },
+
+  /* 5 — Abschluss-Quiz + Brücke ------------------------------------------- */
+  { chip:"Quiz", kat:"quiz", titel:"Abschluss-Quiz",
+    text:"Zeig, was du gelernt hast – danach wirst du zum Forscher.",
+    typ:"quiz",
+    fragen:[
+      {f:"Woran erkennst du ein Insekt ganz sicher?",
+       a:["An acht Beinen","An genau sechs Beinen","Daran, dass es fliegt","An einem Schneckenhaus"], r:1,
+       fb:"Sechs Beine und drei Körperabschnitte haben alle Insekten."},
+      {f:"Welches Tier ist KEIN Insekt?",
+       a:["Marienkäfer","Libelle","Spinne","Heuschrecke"], r:2,
+       fb:"Die Spinne hat acht Beine → Spinnentier."},
+      {f:"Wie viele Körperabschnitte hat ein Insekt?",
+       a:["Einen","Zwei","Drei","Fünf"], r:2,
+       fb:"Kopf, Brust und Hinterleib – drei Abschnitte."},
+      {f:"Wozu gehören Bienen, Wespen und Ameisen?",
+       a:["Käfer","Hautflügler","Zweiflügler","Wanzen"], r:1,
+       fb:"Alle drei sind Hautflügler – dünne Taille, oft staatenbildend."},
+      {f:"Was ist typisch für Käfer?",
+       a:["Ein Saugrüssel","Harte Deckflügel","Nur ein Flügelpaar","Acht Beine"], r:1,
+       fb:"Die harten Deckflügel schützen die Flughäute darunter."},
+      {f:"Fliegen und Mücken haben …",
+       a:["… vier Flügel","… nur ein Flügelpaar","… gar keine Flügel","… acht Beine"], r:1,
+       fb:"Darum heißen sie Zweiflügler."},
+      {f:"Die Assel ist eigentlich ein …",
+       a:["Insekt","Spinnentier","Krebstier","Wurm"], r:2,
+       fb:"Asseln sind Krebstiere an Land – keine Insekten."}
+    ]
+  }
+];
+
+/* ---- Hilfen ---- */
+const $=id=>document.getElementById(id);
+const reduce=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+function misch(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]];}return a;}
+function bildHTML(b,klasse){
+  return '<div class="bild '+(klasse||'')+'">'+
+    '<div class="ph"><span class="gl">'+b.glyph+'</span>'+
+      '<span class="l">'+b.label+'</span><span class="f">images/grundlagen/'+b.src+'</span></div>'+
+    '<img src="'+BASIS+b.src+'" alt="'+b.label+'" onerror="this.classList.add(\'weg\')">'+
+  '</div>';
+}
+
+const elB=$("buehne"), elE=$("erklaer"), elChips=$("chips"), elZaehler=$("zaehler");
+let i=0;
+
+function chips(){
+  elChips.innerHTML="";
+  SCHRITTE.forEach((s,k)=>{
+    const c=document.createElement("button");
+    c.className="chip"+(s.kat?" "+s.kat:"")+(k===i?" aktiv":"")+(k<i?" fertig":"");
+    c.innerHTML='<span class="nr">'+(k+1)+'</span>'+s.chip;
+    c.addEventListener("click",()=>geheZu(k));
+    elChips.appendChild(c);
+  });
+  elZaehler.textContent="Schritt "+(i+1)+" / "+SCHRITTE.length;
+}
+
+function render(){
+  const s=SCHRITTE[i];
+  if(s.typ==="zuordnen") renderZuordnen(s);
+  else if(s.typ==="gruppen") renderGruppen(s);
+  else if(s.typ==="baum") renderBaum(s);
+  else if(s.typ==="quiz") renderQuiz(s);
+  else renderTafel(s);
+  $("zurueckBtn").disabled=(i===0);
+  $("weiterBtn").textContent=(i===SCHRITTE.length-1)?"↺ Von vorn":"Nächster Schritt ›";
+  chips(); melde();
+}
+
+/* --- Tafel mit Hotspots --- */
+function renderTafel(s){
+  let html='<div class="bildbox">'+bildHTML(s.bild,"an");
+  s.hotspots.forEach(h=>{ html+='<button class="hotspot" data-n="'+h.n+'" style="left:'+h.x+'%;top:'+h.y+'%;">'+h.n+'</button>'; });
+  html+='</div>';
+  elB.innerHTML=html;
+  let e='<h2>'+s.titel+'</h2><p class="txt">'+s.text+'</p>';
+  if(s.hint) e+='<p class="entdeckhint">👇 '+s.hint+'</p>';
+  e+='<div class="infokarte" id="info"><p class="leer">Tippe eine Zahl im Bild an.</p></div>';
+  elE.innerHTML=e;
+  const info=$("info");
+  elB.querySelectorAll(".hotspot").forEach(b=>{
+    b.addEventListener("click",()=>{
+      elB.querySelectorAll(".hotspot").forEach(x=>x.classList.remove("aktiv"));
+      b.classList.add("aktiv");
+      const h=s.hotspots.find(z=>z.n==b.dataset.n);
+      info.className="infokarte";
+      info.innerHTML='<p class="it">Punkt '+h.n+'</p><h3>'+h.titel+'</h3><p>'+h.text+'</p>';
+      info.scrollIntoView({block:"nearest",behavior:reduce?"auto":"smooth"});
+      melde();
+    });
+  });
+}
+
+/* --- Zuordnen --- */
+function renderZuordnen(s){
+  elB.innerHTML="";
+  const tiere=misch(s.tiere.slice());
+  const wahl={}; let geprueft=false;
+  let e='<h2>'+s.titel+'</h2><p class="txt">'+s.text+'</p><div class="zuliste" id="zuliste"></div>'+
+    '<div class="pruefzeile"><button class="knopf prim" id="pruefBtn" style="margin:0;">Prüfen</button>'+
+    '<span class="tally" id="tally"></span></div><div class="infokarte" id="info" style="display:none"></div>';
+  elE.innerHTML=e;
+  const liste=$("zuliste");
+  tiere.forEach((tr,k)=>{
+    const row=document.createElement("div"); row.className="zurow";
+    let opt='<span class="zuopt">';
+    s.optionen.forEach(o=>{ opt+='<button data-w="'+o.w+'">'+o.kurz+'</button>'; });
+    opt+='</span>';
+    row.innerHTML='<span class="zuname"><span class="em">'+tr.em+'</span>'+tr.t+'</span>'+opt;
+    row.querySelectorAll("button").forEach(b=>{
+      b.addEventListener("click",()=>{
+        if(geprueft) return;
+        wahl[k]=b.dataset.w;
+        row.querySelectorAll("button").forEach(x=>x.classList.toggle("sel",x===b));
+        melde();
+      });
+    });
+    liste.appendChild(row);
+  });
+  const pb=$("pruefBtn"), tally=$("tally");
+  pb.addEventListener("click",()=>{
+    if(!geprueft){
+      let r=0; const fehler=[];
+      Array.from(liste.children).forEach((row,k)=>{
+        const richtig=tiere[k].w;
+        row.querySelectorAll("button").forEach(b=>{
+          b.disabled=true;
+          if(b.dataset.w===richtig) b.classList.add("ok");
+          if(wahl[k]===b.dataset.w && wahl[k]!==richtig) b.classList.add("no");
+        });
+        if(wahl[k]===richtig) r++; else fehler.push(tiere[k]);
+      });
+      tally.textContent=r+" / "+tiere.length+" richtig";
+      const info=$("info");
+      if(fehler.length){
+        info.style.display=""; info.className="infokarte no";
+        info.innerHTML='<p class="it">Schau nochmal</p>'+fehler.map(f=>'<p><b>'+f.t+'</b>: '+f.fb+'</p>').join("");
+      } else {
+        info.style.display=""; info.className="infokarte ok";
+        info.innerHTML='<p class="it">Perfekt</p><p>Alle richtig! Du zählst die Beine wie ein Profi.</p>';
+      }
+      pb.textContent="Nochmal"; geprueft=true;
+    } else { renderZuordnen(s); }
+    melde();
+  });
+}
+
+/* --- Gruppen-Karten --- */
+function renderGruppen(s){
+  elB.innerHTML="";
+  let e='<h2>'+s.titel+'</h2><p class="txt">'+s.text+'</p>';
+  if(s.hint) e+='<p class="entdeckhint">👇 '+s.hint+'</p>';
+  e+='<div class="gliste" id="gliste"></div>';
+  elE.innerHTML=e;
+  const g=$("gliste");
+  GRUPPEN.forEach(gr=>{
+    const c=document.createElement("div"); c.className="gcard";
+    c.innerHTML='<div class="gk"><span class="gdot" style="background:'+gr.farbe+'"></span>'+
+      '<span class="gname">'+gr.name+'</span><span class="gpf">＋</span></div>'+
+      '<p class="gmerk">'+gr.merk+'</p><p class="gbsp">'+gr.bsp+'</p>';
+    c.addEventListener("click",()=>{
+      const auf=c.classList.toggle("auf");
+      c.querySelector(".gpf").textContent=auf?"–":"＋";
+      melde();
+    });
+    g.appendChild(c);
+  });
+}
+
+/* --- Stammbaum --- */
+const BAUM = {
+  label:"Tiere", em:"🐾", info:"Alle Tiere. Man teilt sie zuerst in zwei große Lager: mit oder ohne Rückgrat.",
+  kinder:[
+    {label:"Wirbeltiere", em:"🐟", info:"Tiere mit Rückgrat (Wirbelsäule): Fische, Frösche, Vögel, Säugetiere – auch du. Auf der Insektenwiese sind sie hier nicht unser Thema."},
+    {label:"Wirbellose", em:"🐛", info:"Tiere OHNE Rückgrat. Zu ihnen gehören fast alle kleinen Wiesenbewohner.",
+      kinder:[
+        {label:"Spinnentiere", em:"🕷️", info:"8 Beine, zwei Körperteile, keine Fühler wie Insekten. Spinnen, Weberknechte, Milben. Keine Insekten!"},
+        {label:"Krebstiere", em:"🦐", info:"Meist im Wasser – an Land vor allem die Asseln. Viele Beinpaare, zwei Fühlerpaare."},
+        {label:"Tausendfüßer", em:"🐛", info:"Langer Körper mit sehr vielen Beinpaaren. Wichtige Zersetzer im Laub."},
+        {label:"Insekten", em:"🐞", insekten:true, info:"6 Beine, 3 Körperabschnitte, meist Flügel, ein Fühlerpaar. Die artenreichste Tiergruppe der Welt – und sie teilt sich weiter auf:",
+          kinder: GRUPPEN.map(gr=>({label:gr.name, em:"•", farbe:gr.farbe, info:gr.merk+" "+gr.bsp+"."}))
+        }
+      ]}
+  ]
+};
+function renderBaum(s){
+  elB.innerHTML="";
+  let e='<h2>'+s.titel+'</h2><p class="txt">'+s.text+'</p>';
+  if(s.hint) e+='<p class="entdeckhint">👇 '+s.hint+'</p>';
+  e+='<div class="baum" id="baum"></div><div class="infokarte" id="info"><p class="leer">Tippe einen Ast an.</p></div>';
+  elE.innerHTML=e;
+  let idc=0; const nodes={};
+  function bau(node){
+    const id="k"+(idc++); nodes[id]=node;
+    let punkt = node.farbe ? '<span class="gdot" style="display:inline-block;width:11px;height:11px;border-radius:50%;background:'+node.farbe+'"></span>' : '<span class="em">'+node.em+'</span>';
+    let html='<li><button class="knoten'+(node.insekten?' insekten':'')+'" data-id="'+id+'">'+punkt+node.label+'</button>';
+    if(node.kinder && node.kinder.length){ html+='<ul>'+node.kinder.map(bau).join("")+'</ul>'; }
+    html+='</li>';
+    return html;
+  }
+  $("baum").innerHTML='<ul>'+bau(BAUM)+'</ul>';
+  const info=$("info");
+  $("baum").querySelectorAll(".knoten").forEach(b=>{
+    b.addEventListener("click",()=>{
+      $("baum").querySelectorAll(".knoten").forEach(x=>x.classList.remove("aktiv"));
+      b.classList.add("aktiv");
+      const n=nodes[b.dataset.id];
+      info.className="infokarte";
+      info.innerHTML='<h3>'+n.label+'</h3><p>'+n.info+'</p>';
+      info.scrollIntoView({block:"nearest",behavior:reduce?"auto":"smooth"});
+      melde();
+    });
+  });
+}
+
+/* --- Abschluss-Quiz + Forscher-Brücke --- */
+function renderQuiz(s){
+  const fragen=misch(s.fragen.slice());
+  let q=0, score=0, sperre=false;
+  elB.innerHTML="";
+  function zeigeFrage(){
+    sperre=false;
+    const f=fragen[q];
+    const opts=misch(f.a.map((txt,idx)=>({txt,idx})));
+    let e='<div class="qkopf">Frage <b>'+(q+1)+'</b> / '+fragen.length+' · ✓ '+score+'</div>'+
+      '<div class="qbalken"><div style="width:'+(q/fragen.length*100)+'%"></div></div>'+
+      '<p class="qfrage">'+f.f+'</p><div class="qwahl" id="qwahl"></div><div class="qfb" id="qfb"></div>';
+    elE.innerHTML=e;
+    const wrap=$("qwahl"), fb=$("qfb");
+    opts.forEach(o=>{
+      const b=document.createElement("button"); b.textContent=o.txt; b.dataset.idx=o.idx;
+      b.addEventListener("click",()=>{
+        if(sperre) return; sperre=true;
+        const richtig=(o.idx===f.r);
+        wrap.querySelectorAll("button").forEach(x=>{ x.disabled=true; if(+x.dataset.idx===f.r) x.classList.add("ok"); });
+        if(richtig){ score++; fb.textContent="✓ Richtig! "+f.fb; }
+        else{ b.classList.add("no"); fb.textContent="✗ "+f.fb; }
+        melde();
+        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?1100:1900);
+      });
+      wrap.appendChild(b);
+    });
+    melde();
+  }
+  function ende(){
+    const perfekt=score===fragen.length;
+    const blaetter = perfekt ? 3 : score>=Math.ceil(fragen.length*0.6) ? 2 : 1;
+    try{ const _K="mibaso.fauna.expedition"; const _d=JSON.parse(localStorage.getItem(_K)||"{}");
+      if(!_d.grundlagen || blaetter>_d.grundlagen.blaetter){ _d.grundlagen={blaetter:blaetter,done:true,ts:Date.now()}; localStorage.setItem(_K,JSON.stringify(_d)); } }catch(e){}
+    const sprueche=perfekt
+      ? ["Alles richtig – du kennst die Wiesentiere und ihre Gruppen! 🐞","Volltreffer! Ein echter Nachwuchs-Systematiker."]
+      : score>=Math.ceil(fragen.length*0.6)
+        ? ["Stark! Fast alles richtig.","Gut gemacht – die Grundlagen sitzen."]
+        : ["Schau ruhig nochmal durch die Schritte – dann sitzt es.","Ein guter Anfang! Noch eine Runde?"];
+    elE.innerHTML='<div class="qende"><p class="qlabel">Ergebnis</p>'+
+      '<p class="qscore">'+score+'<small> / '+fragen.length+'</small></p>'+
+      '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
+      '<p class="qspruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
+      '<div class="bruecke"><p>Jetzt wirst du Forscher! Du kennst die wichtigsten Tiergruppen der Wiese – '+
+        'erkunde sie im großen Stammbaum: tippe dich durch die Verzweigungen bis zu einzelnen Arten.</p>'+
+        '<a class="stammbtn" href="stammbaum.html">🌳 Zum großen Stammbaum</a></div>'+
+      '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;">'+
+        '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
+        '<a class="knopf" href="wiesenpass.html">🍃 Forscherpass</a></div></div>';
+    $("qnochmal").addEventListener("click",()=>renderQuiz(s));
+    if(perfekt){ konfetti(); fanfare(); }
+    melde();
+  }
+  zeigeFrage();
+}
+
+/* --- Konfetti + Fanfare --- */
+function konfetti(){
+  if(reduce) return;
+  const feld=document.createElement("div"); feld.className="konffeld";
+  const farben=['#C28A3A','#233D5C','#3E9A5E','#B5482F','#e8a020','#9b59b6'];
+  for(let n=0;n<70;n++){ const k=document.createElement("span"); k.className="konf";
+    k.style.cssText='left:'+Math.random()*100+'%;background:'+farben[(Math.random()*farben.length)|0]+
+      ';animation-delay:'+(Math.random()*0.5).toFixed(2)+'s;transform:rotate('+(Math.random()*360)+'deg);';
+    feld.appendChild(k); }
+  document.body.appendChild(feld); setTimeout(()=>feld.remove(),4200);
+}
+function fanfare(){
+  try{ const Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx) return;
+    const ctx=new Ctx(); if(ctx.state==="suspended") ctx.resume(); const t0=ctx.currentTime+0.05;
+    [[523.25,0,0.16,0.2],[659.25,0.15,0.16,0.2],[783.99,0.30,0.16,0.2],[1046.5,0.46,0.6,0.22]]
+    .forEach(([fr,st,du,vo])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type="triangle";o.frequency.value=fr;
+      g.gain.setValueAtTime(0,t0+st);g.gain.linearRampToValueAtTime(vo,t0+st+0.02);g.gain.exponentialRampToValueAtTime(0.001,t0+st+du);
+      o.connect(g).connect(ctx.destination);o.start(t0+st);o.stop(t0+st+du+0.05);});
+    setTimeout(()=>ctx.close().catch(()=>{}),1600);
+  }catch(e){}
+}
+
+/* --- Navigation --- */
+function geheZu(k){ if(k<0||k>=SCHRITTE.length) return; i=k; render(); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
+$("zurueckBtn").addEventListener("click",()=>geheZu(i-1));
+$("weiterBtn").addEventListener("click",()=>{ if(i===SCHRITTE.length-1) geheZu(0); else geheZu(i+1); });
+
+/* Wischen zwischen Schritten (außer auf interaktiven Elementen) */
+let tx=0,ty=0,tig=false;
+document.addEventListener("touchstart",e=>{
+  if(e.target.closest("input,button,a,.hotspot,.gcard,.knoten")){tig=false;return;}
+  tig=true; tx=e.touches[0].clientX; ty=e.touches[0].clientY;
+},{passive:true});
+document.addEventListener("touchend",e=>{
+  if(!tig) return; tig=false;
+  const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)*1.6){ geheZu(i+(dx<0?1:-1)); }
+},{passive:true});
+
+/* Höhe an iframe melden */
+function melde(){ if(window.parent!==window){ try{ window.parent.postMessage({fauna:"height", height:document.body.scrollHeight}, "*"); }catch(e){} } }
+if("ResizeObserver" in window){ new ResizeObserver(melde).observe(document.body); }
+window.addEventListener("load", melde);
+
+render();
+</script>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

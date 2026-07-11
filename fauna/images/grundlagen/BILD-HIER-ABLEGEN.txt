@@ -1,0 +1,18 @@
+Bild für den Lernpfad „Wer gehört zur Wiese?" hier ablegen.
+
+Der Pfad braucht nur EIN Bild (alles andere sind Emojis und ein HTML-Stammbaum).
+Sobald die Datei hier liegt, erscheint sie automatisch statt des Platzhalters.
+Format: JPG, quer, ~1600 px breit, q82 komprimiert.
+
+  insekt-koerperbau.jpg
+  → Makro-Seitenansicht eines Insekts, dessen Körper klar in drei Abschnitte
+    gegliedert ist. Antippbare Punkte (1–6) liegen später auf:
+      1 Kopf            links
+      2 Brust (Thorax)  Mitte
+      3 Hinterleib      rechts
+      4 Sechs Beine     unten Mitte
+      5 Fühler          links oben
+      6 Flügel          Mitte oben
+    Sitzt das Tier im Bild anders, sag Bescheid – ich rücke die Punkte nach.
+
+Prompt (siehe auch grundlagen-bildprompt.md).

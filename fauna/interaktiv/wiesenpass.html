@@ -267,6 +267,7 @@ const KEY="mibaso.fauna.expedition";
 const SEEN="mibaso.fauna.pass.seen";   // Merker: was hat der Nutzer zuletzt gesehen?
 
 const PFADE = [
+  { id:"grundlagen",   titel:"Wer gehört zur Wiese?", kurz:"Grundlagen: Insekt & Tiergruppen",         datei:"grundlagen.html",   em:"🔎" },
   { id:"verwandlung",  titel:"Verwandlung",           kurz:"Vom Ei zum fertigen Insekt",               datei:"verwandlung.html",  em:"🦋" },
   { id:"bestaeubung",  titel:"Wer bestäubt was?",     kurz:"Insekten & Blüten, die zueinander passen", datei:"bestaeubung.html",  em:"🌸" },
   { id:"lebensraum",   titel:"Was brauchen Insekten?",kurz:"Der richtige Lebensraum",                  datei:"lebensraum.html",   em:"🏡" },
@@ -279,9 +280,9 @@ const MAX_BL = PFADE.length*3;   // 15 Blätter maximal
 const RAENGE = [
   { ab:0,  name:"Frisch gestartet", med:"🌱" },
   { ab:1,  name:"Wiesen-Neuling",   med:"🐛" },
-  { ab:6,  name:"Wiesen-Kenner",    med:"🐝" },
-  { ab:11, name:"Wiesen-Forscher",  med:"🦋" },
-  { ab:16, name:"Wiesen-Meister",   med:"🏅" }
+  { ab:7,  name:"Wiesen-Kenner",    med:"🐝" },
+  { ab:13, name:"Wiesen-Forscher",  med:"🦋" },
+  { ab:19, name:"Wiesen-Meister",   med:"🏅" }
 ];
 function rangIndex(bl){ let i=0; RAENGE.forEach((x,k)=>{ if(bl>=x.ab) i=k; }); return i; }
 function naechsterRang(bl){ return RAENGE.find(x=>x.ab>bl)||null; }
@@ -289,6 +290,7 @@ function naechsterRang(bl){ return RAENGE.find(x=>x.ab>bl)||null; }
 /* Abzeichen: bedingung(daten, hilfen) -> bool */
 const ABZEICHEN = [
   { id:"start",  em:"🌱", name:"Erster Schritt", pruef:(d,h)=>h.fertige>=1 },
+  { id:"grund",  em:"🔎", name:"Grundlagen-Kenner", pruef:(d)=>d.grundlagen&&d.grundlagen.done },
   { id:"drei",   em:"🐝", name:"Fleißig",        pruef:(d,h)=>h.fertige>=3 },
   { id:"treffer",em:"🎯", name:"Volltreffer",    pruef:(d,h)=>h.maxEines===3 },
   { id:"serie",  em:"🔥", name:"Blatt-Serie",    pruef:(d,h)=>h.dreier>=3 },
