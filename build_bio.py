@@ -36,7 +36,7 @@ REPOS = [
     {"key": "flora", "label": "Flora Mibaso", "emoji": "🌼", "akzent": "#2F4F3E",
      "pass": {"href": "pflanzenpass.html", "img": "images/bluetenoekologie.jpg",
               "eyebrow": "Dein Forscherpass", "titel": "Expedition Wiese",
-              "sub": "Spiel die Pfade, lass deinen Garten wachsen und kröne dich zum Flora-Meister."}},
+              "sub": "Spiel die Pfade, lass deine Wiese erblühen und kröne dich zum Flora-Meister."}},
     {"key": "fauna", "label": "Fauna Mibaso", "emoji": "🦋", "akzent": "#233D5C",
      "pass": {"href": "interaktiv/wiesenpass.html", "img": "images/wiese/wiese-sommer.png",
               "eyebrow": "Dein Forscherpass", "titel": "Expedition Wiese",
@@ -49,12 +49,12 @@ REPOS = [
 # Nicht zugeordnete Pfade landen unter „Mehr entdecken".
 GROUPS = {
     "flora": [
-        ("Aufbau & Wachstum", "#5A6B7A",
-         ["pflanze-erklaerung.html", "pflanze-verstehen.html", "pflanzen-energie.html"]),
-        ("Blüte & Bestäubung", "#2C7A6A",
+        ("Wie ist eine Pflanze aufgebaut?", "#5A6B7A",
+         ["pflanze-verstehen.html", "pflanzen-energie.html"]),
+        ("Wie entstehen neue Pflanzen?", "#2C7A6A",
          ["bluete-zoom.html", "bestaeubung-erklaerung.html", "bestaeubung-animiert.html", "bluetenoekologie.html"]),
-        ("Samen, Jahr & Strategien", "#C4603A",
-         ["samenverbreitung.html", "jahreszeiten-baum.html", "pflanzenstrategien.html"]),
+        ("Wie meistern Pflanzen das Leben?", "#C4603A",
+         ["jahreszeiten-baum.html", "pflanzenstrategien.html"]),
     ],
     "fauna": [
         ("Bestimmen & Verwandtschaft", "#5A6B7A",
@@ -111,6 +111,10 @@ SKIP_LISTING = {"tafel.html", "wiesenpass.html", "sammelpass.html"}
 # Einträge ohne Repo-Präfix gelten für beide; mit Präfix nur für ein Repo.
 EXCLUDE = {"tierquiz.html", "gesamttest.html", "pflanze-zuordnung.html", "verwandte-finden.html",
            "flora/systematik.html",
+           # Flora-Umbau (Juli 2026): Samenverbreitung-Kachel raus; die Anatomie-Grafik
+           # „Aufbau einer Pflanze" wohnt jetzt als erste Station im Lernpfad
+           # „Wurzel, Blatt, Blüte" (pflanze-verstehen), die Einzel-Kachel entfällt.
+           "flora/samenverbreitung.html", "flora/pflanze-erklaerung.html",
            # alle „Warum"-Pfade
            "blumen-nachts.html", "kletten.html", "schaumzikaden.html", "sonnenblumen.html",
            # Energie: die vollständige „Pflanzen & Energie" (pflanzen-energie) bleibt;
@@ -175,6 +179,14 @@ def clean_title(raw):
         if sep in t:
             t = t.split(sep)[0]
     return t.strip()
+
+# Abweichende Kachel-Beschriftungen NUR in bio (die Quell-Titel bleiben unberührt).
+TITLE_OVERRIDE = {
+    "bluetenoekologie.html": "Blüten und ihre Gäste",
+    "pflanzenstrategien.html": "Überlebenskünstler",
+}
+def label_for(fn, raw):
+    return TITLE_OVERRIDE.get(fn) or (clean_title(raw) if raw else fn)
 
 def rewrite_links(txt):
     # ../index.html zeigt jetzt korrekt auf die Repo-Unterseite (bio/flora/ bzw bio/fauna/).
@@ -245,7 +257,7 @@ def build():
 
             if fn not in SKIP_LISTING:
                 m = TITLE_RE.search(raw)
-                listing[key].append((clean_title(m.group(1)) if m else fn, fn))
+                listing[key].append((label_for(fn, m.group(1) if m else None), fn))
 
     # Startseiten-Bausteine aus Flora übernehmen: Über mich, Impressum, Anleitung, Assets
     copytree(os.path.join(ROOT, "flora", "assets"),    os.path.join(BIO, "assets"))
@@ -292,7 +304,7 @@ def build():
             p = os.path.join(di, fn)
             if os.path.isfile(p) and fn not in have and fn not in SKIP_LISTING and not _excluded(key, fn):
                 m = TITLE_RE.search(open(p, encoding="utf-8").read())
-                listing[key].append((clean_title(m.group(1)) if m else fn, fn))
+                listing[key].append((label_for(fn, m.group(1) if m else None), fn))
 
     for k in listing:                       # stimmige Reihenfolge herstellen
         listing[k].sort(key=lambda ti: _ordidx(k, ti[1]))
