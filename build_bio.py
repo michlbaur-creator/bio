@@ -62,7 +62,7 @@ GROUPS = {
         ("Verwandlung & Bestäubung", "#2C7A6A",
          ["verwandlung.html", "bestaeubung.html"]),
         ("Wiese & Lebensraum", "#C4603A",
-         ["lebensraum.html", "nahrungsnetz.html", "wiese-lebt.html", "insektenschwund.html"]),
+         ["lebensraum.html", "nahrungsnetz.html", "wiese-lebt.html", "bodenleben.html", "insektenschwund.html"]),
     ],
 }
 
@@ -96,6 +96,7 @@ ICON = {
     "schluessel.html": "fork", "systematik.html": "sitemap", "stammbaum.html": "hier",
     "verwandlung.html": "cycle", "bestaeubung.html": "flower", "lebensraum.html": "biotop",
     "nahrungsnetz.html": "network", "wiese-lebt.html": "grass", "insektenschwund.html": "alert",
+    "bodenleben.html": "sprout",
 }
 def _icon(fn):
     d = _G.get(ICON.get(fn, "leaf"), _G["leaf"])
@@ -132,7 +133,7 @@ NATIVE_LIST = {
     "flora": ["pflanze-verstehen.html", "bluete-zoom.html", "bestaeubung-erklaerung.html",
               "jahreszeiten-baum.html", "pflanzenstrategien.html", "pflanzen-energie.html"],
     "fauna": ["verwandlung.html", "bestaeubung.html", "lebensraum.html",
-              "nahrungsnetz.html", "wiese-lebt.html"],
+              "nahrungsnetz.html", "wiese-lebt.html", "bodenleben.html"],
 }
 # beim Kopieren zu überspringen: die Expeditions-Pfade + der Forscherpass selbst
 NATIVE_SKIP = {
@@ -148,7 +149,7 @@ ORDER = {
               "pflanzenstrategien.html"],
     "fauna": ["schluessel.html", "systematik.html", "stammbaum.html", "verwandlung.html",
               "bestaeubung.html", "lebensraum.html", "nahrungsnetz.html", "wiese-lebt.html",
-              "insektenschwund.html"],
+              "bodenleben.html", "insektenschwund.html"],
 }
 # Typ-Kennzeichnung der Kacheln: „Übersicht" (Einzelseite) vs. „Lernpfad" (mehrstufig).
 UEBERSICHT = {"pflanze-erklaerung.html", "bestaeubung-erklaerung.html", "bluetenoekologie.html",

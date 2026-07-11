@@ -271,16 +271,17 @@ const PFADE = [
   { id:"bestaeubung",  titel:"Wer bestäubt was?",     kurz:"Insekten & Blüten, die zueinander passen", datei:"bestaeubung.html",  em:"🌸" },
   { id:"lebensraum",   titel:"Was brauchen Insekten?",kurz:"Der richtige Lebensraum",                  datei:"lebensraum.html",   em:"🏡" },
   { id:"nahrungsnetz", titel:"Wer frisst wen?",       kurz:"Nahrungsnetz & Pyramide",                  datei:"nahrungsnetz.html", em:"🕸️" },
-  { id:"wiese",        titel:"Die Wiese lebt",        kurz:"Baue ein Mini-Ökosystem",                  datei:"wiese-lebt.html",   em:"🌾" }
+  { id:"wiese",        titel:"Die Wiese lebt",        kurz:"Baue ein Mini-Ökosystem",                  datei:"wiese-lebt.html",   em:"🌾" },
+  { id:"boden",        titel:"Unter unseren Füßen",   kurz:"Die verborgene Welt unter der Wiese",      datei:"bodenleben.html",   em:"🪱" }
 ];
 const MAX_BL = PFADE.length*3;   // 15 Blätter maximal
 
 const RAENGE = [
   { ab:0,  name:"Frisch gestartet", med:"🌱" },
   { ab:1,  name:"Wiesen-Neuling",   med:"🐛" },
-  { ab:5,  name:"Wiesen-Kenner",    med:"🐝" },
-  { ab:9,  name:"Wiesen-Forscher",  med:"🦋" },
-  { ab:13, name:"Wiesen-Meister",   med:"🏅" }
+  { ab:6,  name:"Wiesen-Kenner",    med:"🐝" },
+  { ab:11, name:"Wiesen-Forscher",  med:"🦋" },
+  { ab:16, name:"Wiesen-Meister",   med:"🏅" }
 ];
 function rangIndex(bl){ let i=0; RAENGE.forEach((x,k)=>{ if(bl>=x.ab) i=k; }); return i; }
 function naechsterRang(bl){ return RAENGE.find(x=>x.ab>bl)||null; }
@@ -293,6 +294,7 @@ const ABZEICHEN = [
   { id:"serie",  em:"🔥", name:"Blatt-Serie",    pruef:(d,h)=>h.dreier>=3 },
   { id:"verw",   em:"🦋", name:"Verwandlungs-Kenner", pruef:(d)=>d.verwandlung&&d.verwandlung.done },
   { id:"oeko",   em:"🌾", name:"Ökosystem-Baumeister",pruef:(d)=>d.wiese&&d.wiese.done },
+  { id:"boden",  em:"🪱", name:"Boden-Forscher",  pruef:(d)=>d.boden&&d.boden.done },
   { id:"meister",em:"🏅", name:"Wiesen-Meister", pruef:(d,h)=>h.fertige>=PFADE.length },
   { id:"perfekt",em:"🌟", name:"Perfekte Wiese", pruef:(d,h)=>h.summe>=MAX_BL }
 ];

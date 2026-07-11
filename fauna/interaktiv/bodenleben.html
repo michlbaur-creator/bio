@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unter unseren Füßen — Lernpfad · Fauna Mibaso</title>
+<meta name="description" content="Lernpfad: die verborgene Welt unter der Wiese – Regenwürmer, Zersetzer, Pilzgeflechte und das Bodenhotel.">
+<meta name="theme-color" content="#233D5C">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<style>
+  :root{
+    --blau:#233D5C; --blau-tief:#1a2f47; --creme:#F7F3E8; --creme-tief:#EEE7D5;
+    --pergament:#EDE3CC; --tinte:#1c2e42; --honig:#C28A3A; --honig-tief:#a9762c; --linie:#c3ccd5;
+    --gruen:#3E9A5E; --rot:#B5482F; --erde:#6b4a2b; --erde-tief:#4a3218;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--creme);color:var(--blau);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.5;
+    padding-top:calc(env(safe-area-inset-top) + min(2vh,14px));}
+  .huelle{max-width:600px;margin:0 auto;padding:clamp(8px,2.5vw,16px) clamp(12px,3.5vw,26px) 48px;}
+
+  .kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:var(--sans);}
+  .zurueck{font-size:13px;font-weight:600;color:var(--blau);text-decoration:none;display:inline-flex;gap:5px;align-items:center;}
+  .zaehler{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a96a1;}
+  .zaehler b{color:var(--honig);}
+  h1{font-size:clamp(19px,4.8vw,26px);line-height:1.08;margin:6px 0 10px;font-weight:normal;}
+
+  .balken{height:6px;background:var(--creme-tief);border-radius:3px;overflow:hidden;margin:0 0 14px;}
+  .balken div{height:100%;width:0;background:var(--honig);transition:width .3s;}
+
+  /* Szenen-Kopf: Erd-Streifen mit großem Emoji-Motiv */
+  .szene{position:relative;border-radius:14px;overflow:hidden;margin:0 0 14px;
+    background:linear-gradient(180deg,#cfe6ef 0%,#cfe6ef 32%,var(--erde) 32%,var(--erde-tief) 100%);
+    aspect-ratio:2.7/1;display:flex;align-items:center;justify-content:center;}
+  .szene .motiv{font-size:clamp(46px,15vw,74px);line-height:1;filter:drop-shadow(0 3px 5px rgba(0,0,0,.25));}
+  .szene .thema{position:absolute;left:12px;bottom:10px;font-family:var(--sans);font-size:12px;
+    font-weight:700;letter-spacing:.05em;color:#fff;background:rgba(26,47,71,.7);
+    padding:4px 11px;border-radius:999px;backdrop-filter:blur(2px);}
+
+  .frage{font-size:clamp(16.5px,4.4vw,20px);font-weight:normal;margin:0 0 6px;}
+  .lernkarte{margin:0 0 14px;padding:12px 15px;border-radius:0 12px 12px 0;background:var(--creme-tief);
+    border-left:4px solid var(--erde);font-size:14.5px;color:var(--tinte);}
+  .lernkarte b{color:var(--erde-tief);}
+
+  /* Antwort-Buttons */
+  .antworten{display:flex;flex-direction:column;gap:9px;}
+  .antw{display:flex;align-items:center;gap:11px;text-align:left;width:100%;
+    font-family:var(--sans);font-size:15px;color:var(--tinte);background:#fff;
+    border:1px solid var(--linie);border-radius:13px;padding:13px 15px;cursor:pointer;
+    transition:border-color .15s,background .15s,transform .1s;}
+  .antw:hover:not(:disabled){border-color:#9bb0c6;transform:translateY(-1px);}
+  .antw .buchstabe{flex:0 0 auto;width:27px;height:27px;border-radius:50%;background:var(--creme-tief);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--blau);}
+  .antw .lab{flex:1 1 auto;}
+  .antw .haken{flex:0 0 auto;font-weight:700;opacity:0;transition:opacity .2s;}
+  .antw.richtig{border-color:var(--gruen);background:#eef7f0;}
+  .antw.richtig .buchstabe{background:var(--gruen);color:#fff;}
+  .antw.richtig .haken{opacity:1;color:var(--gruen);}
+  .antw.falsch{border-color:var(--rot);background:#fbefec;}
+  .antw.falsch .buchstabe{background:var(--rot);color:#fff;}
+  .antw.falsch .haken{opacity:1;color:var(--rot);}
+  .antw:disabled{cursor:default;}
+
+  .infokarte{margin-top:14px;padding:13px 15px;border-radius:0 12px 12px 0;background:var(--creme-tief);
+    border-left:4px solid var(--honig);display:none;}
+  .infokarte.an{display:block;}
+  .infokarte .it{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 4px;}
+  .infokarte.ok .it{color:var(--gruen);} .infokarte.no .it{color:var(--rot);}
+  .infokarte p{margin:0;font-size:14.5px;color:var(--tinte);}
+
+  .nav{display:flex;justify-content:flex-end;margin-top:18px;}
+  .weiter{display:none;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--creme);
+    background:var(--blau);border:none;border-radius:999px;padding:12px 22px;cursor:pointer;}
+  .weiter:hover{background:var(--blau-tief);} .weiter.an{display:inline-block;}
+
+  .ende{text-align:center;padding:8px 0;}
+  .ende .gross{font-family:Georgia,serif;font-size:clamp(40px,12vw,60px);line-height:1;color:var(--blau);margin:6px 0 2px;}
+  .ende .gross small{font-size:.4em;color:#8a96a1;}
+  .ende .spruch{font-size:clamp(16px,4.6vw,19px);margin:10px auto 16px;max-width:30ch;}
+  .ende .knoepfe{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+  .knopf{font-family:var(--sans);font-size:14px;font-weight:600;border-radius:999px;padding:12px 20px;cursor:pointer;
+    border:1px solid var(--blau);}
+  .knopf.prim{background:var(--blau);color:var(--creme);border:none;} .knopf.prim:hover{background:var(--blau-tief);}
+  .knopf.sek{background:transparent;color:var(--blau);text-decoration:none;display:inline-block;}
+
+  footer{margin-top:30px;font-family:var(--sans);font-size:12px;color:#8a96a1;text-align:center;}
+  footer a{color:inherit;}
+
+  .konffeld{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden;}
+  .konf{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;animation:konffall 3.6s linear forwards;}
+  @keyframes konffall{0%{transform:translateY(-14px);opacity:1;}100%{transform:translateY(106vh) rotate(540deg);opacity:.9;}}
+  @media (prefers-reduced-motion:reduce){.konf{display:none;}*{transition:none!important;}}
+
+  /* Einheitliches Pfad-Intro (Expedition Wiese) */
+  .pfad-intro{position:fixed;inset:0;z-index:9000;background:var(--creme);display:flex;
+    align-items:center;justify-content:center;padding:26px 20px;overflow-y:auto;transition:opacity .5s ease;}
+  .pfad-intro.weg{opacity:0;visibility:hidden;pointer-events:none;}
+  .pi-inner{max-width:440px;text-align:center;}
+  .pi-foto{width:100%;max-width:360px;aspect-ratio:16/10;object-fit:cover;border-radius:16px;
+    border:1px solid #cdbf9e;box-shadow:0 6px 20px rgba(35,61,92,.18);margin:0 auto 18px;display:block;}
+  .pi-eyebrow{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--honig-tief);margin-bottom:6px;}
+  .pi-titel{font-family:Georgia,serif;font-weight:normal;font-size:clamp(24px,7vw,32px);
+    color:var(--blau);margin:0 0 10px;line-height:1.1;}
+  .pi-lead{font-family:Georgia,serif;font-size:clamp(15px,4.2vw,17px);color:var(--tinte);
+    margin:0 auto 22px;max-width:34ch;line-height:1.5;}
+  .pi-los{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--creme);background:var(--honig);
+    border:none;border-radius:999px;padding:14px 32px;cursor:pointer;box-shadow:0 3px 12px rgba(194,138,58,.35);
+    transition:transform .15s,background .18s;}
+  .pi-los:hover{background:var(--honig-tief);transform:translateY(-1px);}
+  @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
+</style>
+</head>
+<body>
+<div class="pfad-intro" id="pfadIntro">
+  <div class="pi-inner">
+    <img class="pi-foto" src="../images/wiese/wiese-fruehling.png" alt="" onerror="this.onerror=null;this.src='../images/wiese/wiese-sommer.png';">
+    <div class="pi-eyebrow">🍃 Expedition Wiese · Lernpfad</div>
+    <h1 class="pi-titel">Unter unseren Füßen</h1>
+    <p class="pi-lead">Die Wiese hört an der Erdoberfläche nicht auf. Direkt unter deinen Schuhen wimmelt es: Regenwürmer, Asseln, Pilzfäden und ein ganzes Bodenhotel. Komm mit nach unten!</p>
+    <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
+  </div>
+</div>
+<div class="huelle">
+  <div class="kopf">
+    <a class="zurueck" href="../index.html">‹ Startseite</a>
+    <span class="zaehler" id="zaehler"></span>
+  </div>
+  <h1>Unter unseren Füßen</h1>
+
+  <div id="spiel">
+    <div class="balken"><div id="balken"></div></div>
+    <div class="szene"><span class="motiv" id="motiv">🪱</span><span class="thema" id="thema"></span></div>
+    <div class="lernkarte" id="lernkarte"></div>
+    <h2 class="frage" id="frage"></h2>
+    <div class="antworten" id="antworten"></div>
+    <div class="infokarte" id="info"></div>
+    <div class="nav"><button class="weiter" id="weiter">Weiter ›</button></div>
+  </div>
+
+  <div id="ende" style="display:none;"></div>
+
+  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso</footer>
+</div>
+
+<script>
+/* ===========================================================================
+   Lernpfad „Unter unseren Füßen — die Welt unter der Wiese"
+   Pro Station: kurze Lernkarte + eine Quizfrage (4 Antworten, A–D).
+   Antippen → richtig/falsch, Auflösung, weiter. Ergebnis (3/2/1 Blätter) wird
+   in den Forscherpass geschrieben: localStorage["mibaso.fauna.expedition"].boden
+=========================================================================== */
+const DATEN = [
+  { thema:"1 · Wer wohnt hier unten?", motiv:"🪱",
+    lern:"Unter der Wiese ist es voller Leben als oben: <b>Regenwürmer, Maulwürfe, Asseln, Tausendfüßer, Käferlarven (Engerlinge), Ameisen und winzige Springschwänze</b> teilen sich den Boden. In einer Handvoll Gartenerde stecken mehr Lebewesen als Menschen auf der Erde.",
+    frage:"Wer von diesen lebt NICHT dauerhaft unter der Erde?",
+    antworten:["Maulwurf","Regenwurm","Schmetterling","Engerling (Käferlarve)"],
+    richtig:2,
+    aufloesung:"Der Schmetterling fliegt oben von Blüte zu Blüte. Nur seine frühe Zeit (als Ei und Raupe) spielt sich an Pflanzen ab – erwachsen gehört er in die Luft, nicht in den Boden." },
+
+  { thema:"2 · Der Baumeister", motiv:"🪱",
+    lern:"Der <b>Regenwurm</b> ist der wichtigste Gärtner im Untergrund. Er frisst sich durch die Erde, <b>lockert</b> sie, zieht abgestorbene <b>Blätter in seine Gänge</b> und scheidet fruchtbaren <b>Humus</b> aus. Auf einem Fußballfeld Wiese leben oft mehrere Tonnen Regenwürmer.",
+    frage:"Warum graben Regenwürmer ihre Gänge?",
+    antworten:["Zum Spaß","Damit Luft und Wasser besser in den Boden gelangen","Um Mäuse zu ärgern","Damit die Pflanzen umfallen"],
+    richtig:1,
+    aufloesung:"Die Gänge sind wie ein Belüftungssystem: Durch sie kommen Luft und Regenwasser bis zu den Wurzeln. Ganz nebenbei mischt der Wurm die Erde durch und macht sie fruchtbar." },
+
+  { thema:"3 · Die Aufräumtruppe", motiv:"🍂",
+    lern:"Im Herbst fallen Massen von Blättern auf die Wiese – und verschwinden bis zum Frühjahr fast von selbst. Dahinter steckt die <b>Aufräumtruppe des Bodens</b>: <b>Pilze, Bakterien, Asseln und Tausendfüßer</b> zerlegen totes Laub Stück für Stück. Man nennt sie <b>Zersetzer</b>.",
+    frage:"Wer macht aus alten Blättern wieder fruchtbare Erde?",
+    antworten:["Marienkäfer","Regenwürmer und andere Bodenlebewesen","Schmetterlinge","Libellen"],
+    richtig:1,
+    aufloesung:"Regenwürmer, Asseln, Tausendfüßer, Pilze und Bakterien arbeiten zusammen. Sie zerkleinern und verdauen das Laub, bis daraus dunkle, nährstoffreiche Erde wird – der Kreislauf beginnt von vorn." },
+
+  { thema:"4 · Was Zersetzer fressen", motiv:"🍄",
+    lern:"Zersetzer sind keine Jäger. Sie ernähren sich von dem, was schon <b>tot</b> ist: gefallenem Laub, morschem Holz, abgestorbenen Wurzeln. So bleibt der Boden sauber und die Nährstoffe gehen nicht verloren, sondern wandern zurück in neue Pflanzen.",
+    frage:"Wovon leben Asseln, Tausendfüßer und viele Pilze?",
+    antworten:["Von lebenden, gesunden Blättern","Von abgestorbenen Pflanzenresten","Von anderen Insekten, die sie jagen","Von Blütennektar"],
+    richtig:1,
+    aufloesung:"Sie sind die Müllabfuhr der Wiese und fressen abgestorbenes Material. Deshalb schadet es der gesunden Pflanze nicht, wenn es unter ihr von Asseln wimmelt – im Gegenteil." },
+
+  { thema:"5 · Das Wurzel-Internet", motiv:"🕸️",
+    lern:"Viele Pflanzen sind unter der Erde durch feine <b>Pilzfäden</b> miteinander verbunden (die Fachleute sagen <b>Mykorrhiza</b>). Über dieses Netz tauschen Wurzeln <b>Wasser und Nährstoffe</b> – manche Forscher nennen es scherzhaft das „Wood Wide Web“, also das Internet des Waldes.",
+    frage:"Wie helfen die Pilzfäden den Pflanzenwurzeln?",
+    antworten:["Sie fressen die Wurzeln auf","Sie sammeln Wasser und Nährstoffe und geben sie an die Wurzeln weiter","Sie halten Regen vom Boden ab","Sie machen die Erde giftig"],
+    richtig:1,
+    aufloesung:"Die Pilzfäden reichen viel weiter in den Boden als die Wurzeln allein. Sie liefern Wasser und Mineralstoffe – und bekommen von der Pflanze im Tausch Zucker. Beide gewinnen: eine echte Partnerschaft." },
+
+  { thema:"6 · Das Bodenhotel", motiv:"🛏️",
+    lern:"Der Boden ist auch ein <b>Hotel für den Winter</b>. In Gängen und Erdhöhlen <b>überwintern</b> viele Tiere, und unzählige Insekten verbringen ihre <b>Puppenzeit</b> geschützt unter der Erde, bis sie im Frühjahr fertig geschlüpft nach oben kommen.",
+    frage:"Warum ist der Boden im Winter so wertvoll für Insekten?",
+    antworten:["Weil es dort hell ist","Weil er Schutz und Wärme zum Überwintern und Verpuppen bietet","Weil dort Nektar wächst","Weil Vögel dort nisten"],
+    richtig:1,
+    aufloesung:"Unter der Erde ist es frostgeschützt und ruhig. Viele Insekten überstehen den Winter als Puppe oder Larve im Boden – wer ihn im Herbst nicht komplett „aufräumt“, hilft ihnen dabei." },
+
+  { thema:"7 · Zusammengesetzt", motiv:"🌱",
+    lern:"Jetzt kennst du den Untergrund: Regenwürmer bauen, Zersetzer räumen auf, Pilzfäden verbinden, der Boden beherbergt. Ohne dieses verborgene Leben gäbe es <b>keine fruchtbare Erde</b> – und ohne fruchtbare Erde keine blühende Wiese oben.",
+    frage:"Was passiert mit der Wiese, wenn das Bodenleben verschwindet?",
+    antworten:["Nichts, oben wächst es einfach weiter","Der Boden wird unfruchtbar und die Pflanzen kümmern","Die Wiese wächst schneller","Es wird nur mehr Regen geben"],
+    richtig:1,
+    aufloesung:"Ohne Regenwürmer und Zersetzer verdichtet der Boden, Laub bleibt liegen, Nährstoffe fehlen. Das Leben unter der Wiese ist die unsichtbare Grundlage für alles, was oben blüht und summt." }
+];
+
+const $=id=>document.getElementById(id);
+const reduce=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+const BST=["A","B","C","D"];
+let i=0, score=0, beantwortet=false;
+
+function render(){
+  beantwortet=false;
+  const s=DATEN[i];
+  $("zaehler").innerHTML="Station "+(i+1)+" / "+DATEN.length+" · ✓ <b>"+score+"</b>";
+  $("balken").style.width=(i/DATEN.length*100)+"%";
+  $("motiv").textContent=s.motiv;
+  $("thema").textContent=s.thema;
+  $("lernkarte").innerHTML=s.lern;
+  $("frage").textContent=s.frage;
+  const box=$("antworten"); box.innerHTML="";
+  s.antworten.forEach((txt,idx)=>{
+    const b=document.createElement("button");
+    b.className="antw"; b.type="button";
+    b.innerHTML='<span class="buchstabe">'+BST[idx]+'</span><span class="lab">'+txt+'</span><span class="haken"></span>';
+    b.addEventListener("click",()=>waehle(idx,b,s));
+    box.appendChild(b);
+  });
+  $("info").className="infokarte"; $("info").innerHTML="";
+  $("weiter").classList.remove("an");
+  $("weiter").textContent=(i===DATEN.length-1)?"Zum Ergebnis ›":"Weiter ›";
+}
+
+function waehle(idx,btn,s){
+  if(beantwortet) return; beantwortet=true;
+  const korrekt=(idx===s.richtig);
+  const knoepfe=$("antworten").querySelectorAll(".antw");
+  knoepfe.forEach((b,k)=>{
+    b.disabled=true;
+    if(k===s.richtig){ b.classList.add("richtig"); b.querySelector(".haken").textContent="✓"; }
+  });
+  if(!korrekt){ btn.classList.add("falsch"); btn.querySelector(".haken").textContent="✗"; }
+  if(korrekt) score++;
+  $("zaehler").innerHTML="Station "+(i+1)+" / "+DATEN.length+" · ✓ <b>"+score+"</b>";
+  const info=$("info");
+  info.className="infokarte an "+(korrekt?"ok":"no");
+  info.innerHTML='<p class="it">'+(korrekt?"✓ Richtig":"✗ Richtig wäre "+BST[s.richtig])+'</p><p>'+s.aufloesung+'</p>';
+  $("weiter").classList.add("an");
+}
+
+$("weiter").addEventListener("click",()=>{
+  if(i<DATEN.length-1){ i++; render(); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
+  else ende();
+});
+
+function ende(){
+  $("spiel").style.display="none";
+  $("zaehler").textContent="";
+  const perfekt=score===DATEN.length;
+  const blaetter = perfekt ? 3 : score>=Math.ceil(DATEN.length*0.6) ? 2 : 1;
+  // Ergebnis an den Forscherpass melden (3/2/1 Blätter) – Kontrakt: {blaetter,done}
+  try{ const _K="mibaso.fauna.expedition"; const _d=JSON.parse(localStorage.getItem(_K)||"{}");
+    if(!_d.boden || blaetter>_d.boden.blaetter){ _d.boden={blaetter:blaetter,done:true,ts:Date.now()}; localStorage.setItem(_K,JSON.stringify(_d)); } }catch(e){}
+  const sprueche = perfekt
+    ? ["Alles richtig – du kennst die verborgene Welt unter der Wiese! 🌱","Volltreffer! Ein echter Boden-Forscher."]
+    : score>=Math.ceil(DATEN.length*0.6)
+      ? ["Stark! Fast alles richtig.","Gut gemacht – du hast einen guten Blick für den Untergrund."]
+      : ["Grab ruhig nochmal nach – Regenwurm, Zersetzer und Pilzfäden sind der Schlüssel.","Ein guter Anfang! Noch eine Runde?"];
+  const e=$("ende"); e.style.display="block";
+  e.innerHTML='<div class="ende"><p style="font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a96a1;margin:0;">Ergebnis</p>'+
+    '<p class="gross">'+score+'<small> / '+DATEN.length+'</small></p>'+
+    '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
+    '<p class="spruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
+    '<div class="knoepfe"><button class="knopf prim" id="nochmal">Nochmal</button>'+
+    '<a class="knopf sek" href="wiesenpass.html">🍃 Forscherpass</a></div></div>';
+  $("nochmal").addEventListener("click",()=>{ i=0; score=0; $("ende").style.display="none"; $("spiel").style.display="block"; render(); });
+  if(perfekt){ konfetti(); fanfare(); }
+}
+
+function konfetti(){
+  if(reduce) return;
+  const feld=document.createElement("div"); feld.className="konffeld";
+  const farben=['#C28A3A','#233D5C','#3E9A5E','#6b4a2b','#e8a020','#9b59b6'];
+  for(let n=0;n<70;n++){
+    const k=document.createElement("span"); k.className="konf";
+    k.style.cssText='left:'+Math.random()*100+'%;background:'+farben[(Math.random()*farben.length)|0]+
+      ';animation-delay:'+(Math.random()*0.5).toFixed(2)+'s;transform:rotate('+(Math.random()*360)+'deg);';
+    feld.appendChild(k);
+  }
+  document.body.appendChild(feld); setTimeout(()=>feld.remove(),4200);
+}
+function fanfare(){
+  try{
+    const Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx) return;
+    const ctx=new Ctx(); if(ctx.state==="suspended") ctx.resume();
+    const t0=ctx.currentTime+0.05;
+    [[523.25,0,0.16,0.2],[659.25,0.15,0.16,0.2],[783.99,0.30,0.16,0.2],[1046.5,0.46,0.6,0.22]]
+    .forEach(([fr,st,du,vo])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type="triangle";o.frequency.value=fr;
+      g.gain.setValueAtTime(0,t0+st);g.gain.linearRampToValueAtTime(vo,t0+st+0.02);g.gain.exponentialRampToValueAtTime(0.001,t0+st+du);
+      o.connect(g).connect(ctx.destination);o.start(t0+st);o.stop(t0+st+du+0.05);});
+    setTimeout(()=>ctx.close().catch(()=>{}),1600);
+  }catch(e){}
+}
+
+render();
+</script>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>
