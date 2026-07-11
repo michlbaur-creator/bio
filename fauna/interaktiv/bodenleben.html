@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Unter unseren Füßen — Lernpfad · Fauna Mibaso</title>
-<meta name="description" content="Lernpfad: die verborgene Welt unter der Wiese – Regenwürmer, Zersetzer, Pilzgeflechte und das Bodenhotel.">
+<meta name="description" content="Lernpfad in mehreren Schritten: die verborgene Welt unter der Wiese – Bodentiere beschriften, Blattabbau ordnen, Berufe zuordnen, Lückentext und Quiz.">
 <meta name="theme-color" content="#233D5C">
 <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
 <style>
@@ -17,81 +17,172 @@
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html{-webkit-text-size-adjust:100%;}
   body{margin:0;background:var(--creme);color:var(--blau);
-    font-family:Georgia,"Times New Roman",serif;line-height:1.5;
-    padding-top:calc(env(safe-area-inset-top) + min(2vh,14px));}
-  .huelle{max-width:600px;margin:0 auto;padding:clamp(8px,2.5vw,16px) clamp(12px,3.5vw,26px) 48px;}
+    font-family:Georgia,"Times New Roman",serif;line-height:1.5;padding-top:env(safe-area-inset-top);}
+  .huelle{max-width:640px;margin:0 auto;padding:clamp(10px,3vw,20px) clamp(12px,3.5vw,28px) 48px;}
 
-  .kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:var(--sans);}
-  .zurueck{font-size:13px;font-weight:600;color:var(--blau);text-decoration:none;display:inline-flex;gap:5px;align-items:center;}
-  .zaehler{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#8a96a1;}
-  .zaehler b{color:var(--honig);}
-  h1{font-size:clamp(19px,4.8vw,26px);line-height:1.08;margin:6px 0 10px;font-weight:normal;}
+  /* Kopf */
+  .kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .zurueck{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--blau);
+    text-decoration:none;display:inline-flex;gap:5px;align-items:center;}
+  .zaehler{font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a96a1;}
+  h1{font-size:clamp(22px,5.2vw,31px);line-height:1.06;margin:6px 0 2px;font-weight:normal;}
 
-  .balken{height:6px;background:var(--creme-tief);border-radius:3px;overflow:hidden;margin:0 0 14px;}
-  .balken div{height:100%;width:0;background:var(--honig);transition:width .3s;}
+  /* Schritt-Chips */
+  .chips{display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+    padding:10px 2px 4px;margin:2px -2px 0;scrollbar-width:none;}
+  .chips::-webkit-scrollbar{display:none;}
+  .chip{flex:0 0 auto;display:flex;align-items:center;gap:7px;cursor:pointer;
+    font-family:var(--sans);font-size:12.5px;color:#5a6675;background:#fff;
+    border:1px solid var(--linie);border-radius:999px;padding:7px 13px 7px 8px;white-space:nowrap;
+    transition:border-color .15s,color .15s,background .15s;}
+  .chip .nr{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;
+    border-radius:50%;background:var(--creme-tief);color:#8a96a1;font-weight:700;font-size:11.5px;}
+  .chip.aktiv{background:var(--blau);color:var(--creme);border-color:var(--blau);}
+  .chip.aktiv .nr{background:var(--honig);color:#fff;}
+  .chip.fertig:not(.aktiv) .nr{background:#cfe0d2;color:#3e7a55;}
+  .chip.uebung{background:#e9eef3;border-color:#c0cedb;color:#3a5570;}
+  .chip.uebung .nr{background:#c0cedb;color:#2b405a;}
+  .chip.uebung.aktiv{background:#3a5570;border-color:#3a5570;color:#fff;}
+  .chip.uebung.aktiv .nr{background:#fff;color:#3a5570;}
+  .chip.quiz{background:var(--honig);border-color:var(--honig);color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(194,138,58,.3);}
+  .chip.quiz .nr{background:#fff;color:var(--honig);}
+  .chip.quiz.aktiv{background:var(--blau);border-color:var(--blau);color:#fff;}
+  .chip.quiz.aktiv .nr{background:var(--honig);color:#fff;}
 
-  /* Szenen-Kopf: Erd-Streifen mit großem Emoji-Motiv */
-  .szene{position:relative;border-radius:14px;overflow:hidden;margin:0 0 14px;
-    background:linear-gradient(180deg,#cfe6ef 0%,#cfe6ef 32%,var(--erde) 32%,var(--erde-tief) 100%);
-    aspect-ratio:2.7/1;display:flex;align-items:center;justify-content:center;}
-  .szene .motiv{font-size:clamp(46px,15vw,74px);line-height:1;filter:drop-shadow(0 3px 5px rgba(0,0,0,.25));}
-  .szene .thema{position:absolute;left:12px;bottom:10px;font-family:var(--sans);font-size:12px;
-    font-weight:700;letter-spacing:.05em;color:#fff;background:rgba(26,47,71,.7);
-    padding:4px 11px;border-radius:999px;backdrop-filter:blur(2px);}
+  /* Bühne / Illustration */
+  .buehne{margin-top:10px;}
+  .bildbox{position:relative;width:min(96%,460px);aspect-ratio:2.2/1;max-height:46vh;margin:0 auto;}
+  .bild{position:absolute;inset:0;opacity:0;transition:opacity .5s ease;}
+  .bild.an{opacity:1;}
+  .bild img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    background:var(--pergament);border:1px solid #cdbf9e;border-radius:12px;}
+  .bild img.weg{display:none;}
+  .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;text-align:center;border-radius:12px;padding:14px;
+    background:linear-gradient(180deg,#cfe6ef 0%,#cfe6ef 30%,var(--erde) 30%,var(--erde-tief) 100%);}
+  .ph .gl{font-size:40px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.3));}
+  .ph .l{font-family:var(--sans);font-size:13px;font-weight:600;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4);}
+  .ph .f{font-family:var(--sans);font-size:10.5px;color:rgba(255,255,255,.75);word-break:break-all;}
 
-  .frage{font-size:clamp(16.5px,4.4vw,20px);font-weight:normal;margin:0 0 6px;}
-  .lernkarte{margin:0 0 14px;padding:12px 15px;border-radius:0 12px 12px 0;background:var(--creme-tief);
-    border-left:4px solid var(--erde);font-size:14.5px;color:var(--tinte);}
-  .lernkarte b{color:var(--erde-tief);}
+  /* Hotspots */
+  .hotspot{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;
+    background:var(--honig);color:#fff;border:2px solid #fff;box-shadow:0 2px 7px rgba(35,61,92,.28);
+    font-family:var(--sans);font-weight:700;font-size:14px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;z-index:3;animation:puls 2.4s infinite;}
+  .hotspot.aktiv{background:var(--blau);animation:none;}
+  @keyframes puls{0%{box-shadow:0 2px 7px rgba(35,61,92,.28),0 0 0 0 rgba(194,138,58,.5);}
+    70%{box-shadow:0 2px 7px rgba(35,61,92,.28),0 0 0 11px rgba(194,138,58,0);}100%{box-shadow:0 2px 7px rgba(35,61,92,.28),0 0 0 0 rgba(194,138,58,0);}}
 
-  /* Antwort-Buttons */
-  .antworten{display:flex;flex-direction:column;gap:9px;}
-  .antw{display:flex;align-items:center;gap:11px;text-align:left;width:100%;
-    font-family:var(--sans);font-size:15px;color:var(--tinte);background:#fff;
-    border:1px solid var(--linie);border-radius:13px;padding:13px 15px;cursor:pointer;
-    transition:border-color .15s,background .15s,transform .1s;}
-  .antw:hover:not(:disabled){border-color:#9bb0c6;transform:translateY(-1px);}
-  .antw .buchstabe{flex:0 0 auto;width:27px;height:27px;border-radius:50%;background:var(--creme-tief);
-    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--blau);}
-  .antw .lab{flex:1 1 auto;}
-  .antw .haken{flex:0 0 auto;font-weight:700;opacity:0;transition:opacity .2s;}
-  .antw.richtig{border-color:var(--gruen);background:#eef7f0;}
-  .antw.richtig .buchstabe{background:var(--gruen);color:#fff;}
-  .antw.richtig .haken{opacity:1;color:var(--gruen);}
-  .antw.falsch{border-color:var(--rot);background:#fbefec;}
-  .antw.falsch .buchstabe{background:var(--rot);color:#fff;}
-  .antw.falsch .haken{opacity:1;color:var(--rot);}
-  .antw:disabled{cursor:default;}
+  /* Sequenz-Steuerung */
+  .seq{margin-top:12px;}
+  .seqkopf{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .playbtn{flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:1px solid var(--blau);
+    background:var(--blau);color:var(--creme);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .playbtn:hover{background:var(--blau-tief);}
+  .stepbtn{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--blau);
+    background:#fff;color:var(--blau);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .stepbtn:disabled{opacity:.35;cursor:default;}
+  .stufenlabel{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--blau);}
+  .stufenlabel small{font-weight:400;color:#8a96a1;}
 
-  .infokarte{margin-top:14px;padding:13px 15px;border-radius:0 12px 12px 0;background:var(--creme-tief);
-    border-left:4px solid var(--honig);display:none;}
-  .infokarte.an{display:block;}
-  .infokarte .it{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 4px;}
+  /* Erklärtext + Infokarte */
+  .erklaer{margin-top:12px;}
+  .erklaer h2{font-size:clamp(18px,5vw,23px);font-weight:normal;margin:0 0 7px;}
+  .erklaer p{font-size:clamp(14.5px,4vw,16.5px);color:var(--tinte);margin:0 0 10px;}
+  .entdeckhint{font-family:var(--sans);font-size:12.5px;color:var(--honig-tief);font-weight:600;margin:4px 0 0;}
+  .infokarte{margin-top:12px;padding:13px 15px;border-radius:0 12px 12px 0;background:var(--creme-tief);
+    border-left:4px solid var(--honig);min-height:30px;}
+  .infokarte.ok{border-left-color:var(--gruen);} .infokarte.no{border-left-color:var(--rot);}
+  .infokarte .it{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8a96a1;margin:0 0 3px;}
   .infokarte.ok .it{color:var(--gruen);} .infokarte.no .it{color:var(--rot);}
+  .infokarte h3{margin:0 0 4px;font-size:17px;font-weight:normal;}
   .infokarte p{margin:0;font-size:14.5px;color:var(--tinte);}
+  .infokarte .leer{color:#8a96a1;font-style:italic;font-family:var(--sans);font-size:13px;}
 
-  .nav{display:flex;justify-content:flex-end;margin-top:18px;}
-  .weiter{display:none;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--creme);
-    background:var(--blau);border:none;border-radius:999px;padding:12px 22px;cursor:pointer;}
-  .weiter:hover{background:var(--blau-tief);} .weiter.an{display:inline-block;}
+  /* Reihenfolge / Sortieren (Drag & Drop + ▲▼) */
+  .sortliste{display:flex;flex-direction:column;gap:8px;margin:4px 0 8px;}
+  .sortcard{display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--linie);
+    border-radius:12px;padding:11px 12px;cursor:grab;transition:border-color .15s,box-shadow .15s,transform .1s;}
+  .sortcard:active{cursor:grabbing;}
+  .sortcard.drag{opacity:.45;border-style:dashed;}
+  .sortcard.ueber{border-color:var(--honig);box-shadow:0 0 0 2px rgba(194,138,58,.25);}
+  .sortcard.ok{background:#eef7f0;border-color:var(--gruen);}
+  .sortcard.no{background:#fbefec;border-color:var(--rot);}
+  .sortcard .em{font-size:24px;flex:0 0 auto;}
+  .sortcard .lab{flex:1 1 auto;font-family:var(--sans);font-size:14.5px;color:var(--tinte);}
+  .sortcard .pfeile{display:flex;flex-direction:column;gap:3px;flex:0 0 auto;}
+  .sortcard .pfeile button{width:28px;height:22px;border-radius:6px;border:1px solid var(--linie);
+    background:var(--creme);color:var(--blau);font-size:12px;cursor:pointer;line-height:1;}
+  .sortcard .pfeile button:disabled{opacity:.3;cursor:default;}
+  .sortcard .griff{flex:0 0 auto;color:#b7c0ca;font-size:17px;cursor:grab;}
 
-  .ende{text-align:center;padding:8px 0;}
-  .ende .gross{font-family:Georgia,serif;font-size:clamp(40px,12vw,60px);line-height:1;color:var(--blau);margin:6px 0 2px;}
-  .ende .gross small{font-size:.4em;color:#8a96a1;}
-  .ende .spruch{font-size:clamp(16px,4.6vw,19px);margin:10px auto 16px;max-width:30ch;}
-  .ende .knoepfe{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
-  .knopf{font-family:var(--sans);font-size:14px;font-weight:600;border-radius:999px;padding:12px 20px;cursor:pointer;
-    border:1px solid var(--blau);}
-  .knopf.prim{background:var(--blau);color:var(--creme);border:none;} .knopf.prim:hover{background:var(--blau-tief);}
-  .knopf.sek{background:transparent;color:var(--blau);text-decoration:none;display:inline-block;}
+  /* Zuordnen-Station (mehrere Optionen je Zeile) */
+  .zuliste{display:flex;flex-direction:column;gap:8px;margin:4px 0 12px;}
+  .zurow{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+    background:#fff;border:1px solid var(--linie);border-radius:12px;padding:9px 12px;}
+  .zuname{font-family:var(--sans);font-size:14.5px;font-weight:600;color:var(--blau);display:flex;align-items:center;gap:8px;}
+  .zuname .em{font-size:20px;}
+  .zuopt{display:flex;gap:6px;flex-wrap:wrap;flex:0 0 auto;}
+  .zuopt button{font-family:var(--sans);font-size:12px;color:var(--blau);background:#fff;
+    border:1px solid var(--linie);border-radius:999px;padding:7px 11px;cursor:pointer;transition:.13s;white-space:nowrap;}
+  .zuopt button.sel{background:var(--blau);color:var(--creme);border-color:var(--blau);}
+  .zuopt button.ok{background:#e6efe7;border-color:#bcd6c0;color:#2f6a45;}
+  .zuopt button.no{background:#f2e2dd;border-color:#dcc9a8;color:#9a3f2a;}
 
-  footer{margin-top:30px;font-family:var(--sans);font-size:12px;color:#8a96a1;text-align:center;}
-  footer a{color:inherit;}
+  /* Lückentext */
+  .cloze{font-size:clamp(15.5px,4.2vw,17.5px);line-height:2.1;color:var(--tinte);margin:2px 0 14px;}
+  .slot{display:inline-flex;align-items:center;justify-content:center;min-width:96px;height:32px;
+    padding:0 8px;margin:0 2px;border-bottom:2px dashed #b8a887;background:var(--creme-tief);border-radius:7px 7px 0 0;
+    font-family:var(--sans);font-size:14px;color:#a99a78;cursor:pointer;vertical-align:middle;transition:.13s;}
+  .slot.aktiv{border-bottom-color:var(--honig);box-shadow:0 0 0 2px rgba(194,138,58,.25);}
+  .slot.voll{color:var(--blau);font-weight:600;background:#eef2f6;border-bottom-style:solid;}
+  .slot.ok{color:#2f6a45;background:#e6efe7;border-bottom-color:var(--gruen);}
+  .slot.no{color:#9a3f2a;background:#f2e2dd;border-bottom-color:var(--rot);}
+  .wortbank{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .wort{font-family:var(--sans);font-size:13.5px;color:var(--blau);background:#fff;
+    border:1px solid var(--linie);border-radius:999px;padding:8px 13px;cursor:pointer;transition:.13s;}
+  .wort:hover{border-color:var(--honig);}
+  .wort.weg{opacity:.3;pointer-events:none;text-decoration:line-through;}
+
+  .pruefzeile{display:flex;align-items:center;gap:12px;margin-top:6px;}
+  .tally{font-family:var(--sans);font-size:14px;font-weight:700;color:var(--honig-tief);}
+
+  /* Abschluss-Quiz */
+  .qkopf{font-family:var(--sans);font-size:13.5px;color:#6f7b86;border-top:1px solid var(--linie);
+    border-bottom:1px solid var(--linie);padding:9px 0;margin:0 0 12px;}
+  .qkopf b{color:var(--honig);}
+  .qbalken{height:6px;background:var(--creme-tief);border-radius:3px;overflow:hidden;margin:0 0 16px;}
+  .qbalken div{height:100%;width:0;background:var(--honig);transition:width .3s;}
+  .qfrage{font-size:clamp(16.5px,4.5vw,20px);text-align:center;margin:6px 0 16px;}
+  .qwahl{display:flex;flex-direction:column;gap:9px;}
+  .qwahl button{font-family:var(--sans);font-size:15px;color:var(--tinte);text-align:left;
+    background:#fff;border:1.5px solid var(--linie);border-radius:13px;padding:13px 15px;cursor:pointer;transition:.13s;}
+  .qwahl button.ok{background:#e6efe7;border-color:#3E9A5E;color:#2f6a45;}
+  .qwahl button.no{background:#f2e2dd;border-color:#B5482F;color:#9a3f2a;}
+  .qwahl button:disabled{cursor:default;}
+  .qfb{font-family:var(--sans);font-size:14px;margin:14px 0 0;min-height:1.2em;color:var(--tinte);}
+  .qende{text-align:center;padding:6px 0;}
+  .qlabel{font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a96a1;margin:0;}
+  .qscore{font-family:Georgia,serif;font-size:clamp(40px,12vw,60px);line-height:1;color:var(--blau);margin:4px 0;}
+  .qscore small{font-size:.4em;color:#8a96a1;}
+  .qspruch{font-size:clamp(16px,4.6vw,19px);margin:8px auto 16px;max-width:30ch;}
 
   .konffeld{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden;}
   .konf{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;animation:konffall 3.6s linear forwards;}
   @keyframes konffall{0%{transform:translateY(-14px);opacity:1;}100%{transform:translateY(106vh) rotate(540deg);opacity:.9;}}
-  @media (prefers-reduced-motion:reduce){.konf{display:none;}*{transition:none!important;}}
+
+  /* Navigation */
+  .nav{display:flex;gap:9px;margin-top:24px;padding-top:16px;border-top:1px solid var(--linie);}
+  .knopf{font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--blau);background:transparent;
+    border:1px solid var(--blau);border-radius:999px;padding:10px 16px;cursor:pointer;transition:background .18s,color .18s;}
+  .knopf:hover:not(:disabled){background:var(--blau);color:var(--creme);}
+  .knopf:disabled{opacity:.38;cursor:default;}
+  .knopf.prim{background:var(--blau);color:var(--creme);margin-left:auto;}
+  .knopf.prim:hover{background:var(--blau-tief);color:var(--creme);}
+
+  footer{margin-top:30px;font-family:var(--sans);font-size:12px;color:#8a96a1;text-align:center;}
+  footer a{color:inherit;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}.konf{display:none;}}
 
   /* Einheitliches Pfad-Intro (Expedition Wiese) */
   .pfad-intro{position:fixed;inset:0;z-index:9000;background:var(--creme);display:flex;
@@ -128,19 +219,15 @@
     <a class="zurueck" href="../index.html">‹ Startseite</a>
     <span class="zaehler" id="zaehler"></span>
   </div>
-  <h1>Unter unseren Füßen</h1>
+  <div class="chips" id="chips"></div>
 
-  <div id="spiel">
-    <div class="balken"><div id="balken"></div></div>
-    <div class="szene"><span class="motiv" id="motiv">🪱</span><span class="thema" id="thema"></span></div>
-    <div class="lernkarte" id="lernkarte"></div>
-    <h2 class="frage" id="frage"></h2>
-    <div class="antworten" id="antworten"></div>
-    <div class="infokarte" id="info"></div>
-    <div class="nav"><button class="weiter" id="weiter">Weiter ›</button></div>
+  <div class="buehne" id="buehne"></div>
+  <div class="erklaer" id="erklaer"></div>
+
+  <div class="nav">
+    <button class="knopf" id="zurueckBtn">‹ Zurück</button>
+    <button class="knopf prim" id="weiterBtn">Nächster Schritt ›</button>
   </div>
-
-  <div id="ende" style="display:none;"></div>
 
   <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso</footer>
 </div>
@@ -148,151 +235,471 @@
 <script>
 /* ===========================================================================
    Lernpfad „Unter unseren Füßen — die Welt unter der Wiese"
-   Pro Station: kurze Lernkarte + eine Quizfrage (4 Antworten, A–D).
-   Antippen → richtig/falsch, Auflösung, weiter. Ergebnis (3/2/1 Blätter) wird
-   in den Forscherpass geschrieben: localStorage["mibaso.fauna.expedition"].boden
+   ►► MASSGEBLICHE FASSUNG – wird direkt hier in bio gepflegt (native).
+   Mehrere Interaktionstypen wie in den Schwester-Pfaden:
+     typ "tafel"       : Bild + antippbare Hotspots (Beschriften)
+     typ "sequenz"     : Bildfolge mit ▶ / ‹ › (Abbau eines Blattes)
+     typ "reihenfolge" : Karten in richtige Reihenfolge (Drag & Drop + ▲▼)
+     typ "zuordnen"    : jedem Tier seinen „Beruf" zuordnen, dann prüfen
+     typ "luecke"      : Lückentext aus einer Wortbank füllen
+     typ "quiz"        : Abschluss-Quiz → schreibt Blätter in den Forscherpass
+   Bilder gehören nach ../images/boden/. Fehlt eins, zeigt der Platzhalter
+   den erwarteten Dateinamen – die Bilder können später ergänzt werden.
+   Forscherpass-Kontrakt: localStorage["mibaso.fauna.expedition"].boden = {blaetter,done,ts}
 =========================================================================== */
-const DATEN = [
-  { thema:"1 · Wer wohnt hier unten?", motiv:"🪱",
-    lern:"Unter der Wiese ist es voller Leben als oben: <b>Regenwürmer, Maulwürfe, Asseln, Tausendfüßer, Käferlarven (Engerlinge), Ameisen und winzige Springschwänze</b> teilen sich den Boden. In einer Handvoll Gartenerde stecken mehr Lebewesen als Menschen auf der Erde.",
-    frage:"Wer von diesen lebt NICHT dauerhaft unter der Erde?",
-    antworten:["Maulwurf","Regenwurm","Schmetterling","Engerling (Käferlarve)"],
-    richtig:2,
-    aufloesung:"Der Schmetterling fliegt oben von Blüte zu Blüte. Nur seine frühe Zeit (als Ei und Raupe) spielt sich an Pflanzen ab – erwachsen gehört er in die Luft, nicht in den Boden." },
+const BASIS="../images/boden/";
 
-  { thema:"2 · Der Baumeister", motiv:"🪱",
-    lern:"Der <b>Regenwurm</b> ist der wichtigste Gärtner im Untergrund. Er frisst sich durch die Erde, <b>lockert</b> sie, zieht abgestorbene <b>Blätter in seine Gänge</b> und scheidet fruchtbaren <b>Humus</b> aus. Auf einem Fußballfeld Wiese leben oft mehrere Tonnen Regenwürmer.",
-    frage:"Warum graben Regenwürmer ihre Gänge?",
-    antworten:["Zum Spaß","Damit Luft und Wasser besser in den Boden gelangen","Um Mäuse zu ärgern","Damit die Pflanzen umfallen"],
-    richtig:1,
-    aufloesung:"Die Gänge sind wie ein Belüftungssystem: Durch sie kommen Luft und Regenwasser bis zu den Wurzeln. Ganz nebenbei mischt der Wurm die Erde durch und macht sie fruchtbar." },
+const SCHRITTE = [
+  /* 1 — Beschriften -------------------------------------------------------- */
+  { chip:"Wer wohnt hier?", titel:"Wer wohnt hier unten?",
+    text:"Heb die Wiese hoch wie einen Teppich – darunter wimmelt es. In einer Handvoll Erde leben mehr Lebewesen als Menschen auf der Erde.",
+    hint:"Tippe die Punkte im Bild an.",
+    typ:"tafel",
+    bild:{src:"boden-querschnitt.jpg", label:"Bodenquerschnitt mit Bewohnern", glyph:"🪱"},
+    hotspots:[
+      {x:22,y:40,n:1,titel:"Regenwurm",text:"Frisst sich durch die Erde, lockert sie und macht daraus fruchtbaren Humus. Der wichtigste Gärtner im Untergrund."},
+      {x:70,y:30,n:2,titel:"Maulwurf",text:"Gräbt lange Tunnel und jagt darin Regenwürmer und Larven. Er lebt fast sein ganzes Leben unter der Erde."},
+      {x:44,y:62,n:3,titel:"Assel",text:"Kein Insekt, sondern ein Krebs an Land. Asseln zerlegen totes Laub zu Erde – sie gehören zur Aufräumtruppe."},
+      {x:80,y:66,n:4,titel:"Engerling",text:"Die dicke, weiße Larve eines Käfers. Sie lebt im Boden und frisst Wurzeln oder vermoderte Reste."},
+      {x:15,y:76,n:5,titel:"Springschwanz",text:"Winzig klein, aber in unglaublicher Zahl. Springschwänze zerkrümeln Pflanzenreste und halten den Boden gesund."},
+      {x:56,y:86,n:6,titel:"Wurzel & Pilzfäden",text:"An den Wurzeln sitzen feine Pilzfäden (Mykorrhiza). Sie sammeln Wasser und Nährstoffe und geben sie an die Pflanze weiter."}
+    ]
+  },
 
-  { thema:"3 · Die Aufräumtruppe", motiv:"🍂",
-    lern:"Im Herbst fallen Massen von Blättern auf die Wiese – und verschwinden bis zum Frühjahr fast von selbst. Dahinter steckt die <b>Aufräumtruppe des Bodens</b>: <b>Pilze, Bakterien, Asseln und Tausendfüßer</b> zerlegen totes Laub Stück für Stück. Man nennt sie <b>Zersetzer</b>.",
-    frage:"Wer macht aus alten Blättern wieder fruchtbare Erde?",
-    antworten:["Marienkäfer","Regenwürmer und andere Bodenlebewesen","Schmetterlinge","Libellen"],
-    richtig:1,
-    aufloesung:"Regenwürmer, Asseln, Tausendfüßer, Pilze und Bakterien arbeiten zusammen. Sie zerkleinern und verdauen das Laub, bis daraus dunkle, nährstoffreiche Erde wird – der Kreislauf beginnt von vorn." },
+  /* 2 — Sequenz: Abbau eines Blattes -------------------------------------- */
+  { chip:"Der Weg eines Blattes", titel:"Was aus einem toten Blatt wird",
+    text:"Im Herbst fällt Laub auf die Wiese – und ist im Frühjahr fast verschwunden. Die Zersetzer haben ganze Arbeit geleistet. Schau Schritt für Schritt zu.",
+    hint:"▶ abspielen oder mit ‹ › weiterklicken.",
+    typ:"sequenz",
+    stufen:[
+      {name:"Frisches Blatt", bild:{src:"blatt-1-frisch.jpg", label:"frisch gefallenes Blatt", glyph:"🍂"},
+       text:"Im Herbst fällt das Blatt zu Boden. Noch ist es ganz und voller Nährstoffe."},
+      {name:"Angefressen", bild:{src:"blatt-2-angefressen.jpg", label:"angefressenes Blatt", glyph:"🐛"},
+       text:"Asseln, Tausendfüßer und Schnecken raspeln Löcher hinein und zerkleinern es Stück für Stück."},
+      {name:"Blattskelett", bild:{src:"blatt-3-skelett.jpg", label:"Blattgerippe", glyph:"🍃"},
+       text:"Bald bleiben nur noch die feinen Blattadern übrig – ein zartes Gerippe."},
+      {name:"Pilze & Bakterien", bild:{src:"blatt-4-pilze.jpg", label:"von Pilzfäden durchzogen", glyph:"🍄"},
+       text:"Jetzt übernehmen Pilzfäden und Bakterien. Sie zersetzen auch die letzten Reste."},
+      {name:"Humus", bild:{src:"blatt-5-humus.jpg", label:"fertiger Humus", glyph:"🟫"},
+       text:"Übrig bleibt dunkle, fruchtbare Erde – Humus. Aus ihm wachsen die nächsten Pflanzen."}
+    ]
+  },
 
-  { thema:"4 · Was Zersetzer fressen", motiv:"🍄",
-    lern:"Zersetzer sind keine Jäger. Sie ernähren sich von dem, was schon <b>tot</b> ist: gefallenem Laub, morschem Holz, abgestorbenen Wurzeln. So bleibt der Boden sauber und die Nährstoffe gehen nicht verloren, sondern wandern zurück in neue Pflanzen.",
-    frage:"Wovon leben Asseln, Tausendfüßer und viele Pilze?",
-    antworten:["Von lebenden, gesunden Blättern","Von abgestorbenen Pflanzenresten","Von anderen Insekten, die sie jagen","Von Blütennektar"],
-    richtig:1,
-    aufloesung:"Sie sind die Müllabfuhr der Wiese und fressen abgestorbenes Material. Deshalb schadet es der gesunden Pflanze nicht, wenn es unter ihr von Asseln wimmelt – im Gegenteil." },
+  /* 3 — Reihenfolge (Drag & Drop) ----------------------------------------- */
+  { chip:"In die richtige Reihenfolge", kat:"uebung", titel:"Bring den Abbau in die richtige Reihenfolge",
+    text:"Ziehe die Karten mit dem Griff ⠿ oder schiebe sie mit ▲▼, bis der Weg vom Blatt zur neuen Pflanze stimmt. Dann auf „Prüfen“ tippen.",
+    typ:"reihenfolge",
+    karten:[
+      {em:"🍂", lab:"Das Blatt fällt im Herbst zu Boden"},
+      {em:"🐛", lab:"Asseln & Tausendfüßer zerkleinern es"},
+      {em:"🍄", lab:"Pilze & Bakterien zersetzen die Reste"},
+      {em:"🟫", lab:"Es entsteht dunkler, fruchtbarer Humus"},
+      {em:"🌱", lab:"Eine neue Pflanze wächst daraus"}
+    ]
+  },
 
-  { thema:"5 · Das Wurzel-Internet", motiv:"🕸️",
-    lern:"Viele Pflanzen sind unter der Erde durch feine <b>Pilzfäden</b> miteinander verbunden (die Fachleute sagen <b>Mykorrhiza</b>). Über dieses Netz tauschen Wurzeln <b>Wasser und Nährstoffe</b> – manche Forscher nennen es scherzhaft das „Wood Wide Web“, also das Internet des Waldes.",
-    frage:"Wie helfen die Pilzfäden den Pflanzenwurzeln?",
-    antworten:["Sie fressen die Wurzeln auf","Sie sammeln Wasser und Nährstoffe und geben sie an die Wurzeln weiter","Sie halten Regen vom Boden ab","Sie machen die Erde giftig"],
-    richtig:1,
-    aufloesung:"Die Pilzfäden reichen viel weiter in den Boden als die Wurzeln allein. Sie liefern Wasser und Mineralstoffe – und bekommen von der Pflanze im Tausch Zucker. Beide gewinnen: eine echte Partnerschaft." },
+  /* 4 — Zuordnen: Berufe -------------------------------------------------- */
+  { chip:"Wer hat welchen Job?", kat:"uebung", titel:"Jeder hat seine Aufgabe",
+    text:"Im Boden hat jeder einen „Beruf“. Ordne jedem Lebewesen seine Hauptaufgabe zu – dann auf „Prüfen“ tippen.",
+    typ:"zuordnen",
+    optionen:[
+      {w:"lockern",   kurz:"lockert den Boden"},
+      {w:"zersetzen", kurz:"zersetzt totes Laub"},
+      {w:"versorgen", kurz:"versorgt die Wurzeln"}
+    ],
+    tiere:[
+      {t:"Regenwurm",           em:"🪱", w:"lockern"},
+      {t:"Maulwurf",            em:"🐾", w:"lockern"},
+      {t:"Assel",               em:"🪳", w:"zersetzen"},
+      {t:"Tausendfüßer",        em:"🐛", w:"zersetzen"},
+      {t:"Bakterien & Pilze",   em:"🍄", w:"zersetzen"},
+      {t:"Pilzfäden (Mykorrhiza)",em:"🕸️", w:"versorgen"}
+    ]
+  },
 
-  { thema:"6 · Das Bodenhotel", motiv:"🛏️",
-    lern:"Der Boden ist auch ein <b>Hotel für den Winter</b>. In Gängen und Erdhöhlen <b>überwintern</b> viele Tiere, und unzählige Insekten verbringen ihre <b>Puppenzeit</b> geschützt unter der Erde, bis sie im Frühjahr fertig geschlüpft nach oben kommen.",
-    frage:"Warum ist der Boden im Winter so wertvoll für Insekten?",
-    antworten:["Weil es dort hell ist","Weil er Schutz und Wärme zum Überwintern und Verpuppen bietet","Weil dort Nektar wächst","Weil Vögel dort nisten"],
-    richtig:1,
-    aufloesung:"Unter der Erde ist es frostgeschützt und ruhig. Viele Insekten überstehen den Winter als Puppe oder Larve im Boden – wer ihn im Herbst nicht komplett „aufräumt“, hilft ihnen dabei." },
+  /* 5 — Lückentext -------------------------------------------------------- */
+  { chip:"Lückentext", kat:"uebung", titel:"Fülle die Lücken",
+    text:"Tippe eine Lücke an und dann das passende Wort aus der Wortbank. Zum Schluss „Prüfen“.",
+    typ:"luecke",
+    bank:["Regenwurm","Humus","Asseln","Mykorrhiza","Wasser","Bodenhotel","Nektar","Maulwurf"],
+    teile:[
+      {t:"Der "}, {l:"Regenwurm"}, {t:" lockert den Boden und macht daraus fruchtbaren "},
+      {l:"Humus"}, {t:". Totes Laub wird von "}, {l:"Asseln"},
+      {t:" und Pilzen zersetzt. Die feinen Pilzfäden an den Wurzeln heißen "},
+      {l:"Mykorrhiza"}, {t:" und liefern der Pflanze "}, {l:"Wasser"},
+      {t:". Im Winter dient der Boden vielen Insekten als "}, {l:"Bodenhotel"}, {t:"."}
+    ]
+  },
 
-  { thema:"7 · Zusammengesetzt", motiv:"🌱",
-    lern:"Jetzt kennst du den Untergrund: Regenwürmer bauen, Zersetzer räumen auf, Pilzfäden verbinden, der Boden beherbergt. Ohne dieses verborgene Leben gäbe es <b>keine fruchtbare Erde</b> – und ohne fruchtbare Erde keine blühende Wiese oben.",
-    frage:"Was passiert mit der Wiese, wenn das Bodenleben verschwindet?",
-    antworten:["Nichts, oben wächst es einfach weiter","Der Boden wird unfruchtbar und die Pflanzen kümmern","Die Wiese wächst schneller","Es wird nur mehr Regen geben"],
-    richtig:1,
-    aufloesung:"Ohne Regenwürmer und Zersetzer verdichtet der Boden, Laub bleibt liegen, Nährstoffe fehlen. Das Leben unter der Wiese ist die unsichtbare Grundlage für alles, was oben blüht und summt." }
+  /* 6 — Abschluss-Quiz ---------------------------------------------------- */
+  { chip:"Quiz", kat:"quiz", titel:"Abschluss-Quiz",
+    text:"Zum Schluss der Test: Zeig, was du über die Welt unter der Wiese weißt.",
+    typ:"quiz",
+    fragen:[
+      {f:"Wer macht aus alten Blättern wieder fruchtbare Erde?",
+       a:["Marienkäfer","Regenwürmer und andere Bodenlebewesen","Schmetterlinge","Libellen"], r:1,
+       fb:"Regenwürmer, Asseln, Pilze und Bakterien arbeiten zusammen als Zersetzer."},
+      {f:"Warum graben Regenwürmer ihre Gänge?",
+       a:["Zum Spaß","Damit Luft und Wasser in den Boden gelangen","Um Mäuse zu ärgern","Damit Pflanzen umfallen"], r:1,
+       fb:"Die Gänge belüften den Boden und lassen Regenwasser bis zu den Wurzeln."},
+      {f:"Wer lebt NICHT dauerhaft unter der Erde?",
+       a:["Maulwurf","Regenwurm","Schmetterling","Engerling"], r:2,
+       fb:"Der Schmetterling gehört in die Luft – nur seine Raupe frisst an Pflanzen."},
+      {f:"Wovon leben Asseln, Tausendfüßer und viele Pilze?",
+       a:["Von gesunden, lebenden Blättern","Von abgestorbenen Pflanzenresten","Von Insekten, die sie jagen","Von Blütennektar"], r:1,
+       fb:"Sie sind die Müllabfuhr der Wiese und fressen totes Material."},
+      {f:"Wie helfen die Pilzfäden (Mykorrhiza) den Wurzeln?",
+       a:["Sie fressen die Wurzeln auf","Sie sammeln Wasser & Nährstoffe für die Pflanze","Sie halten Regen ab","Sie machen die Erde giftig"], r:1,
+       fb:"Pilz und Pflanze sind Partner: Wasser gegen Zucker."},
+      {f:"Warum ist der Boden im Winter für Insekten so wertvoll?",
+       a:["Weil es dort hell ist","Weil er Schutz zum Überwintern und Verpuppen bietet","Weil dort Nektar wächst","Weil Vögel dort nisten"], r:1,
+       fb:"Frostgeschützt überstehen viele Insekten den Winter als Puppe oder Larve."}
+    ]
+  }
 ];
 
+/* ---- Hilfen ---- */
 const $=id=>document.getElementById(id);
 const reduce=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-const BST=["A","B","C","D"];
-let i=0, score=0, beantwortet=false;
+function misch(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]];}return a;}
+function bildHTML(b,klasse){
+  return '<div class="bild '+(klasse||'')+'">'+
+    '<div class="ph"><span class="gl">'+b.glyph+'</span>'+
+      '<span class="l">'+b.label+'</span><span class="f">images/boden/'+b.src+'</span></div>'+
+    '<img src="'+BASIS+b.src+'" alt="'+b.label+'" onerror="this.classList.add(\'weg\')">'+
+  '</div>';
+}
+
+const elB=$("buehne"), elE=$("erklaer"), elChips=$("chips"), elZaehler=$("zaehler");
+let i=0, stufe=0, timer=null;
+
+function chips(){
+  elChips.innerHTML="";
+  SCHRITTE.forEach((s,k)=>{
+    const c=document.createElement("button");
+    c.className="chip"+(s.kat?" "+s.kat:"")+(k===i?" aktiv":"")+(k<i?" fertig":"");
+    c.innerHTML='<span class="nr">'+(k+1)+'</span>'+s.chip;
+    c.addEventListener("click",()=>geheZu(k));
+    elChips.appendChild(c);
+  });
+  elZaehler.textContent="Schritt "+(i+1)+" / "+SCHRITTE.length;
+}
 
 function render(){
-  beantwortet=false;
-  const s=DATEN[i];
-  $("zaehler").innerHTML="Station "+(i+1)+" / "+DATEN.length+" · ✓ <b>"+score+"</b>";
-  $("balken").style.width=(i/DATEN.length*100)+"%";
-  $("motiv").textContent=s.motiv;
-  $("thema").textContent=s.thema;
-  $("lernkarte").innerHTML=s.lern;
-  $("frage").textContent=s.frage;
-  const box=$("antworten"); box.innerHTML="";
-  s.antworten.forEach((txt,idx)=>{
-    const b=document.createElement("button");
-    b.className="antw"; b.type="button";
-    b.innerHTML='<span class="buchstabe">'+BST[idx]+'</span><span class="lab">'+txt+'</span><span class="haken"></span>';
-    b.addEventListener("click",()=>waehle(idx,b,s));
-    box.appendChild(b);
-  });
-  $("info").className="infokarte"; $("info").innerHTML="";
-  $("weiter").classList.remove("an");
-  $("weiter").textContent=(i===DATEN.length-1)?"Zum Ergebnis ›":"Weiter ›";
+  stopPlay();
+  const s=SCHRITTE[i];
+  if(s.typ==="sequenz") renderSequenz(s);
+  else if(s.typ==="reihenfolge") renderReihenfolge(s);
+  else if(s.typ==="zuordnen") renderZuordnen(s);
+  else if(s.typ==="luecke") renderLuecke(s);
+  else if(s.typ==="quiz") renderQuiz(s);
+  else renderTafel(s);
+  $("zurueckBtn").disabled=(i===0);
+  $("weiterBtn").textContent=(i===SCHRITTE.length-1)?"↺ Von vorn":"Nächster Schritt ›";
+  chips(); melde();
 }
 
-function waehle(idx,btn,s){
-  if(beantwortet) return; beantwortet=true;
-  const korrekt=(idx===s.richtig);
-  const knoepfe=$("antworten").querySelectorAll(".antw");
-  knoepfe.forEach((b,k)=>{
-    b.disabled=true;
-    if(k===s.richtig){ b.classList.add("richtig"); b.querySelector(".haken").textContent="✓"; }
-  });
-  if(!korrekt){ btn.classList.add("falsch"); btn.querySelector(".haken").textContent="✗"; }
-  if(korrekt) score++;
-  $("zaehler").innerHTML="Station "+(i+1)+" / "+DATEN.length+" · ✓ <b>"+score+"</b>";
+/* --- Tafel mit Hotspots (Beschriften) --- */
+function renderTafel(s){
+  let html='<div class="bildbox">'+bildHTML(s.bild,"an");
+  s.hotspots.forEach(h=>{ html+='<button class="hotspot" data-n="'+h.n+'" style="left:'+h.x+'%;top:'+h.y+'%;">'+h.n+'</button>'; });
+  html+='</div>';
+  elB.innerHTML=html;
+  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p>';
+  if(s.hint) e+='<p class="entdeckhint">👇 '+s.hint+'</p>';
+  e+='<div class="infokarte" id="info"><p class="leer">Tippe eine Zahl im Bild an.</p></div>';
+  elE.innerHTML=e;
   const info=$("info");
-  info.className="infokarte an "+(korrekt?"ok":"no");
-  info.innerHTML='<p class="it">'+(korrekt?"✓ Richtig":"✗ Richtig wäre "+BST[s.richtig])+'</p><p>'+s.aufloesung+'</p>';
-  $("weiter").classList.add("an");
+  elB.querySelectorAll(".hotspot").forEach(b=>{
+    b.addEventListener("click",()=>{
+      elB.querySelectorAll(".hotspot").forEach(x=>x.classList.remove("aktiv"));
+      b.classList.add("aktiv");
+      const h=s.hotspots.find(z=>z.n==b.dataset.n);
+      info.className="infokarte";
+      info.innerHTML='<p class="it">Punkt '+h.n+'</p><h3>'+h.titel+'</h3><p>'+h.text+'</p>';
+      info.scrollIntoView({block:"nearest",behavior:reduce?"auto":"smooth"});
+      melde();
+    });
+  });
 }
 
-$("weiter").addEventListener("click",()=>{
-  if(i<DATEN.length-1){ i++; render(); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
-  else ende();
-});
-
-function ende(){
-  $("spiel").style.display="none";
-  $("zaehler").textContent="";
-  const perfekt=score===DATEN.length;
-  const blaetter = perfekt ? 3 : score>=Math.ceil(DATEN.length*0.6) ? 2 : 1;
-  // Ergebnis an den Forscherpass melden (3/2/1 Blätter) – Kontrakt: {blaetter,done}
-  try{ const _K="mibaso.fauna.expedition"; const _d=JSON.parse(localStorage.getItem(_K)||"{}");
-    if(!_d.boden || blaetter>_d.boden.blaetter){ _d.boden={blaetter:blaetter,done:true,ts:Date.now()}; localStorage.setItem(_K,JSON.stringify(_d)); } }catch(e){}
-  const sprueche = perfekt
-    ? ["Alles richtig – du kennst die verborgene Welt unter der Wiese! 🌱","Volltreffer! Ein echter Boden-Forscher."]
-    : score>=Math.ceil(DATEN.length*0.6)
-      ? ["Stark! Fast alles richtig.","Gut gemacht – du hast einen guten Blick für den Untergrund."]
-      : ["Grab ruhig nochmal nach – Regenwurm, Zersetzer und Pilzfäden sind der Schlüssel.","Ein guter Anfang! Noch eine Runde?"];
-  const e=$("ende"); e.style.display="block";
-  e.innerHTML='<div class="ende"><p style="font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a96a1;margin:0;">Ergebnis</p>'+
-    '<p class="gross">'+score+'<small> / '+DATEN.length+'</small></p>'+
-    '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
-    '<p class="spruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
-    '<div class="knoepfe"><button class="knopf prim" id="nochmal">Nochmal</button>'+
-    '<a class="knopf sek" href="wiesenpass.html">🍃 Forscherpass</a></div></div>';
-  $("nochmal").addEventListener("click",()=>{ i=0; score=0; $("ende").style.display="none"; $("spiel").style.display="block"; render(); });
-  if(perfekt){ konfetti(); fanfare(); }
+/* --- Sequenz mit Steuerung --- */
+function renderSequenz(s){
+  stufe=0;
+  let html='<div class="bildbox">';
+  s.stufen.forEach((st,k)=>{ html+=bildHTML(st.bild, k===0?"an":""); });
+  html+='</div>';
+  elB.innerHTML=html;
+  const max=s.stufen.length-1;
+  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p>';
+  if(s.hint) e+='<p class="entdeckhint">👇 '+s.hint+'</p>';
+  e+='<div class="seq"><div class="seqkopf">'+
+     '<button class="playbtn" id="play" aria-label="Abspielen">▶</button>'+
+     '<button class="stepbtn" id="prev" aria-label="Voriges Stadium">‹</button>'+
+     '<div class="stufenlabel" id="stl" style="flex:1 1 auto;text-align:center;"></div>'+
+     '<button class="stepbtn" id="next" aria-label="Nächstes Stadium">›</button>'+
+     '</div><div class="infokarte" id="info"></div></div>';
+  elE.innerHTML=e;
+  const setze=(v)=>{
+    stufe=Math.max(0,Math.min(max,v));
+    elB.querySelectorAll(".bild").forEach((b,k)=>b.classList.toggle("an",k===stufe));
+    const st=s.stufen[stufe];
+    $("stl").innerHTML=st.name+' <small>· '+(stufe+1)+'/'+(max+1)+'</small>';
+    $("info").innerHTML='<p>'+st.text+'</p>';
+    $("prev").disabled=(stufe===0); $("next").disabled=(stufe===max);
+    melde();
+  };
+  $("prev").addEventListener("click",()=>setze(stufe-1));
+  $("next").addEventListener("click",()=>setze(stufe+1));
+  $("play").addEventListener("click",function(){
+    if(timer){ stopPlay(); this.textContent="▶"; return; }
+    this.textContent="❚❚";
+    if(stufe>=max) setze(0);
+    timer=setInterval(()=>{ if(stufe>=max){ stopPlay(); $("play").textContent="▶"; return; } setze(stufe+1); }, reduce?600:1200);
+  });
+  setze(0);
 }
 
+/* --- Reihenfolge (Drag & Drop + ▲▼) --- */
+function renderReihenfolge(s){
+  elB.innerHTML="";
+  let ordnung=misch(s.karten.map((_,k)=>k));
+  // sicherstellen, dass nicht zufällig schon perfekt
+  if(ordnung.every((v,k)=>v===k)) ordnung.reverse();
+  let geprueft=false;
+  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p><div class="sortliste" id="sortliste"></div>'+
+    '<div class="pruefzeile"><button class="knopf prim" id="pruefBtn" style="margin:0;">Prüfen</button>'+
+    '<span class="tally" id="tally"></span></div>';
+  elE.innerHTML=e;
+  const liste=$("sortliste");
+
+  function zeichne(){
+    liste.innerHTML="";
+    ordnung.forEach((kartenIdx,pos)=>{
+      const k=s.karten[kartenIdx];
+      const row=document.createElement("div");
+      row.className="sortcard"; row.draggable=!geprueft; row.dataset.pos=pos;
+      row.innerHTML='<span class="em">'+k.em+'</span><span class="lab">'+k.lab+'</span>'+
+        '<span class="pfeile"><button data-d="-1" aria-label="nach oben">▲</button>'+
+        '<button data-d="1" aria-label="nach unten">▼</button></span>'+
+        '<span class="griff" aria-hidden="true">⠿</span>';
+      liste.appendChild(row);
+    });
+    if(geprueft) return;
+    liste.querySelectorAll(".sortcard").forEach(row=>{
+      const pos=+row.dataset.pos;
+      const [up,down]=row.querySelectorAll(".pfeile button");
+      up.disabled=(pos===0); down.disabled=(pos===ordnung.length-1);
+      up.addEventListener("click",()=>{ tausche(pos,pos-1); });
+      down.addEventListener("click",()=>{ tausche(pos,pos+1); });
+      row.addEventListener("dragstart",ev=>{ row.classList.add("drag"); ev.dataTransfer.setData("text/plain",pos); });
+      row.addEventListener("dragend",()=>{ row.classList.remove("drag"); liste.querySelectorAll(".ueber").forEach(x=>x.classList.remove("ueber")); });
+      row.addEventListener("dragover",ev=>{ ev.preventDefault(); row.classList.add("ueber"); });
+      row.addEventListener("dragleave",()=>row.classList.remove("ueber"));
+      row.addEventListener("drop",ev=>{ ev.preventDefault(); const von=+ev.dataTransfer.getData("text/plain"); verschiebe(von,pos); });
+    });
+  }
+  function tausche(a,b){ if(b<0||b>=ordnung.length)return; [ordnung[a],ordnung[b]]=[ordnung[b],ordnung[a]]; zeichne(); melde(); }
+  function verschiebe(von,zu){ if(von===zu)return; const x=ordnung.splice(von,1)[0]; ordnung.splice(zu,0,x); zeichne(); melde(); }
+
+  zeichne();
+  const pb=$("pruefBtn"), tally=$("tally");
+  pb.addEventListener("click",()=>{
+    if(!geprueft){
+      geprueft=true; let r=0;
+      liste.querySelectorAll(".sortcard").forEach((row,pos)=>{
+        row.draggable=false;
+        const richtig=(ordnung[pos]===pos);
+        row.classList.add(richtig?"ok":"no");
+        row.querySelectorAll(".pfeile button").forEach(b=>b.disabled=true);
+        if(richtig) r++;
+      });
+      tally.textContent=r+" / "+ordnung.length+" an der richtigen Stelle";
+      pb.textContent="Nochmal";
+    } else { renderReihenfolge(s); }
+    melde();
+  });
+}
+
+/* --- Zuordnen: Beruf zuordnen --- */
+function renderZuordnen(s){
+  elB.innerHTML="";
+  const tiere=misch(s.tiere.slice());
+  const wahl={}; let geprueft=false;
+  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p><div class="zuliste" id="zuliste"></div>'+
+    '<div class="pruefzeile"><button class="knopf prim" id="pruefBtn" style="margin:0;">Prüfen</button>'+
+    '<span class="tally" id="tally"></span></div>';
+  elE.innerHTML=e;
+  const liste=$("zuliste");
+  tiere.forEach((tr,k)=>{
+    const row=document.createElement("div"); row.className="zurow";
+    let opt='<span class="zuopt">';
+    s.optionen.forEach(o=>{ opt+='<button data-w="'+o.w+'">'+o.kurz+'</button>'; });
+    opt+='</span>';
+    row.innerHTML='<span class="zuname"><span class="em">'+tr.em+'</span>'+tr.t+'</span>'+opt;
+    row.querySelectorAll("button").forEach(b=>{
+      b.addEventListener("click",()=>{
+        if(geprueft) return;
+        wahl[k]=b.dataset.w;
+        row.querySelectorAll("button").forEach(x=>x.classList.toggle("sel",x===b));
+        melde();
+      });
+    });
+    liste.appendChild(row);
+  });
+  const pb=$("pruefBtn"), tally=$("tally");
+  pb.addEventListener("click",()=>{
+    if(!geprueft){
+      let r=0;
+      Array.from(liste.children).forEach((row,k)=>{
+        const richtig=tiere[k].w;
+        row.querySelectorAll("button").forEach(b=>{
+          b.disabled=true;
+          if(b.dataset.w===richtig) b.classList.add("ok");
+          if(wahl[k]===b.dataset.w && wahl[k]!==richtig) b.classList.add("no");
+        });
+        if(wahl[k]===richtig) r++;
+      });
+      tally.textContent=r+" / "+tiere.length+" richtig";
+      pb.textContent="Nochmal"; geprueft=true;
+    } else { renderZuordnen(s); }
+    melde();
+  });
+}
+
+/* --- Lückentext --- */
+function renderLuecke(s){
+  elB.innerHTML="";
+  const slots=[]; let aktiv=-1, geprueft=false;
+  let clz="";
+  s.teile.forEach(t=>{
+    if(t.t!==undefined){ clz+=t.t; }
+    else { const idx=slots.length; slots.push({soll:t.l, ist:null}); clz+='<span class="slot" data-s="'+idx+'">–</span>'; }
+  });
+  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p><p class="cloze" id="cloze">'+clz+'</p>'+
+    '<div class="wortbank" id="bank"></div>'+
+    '<div class="pruefzeile"><button class="knopf prim" id="pruefBtn" style="margin:0;">Prüfen</button>'+
+    '<span class="tally" id="tally"></span></div>';
+  elE.innerHTML=e;
+  const bank=$("bank");
+  misch(s.bank).forEach(w=>{
+    const b=document.createElement("button"); b.className="wort"; b.textContent=w; b.dataset.w=w;
+    b.addEventListener("click",()=>setzeWort(w,b));
+    bank.appendChild(b);
+  });
+  function markiereAktiv(idx){
+    aktiv=idx;
+    elE.querySelectorAll(".slot").forEach(sl=>sl.classList.toggle("aktiv",+sl.dataset.s===idx));
+  }
+  function ersteLeere(){ for(let k=0;k<slots.length;k++) if(!slots[k].ist) return k; return -1; }
+  function setzeWort(w,btn){
+    if(geprueft) return;
+    let ziel = aktiv>=0 && !slots[aktiv].ist ? aktiv : ersteLeere();
+    if(ziel<0){ return; }
+    slots[ziel].ist=w; slots[ziel].btn=btn;
+    btn.classList.add("weg");
+    const sl=elE.querySelector('.slot[data-s="'+ziel+'"]');
+    sl.textContent=w; sl.classList.add("voll"); sl.classList.remove("aktiv");
+    markiereAktiv(ersteLeere());
+    melde();
+  }
+  elE.querySelectorAll(".slot").forEach(sl=>{
+    sl.addEventListener("click",()=>{
+      if(geprueft) return;
+      const idx=+sl.dataset.s;
+      if(slots[idx].ist){  // Wort zurück in die Bank
+        slots[idx].btn.classList.remove("weg");
+        slots[idx].ist=null; slots[idx].btn=null;
+        sl.textContent="–"; sl.classList.remove("voll");
+      }
+      markiereAktiv(idx);
+    });
+  });
+  markiereAktiv(ersteLeere());
+  const pb=$("pruefBtn"), tally=$("tally");
+  pb.addEventListener("click",()=>{
+    if(!geprueft){
+      geprueft=true; let r=0;
+      slots.forEach((sl,idx)=>{
+        const el=elE.querySelector('.slot[data-s="'+idx+'"]');
+        el.classList.remove("voll","aktiv");
+        if(sl.ist===sl.soll){ el.classList.add("ok"); r++; }
+        else { el.classList.add("no"); el.textContent=sl.ist?sl.ist+" → "+sl.soll:sl.soll; }
+      });
+      tally.textContent=r+" / "+slots.length+" richtig";
+      pb.textContent="Nochmal";
+    } else { renderLuecke(s); }
+    melde();
+  });
+}
+
+/* --- Abschluss-Quiz → schreibt Blätter in den Forscherpass --- */
+function renderQuiz(s){
+  const fragen=misch(s.fragen.slice());
+  let q=0, score=0, sperre=false;
+  elB.innerHTML="";
+  function zeigeFrage(){
+    sperre=false;
+    const f=fragen[q];
+    const opts=f.a.map((txt,idx)=>({txt,idx}));
+    let e='<div class="qkopf">Frage <b>'+(q+1)+'</b> / '+fragen.length+' · ✓ '+score+'</div>'+
+      '<div class="qbalken"><div style="width:'+(q/fragen.length*100)+'%"></div></div>'+
+      '<p class="qfrage">'+f.f+'</p><div class="qwahl" id="qwahl"></div><div class="qfb" id="qfb"></div>';
+    elE.innerHTML=e;
+    const wrap=$("qwahl"), fb=$("qfb");
+    opts.forEach(o=>{
+      const b=document.createElement("button"); b.textContent=o.txt; b.dataset.idx=o.idx;
+      b.addEventListener("click",()=>{
+        if(sperre) return; sperre=true;
+        const richtig=(o.idx===f.r);
+        wrap.querySelectorAll("button").forEach(x=>{ x.disabled=true; if(+x.dataset.idx===f.r) x.classList.add("ok"); });
+        if(richtig){ score++; fb.textContent="✓ Richtig! "+f.fb; }
+        else{ b.classList.add("no"); fb.textContent="✗ "+f.fb; }
+        melde();
+        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?1100:1900);
+      });
+      wrap.appendChild(b);
+    });
+    melde();
+  }
+  function ende(){
+    const perfekt=score===fragen.length;
+    const blaetter = perfekt ? 3 : score>=Math.ceil(fragen.length*0.6) ? 2 : 1;
+    try{ const _K="mibaso.fauna.expedition"; const _d=JSON.parse(localStorage.getItem(_K)||"{}");
+      if(!_d.boden || blaetter>_d.boden.blaetter){ _d.boden={blaetter:blaetter,done:true,ts:Date.now()}; localStorage.setItem(_K,JSON.stringify(_d)); } }catch(e){}
+    const sprueche=perfekt
+      ? ["Alles richtig – du kennst die verborgene Welt unter der Wiese! 🌱","Volltreffer! Ein echter Boden-Forscher."]
+      : score>=Math.ceil(fragen.length*0.6)
+        ? ["Stark! Fast alles richtig.","Gut gemacht – ein guter Blick für den Untergrund."]
+        : ["Grab ruhig nochmal durch die Schritte – dann sitzt es.","Ein guter Anfang! Noch eine Runde?"];
+    elE.innerHTML='<div class="qende"><p class="qlabel">Ergebnis</p>'+
+      '<p class="qscore">'+score+'<small> / '+fragen.length+'</small></p>'+
+      '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
+      '<p class="qspruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
+      '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">'+
+        '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
+        '<a class="knopf" href="wiesenpass.html">🍃 Forscherpass</a></div></div>';
+    $("qnochmal").addEventListener("click",()=>renderQuiz(s));
+    if(perfekt){ konfetti(); fanfare(); }
+    melde();
+  }
+  zeigeFrage();
+}
+
+/* --- Konfetti + Fanfare --- */
 function konfetti(){
   if(reduce) return;
   const feld=document.createElement("div"); feld.className="konffeld";
   const farben=['#C28A3A','#233D5C','#3E9A5E','#6b4a2b','#e8a020','#9b59b6'];
-  for(let n=0;n<70;n++){
-    const k=document.createElement("span"); k.className="konf";
+  for(let n=0;n<70;n++){ const k=document.createElement("span"); k.className="konf";
     k.style.cssText='left:'+Math.random()*100+'%;background:'+farben[(Math.random()*farben.length)|0]+
       ';animation-delay:'+(Math.random()*0.5).toFixed(2)+'s;transform:rotate('+(Math.random()*360)+'deg);';
-    feld.appendChild(k);
-  }
+    feld.appendChild(k); }
   document.body.appendChild(feld); setTimeout(()=>feld.remove(),4200);
 }
 function fanfare(){
-  try{
-    const Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx) return;
-    const ctx=new Ctx(); if(ctx.state==="suspended") ctx.resume();
-    const t0=ctx.currentTime+0.05;
+  try{ const Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx) return;
+    const ctx=new Ctx(); if(ctx.state==="suspended") ctx.resume(); const t0=ctx.currentTime+0.05;
     [[523.25,0,0.16,0.2],[659.25,0.15,0.16,0.2],[783.99,0.30,0.16,0.2],[1046.5,0.46,0.6,0.22]]
     .forEach(([fr,st,du,vo])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type="triangle";o.frequency.value=fr;
       g.gain.setValueAtTime(0,t0+st);g.gain.linearRampToValueAtTime(vo,t0+st+0.02);g.gain.exponentialRampToValueAtTime(0.001,t0+st+du);
@@ -300,6 +707,29 @@ function fanfare(){
     setTimeout(()=>ctx.close().catch(()=>{}),1600);
   }catch(e){}
 }
+
+/* --- Navigation --- */
+function geheZu(k){ if(k<0||k>=SCHRITTE.length) return; i=k; render(); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
+function stopPlay(){ if(timer){clearInterval(timer);timer=null;} }
+$("zurueckBtn").addEventListener("click",()=>geheZu(i-1));
+$("weiterBtn").addEventListener("click",()=>{ if(i===SCHRITTE.length-1) geheZu(0); else geheZu(i+1); });
+
+/* Wischen zwischen Schritten (außer auf interaktiven Elementen) */
+let tx=0,ty=0,tig=false;
+document.addEventListener("touchstart",e=>{
+  if(e.target.closest("input,button,a,.hotspot,.sortcard,.slot")){tig=false;return;}
+  tig=true; tx=e.touches[0].clientX; ty=e.touches[0].clientY;
+},{passive:true});
+document.addEventListener("touchend",e=>{
+  if(!tig) return; tig=false;
+  const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)*1.6){ geheZu(i+(dx<0?1:-1)); }
+},{passive:true});
+
+/* Höhe an iframe melden (WordPress-Einbindung) */
+function melde(){ if(window.parent!==window){ try{ window.parent.postMessage({fauna:"height", height:document.body.scrollHeight}, "*"); }catch(e){} } }
+if("ResizeObserver" in window){ new ResizeObserver(melde).observe(document.body); }
+window.addEventListener("load", melde);
 
 render();
 </script>
