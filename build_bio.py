@@ -256,7 +256,7 @@ def build():
         _u = _u.replace(
             "Möge sie als digitaler Kompass durch die wunderbare Welt der Botanik dienen. Viel Spaß beim virtuellen Botanisieren! 😉",
             "Ich hoffe, diese App bietet dir eine spannende Entdeckungsreise durch die Welt der Pflanzen und Tiere. Klick dich durch die Pfade und werde selbst zum Natur-Experten! 😉")
-        _u = _u.replace("Flora Mibaso", "bio.mibaso")
+        _u = _u.replace("Flora Mibaso", "Bio Mibaso")
         open(_uidx, "w", encoding="utf-8").write(_u)
     # Der Flora-Forscherpass (pflanzenpass.html) wird NICHT mehr aus der Quelle kopiert –
     # er lebt jetzt nativ in bio (flora/ enthält nur eine Weiterleitung). Nur das
@@ -592,7 +592,7 @@ def write_hub(listing):
         'onerror="this.style.display=\'none\'">'
         '<div class="hero-apps"><a class="happ" href="https://flora.mibaso.de/">🌼 Flora</a>'
         '<a class="happ" href="https://fauna.mibaso.de/">🦋 Fauna</a></div>'
-        '<div class="cap"><div class="marke">bio.mibaso</div>'
+        '<div class="cap"><div class="marke">Bio Mibaso</div>'
         '<h1>Lernpfade für Naturentdecker</h1></div></div>'
         '<div class="lead"><p>Dein Lernort zu <a href="https://flora.mibaso.de/">Flora</a> und '
         '<a href="https://fauna.mibaso.de/">Fauna</a>:</p>'
@@ -607,7 +607,7 @@ def write_hub(listing):
         '<script>if(window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone)'
         '{var b=document.getElementById("installBtn");if(b)b.style.display="none";}</script>')
     open(os.path.join(BIO, "index.html"), "w", encoding="utf-8").write(
-        _shell("bio.mibaso — Lernpfade für Naturentdecker", "#2F4F3E", body))
+        _shell("Bio Mibaso — Lernpfade für Naturentdecker", "#2F4F3E", body))
 
 def _pfad(t, fn, col):
     b = "u" if _typ(fn) == "Übersicht" else "l"
@@ -642,18 +642,18 @@ def write_sub(r, items):
         sections.append('<h2 class="gt">Mehr entdecken</h2>'
                         f'<div class="liste">{rows}</div>')
     banner = _pass_banner(r["pass"]) if r.get("pass") else ""
-    body = ('<div class="subkopf"><a class="zurueck" href="../index.html">‹ bio.mibaso</a></div>'
+    body = ('<div class="subkopf"><a class="zurueck" href="../index.html">‹ Bio Mibaso</a></div>'
             + f'<div class="subtitel"><span>{r["emoji"]}</span> {html.escape(r["label"])}</div>'
             + banner + "".join(sections) + _footer("../"))
     open(os.path.join(BIO, r["key"], "index.html"), "w", encoding="utf-8").write(
-        _shell(r["label"] + " — bio.mibaso", r["akzent"], body, akzent=r["akzent"]))
+        _shell(r["label"] + " — Bio Mibaso",r["akzent"], body, akzent=r["akzent"]))
 
 def write_anleitung():
     steps = (
         '<div class="anl">'
         '<h1 style="font-family:Georgia,serif;font-weight:normal;color:var(--gruen);'
         'font-size:clamp(24px,6vw,32px);margin:6px 0 4px;">Als App aufs Handy legen</h1>'
-        '<p class="lead" style="text-align:left;margin:8px 0 4px;max-width:none;">So liegt bio.mibaso wie '
+        '<p class="lead" style="text-align:left;margin:8px 0 4px;max-width:none;">So liegt Bio Mibaso wie '
         'eine echte App auf dem Startbildschirm — praktisch für den Unterricht.</p>'
         '<h2>📱 iPhone / iPad</h2>'
         '<ol><li>Im Browser oben rechts auf das <em>Teilen-Symbol</em></li>'
@@ -667,10 +667,10 @@ def write_anleitung():
         '<li>Auf <em>„Installieren"</em> bzw. <em>„Hinzufügen"</em> tippen</li></ol>'
         '<p class="tipp">Tipp: Du findest bio auch, wenn du <strong>bio.mibaso.de</strong> in die Suchmaske '
         'eingibst — der Weg über Chrome/Safari funktioniert genauso.</p></div>')
-    body = ('<div class="subkopf"><a class="zurueck" href="index.html">‹ bio.mibaso</a></div>'
+    body = ('<div class="subkopf"><a class="zurueck" href="index.html">‹ Bio Mibaso</a></div>'
             + steps + _footer(""))
     open(os.path.join(BIO, "anleitung.html"), "w", encoding="utf-8").write(
-        _shell("Anleitung — bio.mibaso", "#2F4F3E", body))
+        _shell("Anleitung — Bio Mibaso","#2F4F3E", body))
 
 if __name__ == "__main__":
     build()
