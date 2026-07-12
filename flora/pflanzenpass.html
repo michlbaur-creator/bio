@@ -175,8 +175,8 @@
   .urk-summe{display:flex;justify-content:space-between;font-family:var(--sans);font-size:13.5px;
     font-weight:700;color:var(--gruen);margin:10px 2px 0;}
   .urk-fuss{display:flex;justify-content:space-between;font-family:var(--sans);font-size:11.5px;color:#8a8577;margin:14px 2px 0;}
-  .urk-btns{display:flex;gap:10px;justify-content:center;padding:0 20px 18px;}
-  .urk-btns button{font-family:var(--sans);font-size:14px;font-weight:600;border-radius:999px;padding:10px 20px;cursor:pointer;border:none;}
+  .urk-btns{display:flex;gap:8px;justify-content:center;padding:0 16px 15px;}
+  .urk-btns button{font-family:var(--sans);font-size:12.5px;font-weight:600;border-radius:999px;padding:8px 15px;cursor:pointer;border:none;}
   .urk-btns .druck{background:var(--honig);color:#fff;}
   .urk-btns .zu{background:#eee7d5;color:var(--gruen);}
 
@@ -303,7 +303,7 @@
       <div class="urk-fuss"><span id="urkDatum"></span><span>Flora Mibaso</span></div>
     </div>
     <div class="urk-btns">
-      <button class="druck" id="urkPdf">📄 Urkunde als PDF</button>
+      <button class="druck" id="urkPdf">📄 Als PDF</button>
       <button class="zu" id="urkZu">Schließen</button>
     </div>
   </div>
@@ -342,7 +342,7 @@ const ABZEICHEN = [
   { id:"drei",   em:"🍀", name:"Fleißig",        pruef:(d,h)=>h.fertige>=3 },
   { id:"treffer",em:"🎯", name:"Volltreffer",    pruef:(d,h)=>h.maxEines===3 },
   { id:"serie",  em:"🔥", name:"Blatt-Serie",    pruef:(d,h)=>h.dreier>=3 },
-  { id:"bluete", em:"🌼", name:"Blüten-Kenner",  pruef:(d)=>d.bluete&&d.bluete.done },
+  { id:"bluete", em:"🌼", name:"Blüten-Kenner",  pruef:(d)=>d.aufbau&&(d.aufbau.blaetter||0)>=3 },
   { id:"reise",  em:"🪂", name:"Weltreisender",  pruef:(d)=>d.reise&&d.reise.done },
   { id:"energie",em:"☀️", name:"Energie-Experte",pruef:(d)=>d.energie&&d.energie.done },
   { id:"meister",em:"🏅", name:"Flora-Meister",  pruef:(d,h)=>h.fertige>=PFADE.length },

@@ -141,9 +141,9 @@ EXCLUDE = {"tierquiz.html", "gesamttest.html", "pflanze-zuordnung.html", "verwan
            "flora/samenverbreitung.html", "flora/pflanze-erklaerung.html",
            # „Blüten und ihre Gäste" (bluetenoekologie) aus bio entfernt (Juli 2026).
            "flora/bluetenoekologie.html",
-           # „Hinein in die Blüte" wohnt jetzt eingebettet als erste Station im Pfad
-           # „Aufbau der Pflanze" (pflanze-verstehen) → eigene Kachel + Pass-Station entfallen.
-           # Die Datei bluete-zoom.html bleibt liegen (wird als iframe eingebunden).
+           # „Hinein in die Blüte" (bluete-zoom): Einbettung im Juli 2026 entfernt
+           # (SVG-Beschriftungen auf schmalen Handys abgeschnitten). Kachel bleibt aus,
+           # die verwaiste bio-Datei wurde gelöscht.
            "flora/bluete-zoom.html",
            # alle „Warum"-Pfade
            "blumen-nachts.html", "kletten.html", "schaumzikaden.html", "sonnenblumen.html",
@@ -166,7 +166,7 @@ def _excluded(key, fn):
 # WICHTIG: bei einem kompletten Neubau bio/flora & bio/fauna NICHT komplett leeren,
 # sonst gehen diese Master verloren.
 NATIVE_LIST = {
-    "flora": ["pflanze-verstehen.html", "bluete-zoom.html", "bestaeubung-erklaerung.html",
+    "flora": ["pflanze-verstehen.html", "bestaeubung-erklaerung.html",
               "samenreise.html", "jahreszeiten-baum.html", "pflanzenstrategien.html", "pflanzen-energie.html"],
     "fauna": ["grundlagen.html", "verwandlung.html", "bestaeubung.html", "lebensraum.html",
               "nahrungsnetz.html", "wiese-lebt.html", "bodenleben.html"],
