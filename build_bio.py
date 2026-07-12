@@ -72,6 +72,7 @@ GROUPS = {
 EXTRA = {
     "flora": {
         "titel": "Entdecken",
+        "hinweis": "Diese Kacheln öffnen die Flora-App in einem neuen Tab.",
         "basis": "https://flora.mibaso.de/",
         "kacheln": [
             ("bestimmen-gefuehrt.html", "frage", "Frag dich durch",
@@ -556,6 +557,9 @@ CSS = """
   .badge{flex:0 0 auto;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.03em;
     padding:2px 8px;border-radius:999px;text-transform:uppercase;}
   .badge-l{background:#e7efe4;color:#3a5f4a;} .badge-u{background:#efe6d2;color:#8a6a2e;}
+  .badge-ext{background:#f1e7d6;color:#9a6a3a;white-space:nowrap;}
+  .pfad-ext .pt2{display:inline;} .pfad-ext{align-items:center;}
+  .gt-hint{font-family:var(--sans);font-size:12.5px;color:#8a8578;margin:-6px 0 12px;font-style:italic;}
   .pfad .pic{flex:0 0 auto;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
   .pfad .pic svg{width:19px;height:19px;}
   .gt{font-family:var(--sans);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
@@ -670,11 +674,11 @@ def _extra_pfad(basis, fn, icon, titel, sub, col):
     d = _G.get(icon, _G["leaf"])
     svg = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" '
            f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{d}"/></svg>')
-    return (f'<a class="pfad" href="{basis}{html.escape(fn)}">'
+    return (f'<a class="pfad pfad-ext" href="{basis}{html.escape(fn)}" target="_blank" rel="noopener">'
             f'<span class="pic" style="background:{col}1f;color:{col}">{svg}</span>'
             f'<span class="ptxt"><span class="pt2">{html.escape(titel)}</span>'
             f'<span class="psub">{html.escape(sub)}</span></span>'
-            f'<span class="pf">›</span></a>')
+            f'<span class="badge badge-ext">Flora-App&nbsp;↗</span></a>')
 
 def _pass_banner(p):
     return (f'<a class="aktion-banner" href="{p["href"]}">'
@@ -703,7 +707,9 @@ def write_sub(r, items):
     if ex:
         rows = "".join(_extra_pfad(ex["basis"], fn, ic, t, s, r["akzent"])
                        for (fn, ic, t, s) in ex["kacheln"])
-        sections.append(f'<h2 class="gt">{html.escape(ex["titel"])}</h2>'
+        hint = (f'<p class="gt-hint">{html.escape(ex["hinweis"])}</p>'
+                if ex.get("hinweis") else "")
+        sections.append(f'<h2 class="gt">{html.escape(ex["titel"])}</h2>{hint}'
                         f'<div class="liste">{rows}</div>')
     banner = _pass_banner(r["pass"]) if r.get("pass") else ""
     body = ('<div class="subkopf"><a class="zurueck" href="../index.html">‹ Bio Mibaso</a></div>'
