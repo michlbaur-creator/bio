@@ -188,7 +188,7 @@ ORDER = {
               "bodenleben.html", "insektenschwund.html"],
 }
 # Typ-Kennzeichnung der Kacheln: „Übersicht" (Einzelseite) vs. „Lernpfad" (mehrstufig).
-UEBERSICHT = {"pflanze-erklaerung.html", "bestaeubung-erklaerung.html", "bluetenoekologie.html",
+UEBERSICHT = {"pflanze-erklaerung.html",
               "samenverbreitung.html", "insektenschwund.html"}
 def _typ(fn):
     return "Übersicht" if fn in UEBERSICHT else "Lernpfad"

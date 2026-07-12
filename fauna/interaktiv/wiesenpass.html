@@ -198,21 +198,32 @@
      Bildschirm, auf eine A4-Seite komprimiert. print-color-adjust erzwingt ALLE Farben
      (Gold-Rahmen, Blau, Abzeichen), auch ohne „Hintergrundgrafiken"-Häkchen. */
   @media print{
-    @page{size:A4;margin:10mm;}
+    @page{size:A4;margin:8mm;}
     html,body{background:#fff!important;}
     body.drucken > *{display:none!important;}
-    body.drucken .urkunde-overlay{display:block!important;position:static;background:#fff!important;
-      backdrop-filter:none;padding:0;overflow:visible;}
-    body.drucken .urkunde{box-shadow:none;width:180mm;max-width:100%;margin:0 auto;animation:none;}
-    body.drucken .rahmen{break-inside:avoid;page-break-inside:avoid;padding:14px 18px 16px;}
+    body.drucken .urkunde-overlay{display:block!important;position:static!important;background:#fff!important;
+      backdrop-filter:none;padding:0!important;margin:0!important;height:auto!important;min-height:0!important;overflow:visible!important;}
+    body.drucken .urkunde{box-shadow:none!important;width:190mm!important;max-width:none!important;margin:0 auto!important;animation:none!important;}
     body.drucken .urk-btns{display:none!important;}
+    /* alle Farben zuverlässig drucken (auch ohne „Hintergrundgrafiken") */
     body.drucken .urkunde, body.drucken .urkunde *{
       -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
-    body.drucken .urk-med{font-size:38px;}
-    body.drucken .urk-titel{font-size:24px;}
-    body.drucken .urk-zeile{padding:3px 2px;}
-    body.drucken .urk-album{margin-top:10px;padding-top:8px;}
-    body.drucken .urk-abz{padding:4px 6px;}
+    /* kompakt, damit die Urkunde die Breite füllt UND auf EINE Seite passt */
+    body.drucken .rahmen{margin:0!important;padding:12px 18px 12px!important;break-inside:avoid;page-break-inside:avoid;}
+    body.drucken .rahmen::before{inset:3px!important;}
+    body.drucken .urk-med{font-size:30px!important;margin:2px 0 0!important;}
+    body.drucken .urk-titel{font-size:22px!important;margin:0!important;}
+    body.drucken .urk-sub{margin:0 0 8px!important;}
+    body.drucken .urk-satz{margin:2px 0!important;}
+    body.drucken .urk-name{margin:5px auto 8px!important;font-size:18px!important;}
+    body.drucken .urk-tabelle{margin-top:8px!important;}
+    body.drucken .urk-zeile{padding:2.5px 2px!important;}
+    body.drucken .urk-summe{margin:6px 2px 0!important;}
+    body.drucken .urk-album{margin-top:8px!important;padding-top:8px!important;}
+    body.drucken .urk-album-titel{margin:0 0 6px!important;}
+    body.drucken .urk-abzeichen{gap:5px!important;}
+    body.drucken .urk-abz{padding:3px 7px!important;}
+    body.drucken .urk-fuss{margin-top:8px!important;}
   }
 </style>
 </head>
