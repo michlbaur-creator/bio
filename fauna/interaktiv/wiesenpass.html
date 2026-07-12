@@ -181,11 +181,32 @@
     *{transition:none!important;animation:none!important;}
     .regen{display:none!important;}
   }
+  /* Abzeichen-Album auf der Urkunde */
+  .urk-album{margin:16px 2px 0;border-top:1px solid var(--linie);padding-top:12px;}
+  .urk-album-titel{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--honig-tief);text-align:center;margin:0 0 10px;}
+  .urk-abzeichen{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .urk-abz{display:flex;align-items:center;gap:7px;border:1px solid var(--linie);border-radius:10px;
+    padding:6px 8px;font-family:var(--sans);}
+  .urk-abz .ue{font-size:20px;line-height:1;flex:0 0 auto;filter:grayscale(1);opacity:.3;}
+  .urk-abz .un2{font-size:10.5px;color:#9a9384;line-height:1.15;}
+  .urk-abz.hat{border-color:var(--honig);background:#fdf6e8;}
+  .urk-abz.hat .ue{filter:none;opacity:1;}
+  .urk-abz.hat .un2{color:var(--blau);font-weight:600;}
+
   @media print{
+    @page{margin:14mm;}
+    html,body{background:#fff!important;}
     body.drucken > *{display:none!important;}
-    body.drucken .urkunde-overlay{display:block!important;position:static;background:none;backdrop-filter:none;padding:0;}
-    body.drucken .urkunde{box-shadow:none;max-width:100%;animation:none;}
+    body.drucken .urkunde-overlay{display:block!important;position:static;background:#fff!important;
+      backdrop-filter:none;padding:0;overflow:visible;}
+    body.drucken .urkunde{box-shadow:none;max-width:100%;animation:none;background:#fff!important;}
     body.drucken .urk-btns{display:none!important;}
+    /* Gold-Rahmen und erreichte Abzeichen zuverlässig mitdrucken, auch ohne
+       „Hintergrundgrafiken"-Häkchen im Druckdialog */
+    body.drucken .rahmen, body.drucken .urk-abz.hat{
+      -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    body.drucken .urk-name{border-bottom-color:#cdbf9e!important;}
   }
 </style>
 </head>
@@ -250,10 +271,11 @@
       <div class="urk-satz" id="urkSatz2"></div>
       <div class="urk-tabelle" id="urkTab"></div>
       <div class="urk-summe" id="urkSumme"></div>
+      <div class="urk-album" id="urkAlbum"></div>
       <div class="urk-fuss"><span id="urkDatum"></span><span>Fauna Mibaso</span></div>
     </div>
     <div class="urk-btns">
-      <button class="druck" id="urkDruck">🖨️ Drucken</button>
+      <button class="druck" id="urkDruck">🖨️ Als PDF / Drucken</button>
       <button class="zu" id="urkZu">Schließen</button>
     </div>
   </div>
@@ -494,6 +516,15 @@ function zeigeUrkunde(){
   });
   document.getElementById("urkTab").innerHTML=rows;
   document.getElementById("urkSumme").innerHTML='<span>Gesammelt</span><span>'+h.summe+' / '+MAX_BL+' 🍃</span>';
+  const abz = ABZEICHEN.map(a=>{
+    const hat=a.pruef(daten,h);
+    return '<div class="urk-abz'+(hat?" hat":"")+'"><span class="ue">'+a.em+'</span>'+
+           '<span class="un2">'+a.name+'</span></div>';
+  }).join("");
+  const anzahl = ABZEICHEN.filter(a=>a.pruef(daten,h)).length;
+  document.getElementById("urkAlbum").innerHTML=
+    '<p class="urk-album-titel">Abzeichen-Album · '+anzahl+' / '+ABZEICHEN.length+'</p>'+
+    '<div class="urk-abzeichen">'+abz+'</div>';
   document.getElementById("urkDatum").textContent=new Date().toLocaleDateString('de-DE',{day:'2-digit',month:'long',year:'numeric'});
   document.getElementById("urkunde").classList.add("an");
 }
