@@ -187,6 +187,44 @@
       <p id="phase-text"></p>
     </div>
   </div>
+
+  <style>
+    .jz-quiz{margin-top:16px;padding:18px 20px 20px;}
+    .jz-quiz h2{margin:0 0 6px;color:var(--gruen);font-weight:normal;font-size:1.25rem;}
+    .jz-quiz p{margin:0 0 12px;font-size:.98rem;}
+    .jzq-start,.jzq-btn{font-family:Georgia,serif;font-size:1rem;font-weight:bold;color:#fff;background:var(--gruen);
+      border:none;border-radius:22px;padding:10px 22px;cursor:pointer;}
+    .jzq-start:hover,.jzq-btn:hover{background:#3f6b52;}
+    .jzq-kopf{font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:.85rem;color:#7a7360;
+      border-top:1px solid var(--linie);border-bottom:1px solid var(--linie);padding:8px 0;margin:0 0 12px;}
+    .jzq-kopf b{color:#C28A3A;}
+    .jzq-balken{height:6px;background:#eee7d5;border-radius:3px;overflow:hidden;margin:0 0 14px;}
+    .jzq-balken div{height:100%;width:0;background:#C28A3A;transition:width .3s;}
+    .jzq-frage{font-size:1.1rem;text-align:center;margin:6px 0 14px;color:var(--gruen);}
+    .jzq-wahl{display:flex;flex-direction:column;gap:9px;}
+    .jzq-wahl button{font-family:Georgia,serif;font-size:1rem;color:var(--text);text-align:left;background:#fff;
+      border:1.5px solid var(--linie);border-radius:12px;padding:12px 15px;cursor:pointer;transition:.13s;}
+    .jzq-wahl button.ok{background:#e3f3e3;border-color:#3A7D44;color:#256029;}
+    .jzq-wahl button.no{background:#fbe6e6;border-color:#b3402f;color:#a3291a;}
+    .jzq-wahl button:disabled{cursor:default;}
+    .jzq-fb{font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:.9rem;margin:12px 0 0;min-height:1.2em;}
+    .jzq-ende{text-align:center;padding:4px 0;}
+    .jzq-score{font-size:2.6rem;color:var(--gruen);margin:2px 0;font-family:Georgia,serif;}
+    .jzq-score small{font-size:.4em;color:#9a9384;}
+    .jzq-blaetter{font-size:1.6rem;letter-spacing:3px;margin:2px 0 8px;}
+    .jzq-blaetter .leer{opacity:.25;}
+    .jzq-spruch{font-size:1.05rem;margin:6px auto 12px;max-width:32ch;}
+    .jzq-ende .jzq-btn{margin:0 5px;}
+    .jzq-ende a.jzq-btn{background:#fff;color:var(--gruen);border:1.5px solid var(--gruen);text-decoration:none;display:inline-block;}
+  </style>
+  <div class="jz-quiz karte" id="jzQuiz">
+    <div id="jzqIntro">
+      <h2>Kleines Jahres-Quiz</h2>
+      <p>Du hast den Apfelbaum durchs Jahr begleitet. Zeig, was hängen geblieben ist – sechs kurze Fragen.</p>
+      <button class="jzq-start" id="jzqStart" type="button">Quiz starten →</button>
+    </div>
+    <div id="jzqLauf" hidden></div>
+  </div>
 </main>
 
 <script>
@@ -250,8 +288,7 @@
     while (phasen[p].bis < t) p++;
     if (p !== letztePhase){
       letztePhase = p;
-      /* Letzte Jahresphase erreicht → Flora-Forscherpass: volle 3 Blätter */
-      if (p === phasen.length - 1) { try{var _K="mibaso.flora.expedition",_d=JSON.parse(localStorage.getItem(_K)||"{}");if(!_d.jahr||!_d.jahr.done){_d.jahr={blaetter:3,done:true,ts:Date.now()};localStorage.setItem(_K,JSON.stringify(_d));}}catch(e){} }
+      /* Blätter kommen jetzt aus dem Abschluss-Quiz weiter unten (nicht mehr fürs bloße Durchziehen). */
       titelEl.textContent = phasen[p].titel;
       textEl.textContent = phasen[p].text;
       erkl.classList.remove("wechsel");
@@ -276,6 +313,77 @@
   });
 
   male();
+})();
+</script>
+
+<script>
+/* ---- Abschluss-Quiz „Ein Jahr im Apfelbaum" → schreibt die Blätter in den Forscherpass ---- */
+(function(){
+  var FRAGEN=[
+    {f:"Wann sind im Apfelbaum-Jahr die Bienen besonders wichtig?",
+     a:["Zur Blütezeit im Frühling","Im tiefsten Winter","Beim Laubfall im Herbst"], r:0,
+     fb:"Zur Blüte tragen Bienen den Pollen von Blüte zu Blüte – das ist die Bestäubung."},
+    {f:"Wie werden die Äpfel im Sommer süß?",
+     a:["Die Blätter stellen mit Sonnenlicht Zucker her","Der Regen spült Zucker hinein","Die Wurzeln saugen Zucker aus dem Boden"], r:0,
+     fb:"In den Blättern entsteht aus Sonnenlicht Zucker, den der Baum in die Früchte schickt."},
+    {f:"Was macht der Baum im Herbst mit den Blättern, bevor sie fallen?",
+     a:["Er holt sich wertvolle Nährstoffe zurück","Er färbt sie noch einmal grün","Er lässt sie weiterwachsen"], r:0,
+     fb:"Der Baum zieht Nährstoffe zurück – die Blätter färben sich gelb-braun und fallen."},
+    {f:"Was sitzt schon im Winter an den kahlen Zweigen?",
+     a:["Die Knospen fürs nächste Frühjahr","Reife Äpfel","Offene Blüten"], r:0,
+     fb:"In den gut verpackten Knospen warten Blüten und Blätter auf das neue Jahr."},
+    {f:"In welcher Reihenfolge läuft das Jahr ab?",
+     a:["Blüte → junge Früchte → reife Äpfel → Ernte","Ernte → Blüte → junge Früchte → reife Äpfel","Reife Äpfel → Blüte → Ernte → junge Früchte"], r:0,
+     fb:"Erst die Blüte, dann kleine grüne Früchte, die reifen und schließlich geerntet werden."},
+    {f:"Warum ist der kahle Baum im Winter nicht „tot“?",
+     a:["Er spart Energie und lebt von Vorräten in Stamm und Wurzeln","Er ist wirklich abgestorben","Er wächst im Winter am schnellsten"], r:0,
+     fb:"Die Winterruhe ist kluges Energiesparen – Vorräte stecken in Stamm und Wurzeln."}
+  ];
+  var host=document.getElementById("jzqLauf"), intro=document.getElementById("jzqIntro"), startBtn=document.getElementById("jzqStart");
+  if(!host||!startBtn) return;
+  function misch(a){a=a.slice();for(var k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=a[k];a[k]=a[j];a[j]=t;}return a;}
+  startBtn.addEventListener("click",function(){ intro.hidden=true; host.hidden=false; starte(); });
+  function starte(){
+    var fragen=misch(FRAGEN), q=0, score=0, sperre=false;
+    function zeige(){
+      sperre=false;
+      var f=fragen[q];
+      var opts=misch(f.a.map(function(txt,idx){return {txt:txt,idx:idx};}));
+      host.innerHTML='<div class="jzq-kopf">Frage <b>'+(q+1)+'</b> / '+fragen.length+' · ✓ '+score+'</div>'+
+        '<div class="jzq-balken"><div style="width:'+(q/fragen.length*100)+'%"></div></div>'+
+        '<p class="jzq-frage">'+f.f+'</p><div class="jzq-wahl" id="jzqWahl"></div><div class="jzq-fb" id="jzqFb"></div>';
+      var wrap=document.getElementById("jzqWahl"), fb=document.getElementById("jzqFb");
+      opts.forEach(function(o){
+        var b=document.createElement("button"); b.type="button"; b.textContent=o.txt;
+        b.addEventListener("click",function(){
+          if(sperre) return; sperre=true;
+          var richtig=(o.idx===f.r);
+          Array.prototype.forEach.call(wrap.children,function(x,ix){ x.disabled=true; if(opts[ix].idx===f.r) x.classList.add("ok"); });
+          if(richtig){ score++; fb.textContent="✓ Richtig! "+f.fb; } else { b.classList.add("no"); fb.textContent="✗ "+f.fb; }
+          setTimeout(function(){ q++; if(q<fragen.length) zeige(); else ende(); }, richtig?1100:1900);
+        });
+        wrap.appendChild(b);
+      });
+    }
+    function ende(){
+      var perfekt=(score===fragen.length);
+      var blaetter = perfekt?3 : (score>=Math.ceil(fragen.length*0.6)?2:1);
+      try{var _K="mibaso.flora.expedition",_d=JSON.parse(localStorage.getItem(_K)||"{}");
+        if(!_d.jahr||blaetter>(_d.jahr.blaetter||0)){_d.jahr={blaetter:blaetter,done:true,ts:Date.now()};localStorage.setItem(_K,JSON.stringify(_d));}}catch(e){}
+      var voll="🍃".repeat(blaetter), leer='<span class="leer">'+"🍃".repeat(3-blaetter)+'</span>';
+      var sprueche=perfekt?["Alles richtig – du kennst den Jahreslauf des Apfelbaums! 🍎","Volltreffer! Ein echter Baum-Kenner."]
+        :(score>=Math.ceil(fragen.length*0.6)?["Stark! Fast alles sitzt.","Gut gemacht – das Jahr hast du drauf."]
+        :["Schieb ruhig nochmal durchs Jahr – dann sitzt es.","Ein guter Anfang! Noch eine Runde?"]);
+      host.innerHTML='<div class="jzq-ende"><p style="font-family:-apple-system,sans-serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#9a9384;margin:0;">Ergebnis</p>'+
+        '<p class="jzq-score">'+score+'<small> / '+fragen.length+'</small></p>'+
+        '<p class="jzq-blaetter">'+voll+leer+'</p>'+
+        '<p class="jzq-spruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
+        '<div><button class="jzq-btn" id="jzqNochmal" type="button">Nochmal</button>'+
+        '<a class="jzq-btn" href="../pflanzenpass.html">🌿 Forscherpass</a></div></div>';
+      document.getElementById("jzqNochmal").addEventListener("click",starte);
+    }
+    zeige();
+  }
 })();
 </script>
 
