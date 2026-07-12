@@ -640,7 +640,7 @@ function renderQuiz(s){
         if(richtig){ score++; fb.textContent="✓ Richtig!"; fb.className="qfb ok"; }
         else{ b.classList.add("no"); fb.textContent="✗ "+(f.w==="voll"?"Mit Puppe (vollständig).":"Ohne Puppe (unvollständig)."); fb.className="qfb no"; }
         melde();
-        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?850:1500);
+        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?1700:3000);
       });
     });
     melde();

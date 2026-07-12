@@ -369,7 +369,7 @@
           var richtig=(o.idx===f.r);
           Array.prototype.forEach.call(wrap.children,function(x,ix){ x.disabled=true; if(opts[ix].idx===f.r) x.classList.add("ok"); });
           if(richtig){ score++; fb.textContent="✓ Richtig! "+f.fb; } else { b.classList.add("no"); fb.textContent="✗ "+f.fb; }
-          setTimeout(function(){ q++; if(q<fragen.length) zeige(); else ende(); }, richtig?1100:1900);
+          setTimeout(function(){ q++; if(q<fragen.length) zeige(); else ende(); }, richtig?2200:3800);
         });
         wrap.appendChild(b);
       });

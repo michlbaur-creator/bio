@@ -654,7 +654,7 @@ function renderQuiz(s){
         else{ b.classList.add("falsch");
           Array.from(wrap.children).forEach(x=>{ if(x.textContent===fr.opt[fr.richtig]) x.classList.add("richtig"); }); }
         Array.from(wrap.children).forEach(x=>x.disabled=true);
-        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, o.ok?850:1500);
+        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, o.ok?1700:3000);
       });
       wrap.appendChild(b);
     });

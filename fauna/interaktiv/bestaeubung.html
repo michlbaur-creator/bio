@@ -572,7 +572,7 @@ function renderQuiz(s){
         }
         Array.from(wrap.children).forEach(x=>x.disabled=true);
         melde();
-        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?900:1600);
+        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?1800:3200);
       });
       wrap.appendChild(b);
     });
