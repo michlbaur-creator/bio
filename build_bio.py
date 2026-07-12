@@ -52,7 +52,7 @@ GROUPS = {
         ("Wie ist eine Pflanze aufgebaut?", "#5A6B7A",
          ["pflanze-verstehen.html"]),
         ("Wie entstehen neue Pflanzen?", "#2C7A6A",
-         ["bestaeubung-erklaerung.html", "samenreise.html", "bluetenoekologie.html"]),
+         ["bestaeubung-erklaerung.html", "samenreise.html"]),
         ("Wie meistern Pflanzen das Leben?", "#C4603A",
          ["jahreszeiten-baum.html", "pflanzenstrategien.html", "pflanzen-energie.html"]),
     ],
@@ -64,6 +64,24 @@ GROUPS = {
         ("Wiese & Lebensraum", "#C4603A",
          ["lebensraum.html", "nahrungsnetz.html", "wiese-lebt.html", "bodenleben.html", "insektenschwund.html"]),
     ],
+}
+
+# Zusätzliche „Entdecken"-Kacheln, die auf die Original-Apps verlinken (absolute URLs).
+# Nur für die Repo-Unterseite (write_sub). Reihenfolge = Kachel-Reihenfolge.
+# Tupel: (Ziel-Datei, Icon-Key, Titel, Untertitel).
+EXTRA = {
+    "flora": {
+        "titel": "Entdecken",
+        "basis": "https://flora.mibaso.de/",
+        "kacheln": [
+            ("bestimmen-gefuehrt.html", "frage", "Frag dich durch",
+             "Ein paar Fragen — und du landest bei der passenden Pflanze."),
+            ("bestimmen.html", "lupe", "Was blüht denn hier?",
+             "Alle 150 Pflanzen zum Stöbern, Filtern und Vergleichen."),
+            ("sammelpass.html", "abzeichen", "Mein Sammelpass",
+             "Deine im Bestimmungstool gefundenen Arten — mit Fortschritt und Abzeichen."),
+        ],
+    },
 }
 
 # Kleine Linien-Icons je Pfad (Inline-SVG-Innenteil, 24er Raster). Fallback: Blatt.
@@ -86,6 +104,8 @@ _G = {
     "grass":  'M12 21c0-6 0-9 0-12 M12 21c-2-4-4-6-7-7 M12 21c2-4 4-6 7-7 M8 21c0-3-1-5-3-6 M16 21c0-3 1-5 3-6',
     "alert":  'M12 4l9 16H3l9-16z M12 10v5 M12 17.5h.01',
     "lupe":   'M11 4a6 6 0 1 0 0 12 6 6 0 0 0 0-12z M15.5 15.5 20 20 M8.5 9.5h5 M11 7v5',
+    "frage":  'M9.3 9.2a2.8 2.8 0 1 1 3.9 2.6c-1 .5-1.7 1.1-1.7 2.4 M12 17.4h.01',
+    "abzeichen":'M12 3l2.4 1.8 3-.2 1 2.8 2.4 1.8-.9 2.9.9 2.9-2.4 1.8-1 2.8-3-.2L12 21l-2.4-1.8-3 .2-1-2.8-2.4-1.8.9-2.9-.9-2.9 2.4-1.8 1-2.8 3 .2L12 3z M8.8 12.3l2.3 2.2 4.2-4.4',
 }
 ICON = {
     "pflanze-erklaerung.html": "layers", "pflanze-verstehen.html": "sprout",
@@ -118,6 +138,8 @@ EXCLUDE = {"tierquiz.html", "gesamttest.html", "pflanze-zuordnung.html", "verwan
            # „Aufbau einer Pflanze" wohnt jetzt als erste Station im Lernpfad
            # „Wurzel, Blatt, Blüte" (pflanze-verstehen), die Einzel-Kachel entfällt.
            "flora/samenverbreitung.html", "flora/pflanze-erklaerung.html",
+           # „Blüten und ihre Gäste" (bluetenoekologie) aus bio entfernt (Juli 2026).
+           "flora/bluetenoekologie.html",
            # „Hinein in die Blüte" wohnt jetzt eingebettet als erste Station im Pfad
            # „Aufbau der Pflanze" (pflanze-verstehen) → eigene Kachel + Pass-Station entfallen.
            # Die Datei bluete-zoom.html bleibt liegen (wird als iframe eingebunden).
@@ -528,6 +550,9 @@ CSS = """
   .pfad:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.08);border-color:var(--akzent);}
   .pfad .dot{flex:0 0 auto;width:10px;height:10px;border-radius:50%;background:var(--akzent);}
   .pfad .pt{flex:1 1 auto;font-size:16px;} .pfad .pf{flex:0 0 auto;color:#b7b0a0;font-size:18px;}
+  .pfad .ptxt{flex:1 1 auto;min-width:0;}
+  .pfad .pt2{display:block;font-size:16px;}
+  .pfad .psub{display:block;font-family:var(--sans);font-size:12px;color:#6f7b70;margin-top:2px;line-height:1.3;}
   .badge{flex:0 0 auto;font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.03em;
     padding:2px 8px;border-radius:999px;text-transform:uppercase;}
   .badge-l{background:#e7efe4;color:#3a5f4a;} .badge-u{background:#efe6d2;color:#8a6a2e;}
@@ -641,6 +666,16 @@ def _pfad(t, fn, col):
             f'{badge}'
             f'<span class="pf">›</span></a>')
 
+def _extra_pfad(basis, fn, icon, titel, sub, col):
+    d = _G.get(icon, _G["leaf"])
+    svg = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" '
+           f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{d}"/></svg>')
+    return (f'<a class="pfad" href="{basis}{html.escape(fn)}">'
+            f'<span class="pic" style="background:{col}1f;color:{col}">{svg}</span>'
+            f'<span class="ptxt"><span class="pt2">{html.escape(titel)}</span>'
+            f'<span class="psub">{html.escape(sub)}</span></span>'
+            f'<span class="pf">›</span></a>')
+
 def _pass_banner(p):
     return (f'<a class="aktion-banner" href="{p["href"]}">'
             f'<img src="{p["img"]}" alt="" aria-hidden="true" onerror="this.style.display=\'none\'">'
@@ -663,6 +698,12 @@ def write_sub(r, items):
     if rest:
         rows = "".join(_pfad(t, fn, r["akzent"]) for t, fn in rest)
         sections.append('<h2 class="gt">Mehr entdecken</h2>'
+                        f'<div class="liste">{rows}</div>')
+    ex = EXTRA.get(key)
+    if ex:
+        rows = "".join(_extra_pfad(ex["basis"], fn, ic, t, s, r["akzent"])
+                       for (fn, ic, t, s) in ex["kacheln"])
+        sections.append(f'<h2 class="gt">{html.escape(ex["titel"])}</h2>'
                         f'<div class="liste">{rows}</div>')
     banner = _pass_banner(r["pass"]) if r.get("pass") else ""
     body = ('<div class="subkopf"><a class="zurueck" href="../index.html">‹ Bio Mibaso</a></div>'
