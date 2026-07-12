@@ -1,8 +1,14 @@
 /* bio Service Worker — network-first für Seiten (immer aktuell), SWR für Bilder.
-   Kein „Neue Version"-Banner nötig: online lädt jede Seite frisch, offline aus dem Cache. */
+   Die CACHE-Version wird bei jedem Deploy in deploy.yml frisch gestempelt. Der neue SW
+   wartet (KEIN skipWaiting bei install) → die Seite zeigt das „Neue Version"-Banner
+   (wie Flora/Fauna); erst der Klick „Jetzt aktualisieren" aktiviert ihn. */
 const CACHE = "bio-cache-v1";
-self.addEventListener("install", (e) => { self.skipWaiting(); });
-self.addEventListener("activate", (e) => { e.waitUntil(self.clients.claim()); });
+self.addEventListener("install", (e) => {});   /* nicht skipWaiting: neuer SW wartet aufs Banner */
+self.addEventListener("activate", (e) => { e.waitUntil((async () => {
+  const keys = await caches.keys();
+  await Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)));
+  await self.clients.claim();
+})()); });
 self.addEventListener("message", (e) => { if (e.data && e.data.type === "SKIP_WAITING") self.skipWaiting(); });
 self.addEventListener("fetch", (e) => {
   const req = e.request;

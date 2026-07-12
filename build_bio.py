@@ -365,10 +365,16 @@ def build():
     print(f"OK: {n} Pfade gelistet, {total_imgs} Bilder kopiert.")
 
 SW_JS = '''/* bio Service Worker — network-first für Seiten (immer aktuell), SWR für Bilder.
-   Kein „Neue Version"-Banner nötig: online lädt jede Seite frisch, offline aus dem Cache. */
+   Die CACHE-Version wird bei jedem Deploy in deploy.yml frisch gestempelt. Der neue SW
+   wartet (KEIN skipWaiting bei install) → die Seite zeigt das „Neue Version"-Banner
+   (wie Flora/Fauna); erst der Klick „Jetzt aktualisieren" aktiviert ihn. */
 const CACHE = "bio-cache-v1";
-self.addEventListener("install", (e) => { self.skipWaiting(); });
-self.addEventListener("activate", (e) => { e.waitUntil(self.clients.claim()); });
+self.addEventListener("install", (e) => {});   /* nicht skipWaiting: neuer SW wartet aufs Banner */
+self.addEventListener("activate", (e) => { e.waitUntil((async () => {
+  const keys = await caches.keys();
+  await Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)));
+  await self.clients.claim();
+})()); });
 self.addEventListener("message", (e) => { if (e.data && e.data.type === "SKIP_WAITING") self.skipWaiting(); });
 self.addEventListener("fetch", (e) => {
   const req = e.request;
@@ -394,6 +400,35 @@ self.addEventListener("fetch", (e) => {
 });
 '''
 
+REG_SCRIPT = '''<script>(function(){if(!("serviceWorker" in navigator))return;
+var css='.bio-update-banner{position:fixed;top:0;left:0;right:0;background:#2F4F3E;color:#fff;'
++'padding:max(50px,calc(env(safe-area-inset-top) + 6px)) 14px 8px;display:none;align-items:center;'
++'justify-content:center;gap:12px;font-size:.92rem;font-family:Georgia,serif;z-index:9999;'
++'box-shadow:0 2px 8px rgba(0,0,0,.18)}'
++'.bio-update-banner.aktiv{display:flex;flex-wrap:wrap}'
++'.bio-update-banner .t{flex:1 1 auto;text-align:center;min-width:0}'
++'.bio-update-banner button{background:#fff;color:#2F4F3E;border:none;padding:6px 14px;border-radius:7px;'
++'font-family:inherit;font-size:inherit;font-weight:600;cursor:pointer;white-space:nowrap;box-shadow:0 2px 4px rgba(0,0,0,.15)}';
+var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
+var refreshing=false;
+navigator.serviceWorker.addEventListener("controllerchange",function(){if(refreshing)return;refreshing=true;location.reload();});
+function zeige(reg){var b=document.getElementById("bio-update-banner");
+if(!b){b=document.createElement("div");b.id="bio-update-banner";b.className="bio-update-banner";
+b.innerHTML='<span class="t">\\u{1F33F} Neue Version verf\\u00fcgbar.</span><button type="button">Jetzt aktualisieren</button>';
+document.body.appendChild(b);
+b.querySelector("button").addEventListener("click",function(){this.disabled=true;this.textContent="Aktualisiere \\u2026";
+if(reg.waiting)reg.waiting.postMessage({type:"SKIP_WAITING"});
+setTimeout(function(){if(!refreshing){refreshing=true;location.reload();}},1200);});}
+b.classList.add("aktiv");}
+navigator.serviceWorker.register("/sw.js").then(function(reg){
+if(reg.waiting&&navigator.serviceWorker.controller)zeige(reg);
+reg.addEventListener("updatefound",function(){var n=reg.installing;if(!n)return;
+n.addEventListener("statechange",function(){if(n.state==="installed"&&navigator.serviceWorker.controller)zeige(reg);});});
+reg.update();
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")reg.update();});
+setInterval(function(){reg.update();},60*60*1000);}).catch(function(){});
+})();</script>'''
+
 DEPLOY_YML = '''name: bio zu GitHub Pages veroeffentlichen
 on:
   push:
@@ -415,6 +450,11 @@ jobs:
     steps:
       - name: Dateien holen
         uses: actions/checkout@v4
+      - name: Versionsnummer in sw.js stempeln
+        run: |
+          STAMP="${GITHUB_SHA::7}-$(date -u +%Y%m%d%H%M%S)"
+          sed -i "s/bio-cache-v[0-9A-Za-z._-]*/bio-cache-${STAMP}/" sw.js
+          echo "Neue Service-Worker-Version: bio-cache-${STAMP}"
       - name: Pages vorbereiten
         uses: actions/configure-pages@v5
       - name: Seite verpacken
@@ -617,13 +657,7 @@ def _shell(title, theme, body, akzent=None):
             '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'
             '<meta name="apple-mobile-web-app-title" content="Bio Mibaso">'
             f'<style>{CSS}</style></head><body{style}><div class="huelle">{body}</div>'
-            '<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js")'
-            '.then(function(reg){if(reg){reg.update();'
-            'document.addEventListener("visibilitychange",function(){'
-            'if(document.visibilityState==="visible")reg.update();});'
-            'setInterval(function(){reg.update();},60*60*1000);}});'
-            'navigator.serviceWorker.addEventListener("controllerchange",function(){'
-            'if(window.__reloaded)return;window.__reloaded=true;location.reload();});}</script>'
+            + REG_SCRIPT +
             '</body></html>')
 
 def _chips():

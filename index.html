@@ -89,4 +89,31 @@
   .anl h2{font-family:Georgia,serif;font-weight:normal;color:var(--gruen);font-size:21px;margin:22px 0 6px;}
   .anl ol{font-family:var(--sans);font-size:15px;padding-left:22px;margin:6px 0;} .anl li{margin:6px 0;}
   .anl .tipp{font-family:var(--sans);font-size:13px;color:#6b5340;background:var(--creme-tief);border-radius:10px;padding:10px 13px;margin:10px 0 0;}
-</style></head><body><div class="huelle"><div class="topbar"><a class="topbtn" id="installBtn" href="anleitung.html">📱 Als App aufs Handy</a></div><div class="hero"><img src="fauna/images/wiese/wiese-sommer.png" alt="Blühende Wiese" onerror="this.style.display='none'"><div class="hero-apps"><a class="happ" href="https://flora.mibaso.de/">🌼 Flora</a><a class="happ" href="https://fauna.mibaso.de/">🦋 Fauna</a></div><div class="cap"><div class="marke">Bio Mibaso</div><h1>Lernpfade für Naturentdecker</h1></div></div><div class="lead"><p>Dein Lernort zu <a href="https://flora.mibaso.de/">Flora</a> und <a href="https://fauna.mibaso.de/">Fauna</a>:</p><p>Interaktive Stationen zum Erkunden, Verstehen und Ausprobieren. Fülle deinen Forschungspass mit Leben!</p></div><div class="kacheln"><a class="kachel k-flora" href="flora/"><span class="ke">🌼</span><span class="kt">Flora verstehen</span><span class="kb">6 Lernpfade zur Welt der Pflanzen</span></a><a class="kachel k-fauna" href="fauna/"><span class="ke">🦋</span><span class="kt">Fauna verstehen</span><span class="kb">11 Lernpfade zur Welt der Tiere</span></a></div><footer class="fuss"><div class="fin"><div class="echips"><a class="echip" href="ueber/">Über mich</a><a class="echip" href="impressum/">Impressum &amp; Datenschutz</a></div><div class="klein">© 2026 Michael Baur · Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a></div></div></footer><script>if(window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone){var b=document.getElementById("installBtn");if(b)b.style.display="none";}</script></div><script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js").then(function(reg){if(reg){reg.update();document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")reg.update();});setInterval(function(){reg.update();},60*60*1000);}});navigator.serviceWorker.addEventListener("controllerchange",function(){if(window.__reloaded)return;window.__reloaded=true;location.reload();});}</script></body></html>
+</style></head><body><div class="huelle"><div class="topbar"><a class="topbtn" id="installBtn" href="anleitung.html">📱 Als App aufs Handy</a></div><div class="hero"><img src="fauna/images/wiese/wiese-sommer.png" alt="Blühende Wiese" onerror="this.style.display='none'"><div class="hero-apps"><a class="happ" href="https://flora.mibaso.de/">🌼 Flora</a><a class="happ" href="https://fauna.mibaso.de/">🦋 Fauna</a></div><div class="cap"><div class="marke">Bio Mibaso</div><h1>Lernpfade für Naturentdecker</h1></div></div><div class="lead"><p>Dein Lernort zu <a href="https://flora.mibaso.de/">Flora</a> und <a href="https://fauna.mibaso.de/">Fauna</a>:</p><p>Interaktive Stationen zum Erkunden, Verstehen und Ausprobieren. Fülle deinen Forschungspass mit Leben!</p></div><div class="kacheln"><a class="kachel k-flora" href="flora/"><span class="ke">🌼</span><span class="kt">Flora verstehen</span><span class="kb">6 Lernpfade zur Welt der Pflanzen</span></a><a class="kachel k-fauna" href="fauna/"><span class="ke">🦋</span><span class="kt">Fauna verstehen</span><span class="kb">11 Lernpfade zur Welt der Tiere</span></a></div><footer class="fuss"><div class="fin"><div class="echips"><a class="echip" href="ueber/">Über mich</a><a class="echip" href="impressum/">Impressum &amp; Datenschutz</a></div><div class="klein">© 2026 Michael Baur · Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a></div></div></footer><script>if(window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone){var b=document.getElementById("installBtn");if(b)b.style.display="none";}</script></div><script>(function(){if(!("serviceWorker" in navigator))return;
+var css='.bio-update-banner{position:fixed;top:0;left:0;right:0;background:#2F4F3E;color:#fff;'
++'padding:max(50px,calc(env(safe-area-inset-top) + 6px)) 14px 8px;display:none;align-items:center;'
++'justify-content:center;gap:12px;font-size:.92rem;font-family:Georgia,serif;z-index:9999;'
++'box-shadow:0 2px 8px rgba(0,0,0,.18)}'
++'.bio-update-banner.aktiv{display:flex;flex-wrap:wrap}'
++'.bio-update-banner .t{flex:1 1 auto;text-align:center;min-width:0}'
++'.bio-update-banner button{background:#fff;color:#2F4F3E;border:none;padding:6px 14px;border-radius:7px;'
++'font-family:inherit;font-size:inherit;font-weight:600;cursor:pointer;white-space:nowrap;box-shadow:0 2px 4px rgba(0,0,0,.15)}';
+var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
+var refreshing=false;
+navigator.serviceWorker.addEventListener("controllerchange",function(){if(refreshing)return;refreshing=true;location.reload();});
+function zeige(reg){var b=document.getElementById("bio-update-banner");
+if(!b){b=document.createElement("div");b.id="bio-update-banner";b.className="bio-update-banner";
+b.innerHTML='<span class="t">\u{1F33F} Neue Version verf\u00fcgbar.</span><button type="button">Jetzt aktualisieren</button>';
+document.body.appendChild(b);
+b.querySelector("button").addEventListener("click",function(){this.disabled=true;this.textContent="Aktualisiere \u2026";
+if(reg.waiting)reg.waiting.postMessage({type:"SKIP_WAITING"});
+setTimeout(function(){if(!refreshing){refreshing=true;location.reload();}},1200);});}
+b.classList.add("aktiv");}
+navigator.serviceWorker.register("/sw.js").then(function(reg){
+if(reg.waiting&&navigator.serviceWorker.controller)zeige(reg);
+reg.addEventListener("updatefound",function(){var n=reg.installing;if(!n)return;
+n.addEventListener("statechange",function(){if(n.state==="installed"&&navigator.serviceWorker.controller)zeige(reg);});});
+reg.update();
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")reg.update();});
+setInterval(function(){reg.update();},60*60*1000);}).catch(function(){});
+})();</script></body></html>
