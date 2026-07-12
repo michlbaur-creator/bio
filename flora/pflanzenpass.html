@@ -188,53 +188,34 @@
   .urk-album{margin:16px 2px 0;border-top:1px solid var(--linie);padding-top:12px;}
   .urk-album-titel{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
     color:var(--honig-tief);text-align:center;margin:0 0 10px;}
-  .urk-abzeichen{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-  .urk-abz{display:flex;align-items:center;gap:7px;border:1px solid var(--linie);border-radius:10px;
-    padding:6px 8px;font-family:var(--sans);}
-  .urk-abz .ue{font-size:20px;line-height:1;flex:0 0 auto;filter:grayscale(1);opacity:.3;}
-  .urk-abz .un2{font-size:10.5px;color:#9a9384;line-height:1.15;}
+  .urk-abzeichen{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;}
+  .urk-abz{display:flex;align-items:center;gap:5px;border:1px solid var(--linie);border-radius:10px;
+    padding:5px 7px;font-family:var(--sans);min-width:0;}
+  .urk-abz .ue{font-size:18px;line-height:1;flex:0 0 auto;filter:grayscale(1);opacity:.3;}
+  .urk-abz .un2{font-size:10px;color:#9a9384;line-height:1.12;min-width:0;overflow-wrap:anywhere;}
   .urk-abz.hat{border-color:var(--honig);background:#fdf6e8;}
   .urk-abz.hat .ue{filter:none;opacity:1;}
   .urk-abz.hat .un2{color:var(--gruen);font-weight:600;}
 
-  /* Kräftigere Farben NUR für den PDF-Export (der Klon bekommt .pdf-modus).
-     Auf dem Bildschirm bleibt die Urkunde unverändert zart. */
-  .pdf-modus.urkunde{background:#fff;}
-  .pdf-modus .rahmen{border-color:#a9762c;border-width:2.5px;}
-  .pdf-modus .rahmen::before{border-color:#d3b06e;}
-  .pdf-modus .urk-eyebrow{color:#8a5e1e;font-weight:700;}
-  .pdf-modus .urk-titel{color:#223a2e;}
-  .pdf-modus .urk-sub{color:#465852;}
-  .pdf-modus .urk-satz{color:#3a4640;}
-  .pdf-modus .urk-name{color:#223a2e;border-bottom-color:#b8944f;}
-  .pdf-modus .urk-zeile{border-bottom-color:#e4d8bf;}
-  .pdf-modus .urk-zeile .un{color:#2a352e;}
-  .pdf-modus .urk-summe{color:#223a2e;}
-  .pdf-modus .urk-album-titel{color:#8a5e1e;font-weight:700;}
-  .pdf-modus .urk-abz{border-color:#cbbfa2;}
-  .pdf-modus .urk-abz.hat{border-color:#a9762c;background:#f6e8cd;}
-  .pdf-modus .urk-abz.hat .un2{color:#223a2e;}
-  .pdf-modus .urk-fuss{color:#6a6a63;}
-
-  /* Urkunde drucken: in einen exakt A4-großen Rahmen geklont und per JS passend
-     hineinskaliert → garantiert EINE Seite, auch auf iOS-Safari. */
-  #urkPrintPage{display:none;}
-  body.mess-urk #urkPrintPage{display:block;position:fixed;left:-9999px;top:0;}
-  body.mess-urk #urkPrintPage .urk-btns{display:none;}
+  /* Urkunde drucken (Browser-Druck → im Dialog „Als PDF speichern"): farbtreu wie am
+     Bildschirm, auf eine A4-Seite komprimiert. print-color-adjust erzwingt ALLE Farben
+     (Gold-Rahmen, Grün, Abzeichen), auch ohne „Hintergrundgrafiken"-Häkchen. */
   @media print{
-    @page{size:A4;margin:0;}
+    @page{size:A4;margin:10mm;}
     html,body{background:#fff!important;}
-    body.druckt-urk > *{display:none!important;}
-    body.druckt-urk #urkPrintPage{display:block!important;position:static;
-      width:210mm;height:297mm;box-sizing:border-box;padding:10mm;background:#fff;overflow:hidden;}
-    body.druckt-urk #urkPrintPage .urkunde{box-shadow:none;max-width:none;margin:0 auto;background:#fff;}
-    body.druckt-urk #urkPrintPage .urk-btns{display:none!important;}
-    /* Gold-Rahmen und erreichte Abzeichen zuverlässig mitdrucken, auch ohne
-       „Hintergrundgrafiken"-Häkchen im Druckdialog */
-    body.druckt-urk #urkPrintPage .rahmen,
-    body.druckt-urk #urkPrintPage .urk-abz.hat{
-      -webkit-print-color-adjust:exact;print-color-adjust:exact;}
-    body.druckt-urk #urkPrintPage .urk-name{border-bottom-color:#cdbf9e!important;}
+    body.drucken > *{display:none!important;}
+    body.drucken .urkunde-overlay{display:block!important;position:static;background:#fff!important;
+      backdrop-filter:none;padding:0;overflow:visible;}
+    body.drucken .urkunde{box-shadow:none;width:180mm;max-width:100%;margin:0 auto;animation:none;}
+    body.drucken .rahmen{break-inside:avoid;page-break-inside:avoid;padding:14px 18px 16px;}
+    body.drucken .urk-btns{display:none!important;}
+    body.drucken .urkunde, body.drucken .urkunde *{
+      -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+    body.drucken .urk-med{font-size:38px;}
+    body.drucken .urk-titel{font-size:24px;}
+    body.drucken .urk-zeile{padding:3px 2px;}
+    body.drucken .urk-album{margin-top:10px;padding-top:8px;}
+    body.drucken .urk-abz{padding:4px 6px;}
   }
 </style>
 </head>
@@ -303,12 +284,11 @@
       <div class="urk-fuss"><span id="urkDatum"></span><span>Flora Mibaso</span></div>
     </div>
     <div class="urk-btns">
-      <button class="druck" id="urkPdf">📄 Als PDF</button>
+      <button class="druck" id="urkPdf">🖨️ Drucken / PDF</button>
       <button class="zu" id="urkZu">Schließen</button>
     </div>
   </div>
 </div>
-<div id="urkPrintPage" aria-hidden="true"></div>
 
 <script>
 /* ===========================================================================
@@ -548,61 +528,12 @@ function zeigeUrkunde(){
 }
 document.getElementById("urkName").addEventListener("input",e=>{ try{ localStorage.setItem(NAMEKEY, e.target.value); }catch(_){} });
 document.getElementById("urkZu").addEventListener("click",()=>document.getElementById("urkunde").classList.remove("an"));
-/* ---- Urkunde direkt als fertige PDF (eine A4-Seite, geräteunabhängig) ----
-   Zeichnet die Urkunde per html2canvas in ein Bild und legt es mit jsPDF
-   zentriert auf ein A4-Blatt. Danach „Sichern/Teilen" (iOS: In Dateien sichern),
-   sonst Download. Die beiden Libs werden erst beim ersten Klick von cdnjs geladen. */
-let _urkLibs=null;
-function _ladeSkript(src){ return new Promise((res,rej)=>{ const s=document.createElement("script");
-  s.src=src; s.onload=res; s.onerror=()=>rej(new Error("load "+src)); document.head.appendChild(s); }); }
-function _urkSichereLibs(){
-  if(!_urkLibs){ _urkLibs=(async()=>{
-    if(!window.html2canvas) await _ladeSkript("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js");
-    if(!(window.jspdf&&window.jspdf.jsPDF)) await _ladeSkript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
-  })(); }
-  return _urkLibs;
-}
-async function urkundeAlsPdf(btn){
-  const alt=btn.textContent;
-  try{
-    btn.disabled=true; btn.textContent="PDF wird erstellt …";
-    await _urkSichereLibs();
-    const orig=document.querySelector("#urkunde .urkunde");
-    const page=document.getElementById("urkPrintPage");
-    if(!orig||!page) return;
-    page.innerHTML="";
-    const clone=orig.cloneNode(true);
-    clone.style.maxWidth="none"; clone.style.width="718px"; clone.style.margin="0";
-    clone.style.transform=""; clone.style.background="#fff";
-    clone.classList.add("pdf-modus");
-    const bt=clone.querySelector(".urk-btns"); if(bt) bt.remove();
-    const nO=(document.getElementById("urkName")||{}).value||"";
-    const nC=clone.querySelector(".urk-name"); if(nC){ nC.value=nO; nC.setAttribute("value",nO); }
-    page.appendChild(clone);
-    document.body.classList.add("mess-urk");
-    const canvas=await html2canvas(clone,{scale:2,backgroundColor:"#ffffff",useCORS:true});
-    document.body.classList.remove("mess-urk"); page.innerHTML="";
-    const {jsPDF}=window.jspdf;
-    const doc=new jsPDF("p","mm","a4");
-    const PW=210, PH=297, M=10, UW=PW-2*M, UH=PH-2*M;
-    let iw=UW, ih=UW*canvas.height/canvas.width;
-    if(ih>UH){ ih=UH; iw=UH*canvas.width/canvas.height; }
-    doc.addImage(canvas.toDataURL("image/png"),"PNG",(PW-iw)/2,(PH-ih)/2,iw,ih);
-    const name="Urkunde-Flora-Mibaso.pdf";
-    const blob=doc.output("blob"), file=new File([blob],name,{type:"application/pdf"});
-    if(navigator.canShare && navigator.canShare({files:[file]})){
-      try{ await navigator.share({files:[file],title:"Urkunde"}); }
-      catch(e){ if(e&&e.name!=="AbortError") doc.save(name); }
-    } else { doc.save(name); }
-  }catch(err){
-    alert("Die PDF konnte nicht erstellt werden. Bitte die Internetverbindung prüfen und noch einmal versuchen.");
-  }finally{
-    btn.disabled=false; btn.textContent=alt;
-    document.body.classList.remove("mess-urk");
-    const p=document.getElementById("urkPrintPage"); if(p) p.innerHTML="";
-  }
-}
-document.getElementById("urkPdf").addEventListener("click",function(){ urkundeAlsPdf(this); });
+/* ---- Urkunde drucken / als PDF (Browser-Druck, farbtreu) ----
+   Blendet alles außer der Urkunde aus (CSS @media print), öffnet den Druckdialog.
+   Dort „Drucken" oder „Als PDF speichern". So bleiben die Farben exakt wie am Bildschirm. */
+function druckeUrkunde(){ document.body.classList.add("drucken"); window.print(); }
+document.getElementById("urkPdf").addEventListener("click",druckeUrkunde);
+window.addEventListener("afterprint",function(){ document.body.classList.remove("drucken"); });
 
 /* iframe-Höhe melden (WordPress-Einbindung) */
 function melde(){ if(window.parent!==window){ try{ window.parent.postMessage({flora:"height", height:document.body.scrollHeight}, "*"); }catch(e){} } }
