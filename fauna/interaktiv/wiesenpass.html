@@ -195,17 +195,25 @@
   .urk-abz.hat .un2{color:var(--blau);font-weight:600;}
 
   @media print{
-    @page{margin:14mm;}
+    @page{margin:10mm;}
     html,body{background:#fff!important;}
     body.drucken > *{display:none!important;}
     body.drucken .urkunde-overlay{display:block!important;position:static;background:#fff!important;
       backdrop-filter:none;padding:0;overflow:visible;}
-    body.drucken .urkunde{box-shadow:none;max-width:100%;animation:none;background:#fff!important;}
+    body.drucken .urkunde{box-shadow:none;width:172mm;max-width:100%;margin:0 auto;animation:none;background:#fff!important;}
+    /* alles als EIN Block → eine Seite, kein Umbruch mittendrin */
+    body.drucken .rahmen{break-inside:avoid;page-break-inside:avoid;padding:16px 20px 18px;}
     body.drucken .urk-btns{display:none!important;}
     /* Gold-Rahmen und erreichte Abzeichen zuverlässig mitdrucken, auch ohne
        „Hintergrundgrafiken"-Häkchen im Druckdialog */
     body.drucken .rahmen, body.drucken .urk-abz.hat{
       -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    /* kompakter, damit alles bequem auf eine A4-Seite passt */
+    body.drucken .urk-med{font-size:40px;}
+    body.drucken .urk-zeile{padding:3px 2px;}
+    body.drucken .urk-tabelle{margin-top:10px;}
+    body.drucken .urk-album{margin-top:10px;padding-top:8px;}
+    body.drucken .urk-abz{padding:4px 7px;}
     body.drucken .urk-name{border-bottom-color:#cdbf9e!important;}
   }
 </style>
