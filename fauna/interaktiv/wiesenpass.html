@@ -281,7 +281,7 @@
       <div class="urk-fuss"><span id="urkDatum"></span><span>Fauna Mibaso</span></div>
     </div>
     <div class="urk-btns">
-      <button class="druck" id="urkDruck">🖨️ Als PDF / Drucken</button>
+      <button class="druck" id="urkPdf">📄 Urkunde als PDF</button>
       <button class="zu" id="urkZu">Schließen</button>
     </div>
   </div>
@@ -537,29 +537,60 @@ function zeigeUrkunde(){
 }
 document.getElementById("urkName").addEventListener("input",e=>{ try{ localStorage.setItem(NAMEKEY, e.target.value); }catch(_){} });
 document.getElementById("urkZu").addEventListener("click",()=>document.getElementById("urkunde").classList.remove("an"));
-function druckeUrkunde(){
-  const orig=document.querySelector("#urkunde .urkunde");
-  const page=document.getElementById("urkPrintPage");
-  if(!orig||!page) return;
-  page.innerHTML="";
-  const clone=orig.cloneNode(true);
-  clone.style.maxWidth="none"; clone.style.width="718px"; clone.style.margin="0 auto";
-  clone.style.transform=""; clone.style.transformOrigin="top center";
-  const nO=(document.getElementById("urkName")||{}).value||"";
-  const nC=clone.querySelector(".urk-name"); if(nC){ nC.value=nO; nC.setAttribute("value",nO); }
-  page.appendChild(clone);
-  document.body.classList.add("mess-urk");
-  const H=clone.getBoundingClientRect().height;      // 718px breit, ungeskalt
-  document.body.classList.remove("mess-urk");
-  const usableH=1047;                                 // 277mm @96dpi (A4 minus 2×10mm)
-  const scale=Math.min(1, usableH/H);
-  clone.style.transform="scale("+scale+")";
-  document.body.classList.add("druckt-urk");
-  window.print();
+/* ---- Urkunde direkt als fertige PDF (eine A4-Seite, geräteunabhängig) ----
+   Zeichnet die Urkunde per html2canvas in ein Bild und legt es mit jsPDF
+   zentriert auf ein A4-Blatt. Danach „Sichern/Teilen" (iOS: In Dateien sichern),
+   sonst Download. Die beiden Libs werden erst beim ersten Klick von cdnjs geladen. */
+let _urkLibs=null;
+function _ladeSkript(src){ return new Promise((res,rej)=>{ const s=document.createElement("script");
+  s.src=src; s.onload=res; s.onerror=()=>rej(new Error("load "+src)); document.head.appendChild(s); }); }
+function _urkSichereLibs(){
+  if(!_urkLibs){ _urkLibs=(async()=>{
+    if(!window.html2canvas) await _ladeSkript("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js");
+    if(!(window.jspdf&&window.jspdf.jsPDF)) await _ladeSkript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
+  })(); }
+  return _urkLibs;
 }
-document.getElementById("urkDruck").addEventListener("click",druckeUrkunde);
-window.addEventListener("afterprint",()=>{ document.body.classList.remove("druckt-urk","drucken");
-  const p=document.getElementById("urkPrintPage"); if(p) p.innerHTML=""; });
+async function urkundeAlsPdf(btn){
+  const alt=btn.textContent;
+  try{
+    btn.disabled=true; btn.textContent="PDF wird erstellt …";
+    await _urkSichereLibs();
+    const orig=document.querySelector("#urkunde .urkunde");
+    const page=document.getElementById("urkPrintPage");
+    if(!orig||!page) return;
+    page.innerHTML="";
+    const clone=orig.cloneNode(true);
+    clone.style.maxWidth="none"; clone.style.width="718px"; clone.style.margin="0";
+    clone.style.transform=""; clone.style.background="#fff";
+    const bt=clone.querySelector(".urk-btns"); if(bt) bt.remove();
+    const nO=(document.getElementById("urkName")||{}).value||"";
+    const nC=clone.querySelector(".urk-name"); if(nC){ nC.value=nO; nC.setAttribute("value",nO); }
+    page.appendChild(clone);
+    document.body.classList.add("mess-urk");
+    const canvas=await html2canvas(clone,{scale:2,backgroundColor:"#ffffff",useCORS:true});
+    document.body.classList.remove("mess-urk"); page.innerHTML="";
+    const {jsPDF}=window.jspdf;
+    const doc=new jsPDF("p","mm","a4");
+    const PW=210, PH=297, M=10, UW=PW-2*M, UH=PH-2*M;
+    let iw=UW, ih=UW*canvas.height/canvas.width;
+    if(ih>UH){ ih=UH; iw=UH*canvas.width/canvas.height; }
+    doc.addImage(canvas.toDataURL("image/png"),"PNG",(PW-iw)/2,(PH-ih)/2,iw,ih);
+    const name="Urkunde-Fauna-Mibaso.pdf";
+    const blob=doc.output("blob"), file=new File([blob],name,{type:"application/pdf"});
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      try{ await navigator.share({files:[file],title:"Urkunde"}); }
+      catch(e){ if(e&&e.name!=="AbortError") doc.save(name); }
+    } else { doc.save(name); }
+  }catch(err){
+    alert("Die PDF konnte nicht erstellt werden. Bitte die Internetverbindung prüfen und noch einmal versuchen.");
+  }finally{
+    btn.disabled=false; btn.textContent=alt;
+    document.body.classList.remove("mess-urk");
+    const p=document.getElementById("urkPrintPage"); if(p) p.innerHTML="";
+  }
+}
+document.getElementById("urkPdf").addEventListener("click",function(){ urkundeAlsPdf(this); });
 
 /* iframe-Höhe melden (WordPress-Einbindung) */
 function melde(){ if(window.parent!==window){ try{ window.parent.postMessage({fauna:"height", height:document.body.scrollHeight}, "*"); }catch(e){} } }
