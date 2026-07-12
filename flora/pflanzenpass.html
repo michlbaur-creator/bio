@@ -197,28 +197,25 @@
   .urk-abz.hat .ue{filter:none;opacity:1;}
   .urk-abz.hat .un2{color:var(--gruen);font-weight:600;}
 
+  /* Urkunde drucken: in einen exakt A4-großen Rahmen geklont und per JS passend
+     hineinskaliert → garantiert EINE Seite, auch auf iOS-Safari. */
+  #urkPrintPage{display:none;}
+  body.mess-urk #urkPrintPage{display:block;position:fixed;left:-9999px;top:0;}
+  body.mess-urk #urkPrintPage .urk-btns{display:none;}
   @media print{
-    @page{margin:10mm;}
+    @page{size:A4;margin:0;}
     html,body{background:#fff!important;}
-    body.drucken > *{display:none!important;}
-    body.drucken .urkunde-overlay{display:block!important;position:static;background:#fff!important;
-      backdrop-filter:none;padding:0;overflow:visible;}
-    body.drucken .urkunde{box-shadow:none;width:172mm;max-width:100%;margin:0 auto;animation:none;background:#fff!important;}
-    /* alles als EIN Block → eine Seite, kein Umbruch mittendrin */
-    body.drucken .rahmen{break-inside:avoid;page-break-inside:avoid;padding:16px 20px 18px;}
-    body.drucken .urk-btns{display:none!important;}
+    body.druckt-urk > *{display:none!important;}
+    body.druckt-urk #urkPrintPage{display:block!important;position:static;
+      width:210mm;height:297mm;box-sizing:border-box;padding:10mm;background:#fff;overflow:hidden;}
+    body.druckt-urk #urkPrintPage .urkunde{box-shadow:none;max-width:none;margin:0 auto;background:#fff;}
+    body.druckt-urk #urkPrintPage .urk-btns{display:none!important;}
     /* Gold-Rahmen und erreichte Abzeichen zuverlässig mitdrucken, auch ohne
        „Hintergrundgrafiken"-Häkchen im Druckdialog */
-    body.drucken .rahmen, body.drucken .urk-abz.hat{
+    body.druckt-urk #urkPrintPage .rahmen,
+    body.druckt-urk #urkPrintPage .urk-abz.hat{
       -webkit-print-color-adjust:exact;print-color-adjust:exact;}
-    /* kompakter, damit alles bequem auf eine A4-Seite passt */
-    body.drucken .urk-med{font-size:40px;}
-    body.drucken .urk-zeile{padding:3px 2px;}
-    body.drucken .urk-tabelle{margin-top:10px;}
-    body.drucken .urk-album{margin-top:10px;padding-top:8px;}
-    body.drucken .urk-abz{padding:4px 7px;}
-    body.drucken .urk-abzeichen{grid-template-columns:repeat(3,1fr);}
-    body.drucken .urk-name{border-bottom-color:#cdbf9e!important;}
+    body.druckt-urk #urkPrintPage .urk-name{border-bottom-color:#cdbf9e!important;}
   }
 </style>
 </head>
@@ -292,6 +289,7 @@
     </div>
   </div>
 </div>
+<div id="urkPrintPage" aria-hidden="true"></div>
 
 <script>
 /* ===========================================================================
@@ -531,8 +529,29 @@ function zeigeUrkunde(){
 }
 document.getElementById("urkName").addEventListener("input",e=>{ try{ localStorage.setItem(NAMEKEY, e.target.value); }catch(_){} });
 document.getElementById("urkZu").addEventListener("click",()=>document.getElementById("urkunde").classList.remove("an"));
-document.getElementById("urkDruck").addEventListener("click",()=>{ document.body.classList.add("drucken"); window.print(); });
-window.addEventListener("afterprint",()=>document.body.classList.remove("drucken"));
+function druckeUrkunde(){
+  const orig=document.querySelector("#urkunde .urkunde");
+  const page=document.getElementById("urkPrintPage");
+  if(!orig||!page) return;
+  page.innerHTML="";
+  const clone=orig.cloneNode(true);
+  clone.style.maxWidth="none"; clone.style.width="718px"; clone.style.margin="0 auto";
+  clone.style.transform=""; clone.style.transformOrigin="top center";
+  const nO=(document.getElementById("urkName")||{}).value||"";
+  const nC=clone.querySelector(".urk-name"); if(nC){ nC.value=nO; nC.setAttribute("value",nO); }
+  page.appendChild(clone);
+  document.body.classList.add("mess-urk");
+  const H=clone.getBoundingClientRect().height;      // 718px breit, ungeskalt
+  document.body.classList.remove("mess-urk");
+  const usableH=1047;                                 // 277mm @96dpi (A4 minus 2×10mm)
+  const scale=Math.min(1, usableH/H);
+  clone.style.transform="scale("+scale+")";
+  document.body.classList.add("druckt-urk");
+  window.print();
+}
+document.getElementById("urkDruck").addEventListener("click",druckeUrkunde);
+window.addEventListener("afterprint",()=>{ document.body.classList.remove("druckt-urk","drucken");
+  const p=document.getElementById("urkPrintPage"); if(p) p.innerHTML=""; });
 
 /* iframe-Höhe melden (WordPress-Einbindung) */
 function melde(){ if(window.parent!==window){ try{ window.parent.postMessage({flora:"height", height:document.body.scrollHeight}, "*"); }catch(e){} } }
