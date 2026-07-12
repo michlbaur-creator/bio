@@ -52,7 +52,7 @@ GROUPS = {
         ("Wie ist eine Pflanze aufgebaut?", "#5A6B7A",
          ["pflanze-verstehen.html"]),
         ("Wie entstehen neue Pflanzen?", "#2C7A6A",
-         ["bestaeubung-erklaerung.html", "bluetenoekologie.html"]),
+         ["bestaeubung-erklaerung.html", "samenreise.html", "bluetenoekologie.html"]),
         ("Wie meistern Pflanzen das Leben?", "#C4603A",
          ["jahreszeiten-baum.html", "pflanzenstrategien.html", "pflanzen-energie.html"]),
     ],
@@ -92,6 +92,7 @@ ICON = {
     "pflanzen-energie.html": "sun", "bluete-zoom.html": "zoom",
     "bestaeubung-erklaerung.html": "flower", "bestaeubung-animiert.html": "cycle",
     "bluetenoekologie.html": "network", "samenverbreitung.html": "wind",
+    "samenreise.html": "wind",
     "jahreszeiten-baum.html": "tree", "kreislauf.html": "cycle",
     "pflanzenstrategien.html": "shield",
     "grundlagen.html": "lupe",
@@ -143,7 +144,7 @@ def _excluded(key, fn):
 # sonst gehen diese Master verloren.
 NATIVE_LIST = {
     "flora": ["pflanze-verstehen.html", "bluete-zoom.html", "bestaeubung-erklaerung.html",
-              "jahreszeiten-baum.html", "pflanzenstrategien.html", "pflanzen-energie.html"],
+              "samenreise.html", "jahreszeiten-baum.html", "pflanzenstrategien.html", "pflanzen-energie.html"],
     "fauna": ["grundlagen.html", "verwandlung.html", "bestaeubung.html", "lebensraum.html",
               "nahrungsnetz.html", "wiese-lebt.html", "bodenleben.html"],
 }
@@ -157,7 +158,7 @@ NATIVE_SKIP = {
 ORDER = {
     "flora": ["pflanze-erklaerung.html", "pflanze-verstehen.html", "pflanzen-energie.html",
               "bluete-zoom.html", "bestaeubung-erklaerung.html", "bestaeubung-animiert.html",
-              "bluetenoekologie.html", "samenverbreitung.html", "jahreszeiten-baum.html",
+              "bluetenoekologie.html", "samenverbreitung.html", "samenreise.html", "jahreszeiten-baum.html",
               "pflanzenstrategien.html"],
     "fauna": ["grundlagen.html", "schluessel.html", "systematik.html", "stammbaum.html", "verwandlung.html",
               "bestaeubung.html", "lebensraum.html", "nahrungsnetz.html", "wiese-lebt.html",

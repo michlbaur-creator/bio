@@ -272,18 +272,19 @@ const SEEN="mibaso.flora.pass.seen";
 const PFADE = [
   { id:"aufbau",      titel:"Aufbau der Pflanze",  kurz:"Wurzel, Blatt & Blüte — mit Blüten-Zoom", datei:"interaktiv/pflanze-verstehen.html",     em:"🌱", mot:"🌱" },
   { id:"bestaeubung", titel:"Bestäubung",          kurz:"Vom Pollen bis zum Keimling",            datei:"interaktiv/bestaeubung-erklaerung.html",em:"🐝", mot:"🐝", fliegt:true },
+  { id:"reise",       titel:"Auf großer Reise",    kurz:"Wie Samen die Welt erobern",             datei:"interaktiv/samenreise.html",           em:"🌬️", mot:"🌬️", fliegt:true },
   { id:"jahr",        titel:"Ein Jahr im Baum",    kurz:"Der Apfelbaum durch die Jahreszeiten",   datei:"interaktiv/jahreszeiten-baum.html",     em:"🍂", mot:"🌳" },
   { id:"strategien",  titel:"Überlebenskünstler",  kurz:"Wie Pflanzen sich behaupten",            datei:"interaktiv/pflanzenstrategien.html",    em:"🛡️", mot:"🌵" },
   { id:"energie",     titel:"Wie Pflanzen Sonnenlicht essen", kurz:"Photosynthese & Atmung verstehen", datei:"interaktiv/pflanzen-energie.html",  em:"☀️", mot:"🌞", fliegt:true }
 ];
-const MAX_BL = PFADE.length*3;   // 15 Blätter maximal (5 Stationen)
+const MAX_BL = PFADE.length*3;   // 18 Blätter maximal (6 Stationen)
 
 const RAENGE = [
   { ab:0,  name:"Frisch gesät",      med:"🌱" },
   { ab:1,  name:"Pflanzen-Neuling",  med:"🌿" },
-  { ab:5,  name:"Pflanzen-Kenner",   med:"🍀" },
-  { ab:9,  name:"Pflanzen-Forscher", med:"🌾" },
-  { ab:13, name:"Flora-Meister",     med:"🏅" }
+  { ab:6,  name:"Pflanzen-Kenner",   med:"🍀" },
+  { ab:11, name:"Pflanzen-Forscher", med:"🌾" },
+  { ab:16, name:"Flora-Meister",     med:"🏅" }
 ];
 function rangIndex(bl){ let i=0; RAENGE.forEach((x,k)=>{ if(bl>=x.ab) i=k; }); return i; }
 function naechsterRang(bl){ return RAENGE.find(x=>x.ab>bl)||null; }
@@ -294,6 +295,7 @@ const ABZEICHEN = [
   { id:"treffer",em:"🎯", name:"Volltreffer",    pruef:(d,h)=>h.maxEines===3 },
   { id:"serie",  em:"🔥", name:"Blatt-Serie",    pruef:(d,h)=>h.dreier>=3 },
   { id:"bluete", em:"🌼", name:"Blüten-Kenner",  pruef:(d)=>d.bluete&&d.bluete.done },
+  { id:"reise",  em:"🪂", name:"Weltreisender",  pruef:(d)=>d.reise&&d.reise.done },
   { id:"energie",em:"☀️", name:"Energie-Experte",pruef:(d)=>d.energie&&d.energie.done },
   { id:"meister",em:"🏅", name:"Flora-Meister",  pruef:(d,h)=>h.fertige>=PFADE.length },
   { id:"perfekt",em:"🌟", name:"Blühender Garten",pruef:(d,h)=>h.summe>=MAX_BL }
