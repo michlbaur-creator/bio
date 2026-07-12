@@ -141,6 +141,9 @@
   .gcard .gpf{color:#b7c0b7;font-family:var(--sans);font-size:16px;}
   .gcard .gmerk{font-size:14px;color:var(--tinte);margin:8px 0 0;display:none;line-height:1.5;}
   .gcard.auf .gmerk{display:block;}
+  .gcard .gbild{width:100%;height:auto;max-height:150px;object-fit:cover;border-radius:9px;
+    border:1px solid #cdbf9e;margin:10px 0 0;display:none;}
+  .gcard.auf .gbild{display:block;}
   .gcard .gbsp{font-family:var(--sans);font-size:12.5px;color:#6f7b70;margin:6px 0 0;display:none;}
   .gcard.auf .gbsp{display:block;}
 
@@ -273,22 +276,22 @@ const BASIS="../images/samen/";
 
 /* Die großen Reisearten (Symbol = Wiedererkennung in Karten) */
 const ARTEN = [
-  {id:"wind",   sym:"💨", name:"Die Flieger (Wind)",
+  {id:"wind",   sym:"💨", name:"Die Flieger (Wind)", bild:{src:"ahorn-nasenzwicker.jpg", label:"Ahorn-Frucht im Flug"},
    merk:"Federleichte Samen segeln mit dem Wind davon. Der Löwenzahn spannt einen kleinen Fallschirm aus feinen Haaren (Pappus) auf, der Ahorn dreht sich wie ein Propeller zu Boden.",
    bsp:"z. B. Löwenzahn, Ahorn, Distel, Weidenröschen"},
-  {id:"fell",   sym:"🧲", name:"Die Anhalter (im Fell)",
+  {id:"fell",   sym:"🧲", name:"Die Anhalter (im Fell)", bild:{src:"klette.jpg", label:"Klettfrucht mit Widerhaken"},
    merk:"Klettfrüchte hängen sich mit winzigen Widerhaken ins Fell von Tieren – oder an die Hose von Wanderern. Genau das war das Vorbild für die Erfindung des Klettverschlusses!",
    bsp:"z. B. Klette, Kletten-Labkraut, Nelkenwurz"},
-  {id:"ameise", sym:"🐜", name:"Die Ameisen-Fracht",
+  {id:"ameise", sym:"🐜", name:"Die Ameisen-Fracht", bild:{src:"ameise.jpg", label:"Ameise trägt einen Samen"},
    merk:"Manche Samen tragen ein süßes, nahrhaftes Anhängsel (Elaiosom). Ameisen schleppen sie zum Nest, fressen nur das Anhängsel und lassen den Samen heil liegen – oft am perfekten Keimplatz.",
    bsp:"z. B. Veilchen, Schöllkraut, Lerchensporn"},
-  {id:"vogel",  sym:"🐦", name:"Die Express-Post (im Bauch)",
+  {id:"vogel",  sym:"🐦", name:"Die Express-Post (im Bauch)", bild:{src:"amsel.jpg", label:"Amsel frisst eine Beere"},
    merk:"Vögel und Mäuse fressen saftige Beeren. Die harte Samenschale übersteht den Magen unbeschadet – weit weg wird der Same wieder ausgeschieden, samt einem Klacks Startdünger.",
    bsp:"z. B. Vogelbeere, Holunder, Kirsche, Mistel"},
-  {id:"katapult",sym:"💥", name:"Die Katapulte (selbst)",
+  {id:"katapult",sym:"💥", name:"Die Katapulte (selbst)", bild:{src:"springkraut.jpg", label:"Springkraut-Kapsel platzt auf"},
    merk:"In den reifen Kapseln baut sich eine enorme Spannung auf. Eine sanfte Berührung genügt – die Frucht platzt auf und schleudert die Samen meterweit weg.",
    bsp:"z. B. Springkraut, Ginster, Storchschnabel"},
-  {id:"wasser", sym:"🌊", name:"Die Wasserboten",
+  {id:"wasser", sym:"🌊", name:"Die Wasserboten", bild:{src:"sumpfdotterblume.jpg", label:"Sumpfdotterblume am Wasser"},
    merk:"Am Bach- und Grabenrand reisen Samen auf dem Wasser. Luftgefüllte Hohlräume halten sie tagelang über Wasser, ohne unterzugehen.",
    bsp:"z. B. Sumpfdotterblume, Erle, Seerose"},
   {id:"schwer", sym:"🌰", name:"Die Schwerkraft (Barochorie)",
@@ -304,10 +307,10 @@ const SCHRITTE = [
     typ:"tafel",
     bild:{src:"loewenzahn-schirmchen.jpg", label:"Löwenzahn-Samen mit Fallschirm", glyph:"🌼"},
     hotspots:[
-      {x:50,y:15,n:1,titel:"Haarkrone (Pappus)",text:"Die feinen, strahlenförmigen Haare bilden den Pappus. Er wirkt wie ein Fallschirm und lässt den Samen selbst bei leichtem Wind kilometerweit segeln."},
-      {x:50,y:45,n:2,titel:"Flugstiel",text:"Ein dünner Stiel hält den Fallschirm auf Abstand zum Samen – wie die Schnüre eines echten Fallschirms. So bleibt der Flug schön stabil."},
-      {x:50,y:78,n:3,titel:"Same (Frucht)",text:"Ganz unten hängt der eigentliche Same. Er ist winzig und leicht – nur so kann der kleine Schirm ihn tragen."},
-      {x:20,y:32,n:4,titel:"Der Wind",text:"Schon ein leichter Hauch reicht: Der Samen löst sich, steigt auf und lässt sich forttragen. Kein Muskel nötig – die Pflanze reist per Luftpost."}
+      {x:49,y:16,n:1,titel:"Haarkrone (Pappus)",text:"Die feinen, strahlenförmigen Haare bilden den Pappus. Er wirkt wie ein Fallschirm und lässt den Samen selbst bei leichtem Wind kilometerweit segeln."},
+      {x:49,y:52,n:2,titel:"Flugstiel",text:"Ein dünner Stiel hält den Fallschirm auf Abstand zum Samen – wie die Schnüre eines echten Fallschirms. So bleibt der Flug schön stabil."},
+      {x:49,y:82,n:3,titel:"Same (Frucht)",text:"Ganz unten hängt der eigentliche Same. Er ist winzig und leicht – nur so kann der kleine Schirm ihn tragen."},
+      {x:17,y:20,n:4,titel:"Der Wind",text:"Schon ein leichter Hauch reicht: Der Samen löst sich, steigt auf und lässt sich forttragen. Kein Muskel nötig – die Pflanze reist per Luftpost."}
     ]
   },
 
@@ -478,9 +481,10 @@ function renderGruppen(s){
   const g=$("gliste");
   ARTEN.forEach(gr=>{
     const c=document.createElement("div"); c.className="gcard";
+    const foto = gr.bild ? '<img class="gbild" src="'+BASIS+gr.bild.src+'" alt="'+gr.bild.label+'" loading="lazy" onerror="this.style.display=\'none\'">' : '';
     c.innerHTML='<div class="gk"><span class="gsym">'+gr.sym+'</span>'+
       '<span class="gname">'+gr.name+'</span><span class="gpf">＋</span></div>'+
-      '<p class="gmerk">'+gr.merk+'</p><p class="gbsp">'+gr.bsp+'</p>';
+      '<p class="gmerk">'+gr.merk+'</p>'+foto+'<p class="gbsp">'+gr.bsp+'</p>';
     c.addEventListener("click",()=>{
       const auf=c.classList.toggle("auf");
       c.querySelector(".gpf").textContent=auf?"–":"＋";
