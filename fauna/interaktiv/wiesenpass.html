@@ -194,6 +194,25 @@
   .urk-abz.hat .ue{filter:none;opacity:1;}
   .urk-abz.hat .un2{color:var(--blau);font-weight:600;}
 
+  /* Kräftigere Farben NUR für den PDF-Export (der Klon bekommt .pdf-modus).
+     Auf dem Bildschirm bleibt die Urkunde unverändert zart. */
+  .pdf-modus.urkunde{background:#fff;}
+  .pdf-modus .rahmen{border-color:#a9762c;border-width:2.5px;}
+  .pdf-modus .rahmen::before{border-color:#d3b06e;}
+  .pdf-modus .urk-eyebrow{color:#8a5e1e;font-weight:700;}
+  .pdf-modus .urk-titel{color:#1b3049;}
+  .pdf-modus .urk-sub{color:#3f4c5a;}
+  .pdf-modus .urk-satz{color:#333f4c;}
+  .pdf-modus .urk-name{color:#1b3049;border-bottom-color:#b8944f;}
+  .pdf-modus .urk-zeile{border-bottom-color:#e4d8bf;}
+  .pdf-modus .urk-zeile .un{color:#22303f;}
+  .pdf-modus .urk-summe{color:#1b3049;}
+  .pdf-modus .urk-album-titel{color:#8a5e1e;font-weight:700;}
+  .pdf-modus .urk-abz{border-color:#cbbfa2;}
+  .pdf-modus .urk-abz.hat{border-color:#a9762c;background:#f6e8cd;}
+  .pdf-modus .urk-abz.hat .un2{color:#1b3049;}
+  .pdf-modus .urk-fuss{color:#6a6a63;}
+
   /* Urkunde drucken: in einen exakt A4-großen Rahmen geklont und per JS passend
      hineinskaliert → garantiert EINE Seite, auch auf iOS-Safari. */
   #urkPrintPage{display:none;}
@@ -563,6 +582,7 @@ async function urkundeAlsPdf(btn){
     const clone=orig.cloneNode(true);
     clone.style.maxWidth="none"; clone.style.width="718px"; clone.style.margin="0";
     clone.style.transform=""; clone.style.background="#fff";
+    clone.classList.add("pdf-modus");
     const bt=clone.querySelector(".urk-btns"); if(bt) bt.remove();
     const nO=(document.getElementById("urkName")||{}).value||"";
     const nC=clone.querySelector(".urk-name"); if(nC){ nC.value=nO; nC.setAttribute("value",nO); }
