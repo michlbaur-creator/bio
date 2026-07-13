@@ -697,7 +697,7 @@ function renderQuiz(s){
         if(richtig){ score++; fb.textContent="✓ Richtig! "+f.fb; }
         else{ b.classList.add("no"); fb.textContent="✗ "+f.fb; }
         melde();
-        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?2200:3800);
+        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?4400:7600);
       });
       wrap.appendChild(b);
     });

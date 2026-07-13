@@ -116,6 +116,10 @@
   .gcard.auf .gmerk{display:block;}
   .gcard .gbsp{font-family:var(--sans);font-size:12.5px;color:#6f7b86;margin:6px 0 0;display:none;}
   .gcard.auf .gbsp{display:block;}
+  .gcard .gfoto{margin:10px 0 0;display:none;}
+  .gcard.auf .gfoto{display:block;}
+  .gcard .gfoto img{width:100%;height:auto;max-height:150px;object-fit:cover;border-radius:9px;border:1px solid #cdbf9e;display:block;}
+  .gcard .gfoto figcaption{font-family:var(--sans);font-size:11px;color:#8a96a1;margin:4px 0 0;font-style:italic;}
 
   /* Stammbaum */
   .baum{font-family:var(--sans);margin:2px 0 8px;}
@@ -242,19 +246,19 @@ const BASIS="../images/grundlagen/";
 
 /* Die wichtigsten Insektengruppen (Farbe = Erkennungspunkt in Karten & Baum) */
 const GRUPPEN = [
-  {id:"kaefer",       name:"Käfer",          farbe:"#B5482F", merk:"Harte Deckflügel wie ein Panzer, darunter die zarten Flughäute. Die artenreichste Tiergruppe der Welt.", bsp:"z. B. Marienkäfer, Laufkäfer"},
-  {id:"schmetter",    name:"Schmetterlinge", farbe:"#C28A3A", merk:"Zwei große, bunt beschuppte Flügel und ein Saugrüssel. Aus dem Ei wird erst eine Raupe.", bsp:"z. B. Tagpfauenauge, Kohlweißling"},
-  {id:"hautfluegler", name:"Hautflügler",    farbe:"#E0A81E", merk:"Bienen, Wespen und Ameisen. Dünne „Wespentaille“, zwei Paar hauchdünne Flügel. Viele leben in Staaten.", bsp:"z. B. Honigbiene, Hummel"},
-  {id:"zweifluegler", name:"Zweiflügler",    farbe:"#5A6B7A", merk:"Fliegen und Mücken. Nur EIN Paar Flügel – das hintere ist zu winzigen Schwingkölbchen geschrumpft.", bsp:"z. B. Schwebfliege, Stubenfliege"},
-  {id:"libellen",     name:"Libellen",       farbe:"#2C7A6A", merk:"Zwei Paar lange, glasklare Flügel, riesige Augen, blitzschnelle Jäger. Ihre Larven leben im Wasser.", bsp:"z. B. Pechlibelle, Plattbauch"},
-  {id:"wanzen",       name:"Wanzen",         farbe:"#8a3f2a", merk:"Ein Stechrüssel zum Saugen und oft ein dreieckiges Rückenschild. Manche stinken zur Abwehr.", bsp:"z. B. Feuerwanze, Bettwanze"},
-  {id:"heuschrecken", name:"Heuschrecken",   farbe:"#3E9A5E", merk:"Kräftige Sprungbeine und oft ein Zirpen zur Balz. Sie können weit springen.", bsp:"z. B. Grünes Heupferd, Feldgrille"}
+  {id:"kaefer",       name:"Käfer",          farbe:"#B5482F", foto:"../images/gruppen/kaefer.jpg",       fotonam:"Gartenlaubkäfer", merk:"Harte Deckflügel wie ein Panzer, darunter die zarten Flughäute. Die artenreichste Tiergruppe der Welt.", bsp:"z. B. Marienkäfer, Laufkäfer"},
+  {id:"schmetter",    name:"Schmetterlinge", farbe:"#C28A3A", foto:"../images/gruppen/schmetter.jpg",    fotonam:"Tagpfauenauge", merk:"Zwei große, bunt beschuppte Flügel und ein Saugrüssel. Aus dem Ei wird erst eine Raupe.", bsp:"z. B. Tagpfauenauge, Kohlweißling"},
+  {id:"hautfluegler", name:"Hautflügler",    farbe:"#E0A81E", foto:"../images/gruppen/hautfluegler.jpg", fotonam:"Ackerhummel", merk:"Bienen, Wespen und Ameisen. Dünne „Wespentaille“, zwei Paar hauchdünne Flügel. Viele leben in Staaten.", bsp:"z. B. Honigbiene, Hummel"},
+  {id:"zweifluegler", name:"Zweiflügler",    farbe:"#5A6B7A", foto:"../images/gruppen/zweifluegler.jpg", fotonam:"Goldfliege", merk:"Fliegen und Mücken. Nur EIN Paar Flügel – das hintere ist zu winzigen Schwingkölbchen geschrumpft.", bsp:"z. B. Schwebfliege, Stubenfliege"},
+  {id:"libellen",     name:"Libellen",       farbe:"#2C7A6A", foto:"../images/gruppen/libellen.jpg",     fotonam:"Plattbauch", merk:"Zwei Paar lange, glasklare Flügel, riesige Augen, blitzschnelle Jäger. Ihre Larven leben im Wasser.", bsp:"z. B. Pechlibelle, Plattbauch"},
+  {id:"wanzen",       name:"Wanzen",         farbe:"#8a3f2a", foto:"../images/gruppen/wanzen.jpg",       fotonam:"Lederwanze", merk:"Ein Stechrüssel zum Saugen und oft ein dreieckiges Rückenschild. Manche stinken zur Abwehr.", bsp:"z. B. Feuerwanze, Bettwanze"},
+  {id:"heuschrecken", name:"Heuschrecken",   farbe:"#3E9A5E", foto:"../images/gruppen/heuschrecken.jpg", fotonam:"Grünes Heupferd", merk:"Kräftige Sprungbeine und oft ein Zirpen zur Balz. Sie können weit springen.", bsp:"z. B. Grünes Heupferd, Feldgrille"}
 ];
 function gruppe(id){ return GRUPPEN.find(g=>g.id===id); }
 
 const SCHRITTE = [
   /* 1 — Beschriften: Insekten-Körperbau ----------------------------------- */
-  { chip:"Was ist ein Insekt?", titel:"Wer ist ein Insekt?",
+  { chip:"Was ist ein Insekt?", titel:"Woran erkennst du ein Insekt?",
     text:"Ein Insekt erkennst du an vier Dingen: <b>6 Beine</b>, <b>3 Körperabschnitte</b> (Kopf, Brust, Hinterleib), meist <b>Flügel</b> und ein Paar <b>Fühler</b>. Tippe die Punkte an.",
     hint:"Tippe die Zahlen im Bild an.",
     typ:"tafel",
@@ -466,9 +470,10 @@ function renderGruppen(s){
   const g=$("gliste");
   GRUPPEN.forEach(gr=>{
     const c=document.createElement("div"); c.className="gcard";
+    const foto = gr.foto ? '<figure class="gfoto"><img src="'+gr.foto+'" alt="'+(gr.fotonam||gr.name)+'" loading="lazy" onerror="this.parentNode.style.display=\'none\'"><figcaption>'+(gr.fotonam||'')+'</figcaption></figure>' : '';
     c.innerHTML='<div class="gk"><span class="gdot" style="background:'+gr.farbe+'"></span>'+
       '<span class="gname">'+gr.name+'</span><span class="gpf">＋</span></div>'+
-      '<p class="gmerk">'+gr.merk+'</p><p class="gbsp">'+gr.bsp+'</p>';
+      '<p class="gmerk">'+gr.merk+'</p>'+foto+'<p class="gbsp">'+gr.bsp+'</p>';
     c.addEventListener("click",()=>{
       const auf=c.classList.toggle("auf");
       c.querySelector(".gpf").textContent=auf?"–":"＋";
@@ -547,7 +552,7 @@ function renderQuiz(s){
         if(richtig){ score++; fb.textContent="✓ Richtig! "+f.fb; }
         else{ b.classList.add("no"); fb.textContent="✗ "+f.fb; }
         melde();
-        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?2200:3800);
+        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?4400:7600);
       });
       wrap.appendChild(b);
     });

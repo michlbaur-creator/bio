@@ -166,7 +166,7 @@
       <img src="../images/apfelbaum/fruehling.jpg" alt="Apfelbaum in der Blüte im Frühling" style="opacity:0" onerror="this.style.display='none'">
       <img src="../images/apfelbaum/sommer.jpg"    alt="Apfelbaum mit Blättern und Äpfeln im Sommer" style="opacity:0" onerror="this.style.display='none'">
       <img src="../images/apfelbaum/herbst.jpg"    alt="Apfelbaum im Herbst mit buntem Laub und Fallobst" style="opacity:0" onerror="this.style.display='none'">
-      <img src="../images/apfelbaum/winter.jpg"    alt="Apfelbaum im Winter, kahl" style="opacity:0" onerror="this.style.display='none'">
+      <img src="../images/apfelbaum/winter-ende.jpg" alt="Apfelbaum im Winter, kahl im Schnee" style="opacity:0" onerror="this.onerror=null;this.src='../images/apfelbaum/winter.jpg';">
     </div>
 
     <div class="regler">
@@ -369,7 +369,7 @@
           var richtig=(o.idx===f.r);
           Array.prototype.forEach.call(wrap.children,function(x,ix){ x.disabled=true; if(opts[ix].idx===f.r) x.classList.add("ok"); });
           if(richtig){ score++; fb.textContent="✓ Richtig! "+f.fb; } else { b.classList.add("no"); fb.textContent="✗ "+f.fb; }
-          setTimeout(function(){ q++; if(q<fragen.length) zeige(); else ende(); }, richtig?2200:3800);
+          setTimeout(function(){ q++; if(q<fragen.length) zeige(); else ende(); }, richtig?4400:7600);
         });
         wrap.appendChild(b);
       });

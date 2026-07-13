@@ -258,6 +258,14 @@ def build():
         # assets + ueber komplett
         copytree(os.path.join(src, "assets"), os.path.join(dst, "assets"))
         copytree(os.path.join(src, "ueber"),  os.path.join(dst, "ueber"))
+        # Porträtfotos der „Über mich"-Seite mitkopieren (werden von keinem Lernpfad
+        # referenziert und würden sonst fehlen → „Über mich" bliebe ohne Fotos).
+        for _p in ("portrait-garten.jpg", "portrait-logo.jpg", "portrait.jpg"):
+            _s = os.path.join(src, "images", _p)
+            if os.path.isfile(_s):
+                _d = os.path.join(dst, "images", _p)
+                os.makedirs(os.path.dirname(_d), exist_ok=True)
+                shutil.copy2(_s, _d); total_imgs += 1
 
         for fn in sorted(os.listdir(src_inter)):
             if not fn.endswith(".html"): continue
@@ -293,6 +301,12 @@ def build():
     # Startseiten-Bausteine aus Flora übernehmen: Über mich, Impressum, Anleitung, Assets
     copytree(os.path.join(ROOT, "flora", "assets"),    os.path.join(BIO, "assets"))
     copytree(os.path.join(ROOT, "flora", "ueber"),     os.path.join(BIO, "ueber"))
+    for _p in ("portrait-garten.jpg", "portrait-logo.jpg", "portrait.jpg"):
+        _s = os.path.join(ROOT, "flora", "images", _p)
+        if os.path.isfile(_s):
+            _d = os.path.join(BIO, "images", _p)
+            os.makedirs(os.path.dirname(_d), exist_ok=True)
+            shutil.copy2(_s, _d)
     copytree(os.path.join(ROOT, "flora", "impressum"), os.path.join(BIO, "impressum"))
     copytree(os.path.join(ROOT, "flora", "anleitung"), os.path.join(BIO, "anleitung"))
     # bio-eigener Über-mich-Schlusssatz (statt Flora-Version) + Namens-Korrekturen
