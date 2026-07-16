@@ -233,7 +233,7 @@
 <body>
 <div class="huelle">
   <div class="kopf">
-    <a class="zurueck" href="../index.html">‹ Bio Mibaso</a>
+    <a class="zurueck" href="index.html">‹ Flora Mibaso</a>
   </div>
   <h1>🌳 Expedition Wald</h1>
   <p class="unter">Spiel die Pfade, entdecke den Wald und kröne dich zum Wald-Meister.</p>
@@ -397,8 +397,7 @@ function render(){
     const done=!!(e&&e.done);
     const bl=done?(e.blaetter||0):0;
     const bald = !!p.bald && !done;
-    const vorErledigt = idx===0 || !!(daten[PFADE[idx-1].id]&&daten[PFADE[idx-1].id].done);
-    const offen = !bald && (done || vorErledigt);
+    const offen = !bald;   /* alle gebauten Stationen sofort offen (keine Reihenfolge-Sperre) */
     let neu=false;
     if(seen && offen && !done){
       const vorherOffen = idx===0 || (seen[PFADE[idx-1].id]&&seen[PFADE[idx-1].id].done);
