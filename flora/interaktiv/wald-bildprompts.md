@@ -79,21 +79,32 @@ später an dein Bild.)
 | `wald/boden-assel.jpg` | Kleine Bodentiere im Laub (Assel, Springschwanz, Tausendfüßer), Makro. |
 | `wald/boden-bakterien.jpg` | Eine Handvoll dunkler Humuserde – oder stilisierte Bakterien unter dem Mikroskop. |
 
-## 6. Für spätere Stationen schon vorhanden (Echtfotos wiederverwendbar)
+## 6. Station „Waldpflanzen erkennen" — fertig, nutzt Echtfotos
 
-Diese Waldpflanzen gibt es **bereits als Echtfoto** in `flora/images/fotos/` — für die
-Station „Waldpflanzen erkennen" müssen wir sie nicht neu erzeugen:
+Diese Station braucht **keine neuen Bilder**. Ich habe sechs echte Pflanzenfotos aus
+`flora/images/fotos/` übernommen und als `erk-…jpg` in `images/wald/` abgelegt:
+Buschwindröschen, Waldmeister, Sauerklee, Goldnessel, Lerchensporn, Scharbockskraut.
+**Bärlauch und Bingelkraut sind wie gewünscht ersetzt** — sie kommen nicht vor.
 
-- Buschwindröschen → `anemone-nemorosa-1.jpg`
-- Waldmeister → `galium-odoratum-1.jpg`
-- Sauerklee → `oxalis-acetosella-1.jpg`
-- Goldnessel → `lamium-galeobdolon-1.jpg`
-- Lerchensporn → `corydalis-solida-1.jpg`
-- Scharbockskraut → `ficaria-verna-1.jpg`
-- Gelbes Windröschen → `anemone-ranunculoides-1.jpg`
-- Maiglöckchen → `convallaria-majalis-1.jpg`
-- Leberblümchen → `hepatica-nobilis-1.jpg`
+## 7. Station „Wenn Gäste zu Eindringlingen werden" (Bilder fehlen noch)
 
-**Fehlen noch** (später per ChatGPT oder eigenes Foto): **Bärlauch**, **Bingelkraut**.
-Alle Echtfotos und die botanischen Tafeln findest du auch in der Flora-App unter
-„Was blüht denn hier?".
+| Datei | Motiv-Prompt |
+| --- | --- |
+| `wald/invasive-intro.jpg` | Dichter Bestand einer wuchernden Pflanze am Bachufer (z. B. rosa Springkraut), der alles andere überwuchert. Querformat 16:10. |
+| `wald/invasive-springkraut.jpg` | Drüsiges Springkraut mit rosa Blüten und prallen Samenkapseln am Wasser. |
+| `wald/invasive-baerenklau.jpg` | Riesen-Bärenklau, sehr hoch, mit großen weißen Doldenblüten. |
+| `wald/invasive-knoeterich.jpg` | Japanischer Staudenknöterich, dichtes hohes Dickicht mit bambusartigen Stängeln. |
+| `wald/invasive-goldrute.jpg` | Kanadische Goldrute, gelbes Blütenfeld auf einer Brache. |
+
+## 8. Station „Warum wir den Wald brauchen" (Bilder fehlen noch)
+
+| Datei | Motiv-Prompt |
+| --- | --- |
+| `wald/nutzen-intro.jpg` | Sonnendurchfluteter Wald, Lichtstrahlen, frische Luft-Stimmung. Querformat 16:10. |
+| `wald/nutzen-luft.jpg` | Grüne Baumkronen von unten gegen blauen Himmel (Sauerstoff/Luft). |
+| `wald/nutzen-wasser.jpg` | Klarer Bach oder Quelle im Wald (sauberes Wasser). |
+| `wald/nutzen-boden.jpg` | Waldboden mit sichtbaren Wurzeln, die die Erde festhalten. |
+| `wald/nutzen-klima.jpg` | Kühler, schattiger Wald an einem heißen Sommertag. |
+| `wald/nutzen-erholung.jpg` | Wanderweg im Wald, Menschen beim Spazieren/Durchatmen. |
+
+Legen wie immer nach `bio/bio/flora/images/wald/`, ich komprimiere und baue sie ein.
