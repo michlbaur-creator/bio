@@ -609,6 +609,7 @@ CSS = """
   .kachel .kb{font-family:var(--sans);font-size:12.5px;opacity:.92;}
   .k-flora{background:linear-gradient(150deg,#3A5F4A,#2F4F3E);}
   .k-fauna{background:linear-gradient(150deg,#33587c,#233D5C);}
+  .k-wald{background:linear-gradient(150deg,#5a6e3a,#38491f);grid-column:1/-1;}
   @media (max-width:520px){.kacheln{grid-template-columns:1fr;}}
   .subkopf{font-family:var(--sans);margin:2px 0 4px;}
   .zurueck{font-size:13px;font-weight:600;color:var(--akzent);text-decoration:none;}
@@ -718,6 +719,8 @@ def write_hub(listing):
         f'<span class="kt">Flora verstehen</span><span class="kb">{nf} Lernpfade zur Welt der Pflanzen</span></a>'
         f'<a class="kachel k-fauna" href="fauna/"><span class="ke">🦋</span>'
         f'<span class="kt">Fauna verstehen</span><span class="kb">{na} Lernpfade zur Welt der Tiere</span></a>'
+        '<a class="kachel k-wald" href="flora/waldpass.html"><span class="ke">🌳</span>'
+        '<span class="kt">Wald entdecken</span><span class="kb">Expedition Wald — spiel dich zum Wald-Meister</span></a>'
         '</div>' + _footer("") +
         '<script>if(window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone)'
         '{var b=document.getElementById("installBtn");if(b)b.style.display="none";}</script>')

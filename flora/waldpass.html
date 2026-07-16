@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Expedition Wald — das Spiel · Bio Mibaso</title>
+<meta name="description" content="Spiel die Waldpfade, lass deinen Wald wachsen, schalte Stationen frei, sammle Abzeichen und werde Wald-Meister.">
+<meta name="theme-color" content="#2F4F3E">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Flora Mibaso">
+<style>
+  /* =========================================================================
+     „Expedition Wald – das Spiel“  (Spiel-Version des Forscherpass, Wald/Flora)
+     Liest denselben Fortschritt, den jeder Lernpfad schreibt:
+        localStorage["mibaso.flora.expedition"] = { "<id>": {blaetter:1-3, done:true} }
+     Erweitert um: wachsenden Wald, Freischaltung (Level), Abzeichen-Album,
+     Belohnungseffekte (Blätter-Regen, Rang-Aufstieg). Keine externen Bibliotheken.
+     ========================================================================= */
+  :root{
+    --gruen:#2F4F3E; --gruen-tief:#243d30; --gruen-mittel:#3A5F4A; --gruen-akzent:#5A8068;
+    --creme:#F7F3E8; --creme-tief:#EEE7D5; --pergament:#EDE3CC;
+    --tinte:#26312b; --honig:#C28A3A; --honig-tief:#a9762c;
+    --linie:#d8ccb2; --gruen-blass:#e6efe7; --gruen-dunkel:#2f6a45;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--creme);color:var(--gruen);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.5;
+    padding-top:calc(env(safe-area-inset-top) + min(2vh,14px));}
+  .huelle{max-width:680px;margin:0 auto;padding:clamp(8px,2.5vw,16px) clamp(12px,3.5vw,26px) 48px;}
+
+  .kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:var(--sans);}
+  .zurueck{font-size:13px;font-weight:600;color:var(--gruen);text-decoration:none;display:inline-flex;gap:5px;align-items:center;}
+  h1{font-size:clamp(21px,5.2vw,28px);line-height:1.1;margin:8px 0 2px;font-weight:normal;color:var(--gruen);}
+  .unter{font-family:var(--sans);font-size:13.5px;color:#6c7681;margin:0 0 6px;font-style:italic;}
+
+  /* ---- Wald-Bühne (wächst mit dem Fortschritt) ---- */
+  .buehne{position:relative;border-radius:18px;overflow:hidden;margin:14px 0 6px;
+    box-shadow:0 6px 20px rgba(47,79,62,.22);background:#bfe0ec;aspect-ratio:2.86/1;}
+  .wlayer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;
+    transition:opacity .9s ease;}
+  .buehne svg{display:block;width:100%;height:auto;}
+  .rangchip{position:absolute;left:12px;top:12px;display:flex;align-items:center;gap:8px;
+    background:rgba(36,61,48,.82);color:var(--creme);font-family:var(--sans);
+    padding:7px 12px 7px 8px;border-radius:999px;backdrop-filter:blur(3px);
+    box-shadow:0 3px 10px rgba(0,0,0,.2);}
+  .rangchip .med{font-size:24px;line-height:1;}
+  .rangchip .rtxt{font-size:12px;line-height:1.15;}
+  .rangchip .rtxt b{display:block;font-size:14px;font-weight:600;}
+  .buehne .zaehler{position:absolute;right:12px;top:12px;background:rgba(255,255,255,.9);
+    color:var(--gruen);font-family:var(--sans);font-size:13px;font-weight:600;
+    padding:6px 11px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,.14);}
+
+  /* Fortschrittsbalken unter der Bühne */
+  .fbalken{height:11px;background:var(--creme-tief);border-radius:6px;overflow:hidden;margin:12px 0 4px;
+    border:1px solid var(--linie);}
+  .fbalken div{height:100%;width:0;background:linear-gradient(90deg,var(--gruen-dunkel),var(--honig));
+    border-radius:6px;transition:width .9s cubic-bezier(.22,1,.36,1);}
+  .naechster{font-family:var(--sans);font-size:12.5px;color:#6c7681;text-align:center;margin:2px 0 0;}
+  .naechster b{color:var(--honig-tief);}
+
+  /* ---- Stationen ---- */
+  h2.abschnitt{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--honig);margin:26px 0 10px;
+    padding-bottom:6px;border-bottom:1px solid #d7cfba;}
+  .stationen{display:flex;flex-direction:column;gap:11px;}
+  .station{display:flex;align-items:center;gap:13px;text-decoration:none;color:var(--tinte);
+    background:#fff;border:1px solid var(--linie);border-radius:15px;padding:13px 15px;
+    transition:transform .15s,box-shadow .15s,border-color .15s;}
+  a.station:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(47,79,62,.1);border-color:var(--gruen-akzent);}
+  .station .stnr{flex:0 0 auto;width:38px;height:38px;border-radius:50%;background:var(--creme-tief);
+    display:flex;align-items:center;justify-content:center;font-size:20px;position:relative;}
+  .station.fertig .stnr{background:var(--gruen-blass);}
+  .station.aktiv .stnr{background:#fff3dc;box-shadow:0 0 0 3px rgba(194,138,58,.35);}
+  .station .txt{flex:1 1 auto;min-width:0;}
+  .station .stt{font-size:16px;display:block;color:var(--gruen);}
+  .station .stb{font-family:var(--sans);font-size:12px;color:#8a8577;display:block;margin-top:1px;}
+  .station .badge-neu{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;
+    letter-spacing:.05em;color:#fff;background:var(--honig);border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:1px;}
+  .station .stand{flex:0 0 auto;text-align:right;font-family:var(--sans);}
+  .station .blaetter{font-size:17px;letter-spacing:1px;white-space:nowrap;}
+  .station .blaetter .leer{opacity:.22;}
+  .station .status{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#8a8577;display:block;margin-top:2px;}
+  .station.fertig .status{color:var(--gruen-dunkel);}
+  .station .pf{flex:0 0 auto;color:#b9b09a;font-size:18px;}
+  /* gesperrt */
+  .station.gesperrt{background:var(--creme-tief);border-style:dashed;color:#9a9384;cursor:default;}
+  .station.gesperrt .stt{color:#8a8577;}
+  .station.gesperrt .stb{color:#a6a08f;}
+  .station.gesperrt .stnr{background:#e2ddd0;filter:grayscale(1);opacity:.7;}
+  .station.gesperrt .schloss{font-size:11px;font-family:var(--sans);color:#9a9384;
+    display:block;margin-top:2px;text-transform:none;letter-spacing:0;}
+
+  /* Meister-Prüfung / Urkunde */
+  .meister{margin-top:11px;border:1px solid var(--honig);border-radius:15px;padding:15px;
+    background:linear-gradient(160deg,#fff8ec,#fdefd4);display:flex;align-items:center;gap:13px;}
+  .meister.gesperrt{border-style:dashed;border-color:#d9cdb4;background:var(--creme-tief);}
+  .meister .mi{font-size:30px;}
+  .meister .mt{flex:1 1 auto;}
+  .meister .mt b{font-size:16px;display:block;color:var(--gruen);}
+  .meister .mt span{font-family:var(--sans);font-size:12px;color:#8a7b5c;}
+  .meister button{font-family:var(--sans);font-size:13px;font-weight:600;color:#fff;
+    background:var(--honig);border:none;border-radius:999px;padding:9px 15px;cursor:pointer;}
+  .meister.gesperrt .mt span{color:#a49a86;}
+  .meister.gesperrt .mi{filter:grayscale(1);opacity:.6;}
+
+  /* ---- Abzeichen-Album ---- */
+  .album{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  @media (max-width:420px){.album{grid-template-columns:repeat(3,1fr);}}
+  .abz{background:#fff;border:1px solid var(--linie);border-radius:14px;padding:11px 6px 9px;
+    text-align:center;position:relative;transition:transform .15s;}
+  .abz .ai{font-size:30px;line-height:1;display:block;filter:grayscale(1);opacity:.28;transition:.3s;}
+  .abz .an{font-family:var(--sans);font-size:10.5px;color:#9a9384;display:block;margin-top:5px;line-height:1.2;}
+  .abz.hat{border-color:var(--honig);background:linear-gradient(165deg,#fff,#fdf3df);}
+  .abz.hat .ai{filter:none;opacity:1;}
+  .abz.hat .an{color:var(--gruen);font-weight:600;}
+  .abz.hat::after{content:"✓";position:absolute;top:5px;right:7px;font-family:var(--sans);
+    font-size:11px;font-weight:700;color:var(--gruen-dunkel);}
+
+  .hinweis{font-family:var(--sans);font-size:12.5px;color:#8a8577;text-align:center;margin:20px 0 0;}
+  .reset{display:inline-block;margin-top:10px;font-family:var(--sans);font-size:12px;color:#a49a86;
+    background:none;border:none;text-decoration:underline;cursor:pointer;}
+
+  footer{margin-top:26px;font-family:var(--sans);font-size:12px;color:#8a8577;text-align:center;}
+  footer a{color:inherit;}
+
+  /* ---- Belohnungen: Blätter-Regen + Toast + Rang-Aufstieg ---- */
+  .regen{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:40;}
+  .regen span{position:absolute;top:-30px;font-size:22px;animation:fall linear forwards;}
+  @keyframes fall{to{transform:translateY(108vh) rotate(360deg);opacity:.2;}}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+    background:var(--gruen);color:var(--creme);font-family:var(--sans);font-size:14px;font-weight:600;
+    padding:11px 18px;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.25);
+    opacity:0;transition:.4s;z-index:50;}
+  .toast.an{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  .feier{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;
+    background:rgba(30,44,34,.55);backdrop-filter:blur(2px);padding:22px;}
+  .feier.an{display:flex;}
+  .feierkarte{background:var(--creme);border-radius:20px;max-width:340px;width:100%;text-align:center;
+    padding:26px 22px 22px;box-shadow:0 18px 50px rgba(0,0,0,.35);animation:pop .5s cubic-bezier(.18,1.3,.4,1);}
+  @keyframes pop{from{transform:scale(.7);opacity:0;}to{transform:scale(1);opacity:1;}}
+  .feierkarte .fmed{font-size:64px;line-height:1;}
+  .feierkarte h3{font-family:Georgia,serif;font-weight:normal;color:var(--gruen);font-size:22px;margin:8px 0 2px;}
+  .feierkarte .fsub{font-family:var(--sans);font-size:13px;color:#6c7681;margin:0 0 16px;}
+  .feierkarte button{font-family:var(--sans);font-size:14px;font-weight:600;color:#fff;
+    background:var(--honig);border:none;border-radius:999px;padding:11px 26px;cursor:pointer;}
+
+  /* --- Meister-Urkunde --- */
+  .urkunde-overlay{position:fixed;inset:0;z-index:70;display:none;align-items:flex-start;
+    justify-content:center;background:rgba(30,44,34,.55);backdrop-filter:blur(2px);padding:18px;overflow:auto;}
+  .urkunde-overlay.an{display:flex;}
+  .urkunde{background:#fffdf6;width:100%;max-width:460px;border-radius:14px;
+    box-shadow:0 18px 50px rgba(0,0,0,.35);overflow:hidden;animation:pop .5s cubic-bezier(.18,1.3,.4,1);}
+  .urkunde .rahmen{border:2px solid var(--honig);margin:10px;border-radius:10px;padding:22px 20px 24px;position:relative;}
+  .urkunde .rahmen::before{content:"";position:absolute;inset:4px;border:1px solid #e6d3a8;border-radius:7px;pointer-events:none;}
+  .urk-eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--honig-tief);text-align:center;}
+  .urk-med{font-size:52px;text-align:center;line-height:1;margin:6px 0 0;}
+  .urk-titel{font-family:Georgia,serif;font-size:27px;color:var(--gruen);text-align:center;margin:2px 0;}
+  .urk-sub{font-family:var(--sans);font-size:12.5px;color:#6c7681;text-align:center;margin:0 0 14px;}
+  .urk-satz{font-family:Georgia,serif;font-size:14px;color:var(--tinte);text-align:center;margin:0;}
+  .urk-name{display:block;margin:8px auto 12px;width:280px;max-width:100%;text-align:center;
+    font-family:Georgia,serif;font-size:20px;color:var(--gruen);border:none;border-bottom:1.5px dashed #cdbf9e;
+    background:transparent;padding:4px 6px;outline:none;}
+  .urk-name:focus{border-bottom-color:var(--honig);}
+  .urk-tabelle{border-top:1px solid var(--linie);margin:14px 0 0;}
+  .urk-zeile{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    font-family:var(--sans);font-size:13px;padding:6px 2px;border-bottom:1px solid #efe7d4;}
+  .urk-zeile .un{color:var(--tinte);}
+  .urk-zeile .ub{white-space:nowrap;letter-spacing:1px;}
+  .urk-zeile .ub .leer{opacity:.22;}
+  .urk-summe{display:flex;justify-content:space-between;font-family:var(--sans);font-size:13.5px;
+    font-weight:700;color:var(--gruen);margin:10px 2px 0;}
+  .urk-fuss{display:flex;justify-content:space-between;font-family:var(--sans);font-size:11.5px;color:#8a8577;margin:14px 2px 0;}
+  .urk-btns{display:flex;gap:8px;justify-content:center;padding:0 16px 15px;}
+  .urk-btns button{font-family:var(--sans);font-size:12.5px;font-weight:600;border-radius:999px;padding:8px 15px;cursor:pointer;border:none;}
+  .urk-btns .druck{background:var(--honig);color:#fff;}
+  .urk-btns .zu{background:#eee7d5;color:var(--gruen);}
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important;}
+    .regen{display:none!important;}
+  }
+  /* Abzeichen-Album auf der Urkunde */
+  .urk-album{margin:16px 2px 0;border-top:1px solid var(--linie);padding-top:12px;}
+  .urk-album-titel{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--honig-tief);text-align:center;margin:0 0 10px;}
+  .urk-abzeichen{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;}
+  .urk-abz{display:flex;align-items:center;gap:5px;border:1px solid var(--linie);border-radius:10px;
+    padding:5px 7px;font-family:var(--sans);min-width:0;}
+  .urk-abz .ue{font-size:18px;line-height:1;flex:0 0 auto;filter:grayscale(1);opacity:.3;}
+  .urk-abz .un2{font-size:10px;color:#9a9384;line-height:1.12;min-width:0;overflow-wrap:anywhere;}
+  .urk-abz.hat{border-color:var(--honig);background:#fdf6e8;}
+  .urk-abz.hat .ue{filter:none;opacity:1;}
+  .urk-abz.hat .un2{color:var(--gruen);font-weight:600;}
+
+  /* Urkunde drucken (Browser-Druck → im Dialog „Als PDF speichern"): farbtreu wie am
+     Bildschirm, auf eine A4-Seite komprimiert. print-color-adjust erzwingt ALLE Farben
+     (Gold-Rahmen, Grün, Abzeichen), auch ohne „Hintergrundgrafiken"-Häkchen. */
+  @media print{
+    @page{size:A4;margin:8mm;}
+    html,body{background:#fff!important;}
+    body.drucken > *{display:none!important;}
+    body.drucken .urkunde-overlay{display:block!important;position:static!important;background:#fff!important;
+      backdrop-filter:none;padding:0!important;margin:0!important;height:auto!important;min-height:0!important;overflow:visible!important;}
+    body.drucken .urkunde{box-shadow:none!important;width:auto!important;max-width:none!important;margin:0!important;animation:none!important;}
+    body.drucken .urk-btns{display:none!important;}
+    /* alle Farben zuverlässig drucken (auch ohne „Hintergrundgrafiken") */
+    body.drucken .urkunde, body.drucken .urkunde *{
+      -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+    /* kompakt, damit die Urkunde die Breite füllt UND auf EINE Seite passt */
+    body.drucken .rahmen{margin:0!important;padding:12px 18px 12px!important;break-inside:avoid;page-break-inside:avoid;}
+    body.drucken .rahmen::before{inset:3px!important;}
+    body.drucken .urk-med{font-size:30px!important;margin:2px 0 0!important;}
+    body.drucken .urk-titel{font-size:22px!important;margin:0!important;}
+    body.drucken .urk-sub{margin:0 0 8px!important;}
+    body.drucken .urk-satz{margin:2px 0!important;}
+    body.drucken .urk-name{margin:5px auto 8px!important;font-size:18px!important;}
+    body.drucken .urk-tabelle{margin-top:8px!important;}
+    body.drucken .urk-zeile{padding:2.5px 2px!important;}
+    body.drucken .urk-summe{margin:6px 2px 0!important;}
+    body.drucken .urk-album{margin-top:8px!important;padding-top:8px!important;}
+    body.drucken .urk-album-titel{margin:0 0 6px!important;}
+    body.drucken .urk-abzeichen{gap:5px!important;}
+    body.drucken .urk-abz{padding:3px 7px!important;}
+    body.drucken .urk-fuss{margin-top:8px!important;}
+  }
+</style>
+</head>
+<body>
+<div class="huelle">
+  <div class="kopf">
+    <a class="zurueck" href="../index.html">‹ Bio Mibaso</a>
+  </div>
+  <h1>🌳 Expedition Wald</h1>
+  <p class="unter">Spiel die Pfade, entdecke den Wald und kröne dich zum Wald-Meister.</p>
+
+  <!-- Wachsender Wald -->
+  <div class="buehne">
+    <img class="wlayer" src="images/wald/wald-1.jpg" alt="" onerror="this.style.display='none'">
+    <img class="wlayer" src="images/wald/wald-2.jpg" alt="" onerror="this.style.display='none'">
+    <img class="wlayer" src="images/wald/wald-3.jpg" alt="" onerror="this.style.display='none'">
+    <img class="wlayer" src="images/wald/wald-4.jpg" alt="" onerror="this.style.display='none'">
+    <img class="wlayer" src="images/wald/wald-5.jpg" alt="Dein Wald" onerror="this.style.display='none'">
+    <div class="rangchip" id="rangchip"></div>
+    <div class="zaehler" id="zaehler"></div>
+  </div>
+  <div class="fbalken"><div id="fbar"></div></div>
+  <p class="naechster" id="naechster"></p>
+
+  <!-- Stationen -->
+  <h2 class="abschnitt">Deine Stationen</h2>
+  <div class="stationen" id="stationen"></div>
+  <div id="meisterbox"></div>
+
+  <!-- Abzeichen -->
+  <h2 class="abschnitt">Abzeichen-Album</h2>
+  <div class="album" id="album"></div>
+
+  <p class="hinweis" id="hinweis"></p>
+
+  <footer>
+    Fortschritt wird auf diesem Gerät gespeichert.<br>
+    © 2026 <a href="ueber/">Michael Baur</a> · Bio Mibaso
+  </footer>
+</div>
+
+<div class="regen" id="regen"></div>
+<div class="toast" id="toast"></div>
+<div class="feier" id="feier">
+  <div class="feierkarte">
+    <div class="fmed" id="feierMed">🏅</div>
+    <h3 id="feierTitel">Neuer Rang!</h3>
+    <p class="fsub" id="feierSub"></p>
+    <button id="feierBtn">Weiter</button>
+  </div>
+</div>
+
+<div class="urkunde-overlay" id="urkunde">
+  <div class="urkunde">
+    <div class="rahmen">
+      <div class="urk-eyebrow">Expedition Wald · Forscherpass</div>
+      <div class="urk-med" id="urkMed">🏅</div>
+      <div class="urk-titel">Urkunde</div>
+      <div class="urk-sub" id="urkSub"></div>
+      <div class="urk-satz">Diese Urkunde bestätigt, dass</div>
+      <input class="urk-name" id="urkName" placeholder="Dein Name" aria-label="Dein Name">
+      <div class="urk-satz" id="urkSatz2"></div>
+      <div class="urk-tabelle" id="urkTab"></div>
+      <div class="urk-summe" id="urkSumme"></div>
+      <div class="urk-album" id="urkAlbum"></div>
+      <div class="urk-fuss"><span id="urkDatum"></span><span>Flora Mibaso</span></div>
+    </div>
+    <div class="urk-btns">
+      <button class="druck" id="urkPdf">🖨️ Drucken / PDF</button>
+      <button class="zu" id="urkZu">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===========================================================================
+   Datenquelle = derselbe localStorage wie der bestehende Forscherpass (Flora).
+=========================================================================== */
+const KEY="mibaso.flora.wald";
+const SEEN="mibaso.flora.wald.seen";
+
+const PFADE = [
+  { id:"stockwerke",   titel:"Stockwerke des Waldes",             kurz:"Baum-, Strauch-, Kraut- und Moosschicht", datei:"interaktiv/wald-stockwerke.html",   em:"🌳", mot:"🌳" },
+  { id:"rennen",       titel:"Das große Rennen ums Licht",        kurz:"Warum Frühblüher so früh dran sind",       datei:"interaktiv/wald-rennen.html",       em:"☀️", mot:"☀️", fliegt:true },
+  { id:"erkennen",     titel:"Waldpflanzen erkennen",             kurz:"Buschwindröschen, Waldmeister & Co.",      datei:"interaktiv/wald-erkennen.html",     em:"🔍", mot:"🌿" },
+  { id:"fruehblueher", titel:"Das geheime Leben der Frühblüher",  kurz:"Was tief unter der Erde passiert",         datei:"interaktiv/wald-fruehblueher.html", em:"🧅", mot:"🌱" },
+  { id:"eindringlinge",titel:"Wenn Gäste zu Eindringlingen werden",kurz:"Invasive Arten wie das Springkraut",      datei:"interaktiv/wald-invasive.html",     em:"⚠️", mot:"💥", fliegt:true },
+  { id:"nutzen",       titel:"Warum wir den Wald brauchen",       kurz:"Was der Wald für uns alle leistet",        datei:"interaktiv/wald-nutzen.html",       em:"🌍", mot:"🌍" }
+];
+const MAX_BL = PFADE.length*3;   // 18 Blätter maximal (6 Stationen)
+
+const RAENGE = [
+  { ab:0,  name:"Frisch gesät",   med:"🌱" },
+  { ab:1,  name:"Wald-Neuling",   med:"🌿" },
+  { ab:6,  name:"Wald-Kenner",    med:"🍄" },
+  { ab:11, name:"Wald-Forscher",  med:"🌲" },
+  { ab:16, name:"Wald-Meister",   med:"🏅" }
+];
+function rangIndex(bl){ let i=0; RAENGE.forEach((x,k)=>{ if(bl>=x.ab) i=k; }); return i; }
+function naechsterRang(bl){ return RAENGE.find(x=>x.ab>bl)||null; }
+
+const ABZEICHEN = [
+  { id:"start",   em:"🌱", name:"Erster Schritt",    pruef:(d,h)=>h.fertige>=1 },
+  { id:"drei",    em:"🍄", name:"Fleißig",           pruef:(d,h)=>h.fertige>=3 },
+  { id:"treffer", em:"🎯", name:"Volltreffer",       pruef:(d,h)=>h.maxEines===3 },
+  { id:"serie",   em:"🔥", name:"Blatt-Serie",       pruef:(d,h)=>h.dreier>=3 },
+  { id:"stock",   em:"🌳", name:"Stockwerk-Kenner",  pruef:(d)=>d.stockwerke&&d.stockwerke.done },
+  { id:"fruehbl", em:"🌸", name:"Frühblüher-Freund", pruef:(d)=>d.fruehblueher&&d.fruehblueher.done },
+  { id:"hueter",  em:"🛡️", name:"Wald-Hüter",        pruef:(d)=>d.nutzen&&d.nutzen.done },
+  { id:"meister", em:"🏅", name:"Wald-Meister",      pruef:(d,h)=>h.fertige>=PFADE.length },
+  { id:"perfekt", em:"🌟", name:"Grüner Wald",       pruef:(d,h)=>h.summe>=MAX_BL }
+];
+
+function laden(){ try{ return JSON.parse(localStorage.getItem(KEY)||"{}"); }catch(e){ return {}; } }
+function ladenSeen(){ try{ return JSON.parse(localStorage.getItem(SEEN)||"null"); }catch(e){ return null; } }
+
+function kennzahlen(daten){
+  let summe=0, fertige=0, maxEines=0, dreier=0;
+  PFADE.forEach(p=>{ const e=daten[p.id]; if(e&&e.done){ const b=e.blaetter||0;
+    summe+=b; fertige++; if(b>maxEines)maxEines=b; if(b>=3)dreier++; } });
+  return {summe,fertige,maxEines,dreier};
+}
+
+function blatterHTML(n){
+  let s=""; for(let k=0;k<3;k++) s+= k<n ? "🍃" : '<span class="leer">🍃</span>'; return s;
+}
+
+/* ---- Wald als Foto-Reihe: blendet je nach Fortschritt von Stufe 1 (karg) bis
+   Stufe 5 (volle Blüte) über. Nutzt die Bilder images/wald/wald-1..5.jpg ---- */
+function zeichneWald(daten,h){
+  const layers=document.querySelectorAll(".wlayer");
+  if(!layers.length) return;
+  const N=layers.length;                         // 5 Stufen
+  const grad=Math.max(0,Math.min(1, h.summe/MAX_BL));
+  const pos=grad*(N-1);                           // 0 … 4
+  const lo=Math.floor(pos), hi=Math.ceil(pos), frac=pos-lo;
+  layers.forEach((el,i)=>{
+    let op=0;
+    if(i===lo) op=1;                              // untere Stufe voll sichtbar
+    if(i===hi) op=(lo===hi)?1:frac;               // nächste Stufe eingeblendet
+    el.style.opacity=op;
+  });
+}
+
+/* ---- Rendern ---- */
+function render(){
+  const daten=laden();
+  const h=kennzahlen(daten);
+
+  zeichneWald(daten,h);
+
+  const ri=rangIndex(h.summe), rang=RAENGE[ri], naechst=naechsterRang(h.summe);
+  document.getElementById("rangchip").innerHTML =
+    '<span class="med">'+rang.med+'</span><span class="rtxt">Rang<b>'+rang.name+'</b></span>';
+  document.getElementById("zaehler").innerHTML = h.summe+' / '+MAX_BL+' 🍃';
+  requestAnimationFrame(()=>{ document.getElementById("fbar").style.width=(h.summe/MAX_BL*100)+"%"; });
+  const fehlt = naechst?(naechst.ab-h.summe):0;
+  document.getElementById("naechster").innerHTML = naechst
+    ? 'Noch <b>'+fehlt+(fehlt===1?' Blatt':' Blätter')+'</b> bis zum Rang „'+naechst.name+'“'
+    : 'Höchster Rang erreicht — Wald-Meister! 🎉';
+
+  const cont=document.getElementById("stationen");
+  cont.innerHTML="";
+  const seen = ladenSeen();
+  PFADE.forEach((p,idx)=>{
+    const e=daten[p.id];
+    const done=!!(e&&e.done);
+    const bl=done?(e.blaetter||0):0;
+    const vorErledigt = idx===0 || !!(daten[PFADE[idx-1].id]&&daten[PFADE[idx-1].id].done);
+    const offen = done || vorErledigt;
+    let neu=false;
+    if(seen && offen && !done){
+      const vorherOffen = idx===0 || (seen[PFADE[idx-1].id]&&seen[PFADE[idx-1].id].done);
+      if(!vorherOffen) neu=true;
+    }
+    const el=document.createElement(offen?"a":"div");
+    el.className="station"+(done?" fertig":(offen?" aktiv":" gesperrt"));
+    if(offen) el.href=p.datei;
+    let rechts;
+    if(!offen){
+      rechts='<span class="stand"><span class="schloss">🔒 gesperrt</span></span>';
+    }else{
+      rechts='<span class="stand"><span class="blaetter">'+blatterHTML(bl)+'</span>'+
+             '<span class="status">'+(done?"Geschafft":"Jetzt dran")+'</span></span>'+
+             '<span class="pf">›</span>';
+    }
+    el.innerHTML=
+      '<span class="stnr">'+(offen?p.em:"🔒")+'</span>'+
+      '<span class="txt"><span class="stt">'+p.titel+(neu?'<span class="badge-neu">NEU</span>':'')+'</span>'+
+        '<span class="stb">'+(offen?p.kurz:"Schließe zuerst die Station davor ab")+'</span></span>'+
+      rechts;
+    cont.appendChild(el);
+  });
+
+  const alleFertig = h.fertige>=PFADE.length;
+  const mb=document.getElementById("meisterbox");
+  mb.innerHTML = alleFertig
+    ? '<div class="meister"><span class="mi">🏅</span><span class="mt"><b>Meister-Urkunde</b>'
+      +'<span>Alle Stationen geschafft — hol dir deine Urkunde!</span></span>'
+      +'<button id="urkundeBtn">Öffnen</button></div>'
+    : '<div class="meister gesperrt"><span class="mi">🔒</span><span class="mt"><b>Meister-Urkunde</b>'
+      +'<span>Schließe alle '+PFADE.length+' Stationen ab, um sie freizuschalten ('+h.fertige+'/'+PFADE.length+').</span></span></div>';
+  if(alleFertig){
+    document.getElementById("urkundeBtn").addEventListener("click",zeigeUrkunde);
+  }
+
+  const alb=document.getElementById("album");
+  alb.innerHTML="";
+  ABZEICHEN.forEach(a=>{
+    const hat=a.pruef(daten,h);
+    const d=document.createElement("div");
+    d.className="abz"+(hat?" hat":"");
+    d.innerHTML='<span class="ai">'+a.em+'</span><span class="an">'+a.name+'</span>';
+    alb.appendChild(d);
+  });
+
+  const hin=document.getElementById("hinweis");
+  hin.innerHTML = alleFertig
+    ? "Alle Pfade geschafft! Verbessere deine Blätter (🍃🍃🍃) für den perfekten Wald."
+    : "Tipp: In jedem Pfad gibt es bis zu 🍃🍃🍃 — je besser, desto voller wird dein Wald.";
+  hin.innerHTML += '<br><button class="reset" id="resetBtn">Fortschritt zurücksetzen</button>';
+  document.getElementById("resetBtn").addEventListener("click",()=>{
+    if(confirm("Deinen gesammelten Fortschritt auf diesem Gerät wirklich löschen?")){
+      try{ localStorage.removeItem(KEY); localStorage.removeItem(SEEN);}catch(e){}
+      render();
+    }
+  });
+
+  melde();
+  return {daten,h};
+}
+
+/* ---- Belohnungen beim Zurückkommen ---- */
+function belohnungenPruefen(daten,h){
+  const seen=ladenSeen();
+  const seenH = seen ? kennzahlen(seen) : {summe:0,fertige:0};
+  const gewonnen = h.summe - seenH.summe;
+  const rangVor = rangIndex(seenH.summe), rangNun = rangIndex(h.summe);
+
+  if(seen && rangNun>rangVor){
+    blaetterRegen(28);
+    zeigeFeier(RAENGE[rangNun].med, "Neuer Rang: "+RAENGE[rangNun].name+"!",
+      "Weiter so — dein Wald wächst.");
+  } else if(gewonnen>0){
+    blaetterRegen(16);
+    toast("+"+gewonnen+" 🍃 gesammelt!");
+  }
+  try{ localStorage.setItem(SEEN, JSON.stringify(daten)); }catch(e){}
+}
+
+function blaetterRegen(n){
+  if(matchMedia("(prefers-reduced-motion:reduce)").matches) return;
+  const r=document.getElementById("regen");
+  const bl=["🍃","🍂","🌿","🌸"];
+  for(let i=0;i<n;i++){
+    const s=document.createElement("span");
+    s.textContent=bl[i%bl.length];
+    s.style.left=Math.random()*100+"vw";
+    s.style.fontSize=(16+Math.random()*16)+"px";
+    s.style.animationDuration=(2.6+Math.random()*2.4)+"s";
+    s.style.animationDelay=(Math.random()*0.8)+"s";
+    r.appendChild(s);
+    setTimeout(()=>s.remove(),6000);
+  }
+}
+function toast(txt){
+  const t=document.getElementById("toast"); t.textContent=txt; t.classList.add("an");
+  setTimeout(()=>t.classList.remove("an"),2600);
+}
+function zeigeFeier(med,titel,sub){
+  document.getElementById("feierMed").textContent=med;
+  document.getElementById("feierTitel").textContent=titel;
+  document.getElementById("feierSub").textContent=sub;
+  document.getElementById("feier").classList.add("an");
+  blaetterRegen(22);
+}
+document.getElementById("feierBtn").addEventListener("click",()=>{
+  document.getElementById("feier").classList.remove("an");
+});
+
+/* ---- Meister-Urkunde mit Ergebnis-Aufschlüsselung (druckbar) ---- */
+const NAMEKEY="mibaso.flora.wald.name";
+function urkBlatt(n){ let s=""; for(let k=0;k<3;k++) s+= k<n ? "🍃" : '<span class="leer">🍃</span>'; return s; }
+function zeigeUrkunde(){
+  const daten=laden(), h=kennzahlen(daten);
+  const rang=RAENGE[rangIndex(h.summe)];
+  document.getElementById("urkMed").textContent=rang.med;
+  document.getElementById("urkSub").textContent="Rang: "+rang.name;
+  document.getElementById("urkSatz2").textContent="alle "+PFADE.length+" Stationen der Expedition Wald gemeistert hat.";
+  const nameEl=document.getElementById("urkName");
+  try{ nameEl.value=localStorage.getItem(NAMEKEY)||""; }catch(e){}
+  let rows="";
+  PFADE.forEach(p=>{
+    const e=daten[p.id]; const bl=(e&&e.done)?(e.blaetter||0):0;
+    rows+='<div class="urk-zeile"><span class="un">'+p.titel+'</span><span class="ub">'+urkBlatt(bl)+'</span></div>';
+  });
+  document.getElementById("urkTab").innerHTML=rows;
+  document.getElementById("urkSumme").innerHTML='<span>Gesammelt</span><span>'+h.summe+' / '+MAX_BL+' 🍃</span>';
+  const abz = ABZEICHEN.map(a=>{
+    const hat=a.pruef(daten,h);
+    return '<div class="urk-abz'+(hat?" hat":"")+'"><span class="ue">'+a.em+'</span>'+
+           '<span class="un2">'+a.name+'</span></div>';
+  }).join("");
+  const anzahl = ABZEICHEN.filter(a=>a.pruef(daten,h)).length;
+  document.getElementById("urkAlbum").innerHTML=
+    '<p class="urk-album-titel">Abzeichen-Album · '+anzahl+' / '+ABZEICHEN.length+'</p>'+
+    '<div class="urk-abzeichen">'+abz+'</div>';
+  document.getElementById("urkDatum").textContent=new Date().toLocaleDateString('de-DE',{day:'2-digit',month:'long',year:'numeric'});
+  document.getElementById("urkunde").classList.add("an");
+}
+document.getElementById("urkName").addEventListener("input",e=>{ try{ localStorage.setItem(NAMEKEY, e.target.value); }catch(_){} });
+document.getElementById("urkZu").addEventListener("click",()=>document.getElementById("urkunde").classList.remove("an"));
+/* ---- Urkunde drucken / als PDF (Browser-Druck, farbtreu) ----
+   Blendet alles außer der Urkunde aus (CSS @media print), öffnet den Druckdialog.
+   Dort „Drucken" oder „Als PDF speichern". So bleiben die Farben exakt wie am Bildschirm. */
+function druckeUrkunde(){ document.body.classList.add("drucken"); window.print(); }
+document.getElementById("urkPdf").addEventListener("click",druckeUrkunde);
+window.addEventListener("afterprint",function(){ document.body.classList.remove("drucken"); });
+
+/* iframe-Höhe melden (WordPress-Einbindung) */
+function melde(){ if(window.parent!==window){ try{ window.parent.postMessage({flora:"height", height:document.body.scrollHeight}, "*"); }catch(e){} } }
+if("ResizeObserver" in window){ new ResizeObserver(melde).observe(document.body); }
+window.addEventListener("load", melde);
+
+let ersterLauf=true;
+function durchlauf(){
+  const {daten,h}=render();
+  belohnungenPruefen(daten,h);
+}
+window.addEventListener("pageshow", ()=>{ if(!ersterLauf) durchlauf(); });
+durchlauf();
+ersterLauf=false;
+</script>
+<script src="assets/app.js" defer></script>
+</body>
+</html>
