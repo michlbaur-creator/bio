@@ -232,6 +232,19 @@ def rewrite_links(txt):
                  '', txt)
     return txt
 
+def fauna_extern(txt):
+    # Bestimmen-Werkzeuge (Stammbaum, Schlüssel, Systematik) zeigen Foto-Galerien der
+    # Arten – die Lehrtafeln UND Artseiten gibt es in bio bewusst nicht. Statt sie zu
+    # kopieren, die Galerie auf die Fauna-App umbiegen: Bilder laden von fauna.mibaso.de,
+    # ein Tipp auf eine Tafel öffnet die Artseite dort (neuer Tab). bio bleibt schlank.
+    txt = txt.replace('../images/tafeln/', 'https://fauna.mibaso.de/images/tafeln/')
+    txt = txt.replace('../arten/', 'https://fauna.mibaso.de/arten/')
+    txt = txt.replace('<a class="gal-item" href="', '<a class="gal-item" target="_blank" rel="noopener" href="')
+    txt = txt.replace('<a class="artlink" href="', '<a class="artlink" target="_blank" rel="noopener" href="')
+    txt = txt.replace('· Tafel antippen', '· Tafel antippen (öffnet Fauna-App ↗)')
+    return txt
+FAUNA_EXTERN = {"stammbaum.html", "schluessel.html", "systematik.html"}
+
 def copytree(src, dst):
     if os.path.isdir(src):
         shutil.copytree(src, dst, dirs_exist_ok=True)
@@ -292,7 +305,9 @@ def build():
                     shutil.copy2(s, d); total_imgs += 1
 
             # Pfad-HTML mit umgebogenen Rücklinks schreiben
-            open(os.path.join(dst, "interaktiv", fn), "w", encoding="utf-8").write(rewrite_links(raw))
+            _out = rewrite_links(raw)
+            if fn in FAUNA_EXTERN: _out = fauna_extern(_out)
+            open(os.path.join(dst, "interaktiv", fn), "w", encoding="utf-8").write(_out)
 
             if fn not in SKIP_LISTING:
                 m = TITLE_RE.search(raw)
