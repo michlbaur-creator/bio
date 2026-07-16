@@ -309,35 +309,36 @@ const KEY="mibaso.flora.wald";
 const SEEN="mibaso.flora.wald.seen";
 
 const PFADE = [
-  { id:"stockwerke",   titel:"Stockwerke des Waldes",             kurz:"Baum-, Strauch-, Kraut- und Moosschicht", datei:"interaktiv/wald-stockwerke.html",   em:"🌳", mot:"🌳" },
-  { id:"rennen",       titel:"Das große Rennen ums Licht",        kurz:"Warum Frühblüher so früh dran sind",       datei:"interaktiv/wald-rennen.html",       em:"☀️", mot:"☀️", fliegt:true },
-  { id:"erkennen",     titel:"Waldpflanzen erkennen",             kurz:"Buschwindröschen, Waldmeister & Co.",      datei:"interaktiv/wald-erkennen.html",     em:"🔍", mot:"🌿" },
-  { id:"fruehblueher", titel:"Das geheime Leben der Frühblüher",  kurz:"Was tief unter der Erde passiert",         datei:"interaktiv/wald-fruehblueher.html", em:"🧅", mot:"🌱" },
-  { id:"eindringlinge",titel:"Wenn Gäste zu Eindringlingen werden",kurz:"Invasive Arten wie das Springkraut",      datei:"interaktiv/wald-invasive.html",     em:"⚠️", mot:"💥", fliegt:true },
-  { id:"nutzen",       titel:"Warum wir den Wald brauchen",       kurz:"Was der Wald für uns alle leistet",        datei:"interaktiv/wald-nutzen.html",       em:"🌍", mot:"🌍" }
+  { id:"stockwerke",   titel:"Stockwerke des Waldes",             kurz:"Baum-, Strauch-, Kraut- und Moosschicht",              datei:"interaktiv/wald-stockwerke.html",   em:"🌳", mot:"🌳" },
+  { id:"jahreslauf",   titel:"Wald im Jahreslauf",                kurz:"Der Wald durch die vier Jahreszeiten",                 datei:"interaktiv/wald-jahreslauf.html",   em:"🍂", mot:"🍂" },
+  { id:"fruehblueher", titel:"Frühblüher",                        kurz:"Das große Rennen ums Licht – über und unter der Erde", datei:"interaktiv/wald-fruehblueher.html", em:"🌸", mot:"🌸", fliegt:true },
+  { id:"waldboden",    titel:"Waldboden – die Recyclinganlage",   kurz:"Vom Laub zum Humus: Zersetzer bei der Arbeit",         datei:"interaktiv/wald-waldboden.html",    em:"🪱", mot:"🍄" },
+  { id:"erkennen",     titel:"Waldpflanzen erkennen",             kurz:"Buschwindröschen, Waldmeister & Co.",                  datei:"interaktiv/wald-erkennen.html",     em:"🔍", mot:"🌿", bald:true },
+  { id:"eindringlinge",titel:"Wenn Gäste zu Eindringlingen werden",kurz:"Invasive Arten wie das Springkraut",                  datei:"interaktiv/wald-invasive.html",     em:"⚠️", mot:"💥", bald:true },
+  { id:"nutzen",       titel:"Warum wir den Wald brauchen",       kurz:"Was der Wald für uns alle leistet",                    datei:"interaktiv/wald-nutzen.html",       em:"🌍", mot:"🌍", bald:true }
 ];
 const MAX_BL = PFADE.length*3;   // 18 Blätter maximal (6 Stationen)
 
 const RAENGE = [
   { ab:0,  name:"Frisch gesät",   med:"🌱" },
   { ab:1,  name:"Wald-Neuling",   med:"🌿" },
-  { ab:6,  name:"Wald-Kenner",    med:"🍄" },
-  { ab:11, name:"Wald-Forscher",  med:"🌲" },
-  { ab:16, name:"Wald-Meister",   med:"🏅" }
+  { ab:7,  name:"Wald-Kenner",    med:"🍄" },
+  { ab:13, name:"Wald-Forscher",  med:"🌲" },
+  { ab:19, name:"Wald-Meister",   med:"🏅" }
 ];
 function rangIndex(bl){ let i=0; RAENGE.forEach((x,k)=>{ if(bl>=x.ab) i=k; }); return i; }
 function naechsterRang(bl){ return RAENGE.find(x=>x.ab>bl)||null; }
 
 const ABZEICHEN = [
-  { id:"start",   em:"🌱", name:"Erster Schritt",    pruef:(d,h)=>h.fertige>=1 },
-  { id:"drei",    em:"🍄", name:"Fleißig",           pruef:(d,h)=>h.fertige>=3 },
-  { id:"treffer", em:"🎯", name:"Volltreffer",       pruef:(d,h)=>h.maxEines===3 },
-  { id:"serie",   em:"🔥", name:"Blatt-Serie",       pruef:(d,h)=>h.dreier>=3 },
-  { id:"stock",   em:"🌳", name:"Stockwerk-Kenner",  pruef:(d)=>d.stockwerke&&d.stockwerke.done },
-  { id:"fruehbl", em:"🌸", name:"Frühblüher-Freund", pruef:(d)=>d.fruehblueher&&d.fruehblueher.done },
-  { id:"hueter",  em:"🛡️", name:"Wald-Hüter",        pruef:(d)=>d.nutzen&&d.nutzen.done },
-  { id:"meister", em:"🏅", name:"Wald-Meister",      pruef:(d,h)=>h.fertige>=PFADE.length },
-  { id:"perfekt", em:"🌟", name:"Grüner Wald",       pruef:(d,h)=>h.summe>=MAX_BL }
+  { id:"start",   em:"🌱", name:"Erster Schritt",      pruef:(d,h)=>h.fertige>=1 },
+  { id:"drei",    em:"🍄", name:"Fleißig",             pruef:(d,h)=>h.fertige>=3 },
+  { id:"treffer", em:"🎯", name:"Volltreffer",         pruef:(d,h)=>h.maxEines===3 },
+  { id:"serie",   em:"🔥", name:"Blatt-Serie",         pruef:(d,h)=>h.dreier>=3 },
+  { id:"jahr",    em:"🍂", name:"Jahreszeiten-Kenner", pruef:(d)=>d.jahreslauf&&d.jahreslauf.done },
+  { id:"fruehbl", em:"🌸", name:"Frühblüher-Freund",   pruef:(d)=>d.fruehblueher&&d.fruehblueher.done },
+  { id:"boden",   em:"🪱", name:"Boden-Detektiv",      pruef:(d)=>d.waldboden&&d.waldboden.done },
+  { id:"meister", em:"🏅", name:"Wald-Meister",        pruef:(d,h)=>h.fertige>=PFADE.length },
+  { id:"perfekt", em:"🌟", name:"Grüner Wald",         pruef:(d,h)=>h.summe>=MAX_BL }
 ];
 
 function laden(){ try{ return JSON.parse(localStorage.getItem(KEY)||"{}"); }catch(e){ return {}; } }
@@ -395,28 +396,29 @@ function render(){
     const e=daten[p.id];
     const done=!!(e&&e.done);
     const bl=done?(e.blaetter||0):0;
+    const bald = !!p.bald && !done;
     const vorErledigt = idx===0 || !!(daten[PFADE[idx-1].id]&&daten[PFADE[idx-1].id].done);
-    const offen = done || vorErledigt;
+    const offen = !bald && (done || vorErledigt);
     let neu=false;
     if(seen && offen && !done){
       const vorherOffen = idx===0 || (seen[PFADE[idx-1].id]&&seen[PFADE[idx-1].id].done);
       if(!vorherOffen) neu=true;
     }
     const el=document.createElement(offen?"a":"div");
-    el.className="station"+(done?" fertig":(offen?" aktiv":" gesperrt"));
+    el.className="station"+(done?" fertig":(offen?" aktiv":(bald?" gesperrt bald":" gesperrt")));
     if(offen) el.href=p.datei;
     let rechts;
     if(!offen){
-      rechts='<span class="stand"><span class="schloss">🔒 gesperrt</span></span>';
+      rechts='<span class="stand"><span class="schloss">'+(bald?'🚧 in Arbeit':'🔒 gesperrt')+'</span></span>';
     }else{
       rechts='<span class="stand"><span class="blaetter">'+blatterHTML(bl)+'</span>'+
              '<span class="status">'+(done?"Geschafft":"Jetzt dran")+'</span></span>'+
              '<span class="pf">›</span>';
     }
     el.innerHTML=
-      '<span class="stnr">'+(offen?p.em:"🔒")+'</span>'+
+      '<span class="stnr">'+(offen?p.em:(bald?"🚧":"🔒"))+'</span>'+
       '<span class="txt"><span class="stt">'+p.titel+(neu?'<span class="badge-neu">NEU</span>':'')+'</span>'+
-        '<span class="stb">'+(offen?p.kurz:"Schließe zuerst die Station davor ab")+'</span></span>'+
+        '<span class="stb">'+(offen?p.kurz:(bald?"Diese Station wird gerade gebaut":"Schließe zuerst die Station davor ab"))+'</span></span>'+
       rechts;
     cont.appendChild(el);
   });

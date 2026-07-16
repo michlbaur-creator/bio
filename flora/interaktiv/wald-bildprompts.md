@@ -46,7 +46,40 @@ später an dein Bild.)
 
 ---
 
-## 3. Für spätere Stationen schon vorhanden (Echtfotos wiederverwendbar)
+## 3. Station „Frühblüher" (Rennen ums Licht + unter der Erde)
+
+| Datei | Motiv-Prompt |
+| --- | --- |
+| `wald/fruehblueher-intro.jpg` | Frühlingswald von oben nach unten, weiß-gelber Frühblüher-Teppich am Boden, Lichtstrahlen durch noch kahle Bäume. Querformat 16:10. |
+| `wald/fruehblueher-maerz.jpg` | Waldboden im März: oben **kahle Baumkronen**, am Boden Buschwindröschen (weiß), Scharbockskraut (gelb) und Bärlauch. Ohne Beschriftung. Hoch-/Quadratformat. Punkte sitzen bei ca. 12 % (Kronen), 52 % (Buschwindröschen), 60 % (Scharbockskraut), 86 % (Bärlauch). |
+| `wald/speicher-zwiebel.jpg` | Eine Zwiebel im Querschnitt (sichtbare Schichten) unter der Erde, kindgerechte Illustration. |
+| `wald/speicher-knolle.jpg` | Eine dicke Knolle unter der Erde mit kleinem Austrieb. |
+| `wald/speicher-rhizom.jpg` | Ein waagerechtes Rhizom (Wurzelstock) knapp unter der Erde, aus dem mehrere Triebe nach oben wachsen. |
+
+## 4. Station „Wald im Jahreslauf" (die schöne Bildserie)
+
+**Am besten derselbe Waldort viermal** – nur die Jahreszeit ändern, dann passt die Serie zusammen.
+
+| Datei | Motiv-Prompt |
+| --- | --- |
+| `wald/jahreslauf-intro.jpg` | Stimmungsvoller Waldblick, der Jahreszeiten andeutet. Querformat 16:10. |
+| `wald/jahr-fruehling.jpg` | Derselbe Waldort im Frühling: kahle/austreibende Bäume, Frühblüher-Teppich, zartes Grün. |
+| `wald/jahr-sommer.jpg` | Derselbe Ort im Sommer: dichtes, sattgrünes Kronendach, schattiger Boden. |
+| `wald/jahr-herbst.jpg` | Derselbe Ort im Herbst: buntes Laub, Pilze am Boden, warmes Licht. |
+| `wald/jahr-winter.jpg` | Derselbe Ort im Winter: kahle Bäume, kühles Licht, evtl. etwas Schnee. |
+
+## 5. Station „Waldboden – die Recyclinganlage"
+
+| Datei | Motiv-Prompt |
+| --- | --- |
+| `wald/waldboden-intro.jpg` | Nahaufnahme Waldboden mit Laub, kleinen Pilzen und einem Regenwurm. Querformat 16:10. |
+| `wald/boden-profil.jpg` | **Querschnitt durch den Waldboden**: oben Laubstreu, darunter Pilzfäden, ein Regenwurm, unten Wurzeln/Humus. Kindgerecht, ohne Beschriftung. Hoch-/Quadratformat. Punkte bei ca. 12 % (Laub), 40 % (Pilzgeflecht), 62 % (Regenwurm), 87 % (Wurzeln). |
+| `wald/boden-pilz.jpg` | Pilze auf dem Waldboden oder auf Totholz. |
+| `wald/boden-regenwurm.jpg` | Ein Regenwurm in dunkler Erde zwischen Laub, Makroaufnahme. |
+| `wald/boden-assel.jpg` | Kleine Bodentiere im Laub (Assel, Springschwanz, Tausendfüßer), Makro. |
+| `wald/boden-bakterien.jpg` | Eine Handvoll dunkler Humuserde – oder stilisierte Bakterien unter dem Mikroskop. |
+
+## 6. Für spätere Stationen schon vorhanden (Echtfotos wiederverwendbar)
 
 Diese Waldpflanzen gibt es **bereits als Echtfoto** in `flora/images/fotos/` — für die
 Station „Waldpflanzen erkennen" müssen wir sie nicht neu erzeugen:
