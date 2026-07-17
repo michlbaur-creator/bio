@@ -9,21 +9,31 @@ Dateinamen an — die App funktioniert also auch, bevor alle Bilder da sind.
 
 ---
 
-## 1. Der Forscherpass (wachsender Wald)
+## 1. Der Forscherpass — der wachsende Wald (Bühne oben im Pass)
 
-Fünf Fotos **desselben Waldstücks**, das von Bild zu Bild grüner und dichter wird —
-wie bei der Wiese im Wiesenpass. Querformat, ca. 2,86 : 1 (breiter Streifen).
+Fünf Bilder **derselben Stelle aus demselben Blickwinkel**, die den Wald vom Zapfen bis
+zum dichten Wald wachsen lassen. Der Pass blendet sie je nach Fortschritt ineinander —
+deshalb ist es wichtig, dass Perspektive, Licht und Jahreszeit gleich bleiben und sich
+**nur die Größe/Dichte der Bäume** ändert.
 
-| Datei | Motiv-Prompt |
+**Format:** breiter Panorama-Streifen, Seitenverhältnis **ca. 2,86 : 1** (z. B. 1600 × 560 px),
+fotorealistisch, **ohne Text/Schrift**. Am besten als Serie erzeugen („dieselbe Szene, später").
+
+| Datei | Ausführlicher Prompt |
 | --- | --- |
-| `wald/wald-1.jpg` | Kahler Laubwald im Vorfrühling, graubraune Stämme, noch ohne Laub, wenig Grün am Boden, weiches Morgenlicht. |
-| `wald/wald-2.jpg` | Derselbe Wald, erste Frühblüher am Boden (weiße Buschwindröschen), Knospen an den Zweigen. |
-| `wald/wald-3.jpg` | Derselbe Wald im Frühling, zartes Blattgrün, blühender Boden, Sonnenstrahlen fallen durch. |
-| `wald/wald-4.jpg` | Derselbe Wald im Frühsommer, dichteres Blätterdach, kräftig grün. |
-| `wald/wald-5.jpg` | Derselbe Wald im Hochsommer, volles grünes Kronendach, satter, lebendiger Mischwald. |
+| `wald/wald-1.jpg` | **Stufe 1 – Der Zapfen.** Weite Panorama-Aufnahme (2,86:1) einer sonnigen Waldlichtung. Im Vordergrund liegt auf moosigem Boden ein geöffneter brauner Zapfen mit einigen geflügelten Samen. Ringsum offener, fast kahler Boden, nur vereinzelt Grashalme. Im Hintergrund viel heller Himmel, ganz hinten nur die Andeutung eines Waldrandes. Weiches, warmes Morgenlicht. Fotorealistisch, ohne Text. |
+| `wald/wald-2.jpg` | **Stufe 2 – Keimlinge.** Genau dieselbe Lichtung, gleicher Blickwinkel und gleiches Licht. Jetzt sprießen überall kleine grüne Keimlinge und junge Sämlinge (knöchel- bis kniehoch), teils Nadel-, teils Laubbäumchen. Noch sehr viel offener Himmel. |
+| `wald/wald-3.jpg` | **Stufe 3 – Junge Bäumchen.** Dieselbe Stelle, gleicher Blickwinkel. Aus den Sämlingen sind junge Bäumchen von etwa 2–3 m Höhe geworden, locker verteilt, mit ersten kleinen Kronen. Der Boden ist grüner, etwas Unterwuchs. Der Himmel ist noch zu gut einem Drittel sichtbar. |
+| `wald/wald-4.jpg` | **Stufe 4 – Heranwachsender Wald.** Dieselbe Stelle, gleicher Blickwinkel. Schlanke Bäume stehen dicht an dicht, die Kronen beginnen sich zu berühren, das Blätter-/Nadeldach schließt sich langsam, nur noch wenig Himmel dazwischen. Sattes Grün. |
+| `wald/wald-5.jpg` | **Stufe 5 – Dichter, ausgewachsener Wald.** Dieselbe Stelle, gleicher Blickwinkel. Ein dichter, hoher Mischwald mit geschlossenem grünem Kronendach; schräge Sonnenstrahlen fallen durch das Laub, tiefes, lebendiges Grün. |
 
-Tipp: In ChatGPT dieselbe Szene beschreiben und nur die Jahreszeit/Dichte ändern,
-damit die fünf Bilder zusammenpassen.
+**Wichtig für den Überblend-Effekt:** immer denselben Bildausschnitt/Horizont wählen. Ein
+markanter Punkt (z. B. ein großer Baum oder Felsen am Rand) hilft, damit die Stufen beim
+Ineinanderblenden zusammenpassen.
+
+Wenn die fünf Bilder da sind, lege ich sie als `wald-1.jpg` … `wald-5.jpg` ein (ersetzt die
+bisherige Jahreszeiten-Serie) und setze das Vorschaubild des Wald-Banners auf die reife
+Stufe 5.
 
 ---
 
