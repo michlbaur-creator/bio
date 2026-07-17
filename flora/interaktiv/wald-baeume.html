@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kennst du den Baum? — Lernpfad · Bio Mibaso</title>
+<meta name="description" content="Lernpfad: Elf heimische Bäume an ihren Blättern erkennen – Ahorne, Eichen, Buchen, Esche, Linde und mehr. Mit Foto-Galerie und Tafel-Quiz aus der Broschüre Bäume im Ebsdorfergrund.">
+<meta name="theme-color" content="#2F4F3E">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<style>
+  :root{
+    --gruen:#2F4F3E; --gruen-tief:#243d30; --creme:#F7F3E8; --creme-tief:#EEE7D5;
+    --pergament:#EDE3CC; --tinte:#26312b; --honig:#C28A3A; --honig-tief:#a9762c; --linie:#d8ccb2;
+    --gut:#3E9A5E; --rot:#B5482F; --himmel:#bfe0ec; --himmel-tief:#9cc7d8;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--creme);color:var(--gruen);
+    font-family:Georgia,"Times New Roman",serif;line-height:1.5;padding-top:env(safe-area-inset-top);}
+  .huelle{max-width:640px;margin:0 auto;padding:clamp(10px,3vw,20px) clamp(12px,3.5vw,28px) 48px;}
+
+  /* Kopf */
+  .kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .zurueck{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--gruen);
+    text-decoration:none;display:inline-flex;gap:5px;align-items:center;}
+  .zaehler{font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a938a;}
+  h1{font-size:clamp(22px,5.2vw,31px);line-height:1.06;margin:6px 0 2px;font-weight:normal;}
+
+  /* Schritt-Chips */
+  .chips{display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+    padding:10px 2px 4px;margin:2px -2px 0;scrollbar-width:none;}
+  .chips::-webkit-scrollbar{display:none;}
+  .chip{flex:0 0 auto;display:flex;align-items:center;gap:7px;cursor:pointer;
+    font-family:var(--sans);font-size:12.5px;color:#5f6b60;background:#fff;
+    border:1px solid var(--linie);border-radius:999px;padding:7px 13px 7px 8px;white-space:nowrap;
+    transition:border-color .15s,color .15s,background .15s;}
+  .chip .nr{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;
+    border-radius:50%;background:var(--creme-tief);color:#8a938a;font-weight:700;font-size:11.5px;}
+  .chip.aktiv{background:var(--gruen);color:var(--creme);border-color:var(--gruen);}
+  .chip.aktiv .nr{background:var(--honig);color:#fff;}
+  .chip.fertig:not(.aktiv) .nr{background:#cfe0d2;color:#3e7a55;}
+  .chip.uebung{background:#e7efe9;border-color:#c1d5c6;color:#3a5744;}
+  .chip.uebung .nr{background:#c1d5c6;color:#2b463a;}
+  .chip.uebung.aktiv{background:#3a5744;border-color:#3a5744;color:#fff;}
+  .chip.uebung.aktiv .nr{background:#fff;color:#3a5744;}
+  .chip.quiz{background:var(--honig);border-color:var(--honig);color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(194,138,58,.3);}
+  .chip.quiz .nr{background:#fff;color:var(--honig);}
+  .chip.quiz.aktiv{background:var(--gruen);border-color:var(--gruen);color:#fff;}
+  .chip.quiz.aktiv .nr{background:var(--honig);color:#fff;}
+
+  /* Bühne / Illustration */
+  .buehne{margin-top:10px;}
+  .bildbox{position:relative;width:min(96%,460px);aspect-ratio:2.2/1;max-height:46vh;margin:0 auto;}
+  .bild{position:absolute;inset:0;opacity:0;transition:opacity .5s ease;}
+  .bild.an{opacity:1;}
+  .bild img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    background:var(--pergament);border:1px solid #cdbf9e;border-radius:12px;}
+  .bild img.weg{display:none;}
+  .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:6px;text-align:center;border-radius:12px;padding:14px;
+    background:linear-gradient(170deg,var(--himmel) 0%,var(--himmel-tief) 55%,#cde1c4 100%);}
+  .ph .gl{font-size:40px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));}
+  .ph .l{font-family:var(--sans);font-size:13px;font-weight:600;color:#33524a;}
+  .ph .f{font-family:var(--sans);font-size:10.5px;color:#5d7168;word-break:break-all;}
+
+  /* Hotspots */
+  .hotspot{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;
+    background:var(--honig);color:#fff;border:2px solid #fff;box-shadow:0 2px 7px rgba(47,79,62,.3);
+    font-family:var(--sans);font-weight:700;font-size:14px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;z-index:3;animation:puls 2.4s infinite;}
+  .hotspot.aktiv{background:var(--gruen);animation:none;}
+  @keyframes puls{0%{box-shadow:0 2px 7px rgba(47,79,62,.3),0 0 0 0 rgba(194,138,58,.5);}
+    70%{box-shadow:0 2px 7px rgba(47,79,62,.3),0 0 0 11px rgba(194,138,58,0);}100%{box-shadow:0 2px 7px rgba(47,79,62,.3),0 0 0 0 rgba(194,138,58,0);}}
+
+  /* Sequenz-Steuerung */
+  .seq{margin-top:12px;}
+  .seqkopf{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .playbtn{flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:1px solid var(--gruen);
+    background:var(--gruen);color:var(--creme);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .playbtn:hover{background:var(--gruen-tief);}
+  .stepbtn{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--gruen);
+    background:#fff;color:var(--gruen);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .stepbtn:disabled{opacity:.35;cursor:default;}
+  .stufenlabel{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--gruen);}
+  .stufenlabel small{font-weight:400;color:#8a938a;}
+
+  /* Erklärtext + Infokarte */
+  .erklaer{margin-top:12px;}
+  .erklaer h2{font-size:clamp(18px,5vw,23px);font-weight:normal;margin:0 0 7px;}
+  .erklaer p{font-size:clamp(14.5px,4vw,16.5px);color:var(--tinte);margin:0 0 10px;}
+  .entdeckhint{font-family:var(--sans);font-size:12.5px;color:var(--honig-tief);font-weight:600;margin:4px 0 0;}
+  .infokarte{margin-top:12px;padding:13px 15px;border-radius:0 12px 12px 0;background:var(--creme-tief);
+    border-left:4px solid var(--honig);min-height:30px;}
+  .infokarte.ok{border-left-color:var(--gut);} .infokarte.no{border-left-color:var(--rot);}
+  .infokarte .it{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8a938a;margin:0 0 3px;}
+  .infokarte.ok .it{color:var(--gut);} .infokarte.no .it{color:var(--rot);}
+  .infokarte h3{margin:0 0 4px;font-size:17px;font-weight:normal;}
+  .infokarte p{margin:0;font-size:14.5px;color:var(--tinte);}
+  .infokarte .leer{color:#8a938a;font-style:italic;font-family:var(--sans);font-size:13px;}
+
+  /* Reihenfolge / Sortieren (Drag & Drop + ▲▼) */
+  .sortliste{display:flex;flex-direction:column;gap:8px;margin:4px 0 8px;}
+  .sortcard{display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--linie);
+    border-radius:12px;padding:11px 12px;cursor:grab;transition:border-color .15s,box-shadow .15s,transform .1s;}
+  .sortcard:active{cursor:grabbing;}
+  .sortcard.drag{opacity:.45;border-style:dashed;}
+  .sortcard.ueber{border-color:var(--honig);box-shadow:0 0 0 2px rgba(194,138,58,.25);}
+  .sortcard.ok{background:#eef7f0;border-color:var(--gut);}
+  .sortcard.no{background:#fbefec;border-color:var(--rot);}
+  .sortcard .em{font-size:24px;flex:0 0 auto;}
+  .sortcard .lab{flex:1 1 auto;font-family:var(--sans);font-size:14.5px;color:var(--tinte);}
+  .sortcard .pfeile{display:flex;flex-direction:column;gap:3px;flex:0 0 auto;}
+  .sortcard .pfeile button{width:28px;height:22px;border-radius:6px;border:1px solid var(--linie);
+    background:var(--creme);color:var(--gruen);font-size:12px;cursor:pointer;line-height:1;}
+  .sortcard .pfeile button:disabled{opacity:.3;cursor:default;}
+  .sortcard .griff{flex:0 0 auto;color:#b7c0b7;font-size:17px;cursor:grab;}
+
+  /* Zuordnen-Station (mehrere Optionen je Zeile) */
+  .zuliste{display:flex;flex-direction:column;gap:8px;margin:4px 0 12px;}
+  .zurow{display:flex;flex-direction:column;align-items:stretch;gap:8px;
+    background:#fff;border:1px solid var(--linie);border-radius:12px;padding:10px 12px;}
+  .zuname{font-family:var(--sans);font-size:14.5px;font-weight:600;color:var(--gruen);display:flex;align-items:center;gap:8px;}
+  .zuname .em{font-size:20px;}
+  .zuopt{display:flex;gap:6px;flex-wrap:wrap;width:100%;}
+  .zuopt button{font-family:var(--sans);font-size:11.5px;color:var(--gruen);background:#fff;
+    border:1px solid var(--linie);border-radius:999px;padding:6px 10px;cursor:pointer;transition:.13s;white-space:nowrap;}
+  .zuopt button.sel{background:var(--gruen);color:var(--creme);border-color:var(--gruen);}
+  .zuopt button.ok{background:#e6efe7;border-color:#bcd6c0;color:#2f6a45;}
+  .zuopt button.no{background:#f2e2dd;border-color:#dcc9a8;color:#9a3f2a;}
+
+  /* Gruppen-Karten (aufklappbar) */
+  .gliste{display:grid;grid-template-columns:1fr;gap:9px;margin:4px 0 8px;}
+  @media(min-width:480px){.gliste{grid-template-columns:1fr 1fr;}}
+  .gcard{background:#fff;border:1px solid var(--linie);border-radius:13px;padding:12px 14px;cursor:pointer;transition:border-color .15s,box-shadow .15s;}
+  .gcard:hover{border-color:var(--honig);}
+  .gcard.auf{border-color:var(--gruen);box-shadow:0 3px 12px rgba(47,79,62,.1);}
+  .gcard .gk{display:flex;align-items:center;gap:10px;}
+  .gcard .gsym{font-size:22px;line-height:1;flex:0 0 auto;}
+  .gcard .gname{font-family:var(--sans);font-size:15.5px;font-weight:600;color:var(--gruen);flex:1 1 auto;}
+  .gcard .gpf{color:#b7c0b7;font-family:var(--sans);font-size:16px;}
+  .gcard .gmerk{font-size:14px;color:var(--tinte);margin:8px 0 0;display:none;line-height:1.5;}
+  .gcard.auf .gmerk{display:block;}
+  .gcard .gbild{width:100%;max-width:230px;aspect-ratio:1/1;object-fit:cover;border-radius:9px;
+    border:1px solid #cdbf9e;margin:10px auto 0;display:none;}
+  .gcard.auf .gbild{display:block;}
+  .gcard .gbsp{font-family:var(--sans);font-size:12.5px;color:#6f7b70;margin:6px 0 0;display:none;}
+  .gcard.auf .gbsp{display:block;}
+
+  /* Lückentext */
+  .cloze{font-size:clamp(15.5px,4.2vw,17.5px);line-height:2.1;color:var(--tinte);margin:2px 0 14px;}
+  .slot{display:inline-flex;align-items:center;justify-content:center;min-width:96px;height:32px;
+    padding:0 8px;margin:0 2px;border-bottom:2px dashed #b8a887;background:var(--creme-tief);border-radius:7px 7px 0 0;
+    font-family:var(--sans);font-size:14px;color:#a99a78;cursor:pointer;vertical-align:middle;transition:.13s;}
+  .slot.aktiv{border-bottom-color:var(--honig);box-shadow:0 0 0 2px rgba(194,138,58,.25);}
+  .slot.voll{color:var(--gruen);font-weight:600;background:#eaf1ec;border-bottom-style:solid;}
+  .slot.ok{color:#2f6a45;background:#e6efe7;border-bottom-color:var(--gut);}
+  .slot.no{color:#9a3f2a;background:#f2e2dd;border-bottom-color:var(--rot);}
+  .wortbank{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
+  .wort{font-family:var(--sans);font-size:13.5px;color:var(--gruen);background:#fff;
+    border:1px solid var(--linie);border-radius:999px;padding:8px 13px;cursor:pointer;transition:.13s;}
+  .wort:hover{border-color:var(--honig);}
+  .wort.weg{opacity:.3;pointer-events:none;text-decoration:line-through;}
+
+  .pruefzeile{display:flex;align-items:center;gap:12px;margin-top:6px;}
+  .tally{font-family:var(--sans);font-size:14px;font-weight:700;color:var(--honig-tief);}
+
+  /* Abschluss-Quiz */
+  .qkopf{font-family:var(--sans);font-size:13.5px;color:#6f7b70;border-top:1px solid var(--linie);
+    border-bottom:1px solid var(--linie);padding:9px 0;margin:0 0 12px;}
+  .qkopf b{color:var(--honig);}
+  .qbalken{height:6px;background:var(--creme-tief);border-radius:3px;overflow:hidden;margin:0 0 16px;}
+  .qbalken div{height:100%;width:0;background:var(--honig);transition:width .3s;}
+  .qfrage{font-size:clamp(16.5px,4.5vw,20px);text-align:center;margin:6px 0 16px;}
+  .qwahl{display:flex;flex-direction:column;gap:9px;}
+  .qwahl button{font-family:var(--sans);font-size:15px;color:var(--tinte);text-align:left;
+    background:#fff;border:1.5px solid var(--linie);border-radius:13px;padding:13px 15px;cursor:pointer;transition:.13s;}
+  .qwahl button.ok{background:#e6efe7;border-color:#3E9A5E;color:#2f6a45;}
+  .qwahl button.no{background:#f2e2dd;border-color:#B5482F;color:#9a3f2a;}
+  .qwahl button:disabled{cursor:default;}
+  .bildwahl{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 4px;}
+  .bw-opt{padding:0;border:2px solid var(--linie);border-radius:13px;overflow:hidden;background:#fff;cursor:pointer;aspect-ratio:1/1;transition:.13s;}
+  .bw-opt img{width:100%;height:100%;object-fit:cover;display:block;}
+  .bw-opt:hover{border-color:var(--honig);}
+  .bw-opt.ok{border-color:var(--gut);box-shadow:0 0 0 3px rgba(62,154,94,.3);}
+  .bw-opt.no{border-color:var(--rot);}
+  .bw-opt:disabled{cursor:default;}
+  .qfb{font-family:var(--sans);font-size:14px;margin:14px 0 0;min-height:1.2em;color:var(--tinte);}
+  .qende{text-align:center;padding:6px 0;}
+  .qlabel{font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a938a;margin:0;}
+  .qscore{font-family:Georgia,serif;font-size:clamp(40px,12vw,60px);line-height:1;color:var(--gruen);margin:4px 0;}
+  .qscore small{font-size:.4em;color:#8a938a;}
+  .qspruch{font-size:clamp(16px,4.6vw,19px);margin:8px auto 10px;max-width:32ch;}
+  /* Forscher-Brücke */
+  .bruecke{background:linear-gradient(160deg,#fff8ec,#fdefd4);border:1px solid var(--honig);
+    border-radius:15px;padding:16px 16px 18px;margin:8px 0 4px;text-align:center;}
+  .bruecke p{font-family:var(--sans);font-size:14px;color:#6b5a34;margin:0 0 12px;line-height:1.5;}
+  .bruecke .passbtn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:15px;
+    font-weight:700;color:#fff;background:var(--honig);border:none;border-radius:999px;padding:12px 22px;
+    text-decoration:none;box-shadow:0 3px 12px rgba(194,138,58,.3);}
+
+  .konffeld{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden;}
+  .konf{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;animation:konffall 3.6s linear forwards;}
+  @keyframes konffall{0%{transform:translateY(-14px);opacity:1;}100%{transform:translateY(106vh) rotate(540deg);opacity:.9;}}
+
+  /* Navigation */
+  .nav{display:flex;gap:9px;margin-top:24px;padding-top:16px;border-top:1px solid var(--linie);}
+  .knopf{font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--gruen);background:transparent;
+    border:1px solid var(--gruen);border-radius:999px;padding:10px 16px;cursor:pointer;transition:background .18s,color .18s;}
+  .knopf:hover:not(:disabled){background:var(--gruen);color:var(--creme);}
+  .knopf:disabled{opacity:.38;cursor:default;}
+  .knopf.prim{background:var(--gruen);color:var(--creme);margin-left:auto;}
+  .knopf.prim:hover{background:var(--gruen-tief);color:var(--creme);}
+
+  footer{margin-top:30px;font-family:var(--sans);font-size:12px;color:#8a938a;text-align:center;}
+  footer a{color:inherit;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}.konf{display:none;}}
+
+  /* Einheitliches Pfad-Intro (Expedition Wald) */
+  .pfad-intro{position:fixed;inset:0;z-index:9000;background:var(--creme);display:flex;
+    align-items:center;justify-content:center;padding:26px 20px;overflow-y:auto;transition:opacity .5s ease;}
+  .pfad-intro.weg{opacity:0;visibility:hidden;pointer-events:none;}
+  .pi-inner{max-width:440px;text-align:center;}
+  .pi-foto{width:100%;max-width:360px;aspect-ratio:16/10;object-fit:cover;border-radius:16px;
+    border:1px solid #cdbf9e;box-shadow:0 6px 20px rgba(47,79,62,.18);margin:0 auto 18px;display:block;}
+  .pi-eyebrow{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--honig-tief);margin-bottom:6px;}
+  .pi-titel{font-family:Georgia,serif;font-weight:normal;font-size:clamp(24px,7vw,32px);
+    color:var(--gruen);margin:0 0 10px;line-height:1.1;}
+  .pi-lead{font-family:Georgia,serif;font-size:clamp(15px,4.2vw,17px);color:var(--tinte);
+    margin:0 auto 22px;max-width:34ch;line-height:1.5;}
+  .pi-los{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--creme);background:var(--honig);
+    border:none;border-radius:999px;padding:14px 32px;cursor:pointer;box-shadow:0 3px 12px rgba(194,138,58,.35);
+    transition:transform .15s,background .18s;}
+  .pi-los:hover{background:var(--honig-tief);transform:translateY(-1px);}
+  @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
+</style>
+</head>
+<body>
+<div class="pfad-intro" id="pfadIntro">
+  <div class="pi-inner">
+    <img class="pi-foto" src="../images/wald/baum-bergahorn.jpg" alt="" onerror="this.style.display='none'">
+    <div class="pi-eyebrow">🌳 Bio Mibaso · Lernpfad</div>
+    <h1 class="pi-titel">Kennst du den Baum?</h1>
+    <p class="pi-lead">In der Broschüre „Bäume im Ebsdorfergrund“ stecken wunderschöne Blattfotos. Lern elf heimische Bäume an ihren Blättern kennen – und finde dann im Quiz die richtige Tafel.</p>
+    <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
+  </div>
+</div>
+<div class="huelle">
+  <div class="kopf">
+    <a class="zurueck" href="../waldpass.html">‹ Expedition Wald</a>
+    <span class="zaehler" id="zaehler"></span>
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div class="buehne" id="buehne"></div>
+  <div class="erklaer" id="erklaer"></div>
+
+  <div class="nav">
+    <button class="knopf" id="zurueckBtn">‹ Zurück</button>
+    <button class="knopf prim" id="weiterBtn">Nächster Schritt ›</button>
+  </div>
+
+  <footer><a href="../waldpass.html" style="color:inherit;font-weight:600;">🌳 Expedition Wald</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Bio Mibaso</footer>
+</div>
+
+<script>
+/* ===========================================================================
+   Lernpfad „Auf großer Reise — wie Pflanzensamen die Welt erobern"
+   ►► MASSGEBLICHE FASSUNG – wird direkt hier in bio gepflegt (native, Flora).
+   Mehrere Interaktionstypen wie in den Schwester-Pfaden:
+     typ "tafel"       : Bild + antippbare Hotspots (Beschriften) – Löwenzahn-Flieger
+     typ "gruppen"     : die großen Reisearten als aufklappbare Karten
+     typ "zuordnen"    : jeder Pflanze ihren Reiseweg zuordnen, dann prüfen
+     typ "reihenfolge" : die Reise eines Kirschkerns ordnen (Drag & Drop + ▲▼)
+     typ "luecke"      : Lückentext aus einer Wortbank füllen
+     typ "quiz"        : Abschluss-Quiz → schreibt Blätter in den Forscherpass
+   Bilder gehören nach ../images/wald/. Fehlt eins, zeigt der Platzhalter den
+   erwarteten Dateinamen – die Bilder können später ergänzt werden.
+   Forscherpass-Kontrakt: localStorage["mibaso.flora.wald"].erkennen = {blaetter,done,ts}
+=========================================================================== */
+const BASIS="../images/wald/";
+
+/* Die großen Reisearten (Symbol = Wiedererkennung in Karten) */
+const ARTEN = [
+  {id:"bergahorn",   sym:"🍁", name:"Bergahorn",      bild:{src:"baum-bergahorn.jpg",   label:"Bergahorn"},   merk:"Großes Ahornblatt mit fünf spitzen Lappen und grob gezähntem Rand.",              bsp:"Acer pseudoplatanus"},
+  {id:"feldahorn",   sym:"🍁", name:"Feldahorn",      bild:{src:"baum-feldahorn.jpg",   label:"Feldahorn"},   merk:"Kleines Ahornblatt mit rundlichen, stumpfen Lappen.",                              bsp:"Acer campestre"},
+  {id:"spitzahorn",  sym:"🍁", name:"Spitzahorn",     bild:{src:"baum-spitzahorn.jpg",  label:"Spitzahorn"},  merk:"Ahornblatt mit langen, fein zugespitzten Lappen – daher der Name.",                bsp:"Acer platanoides"},
+  {id:"esche",       sym:"🌿", name:"Gemeine Esche",  bild:{src:"baum-esche.jpg",       label:"Gemeine Esche"},merk:"Gefiedertes Blatt: viele einzelne Blättchen sitzen an einem gemeinsamen Stiel.", bsp:"Fraxinus excelsior"},
+  {id:"rotbuche",    sym:"🌰", name:"Rotbuche",       bild:{src:"baum-rotbuche.jpg",    label:"Rotbuche"},    merk:"Ovales Blatt mit welligem Rand, glänzend – und nicht gezähnt.",                    bsp:"Fagus sylvatica"},
+  {id:"hainbuche",   sym:"🌿", name:"Hainbuche",      bild:{src:"baum-hainbuche.jpg",   label:"Hainbuche"},   merk:"Längliches Blatt mit doppelt gesägtem Rand und vielen deutlichen Rippen.",         bsp:"Carpinus betulus"},
+  {id:"salweide",    sym:"🌿", name:"Salweide",       bild:{src:"baum-salweide.jpg",    label:"Salweide"},    merk:"Breites, rundlich-ovales Blatt, unterseits oft grau-filzig.",                      bsp:"Salix caprea"},
+  {id:"schwarzerle", sym:"🌲", name:"Schwarzerle",    bild:{src:"baum-schwarzerle.jpg", label:"Schwarzerle"}, merk:"Rundliches Blatt mit eingekerbter, stumpfer Spitze – dazu kleine Zäpfchen.",       bsp:"Alnus glutinosa"},
+  {id:"sommerlinde", sym:"💚", name:"Sommerlinde",    bild:{src:"baum-sommerlinde.jpg", label:"Sommerlinde"}, merk:"Herzförmiges Blatt, größer und weicher behaart als bei der Winterlinde.",          bsp:"Tilia platyphyllos"},
+  {id:"stieleiche",  sym:"🌰", name:"Stieleiche",     bild:{src:"baum-stieleiche.jpg",  label:"Stieleiche"},  merk:"Buchtig gelapptes Eichenblatt; die Eicheln sitzen an langen Stielen.",             bsp:"Quercus robur"},
+  {id:"traubeneiche",sym:"🌰", name:"Traubeneiche",   bild:{src:"baum-traubeneiche.jpg",label:"Traubeneiche"},merk:"Eichenblatt mit gleichmäßigeren Lappen; die Eicheln sitzen fast ohne Stiel.",      bsp:"Quercus petraea"}
+];
+
+const SCHRITTE = [
+  /* 1 — Galerie: die Bäume kennenlernen -------------------------------- */
+  { chip:"Bäume kennenlernen", titel:"Elf heimische Bäume",
+    text:"Jeder Baum hat sein eigenes Blatt. Tippe die Karten an, schau dir das Blatt an und lies den Erkennungstipp.",
+    hint:"Tippe eine Karte an, um sie aufzuklappen.",
+    typ:"gruppen"
+  },
+
+  /* 2 — Bildwahl-Quiz: aus 4 Tafeln die richtige ----------------------- */
+  { chip:"Kennst du den Baum?", kat:"quiz", titel:"Kennst du den Baum?",
+    text:"Welche der vier Tafeln zeigt den gesuchten Baum? Tippe sie an.",
+    typ:"bildwahl",
+    ziele:["bergahorn","feldahorn","spitzahorn","esche","rotbuche","hainbuche","salweide","schwarzerle","sommerlinde","stieleiche","traubeneiche"]
+  }
+];
+
+/* ---- Hilfen ---- */
+const $=id=>document.getElementById(id);
+const reduce=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+function misch(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]];}return a;}
+function bildHTML(b,klasse){
+  return '<div class="bild '+(klasse||'')+'">'+
+    '<div class="ph"><span class="gl">'+b.glyph+'</span>'+
+      '<span class="l">'+b.label+'</span><span class="f">images/wald/'+b.src+'</span></div>'+
+    '<img src="'+BASIS+b.src+'" alt="'+b.label+'" onerror="this.classList.add(\'weg\')">'+
+  '</div>';
+}
+
+const elB=$("buehne"), elE=$("erklaer"), elChips=$("chips"), elZaehler=$("zaehler");
+let i=0, stufe=0, timer=null;
+
+function chips(){
+  elChips.innerHTML="";
+  SCHRITTE.forEach((s,k)=>{
+    const c=document.createElement("button");
+    c.className="chip"+(s.kat?" "+s.kat:"")+(k===i?" aktiv":"")+(k<i?" fertig":"");
+    c.innerHTML='<span class="nr">'+(k+1)+'</span>'+s.chip;
+    c.addEventListener("click",()=>geheZu(k));
+    elChips.appendChild(c);
+  });
+  elZaehler.textContent="Schritt "+(i+1)+" / "+SCHRITTE.length;
+}
+
+function render(){
+  stopPlay();
+  const s=SCHRITTE[i];
+  if(s.typ==="gruppen") renderGruppen(s);
+  else if(s.typ==="zuordnen") renderZuordnen(s);
+  else if(s.typ==="reihenfolge") renderReihenfolge(s);
+  else if(s.typ==="luecke") renderLuecke(s);
+  else if(s.typ==="bildwahl") renderBildwahl(s);
+  else if(s.typ==="quiz") renderQuiz(s);
+  else renderTafel(s);
+  $("zurueckBtn").disabled=(i===0);
+  $("weiterBtn").textContent=(i===SCHRITTE.length-1)?"↺ Von vorn":"Nächster Schritt ›";
+  chips(); melde();
+}
+
+/* --- Tafel mit Hotspots (Beschriften) --- */
+function renderTafel(s){
+  let html='<div class="bildbox">'+bildHTML(s.bild,"an");
+  s.hotspots.forEach(h=>{ html+='<button class="hotspot" data-n="'+h.n+'" style="left:'+h.x+'%;top:'+h.y+'%;">'+h.n+'</button>'; });
+  html+='</div>';
+  elB.innerHTML=html;
+  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p>';
+  if(s.hint) e+='<p class="entdeckhint">👇 '+s.hint+'</p>';
+  e+='<div class="infokarte" id="info"><p class="leer">Tippe eine Zahl im Bild an.</p></div>';
+  elE.innerHTML=e;
+  const info=$("info");
+  elB.querySelectorAll(".hotspot").forEach(b=>{
+    b.addEventListener("click",()=>{
+      elB.querySelectorAll(".hotspot").forEach(x=>x.classList.remove("aktiv"));
+      b.classList.add("aktiv");
+      const h=s.hotspots.find(z=>z.n==b.dataset.n);
+      info.className="infokarte";
+      info.innerHTML='<p class="it">Punkt '+h.n+'</p><h3>'+h.titel+'</h3><p>'+h.text+'</p>';
+      info.scrollIntoView({block:"nearest",behavior:reduce?"auto":"smooth"});
+      melde();
+    });
+  });
+}
+
+/* --- Gruppen-Karten (aufklappbar) --- */
+function renderGruppen(s){
+  elB.innerHTML="";
+  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p>';
+  if(s.hint) e+='<p class="entdeckhint">👇 '+s.hint+'</p>';
+  e+='<div class="gliste" id="gliste"></div>';
+  elE.innerHTML=e;
+  const g=$("gliste");
+  ARTEN.forEach(gr=>{
+    const c=document.createElement("div"); c.className="gcard";
+    const foto = gr.bild ? '<img class="gbild" src="'+BASIS+gr.bild.src+'" alt="'+gr.bild.label+'" loading="lazy" onerror="this.style.display=\'none\'">' : '';
+    c.innerHTML='<div class="gk"><span class="gsym">'+gr.sym+'</span>'+
+      '<span class="gname">'+gr.name+'</span><span class="gpf">＋</span></div>'+
+      '<p class="gmerk">'+gr.merk+'</p>'+foto+'<p class="gbsp">'+gr.bsp+'</p>';
+    c.addEventListener("click",()=>{
+      const auf=c.classList.toggle("auf");
+      c.querySelector(".gpf").textContent=auf?"–":"＋";
+      melde();
+    });
+    g.appendChild(c);
+  });
+}
+
+/* --- Zuordnen: Reiseweg zuordnen --- */
+function renderZuordnen(s){
+  elB.innerHTML="";
+  const tiere=misch(s.tiere.slice());
+  const wahl={}; let geprueft=false;
+  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p><div class="zuliste" id="zuliste"></div>'+
+    '<div class="pruefzeile"><button class="knopf prim" id="pruefBtn" style="margin:0;">Prüfen</button>'+
+    '<span class="tally" id="tally"></span></div><div class="infokarte" id="info" style="display:none"></div>';
+  elE.innerHTML=e;
+  const liste=$("zuliste");
+  tiere.forEach((tr,k)=>{
+    const row=document.createElement("div"); row.className="zurow";
+    let opt='<span class="zuopt">';
+    s.optionen.forEach(o=>{ opt+='<button data-w="'+o.w+'">'+o.kurz+'</button>'; });
+    opt+='</span>';
+    row.innerHTML='<span class="zuname"><span class="em">'+tr.em+'</span>'+tr.t+'</span>'+opt;
+    row.querySelectorAll("button").forEach(b=>{
+      b.addEventListener("click",()=>{
+        if(geprueft) return;
+        wahl[k]=b.dataset.w;
+        row.querySelectorAll("button").forEach(x=>x.classList.toggle("sel",x===b));
+        melde();
+      });
+    });
+    liste.appendChild(row);
+  });
+  const pb=$("pruefBtn"), tally=$("tally");
+  pb.addEventListener("click",()=>{
+    if(!geprueft){
+      let r=0; const fehler=[];
+      Array.from(liste.children).forEach((row,k)=>{
+        const richtig=tiere[k].w;
+        row.querySelectorAll("button").forEach(b=>{
+          b.disabled=true;
+          if(b.dataset.w===richtig) b.classList.add("ok");
+          if(wahl[k]===b.dataset.w && wahl[k]!==richtig) b.classList.add("no");
+        });
+        if(wahl[k]===richtig) r++; else fehler.push(tiere[k]);
+      });
+      tally.textContent=r+" / "+tiere.length+" richtig";
+      const info=$("info");
+      if(fehler.length){
+        info.style.display=""; info.className="infokarte no";
+        info.innerHTML='<p class="it">Schau nochmal</p>'+fehler.map(f=>'<p><b>'+f.t+'</b>: '+f.fb+'</p>').join("");
+      } else {
+        info.style.display=""; info.className="infokarte ok";
+        info.innerHTML='<p class="it">Perfekt</p><p>Alle richtig! Du erkennst die Blütenfarben.</p>';
+      }
+      pb.textContent="Nochmal"; geprueft=true;
+    } else { renderZuordnen(s); }
+    melde();
+  });
+}
+
+/* --- Reihenfolge (Drag & Drop + ▲▼) --- */
+function renderReihenfolge(s){
+  elB.innerHTML="";
+  let ordnung=misch(s.karten.map((_,k)=>k));
+  if(ordnung.every((v,k)=>v===k)) ordnung.reverse();
+  let geprueft=false;
+  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p><div class="sortliste" id="sortliste"></div>'+
+    '<div class="pruefzeile"><button class="knopf prim" id="pruefBtn" style="margin:0;">Prüfen</button>'+
+    '<span class="tally" id="tally"></span></div>';
+  elE.innerHTML=e;
+  const liste=$("sortliste");
+
+  function zeichne(){
+    liste.innerHTML="";
+    ordnung.forEach((kartenIdx,pos)=>{
+      const k=s.karten[kartenIdx];
+      const row=document.createElement("div");
+      row.className="sortcard"; row.draggable=!geprueft; row.dataset.pos=pos;
+      row.innerHTML='<span class="em">'+k.em+'</span><span class="lab">'+k.lab+'</span>'+
+        '<span class="pfeile"><button data-d="-1" aria-label="nach oben">▲</button>'+
+        '<button data-d="1" aria-label="nach unten">▼</button></span>'+
+        '<span class="griff" aria-hidden="true">⠿</span>';
+      liste.appendChild(row);
+    });
+    if(geprueft) return;
+    liste.querySelectorAll(".sortcard").forEach(row=>{
+      const pos=+row.dataset.pos;
+      const [up,down]=row.querySelectorAll(".pfeile button");
+      up.disabled=(pos===0); down.disabled=(pos===ordnung.length-1);
+      up.addEventListener("click",()=>{ tausche(pos,pos-1); });
+      down.addEventListener("click",()=>{ tausche(pos,pos+1); });
+      row.addEventListener("dragstart",ev=>{ row.classList.add("drag"); ev.dataTransfer.setData("text/plain",pos); });
+      row.addEventListener("dragend",()=>{ row.classList.remove("drag"); liste.querySelectorAll(".ueber").forEach(x=>x.classList.remove("ueber")); });
+      row.addEventListener("dragover",ev=>{ ev.preventDefault(); row.classList.add("ueber"); });
+      row.addEventListener("dragleave",()=>row.classList.remove("ueber"));
+      row.addEventListener("drop",ev=>{ ev.preventDefault(); const von=+ev.dataTransfer.getData("text/plain"); verschiebe(von,pos); });
+    });
+  }
+  function tausche(a,b){ if(b<0||b>=ordnung.length)return; [ordnung[a],ordnung[b]]=[ordnung[b],ordnung[a]]; zeichne(); melde(); }
+  function verschiebe(von,zu){ if(von===zu)return; const x=ordnung.splice(von,1)[0]; ordnung.splice(zu,0,x); zeichne(); melde(); }
+
+  zeichne();
+  const pb=$("pruefBtn"), tally=$("tally");
+  pb.addEventListener("click",()=>{
+    if(!geprueft){
+      geprueft=true; let r=0;
+      liste.querySelectorAll(".sortcard").forEach((row,pos)=>{
+        row.draggable=false;
+        const richtig=(ordnung[pos]===pos);
+        row.classList.add(richtig?"ok":"no");
+        row.querySelectorAll(".pfeile button").forEach(b=>b.disabled=true);
+        if(richtig) r++;
+      });
+      tally.textContent=r+" / "+ordnung.length+" an der richtigen Stelle";
+      pb.textContent="Nochmal";
+    } else { renderReihenfolge(s); }
+    melde();
+  });
+}
+
+/* --- Lückentext --- */
+function renderLuecke(s){
+  elB.innerHTML="";
+  const slots=[]; let aktiv=-1, geprueft=false;
+  let clz="";
+  s.teile.forEach(t=>{
+    if(t.t!==undefined){ clz+=t.t; }
+    else { const idx=slots.length; slots.push({soll:t.l, ist:null}); clz+='<span class="slot" data-s="'+idx+'">–</span>'; }
+  });
+  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p><p class="cloze" id="cloze">'+clz+'</p>'+
+    '<div class="wortbank" id="bank"></div>'+
+    '<div class="pruefzeile"><button class="knopf prim" id="pruefBtn" style="margin:0;">Prüfen</button>'+
+    '<span class="tally" id="tally"></span></div>';
+  elE.innerHTML=e;
+  const bank=$("bank");
+  misch(s.bank).forEach(w=>{
+    const b=document.createElement("button"); b.className="wort"; b.textContent=w; b.dataset.w=w;
+    b.addEventListener("click",()=>setzeWort(w,b));
+    bank.appendChild(b);
+  });
+  function markiereAktiv(idx){
+    aktiv=idx;
+    elE.querySelectorAll(".slot").forEach(sl=>sl.classList.toggle("aktiv",+sl.dataset.s===idx));
+  }
+  function ersteLeere(){ for(let k=0;k<slots.length;k++) if(!slots[k].ist) return k; return -1; }
+  function setzeWort(w,btn){
+    if(geprueft) return;
+    let ziel = aktiv>=0 && !slots[aktiv].ist ? aktiv : ersteLeere();
+    if(ziel<0){ return; }
+    slots[ziel].ist=w; slots[ziel].btn=btn;
+    btn.classList.add("weg");
+    const sl=elE.querySelector('.slot[data-s="'+ziel+'"]');
+    sl.textContent=w; sl.classList.add("voll"); sl.classList.remove("aktiv");
+    markiereAktiv(ersteLeere());
+    melde();
+  }
+  elE.querySelectorAll(".slot").forEach(sl=>{
+    sl.addEventListener("click",()=>{
+      if(geprueft) return;
+      const idx=+sl.dataset.s;
+      if(slots[idx].ist){  // Wort zurück in die Bank
+        slots[idx].btn.classList.remove("weg");
+        slots[idx].ist=null; slots[idx].btn=null;
+        sl.textContent="–"; sl.classList.remove("voll");
+      }
+      markiereAktiv(idx);
+    });
+  });
+  markiereAktiv(ersteLeere());
+  const pb=$("pruefBtn"), tally=$("tally");
+  pb.addEventListener("click",()=>{
+    if(!geprueft){
+      geprueft=true; let r=0;
+      slots.forEach((sl,idx)=>{
+        const el=elE.querySelector('.slot[data-s="'+idx+'"]');
+        el.classList.remove("voll","aktiv");
+        if(sl.ist===sl.soll){ el.classList.add("ok"); r++; }
+        else { el.classList.add("no"); el.textContent=sl.ist?sl.ist+" → "+sl.soll:sl.soll; }
+      });
+      tally.textContent=r+" / "+slots.length+" richtig";
+      pb.textContent="Nochmal";
+    } else { renderLuecke(s); }
+    melde();
+  });
+}
+
+/* --- Bildwahl-Quiz: aus vier Tafeln die richtige waehlen --- */
+function renderBildwahl(s){
+  const GRUPPE={bergahorn:"ahorn",feldahorn:"ahorn",spitzahorn:"ahorn",stieleiche:"eiche",traubeneiche:"eiche"};
+  const fragen=misch(s.ziele.slice());
+  let q=0, score=0, sperre=false;
+  elB.innerHTML="";
+  function zeige(){
+    sperre=false;
+    const ziel=ARTEN.find(a=>a.id===fragen[q]);
+    const zg=GRUPPE[ziel.id];
+    const pool=misch(ARTEN.filter(a=>a.id!==ziel.id && !(zg&&GRUPPE[a.id]===zg)));
+    const opts=misch([ziel].concat(pool.slice(0,3)));
+    let e='<div class="qkopf">Frage <b>'+(q+1)+'</b> / '+fragen.length+' · ✓ '+score+'</div>'+
+      '<div class="qbalken"><div style="width:'+(q/fragen.length*100)+'%"></div></div>'+
+      '<p class="qfrage">Welche Tafel zeigt: <b>'+ziel.name+'</b>?</p>'+
+      '<div class="bildwahl" id="bw"></div><div class="qfb" id="qfb"></div>';
+    elE.innerHTML=e;
+    const wrap=$("bw"), fb=$("qfb");
+    opts.forEach(o=>{
+      const b=document.createElement("button"); b.className="bw-opt";
+      b.innerHTML='<img src="'+BASIS+o.bild.src+'" alt="Baum-Tafel" onerror="this.style.opacity=.15">';
+      b.addEventListener("click",()=>{
+        if(sperre) return; sperre=true;
+        const richtig=(o.id===ziel.id);
+        Array.from(wrap.children).forEach((x,ix)=>{ x.disabled=true; if(opts[ix].id===ziel.id) x.classList.add("ok"); });
+        if(richtig){ score++; fb.textContent="✓ Richtig – "+ziel.name+"!"; }
+        else{ b.classList.add("no"); fb.textContent="✗ Das war "+o.name+". Gesucht: "+ziel.name+"."; }
+        melde();
+        setTimeout(()=>{ q++; if(q<fragen.length) zeige(); else ende(); }, richtig?2600:4400);
+      });
+      wrap.appendChild(b);
+    });
+    melde();
+  }
+  function ende(){
+    const perfekt=score===fragen.length;
+    const blaetter=perfekt?3:(score>=Math.ceil(fragen.length*0.6)?2:1);
+    try{ const _K="mibaso.flora.wald"; const _d=JSON.parse(localStorage.getItem(_K)||"{}");
+      if(!_d.baeume || blaetter>_d.baeume.blaetter){ _d.baeume={blaetter:blaetter,done:true,ts:Date.now()}; localStorage.setItem(_K,JSON.stringify(_d)); } }catch(e){}
+    const sprueche=perfekt?["Alles richtig – du kennst die Bäume! 🌳","Volltreffer! Ein echter Baum-Kenner."]
+      :(score>=Math.ceil(fragen.length*0.6)?["Stark! Fast alle erkannt.","Gut gemacht – die Bäume sitzen."]
+      :["Schau nochmal in die Galerie – dann klappt es.","Ein guter Anfang! Noch eine Runde?"]);
+    elE.innerHTML='<div class="qende"><p class="qlabel">Ergebnis</p>'+
+      '<p class="qscore">'+score+'<small> / '+fragen.length+'</small></p>'+
+      '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
+      '<p class="qspruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
+      '<div class="bruecke"><p>Geschafft! Du erkennst die Bäume an ihren Blättern – und im Forscherpass wächst dein Wald ein Stück weiter.</p>'+
+        '<a class="passbtn" href="../waldpass.html">🌳 Zur Expedition Wald</a></div>'+
+      '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;">'+
+        '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
+        '<a class="knopf" href="../waldpass.html">Alle Stationen</a></div></div>';
+    $("qnochmal").addEventListener("click",()=>renderBildwahl(s));
+    if(perfekt){ konfetti(); fanfare(); }
+    melde();
+  }
+  zeige();
+}
+
+/* --- Abschluss-Quiz → schreibt Blätter in den Forscherpass --- */
+function renderQuiz(s){
+  const fragen=misch(s.fragen.slice());
+  let q=0, score=0, sperre=false;
+  elB.innerHTML="";
+  function zeigeFrage(){
+    sperre=false;
+    const f=fragen[q];
+    const opts=misch(f.a.map((txt,idx)=>({txt,idx})));
+    let e='<div class="qkopf">Frage <b>'+(q+1)+'</b> / '+fragen.length+' · ✓ '+score+'</div>'+
+      '<div class="qbalken"><div style="width:'+(q/fragen.length*100)+'%"></div></div>'+
+      (f.img?'<img src="'+BASIS+f.img+'" alt="Foto" style="display:block;width:72%;max-width:240px;margin:0 auto 12px;border-radius:12px;border:1px solid #cdbf9e;box-shadow:0 3px 12px rgba(47,79,62,.15);" onerror="this.style.display=\'none\'">':'')+'<p class="qfrage">'+f.f+'</p><div class="qwahl" id="qwahl"></div><div class="qfb" id="qfb"></div>';
+    elE.innerHTML=e;
+    const wrap=$("qwahl"), fb=$("qfb");
+    opts.forEach(o=>{
+      const b=document.createElement("button"); b.textContent=o.txt; b.dataset.idx=o.idx;
+      b.addEventListener("click",()=>{
+        if(sperre) return; sperre=true;
+        const richtig=(o.idx===f.r);
+        wrap.querySelectorAll("button").forEach(x=>{ x.disabled=true; if(+x.dataset.idx===f.r) x.classList.add("ok"); });
+        if(richtig){ score++; fb.textContent="✓ Richtig! "+f.fb; }
+        else{ b.classList.add("no"); fb.textContent="✗ "+f.fb; }
+        melde();
+        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?3300:5700);
+      });
+      wrap.appendChild(b);
+    });
+    melde();
+  }
+  function ende(){
+    const perfekt=score===fragen.length;
+    const blaetter = perfekt ? 3 : score>=Math.ceil(fragen.length*0.6) ? 2 : 1;
+    try{ const _K="mibaso.flora.wald"; const _d=JSON.parse(localStorage.getItem(_K)||"{}");
+      if(!_d.erkennen || blaetter>_d.erkennen.blaetter){ _d.erkennen={blaetter:blaetter,done:true,ts:Date.now()}; localStorage.setItem(_K,JSON.stringify(_d)); } }catch(e){}
+    const sprueche=perfekt
+      ? ["Alles richtig – du erkennst jede Waldpflanze! 🔍","Volltreffer! Ein echter Pflanzenkenner."]
+      : score>=Math.ceil(fragen.length*0.6)
+        ? ["Stark! Fast alles richtig.","Gut gemacht – die Pflanzen sitzen."]
+        : ["Geh ruhig nochmal durch die Schritte – dann sitzt es.","Ein guter Anfang! Noch eine Runde?"];
+    elE.innerHTML='<div class="qende"><p class="qlabel">Ergebnis</p>'+
+      '<p class="qscore">'+score+'<small> / '+fragen.length+'</small></p>'+
+      '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
+      '<p class="qspruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
+      '<div class="bruecke"><p>Geschafft! Du erkennst jetzt sechs Waldpflanzen sicher – und im Forscherpass wächst dein Wald ein Stück weiter.</p>'+
+        '<a class="passbtn" href="../waldpass.html">🌳 Zur Expedition Wald</a></div>'+
+      '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;">'+
+        '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
+        '<a class="knopf" href="../waldpass.html">Alle Stationen</a></div></div>';
+    $("qnochmal").addEventListener("click",()=>renderQuiz(s));
+    if(perfekt){ konfetti(); fanfare(); }
+    melde();
+  }
+  zeigeFrage();
+}
+
+/* --- Konfetti + Fanfare --- */
+function konfetti(){
+  if(reduce) return;
+  const feld=document.createElement("div"); feld.className="konffeld";
+  const farben=['#C28A3A','#2F4F3E','#3E9A5E','#5A8068','#e8a020','#9b59b6'];
+  for(let n=0;n<70;n++){ const k=document.createElement("span"); k.className="konf";
+    k.style.cssText='left:'+Math.random()*100+'%;background:'+farben[(Math.random()*farben.length)|0]+
+      ';animation-delay:'+(Math.random()*0.5).toFixed(2)+'s;transform:rotate('+(Math.random()*360)+'deg);';
+    feld.appendChild(k); }
+  document.body.appendChild(feld); setTimeout(()=>feld.remove(),4200);
+}
+function fanfare(){
+  try{ const Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx) return;
+    const ctx=new Ctx(); if(ctx.state==="suspended") ctx.resume(); const t0=ctx.currentTime+0.05;
+    [[523.25,0,0.16,0.2],[659.25,0.15,0.16,0.2],[783.99,0.30,0.16,0.2],[1046.5,0.46,0.6,0.22]]
+    .forEach(([fr,st,du,vo])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type="triangle";o.frequency.value=fr;
+      g.gain.setValueAtTime(0,t0+st);g.gain.linearRampToValueAtTime(vo,t0+st+0.02);g.gain.exponentialRampToValueAtTime(0.001,t0+st+du);
+      o.connect(g).connect(ctx.destination);o.start(t0+st);o.stop(t0+st+du+0.05);});
+    setTimeout(()=>ctx.close().catch(()=>{}),1600);
+  }catch(e){}
+}
+
+/* --- Navigation --- */
+function geheZu(k){ if(k<0||k>=SCHRITTE.length) return; i=k; render(); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
+function stopPlay(){ if(timer){clearInterval(timer);timer=null;} }
+$("zurueckBtn").addEventListener("click",()=>geheZu(i-1));
+$("weiterBtn").addEventListener("click",()=>{ if(i===SCHRITTE.length-1) geheZu(0); else geheZu(i+1); });
+
+/* Wischen zwischen Schritten (außer auf interaktiven Elementen) */
+let tx=0,ty=0,tig=false;
+document.addEventListener("touchstart",e=>{
+  if(e.target.closest("input,button,a,.hotspot,.gcard,.sortcard,.slot")){tig=false;return;}
+  tig=true; tx=e.touches[0].clientX; ty=e.touches[0].clientY;
+},{passive:true});
+document.addEventListener("touchend",e=>{
+  if(!tig) return; tig=false;
+  const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)*1.6){ geheZu(i+(dx<0?1:-1)); }
+},{passive:true});
+
+/* Höhe an iframe melden (WordPress-Einbindung) */
+function melde(){ if(window.parent!==window){ try{ window.parent.postMessage({flora:"height", height:document.body.scrollHeight}, "*"); }catch(e){} } }
+if("ResizeObserver" in window){ new ResizeObserver(melde).observe(document.body); }
+window.addEventListener("load", melde);
+
+render();
+</script>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

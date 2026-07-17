@@ -322,17 +322,18 @@ const PFADE = [
   { id:"fruehblueher", titel:"Frühblüher",                        kurz:"Das große Rennen ums Licht – über und unter der Erde", datei:"interaktiv/wald-fruehblueher.html", em:"🌸", mot:"🌸", fliegt:true },
   { id:"waldboden",    titel:"Waldboden – die Recyclinganlage",   kurz:"Vom Laub zum Humus: Zersetzer bei der Arbeit",         datei:"interaktiv/wald-waldboden.html",    em:"🪱", mot:"🍄" },
   { id:"erkennen",     titel:"Waldpflanzen erkennen",             kurz:"Buschwindröschen, Waldmeister & Co.",                  datei:"interaktiv/wald-erkennen.html",     em:"🔍", mot:"🌿" },
+  { id:"baeume",       titel:"Kennst du den Baum?",              kurz:"Elf heimische Bäume an den Blättern erkennen",         datei:"interaktiv/wald-baeume.html",       em:"🌳", mot:"🌳" },
   { id:"eindringlinge",titel:"Wenn Gäste zu Eindringlingen werden",kurz:"Invasive Arten wie das Springkraut",                  datei:"interaktiv/wald-invasive.html",     em:"⚠️", mot:"💥" },
   { id:"nutzen",       titel:"Warum wir den Wald brauchen",       kurz:"Was der Wald für uns alle leistet",                    datei:"interaktiv/wald-nutzen.html",       em:"🌍", mot:"🌍" }
 ];
-const MAX_BL = PFADE.length*3;   // 18 Blätter maximal (6 Stationen)
+const MAX_BL = PFADE.length*3;   // 24 Blätter maximal (8 Stationen)
 
 const RAENGE = [
   { ab:0,  name:"Frischling",     med:"🌱" },
   { ab:1,  name:"Wald-Neuling",   med:"🌿" },
-  { ab:7,  name:"Wald-Kenner",    med:"🍄" },
-  { ab:13, name:"Wald-Forscher",  med:"🌲" },
-  { ab:19, name:"Wald-Meister",   med:"🏅" }
+  { ab:8,  name:"Wald-Kenner",    med:"🍄" },
+  { ab:15, name:"Wald-Forscher",  med:"🌲" },
+  { ab:21, name:"Wald-Meister",   med:"🏅" }
 ];
 function rangIndex(bl){ let i=0; RAENGE.forEach((x,k)=>{ if(bl>=x.ab) i=k; }); return i; }
 function naechsterRang(bl){ return RAENGE.find(x=>x.ab>bl)||null; }
@@ -345,6 +346,7 @@ const ABZEICHEN = [
   { id:"jahr",    em:"🍂", name:"Jahreszeiten-Kenner", pruef:(d)=>d.jahreslauf&&d.jahreslauf.done },
   { id:"fruehbl", em:"🌸", name:"Frühblüher-Freund",   pruef:(d)=>d.fruehblueher&&d.fruehblueher.done },
   { id:"boden",   em:"🪱", name:"Boden-Detektiv",      pruef:(d)=>d.waldboden&&d.waldboden.done },
+  { id:"baum",    em:"🌳", name:"Baum-Kenner",       pruef:(d)=>d.baeume&&d.baeume.done },
   { id:"meister", em:"🏅", name:"Wald-Meister",        pruef:(d,h)=>h.fertige>=PFADE.length },
   { id:"perfekt", em:"🌟", name:"Grüner Wald",         pruef:(d,h)=>h.summe>=MAX_BL }
 ];
