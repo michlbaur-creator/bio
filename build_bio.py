@@ -34,9 +34,9 @@ if not BIO:
 
 REPOS = [
     {"key": "flora", "label": "Flora Mibaso", "emoji": "🌼", "akzent": "#2F4F3E",
-     "pass": {"href": "pflanzenpass.html", "img": "images/bluetenoekologie.jpg",
+     "pass": {"href": "pflanzenpass.html", "img": "images/wiese-banner.jpg",
               "eyebrow": "Dein Forscherpass", "titel": "Expedition Wiese",
-              "sub": "Spiel die Pfade, lass deine Wiese erblühen und kröne dich zum Flora-Meister."},
+              "sub": "Spiel die Pfade, lass deine Wiese erblühen und kröne dich zum Wiesen-Meister."},
      "pass2": {"href": "waldpass.html", "img": "images/wald/wald-3.jpg",
                "eyebrow": "Dein Forscherpass", "titel": "Expedition Wald",
                "sub": "Spiel die Pfade, entdecke den Wald und kröne dich zum Wald-Meister."}},

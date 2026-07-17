@@ -2,753 +2,419 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Wald im Jahreslauf — Lernpfad · Bio Mibaso</title>
-<meta name="description" content="Lernpfad: Der Wald durch die vier Jahreszeiten – Frühling, Sommer, Herbst und Winter mit ihren typischen Pflanzen. Mit Karten, Reihenfolge, Zuordnen, Lückentext und Quiz.">
-<meta name="theme-color" content="#2F4F3E">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="manifest" href="../manifest.webmanifest">
 <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Flora Mibaso">
+<title>Wald im Jahreslauf — Lernpfad · Bio Mibaso</title>
 <style>
   :root{
-    --gruen:#2F4F3E; --gruen-tief:#243d30; --creme:#F7F3E8; --creme-tief:#EEE7D5;
-    --pergament:#EDE3CC; --tinte:#26312b; --honig:#C28A3A; --honig-tief:#a9762c; --linie:#d8ccb2;
-    --gut:#3E9A5E; --rot:#B5482F; --himmel:#bfe0ec; --himmel-tief:#9cc7d8;
-    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --gruen:#2F4F3E;
+    --gruen-hell:#4A6B58;
+    --creme:#F7F3E8;
+    --karte:#FFFDF6;
+    --linie:#D9D0BC;
+    --text:#33402F;
   }
-  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  html{-webkit-text-size-adjust:100%;}
-  body{margin:0;background:var(--creme);color:var(--gruen);
-    font-family:Georgia,"Times New Roman",serif;line-height:1.5;padding-top:env(safe-area-inset-top);}
-  .huelle{max-width:640px;margin:0 auto;padding:clamp(10px,3vw,20px) clamp(12px,3.5vw,28px) 48px;}
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:Georgia,'Times New Roman',serif;
+    background:var(--creme);
+    color:var(--text);
+    line-height:1.55;
+  }
+  header{
+    background:var(--gruen);
+    color:#F4EFE2;
+    padding:18px 16px 16px;
+    text-align:center;
+  }
+  header h1{ margin:0; font-size:1.45rem; font-weight:normal; letter-spacing:.5px; }
+  header p{ margin:6px 0 0; font-size:.95rem; font-style:italic; opacity:.85; }
+  main{ max-width:760px; margin:0 auto; padding:18px 12px 30px; }
+  .karte{
+    background:var(--karte);
+    border:1px solid var(--linie);
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(47,79,62,.08);
+  }
+  .buehne{ position:relative; width:100%; aspect-ratio:16/10; background:#26312b; }
+  .buehne img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
 
-  /* Kopf */
-  .kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;}
-  .zurueck{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--gruen);
-    text-decoration:none;display:inline-flex;gap:5px;align-items:center;}
-  .zaehler{font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a938a;}
-  h1{font-size:clamp(22px,5.2vw,31px);line-height:1.06;margin:6px 0 2px;font-weight:normal;}
+  /* ---------- Schieberegler ---------- */
+  .regler{ padding:16px 22px 4px; border-top:1px solid var(--linie); }
+  .monat{
+    text-align:center;
+    font-size:1.05rem;
+    color:var(--gruen);
+    margin:0 0 6px;
+  }
+  .monat strong{ font-weight:normal; font-size:1.2rem; }
+  /* Gut sichtbarer Regler-Knopf in warmem Rotbraun */
+  input[type="range"]{
+    -webkit-appearance:none;
+    appearance:none;
+    width:100%;
+    height:34px;
+    background:transparent;
+    cursor:pointer;
+  }
+  input[type="range"]::-webkit-slider-runnable-track{
+    height:8px;
+    border-radius:4px;
+    background:#cfd9cd;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:26px; height:26px;
+    border-radius:50%;
+    background:#9c3b2a;
+    border:3px solid #fff;
+    box-shadow:0 1px 6px rgba(0,0,0,.35);
+    margin-top:-9px;
+    cursor:grab;
+  }
+  input[type="range"]::-webkit-slider-thumb:active{ cursor:grabbing; }
+  input[type="range"]::-moz-range-track{
+    height:8px;
+    border-radius:4px;
+    background:#cfd9cd;
+  }
+  input[type="range"]::-moz-range-thumb{
+    width:26px; height:26px;
+    border-radius:50%;
+    background:#9c3b2a;
+    border:3px solid #fff;
+    box-shadow:0 1px 6px rgba(0,0,0,.35);
+    cursor:grab;
+  }
+  input[type="range"]:focus-visible{ outline:3px solid #E3B23C; outline-offset:2px; border-radius:6px; }
+  .jahreszeiten{
+    display:flex;
+    justify-content:space-between;
+    margin-top:2px;
+  }
+  /* Jahreszeiten als direkte Sprungmarken */
+  .jz-link{
+    background:none;
+    border:none;
+    padding:2px 4px;
+    font-family:inherit;
+    font-size:.85rem;
+    color:var(--gruen-hell);
+    font-style:italic;
+    cursor:pointer;
+    border-bottom:1px dotted var(--gruen-hell);
+    transition:color .15s;
+  }
+  .jz-link:hover, .jz-link:focus-visible{ color:#9c3b2a; border-bottom-color:#9c3b2a; outline:none; }
 
-  /* Schritt-Chips */
-  .chips{display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;
-    padding:10px 2px 4px;margin:2px -2px 0;scrollbar-width:none;}
-  .chips::-webkit-scrollbar{display:none;}
-  .chip{flex:0 0 auto;display:flex;align-items:center;gap:7px;cursor:pointer;
-    font-family:var(--sans);font-size:12.5px;color:#5f6b60;background:#fff;
-    border:1px solid var(--linie);border-radius:999px;padding:7px 13px 7px 8px;white-space:nowrap;
-    transition:border-color .15s,color .15s,background .15s;}
-  .chip .nr{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;
-    border-radius:50%;background:var(--creme-tief);color:#8a938a;font-weight:700;font-size:11.5px;}
-  .chip.aktiv{background:var(--gruen);color:var(--creme);border-color:var(--gruen);}
-  .chip.aktiv .nr{background:var(--honig);color:#fff;}
-  .chip.fertig:not(.aktiv) .nr{background:#cfe0d2;color:#3e7a55;}
-  .chip.uebung{background:#e7efe9;border-color:#c1d5c6;color:#3a5744;}
-  .chip.uebung .nr{background:#c1d5c6;color:#2b463a;}
-  .chip.uebung.aktiv{background:#3a5744;border-color:#3a5744;color:#fff;}
-  .chip.uebung.aktiv .nr{background:#fff;color:#3a5744;}
-  .chip.quiz{background:var(--honig);border-color:var(--honig);color:#fff;font-weight:700;box-shadow:0 2px 8px rgba(194,138,58,.3);}
-  .chip.quiz .nr{background:#fff;color:var(--honig);}
-  .chip.quiz.aktiv{background:var(--gruen);border-color:var(--gruen);color:#fff;}
-  .chip.quiz.aktiv .nr{background:var(--honig);color:#fff;}
+  /* ---------- Textfeld ---------- */
+  .erklaerung{ padding:12px 22px 18px; min-height:108px; }
+  .erklaerung h2{ margin:0 0 6px; font-size:1.15rem; color:var(--gruen); font-weight:normal; }
+  .erklaerung p{ margin:0; font-size:1rem; }
+  .erklaerung.wechsel{ animation:einblenden .4s ease; }
+  @keyframes einblenden{ from{opacity:0; transform:translateY(5px);} to{opacity:1; transform:none;} }
 
-  /* Bühne / Illustration */
-  .buehne{margin-top:10px;}
-  .bildbox{position:relative;width:min(96%,460px);aspect-ratio:2.2/1;max-height:46vh;margin:0 auto;}
-  .bild{position:absolute;inset:0;opacity:0;transition:opacity .5s ease;}
-  .bild.an{opacity:1;}
-  .bild img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-    background:var(--pergament);border:1px solid #cdbf9e;border-radius:12px;}
-  .bild img.weg{display:none;}
-  .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:6px;text-align:center;border-radius:12px;padding:14px;
-    background:linear-gradient(170deg,var(--himmel) 0%,var(--himmel-tief) 55%,#cde1c4 100%);}
-  .ph .gl{font-size:40px;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));}
-  .ph .l{font-family:var(--sans);font-size:13px;font-weight:600;color:#33524a;}
-  .ph .f{font-family:var(--sans);font-size:10.5px;color:#5d7168;word-break:break-all;}
+  footer{ text-align:center; font-size:.85rem; color:var(--gruen-hell); padding:14px 10px 26px; }
+  footer > a{ color:inherit; }
 
-  /* Hotspots */
-  .hotspot{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;
-    background:var(--honig);color:#fff;border:2px solid #fff;box-shadow:0 2px 7px rgba(47,79,62,.3);
-    font-family:var(--sans);font-weight:700;font-size:14px;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;z-index:3;animation:puls 2.4s infinite;}
-  .hotspot.aktiv{background:var(--gruen);animation:none;}
-  @keyframes puls{0%{box-shadow:0 2px 7px rgba(47,79,62,.3),0 0 0 0 rgba(194,138,58,.5);}
-    70%{box-shadow:0 2px 7px rgba(47,79,62,.3),0 0 0 11px rgba(194,138,58,0);}100%{box-shadow:0 2px 7px rgba(47,79,62,.3),0 0 0 0 rgba(194,138,58,0);}}
-
-  /* Sequenz-Steuerung */
-  .seq{margin-top:12px;}
-  .seqkopf{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-  .playbtn{flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:1px solid var(--gruen);
-    background:var(--gruen);color:var(--creme);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-  .playbtn:hover{background:var(--gruen-tief);}
-  .stepbtn{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:1px solid var(--gruen);
-    background:#fff;color:var(--gruen);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-  .stepbtn:disabled{opacity:.35;cursor:default;}
-  .stufenlabel{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--gruen);}
-  .stufenlabel small{font-weight:400;color:#8a938a;}
-
-  /* Erklärtext + Infokarte */
-  .erklaer{margin-top:12px;}
-  .erklaer h2{font-size:clamp(18px,5vw,23px);font-weight:normal;margin:0 0 7px;}
-  .erklaer p{font-size:clamp(14.5px,4vw,16.5px);color:var(--tinte);margin:0 0 10px;}
-  .entdeckhint{font-family:var(--sans);font-size:12.5px;color:var(--honig-tief);font-weight:600;margin:4px 0 0;}
-  .infokarte{margin-top:12px;padding:13px 15px;border-radius:0 12px 12px 0;background:var(--creme-tief);
-    border-left:4px solid var(--honig);min-height:30px;}
-  .infokarte.ok{border-left-color:var(--gut);} .infokarte.no{border-left-color:var(--rot);}
-  .infokarte .it{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#8a938a;margin:0 0 3px;}
-  .infokarte.ok .it{color:var(--gut);} .infokarte.no .it{color:var(--rot);}
-  .infokarte h3{margin:0 0 4px;font-size:17px;font-weight:normal;}
-  .infokarte p{margin:0;font-size:14.5px;color:var(--tinte);}
-  .infokarte .leer{color:#8a938a;font-style:italic;font-family:var(--sans);font-size:13px;}
-
-  /* Reihenfolge / Sortieren (Drag & Drop + ▲▼) */
-  .sortliste{display:flex;flex-direction:column;gap:8px;margin:4px 0 8px;}
-  .sortcard{display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--linie);
-    border-radius:12px;padding:11px 12px;cursor:grab;transition:border-color .15s,box-shadow .15s,transform .1s;}
-  .sortcard:active{cursor:grabbing;}
-  .sortcard.drag{opacity:.45;border-style:dashed;}
-  .sortcard.ueber{border-color:var(--honig);box-shadow:0 0 0 2px rgba(194,138,58,.25);}
-  .sortcard.ok{background:#eef7f0;border-color:var(--gut);}
-  .sortcard.no{background:#fbefec;border-color:var(--rot);}
-  .sortcard .em{font-size:24px;flex:0 0 auto;}
-  .sortcard .lab{flex:1 1 auto;font-family:var(--sans);font-size:14.5px;color:var(--tinte);}
-  .sortcard .pfeile{display:flex;flex-direction:column;gap:3px;flex:0 0 auto;}
-  .sortcard .pfeile button{width:28px;height:22px;border-radius:6px;border:1px solid var(--linie);
-    background:var(--creme);color:var(--gruen);font-size:12px;cursor:pointer;line-height:1;}
-  .sortcard .pfeile button:disabled{opacity:.3;cursor:default;}
-  .sortcard .griff{flex:0 0 auto;color:#b7c0b7;font-size:17px;cursor:grab;}
-
-  /* Zuordnen-Station (mehrere Optionen je Zeile) */
-  .zuliste{display:flex;flex-direction:column;gap:8px;margin:4px 0 12px;}
-  .zurow{display:flex;flex-direction:column;align-items:stretch;gap:8px;
-    background:#fff;border:1px solid var(--linie);border-radius:12px;padding:10px 12px;}
-  .zuname{font-family:var(--sans);font-size:14.5px;font-weight:600;color:var(--gruen);display:flex;align-items:center;gap:8px;}
-  .zuname .em{font-size:20px;}
-  .zuopt{display:flex;gap:6px;flex-wrap:wrap;width:100%;}
-  .zuopt button{font-family:var(--sans);font-size:11.5px;color:var(--gruen);background:#fff;
-    border:1px solid var(--linie);border-radius:999px;padding:6px 10px;cursor:pointer;transition:.13s;white-space:nowrap;}
-  .zuopt button.sel{background:var(--gruen);color:var(--creme);border-color:var(--gruen);}
-  .zuopt button.ok{background:#e6efe7;border-color:#bcd6c0;color:#2f6a45;}
-  .zuopt button.no{background:#f2e2dd;border-color:#dcc9a8;color:#9a3f2a;}
-
-  /* Gruppen-Karten (aufklappbar) */
-  .gliste{display:grid;grid-template-columns:1fr;gap:9px;margin:4px 0 8px;}
-  @media(min-width:480px){.gliste{grid-template-columns:1fr 1fr;}}
-  .gcard{background:#fff;border:1px solid var(--linie);border-radius:13px;padding:12px 14px;cursor:pointer;transition:border-color .15s,box-shadow .15s;}
-  .gcard:hover{border-color:var(--honig);}
-  .gcard.auf{border-color:var(--gruen);box-shadow:0 3px 12px rgba(47,79,62,.1);}
-  .gcard .gk{display:flex;align-items:center;gap:10px;}
-  .gcard .gsym{font-size:22px;line-height:1;flex:0 0 auto;}
-  .gcard .gname{font-family:var(--sans);font-size:15.5px;font-weight:600;color:var(--gruen);flex:1 1 auto;}
-  .gcard .gpf{color:#b7c0b7;font-family:var(--sans);font-size:16px;}
-  .gcard .gmerk{font-size:14px;color:var(--tinte);margin:8px 0 0;display:none;line-height:1.5;}
-  .gcard.auf .gmerk{display:block;}
-  .gcard .gbild{width:100%;height:auto;max-height:150px;object-fit:cover;border-radius:9px;
-    border:1px solid #cdbf9e;margin:10px 0 0;display:none;}
-  .gcard.auf .gbild{display:block;}
-  .gcard .gbsp{font-family:var(--sans);font-size:12.5px;color:#6f7b70;margin:6px 0 0;display:none;}
-  .gcard.auf .gbsp{display:block;}
-
-  /* Lückentext */
-  .cloze{font-size:clamp(15.5px,4.2vw,17.5px);line-height:2.1;color:var(--tinte);margin:2px 0 14px;}
-  .slot{display:inline-flex;align-items:center;justify-content:center;min-width:96px;height:32px;
-    padding:0 8px;margin:0 2px;border-bottom:2px dashed #b8a887;background:var(--creme-tief);border-radius:7px 7px 0 0;
-    font-family:var(--sans);font-size:14px;color:#a99a78;cursor:pointer;vertical-align:middle;transition:.13s;}
-  .slot.aktiv{border-bottom-color:var(--honig);box-shadow:0 0 0 2px rgba(194,138,58,.25);}
-  .slot.voll{color:var(--gruen);font-weight:600;background:#eaf1ec;border-bottom-style:solid;}
-  .slot.ok{color:#2f6a45;background:#e6efe7;border-bottom-color:var(--gut);}
-  .slot.no{color:#9a3f2a;background:#f2e2dd;border-bottom-color:var(--rot);}
-  .wortbank{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px;}
-  .wort{font-family:var(--sans);font-size:13.5px;color:var(--gruen);background:#fff;
-    border:1px solid var(--linie);border-radius:999px;padding:8px 13px;cursor:pointer;transition:.13s;}
-  .wort:hover{border-color:var(--honig);}
-  .wort.weg{opacity:.3;pointer-events:none;text-decoration:line-through;}
-
-  .pruefzeile{display:flex;align-items:center;gap:12px;margin-top:6px;}
-  .tally{font-family:var(--sans);font-size:14px;font-weight:700;color:var(--honig-tief);}
-
-  /* Abschluss-Quiz */
-  .qkopf{font-family:var(--sans);font-size:13.5px;color:#6f7b70;border-top:1px solid var(--linie);
-    border-bottom:1px solid var(--linie);padding:9px 0;margin:0 0 12px;}
-  .qkopf b{color:var(--honig);}
-  .qbalken{height:6px;background:var(--creme-tief);border-radius:3px;overflow:hidden;margin:0 0 16px;}
-  .qbalken div{height:100%;width:0;background:var(--honig);transition:width .3s;}
-  .qfrage{font-size:clamp(16.5px,4.5vw,20px);text-align:center;margin:6px 0 16px;}
-  .qwahl{display:flex;flex-direction:column;gap:9px;}
-  .qwahl button{font-family:var(--sans);font-size:15px;color:var(--tinte);text-align:left;
-    background:#fff;border:1.5px solid var(--linie);border-radius:13px;padding:13px 15px;cursor:pointer;transition:.13s;}
-  .qwahl button.ok{background:#e6efe7;border-color:#3E9A5E;color:#2f6a45;}
-  .qwahl button.no{background:#f2e2dd;border-color:#B5482F;color:#9a3f2a;}
-  .qwahl button:disabled{cursor:default;}
-  .qfb{font-family:var(--sans);font-size:14px;margin:14px 0 0;min-height:1.2em;color:var(--tinte);}
-  .qende{text-align:center;padding:6px 0;}
-  .qlabel{font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a938a;margin:0;}
-  .qscore{font-family:Georgia,serif;font-size:clamp(40px,12vw,60px);line-height:1;color:var(--gruen);margin:4px 0;}
-  .qscore small{font-size:.4em;color:#8a938a;}
-  .qspruch{font-size:clamp(16px,4.6vw,19px);margin:8px auto 10px;max-width:32ch;}
-  /* Forscher-Brücke */
-  .bruecke{background:linear-gradient(160deg,#fff8ec,#fdefd4);border:1px solid var(--honig);
-    border-radius:15px;padding:16px 16px 18px;margin:8px 0 4px;text-align:center;}
-  .bruecke p{font-family:var(--sans);font-size:14px;color:#6b5a34;margin:0 0 12px;line-height:1.5;}
-  .bruecke .passbtn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:15px;
-    font-weight:700;color:#fff;background:var(--honig);border:none;border-radius:999px;padding:12px 22px;
-    text-decoration:none;box-shadow:0 3px 12px rgba(194,138,58,.3);}
-
-  .konffeld{position:fixed;inset:0;z-index:9999;pointer-events:none;overflow:hidden;}
-  .konf{position:absolute;top:-14px;width:9px;height:14px;border-radius:2px;animation:konffall 3.6s linear forwards;}
-  @keyframes konffall{0%{transform:translateY(-14px);opacity:1;}100%{transform:translateY(106vh) rotate(540deg);opacity:.9;}}
-
-  /* Navigation */
-  .nav{display:flex;gap:9px;margin-top:24px;padding-top:16px;border-top:1px solid var(--linie);}
-  .knopf{font-family:var(--sans);font-size:13.5px;font-weight:600;color:var(--gruen);background:transparent;
-    border:1px solid var(--gruen);border-radius:999px;padding:10px 16px;cursor:pointer;transition:background .18s,color .18s;}
-  .knopf:hover:not(:disabled){background:var(--gruen);color:var(--creme);}
-  .knopf:disabled{opacity:.38;cursor:default;}
-  .knopf.prim{background:var(--gruen);color:var(--creme);margin-left:auto;}
-  .knopf.prim:hover{background:var(--gruen-tief);color:var(--creme);}
-
-  footer{margin-top:30px;font-family:var(--sans);font-size:12px;color:#8a938a;text-align:center;}
-  footer a{color:inherit;}
-  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}.konf{display:none;}}
-
-  /* Einheitliches Pfad-Intro (Expedition Wald) */
-  .pfad-intro{position:fixed;inset:0;z-index:9000;background:var(--creme);display:flex;
-    align-items:center;justify-content:center;padding:26px 20px;overflow-y:auto;transition:opacity .5s ease;}
-  .pfad-intro.weg{opacity:0;visibility:hidden;pointer-events:none;}
-  .pi-inner{max-width:440px;text-align:center;}
-  .pi-foto{width:100%;max-width:360px;aspect-ratio:16/10;object-fit:cover;border-radius:16px;
-    border:1px solid #cdbf9e;box-shadow:0 6px 20px rgba(47,79,62,.18);margin:0 auto 18px;display:block;}
-  .pi-eyebrow{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.08em;
-    text-transform:uppercase;color:var(--honig-tief);margin-bottom:6px;}
-  .pi-titel{font-family:Georgia,serif;font-weight:normal;font-size:clamp(24px,7vw,32px);
-    color:var(--gruen);margin:0 0 10px;line-height:1.1;}
-  .pi-lead{font-family:Georgia,serif;font-size:clamp(15px,4.2vw,17px);color:var(--tinte);
-    margin:0 auto 22px;max-width:34ch;line-height:1.5;}
-  .pi-los{font-family:var(--sans);font-size:16px;font-weight:700;color:var(--creme);background:var(--honig);
-    border:none;border-radius:999px;padding:14px 32px;cursor:pointer;box-shadow:0 3px 12px rgba(194,138,58,.35);
-    transition:transform .15s,background .18s;}
-  .pi-los:hover{background:var(--honig-tief);transform:translateY(-1px);}
-  @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
+  /* fallende Blätter */
+  .fallblatt{ animation:fallen 5s linear infinite; }
+  @keyframes fallen{
+    0%   { transform:translate(0,0) rotate(0deg); }
+    25%  { transform:translate(-18px,60px) rotate(70deg); }
+    50%  { transform:translate(14px,125px) rotate(150deg); }
+    75%  { transform:translate(-12px,190px) rotate(230deg); }
+    100% { transform:translate(8px,255px) rotate(320deg); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
 </style>
 </head>
 <body>
-<div class="pfad-intro" id="pfadIntro">
-  <div class="pi-inner">
-    <img class="pi-foto" src="../images/wald/jahreslauf-intro.jpg" alt="" onerror="this.style.display='none'">
-    <div class="pi-eyebrow">🌳 Bio Mibaso · Lernpfad</div>
-    <h1 class="pi-titel">Wald im Jahreslauf</h1>
-    <p class="pi-lead">Ein Wald sieht in jedem Monat anders aus. Im Frühling leuchtet der Boden, im Sommer schließt sich das grüne Dach, im Herbst fällt buntes Laub, im Winter ruht alles. Reise mit durch ein ganzes Waldjahr.</p>
-    <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
-  </div>
-</div>
-<div class="huelle">
-  <div class="kopf">
-    <a class="zurueck" href="../waldpass.html">‹ Expedition Wald</a>
-    <span class="zaehler" id="zaehler"></span>
-  </div>
-  <div class="chips" id="chips"></div>
+<style>
+.pfad-intro{position:fixed;inset:0;z-index:9000;background:#F7F3E8;display:flex;align-items:center;
+  justify-content:center;padding:26px 20px;overflow-y:auto;transition:opacity .5s ease;}
+.pfad-intro.weg{opacity:0;visibility:hidden;pointer-events:none;}
+.pi-inner{max-width:440px;text-align:center;font-family:Georgia,'Times New Roman',serif;}
+.pi-foto{width:100%;max-width:360px;aspect-ratio:16/10;object-fit:cover;border-radius:16px;
+  border:1px solid #cdbf9e;box-shadow:0 6px 20px rgba(40,60,45,.18);margin:0 auto 18px;display:block;}
+.pi-eyebrow{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:12px;
+  font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#a9762c;margin-bottom:6px;}
+.pi-titel{font-weight:normal;font-size:clamp(24px,7vw,32px);color:#2F4F3E;margin:0 0 10px;line-height:1.12;}
+.pi-lead{font-size:clamp(15px,4.2vw,17px);color:#26312b;margin:0 auto 22px;max-width:34ch;line-height:1.5;}
+.pi-los{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:16px;font-weight:700;
+  color:#F7F3E8;background:#C28A3A;border:none;border-radius:999px;padding:14px 32px;cursor:pointer;
+  box-shadow:0 3px 12px rgba(194,138,58,.35);}
+.pi-los:hover{background:#a9762c;}
+@media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
+</style><div class="pfad-intro" id="pfadIntro"><div class="pi-inner"><img class="pi-foto" src="../images/wald/jahreslauf-intro.jpg" alt="" onerror="this.style.display='none'"><div class="pi-eyebrow">🌼 Flora Mibaso · Lernpfad</div><h1 class="pi-titel">Wald im Jahreslauf</h1><p class="pi-lead">Frühling, Sommer, Herbst, Winter — ein ganzes Jahr im Wald. Zieh den Schieberegler und erlebe, wie sich der Wald verwandelt.</p><button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button></div></div>
+<a class="back" href="../waldpass.html" style="display:inline-block;margin:12px 14px 0;color:#6b5340;text-decoration:none;font-size:.95rem;">‹ Expedition Wald</a>
 
-  <div class="buehne" id="buehne"></div>
-  <div class="erklaer" id="erklaer"></div>
+<main>
+  <div class="karte">
+    <div class="buehne" id="buehne" role="img"
+         aria-label="Ein Wald im Lauf des Jahres — mit dem Schieberegler von Winter über Frühling und Sommer bis zum Herbst.">
+      <img src="../images/wald/jahr-winter.jpg"    alt="Winterwald, kahl" style="opacity:1"  onerror="this.style.display='none'">
+      <img src="../images/wald/jahr-fruehling.jpg" alt="Frühlingswald mit Frühblühern" style="opacity:0" onerror="this.style.display='none'">
+      <img src="../images/wald/jahr-sommer.jpg"    alt="Dichter grüner Sommerwald" style="opacity:0" onerror="this.style.display='none'">
+      <img src="../images/wald/jahr-herbst.jpg"    alt="Bunter Herbstwald mit Pilzen" style="opacity:0" onerror="this.style.display='none'">
+      <img src="../images/wald/jahr-winter.jpg"    alt="Winterwald im Schnee" style="opacity:0" onerror="this.style.display='none'">
+    </div>
 
-  <div class="nav">
-    <button class="knopf" id="zurueckBtn">‹ Zurück</button>
-    <button class="knopf prim" id="weiterBtn">Nächster Schritt ›</button>
+    <div class="regler">
+      <p class="monat">Monat: <strong id="monat">Januar</strong></p>
+      <input type="range" id="slider" min="0" max="100" value="0" step="0.5"
+             aria-label="Jahresverlauf von Januar bis Dezember">
+      <div class="jahreszeiten">
+        <button class="jz-link" data-pos="3"  type="button">Winter</button>
+        <button class="jz-link" data-pos="33" type="button">Frühling</button>
+        <button class="jz-link" data-pos="66" type="button">Sommer</button>
+        <button class="jz-link" data-pos="85" type="button">Herbst</button>
+        <button class="jz-link" data-pos="98" type="button">Winter</button>
+      </div>
+    </div>
+
+    <div class="erklaerung" id="erklaerung" aria-live="polite">
+      <h2 id="phase-titel"></h2>
+      <p id="phase-text"></p>
+    </div>
   </div>
 
-  <footer><a href="../waldpass.html" style="color:inherit;font-weight:600;">🌳 Expedition Wald</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Bio Mibaso</footer>
-</div>
+  <style>
+    .jz-quiz{margin-top:16px;padding:18px 20px 20px;}
+    .jz-quiz h2{margin:0 0 6px;color:var(--gruen);font-weight:normal;font-size:1.25rem;}
+    .jz-quiz p{margin:0 0 12px;font-size:.98rem;}
+    .jzq-start,.jzq-btn{font-family:Georgia,serif;font-size:1rem;font-weight:bold;color:#fff;background:var(--gruen);
+      border:none;border-radius:22px;padding:10px 22px;cursor:pointer;}
+    .jzq-start:hover,.jzq-btn:hover{background:#3f6b52;}
+    .jzq-kopf{font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:.85rem;color:#7a7360;
+      border-top:1px solid var(--linie);border-bottom:1px solid var(--linie);padding:8px 0;margin:0 0 12px;}
+    .jzq-kopf b{color:#C28A3A;}
+    .jzq-balken{height:6px;background:#eee7d5;border-radius:3px;overflow:hidden;margin:0 0 14px;}
+    .jzq-balken div{height:100%;width:0;background:#C28A3A;transition:width .3s;}
+    .jzq-frage{font-size:1.1rem;text-align:center;margin:6px 0 14px;color:var(--gruen);}
+    .jzq-wahl{display:flex;flex-direction:column;gap:9px;}
+    .jzq-wahl button{font-family:Georgia,serif;font-size:1rem;color:var(--text);text-align:left;background:#fff;
+      border:1.5px solid var(--linie);border-radius:12px;padding:12px 15px;cursor:pointer;transition:.13s;}
+    .jzq-wahl button.ok{background:#e3f3e3;border-color:#3A7D44;color:#256029;}
+    .jzq-wahl button.no{background:#fbe6e6;border-color:#b3402f;color:#a3291a;}
+    .jzq-wahl button:disabled{cursor:default;}
+    .jzq-fb{font-family:-apple-system,'Segoe UI',Roboto,sans-serif;font-size:.9rem;margin:12px 0 0;min-height:1.2em;}
+    .jzq-ende{text-align:center;padding:4px 0;}
+    .jzq-score{font-size:2.6rem;color:var(--gruen);margin:2px 0;font-family:Georgia,serif;}
+    .jzq-score small{font-size:.4em;color:#9a9384;}
+    .jzq-blaetter{font-size:1.6rem;letter-spacing:3px;margin:2px 0 8px;}
+    .jzq-blaetter .leer{opacity:.25;}
+    .jzq-spruch{font-size:1.05rem;margin:6px auto 12px;max-width:32ch;}
+    .jzq-ende .jzq-btn{margin:0 5px;}
+    .jzq-ende a.jzq-btn{background:#fff;color:var(--gruen);border:1.5px solid var(--gruen);text-decoration:none;display:inline-block;}
+  </style>
+  <div class="jz-quiz karte" id="jzQuiz">
+    <div id="jzqIntro">
+      <h2>Kleines Jahres-Quiz</h2>
+      <p>Du hast den Wald durchs ganze Jahr begleitet. Zeig, was hängen geblieben ist – acht kurze Fragen.</p>
+      <button class="jzq-start" id="jzqStart" type="button">Quiz starten →</button>
+    </div>
+    <div id="jzqLauf" hidden></div>
+  </div>
+</main>
 
 <script>
-/* ===========================================================================
-   Lernpfad „Auf großer Reise — wie Pflanzensamen die Welt erobern"
-   ►► MASSGEBLICHE FASSUNG – wird direkt hier in bio gepflegt (native, Flora).
-   Mehrere Interaktionstypen wie in den Schwester-Pfaden:
-     typ "tafel"       : Bild + antippbare Hotspots (Beschriften) – Löwenzahn-Flieger
-     typ "gruppen"     : die großen Reisearten als aufklappbare Karten
-     typ "zuordnen"    : jeder Pflanze ihren Reiseweg zuordnen, dann prüfen
-     typ "reihenfolge" : die Reise eines Kirschkerns ordnen (Drag & Drop + ▲▼)
-     typ "luecke"      : Lückentext aus einer Wortbank füllen
-     typ "quiz"        : Abschluss-Quiz → schreibt Blätter in den Forscherpass
-   Bilder gehören nach ../images/wald/. Fehlt eins, zeigt der Platzhalter den
-   erwarteten Dateinamen – die Bilder können später ergänzt werden.
-   Forscherpass-Kontrakt: localStorage["mibaso.flora.wald"].jahreslauf = {blaetter,done,ts}
-=========================================================================== */
-const BASIS="../images/wald/";
+(function(){
+  /* ---------- Hilfsfunktion ---------- */
+  function clamp01(x){ return Math.max(0, Math.min(1, x)); }
 
-/* Die großen Reisearten (Symbol = Wiedererkennung in Karten) */
-const ARTEN = [
-  {id:"fruehling", sym:"🌱", name:"Frühling", bild:{src:"jahr-fruehling.jpg", label:"Frühlingswald mit Frühblühern"},
-   merk:"Die Bäume sind noch kahl – viel Licht fällt bis zum Boden. Jetzt blühen die Frühblüher, und die Bäume beginnen auszutreiben.",
-   bsp:"z. B. Buschwindröschen, Bärlauch, Scharbockskraut"},
-  {id:"sommer", sym:"☀️", name:"Sommer", bild:{src:"jahr-sommer.jpg", label:"Dichter grüner Sommerwald"},
-   merk:"Das Kronendach ist dicht und grün, am Boden ist es schattig und kühl. Schattenpflanzen gedeihen, und die ersten Beeren reifen.",
-   bsp:"z. B. Waldmeister, Farne, Heidelbeere"},
-  {id:"herbst", sym:"🍂", name:"Herbst", bild:{src:"jahr-herbst.jpg", label:"Bunter Herbstwald mit Pilzen"},
-   merk:"Die Blätter färben sich bunt und fallen. Pilze schießen aus dem Boden, und Früchte wie Eicheln und Bucheckern sind reif.",
-   bsp:"z. B. Fliegenpilz, Steinpilz, Eicheln, Bucheckern"},
-  {id:"winter", sym:"❄️", name:"Winter", bild:{src:"jahr-winter.jpg", label:"Kahler Winterwald"},
-   merk:"Die Laubbäume sind kahl und ruhen. Immergrüne Pflanzen bleiben grün, und Knospen wie unterirdische Speicher warten auf das Frühjahr.",
-   bsp:"z. B. Efeu, Moose, Tanne, Stechpalme"}
-];
+  /* ---------- Jahreszeiten-Fotos (Cross-Fade mit dem Schieber) ---------- */
+  var fotos = Array.prototype.slice.call(document.querySelectorAll("#buehne img"));
+  /* Chronologische Mittelpunkte im Jahr (0–100):
+     Winter → Frühling → Sommer → Herbst → Winter (fünf Bilder, Winter am Anfang und Ende) */
+  var zentren = [0, 33, 62, 85, 100];
 
-const SCHRITTE = [
-  /* 1 — Gruppen: die vier Jahreszeiten --------------------------------- */
-  { chip:"Vier Jahreszeiten", titel:"Der Wald durch das Jahr",
-    text:"Jede Jahreszeit hat im Wald ihr eigenes Bild und ihre eigenen Pflanzen. Tippe jede Karte an und schau, was gerade los ist.",
-    hint:"Tippe eine Karte an, um sie aufzuklappen.",
-    typ:"gruppen"
-  },
+  /* ---------- Texte ---------- */
+  var phasen = [
+    { bis:10,  titel:"Winterruhe",
+      text:"Der Laubwald ruht. Die Bäume sind kahl, viele Pflanzen haben sich in Zwiebeln und Wurzeln zurückgezogen. Unter dem Laub und an den Zweigen wartet schon alles auf den Frühling." },
+    { bis:24,  titel:"Vorfrühling — das Rennen ums Licht",
+      text:"Noch sind die Baumkronen kahl, jetzt fällt viel Licht bis zum Boden. Die ersten Frühblüher wie Buschwindröschen und Bärlauch nutzen die Gelegenheit und blühen los." },
+    { bis:42,  titel:"Frühling",
+      text:"Die Bäume treiben aus, zartes Grün überzieht den Wald. Der Frühblüher-Teppich blüht in voller Pracht, und die ersten Insekten summen zur Bestäubung umher." },
+    { bis:58,  titel:"Kronenschluss",
+      text:"Das Blätterdach schließt sich. Am Boden wird es schattig — die Frühblüher ziehen sich zurück, und Schattenpflanzen wie Farne und Waldmeister übernehmen." },
+    { bis:76,  titel:"Sommer und Reife",
+      text:"Dichtes, sattes Grün. Die Blätter arbeiten mit Sonnenlicht auf Hochtouren. Im Halbschatten reifen die ersten Beeren, zum Beispiel Heidelbeeren." },
+    { bis:93,  titel:"Herbst — bunt und reif",
+      text:"Die Blätter färben sich bunt und fallen. Pilze schießen aus dem Boden, Eicheln und Bucheckern sind reif — wichtiger Vorrat für viele Waldtiere." },
+    { bis:100, titel:"Zurück zur Ruhe",
+      text:"Kahl steht der Wald im ersten Schnee. Das gefallene Laub wird langsam zu Humus, nur Immergrüne wie Efeu und Moos bleiben grün — und der Kreislauf beginnt von vorn." }
+  ];
+  var monate = ["Januar","Februar","März","April","Mai","Juni",
+                "Juli","August","September","Oktober","November","Dezember"];
 
-  /* 2 — Reihenfolge: ein Jahr im Wald ---------------------------------- */
-  { chip:"Ein Waldjahr", kat:"uebung", titel:"Bring das Waldjahr in die richtige Reihenfolge",
-    text:"So verändert sich der Wald im Lauf des Jahres. Ordne die Bilder – mit dem Griff ⠿ ziehen oder mit ▲▼ schieben, dann „Prüfen“.",
-    typ:"reihenfolge",
-    karten:[
-      {em:"🌸", lab:"Frühling: Frühblüher leuchten am hellen Boden"},
-      {em:"🌳", lab:"Frühsommer: die Bäume sind voll belaubt"},
-      {em:"🫐", lab:"Sommer: im Schatten reifen die ersten Beeren"},
-      {em:"🍄", lab:"Herbst: Pilze, buntes Laub und reife Früchte"},
-      {em:"❄️", lab:"Winter: kahle Bäume, der Wald ruht"}
-    ]
-  },
+  var slider = document.getElementById("slider");
+  var erkl = document.getElementById("erklaerung");
+  var titelEl = document.getElementById("phase-titel");
+  var textEl = document.getElementById("phase-text");
+  var monatEl = document.getElementById("monat");
+  var letztePhase = -1;
 
-  /* 3 — Zuordnen: Was passt in welche Jahreszeit? ---------------------- */
-  { chip:"Wann ist das?", kat:"uebung", titel:"Was passt in welche Jahreszeit?",
-    text:"Ordne jede Beobachtung ihrer Jahreszeit zu – dann auf „Prüfen“ tippen.",
-    typ:"zuordnen",
-    optionen:[
-      {w:"fruehling", kurz:"🌱 Frühling"},
-      {w:"sommer",    kurz:"☀️ Sommer"},
-      {w:"herbst",    kurz:"🍂 Herbst"},
-      {w:"winter",    kurz:"❄️ Winter"}
-    ],
-    tiere:[
-      {t:"Buschwindröschen blüht", em:"🌸", w:"fruehling", fb:"Ein Frühblüher – das ist der Frühling."},
-      {t:"Reife Heidelbeeren",     em:"🫐", w:"sommer",    fb:"Beeren reifen im Sommer."},
-      {t:"Fliegenpilz wächst",     em:"🍄", w:"herbst",    fb:"Pilze erscheinen vor allem im Herbst."},
-      {t:"Kahle Rotbuche",         em:"🌳", w:"winter",    fb:"Ohne Laub – das ist der Winter."},
-      {t:"Buntes Herbstlaub",      em:"🍁", w:"herbst",    fb:"Die Laubfärbung gehört zum Herbst."},
-      {t:"Bärlauch-Teppich",       em:"🧄", w:"fruehling", fb:"Bärlauch wächst im Frühling."}
-    ]
-  },
+  /* ---------- Alles aus dem Reglerwert ableiten ---------- */
+  function male(){
+    var t = parseFloat(slider.value);
 
-  /* 4 — Lückentext ----------------------------------------------------- */
-  { chip:"Lückentext", kat:"uebung", titel:"Fülle die Lücken",
-    text:"Tippe eine Lücke an und dann das passende Wort aus der Wortbank. Zum Schluss „Prüfen“.",
-    typ:"luecke",
-    bank:["Frühling","Licht","Herbst","Pilze","Winter","immergrün"],
-    teile:[
-      {t:"Im "}, {l:"Frühling"},
-      {t:" blühen die Frühblüher, weil noch viel "}, {l:"Licht"},
-      {t:" bis zum Boden fällt. Im Sommer ist es dicht und schattig. Im "}, {l:"Herbst"},
-      {t:" fallen die Blätter und viele "}, {l:"Pilze"},
-      {t:" wachsen. Im "}, {l:"Winter"},
-      {t:" ruht der Laubwald – nur "}, {l:"immergrün"},
-      {t:"e Pflanzen wie Efeu und Moos bleiben grün."}
-    ]
-  },
+    /* Die zwei benachbarten Jahreszeiten-Fotos ineinander überblenden.
+       seg = linkes Bild, seg+1 = rechtes Bild, f = Übergang 0…1. Bilder bis
+       einschließlich seg bleiben voll deckend (liegen darunter), seg+1 wird
+       mit f eingeblendet, spätere Bilder sind unsichtbar. */
+    var seg = 0;
+    while (seg < zentren.length - 2 && t > zentren[seg + 1]) seg++;
+    var f = clamp01((t - zentren[seg]) / (zentren[seg + 1] - zentren[seg]));
+    fotos.forEach(function(img, i){
+      img.style.opacity = (i <= seg) ? 1 : (i === seg + 1 ? f : 0);
+    });
 
-  /* 5 — Abschluss-Quiz ------------------------------------------------- */
-  { chip:"Quiz", kat:"quiz", titel:"Abschluss-Quiz",
-    text:"Zum Schluss der Test: Zeig, was du über den Wald im Jahreslauf weißt.",
-    typ:"quiz",
-    fragen:[
-      {f:"Warum ist es im Sommer am Waldboden dunkler als im Frühling?",
-       a:["Das dichte Blätterdach fängt im Sommer das Licht ab","Die Sonne steht im Sommer tiefer","Im Sommer regnet es einfach mehr"], r:0,
-       fb:"Im Frühling sind die Bäume noch kahl, im Sommer beschatten sie den Boden."},
-      {f:"Du findest reife Bucheckern und viele Pilze. Welche Jahreszeit ist das?",
-       a:["Herbst","Frühling","Winter"], r:0,
-       fb:"Reife Früchte und Pilze gehören zum Herbst."},
-      {f:"Welche Reihenfolge im Jahr stimmt?",
-       a:["Frühblüher → dichtes Laub → Laubfall → kahler Winterwald","Laubfall → Frühblüher → kahler Wald → dichtes Laub","Dichtes Laub → Frühblüher → Winter → Herbst"], r:0,
-       fb:"So läuft das Waldjahr ab."},
-      {f:"Welche Pflanze passt NICHT zum Frühling?",
-       a:["Reife Heidelbeere","Buschwindröschen","Bärlauch"], r:0,
-       fb:"Heidelbeeren reifen erst im Sommer – die anderen sind Frühblüher."},
-      {f:"Warum sieht man im Winter im Laubwald trotzdem noch Grün?",
-       a:["Immergrüne Pflanzen wie Efeu, Moos und Tanne behalten ihre Blätter","Weil das Laub der Buchen grün bleibt","Weil Frühblüher im Winter blühen"], r:0,
-       fb:"Nicht alles wirft im Winter die Blätter ab."},
-      {f:"Wie teilen sich Frühblüher und Sommerpflanzen den Waldboden geschickt?",
-       a:["Frühblüher nutzen das Licht früh, bevor die Sommerpflanzen groß sind","Sie wachsen alle gleichzeitig um die Wette","Die Sommerpflanzen blühen zuerst"], r:0,
-       fb:"Ein cleveres Nacheinander statt Konkurrenz um das Licht."},
-      {f:"Im Herbst fällt viel Laub. Warum ist das nützlich für den Wald?",
-       a:["Aus dem Laub entsteht neuer, nährstoffreicher Boden","Es hält Spaziergänger fern","Es macht den Wald im Winter wärmer"], r:0,
-       fb:"Zersetzer machen aus dem Laub wertvollen Humus."},
-      {f:"Welche Aussage stimmt NICHT?",
-       a:["Im Sommer blühen die meisten Frühblüher","Im Herbst reifen Eicheln und Bucheckern","Im Winter ruhen die Laubbäume"], r:0,
-       fb:"Frühblüher blühen im Frühling, nicht im Sommer."}
-    ]
+    /* Monat */
+    monatEl.textContent = monate[Math.min(11, Math.floor(t / 100 * 12))];
+
+    /* Phasentext */
+    var p = 0;
+    while (phasen[p].bis < t) p++;
+    if (p !== letztePhase){
+      letztePhase = p;
+      /* Blätter kommen jetzt aus dem Abschluss-Quiz weiter unten (nicht mehr fürs bloße Durchziehen). */
+      titelEl.textContent = phasen[p].titel;
+      textEl.textContent = phasen[p].text;
+      erkl.classList.remove("wechsel");
+      void erkl.offsetWidth;
+      erkl.classList.add("wechsel");
+    }
   }
-];
 
-/* ---- Hilfen ---- */
-const $=id=>document.getElementById(id);
-const reduce=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-function misch(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]];}return a;}
-function bildHTML(b,klasse){
-  return '<div class="bild '+(klasse||'')+'">'+
-    '<div class="ph"><span class="gl">'+b.glyph+'</span>'+
-      '<span class="l">'+b.label+'</span><span class="f">images/wald/'+b.src+'</span></div>'+
-    '<img src="'+BASIS+b.src+'" alt="'+b.label+'" onerror="this.classList.add(\'weg\')">'+
-  '</div>';
-}
-
-const elB=$("buehne"), elE=$("erklaer"), elChips=$("chips"), elZaehler=$("zaehler");
-let i=0, stufe=0, timer=null;
-
-function chips(){
-  elChips.innerHTML="";
-  SCHRITTE.forEach((s,k)=>{
-    const c=document.createElement("button");
-    c.className="chip"+(s.kat?" "+s.kat:"")+(k===i?" aktiv":"")+(k<i?" fertig":"");
-    c.innerHTML='<span class="nr">'+(k+1)+'</span>'+s.chip;
-    c.addEventListener("click",()=>geheZu(k));
-    elChips.appendChild(c);
+  slider.addEventListener("input", male);
+  document.addEventListener("keydown", function(e){
+    if (document.activeElement === slider) return; /* Regler regelt selbst */
+    if (e.key === "ArrowRight") { slider.value = Math.min(100, parseFloat(slider.value) + 2); male(); }
+    if (e.key === "ArrowLeft")  { slider.value = Math.max(0, parseFloat(slider.value) - 2); male(); }
   });
-  elZaehler.textContent="Schritt "+(i+1)+" / "+SCHRITTE.length;
-}
 
-function render(){
-  stopPlay();
-  const s=SCHRITTE[i];
-  if(s.typ==="gruppen") renderGruppen(s);
-  else if(s.typ==="zuordnen") renderZuordnen(s);
-  else if(s.typ==="reihenfolge") renderReihenfolge(s);
-  else if(s.typ==="luecke") renderLuecke(s);
-  else if(s.typ==="quiz") renderQuiz(s);
-  else renderTafel(s);
-  $("zurueckBtn").disabled=(i===0);
-  $("weiterBtn").textContent=(i===SCHRITTE.length-1)?"↺ Von vorn":"Nächster Schritt ›";
-  chips(); melde();
-}
-
-/* --- Tafel mit Hotspots (Beschriften) --- */
-function renderTafel(s){
-  let html='<div class="bildbox">'+bildHTML(s.bild,"an");
-  s.hotspots.forEach(h=>{ html+='<button class="hotspot" data-n="'+h.n+'" style="left:'+h.x+'%;top:'+h.y+'%;">'+h.n+'</button>'; });
-  html+='</div>';
-  elB.innerHTML=html;
-  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p>';
-  if(s.hint) e+='<p class="entdeckhint">👇 '+s.hint+'</p>';
-  e+='<div class="infokarte" id="info"><p class="leer">Tippe eine Zahl im Bild an.</p></div>';
-  elE.innerHTML=e;
-  const info=$("info");
-  elB.querySelectorAll(".hotspot").forEach(b=>{
-    b.addEventListener("click",()=>{
-      elB.querySelectorAll(".hotspot").forEach(x=>x.classList.remove("aktiv"));
-      b.classList.add("aktiv");
-      const h=s.hotspots.find(z=>z.n==b.dataset.n);
-      info.className="infokarte";
-      info.innerHTML='<p class="it">Punkt '+h.n+'</p><h3>'+h.titel+'</h3><p>'+h.text+'</p>';
-      info.scrollIntoView({block:"nearest",behavior:reduce?"auto":"smooth"});
-      melde();
+  /* Jahreszeiten-Sprungmarken: Klick springt zur passenden Stelle im Jahr */
+  document.querySelectorAll(".jz-link").forEach(function(knopf){
+    knopf.addEventListener("click", function(){
+      slider.value = knopf.dataset.pos;
+      male();
     });
   });
-}
 
-/* --- Gruppen-Karten (aufklappbar) --- */
-function renderGruppen(s){
-  elB.innerHTML="";
-  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p>';
-  if(s.hint) e+='<p class="entdeckhint">👇 '+s.hint+'</p>';
-  e+='<div class="gliste" id="gliste"></div>';
-  elE.innerHTML=e;
-  const g=$("gliste");
-  ARTEN.forEach(gr=>{
-    const c=document.createElement("div"); c.className="gcard";
-    const foto = gr.bild ? '<img class="gbild" src="'+BASIS+gr.bild.src+'" alt="'+gr.bild.label+'" loading="lazy" onerror="this.style.display=\'none\'">' : '';
-    c.innerHTML='<div class="gk"><span class="gsym">'+gr.sym+'</span>'+
-      '<span class="gname">'+gr.name+'</span><span class="gpf">＋</span></div>'+
-      '<p class="gmerk">'+gr.merk+'</p>'+foto+'<p class="gbsp">'+gr.bsp+'</p>';
-    c.addEventListener("click",()=>{
-      const auf=c.classList.toggle("auf");
-      c.querySelector(".gpf").textContent=auf?"–":"＋";
-      melde();
-    });
-    g.appendChild(c);
-  });
-}
+  male();
+})();
+</script>
 
-/* --- Zuordnen: Reiseweg zuordnen --- */
-function renderZuordnen(s){
-  elB.innerHTML="";
-  const tiere=misch(s.tiere.slice());
-  const wahl={}; let geprueft=false;
-  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p><div class="zuliste" id="zuliste"></div>'+
-    '<div class="pruefzeile"><button class="knopf prim" id="pruefBtn" style="margin:0;">Prüfen</button>'+
-    '<span class="tally" id="tally"></span></div><div class="infokarte" id="info" style="display:none"></div>';
-  elE.innerHTML=e;
-  const liste=$("zuliste");
-  tiere.forEach((tr,k)=>{
-    const row=document.createElement("div"); row.className="zurow";
-    let opt='<span class="zuopt">';
-    s.optionen.forEach(o=>{ opt+='<button data-w="'+o.w+'">'+o.kurz+'</button>'; });
-    opt+='</span>';
-    row.innerHTML='<span class="zuname"><span class="em">'+tr.em+'</span>'+tr.t+'</span>'+opt;
-    row.querySelectorAll("button").forEach(b=>{
-      b.addEventListener("click",()=>{
-        if(geprueft) return;
-        wahl[k]=b.dataset.w;
-        row.querySelectorAll("button").forEach(x=>x.classList.toggle("sel",x===b));
-        melde();
-      });
-    });
-    liste.appendChild(row);
-  });
-  const pb=$("pruefBtn"), tally=$("tally");
-  pb.addEventListener("click",()=>{
-    if(!geprueft){
-      let r=0; const fehler=[];
-      Array.from(liste.children).forEach((row,k)=>{
-        const richtig=tiere[k].w;
-        row.querySelectorAll("button").forEach(b=>{
-          b.disabled=true;
-          if(b.dataset.w===richtig) b.classList.add("ok");
-          if(wahl[k]===b.dataset.w && wahl[k]!==richtig) b.classList.add("no");
+<script>
+/* ---- Abschluss-Quiz „Wald im Jahreslauf" → schreibt die Blätter in den Forscherpass ---- */
+(function(){
+  var FRAGEN=[
+    {f:"Warum ist es im Sommer am Waldboden dunkler als im Frühling?",
+     a:["Das dichte Blätterdach fängt im Sommer das Licht ab","Die Sonne steht im Sommer tiefer","Im Sommer regnet es einfach mehr"], r:0,
+     fb:"Im Frühling sind die Bäume noch kahl, im Sommer beschatten sie den Boden."},
+    {f:"Du findest reife Bucheckern und viele Pilze. Welche Jahreszeit ist das?",
+     a:["Herbst","Frühling","Winter"], r:0,
+     fb:"Reife Früchte und Pilze gehören zum Herbst."},
+    {f:"Welche Reihenfolge im Jahr stimmt?",
+     a:["Frühblüher → dichtes Laub → Laubfall → kahler Winterwald","Laubfall → Frühblüher → kahler Wald → dichtes Laub","Dichtes Laub → Frühblüher → Winter → Herbst"], r:0,
+     fb:"So läuft das Waldjahr ab."},
+    {f:"Welche Pflanze passt NICHT zum Frühling?",
+     a:["Reife Heidelbeere","Buschwindröschen","Bärlauch"], r:0,
+     fb:"Heidelbeeren reifen erst im Sommer – die anderen sind Frühblüher."},
+    {f:"Warum sieht man im Winter im Laubwald trotzdem noch Grün?",
+     a:["Immergrüne Pflanzen wie Efeu, Moos und Tanne behalten ihre Blätter","Weil das Laub der Buchen grün bleibt","Weil Frühblüher im Winter blühen"], r:0,
+     fb:"Nicht alles wirft im Winter die Blätter ab."},
+    {f:"Wie teilen sich Frühblüher und Sommerpflanzen den Waldboden geschickt?",
+     a:["Frühblüher nutzen das Licht früh, bevor die Sommerpflanzen groß sind","Sie wachsen alle gleichzeitig um die Wette","Die Sommerpflanzen blühen zuerst"], r:0,
+     fb:"Ein cleveres Nacheinander statt Konkurrenz um das Licht."},
+    {f:"Im Herbst fällt viel Laub. Warum ist das nützlich für den Wald?",
+     a:["Aus dem Laub entsteht neuer, nährstoffreicher Boden","Es hält Spaziergänger fern","Es macht den Wald im Winter wärmer"], r:0,
+     fb:"Zersetzer machen aus dem Laub wertvollen Humus."},
+    {f:"Welche Aussage stimmt NICHT?",
+     a:["Im Sommer blühen die meisten Frühblüher","Im Herbst reifen Eicheln und Bucheckern","Im Winter ruhen die Laubbäume"], r:0,
+     fb:"Frühblüher blühen im Frühling, nicht im Sommer."}
+  ];
+  var host=document.getElementById("jzqLauf"), intro=document.getElementById("jzqIntro"), startBtn=document.getElementById("jzqStart");
+  if(!host||!startBtn) return;
+  function misch(a){a=a.slice();for(var k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=a[k];a[k]=a[j];a[j]=t;}return a;}
+  startBtn.addEventListener("click",function(){ intro.hidden=true; host.hidden=false; starte(); });
+  function starte(){
+    var fragen=misch(FRAGEN), q=0, score=0, sperre=false;
+    function zeige(){
+      sperre=false;
+      var f=fragen[q];
+      var opts=misch(f.a.map(function(txt,idx){return {txt:txt,idx:idx};}));
+      host.innerHTML='<div class="jzq-kopf">Frage <b>'+(q+1)+'</b> / '+fragen.length+' · ✓ '+score+'</div>'+
+        '<div class="jzq-balken"><div style="width:'+(q/fragen.length*100)+'%"></div></div>'+
+        '<p class="jzq-frage">'+f.f+'</p><div class="jzq-wahl" id="jzqWahl"></div><div class="jzq-fb" id="jzqFb"></div>';
+      var wrap=document.getElementById("jzqWahl"), fb=document.getElementById("jzqFb");
+      opts.forEach(function(o){
+        var b=document.createElement("button"); b.type="button"; b.textContent=o.txt;
+        b.addEventListener("click",function(){
+          if(sperre) return; sperre=true;
+          var richtig=(o.idx===f.r);
+          Array.prototype.forEach.call(wrap.children,function(x,ix){ x.disabled=true; if(opts[ix].idx===f.r) x.classList.add("ok"); });
+          if(richtig){ score++; fb.textContent="✓ Richtig! "+f.fb; } else { b.classList.add("no"); fb.textContent="✗ "+f.fb; }
+          setTimeout(function(){ q++; if(q<fragen.length) zeige(); else ende(); }, richtig?3300:5700);
         });
-        if(wahl[k]===richtig) r++; else fehler.push(tiere[k]);
+        wrap.appendChild(b);
       });
-      tally.textContent=r+" / "+tiere.length+" richtig";
-      const info=$("info");
-      if(fehler.length){
-        info.style.display=""; info.className="infokarte no";
-        info.innerHTML='<p class="it">Schau nochmal</p>'+fehler.map(f=>'<p><b>'+f.t+'</b>: '+f.fb+'</p>').join("");
-      } else {
-        info.style.display=""; info.className="infokarte ok";
-        info.innerHTML='<p class="it">Perfekt</p><p>Alle richtig! Du kennst den Wald durchs ganze Jahr.</p>';
-      }
-      pb.textContent="Nochmal"; geprueft=true;
-    } else { renderZuordnen(s); }
-    melde();
-  });
-}
-
-/* --- Reihenfolge (Drag & Drop + ▲▼) --- */
-function renderReihenfolge(s){
-  elB.innerHTML="";
-  let ordnung=misch(s.karten.map((_,k)=>k));
-  if(ordnung.every((v,k)=>v===k)) ordnung.reverse();
-  let geprueft=false;
-  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p><div class="sortliste" id="sortliste"></div>'+
-    '<div class="pruefzeile"><button class="knopf prim" id="pruefBtn" style="margin:0;">Prüfen</button>'+
-    '<span class="tally" id="tally"></span></div>';
-  elE.innerHTML=e;
-  const liste=$("sortliste");
-
-  function zeichne(){
-    liste.innerHTML="";
-    ordnung.forEach((kartenIdx,pos)=>{
-      const k=s.karten[kartenIdx];
-      const row=document.createElement("div");
-      row.className="sortcard"; row.draggable=!geprueft; row.dataset.pos=pos;
-      row.innerHTML='<span class="em">'+k.em+'</span><span class="lab">'+k.lab+'</span>'+
-        '<span class="pfeile"><button data-d="-1" aria-label="nach oben">▲</button>'+
-        '<button data-d="1" aria-label="nach unten">▼</button></span>'+
-        '<span class="griff" aria-hidden="true">⠿</span>';
-      liste.appendChild(row);
-    });
-    if(geprueft) return;
-    liste.querySelectorAll(".sortcard").forEach(row=>{
-      const pos=+row.dataset.pos;
-      const [up,down]=row.querySelectorAll(".pfeile button");
-      up.disabled=(pos===0); down.disabled=(pos===ordnung.length-1);
-      up.addEventListener("click",()=>{ tausche(pos,pos-1); });
-      down.addEventListener("click",()=>{ tausche(pos,pos+1); });
-      row.addEventListener("dragstart",ev=>{ row.classList.add("drag"); ev.dataTransfer.setData("text/plain",pos); });
-      row.addEventListener("dragend",()=>{ row.classList.remove("drag"); liste.querySelectorAll(".ueber").forEach(x=>x.classList.remove("ueber")); });
-      row.addEventListener("dragover",ev=>{ ev.preventDefault(); row.classList.add("ueber"); });
-      row.addEventListener("dragleave",()=>row.classList.remove("ueber"));
-      row.addEventListener("drop",ev=>{ ev.preventDefault(); const von=+ev.dataTransfer.getData("text/plain"); verschiebe(von,pos); });
-    });
+    }
+    function ende(){
+      var perfekt=(score===fragen.length);
+      var blaetter = perfekt?3 : (score>=Math.ceil(fragen.length*0.6)?2:1);
+      try{var _K="mibaso.flora.wald",_d=JSON.parse(localStorage.getItem(_K)||"{}");
+        if(!_d.jahreslauf||blaetter>(_d.jahreslauf.blaetter||0)){_d.jahreslauf={blaetter:blaetter,done:true,ts:Date.now()};localStorage.setItem(_K,JSON.stringify(_d));}}catch(e){}
+      var voll="🍃".repeat(blaetter), leer='<span class="leer">'+"🍃".repeat(3-blaetter)+'</span>';
+      var sprueche=perfekt?["Alles richtig – du kennst den Wald zu jeder Jahreszeit! 🍂","Volltreffer! Ein echter Jahreszeiten-Kenner."]
+        :(score>=Math.ceil(fragen.length*0.6)?["Stark! Fast alles sitzt.","Gut gemacht – das Jahr hast du drauf."]
+        :["Schieb ruhig nochmal durchs Waldjahr – dann sitzt es.","Ein guter Anfang! Noch eine Runde?"]);
+      host.innerHTML='<div class="jzq-ende"><p style="font-family:-apple-system,sans-serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#9a9384;margin:0;">Ergebnis</p>'+
+        '<p class="jzq-score">'+score+'<small> / '+fragen.length+'</small></p>'+
+        '<p class="jzq-blaetter">'+voll+leer+'</p>'+
+        '<p class="jzq-spruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
+        '<div><button class="jzq-btn" id="jzqNochmal" type="button">Nochmal</button>'+
+        '<a class="jzq-btn" href="../waldpass.html">🌳 Expedition Wald</a></div></div>';
+      document.getElementById("jzqNochmal").addEventListener("click",starte);
+    }
+    zeige();
   }
-  function tausche(a,b){ if(b<0||b>=ordnung.length)return; [ordnung[a],ordnung[b]]=[ordnung[b],ordnung[a]]; zeichne(); melde(); }
-  function verschiebe(von,zu){ if(von===zu)return; const x=ordnung.splice(von,1)[0]; ordnung.splice(zu,0,x); zeichne(); melde(); }
+})();
+</script>
 
-  zeichne();
-  const pb=$("pruefBtn"), tally=$("tally");
-  pb.addEventListener("click",()=>{
-    if(!geprueft){
-      geprueft=true; let r=0;
-      liste.querySelectorAll(".sortcard").forEach((row,pos)=>{
-        row.draggable=false;
-        const richtig=(ordnung[pos]===pos);
-        row.classList.add(richtig?"ok":"no");
-        row.querySelectorAll(".pfeile button").forEach(b=>b.disabled=true);
-        if(richtig) r++;
-      });
-      tally.textContent=r+" / "+ordnung.length+" an der richtigen Stelle";
-      pb.textContent="Nochmal";
-    } else { renderReihenfolge(s); }
-    melde();
-  });
-}
-
-/* --- Lückentext --- */
-function renderLuecke(s){
-  elB.innerHTML="";
-  const slots=[]; let aktiv=-1, geprueft=false;
-  let clz="";
-  s.teile.forEach(t=>{
-    if(t.t!==undefined){ clz+=t.t; }
-    else { const idx=slots.length; slots.push({soll:t.l, ist:null}); clz+='<span class="slot" data-s="'+idx+'">–</span>'; }
-  });
-  let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p><p class="cloze" id="cloze">'+clz+'</p>'+
-    '<div class="wortbank" id="bank"></div>'+
-    '<div class="pruefzeile"><button class="knopf prim" id="pruefBtn" style="margin:0;">Prüfen</button>'+
-    '<span class="tally" id="tally"></span></div>';
-  elE.innerHTML=e;
-  const bank=$("bank");
-  misch(s.bank).forEach(w=>{
-    const b=document.createElement("button"); b.className="wort"; b.textContent=w; b.dataset.w=w;
-    b.addEventListener("click",()=>setzeWort(w,b));
-    bank.appendChild(b);
-  });
-  function markiereAktiv(idx){
-    aktiv=idx;
-    elE.querySelectorAll(".slot").forEach(sl=>sl.classList.toggle("aktiv",+sl.dataset.s===idx));
+<style>
+  /* Embed-Modus: Wenn als iframe geladen, Flora-Header + Footer + Zurück-Link ausblenden */
+  body.embed > header.top, body.embed > footer.bottom, body.embed > a.back { display:none !important; }
+  body.embed { background:transparent; }
+</style>
+<script>
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const isEmbed = params.get('embed') === '1' || window.self !== window.top;
+  if (isEmbed) {
+    document.body.classList.add('embed');
+    // Höhe regelmäßig an Parent posten
+    const sende = () => {
+      const h = document.body.scrollHeight;
+      window.parent.postMessage({ kreislaufHoehe: h }, '*');
+    };
+    window.addEventListener('load', sende);
+    window.addEventListener('resize', sende);
+    new MutationObserver(sende).observe(document.body, { childList:true, subtree:true, attributes:true });
+    setInterval(sende, 800);
   }
-  function ersteLeere(){ for(let k=0;k<slots.length;k++) if(!slots[k].ist) return k; return -1; }
-  function setzeWort(w,btn){
-    if(geprueft) return;
-    let ziel = aktiv>=0 && !slots[aktiv].ist ? aktiv : ersteLeere();
-    if(ziel<0){ return; }
-    slots[ziel].ist=w; slots[ziel].btn=btn;
-    btn.classList.add("weg");
-    const sl=elE.querySelector('.slot[data-s="'+ziel+'"]');
-    sl.textContent=w; sl.classList.add("voll"); sl.classList.remove("aktiv");
-    markiereAktiv(ersteLeere());
-    melde();
-  }
-  elE.querySelectorAll(".slot").forEach(sl=>{
-    sl.addEventListener("click",()=>{
-      if(geprueft) return;
-      const idx=+sl.dataset.s;
-      if(slots[idx].ist){  // Wort zurück in die Bank
-        slots[idx].btn.classList.remove("weg");
-        slots[idx].ist=null; slots[idx].btn=null;
-        sl.textContent="–"; sl.classList.remove("voll");
-      }
-      markiereAktiv(idx);
-    });
-  });
-  markiereAktiv(ersteLeere());
-  const pb=$("pruefBtn"), tally=$("tally");
-  pb.addEventListener("click",()=>{
-    if(!geprueft){
-      geprueft=true; let r=0;
-      slots.forEach((sl,idx)=>{
-        const el=elE.querySelector('.slot[data-s="'+idx+'"]');
-        el.classList.remove("voll","aktiv");
-        if(sl.ist===sl.soll){ el.classList.add("ok"); r++; }
-        else { el.classList.add("no"); el.textContent=sl.ist?sl.ist+" → "+sl.soll:sl.soll; }
-      });
-      tally.textContent=r+" / "+slots.length+" richtig";
-      pb.textContent="Nochmal";
-    } else { renderLuecke(s); }
-    melde();
-  });
-}
-
-/* --- Abschluss-Quiz → schreibt Blätter in den Forscherpass --- */
-function renderQuiz(s){
-  const fragen=misch(s.fragen.slice());
-  let q=0, score=0, sperre=false;
-  elB.innerHTML="";
-  function zeigeFrage(){
-    sperre=false;
-    const f=fragen[q];
-    const opts=misch(f.a.map((txt,idx)=>({txt,idx})));
-    let e='<div class="qkopf">Frage <b>'+(q+1)+'</b> / '+fragen.length+' · ✓ '+score+'</div>'+
-      '<div class="qbalken"><div style="width:'+(q/fragen.length*100)+'%"></div></div>'+
-      '<p class="qfrage">'+f.f+'</p><div class="qwahl" id="qwahl"></div><div class="qfb" id="qfb"></div>';
-    elE.innerHTML=e;
-    const wrap=$("qwahl"), fb=$("qfb");
-    opts.forEach(o=>{
-      const b=document.createElement("button"); b.textContent=o.txt; b.dataset.idx=o.idx;
-      b.addEventListener("click",()=>{
-        if(sperre) return; sperre=true;
-        const richtig=(o.idx===f.r);
-        wrap.querySelectorAll("button").forEach(x=>{ x.disabled=true; if(+x.dataset.idx===f.r) x.classList.add("ok"); });
-        if(richtig){ score++; fb.textContent="✓ Richtig! "+f.fb; }
-        else{ b.classList.add("no"); fb.textContent="✗ "+f.fb; }
-        melde();
-        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?3300:5700);
-      });
-      wrap.appendChild(b);
-    });
-    melde();
-  }
-  function ende(){
-    const perfekt=score===fragen.length;
-    const blaetter = perfekt ? 3 : score>=Math.ceil(fragen.length*0.6) ? 2 : 1;
-    try{ const _K="mibaso.flora.wald"; const _d=JSON.parse(localStorage.getItem(_K)||"{}");
-      if(!_d.jahreslauf || blaetter>_d.jahreslauf.blaetter){ _d.jahreslauf={blaetter:blaetter,done:true,ts:Date.now()}; localStorage.setItem(_K,JSON.stringify(_d)); } }catch(e){}
-    const sprueche=perfekt
-      ? ["Alles richtig – du kennst den Wald zu jeder Jahreszeit! 🍂","Volltreffer! Ein echter Jahreszeiten-Kenner."]
-      : score>=Math.ceil(fragen.length*0.6)
-        ? ["Stark! Fast alles richtig.","Gut gemacht – die Jahreszeiten sitzen."]
-        : ["Geh ruhig nochmal durch die Schritte – dann sitzt es.","Ein guter Anfang! Noch eine Runde?"];
-    elE.innerHTML='<div class="qende"><p class="qlabel">Ergebnis</p>'+
-      '<p class="qscore">'+score+'<small> / '+fragen.length+'</small></p>'+
-      '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
-      '<p class="qspruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
-      '<div class="bruecke"><p>Geschafft! Du hast ein ganzes Waldjahr durchwandert – und im Forscherpass wächst dein Wald ein Stück weiter.</p>'+
-        '<a class="passbtn" href="../waldpass.html">🌳 Zur Expedition Wald</a></div>'+
-      '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;">'+
-        '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
-        '<a class="knopf" href="../waldpass.html">Alle Stationen</a></div></div>';
-    $("qnochmal").addEventListener("click",()=>renderQuiz(s));
-    if(perfekt){ konfetti(); fanfare(); }
-    melde();
-  }
-  zeigeFrage();
-}
-
-/* --- Konfetti + Fanfare --- */
-function konfetti(){
-  if(reduce) return;
-  const feld=document.createElement("div"); feld.className="konffeld";
-  const farben=['#C28A3A','#2F4F3E','#3E9A5E','#5A8068','#e8a020','#9b59b6'];
-  for(let n=0;n<70;n++){ const k=document.createElement("span"); k.className="konf";
-    k.style.cssText='left:'+Math.random()*100+'%;background:'+farben[(Math.random()*farben.length)|0]+
-      ';animation-delay:'+(Math.random()*0.5).toFixed(2)+'s;transform:rotate('+(Math.random()*360)+'deg);';
-    feld.appendChild(k); }
-  document.body.appendChild(feld); setTimeout(()=>feld.remove(),4200);
-}
-function fanfare(){
-  try{ const Ctx=window.AudioContext||window.webkitAudioContext; if(!Ctx) return;
-    const ctx=new Ctx(); if(ctx.state==="suspended") ctx.resume(); const t0=ctx.currentTime+0.05;
-    [[523.25,0,0.16,0.2],[659.25,0.15,0.16,0.2],[783.99,0.30,0.16,0.2],[1046.5,0.46,0.6,0.22]]
-    .forEach(([fr,st,du,vo])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type="triangle";o.frequency.value=fr;
-      g.gain.setValueAtTime(0,t0+st);g.gain.linearRampToValueAtTime(vo,t0+st+0.02);g.gain.exponentialRampToValueAtTime(0.001,t0+st+du);
-      o.connect(g).connect(ctx.destination);o.start(t0+st);o.stop(t0+st+du+0.05);});
-    setTimeout(()=>ctx.close().catch(()=>{}),1600);
-  }catch(e){}
-}
-
-/* --- Navigation --- */
-function geheZu(k){ if(k<0||k>=SCHRITTE.length) return; i=k; render(); window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); }
-function stopPlay(){ if(timer){clearInterval(timer);timer=null;} }
-$("zurueckBtn").addEventListener("click",()=>geheZu(i-1));
-$("weiterBtn").addEventListener("click",()=>{ if(i===SCHRITTE.length-1) geheZu(0); else geheZu(i+1); });
-
-/* Wischen zwischen Schritten (außer auf interaktiven Elementen) */
-let tx=0,ty=0,tig=false;
-document.addEventListener("touchstart",e=>{
-  if(e.target.closest("input,button,a,.hotspot,.gcard,.sortcard,.slot")){tig=false;return;}
-  tig=true; tx=e.touches[0].clientX; ty=e.touches[0].clientY;
-},{passive:true});
-document.addEventListener("touchend",e=>{
-  if(!tig) return; tig=false;
-  const dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
-  if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)*1.6){ geheZu(i+(dx<0?1:-1)); }
-},{passive:true});
-
-/* Höhe an iframe melden (WordPress-Einbindung) */
-function melde(){ if(window.parent!==window){ try{ window.parent.postMessage({flora:"height", height:document.body.scrollHeight}, "*"); }catch(e){} } }
-if("ResizeObserver" in window){ new ResizeObserver(melde).observe(document.body); }
-window.addEventListener("load", melde);
-
-render();
+})();
 </script>
 <script src="../assets/app.js" defer></script>
 </body>
