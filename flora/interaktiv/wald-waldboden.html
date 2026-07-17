@@ -291,7 +291,21 @@ const ARTEN = [
 ];
 
 const SCHRITTE = [
-  /* 1 — Reihenfolge: der Recycling-Kreislauf --------------------------- */
+  /* 1 — Beschriften: Blick in den Waldboden (jetzt am Anfang) ---------- */
+  { chip:"Im Waldboden", titel:"Ein Blick in den Waldboden",
+    text:"Schneidet man den Boden auf, sieht man die Recyclinganlage bei der Arbeit – von der Laubstreu oben bis zu den Wurzeln unten. Tippe die Punkte an.",
+    hint:"Tippe die Zahlen im Bild an.",
+    typ:"tafel", hoch:true, hochAspect:"1158/1358",
+    bild:{src:"boden-profil.jpg", label:"Der Waldboden im Querschnitt", glyph:"🪱"},
+    hotspots:[
+      {x:50,y:12,n:1,titel:"Die Laubstreu",text:"Ganz oben liegt das frisch gefallene Laub. Hier beginnt die Zersetzung."},
+      {x:34,y:40,n:2,titel:"Pilzgeflecht",text:"Feine Pilzfäden durchziehen die Schicht und zerlegen das Laub Stück für Stück."},
+      {x:62,y:62,n:3,titel:"Ein Regenwurm",text:"Er zieht Blätter in die Tiefe und mischt die Erde – dabei entsteht nach und nach Humus."},
+      {x:45,y:87,n:4,titel:"Wurzeln & Humus",text:"Unten nehmen die Wurzeln der Pflanzen die frei gewordenen Nährstoffe wieder auf. Der Kreislauf schließt sich."}
+    ]
+  },
+
+  /* 2 — Reihenfolge: der Recycling-Kreislauf --------------------------- */
   { chip:"Der Kreislauf", kat:"uebung", titel:"Der Recycling-Kreislauf des Waldes",
     text:"Im Wald geht nichts verloren – alles wird wiederverwertet. Bring den Kreislauf in die richtige Reihenfolge, mit dem Griff ⠿ ziehen oder mit ▲▼ schieben, dann „Prüfen“.",
     typ:"reihenfolge",
@@ -304,25 +318,11 @@ const SCHRITTE = [
     ]
   },
 
-  /* 2 — Gruppen: das Recycling-Team ------------------------------------ */
+  /* 3 — Gruppen: das Recycling-Team ------------------------------------ */
   { chip:"Das Zersetzer-Team", titel:"Die Recycler des Waldes",
     text:"An der Zersetzung arbeiten viele mit – vom Regenwurm bis zum winzigen Bakterium. Tippe die Karten an und lerne das Team kennen.",
     hint:"Tippe eine Karte an, um sie aufzuklappen.",
     typ:"gruppen"
-  },
-
-  /* 3 — Beschriften: Blick in den Waldboden ---------------------------- */
-  { chip:"Im Waldboden", titel:"Ein Blick in den Waldboden",
-    text:"Schneidet man den Boden auf, sieht man die Recyclinganlage bei der Arbeit – von der Laubstreu oben bis zu den Wurzeln unten. Tippe die Punkte an.",
-    hint:"Tippe die Zahlen im Bild an.",
-    typ:"tafel",
-    bild:{src:"boden-profil.jpg", label:"Der Waldboden im Querschnitt", glyph:"🪱"},
-    hotspots:[
-      {x:50,y:12,n:1,titel:"Die Laubstreu",text:"Ganz oben liegt das frisch gefallene Laub. Hier beginnt die Zersetzung."},
-      {x:34,y:40,n:2,titel:"Pilzgeflecht",text:"Feine Pilzfäden durchziehen die Schicht und zerlegen das Laub Stück für Stück."},
-      {x:62,y:62,n:3,titel:"Ein Regenwurm",text:"Er zieht Blätter in die Tiefe und mischt die Erde – dabei entsteht nach und nach Humus."},
-      {x:45,y:87,n:4,titel:"Wurzeln & Humus",text:"Unten nehmen die Wurzeln der Pflanzen die frei gewordenen Nährstoffe wieder auf. Der Kreislauf schließt sich."}
-    ]
   },
 
   /* 4 — Zuordnen: Zersetzer oder nicht? -------------------------------- */
@@ -359,35 +359,35 @@ const SCHRITTE = [
     ]
   },
 
-  /* 6 — Abschluss-Quiz ------------------------------------------------- */
+  /* 6 — Abschluss-Quiz (kniffliger) ------------------------------------ */
   { chip:"Quiz", kat:"quiz", titel:"Abschluss-Quiz",
     text:"Zum Schluss der Test: Zeig, was du über die Recyclinganlage Waldboden weißt.",
     typ:"quiz",
     fragen:[
-      {f:"Wer ist KEIN Zersetzer?",
-       a:["Der Regenwurm","Das Reh","Der Pilz"], r:1,
-       fb:"Das Reh frisst frische Pflanzen – es zersetzt kein totes Material."},
-      {f:"Was passiert im Recycling-Kreislauf als Erstes?",
-       a:["Neue Pflanzen wachsen","Die Blätter fallen zu Boden","Die Nährstoffe verschwinden"], r:1,
-       fb:"Am Anfang steht das gefallene Laub – der Rohstoff fürs Recycling."},
-      {f:"Welche Lebewesen sind die wichtigsten Zersetzer im Wald?",
-       a:["Pilze und Bakterien","Vögel und Rehe","Schmetterlinge"], r:0,
-       fb:"Pilze und Bakterien erledigen die Hauptarbeit."},
-      {f:"Was entsteht am Ende aus dem zersetzten Laub?",
-       a:["Sand","Humus voller Nährstoffe","Plastik"], r:1,
-       fb:"Humus ist fruchtbare, dunkle Erde – der Dünger des Waldes."},
-      {f:"Wobei helfen Regenwürmer im Waldboden?",
-       a:["Sie zerkleinern Laub und mischen die Erde","Sie fressen lebende Blätter","Sie bestäuben Blüten"], r:0,
-       fb:"Regenwürmer lockern und mischen den Boden wie ein kleiner Pflug."},
-      {f:"Im Wald bleibt das gefallene Laub für immer liegen und häuft sich immer höher an.",
-       a:["Stimmt","Falsch – die Zersetzer bauen es ab, sonst läge der Wald meterhoch voller Laub"], r:1,
-       fb:"Fangfrage! Ohne die Zersetzer würde der Wald im Laub ersticken."},
+      {f:"Welches Lebewesen ist KEIN Zersetzer?",
+       a:["Das Reh","Der Regenwurm","Der Pilz"], r:0,
+       fb:"Das Reh frisst frische Pflanzen – es baut kein totes Material ab."},
+      {f:"Was kommt im Kreislauf direkt nach dem Laubfall?",
+       a:["Pilze und Bakterien zersetzen das Laub","Sofort wachsen neue Bäume","Die Nährstoffe verschwinden für immer"], r:0,
+       fb:"Zuerst wird zersetzt – erst ganz am Ende wächst Neues."},
+      {f:"Warum wäre der Wald ohne Zersetzer ein Problem?",
+       a:["Das Laub würde sich meterhoch stapeln und die Nährstoffe blieben eingeschlossen","Es würde im Wald zu warm","Die Bäume würden zu schnell wachsen"], r:0,
+       fb:"Zersetzer verhindern den Laub-Stau und geben Nährstoffe frei."},
+      {f:"Ein Schüler sagt: „Pilze sind Pflanzen, die im Boden Nährstoffe herstellen.“ Stimmt das?",
+       a:["Nein – Pilze stellen nichts her, sie zersetzen totes Material","Ja, genau so ist es","Ja, aber nur im Sommer"], r:0,
+       fb:"Pilze produzieren keine Nährstoffe, sie bauen ab und geben sie frei."},
+      {f:"Was ist die wichtigste Aufgabe der Regenwürmer?",
+       a:["Laub zerkleinern und die Erde mischen und lockern","Lebende Wurzeln abfressen","Blüten bestäuben"], r:0,
+       fb:"Regenwürmer arbeiten wie ein kleiner Pflug im Boden."},
+      {f:"Welche Reihenfolge stimmt?",
+       a:["Laub → Zersetzer → Humus → neue Pflanzen","Humus → Laub → neue Pflanzen → Zersetzer","Neue Pflanzen → Laub → Humus → Zersetzer"], r:0,
+       fb:"So schließt sich der Kreislauf ohne Müll."},
       {f:"Warum nennt man den Waldboden eine „Recyclinganlage“?",
-       a:["Weil dort Müllautos fahren","Weil alles wiederverwertet wird: aus Totem werden neue Nährstoffe","Weil dort Plastik recycelt wird"], r:1,
-       fb:"Im Wald wird nichts weggeworfen – alles wird zu neuem Leben."},
-      {f:"Wer nimmt die frei gewordenen Nährstoffe wieder auf?",
+       a:["Aus totem Material werden wieder Nährstoffe für neue Pflanzen","Weil dort Müll gesammelt und verbrannt wird","Weil dort Maschinen arbeiten"], r:0,
+       fb:"Nichts wird weggeworfen – alles wird wiederverwertet."},
+      {f:"Wer nimmt die frei gewordenen Nährstoffe am Ende wieder auf?",
        a:["Die Wurzeln der Pflanzen","Die Wolken","Die Steine"], r:0,
-       fb:"Die Wurzeln saugen die Nährstoffe auf – und der Kreislauf beginnt von vorn."}
+       fb:"Und damit beginnt der Kreislauf von vorn."}
     ]
   }
 ];
@@ -435,7 +435,8 @@ function render(){
 
 /* --- Tafel mit Hotspots (Beschriften) --- */
 function renderTafel(s){
-  let html='<div class="bildbox">'+bildHTML(s.bild,"an");
+  const _bs=s.hoch?' style="aspect-ratio:'+(s.hochAspect||"3/4")+';width:min(82%,330px);max-height:76vh;margin:0 auto;"':"";
+  let html='<div class="bildbox"'+_bs+'>'+bildHTML(s.bild,"an");
   s.hotspots.forEach(h=>{ html+='<button class="hotspot" data-n="'+h.n+'" style="left:'+h.x+'%;top:'+h.y+'%;">'+h.n+'</button>'; });
   html+='</div>';
   elB.innerHTML=html;

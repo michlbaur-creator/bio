@@ -295,7 +295,7 @@ const SCHRITTE = [
   { chip:"Die Stockwerke", titel:"Der Wald hat vier Stockwerke",
     text:"Wie ein Hochhaus ist der Wald in Etagen aufgeteilt – von der Baumkrone bis zum Moos am Boden. Tippe die Punkte an und lerne die vier Schichten kennen.",
     hint:"Tippe die Zahlen im Bild an.",
-    typ:"tafel",
+    typ:"tafel", hoch:true, hochAspect:"1122/1402",
     bild:{src:"waldprofil.jpg", label:"Die vier Stockwerke des Waldes", glyph:"🌳"},
     hotspots:[
       {x:52,y:12,n:1,titel:"Baumschicht",text:"Ganz oben, oft 20–40 m hoch: das Kronendach aus großen Bäumen wie Buche und Eiche. Es fängt das meiste Sonnenlicht ab."},
@@ -365,30 +365,30 @@ const SCHRITTE = [
     text:"Zum Schluss der Test: Zeig, was du über die Stockwerke des Waldes weißt.",
     typ:"quiz",
     fragen:[
-      {f:"Wie heißt die oberste Schicht des Waldes?",
-       a:["Baumschicht","Krautschicht","Moosschicht"], r:0,
-       fb:"Ganz oben liegt das Kronendach – die Baumschicht."},
-      {f:"In welcher Schicht wächst der Waldmeister?",
-       a:["In der Baumschicht","In der Krautschicht","In der Moosschicht"], r:1,
-       fb:"Waldmeister ist eine niedrige Bodenpflanze – er gehört in die Krautschicht."},
-      {f:"Warum blühen viele Krautpflanzen schon im zeitigen Frühjahr?",
-       a:["Weil es dann am wärmsten ist","Weil noch viel Licht bis zum Boden fällt, solange die Bäume kahl sind","Weil Insekten sie dazu zwingen"], r:1,
-       fb:"Solange oben die Blätter fehlen, kommt Licht bis zum Boden – das nutzen die Frühblüher."},
-      {f:"Was findest du typischerweise in der Moosschicht?",
-       a:["Große Eichen","Moose, Flechten und Pilze","Nistplätze für Greifvögel"], r:1,
-       fb:"Ganz unten, im feuchten Schatten, wachsen Moose, Flechten und Pilze."},
-      {f:"In einem dichten Sommerwald kommt am Boden genauso viel Licht an wie in der Baumkrone.",
-       a:["Stimmt","Falsch – das Kronendach schluckt das meiste Licht"], r:1,
-       fb:"Fangfrage! Das dichte Blätterdach nimmt oben fast alles Licht weg – unten ist es schattig."},
-      {f:"Welche Pflanze gehört zur Strauchschicht?",
-       a:["Rotbuche","Haselnuss","Frauenhaarmoos"], r:1,
-       fb:"Die Haselnuss ist ein niedriger Strauch – Strauchschicht."},
-      {f:"Warum ist die Strauchschicht für Tiere so wichtig?",
-       a:["Sie bietet Nistplätze, Deckung und Beeren","Sie ist der einzige Ort mit Sonne","Dort wachsen die höchsten Bäume"], r:0,
-       fb:"Sträucher geben Vögeln und kleinen Tieren Schutz, Nistplätze und Nahrung."},
-      {f:"Was brauchen Moose zum Wachsen vor allem?",
-       a:["Viel direkte Sonne","Feuchtigkeit und Schatten","Trockenen, sandigen Boden"], r:1,
-       fb:"Moose lieben es feucht und schattig – deshalb wachsen sie am Waldboden."}
+      {f:"Ordne von oben nach unten – welche Reihenfolge stimmt?",
+       a:["Baumschicht – Strauchschicht – Krautschicht – Moosschicht","Krautschicht – Baumschicht – Moosschicht – Strauchschicht","Moosschicht – Krautschicht – Strauchschicht – Baumschicht"], r:0,
+       fb:"Von der Krone bis zum Boden: Baum, Strauch, Kraut, Moos."},
+      {f:"Ein Sauerklee wächst flach am Boden, ist aber kein Moos. Zu welcher Schicht gehört er?",
+       a:["Krautschicht","Moosschicht","Strauchschicht"], r:0,
+       fb:"Blühende Bodenpflanzen bilden die Krautschicht – Moos ist noch flacher."},
+      {f:"Warum kommen in der Krautschicht so viele schattenverträgliche Pflanzen vor?",
+       a:["Weil die Baumschicht darüber das meiste Licht wegfängt","Weil der Boden dort zu nährstoffarm ist","Weil dort ständig Wind weht"], r:0,
+       fb:"Was oben hängen bleibt, fehlt unten – deshalb Schattenpflanzen."},
+      {f:"In welcher Schicht findet ein Vogel am ehesten Deckung und Beeren?",
+       a:["Strauchschicht","Moosschicht","Baumschicht"], r:0,
+       fb:"Die Sträucher bieten Schutz und Nahrung in erreichbarer Höhe."},
+      {f:"Frühblüher wachsen fast alle in der Krautschicht. Was ist der Hauptgrund?",
+       a:["Im Frühjahr fällt dort noch viel Licht bis zum Boden","Dort ist der Boden am wärmsten","Dort gibt es keine Konkurrenz durch Tiere"], r:0,
+       fb:"Vor dem Laubaustrieb ist der Boden hell – ideal für Frühblüher."},
+      {f:"In welcher Schicht beginnt die Zersetzung des gefallenen Laubs?",
+       a:["In der Moosschicht am Boden","In der Baumschicht","In der Strauchschicht"], r:0,
+       fb:"Ganz unten, im feuchten Schatten, zersetzt sich das Laub."},
+      {f:"Welche Aussage stimmt NICHT?",
+       a:["In der Moosschicht wachsen die höchsten Bäume","Die Baumschicht fängt das meiste Licht ab","Sträucher bieten Vögeln Nistplätze"], r:0,
+       fb:"In der Moosschicht wachsen Moose und Pilze – niemals hohe Bäume."},
+      {f:"Eine Buche ist 30 m hoch, ein Frauenhaarmoos 3 cm. Welche Schichten sind das?",
+       a:["Baumschicht und Moosschicht","Strauchschicht und Krautschicht","Beide Krautschicht"], r:0,
+       fb:"Ganz oben die Buche, ganz unten das Moos."}
     ]
   }
 ];
@@ -436,7 +436,8 @@ function render(){
 
 /* --- Tafel mit Hotspots (Beschriften) --- */
 function renderTafel(s){
-  let html='<div class="bildbox">'+bildHTML(s.bild,"an");
+  const _bs=s.hoch?' style="aspect-ratio:'+(s.hochAspect||"3/4")+';width:min(82%,330px);max-height:76vh;margin:0 auto;"':"";
+  let html='<div class="bildbox"'+_bs+'>'+bildHTML(s.bild,"an");
   s.hotspots.forEach(h=>{ html+='<button class="hotspot" data-n="'+h.n+'" style="left:'+h.x+'%;top:'+h.y+'%;">'+h.n+'</button>'; });
   html+='</div>';
   elB.innerHTML=html;

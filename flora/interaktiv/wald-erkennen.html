@@ -141,8 +141,8 @@
   .gcard .gpf{color:#b7c0b7;font-family:var(--sans);font-size:16px;}
   .gcard .gmerk{font-size:14px;color:var(--tinte);margin:8px 0 0;display:none;line-height:1.5;}
   .gcard.auf .gmerk{display:block;}
-  .gcard .gbild{width:100%;height:auto;max-height:150px;object-fit:cover;border-radius:9px;
-    border:1px solid #cdbf9e;margin:10px 0 0;display:none;}
+  .gcard .gbild{width:100%;max-width:230px;aspect-ratio:1/1;object-fit:cover;border-radius:9px;
+    border:1px solid #cdbf9e;margin:10px auto 0;display:none;}
   .gcard.auf .gbild{display:block;}
   .gcard .gbsp{font-family:var(--sans);font-size:12.5px;color:#6f7b70;margin:6px 0 0;display:none;}
   .gcard.auf .gbsp{display:block;}
@@ -345,29 +345,29 @@ const SCHRITTE = [
     typ:"quiz",
     fragen:[
       {img:"erk-buschwindroeschen.jpg", f:"Welche Waldpflanze ist das?",
-       a:["Buschwindröschen","Goldnessel","Wald-Sauerklee"], r:0,
-       fb:"Weiße Sternblüten im Frühlingsteppich – das Buschwindröschen."},
+       a:["Buschwindröschen","Wald-Sauerklee","Waldmeister"], r:0,
+       fb:"Große weiße Sternblüte, einzeln – das Buschwindröschen."},
       {img:"erk-waldmeister.jpg", f:"Welche Waldpflanze ist das?",
-       a:["Lerchensporn","Waldmeister","Scharbockskraut"], r:1,
-       fb:"Blätter in Quirlen und Cumarin-Duft – der Waldmeister."},
+       a:["Waldmeister","Buschwindröschen","Wald-Sauerklee"], r:0,
+       fb:"Kleine weiße Blüten und Blattquirle – der Waldmeister."},
       {img:"erk-sauerklee.jpg", f:"Welche Waldpflanze ist das?",
-       a:["Wald-Sauerklee","Buschwindröschen","Goldnessel"], r:0,
-       fb:"Kleeblätter, die sich falten – der Wald-Sauerklee."},
+       a:["Wald-Sauerklee","Buschwindröschen","Waldmeister"], r:0,
+       fb:"Kleeartige Blätter, die sich falten – der Wald-Sauerklee."},
       {img:"erk-goldnessel.jpg", f:"Welche Waldpflanze ist das?",
-       a:["Scharbockskraut","Goldnessel","Waldmeister"], r:1,
-       fb:"Gelbe Lippenblüten – die Goldnessel."},
+       a:["Goldnessel","Scharbockskraut","Lerchensporn"], r:0,
+       fb:"Gelbe Lippenblüten in Etagen – die Goldnessel."},
       {img:"erk-lerchensporn.jpg", f:"Welche Waldpflanze ist das?",
-       a:["Lerchensporn","Wald-Sauerklee","Buschwindröschen"], r:0,
+       a:["Lerchensporn","Goldnessel","Scharbockskraut"], r:0,
        fb:"Lila Blütentrauben mit Sporn – der Lerchensporn."},
       {img:"erk-scharbockskraut.jpg", f:"Welche Waldpflanze ist das?",
-       a:["Goldnessel","Buschwindröschen","Scharbockskraut"], r:2,
+       a:["Scharbockskraut","Goldnessel","Buschwindröschen"], r:0,
        fb:"Glänzend gelbe Blüten und Herzblätter – das Scharbockskraut."},
-      {f:"Woran erkennst du den Waldmeister besonders sicher?",
-       a:["Am Duft nach Cumarin, wenn er trocknet","An seinen roten Beeren","An seinen Dornen"], r:0,
-       fb:"Getrocknet riecht Waldmeister deutlich nach Cumarin – wie Maibowle."},
-      {f:"Alle Frühlings-Waldblumen sehen gleich aus – man kann sie gar nicht unterscheiden.",
-       a:["Stimmt","Falsch – Blütenfarbe, Blattform und Duft verraten die Art"], r:1,
-       fb:"Fangfrage! Genau darauf achtet ein guter Pflanzenkenner."}
+      {f:"Zwei weiße Frühlingsblumen: die eine mit großer Sternblüte einzeln, die andere mit kleinen Blüten in Quirlen und Cumarin-Duft. Welche ist der Waldmeister?",
+       a:["Die mit kleinen Blüten in Quirlen und Cumarin-Duft","Die mit der großen einzelnen Sternblüte","Beide sind Waldmeister"], r:0,
+       fb:"Buschwindröschen = große Einzelblüte, Waldmeister = Blütenquirle mit Duft."},
+      {f:"Du findest glänzend gelbe Blüten mit herzförmigen Blättern dicht am Boden. Welche Pflanze ist das am ehesten?",
+       a:["Scharbockskraut","Buschwindröschen","Waldmeister"], r:0,
+       fb:"Glänzend gelb und Herzblätter – das ist das Scharbockskraut."}
     ]
   }
 ];

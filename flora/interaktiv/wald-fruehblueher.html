@@ -292,7 +292,7 @@ const SCHRITTE = [
   { chip:"Wald im März", titel:"Der Waldboden im März",
     text:"Im März ist der Wald noch kahl – und genau das ist die Chance der Frühblüher. Solange die Bäume keine Blätter tragen, fällt viel Licht bis zum Boden. Tippe die Punkte an.",
     hint:"Tippe die Zahlen im Bild an.",
-    typ:"tafel",
+    typ:"tafel", hoch:true, hochAspect:"1024/1535",
     bild:{src:"fruehblueher-maerz.jpg", label:"Frühblüher-Teppich im Frühlingswald", glyph:"🌸"},
     hotspots:[
       {x:50,y:12,n:1,titel:"Kahle Baumkronen",text:"Noch ohne Blätter – deshalb fällt jetzt viel Sonnenlicht bis zum Waldboden. Ein kurzes Zeitfenster, das die Frühblüher blitzschnell nutzen."},
@@ -361,30 +361,30 @@ const SCHRITTE = [
     text:"Zum Schluss der Test: Zeig, was du über die Frühblüher weißt.",
     typ:"quiz",
     fragen:[
-      {f:"Warum blühen Frühblüher schon so früh im Jahr?",
-       a:["Weil noch viel Licht bis zum Boden fällt, solange die Bäume kahl sind","Weil es im März am wärmsten ist","Weil sie keine Bestäuber brauchen"], r:0,
-       fb:"Genau – sie nutzen das Licht, bevor die Bäume Blätter bekommen."},
-      {f:"Was bedeutet „Kronenschluss“?",
-       a:["Der Wald wird abgeholzt","Die Bäume bekommen Blätter und es wird schattig am Boden","Die Blüten schließen sich nachts"], r:1,
-       fb:"Beim Kronenschluss schließt sich das Blätterdach – unten wird es dunkel."},
-      {f:"Welche Pflanzenteile der Frühblüher bleiben nach der Blüte im Boden?",
-       a:["Nur die Wurzeln","Speicher wie Zwiebeln, Knollen oder Rhizome","Gar nichts – sie sterben ganz ab"], r:1,
-       fb:"Oben verwelkt die Pflanze, doch der Speicher überdauert im Boden."},
-      {f:"Was ist in Zwiebeln und Knollen gespeichert?",
-       a:["Wasser zum Trinken","Stärke als Nährstoff-Vorrat","Sauerstoff"], r:1,
-       fb:"Stärke ist der Energie-Vorrat für den schnellen Start im Frühling."},
-      {f:"Buschwindröschen blühen den ganzen Sommer über.",
-       a:["Stimmt","Falsch – sie blühen nur kurz im Frühling"], r:1,
-       fb:"Fangfrage! Nach dem Kronenschluss ziehen sie sich zurück."},
-      {f:"Wer bestäubt die Frühblüher im zeitigen Frühjahr?",
-       a:["Nur der Wind","Hummeln, Wildbienen und Fliegen","Vögel"], r:1,
-       fb:"Die ersten Insekten des Jahres – Hummeln, Wildbienen, Fliegen – holen sich Pollen und Nektar."},
-      {f:"Woran erkennst du Bärlauch am sichersten?",
-       a:["An seinem Knoblauchgeruch","An seinen roten Beeren","An seinen Dornen"], r:0,
-       fb:"Zerreibt man ein Blatt, riecht es deutlich nach Knoblauch."},
-      {f:"Was ist ein Rhizom?",
-       a:["Ein tief fliegender Samen","Ein waagerechter Spross (Wurzelstock) unter der Erde","Ein kleiner Pilz"], r:1,
-       fb:"Aus dem Rhizom treiben jedes Jahr neue Pflanzen – so entstehen große Teppiche."}
+      {f:"Warum blühen Frühblüher so früh und nicht erst im Sommer?",
+       a:["Im Frühjahr fällt noch viel Licht bis zum Boden, im Sommer nicht mehr","Weil sie Frost zum Blühen brauchen","Weil es im Sommer keine Insekten gibt"], r:0,
+       fb:"Sie nutzen das Licht, bevor die Bäume das Dach schließen."},
+      {f:"Was passiert direkt NACH dem Kronenschluss mit den Frühblühern?",
+       a:["Sie ziehen sich zurück, der Speicher bleibt im Boden","Sie blühen erst richtig auf","Sie werden zu kleinen Sträuchern"], r:0,
+       fb:"Ohne Licht ist ihre Zeit vorbei – bis zum nächsten Frühling."},
+      {f:"Buschwindröschen bilden große Teppiche aus einer Pflanze. Was steckt dahinter?",
+       a:["Ein kriechendes Rhizom unter der Erde","Fliegende Samen","Ableger, die über dem Boden kriechen"], r:0,
+       fb:"Das Rhizom wächst waagerecht und treibt überall neu aus."},
+      {f:"Warum ist gespeicherte Stärke für Frühblüher so wichtig?",
+       a:["Sie liefert Energie für den blitzschnellen Start im Frühjahr","Sie schützt vor Fressfeinden","Sie macht die Blüten bunt"], r:0,
+       fb:"Mit dem Vorrat legen sie sofort los, sobald es hell wird."},
+      {f:"Welche Aussage über Frühblüher stimmt NICHT?",
+       a:["Sie blühen den ganzen Sommer über","Sie werden von Hummeln und Wildbienen bestäubt","Sie speichern Kraft unter der Erde"], r:0,
+       fb:"Nach dem Kronenschluss ist Schluss – sie blühen nur kurz im Frühling."},
+      {f:"Du zerreibst ein Blatt und riechst deutlich Knoblauch. Welcher Frühblüher ist das?",
+       a:["Bärlauch","Buschwindröschen","Lerchensporn"], r:0,
+       fb:"Der Knoblauchgeruch ist typisch für Bärlauch."},
+      {f:"Warum kann das Sammeln von Bärlauch gefährlich sein?",
+       a:["Er lässt sich leicht mit giftigen Blättern (z. B. Maiglöckchen) verwechseln","Er wächst nur hoch oben auf Bäumen","Er blüht nie und ist deshalb giftig"], r:0,
+       fb:"Ohne den Knoblauchgeruch ist eine Verwechslung gefährlich."},
+      {f:"Ein Frühblüher hat weiße Sternblüten und wächst in Teppichen. Am ehesten ist das …",
+       a:["das Buschwindröschen","der Lerchensporn","das Scharbockskraut"], r:0,
+       fb:"Weiße Sternblüten im Teppich – das Buschwindröschen."}
     ]
   }
 ];
@@ -432,7 +432,8 @@ function render(){
 
 /* --- Tafel mit Hotspots (Beschriften) --- */
 function renderTafel(s){
-  let html='<div class="bildbox">'+bildHTML(s.bild,"an");
+  const _bs=s.hoch?' style="aspect-ratio:'+(s.hochAspect||"3/4")+';width:min(82%,330px);max-height:76vh;margin:0 auto;"':"";
+  let html='<div class="bildbox"'+_bs+'>'+bildHTML(s.bild,"an");
   s.hotspots.forEach(h=>{ html+='<button class="hotspot" data-n="'+h.n+'" style="left:'+h.x+'%;top:'+h.y+'%;">'+h.n+'</button>'; });
   html+='</div>';
   elB.innerHTML=html;
