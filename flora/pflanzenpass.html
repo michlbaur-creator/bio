@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Expedition Wiese — das Spiel · Flora Mibaso</title>
-<meta name="description" content="Spiel die Lernpfade, lass deine Wiese erblühen, schalte Stationen frei, sammle Abzeichen und werde Flora-Meister.">
+<meta name="description" content="Spiel die Lernpfade, lass deine Wiese erblühen, schalte Stationen frei, sammle Abzeichen und werde Wiesen-Meister.">
 <meta name="theme-color" content="#2F4F3E">
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -60,6 +60,11 @@
   .fbalken div{height:100%;width:0;background:linear-gradient(90deg,var(--gruen-dunkel),var(--honig));
     border-radius:6px;transition:width .9s cubic-bezier(.22,1,.36,1);}
   .naechster{font-family:var(--sans);font-size:12.5px;color:#6c7681;text-align:center;margin:2px 0 0;}
+  .modus{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin:16px 0 2px;font-family:var(--sans);}
+  .modus-lab{font-size:12.5px;color:#6c7681;}
+  .modus-btn{font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--gruen);background:#fff;border:1px solid var(--linie);border-radius:999px;padding:6px 13px;cursor:pointer;transition:.13s;}
+  .modus-btn.an{background:var(--gruen);color:var(--creme);border-color:var(--gruen);}
+  .modus-hint{font-family:var(--sans);font-size:11.5px;color:#8a8577;text-align:center;margin:5px 0 0;font-style:italic;}
   .naechster b{color:var(--honig-tief);}
 
   /* ---- Stationen ---- */
@@ -236,7 +241,7 @@
     <a class="zurueck" href="index.html">‹ Startseite</a>
   </div>
   <h1>🌿 Expedition Wiese</h1>
-  <p class="unter">Spiel die Pfade, lass deine Wiese erblühen und kröne dich zum Flora-Meister.</p>
+  <p class="unter">Spiel die Pfade, lass deine Wiese erblühen und kröne dich zum Wiesen-Meister.</p>
 
   <!-- Wachsender Garten -->
   <div class="buehne">
@@ -250,6 +255,9 @@
   </div>
   <div class="fbalken"><div id="fbar"></div></div>
   <p class="naechster" id="naechster"></p>
+
+  <div class="modus" id="modus"></div>
+  <p class="modus-hint" id="modusHint"></p>
 
   <!-- Stationen -->
   <h2 class="abschnitt">Deine Stationen</h2>
@@ -323,7 +331,7 @@ const RAENGE = [
   { ab:1,  name:"Pflanzen-Neuling",  med:"🌿" },
   { ab:6,  name:"Pflanzen-Kenner",   med:"🍀" },
   { ab:11, name:"Pflanzen-Forscher", med:"🌾" },
-  { ab:16, name:"Flora-Meister",     med:"🏅" }
+  { ab:16, name:"Wiesen-Meister",     med:"🏅" }
 ];
 function rangIndex(bl){ let i=0; RAENGE.forEach((x,k)=>{ if(bl>=x.ab) i=k; }); return i; }
 function naechsterRang(bl){ return RAENGE.find(x=>x.ab>bl)||null; }
@@ -336,11 +344,25 @@ const ABZEICHEN = [
   { id:"bluete", em:"🌼", name:"Blüten-Kenner",  pruef:(d)=>d.aufbau&&(d.aufbau.blaetter||0)>=3 },
   { id:"reise",  em:"🪂", name:"Weltreisender",  pruef:(d)=>d.reise&&d.reise.done },
   { id:"energie",em:"☀️", name:"Energie-Experte",pruef:(d)=>d.energie&&d.energie.done },
-  { id:"meister",em:"🏅", name:"Flora-Meister",  pruef:(d,h)=>h.fertige>=PFADE.length },
+  { id:"meister",em:"🏅", name:"Wiesen-Meister",  pruef:(d,h)=>h.fertige>=PFADE.length },
   { id:"perfekt",em:"🌟", name:"Blühender Garten",pruef:(d,h)=>h.summe>=MAX_BL }
 ];
 
 function laden(){ try{ return JSON.parse(localStorage.getItem(KEY)||"{}"); }catch(e){ return {}; } }
+const MODUS_DEFAULT="level";
+function ladeModus(){ try{ return localStorage.getItem(KEY+".modus")||MODUS_DEFAULT; }catch(e){ return MODUS_DEFAULT; } }
+function setzeModus(m){ try{ localStorage.setItem(KEY+".modus",m); }catch(e){} render(); }
+function renderModus(modus){
+  const mb=document.getElementById("modus"); if(!mb) return;
+  mb.innerHTML='<span class="modus-lab">Spielmodus:</span>'+
+    '<button class="modus-btn'+(modus==="frei"?" an":"")+'" data-m="frei">🔓 Alle offen</button>'+
+    '<button class="modus-btn'+(modus==="level"?" an":"")+'" data-m="level">🔒 Stufenweise</button>';
+  mb.querySelectorAll(".modus-btn").forEach(b=>b.addEventListener("click",()=>setzeModus(b.dataset.m)));
+  const hint=document.getElementById("modusHint");
+  if(hint) hint.textContent = modus==="frei"
+    ? "Alle freigeschalteten Stationen sind sofort spielbar."
+    : "Jede Station schaltet erst frei, wenn die vorige geschafft ist.";
+}
 function ladenSeen(){ try{ return JSON.parse(localStorage.getItem(SEEN)||"null"); }catch(e){ return null; } }
 
 function kennzahlen(daten){
@@ -375,6 +397,8 @@ function zeichneWiese(daten,h){
 function render(){
   const daten=laden();
   const h=kennzahlen(daten);
+  const modus=ladeModus();
+  renderModus(modus);
 
   zeichneWiese(daten,h);
 
@@ -386,7 +410,7 @@ function render(){
   const fehlt = naechst?(naechst.ab-h.summe):0;
   document.getElementById("naechster").innerHTML = naechst
     ? 'Noch <b>'+fehlt+(fehlt===1?' Blatt':' Blätter')+'</b> bis zum Rang „'+naechst.name+'“'
-    : 'Höchster Rang erreicht — Flora-Meister! 🎉';
+    : 'Höchster Rang erreicht — Wiesen-Meister! 🎉';
 
   const cont=document.getElementById("stationen");
   cont.innerHTML="";
@@ -396,7 +420,8 @@ function render(){
     const done=!!(e&&e.done);
     const bl=done?(e.blaetter||0):0;
     const vorErledigt = idx===0 || !!(daten[PFADE[idx-1].id]&&daten[PFADE[idx-1].id].done);
-    const offen = done || vorErledigt;
+    const bald = !!p.bald && !done;
+    const offen = !bald && (modus==="frei" ? true : (done || vorErledigt));
     let neu=false;
     if(seen && offen && !done){
       const vorherOffen = idx===0 || (seen[PFADE[idx-1].id]&&seen[PFADE[idx-1].id].done);
