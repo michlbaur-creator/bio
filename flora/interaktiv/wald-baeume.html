@@ -242,7 +242,7 @@
     <img class="pi-foto" src="../images/wald/baum-bergahorn.jpg" alt="" onerror="this.style.display='none'">
     <div class="pi-eyebrow">🌳 Bio Mibaso · Lernpfad</div>
     <h1 class="pi-titel">Kennst du den Baum?</h1>
-    <p class="pi-lead">In der Broschüre „Bäume im Ebsdorfergrund“ stecken wunderschöne Blattfotos. Lern elf heimische Bäume an ihren Blättern kennen – und finde dann im Quiz die richtige Tafel.</p>
+    <p class="pi-lead">In der Broschüre „Bäume im Ebsdorfergrund“ stecken wunderschöne Blattfotos. Lern sechzehn heimische Bäume an ihren Blättern kennen – und finde dann im Quiz die richtige Tafel.</p>
     <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
   </div>
 </div>
@@ -289,16 +289,21 @@ const ARTEN = [
   {id:"esche",       sym:"🌿", name:"Gemeine Esche",  bild:{src:"baum-esche.jpg",       label:"Gemeine Esche"},merk:"Gefiedertes Blatt: viele einzelne Blättchen sitzen an einem gemeinsamen Stiel.", bsp:"Fraxinus excelsior"},
   {id:"rotbuche",    sym:"🌰", name:"Rotbuche",       bild:{src:"baum-rotbuche.jpg",    label:"Rotbuche"},    merk:"Ovales Blatt mit welligem Rand, glänzend – und nicht gezähnt.",                    bsp:"Fagus sylvatica"},
   {id:"hainbuche",   sym:"🌿", name:"Hainbuche",      bild:{src:"baum-hainbuche.jpg",   label:"Hainbuche"},   merk:"Längliches Blatt mit doppelt gesägtem Rand und vielen deutlichen Rippen.",         bsp:"Carpinus betulus"},
+  {id:"birke",       sym:"🌳", name:"Hänge-Birke",    bild:{src:"baum-birke.jpg",       label:"Hänge-Birke"}, merk:"Kleines, dreieckiges Blatt mit doppelt gesägtem Rand; die Rinde ist weiß.",        bsp:"Betula pendula"},
   {id:"salweide",    sym:"🌿", name:"Salweide",       bild:{src:"baum-salweide.jpg",    label:"Salweide"},    merk:"Breites, rundlich-ovales Blatt, unterseits oft grau-filzig.",                      bsp:"Salix caprea"},
-  {id:"schwarzerle", sym:"🌲", name:"Schwarzerle",    bild:{src:"baum-schwarzerle.jpg", label:"Schwarzerle"}, merk:"Rundliches Blatt mit eingekerbter, stumpfer Spitze – dazu kleine Zäpfchen.",       bsp:"Alnus glutinosa"},
+  {id:"schwarzerle", sym:"🌿", name:"Schwarzerle",    bild:{src:"baum-schwarzerle.jpg", label:"Schwarzerle"}, merk:"Rundliches Blatt mit eingekerbter, stumpfer Spitze – dazu kleine Zäpfchen.",       bsp:"Alnus glutinosa"},
   {id:"sommerlinde", sym:"💚", name:"Sommerlinde",    bild:{src:"baum-sommerlinde.jpg", label:"Sommerlinde"}, merk:"Herzförmiges Blatt, größer und weicher behaart als bei der Winterlinde.",          bsp:"Tilia platyphyllos"},
   {id:"stieleiche",  sym:"🌰", name:"Stieleiche",     bild:{src:"baum-stieleiche.jpg",  label:"Stieleiche"},  merk:"Buchtig gelapptes Eichenblatt; die Eicheln sitzen an langen Stielen.",             bsp:"Quercus robur"},
-  {id:"traubeneiche",sym:"🌰", name:"Traubeneiche",   bild:{src:"baum-traubeneiche.jpg",label:"Traubeneiche"},merk:"Eichenblatt mit gleichmäßigeren Lappen; die Eicheln sitzen fast ohne Stiel.",      bsp:"Quercus petraea"}
+  {id:"traubeneiche",sym:"🌰", name:"Traubeneiche",   bild:{src:"baum-traubeneiche.jpg",label:"Traubeneiche"},merk:"Eichenblatt mit gleichmäßigeren Lappen; die Eicheln sitzen fast ohne Stiel.",      bsp:"Quercus petraea"},
+  {id:"fichte",      sym:"🌲", name:"Gemeine Fichte", bild:{src:"baum-fichte.jpg",      label:"Gemeine Fichte"},merk:"Immergrün: kurze, spitze Nadeln rundum am Zweig; die Zapfen hängen nach unten.",  bsp:"Picea abies"},
+  {id:"waldkiefer",  sym:"🌲", name:"Waldkiefer",     bild:{src:"baum-waldkiefer.jpg",  label:"Waldkiefer"},  merk:"Lange Nadeln, immer paarweise zu zweit; die Rinde ist oben rotbraun.",             bsp:"Pinus sylvestris"},
+  {id:"laerche",     sym:"🌲", name:"Lärche",         bild:{src:"baum-laerche.jpg",     label:"Lärche"},      merk:"Weiche Nadeln in Büscheln – wirft als einziger Nadelbaum im Herbst die Nadeln ab.",bsp:"Larix decidua"},
+  {id:"weisstanne",  sym:"🌲", name:"Weißtanne",      bild:{src:"baum-weisstanne.jpg",  label:"Weißtanne"},   merk:"Flache, weiche Nadeln mit zwei weißen Streifen unten; Zapfen stehen aufrecht.",    bsp:"Abies alba"}
 ];
 
 const SCHRITTE = [
   /* 1 — Galerie: die Bäume kennenlernen -------------------------------- */
-  { chip:"Bäume kennenlernen", titel:"Elf heimische Bäume",
+  { chip:"Bäume kennenlernen", titel:"Sechzehn heimische Bäume",
     text:"Jeder Baum hat sein eigenes Blatt. Tippe die Karten an, schau dir das Blatt an und lies den Erkennungstipp.",
     hint:"Tippe eine Karte an, um sie aufzuklappen.",
     typ:"gruppen"
@@ -308,7 +313,7 @@ const SCHRITTE = [
   { chip:"Kennst du den Baum?", kat:"quiz", titel:"Kennst du den Baum?",
     text:"Welche der vier Tafeln zeigt den gesuchten Baum? Tippe sie an.",
     typ:"bildwahl",
-    ziele:["bergahorn","feldahorn","spitzahorn","esche","rotbuche","hainbuche","salweide","schwarzerle","sommerlinde","stieleiche","traubeneiche"]
+    ziele:["bergahorn","feldahorn","spitzahorn","esche","rotbuche","hainbuche","birke","salweide","schwarzerle","sommerlinde","stieleiche","traubeneiche","fichte","waldkiefer","laerche","weisstanne"]
   }
 ];
 
@@ -583,8 +588,8 @@ function renderLuecke(s){
 
 /* --- Bildwahl-Quiz: aus vier Tafeln die richtige waehlen --- */
 function renderBildwahl(s){
-  const GRUPPE={bergahorn:"ahorn",feldahorn:"ahorn",spitzahorn:"ahorn",stieleiche:"eiche",traubeneiche:"eiche"};
-  const fragen=misch(s.ziele.slice());
+  const GRUPPE={bergahorn:"ahorn",feldahorn:"ahorn",spitzahorn:"ahorn",stieleiche:"eiche",traubeneiche:"eiche",fichte:"immergruen",weisstanne:"immergruen"};
+  const fragen=misch(s.ziele.slice()).slice(0,10);
   let q=0, score=0, sperre=false;
   elB.innerHTML="";
   function zeige(){
