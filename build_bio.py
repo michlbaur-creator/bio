@@ -51,23 +51,26 @@ REPOS = [
 # Honiggold-Kapitälchen mit feiner Linie, Icons tragen die Seiten-Akzentfarbe.
 # Nicht zugeordnete Pfade landen unter „Mehr entdecken".
 GROUPS = {
-    "flora": [
-        ("Wie ist eine Pflanze aufgebaut?", "#5A6B7A",
-         ["pflanze-verstehen.html"]),
-        ("Wie entstehen neue Pflanzen?", "#2C7A6A",
-         ["bestaeubung-erklaerung.html", "samenreise.html"]),
-        ("Wie meistern Pflanzen das Leben?", "#C4603A",
-         ["jahreszeiten-baum.html", "pflanzenstrategien.html", "pflanzen-energie.html"]),
-    ],
+    # bio ist verschlankt (Juli 2026): Die Lernpfade stecken komplett in den
+    # Forscherpässen. Flora zeigt nur noch die Pässe + „Entdecken"; Fauna
+    # zusätzlich die Bestimmen-Werkzeuge. „Wer gehört zur Wiese?" (grundlagen)
+    # entfällt hier, weil es bereits Station im Wiesenpass ist.
+    "flora": [],
     "fauna": [
         ("Bestimmen & Verwandtschaft", "#5A6B7A",
-         ["grundlagen.html", "schluessel.html", "systematik.html", "stammbaum.html"]),
-        ("Verwandlung & Bestäubung", "#2C7A6A",
-         ["verwandlung.html", "bestaeubung.html"]),
-        ("Wiese & Lebensraum", "#C4603A",
-         ["lebensraum.html", "nahrungsnetz.html", "wiese-lebt.html", "bodenleben.html", "insektenschwund.html"]),
+         ["schluessel.html", "systematik.html", "stammbaum.html"]),
     ],
 }
+
+# Kursiver Hinweis unter einer Gruppen-Überschrift (wie bei „Entdecken").
+GROUP_HINT = {
+    "fauna": {"Bestimmen & Verwandtschaft":
+              "Fotos und Artseiten dieser Werkzeuge öffnen die Fauna-App in einem neuen Tab."},
+}
+
+# „Mehr entdecken"-Sammelblock (alle nicht zugeordneten Pfade) — seit der
+# Verschlankung aus, sonst tauchten die Pass-Stationen wieder als Kacheln auf.
+ZEIGE_MEHR = False
 
 # Zusätzliche „Entdecken"-Kacheln, die auf die Original-Apps verlinken (absolute URLs).
 # Nur für die Repo-Unterseite (write_sub). Reihenfolge = Kachel-Reihenfolge.
@@ -717,10 +720,10 @@ def write_hub(listing):
         '<p>Interaktive Stationen zum Erkunden, Verstehen und Ausprobieren. '
         'Fülle deinen Forschungspass mit Leben!</p></div>'
         '<div class="kacheln">'
-        f'<a class="kachel k-flora" href="flora/"><span class="ke">🌼</span>'
-        f'<span class="kt">Flora verstehen</span><span class="kb">{nf} Lernpfade zur Welt der Pflanzen</span></a>'
-        f'<a class="kachel k-fauna" href="fauna/"><span class="ke">🦋</span>'
-        f'<span class="kt">Fauna verstehen</span><span class="kb">{na} Lernpfade zur Welt der Tiere</span></a>'
+        '<a class="kachel k-flora" href="flora/"><span class="ke">🌼</span>'
+        '<span class="kt">Flora verstehen</span><span class="kb">Forscherpässe Wiese &amp; Wald · Pflanzen bestimmen</span></a>'
+        '<a class="kachel k-fauna" href="fauna/"><span class="ke">🦋</span>'
+        '<span class="kt">Fauna verstehen</span><span class="kb">Forscherpass Wiese · Bestimmen &amp; Verwandtschaft</span></a>'
         '</div>' + _footer("") +
         '<script>if(window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone)'
         '{var b=document.getElementById("installBtn");if(b)b.style.display="none";}</script>')
@@ -762,10 +765,12 @@ def write_sub(r, items):
         rows = [_pfad(by_fn[fn], fn, r["akzent"]) for fn in fns if fn in by_fn]
         used.update(fn for fn in fns if fn in by_fn)
         if rows:
-            sections.append(f'<h2 class="gt">{html.escape(gt)}</h2>'
+            _h = GROUP_HINT.get(key, {}).get(gt, "")
+            _hh = f'<p class="gt-hint">{html.escape(_h)}</p>' if _h else ""
+            sections.append(f'<h2 class="gt">{html.escape(gt)}</h2>{_hh}'
                             f'<div class="liste">{"".join(rows)}</div>')
     rest = [(t, fn) for t, fn in items if fn not in used]
-    if rest:
+    if rest and ZEIGE_MEHR:
         rows = "".join(_pfad(t, fn, r["akzent"]) for t, fn in rest)
         sections.append('<h2 class="gt">Mehr entdecken</h2>'
                         f'<div class="liste">{rows}</div>')
