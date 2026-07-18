@@ -80,6 +80,7 @@ EXTRA = {
         "titel": "Entdecken",
         "hinweis": "Diese Kacheln öffnen die Flora-App in einem neuen Tab.",
         "basis": "https://flora.mibaso.de/",
+        "badge": "Flora-App",
         "kacheln": [
             ("bestimmen-gefuehrt.html", "frage", "Frag dich durch",
              "Ein paar Fragen — und du landest bei der passenden Pflanze."),
@@ -87,6 +88,20 @@ EXTRA = {
              "Alle 150 Pflanzen zum Stöbern, Filtern und Vergleichen."),
             ("sammelpass.html", "abzeichen", "Mein Sammelpass",
              "Deine im Bestimmungstool gefundenen Arten — mit Fortschritt und Abzeichen."),
+            ("interaktiv/systematik.html", "sitemap", "Systematik",
+             "Vom Pflanzenreich bis zur Familie — klick dich durch."),
+            ("quiz/familien-quiz.html", "hier", "Verwandte finden",
+             "Vier Pflanzen — drei sind verwandt. Welche fällt aus dem Rahmen?"),
+        ],
+    },
+    "fauna": {
+        "titel": "Entdecken",
+        "hinweis": "Diese Kachel öffnet die Fauna-App in einem neuen Tab.",
+        "basis": "https://fauna.mibaso.de/",
+        "badge": "Fauna-App",
+        "kacheln": [
+            ("interaktiv/verwandte-finden.html", "hier", "Verwandte finden",
+             "Vier Tiere – drei sind verwandt. Welches fällt aus dem Rahmen?"),
         ],
     },
 }
@@ -739,7 +754,7 @@ def _pfad(t, fn, col):
             f'{badge}'
             f'<span class="pf">›</span></a>')
 
-def _extra_pfad(basis, fn, icon, titel, sub, col):
+def _extra_pfad(basis, fn, icon, titel, sub, col, badge="Flora-App"):
     d = _G.get(icon, _G["leaf"])
     svg = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" '
            f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{d}"/></svg>')
@@ -747,7 +762,7 @@ def _extra_pfad(basis, fn, icon, titel, sub, col):
             f'<span class="pic" style="background:{col}1f;color:{col}">{svg}</span>'
             f'<span class="ptxt"><span class="pt2">{html.escape(titel)}</span>'
             f'<span class="psub">{html.escape(sub)}</span></span>'
-            f'<span class="badge badge-ext">Flora-App&nbsp;↗</span></a>')
+            f'<span class="badge badge-ext">{html.escape(badge)}&nbsp;↗</span></a>')
 
 def _pass_banner(p):
     return (f'<a class="aktion-banner" href="{p["href"]}">'
@@ -776,7 +791,7 @@ def write_sub(r, items):
                         f'<div class="liste">{rows}</div>')
     ex = EXTRA.get(key)
     if ex:
-        rows = "".join(_extra_pfad(ex["basis"], fn, ic, t, s, r["akzent"])
+        rows = "".join(_extra_pfad(ex["basis"], fn, ic, t, s, r["akzent"], ex.get("badge", "Flora-App"))
                        for (fn, ic, t, s) in ex["kacheln"])
         hint = (f'<p class="gt-hint">{html.escape(ex["hinweis"])}</p>'
                 if ex.get("hinweis") else "")
