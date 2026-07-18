@@ -56,17 +56,11 @@ GROUPS = {
     # zusätzlich die Bestimmen-Werkzeuge. „Wer gehört zur Wiese?" (grundlagen)
     # entfällt hier, weil es bereits Station im Wiesenpass ist.
     "flora": [],
-    "fauna": [
-        ("Bestimmen & Verwandtschaft", "#5A6B7A",
-         ["schluessel.html", "systematik.html", "stammbaum.html"]),
-    ],
+    "fauna": [],
 }
 
 # Kursiver Hinweis unter einer Gruppen-Überschrift (wie bei „Entdecken").
-GROUP_HINT = {
-    "fauna": {"Bestimmen & Verwandtschaft":
-              "Fotos und Artseiten dieser Werkzeuge öffnen die Fauna-App in einem neuen Tab."},
-}
+GROUP_HINT = {}
 
 # „Mehr entdecken"-Sammelblock (alle nicht zugeordneten Pfade) — seit der
 # Verschlankung aus, sonst tauchten die Pass-Stationen wieder als Kacheln auf.
@@ -96,11 +90,17 @@ EXTRA = {
     },
     "fauna": {
         "titel": "Entdecken",
-        "hinweis": "Diese Kachel öffnet die Fauna-App in einem neuen Tab.",
+        "hinweis": "Diese Kacheln öffnen die Fauna-App in einem neuen Tab.",
         "basis": "https://fauna.mibaso.de/",
         "badge": "Fauna-App",
         "kacheln": [
-            ("interaktiv/verwandte-finden.html", "hier", "Verwandte finden",
+            ("interaktiv/schluessel.html", "frage", "Frag dich durch",
+             "Ein paar Fragen — und du landest bei der Gruppe oder beim Schmetterling."),
+            ("interaktiv/systematik.html", "sitemap", "Systematik & Ränge",
+             "Reich → Stamm → Klasse → … bis zur Art, jede Ebene mit eigener Farbe."),
+            ("interaktiv/stammbaum.html", "hier", "Stammbaum der Tiere",
+             "Verzweigt & dichotom, Schwerpunkt Insekten – bis hinunter zur Art."),
+            ("interaktiv/verwandte-finden.html", "network", "Verwandte finden",
              "Vier Tiere – drei sind verwandt. Welches fällt aus dem Rahmen?"),
         ],
     },
@@ -156,6 +156,8 @@ SKIP_LISTING = {"tafel.html", "wiesenpass.html", "sammelpass.html", "bestaeubung
 # Einträge ohne Repo-Präfix gelten für beide; mit Präfix nur für ein Repo.
 EXCLUDE = {"tierquiz.html", "gesamttest.html", "pflanze-zuordnung.html", "verwandte-finden.html",
            "flora/systematik.html",
+           # Bestimmen-Werkzeuge laufen ausschließlich in der Fauna-App (nur verlinkt)
+           "fauna/schluessel.html", "fauna/systematik.html", "fauna/stammbaum.html",
            # Flora-Umbau (Juli 2026): Samenverbreitung-Kachel raus; die Anatomie-Grafik
            # „Aufbau einer Pflanze" wohnt jetzt als erste Station im Lernpfad
            # „Wurzel, Blatt, Blüte" (pflanze-verstehen), die Einzel-Kachel entfällt.
