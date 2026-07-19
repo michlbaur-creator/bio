@@ -39,7 +39,7 @@ REPOS = [
               "sub": "Spiel die Pfade, lass deine Wiese erblühen und kröne dich zum Wiesen-Meister."},
      "pass2": {"href": "waldpass.html", "img": "images/wald/wald-5.jpg",
                "eyebrow": "Dein Forscherpass", "titel": "Expedition Wald",
-               "sub": "Spiel die Pfade, entdecke den Wald und kröne dich zum Wald-Meister."}},
+               "sub": "Spiel dich vom Zapfen zum Wald-Meister."}},
     {"key": "fauna", "label": "Fauna Mibaso", "emoji": "🦋", "akzent": "#233D5C",
      "pass": {"href": "interaktiv/wiesenpass.html", "img": "images/wiese/wiese-sommer.png",
               "eyebrow": "Dein Forscherpass", "titel": "Expedition Wiese",

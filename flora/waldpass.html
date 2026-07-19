@@ -241,7 +241,7 @@
     <a class="zurueck" href="index.html">‹ Flora Mibaso</a>
   </div>
   <h1>🌳 Expedition Wald</h1>
-  <p class="unter">Spiel die Pfade, entdecke den Wald und kröne dich zum Wald-Meister.</p>
+  <p class="unter">Spiel dich vom Zapfen zum Wald-Meister.</p>
 
   <!-- Wachsender Wald -->
   <div class="buehne">
@@ -329,18 +329,18 @@ const PFADE = [
 const MAX_BL = PFADE.length*3;   // 24 Blätter maximal (8 Stationen)
 
 const RAENGE = [
-  { ab:0,  name:"Frischling",     med:"🌱" },
-  { ab:1,  name:"Wald-Neuling",   med:"🌿" },
-  { ab:8,  name:"Wald-Kenner",    med:"🍄" },
-  { ab:15, name:"Wald-Forscher",  med:"🌲" },
-  { ab:21, name:"Wald-Meister",   med:"🏅" }
+  { ab:0,  name:"Frischling",   med:"🌱" },
+  { ab:1,  name:"Keimling",     med:"🌿" },
+  { ab:8,  name:"Bäumchen",     med:"🌳" },
+  { ab:15, name:"Baumriese",    med:"🌲" },
+  { ab:21, name:"Wald-Meister", med:"🏅" }
 ];
 function rangIndex(bl){ let i=0; RAENGE.forEach((x,k)=>{ if(bl>=x.ab) i=k; }); return i; }
 function naechsterRang(bl){ return RAENGE.find(x=>x.ab>bl)||null; }
 
 const ABZEICHEN = [
   { id:"start",   em:"🌱", name:"Erster Schritt",      pruef:(d,h)=>h.fertige>=1 },
-  { id:"drei",    em:"🍄", name:"Fleißig",             pruef:(d,h)=>h.fertige>=3 },
+  { id:"drei",    em:"🥾", name:"Wald-Wanderer",             pruef:(d,h)=>h.fertige>=3 },
   { id:"treffer", em:"🎯", name:"Volltreffer",         pruef:(d,h)=>h.maxEines===3 },
   { id:"serie",   em:"🔥", name:"Blatt-Serie",         pruef:(d,h)=>h.dreier>=3 },
   { id:"jahr",    em:"🍂", name:"Jahreszeiten-Kenner", pruef:(d)=>d.jahreslauf&&d.jahreslauf.done },
@@ -348,7 +348,7 @@ const ABZEICHEN = [
   { id:"boden",   em:"🪱", name:"Boden-Detektiv",      pruef:(d)=>d.waldboden&&d.waldboden.done },
   { id:"baum",    em:"🌳", name:"Baum-Kenner",       pruef:(d)=>d.baeume&&d.baeume.done },
   { id:"meister", em:"🏅", name:"Wald-Meister",        pruef:(d,h)=>h.fertige>=PFADE.length },
-  { id:"perfekt", em:"🌟", name:"Grüner Wald",         pruef:(d,h)=>h.summe>=MAX_BL }
+  { id:"perfekt", em:"🌲", name:"Urwald",         pruef:(d,h)=>h.summe>=MAX_BL }
 ];
 
 function laden(){ try{ return JSON.parse(localStorage.getItem(KEY)||"{}"); }catch(e){ return {}; } }
