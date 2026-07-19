@@ -257,7 +257,21 @@ const GRUPPEN = [
 function gruppe(id){ return GRUPPEN.find(g=>g.id===id); }
 
 const SCHRITTE = [
-  /* 1 — Beschriften: Insekten-Körperbau ----------------------------------- */
+  /* 1 — Kleiner Stammbaum -------------------------------------------------- */
+  { chip:"Stammbaum", titel:"Die Darsteller im Stammbaum",
+    text:"Auf der Wiese tummeln sich viele Tiere. Tippe die Äste an und lerne die Darsteller kennen — die grüne Verzweigung sind unsere Stars: die Insekten.",
+    hint:"Tippe die Äste an.",
+    typ:"baum"
+  },
+
+  /* 2 — Gruppen als aufklappbare Karten ----------------------------------- */
+  { chip:"Die Gruppen", titel:"Hauptdarsteller: die Insekten",
+    text:"Insekten teilt man in große Gruppen ein. Tippe jede Karte an und lies die zwei, drei Erkennungsmerkmale.",
+    hint:"Tippe eine Karte an, um sie aufzuklappen.",
+    typ:"gruppen"
+  },
+
+  /* 3 — Beschriften: Insekten-Körperbau ----------------------------------- */
   { chip:"Was ist ein Insekt?", titel:"Woran erkennst du ein Insekt?",
     text:"Ein Insekt erkennst du an vier Dingen: <b>6 Beine</b>, <b>3 Körperabschnitte</b> (Kopf, Brust, Hinterleib), meist <b>Flügel</b> und ein Paar <b>Fühler</b>. Tippe die Punkte an.",
     hint:"Tippe die Zahlen im Bild an.",
@@ -274,7 +288,7 @@ const SCHRITTE = [
     ]
   },
 
-  /* 2 — Zuordnen: Insekt oder nicht? -------------------------------------- */
+  /* 4 — Zuordnen: Insekt oder nicht? -------------------------------------- */
   { chip:"Insekt oder nicht?", kat:"uebung", titel:"Insekt – oder kein Insekt?",
     text:"Jetzt kommt der Aha-Test: Zähl die Beine! Ordne jedes Tier zu – Insekt (6 Beine) oder kein Insekt. Dann auf „Prüfen“ tippen.",
     typ:"zuordnen",
@@ -290,20 +304,6 @@ const SCHRITTE = [
       {t:"Assel",        em:"🪳", w:"nein", fb:"Sieben Beinpaare und Kiemen → ein Krebstier an Land, kein Insekt."},
       {t:"Tausendfüßer", em:"🐛", w:"nein", fb:"Sehr viele Beinpaare → Tausendfüßer, kein Insekt."}
     ]
-  },
-
-  /* 3 — Gruppen als aufklappbare Karten ----------------------------------- */
-  { chip:"Die Gruppen", titel:"Die wichtigsten Gruppen der Wiese",
-    text:"Insekten teilt man in große Gruppen ein. Tippe jede Karte an und lies die zwei, drei Erkennungsmerkmale.",
-    hint:"Tippe eine Karte an, um sie aufzuklappen.",
-    typ:"gruppen"
-  },
-
-  /* 4 — Kleiner Stammbaum -------------------------------------------------- */
-  { chip:"Stammbaum", titel:"Der kleine Stammbaum",
-    text:"So hängt alles zusammen. Tippe einen Ast an, um zu erfahren, was ihn ausmacht. Die grüne Verzweigung sind die Insekten.",
-    hint:"Tippe die Äste an.",
-    typ:"baum"
   },
 
   /* 5 — Abschluss-Quiz + Brücke ------------------------------------------- */
@@ -574,7 +574,7 @@ function renderQuiz(s){
       '<p class="qspruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
       '<div class="bruecke"><p>Jetzt wirst du Forscher! Du kennst die wichtigsten Tiergruppen der Wiese – '+
         'erkunde sie im großen Stammbaum: tippe dich durch die Verzweigungen bis zu einzelnen Arten.</p>'+
-        '<a class="stammbtn" href="stammbaum.html">🌳 Zum großen Stammbaum</a></div>'+
+        '<a class="stammbtn" href="https://fauna.mibaso.de/interaktiv/stammbaum.html" target="_blank" rel="noopener">🌳 Zum großen Stammbaum ↗</a></div>'+
       '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;">'+
         '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
         '<a class="knopf" href="wiesenpass.html">🍃 Forscherpass</a></div></div>';
