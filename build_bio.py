@@ -158,6 +158,7 @@ EXCLUDE = {"tierquiz.html", "gesamttest.html", "pflanze-zuordnung.html", "verwan
            "flora/systematik.html",
            # Bestimmen-Werkzeuge laufen ausschließlich in der Fauna-App (nur verlinkt)
            "fauna/schluessel.html", "fauna/systematik.html", "fauna/stammbaum.html",
+           "fauna/insektenschwund.html",
            # Flora-Umbau (Juli 2026): Samenverbreitung-Kachel raus; die Anatomie-Grafik
            # „Aufbau einer Pflanze" wohnt jetzt als erste Station im Lernpfad
            # „Wurzel, Blatt, Blüte" (pflanze-verstehen), die Einzel-Kachel entfällt.
