@@ -327,25 +327,25 @@ const PFADE = [
 const MAX_BL = PFADE.length*3;   // 18 Blätter maximal (6 Stationen)
 
 const RAENGE = [
-  { ab:0,  name:"Frisch gesät",      med:"🌱" },
-  { ab:1,  name:"Pflanzen-Neuling",  med:"🌿" },
-  { ab:6,  name:"Pflanzen-Kenner",   med:"🍀" },
-  { ab:11, name:"Pflanzen-Forscher", med:"🌾" },
-  { ab:16, name:"Wiesen-Meister",     med:"🏅" }
+  { ab:0,  name:"Frisch gesät",   med:"🌱" },
+  { ab:1,  name:"Keimling",       med:"🌿" },
+  { ab:6,  name:"Knospe",         med:"🌷" },
+  { ab:11, name:"Volle Blüte",    med:"🌸" },
+  { ab:16, name:"Wiesen-Meister", med:"🏅" }
 ];
 function rangIndex(bl){ let i=0; RAENGE.forEach((x,k)=>{ if(bl>=x.ab) i=k; }); return i; }
 function naechsterRang(bl){ return RAENGE.find(x=>x.ab>bl)||null; }
 
 const ABZEICHEN = [
   { id:"start",  em:"🌱", name:"Erster Schritt", pruef:(d,h)=>h.fertige>=1 },
-  { id:"drei",   em:"🍀", name:"Fleißig",        pruef:(d,h)=>h.fertige>=3 },
+  { id:"drei",   em:"🥾", name:"Wiesen-Wanderer",        pruef:(d,h)=>h.fertige>=3 },
   { id:"treffer",em:"🎯", name:"Volltreffer",    pruef:(d,h)=>h.maxEines===3 },
   { id:"serie",  em:"🔥", name:"Blatt-Serie",    pruef:(d,h)=>h.dreier>=3 },
   { id:"bluete", em:"🌼", name:"Blüten-Kenner",  pruef:(d)=>d.aufbau&&(d.aufbau.blaetter||0)>=3 },
   { id:"reise",  em:"🪂", name:"Weltreisender",  pruef:(d)=>d.reise&&d.reise.done },
   { id:"energie",em:"☀️", name:"Energie-Experte",pruef:(d)=>d.energie&&d.energie.done },
   { id:"meister",em:"🏅", name:"Wiesen-Meister",  pruef:(d,h)=>h.fertige>=PFADE.length },
-  { id:"perfekt",em:"🌟", name:"Blühender Garten",pruef:(d,h)=>h.summe>=MAX_BL }
+  { id:"perfekt",em:"🌸", name:"Blühende Wiese",pruef:(d,h)=>h.summe>=MAX_BL }
 ];
 
 function laden(){ try{ return JSON.parse(localStorage.getItem(KEY)||"{}"); }catch(e){ return {}; } }
