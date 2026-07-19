@@ -36,14 +36,14 @@ REPOS = [
     {"key": "flora", "label": "Flora Mibaso", "emoji": "🌼", "akzent": "#2F4F3E",
      "pass": {"href": "pflanzenpass.html", "img": "images/wiese-banner.jpg",
               "eyebrow": "Dein Forscherpass", "titel": "Expedition Wiese",
-              "sub": "Spiel die Pfade, lass deine Wiese erblühen und kröne dich zum Wiesen-Meister."},
-     "pass2": {"href": "waldpass.html", "img": "images/wald/wald-5.jpg",
+              "sub": "Die Pflanzen der Wiese — spiel dich zum Wiesen-Meister."},
+     "pass2": {"href": "waldpass.html", "img": "images/wald/wald-banner-hell.jpg",
                "eyebrow": "Dein Forscherpass", "titel": "Expedition Wald",
                "sub": "Spiel dich vom Zapfen zum Wald-Meister."}},
     {"key": "fauna", "label": "Fauna Mibaso", "emoji": "🦋", "akzent": "#233D5C",
      "pass": {"href": "interaktiv/wiesenpass.html", "img": "images/wiese/wiese-sommer.png",
               "eyebrow": "Dein Forscherpass", "titel": "Expedition Wiese",
-              "sub": "Spiel die Pfade, lass deine Wiese wachsen und kröne dich zum Wiesen-Meister."}},
+              "sub": "Die Tiere der Wiese — spiel dich zum Wiesen-Meister."}},
 ]
 
 # Thematische Gruppen je Repo: (Überschrift, Farbe, [Dateien]). Seit dem Fauna-Stil-
