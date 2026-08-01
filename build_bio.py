@@ -453,33 +453,21 @@ self.addEventListener("fetch", (e) => {
 });
 '''
 
+# Vollautomatische Aktualisierung: prüft beim Öffnen, bei Rückkehr zur App und alle
+# 3 Minuten auf eine neue Version, übernimmt sie sofort und lädt einmal sanft neu.
 REG_SCRIPT = '''<script>(function(){if(!("serviceWorker" in navigator))return;
-var css='.bio-update-banner{position:fixed;top:0;left:0;right:0;background:#2F4F3E;color:#fff;'
-+'padding:max(50px,calc(env(safe-area-inset-top) + 6px)) 14px 8px;display:none;align-items:center;'
-+'justify-content:center;gap:12px;font-size:.92rem;font-family:Georgia,serif;z-index:9999;'
-+'box-shadow:0 2px 8px rgba(0,0,0,.18)}'
-+'.bio-update-banner.aktiv{display:flex;flex-wrap:wrap}'
-+'.bio-update-banner .t{flex:1 1 auto;text-align:center;min-width:0}'
-+'.bio-update-banner button{background:#fff;color:#2F4F3E;border:none;padding:6px 14px;border-radius:7px;'
-+'font-family:inherit;font-size:inherit;font-weight:600;cursor:pointer;white-space:nowrap;box-shadow:0 2px 4px rgba(0,0,0,.15)}';
-var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
 var refreshing=false;
 navigator.serviceWorker.addEventListener("controllerchange",function(){if(refreshing)return;refreshing=true;location.reload();});
-function zeige(reg){var b=document.getElementById("bio-update-banner");
-if(!b){b=document.createElement("div");b.id="bio-update-banner";b.className="bio-update-banner";
-b.innerHTML='<span class="t">\\u{1F33F} Neue Version verf\\u00fcgbar.</span><button type="button">Jetzt aktualisieren</button>';
-document.body.appendChild(b);
-b.querySelector("button").addEventListener("click",function(){this.disabled=true;this.textContent="Aktualisiere \\u2026";
-if(reg.waiting)reg.waiting.postMessage({type:"SKIP_WAITING"});
-setTimeout(function(){if(!refreshing){refreshing=true;location.reload();}},1200);});}
-b.classList.add("aktiv");}
+function uebernehmen(reg){if(reg&&reg.waiting&&navigator.serviceWorker.controller){
+reg.waiting.postMessage({type:"SKIP_WAITING"});
+setTimeout(function(){if(!refreshing){refreshing=true;location.reload();}},1500);}}
 navigator.serviceWorker.register("/sw.js").then(function(reg){
-if(reg.waiting&&navigator.serviceWorker.controller)zeige(reg);
+uebernehmen(reg);
 reg.addEventListener("updatefound",function(){var n=reg.installing;if(!n)return;
-n.addEventListener("statechange",function(){if(n.state==="installed"&&navigator.serviceWorker.controller)zeige(reg);});});
+n.addEventListener("statechange",function(){if(n.state==="installed")uebernehmen(reg);});});
 reg.update();
 document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")reg.update();});
-setInterval(function(){reg.update();},60*60*1000);}).catch(function(){});
+setInterval(function(){reg.update();},3*60*1000);}).catch(function(){});
 })();</script>'''
 
 DEPLOY_YML = '''name: bio zu GitHub Pages veroeffentlichen
@@ -719,6 +707,10 @@ def _chips():
 
 def _footer(base=""):
     return (f'<footer class="fuss"><div class="fin">'
+            f'<div class="echips"><a class="echip" href="https://flora.mibaso.de">🌼 Flora</a>'
+            f'<a class="echip" href="https://fauna.mibaso.de">🦋 Fauna</a>'
+            f'<a class="echip" href="https://evo.mibaso.de">⏳ Zeitreise</a>'
+            f'<a class="echip" href="https://start.mibaso.de">⌂ Alle Mibaso-Apps</a></div>'
             f'<div class="echips"><a class="echip" href="{base}ueber/">Über mich</a>'
             f'<a class="echip" href="{base}impressum/">Impressum &amp; Datenschutz</a></div>'
             f'<div class="klein">© 2026 Michael Baur · Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a></div>'
@@ -775,6 +767,17 @@ def _pass_banner(p):
             f'<span class="ab-sub">{html.escape(p["sub"])}</span></span>'
             f'<span class="ab-pf" aria-hidden="true">›</span></a>')
 
+# Querverweis auf die Zeitreise-App (evo.mibaso.de) — gleiche Optik wie ein Lernpfad-Banner.
+def _zeitreise_banner():
+    return ('<a class="aktion-banner" href="https://evo.mibaso.de/">'
+            '<img src="https://fauna.mibaso.de/images/zeitreise-banner.jpg" alt="" aria-hidden="true" '
+            'onerror="this.style.display=\'none\'">'
+            '<span class="ab-tx"><span class="ab-eyebrow">evo.mibaso — Zeitreise</span>'
+            '<strong>Die Geschichte des Lebens</strong>'
+            '<span class="ab-sub">Eine interaktive Reise durch 4,6 Milliarden Jahre Erdgeschichte — '
+            'mit Quiz, Hörszenen und Tierstammbaum.</span></span>'
+            '<span class="ab-pf" aria-hidden="true">›</span></a>')
+
 def write_sub(r, items):
     key = r["key"]
     by_fn = {fn: t for t, fn in items}
@@ -802,6 +805,8 @@ def write_sub(r, items):
                         f'<div class="liste">{rows}</div>')
     banner = _pass_banner(r["pass"]) if r.get("pass") else ""
     if r.get("pass2"): banner += _pass_banner(r["pass2"])
+    # Zeitreise direkt unter dem Forscherpass (nur bei Fauna — dort passt sie thematisch)
+    if key == "fauna": banner += _zeitreise_banner()
     body = ('<div class="subkopf"><a class="zurueck" href="../index.html">‹ Bio Mibaso</a></div>'
             + f'<div class="subtitel"><span>{r["emoji"]}</span> {html.escape(r["label"])}</div>'
             + banner + "".join(sections) + _footer("../"))

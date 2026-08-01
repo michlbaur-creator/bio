@@ -89,31 +89,17 @@
   .anl h2{font-family:Georgia,serif;font-weight:normal;color:var(--gruen);font-size:21px;margin:22px 0 6px;}
   .anl ol{font-family:var(--sans);font-size:15px;padding-left:22px;margin:6px 0;} .anl li{margin:6px 0;}
   .anl .tipp{font-family:var(--sans);font-size:13px;color:#6b5340;background:var(--creme-tief);border-radius:10px;padding:10px 13px;margin:10px 0 0;}
-</style></head><body><div class="huelle"><div class="subkopf"><a class="zurueck" href="index.html">‹ Bio Mibaso</a></div><div class="anl"><h1 style="font-family:Georgia,serif;font-weight:normal;color:var(--gruen);font-size:clamp(24px,6vw,32px);margin:6px 0 4px;">Als App aufs Handy legen</h1><p class="lead" style="text-align:left;margin:8px 0 4px;max-width:none;">So liegt Bio Mibaso wie eine echte App auf dem Startbildschirm — praktisch für den Unterricht.</p><h2>📱 iPhone / iPad</h2><ol><li>Im Browser oben rechts auf das <em>Teilen-Symbol</em></li><li><em>„In Chrome (alternativ Safari) öffnen"</em></li><li>Dort noch einmal auf das <em>Teilen-Symbol</em> (evtl. vorher <em>„Mehr anzeigen"</em>) → <em>„Zum Home-Bildschirm"</em> → <em>„Hinzufügen"</em></li></ol><h2>🤖 Android</h2><p style="font-family:var(--sans);font-size:14px;margin:0 0 4px;"><strong>In Chrome:</strong></p><ol><li>Oben rechts auf das <em>Drei-Punkte-Menü</em> (⋮)</li><li><em>„App installieren"</em> oder <em>„Zum Startbildschirm hinzufügen"</em></li><li>Auf <em>„Installieren"</em> bzw. <em>„Hinzufügen"</em> tippen</li></ol><p class="tipp">Tipp: Du findest bio auch, wenn du <strong>bio.mibaso.de</strong> in die Suchmaske eingibst — der Weg über Chrome/Safari funktioniert genauso.</p></div><footer class="fuss"><div class="fin"><div class="echips"><a class="echip" href="ueber/">Über mich</a><a class="echip" href="impressum/">Impressum &amp; Datenschutz</a></div><div class="klein">© 2026 Michael Baur · Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a></div></div></footer></div><script>(function(){if(!("serviceWorker" in navigator))return;
-var css='.bio-update-banner{position:fixed;top:0;left:0;right:0;background:#2F4F3E;color:#fff;'
-+'padding:max(50px,calc(env(safe-area-inset-top) + 6px)) 14px 8px;display:none;align-items:center;'
-+'justify-content:center;gap:12px;font-size:.92rem;font-family:Georgia,serif;z-index:9999;'
-+'box-shadow:0 2px 8px rgba(0,0,0,.18)}'
-+'.bio-update-banner.aktiv{display:flex;flex-wrap:wrap}'
-+'.bio-update-banner .t{flex:1 1 auto;text-align:center;min-width:0}'
-+'.bio-update-banner button{background:#fff;color:#2F4F3E;border:none;padding:6px 14px;border-radius:7px;'
-+'font-family:inherit;font-size:inherit;font-weight:600;cursor:pointer;white-space:nowrap;box-shadow:0 2px 4px rgba(0,0,0,.15)}';
-var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
+</style></head><body><div class="huelle"><div class="subkopf"><a class="zurueck" href="index.html">‹ Bio Mibaso</a></div><div class="anl"><h1 style="font-family:Georgia,serif;font-weight:normal;color:var(--gruen);font-size:clamp(24px,6vw,32px);margin:6px 0 4px;">Als App aufs Handy legen</h1><p class="lead" style="text-align:left;margin:8px 0 4px;max-width:none;">So liegt Bio Mibaso wie eine echte App auf dem Startbildschirm — praktisch für den Unterricht.</p><h2>📱 iPhone / iPad</h2><ol><li>Im Browser oben rechts auf das <em>Teilen-Symbol</em></li><li><em>„In Chrome (alternativ Safari) öffnen"</em></li><li>Dort noch einmal auf das <em>Teilen-Symbol</em> (evtl. vorher <em>„Mehr anzeigen"</em>) → <em>„Zum Home-Bildschirm"</em> → <em>„Hinzufügen"</em></li></ol><h2>🤖 Android</h2><p style="font-family:var(--sans);font-size:14px;margin:0 0 4px;"><strong>In Chrome:</strong></p><ol><li>Oben rechts auf das <em>Drei-Punkte-Menü</em> (⋮)</li><li><em>„App installieren"</em> oder <em>„Zum Startbildschirm hinzufügen"</em></li><li>Auf <em>„Installieren"</em> bzw. <em>„Hinzufügen"</em> tippen</li></ol><p class="tipp">Tipp: Du findest bio auch, wenn du <strong>bio.mibaso.de</strong> in die Suchmaske eingibst — der Weg über Chrome/Safari funktioniert genauso.</p></div><footer class="fuss"><div class="fin"><div class="echips"><a class="echip" href="https://flora.mibaso.de">🌼 Flora</a><a class="echip" href="https://fauna.mibaso.de">🦋 Fauna</a><a class="echip" href="https://evo.mibaso.de">⏳ Zeitreise</a><a class="echip" href="https://start.mibaso.de">⌂ Alle Mibaso-Apps</a></div><div class="echips"><a class="echip" href="ueber/">Über mich</a><a class="echip" href="impressum/">Impressum &amp; Datenschutz</a></div><div class="klein">© 2026 Michael Baur · Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a></div></div></footer></div><script>(function(){if(!("serviceWorker" in navigator))return;
 var refreshing=false;
 navigator.serviceWorker.addEventListener("controllerchange",function(){if(refreshing)return;refreshing=true;location.reload();});
-function zeige(reg){var b=document.getElementById("bio-update-banner");
-if(!b){b=document.createElement("div");b.id="bio-update-banner";b.className="bio-update-banner";
-b.innerHTML='<span class="t">\u{1F33F} Neue Version verf\u00fcgbar.</span><button type="button">Jetzt aktualisieren</button>';
-document.body.appendChild(b);
-b.querySelector("button").addEventListener("click",function(){this.disabled=true;this.textContent="Aktualisiere \u2026";
-if(reg.waiting)reg.waiting.postMessage({type:"SKIP_WAITING"});
-setTimeout(function(){if(!refreshing){refreshing=true;location.reload();}},1200);});}
-b.classList.add("aktiv");}
+function uebernehmen(reg){if(reg&&reg.waiting&&navigator.serviceWorker.controller){
+reg.waiting.postMessage({type:"SKIP_WAITING"});
+setTimeout(function(){if(!refreshing){refreshing=true;location.reload();}},1500);}}
 navigator.serviceWorker.register("/sw.js").then(function(reg){
-if(reg.waiting&&navigator.serviceWorker.controller)zeige(reg);
+uebernehmen(reg);
 reg.addEventListener("updatefound",function(){var n=reg.installing;if(!n)return;
-n.addEventListener("statechange",function(){if(n.state==="installed"&&navigator.serviceWorker.controller)zeige(reg);});});
+n.addEventListener("statechange",function(){if(n.state==="installed")uebernehmen(reg);});});
 reg.update();
 document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")reg.update();});
-setInterval(function(){reg.update();},60*60*1000);}).catch(function(){});
+setInterval(function(){reg.update();},3*60*1000);}).catch(function(){});
 })();</script></body></html>
