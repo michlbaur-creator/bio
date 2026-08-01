@@ -709,7 +709,6 @@ def _footer(base=""):
     return (f'<footer class="fuss"><div class="fin">'
             f'<div class="echips"><a class="echip" href="https://flora.mibaso.de">🌼 Flora</a>'
             f'<a class="echip" href="https://fauna.mibaso.de">🦋 Fauna</a>'
-            f'<a class="echip" href="https://evo.mibaso.de">⏳ Zeitreise</a>'
             f'<a class="echip" href="https://start.mibaso.de">⌂ Alle Mibaso-Apps</a></div>'
             f'<div class="echips"><a class="echip" href="{base}ueber/">Über mich</a>'
             f'<a class="echip" href="{base}impressum/">Impressum &amp; Datenschutz</a></div>'
