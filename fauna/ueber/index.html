@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Über mich — Fauna Mibaso</title>
+<meta name="description" content="Michael Baur – 35 Jahre Biologielehrer, heute mit Begeisterung für Natur, Fotografie und neue Medien.">
+<meta name="theme-color" content="#233D5C">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Fauna Mibaso">
+<style>
+  :root{
+    --blau:#233D5C; --blau-tief:#1a2f47; --honig:#C28A3A; --creme:#F7F3E8;
+    --creme-tief:#EEE7D5; --tinte:#1c2e42; --linie:#d7cfba;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--creme);color:var(--tinte);
+    font-family:'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Noto Serif',Georgia,serif;
+    font-size:18px;line-height:1.6;padding-top:env(safe-area-inset-top);}
+  header.app-head{background:linear-gradient(180deg,var(--blau) 0%,var(--blau-tief) 100%);
+    color:var(--creme);padding:22px 20px 20px;padding-top:max(22px,env(safe-area-inset-top));
+    border-bottom:4px double var(--honig);text-align:center;}
+  header.app-head h1{margin:0;font-size:1.7rem;font-weight:normal;letter-spacing:.02em;}
+  header.app-head .untertitel{font-style:italic;color:#c2cedd;margin-top:4px;font-size:.98rem;}
+  main{max-width:760px;margin:0 auto;padding:22px 20px 50px;}
+  .back{display:inline-block;margin-bottom:18px;color:var(--blau);text-decoration:none;
+    font-family:var(--sans);font-size:.95rem;font-weight:600;}
+  .back:hover{text-decoration:underline;}
+  .portrait-wrap{max-width:300px;margin:0 auto 26px;aspect-ratio:3/4;background:var(--creme-tief);border-radius:16px;
+    overflow:hidden;box-shadow:0 3px 14px rgba(35,61,92,.10);position:relative;}
+  .portrait-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+  .frage{font-size:1.3rem;font-weight:600;color:var(--blau);margin:0 0 12px;}
+  .strand-wrap{width:100%;aspect-ratio:16/10;border-radius:16px;overflow:hidden;margin:28px 0 6px;
+    box-shadow:0 3px 14px rgba(35,61,92,.10);background:var(--creme-tief);}
+  .strand-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+  .bildunterschrift{text-align:center;font-style:italic;font-size:.9rem;color:#6f7b86;margin:8px 0 0;}
+  .portrait-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    color:#6f7b86;font-style:italic;font-size:.95rem;text-align:center;padding:20px;}
+  .bio p{margin:0 0 14px;}
+  .bio a{color:var(--blau);text-decoration:underline;}
+  .bio a:hover{color:var(--blau-tief);}
+  .schwerpunkte{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:30px 0 10px;
+    padding:20px 0 4px;border-top:1px solid var(--linie);}
+  .chip{display:inline-flex;align-items:center;gap:6px;background:#fff;color:var(--blau);
+    border:1px solid var(--linie);border-radius:999px;padding:7px 14px;font-size:.95rem;font-weight:500;
+    font-family:var(--sans);}
+  .chip .emoji{font-size:1.05em;}
+  .webseite-banner{display:block;margin:30px 0 6px;border-radius:16px;overflow:hidden;
+    box-shadow:0 3px 14px rgba(35,61,92,.12);border:1px solid var(--linie);text-decoration:none;
+    transition:transform .15s,box-shadow .15s;}
+  .webseite-banner:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(35,61,92,.18);}
+  .webseite-banner img{display:block;width:100%;height:auto;}
+  footer.app-foot{text-align:center;padding:22px 20px 30px;padding-bottom:max(30px,env(safe-area-inset-bottom));
+    color:#6f7b86;font-size:.86rem;border-top:1px solid var(--linie);background:#fff;font-family:var(--sans);}
+  footer.app-foot a{color:var(--blau);}
+  @media (max-width:520px){
+    main{padding:18px 16px 40px;}
+    header.app-head h1{font-size:1.45rem;}
+    .bio{font-size:1rem;}
+    .chip{font-size:.88rem;padding:6px 12px;}
+  }
+</style>
+</head>
+<body>
+<header class="app-head">
+  <h1>Über mich</h1>
+  <div class="untertitel">Michael Baur</div>
+</header>
+<main>
+  <a class="back" href="../">‹ Zurück zur Startseite</a>
+
+  <div class="portrait-wrap">
+    <img src="../images/portrait-garten.jpg" alt="Michael Baur im Garten" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <div class="portrait-fallback" style="display:none">
+      Hier kannst du dein Porträtfoto einfügen<br>
+      (lege es als <code>images/portrait-logo.jpg</code> ab)
+    </div>
+  </div>
+
+  <div class="bio">
+    <h2 class="frage">Wer steckt dahinter?</h2>
+    <p>Drei Jahrzehnte Biologie, Chemie und Kreidestaub an der Gesamtschule Hungen waren der Anfang. Um die Jahrtausendwende obsiegte die digitale Neugier: Ab 2001 ging es als Fachberater für Medienkompetenz und Redakteur beim Hessischen Bildungsserver in die Online-Welt.</p>
+
+    <p>Inzwischen bin ich im offiziellen „Unruhestand“ angekommen – was im Klartext bedeutet: Endlich Zeit für all die Projekte, die schon viel zu lange in der Warteschleife hingen!</p>
+
+    <p>Neben meinen ehrenamtlichen Coachings für Neue Medien und meiner Tätigkeit als VHS-Kursleiter gehört dazu nun auch die Entwicklung dieser App – ein Versuch, Wissen, Neugier und ein bisschen Freude am Entdecken zusammenzubringen.</p>
+
+    <p>Diese App ist handgeprüft, aber nicht handgeschnitzt: Einige Inhalte entstanden mit KI-Unterstützung und wurden anschließend von mir überarbeitet.</p>
+
+    <p>Möge sie der Einen oder dem Anderen als digitaler Feldstecher für die heimische Tierwelt dienen. Klick dich schlau! 😉</p>
+  </div>
+
+  <div class="strand-wrap">
+    <img src="../images/portrait-logo.jpg" alt="Michael Baur mit Hund am Strand" loading="lazy">
+  </div>
+  <p class="bildunterschrift">Draußen unterwegs – am liebsten mit Hund und Kamera.</p>
+
+</main>
+<footer class="app-foot">
+  <p>Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a></p>
+  <p>© 2026 Michael Baur · Fauna Mibaso</p>
+</footer>
+<script src="../assets/app.js" defer></script>
+</body>
+</html>

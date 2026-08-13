@@ -307,8 +307,8 @@ def build():
         # liegt in bio eine Ebene tiefer als in Flora/Fauna
         _ue = os.path.join(dst, "ueber", "index.html")
         if os.path.isfile(_ue):
-            open(_ue, "w", encoding="utf-8").write(
-                fix_manifest(open(_ue, encoding="utf-8").read()))
+            _txt = open(_ue, encoding="utf-8").read()
+            open(_ue, "w", encoding="utf-8").write(fix_manifest(_txt))
         # Porträtfotos der „Über mich"-Seite mitkopieren (werden von keinem Lernpfad
         # referenziert und würden sonst fehlen → „Über mich" bliebe ohne Fotos).
         for _p in ("portrait-garten.jpg", "portrait-logo.jpg", "portrait.jpg"):
