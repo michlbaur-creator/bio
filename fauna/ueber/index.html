@@ -75,11 +75,7 @@
   <a class="back" href="../">‹ Zurück zur Startseite</a>
 
   <div class="portrait-wrap">
-    <img src="../images/portrait-garten.jpg" alt="Michael Baur im Garten" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-    <div class="portrait-fallback" style="display:none">
-      Hier kannst du dein Porträtfoto einfügen<br>
-      (lege es als <code>images/portrait-logo.jpg</code> ab)
-    </div>
+    <img src="../images/portrait-garten.jpg" alt="Michael Baur im Garten" onerror="this.closest('.portrait-wrap').style.display='none';">
   </div>
 
   <div class="bio">
