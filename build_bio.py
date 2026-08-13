@@ -243,11 +243,19 @@ TITLE_OVERRIDE = {
 def label_for(fn, raw):
     return TITLE_OVERRIDE.get(fn) or (clean_title(raw) if raw else fn)
 
+def fix_manifest(txt):
+    # In Flora/Fauna liegt interaktiv/ direkt unter der App-Wurzel, deshalb steht dort
+    # href="../manifest.webmanifest". In bio landen die Seiten eine Ebene tiefer
+    # (bio/flora/interaktiv/…), der relative Pfad ginge ins Leere. Auf die eine
+    # bio-Beschreibungsdatei im Wurzelverzeichnis umbiegen.
+    return txt.replace('href="../manifest.webmanifest"', 'href="/manifest.webmanifest"')
+
 def rewrite_links(txt):
     # ../index.html zeigt jetzt korrekt auf die Repo-Unterseite (bio/flora/ bzw bio/fauna/).
     # Andere App-Rücklinks auf dieselbe Unterseite biegen.
     for a in ("../bestimmen.html", "../quiz/", "../interaktiv/"):
         txt = txt.replace('href="' + a + '"', 'href="../index.html"')
+    txt = fix_manifest(txt)
     # In bio existieren weder der arten/-Ordner noch die „Warum/Staunen"-Tafeln
     # (siehe EXCLUDE). „Absprung"-Buttons in den Lernpfad-Daten, die dorthin
     # zeigen, würden ins Leere führen — hier für bio herausnehmen (Fauna behält sie).
@@ -295,6 +303,12 @@ def build():
         # assets + ueber komplett
         copytree(os.path.join(src, "assets"), os.path.join(dst, "assets"))
         copytree(os.path.join(src, "ueber"),  os.path.join(dst, "ueber"))
+        # gleiche Korrektur wie bei den Lernpfaden: die kopierte „Über mich"-Seite
+        # liegt in bio eine Ebene tiefer als in Flora/Fauna
+        _ue = os.path.join(dst, "ueber", "index.html")
+        if os.path.isfile(_ue):
+            open(_ue, "w", encoding="utf-8").write(
+                fix_manifest(open(_ue, encoding="utf-8").read()))
         # Porträtfotos der „Über mich"-Seite mitkopieren (werden von keinem Lernpfad
         # referenziert und würden sonst fehlen → „Über mich" bliebe ohne Fotos).
         for _p in ("portrait-garten.jpg", "portrait-logo.jpg", "portrait.jpg"):
