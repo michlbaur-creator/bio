@@ -357,6 +357,15 @@ def build():
             "Ich hoffe, diese App bietet dir eine spannende Entdeckungsreise durch die Welt der Pflanzen und Tiere. Klick dich durch die Pfade und werde selbst zum Natur-Experten! 😉")
         _u = _u.replace("Flora Mibaso", "Bio Mibaso")
         open(_uidx, "w", encoding="utf-8").write(_u)
+    # Impressum: aus Flora kopiert, deshalb hier auf Bio umbenennen (Titel, Meta,
+    # Fließtext, Fußzeile) und den Satz zum lokalen Speicher anpassen.
+    _iidx = os.path.join(BIO, "impressum", "index.html")
+    if os.path.isfile(_iidx):
+        _i = open(_iidx, encoding="utf-8").read()
+        _i = _i.replace("Flora Mibaso", "Bio Mibaso")
+        _i = _i.replace("Einstellungen, der Sammelpass und der Offline-Speicher",
+                        "Einstellungen, der Forscherpass und der Offline-Speicher")
+        open(_iidx, "w", encoding="utf-8").write(_i)
     # Der Flora-Forscherpass (pflanzenpass.html) wird NICHT mehr aus der Quelle kopiert –
     # er lebt jetzt nativ in bio (flora/ enthält nur eine Weiterleitung). Nur das
     # Banner-Bild der Flora-Unterseite weiterhin gezielt mitkopieren.
@@ -707,9 +716,7 @@ def _chips():
 
 def _footer(base=""):
     return (f'<footer class="fuss"><div class="fin">'
-            f'<div class="echips"><a class="echip" href="https://flora.mibaso.de">🌼 Flora</a>'
-            f'<a class="echip" href="https://fauna.mibaso.de">🦋 Fauna</a>'
-            f'<a class="echip" href="https://start.mibaso.de">⌂ Alle Mibaso-Apps</a></div>'
+            f'<div class="echips"><a class="echip" href="https://mibaso.de">⌂ Alle Mibaso-Apps</a></div>'
             f'<div class="echips"><a class="echip" href="{base}ueber/">Über mich</a>'
             f'<a class="echip" href="{base}impressum/">Impressum &amp; Datenschutz</a></div>'
             f'<div class="klein">© 2026 Michael Baur · Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a></div>'
