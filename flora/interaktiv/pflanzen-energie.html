@@ -308,6 +308,8 @@
   body.eingebettet { background: transparent; }
   body.eingebettet #pe-app { padding-top: 0; }
   body.eingebettet .karte[data-teil]:not(.teil-sichtbar) { display: none !important; }
+  /* Eingebettet (z. B. im Flora-Energie-Pfad): kein Startbildschirm, sonst verdeckt er den Schritt */
+  body.eingebettet .pfad-intro { display: none !important; }
 </style>
 </head>
 <body>
