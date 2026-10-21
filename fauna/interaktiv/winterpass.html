@@ -454,7 +454,7 @@ w1: {
     s2: [
       ["Ein Karpfen schwimmt im Winter in 4 °C kaltem Wasser. Wie warm ist sein Körper?", ["Etwa 4 °C", "Etwa 37 °C", "Etwa 20 °C", "Unter 0 °C"]],
       ["Warum braucht eine Eidechse viel weniger Futter als eine Maus?", ["Sie muss keine Körperwärme erzeugen", "Sie bewegt sich fast nie", "Sie frisst nur Pflanzen", "Sie speichert Futter im Schwanz"]],
-      ["Welches Tier hat die höchste Körpertemperatur?", ["Eine Amsel", "Ein Mensch", "Ein Igel im Sommer", "Eine Eidechse in der Sonne"]]
+      ["Maus und Eidechse sitzen bei 5 °C draußen. Was stimmt?", ["Die Maus ist warm, die Eidechse fast so kalt wie die Luft", "Beide sind ungefähr gleich kalt", "Die Eidechse ist wärmer als die Maus", "Beide sind etwa 37 °C warm"]]
     ],
     s3: [
       ["Was unterscheidet Winterruhe vom Winterschlaf?", ["Die Körpertemperatur sinkt kaum", "Das Tier schläft noch länger", "Nur Vögel halten Winterruhe", "Das Tier frisst gar nichts"]],
@@ -474,8 +474,8 @@ w1: {
       ["Paul: Fische sind wechselwarm – also ist das falsch!", "Emma: Die Fische, oder?", "Noah: Fische oder Insekten …", "Lea: Vögel sind doch wechselwarm."]],
     ["Ein Igelherz schlägt im Sommer etwa 180-mal pro Minute. Und im Winterschlaf?", ["Etwa 10-mal", "Etwa 100-mal", "Etwa 250-mal", "Gar nicht mehr"],
       ["Jonas: Nur noch etwa 10-mal!", "Hanna: Ganz wenig – 10?", "Finn: 10 oder gar nicht …", "Ida: Das Herz bleibt einfach stehen."]],
-    ["Warum ist eine Eidechse an einem kalten Morgen leicht zu fangen?", ["Ihr Körper ist kalt und langsam", "Sie schläft noch tief", "Sie sieht morgens schlecht", "Sie ist vor Hunger schwach"],
-      ["Clara: Sie ist noch kalt – erst die Sonne macht sie flink!", "Elias: Weil sie kalt ist?", "Luisa: Kalt oder müde …", "Max: Die schläft halt noch."]],
+    ["Welches Tier hat die höchste Körpertemperatur?", ["Eine Amsel", "Ein Mensch", "Ein Igel im Sommer", "Ein Eichhörnchen"],
+      ["Clara: Die Amsel – Vögel haben rund 41 °C!", "Elias: Ein Vogel, oder?", "Luisa: Amsel oder Mensch …", "Max: Na, der Mensch mit seinen 37 Grad."]],
     ["Ein Eichhörnchen wacht im Januar auf. Was macht es wahrscheinlich?", ["Es frisst aus seinen Vorräten", "Es baut ein neues Nest", "Es sucht frische Blätter", "Es sucht sich ein Winterquartier"],
       ["Sophie: Es holt sich was aus dem Vorrat!", "Leon: Fressen, oder?", "Marie: Vorräte oder Nest bauen …", "Felix: Frische Blätter knabbern."]],
     ["Du willst prüfen, ob Fell warm hält. Was ist der richtige Kontrollversuch?", ["Gleicher Aufbau, nur ohne Fell", "Derselbe Versuch an einem wärmeren Tag", "Derselbe Versuch mit doppelt so viel Fell", "Keiner – ein Versuch reicht"],
@@ -517,7 +517,7 @@ s2: () => `
     <p class="feedback" aria-live="polite"></p>
   </div>
   <div class="merke"><span class="eyebrow">Merke</span>
-    <p><b>Gleichwarm</b> (Säugetiere, Vögel): Körpertemperatur bleibt fast gleich – kostet viel Futter.</p>
+    <p><b>Gleichwarm</b> (Säugetiere, Vögel): Körpertemperatur bleibt fast gleich – kostet viel Futter. Säugetiere liegen meist um 36 bis 38 °C, Vögel sogar um 41 °C.</p>
     <p><b>Wechselwarm</b> (Reptilien, Amphibien, Fische, Insekten): Körpertemperatur folgt der Umgebung – spart Futter, aber bei Kälte geht nichts mehr.</p></div>`,
 s3: () => `
   <div class="prose lead"><p>Wer im Winter kaum Futter findet, kann einfach „abschalten“. Das klappt auf drei verschiedene Arten.</p></div>
@@ -1159,15 +1159,89 @@ function urkunde(eid) {
   </div>
   <div class="urk-btns">
     ${IM_RAHMEN ? `<span class="hint">Drucken klappt auf bio.mibaso.de.</span>` : `<button type="button" class="knopf prim" id="urkDruck">🖨️ Drucken / als PDF sichern</button>`}
+    <button type="button" class="knopf honig" id="urkTeilen">📤 Teilen / als Bild sichern</button>
+    <p class="hint" style="width:100%;text-align:center;margin:2px 0 0">Auf iPhone und iPad: „Teilen“ antippen, dann „Drucken“ oder „Bild sichern“.</p>
     <button type="button" class="knopf" id="urkZu">Schließen</button>
   </div></div>`;
   document.body.appendChild(o);
   const inp = $("#urkName", o);
-  inp.oninput = () => { S.name = inp.value.slice(0, 60); speichern(); $("#urkNameDruck", o).textContent = S.name || " "; };
+  const aktualisiere = urkundeTeilen(o, "🌰", "Urkunde-Expedition-Winter");
+  inp.oninput = () => { S.name = inp.value.slice(0, 60); speichern(); $("#urkNameDruck", o).textContent = S.name || " "; aktualisiere(); };
   const d = $("#urkDruck", o); if (d) d.onclick = () => window.print();
   $("#urkZu", o).onclick = () => o.remove();
   o.onclick = e => { if (e.target === o) o.remove(); };
   if (!S.name) inp.focus();
+}
+
+/* ============ Urkunde als Bild (Teilen / Drucken auf iPhone und iPad) ============ */
+function urkundeDaten(o, em) {
+  const t = s => { const el = $(s, o); return el ? el.textContent.trim() : ""; };
+  return {
+    eyebrow: t(".urk-eyebrow"), med: t(".urk-med"), rang: t(".urk-sub"), name: (S.name || "").trim(),
+    satz: $$(".urk-satz", o)[1].textContent.replace(/\s+/g, " ").trim(),
+    zeilen: $$(".urk-tab tr", o).map(tr => { const td = $$("td", tr), sp = $("[aria-label]", td[1]);
+      return [td[0].textContent.trim(), sp ? parseInt(sp.getAttribute("aria-label"), 10) : null]; }),
+    em, summe: t(".urk-summe"), abz: t(".urk-album"), datum: t(".urk-fuss span"), fuss: "Bio Mibaso · mibaso.de"
+  };
+}
+function zeichneUrkunde(d) {
+  const W = 1240, H = 1754, c = document.createElement("canvas"); c.width = W; c.height = H;
+  const x = c.getContext("2d"), SANS = '-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif', SERIF = 'Georgia,"Times New Roman",serif';
+  x.fillStyle = "#fffdf7"; x.fillRect(0, 0, W, H);
+  x.strokeStyle = "#233D5C"; x.lineWidth = 6; x.strokeRect(60, 60, W - 120, H - 120);
+  x.lineWidth = 2; x.strokeRect(76, 76, W - 152, H - 152);
+  x.strokeStyle = "#C28A3A"; x.strokeRect(100, 100, W - 200, H - 200);
+  x.textAlign = "center"; x.textBaseline = "alphabetic";
+  const zeile = (txt, font, farbe, y) => { x.font = font; x.fillStyle = farbe; x.fillText(txt, W / 2, y); };
+  const umbrechen = (txt, max) => { const out = []; let z = "";
+    txt.split(" ").forEach(w => { const p = z ? z + " " + w : w; if (x.measureText(p).width > max && z) { out.push(z); z = w; } else z = p; });
+    if (z) out.push(z); return out; };
+  let y = 200;
+  zeile(d.eyebrow.toUpperCase(), `600 26px ${SANS}`, "#5d6b78", y);
+  y += 150; zeile(d.med, `120px ${SANS}`, "#000", y);
+  y += 140; zeile("Urkunde", `108px ${SERIF}`, "#233D5C", y);
+  y += 70; zeile(d.rang, `44px ${SERIF}`, "#a9762c", y);
+  y += 100; zeile("Diese Urkunde bestätigt, dass", `38px ${SERIF}`, "#1c2e42", y);
+  y += 105; zeile(d.name || " ", `64px ${SERIF}`, "#1c2e42", y);
+  x.strokeStyle = "#5d6b78"; x.lineWidth = 2; x.beginPath(); x.moveTo(W / 2 - 360, y + 24); x.lineTo(W / 2 + 360, y + 24); x.stroke();
+  y += 100; x.font = `38px ${SERIF}`;
+  umbrechen(d.satz, W - 320).forEach(l => { zeile(l, `38px ${SERIF}`, "#1c2e42", y); y += 54; });
+  y += 30; const x0 = W / 2 - 430, x1 = W / 2 + 430;
+  d.zeilen.forEach(([titel, n]) => {
+    x.textAlign = "left"; x.font = `34px ${SERIF}`; x.fillStyle = "#1c2e42"; x.fillText(titel, x0, y);
+    x.textAlign = "right"; x.font = `34px ${SANS}`;
+    if (n === null) { x.fillStyle = "#5d6b78"; x.fillText("–", x1, y); }
+    else for (let k = 0; k < 3; k++) { x.globalAlpha = k < n ? 1 : .22; x.fillText(d.em, x1 - (2 - k) * 46, y); }
+    x.globalAlpha = 1; x.strokeStyle = "#d9d2c1"; x.lineWidth = 1.5; x.beginPath(); x.moveTo(x0, y + 18); x.lineTo(x1, y + 18); x.stroke();
+    y += 64;
+  });
+  x.textAlign = "center";
+  y += 40; zeile(d.summe, `40px ${SERIF}`, "#233D5C", y);
+  if (d.abz) { y += 85; zeile(d.abz, `54px ${SANS}`, "#000", y); }
+  x.font = `28px ${SANS}`; x.fillStyle = "#5d6b78";
+  x.textAlign = "left"; x.fillText(d.datum, 140, H - 150);
+  x.textAlign = "right"; x.fillText(d.fuss, W - 140, H - 150);
+  return new Promise(r => c.toBlob(r, "image/png"));
+}
+/* Bild wird vorab erzeugt, damit „Teilen“ direkt beim Antippen startet (iOS verlangt das) */
+function urkundeTeilen(o, em, dateiname) {
+  let blob = null, timer;
+  const neu = () => { clearTimeout(timer); timer = setTimeout(() => zeichneUrkunde(urkundeDaten(o, em)).then(b => blob = b), 250); };
+  neu();
+  const btn = $("#urkTeilen", o);
+  btn.onclick = () => {
+    if (!blob) { toast("Einen Moment, die Urkunde wird vorbereitet …"); return; }
+    const name = (dateiname + (S.name ? "-" + S.name : "")).replace(/[^\wäöüÄÖÜß-]+/g, "-") + ".png";
+    const file = new File([blob], name, { type: "image/png" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: "Meine Urkunde" }).catch(e => { if (!e || e.name !== "AbortError") toast("Teilen hat nicht geklappt."); });
+    } else {
+      const url = URL.createObjectURL(blob), a = document.createElement("a");
+      a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 5000); toast("Die Urkunde wurde als Bild gespeichert.");
+    }
+  };
+  return neu;
 }
 
 /* ============ Navigation ============ */
