@@ -360,7 +360,7 @@ const SORT_SETS = {
     ["können gemeinsam Junge bekommen", "beide", "Wolf und Hund gehören zur selben Art. Deshalb können sie miteinander Junge bekommen."]
   ]},
   vorfahren: { bins: [["rind", "🐄 Hausrind"], ["schaf", "🐑 Hausschaf"], ["huhn", "🐓 Haushuhn"], ["katze", "🐈 Hauskatze"], ["pferd", "🐎 Hauspferd"], ["kaninchen", "🐇 Hauskaninchen"]], items: [
-    ["Auerochse", "rind", "Der Auerochse war ein riesiges Wildrind. Er ist ausgestorben – das letzte Tier starb 1627 in Polen."],
+    ["Auerochse", "rind", "Der Auerochse war ein riesiges Wildrind. Er ist ausgestorben – das letzte Tier starb 1627 in Polen. Nicht verwechseln mit dem Wisent: Den gibt es noch, ein Haustier wurde er nie."],
     ["Mufflon (Wildschaf)", "schaf", "Wildschafe wie der Mufflon haben ein kurzes, braunes Haarkleid. Die dicke Wolle gibt es erst durch Züchtung."],
     ["Bankivahuhn", "huhn", "Das Bankivahuhn lebt in den Wäldern Südostasiens und legt nur wenige Eier im Jahr. Ein Legehuhn heute legt fast jeden Tag eins."],
     ["Falbkatze", "katze", "Die Falbkatze ist eine Wildkatze aus Afrika und Vorderasien. Sie kam zu den ersten Bauern, weil es in den Kornspeichern Mäuse gab."],
@@ -383,7 +383,7 @@ const KARTEN_SETS = {
     ["🐺 Rudel", "Wölfe leben in Familien: Vater, Mutter und ihre Jungen aus den letzten ein bis zwei Jahren. So ein Rudel jagt gemeinsam."],
     ["🦷 Raubtiergebiss", "Lange Fangzähne halten die Beute fest, scharfe Reißzähne zerschneiden das Fleisch."],
     ["🏃 Ausdauerläufer", "Wölfe laufen in einer Nacht oft 20 Kilometer und mehr. Sie hetzen ihre Beute, bis sie müde wird."],
-    ["🌲 Zurück bei uns", "Lange waren Wölfe in Deutschland ausgerottet. Heute leben sie wieder bei uns – auch in Hessen."]
+    ["🌲 Zurück bei uns", "Lange waren Wölfe in Deutschland ausgerottet. Seit etwa 25 Jahren wandern sie von selbst aus Osteuropa wieder ein – heute leben sie auch in Hessen."]
   ],
   hundregeln: [
     ["🙋 Erst fragen", "Fremde Hunde nie einfach streicheln. Immer zuerst den Halter fragen."],
@@ -463,43 +463,43 @@ h1: {
   ],
   checks: {
     s1: [
-      ["Wer gehört zu einem Wolfsrudel?", ["Eine Familie: Eltern und ihre Jungen", "Viele fremde Wölfe", "Nur Männchen", "Wölfe und Füchse"]],
-      ["Wozu dienen die langen Fangzähne?", ["Zum Festhalten der Beute", "Zum Kauen von Gras", "Zum Graben", "Zum Putzen des Fells"]],
-      ["Leben heute wieder Wölfe in Hessen?", ["Ja", "Nein, nur im Zoo", "Nein, nur in Amerika", "Nur im Winter"]]
+      ["Ein Wolfsrudel besteht meistens aus …", ["einer Familie: Eltern und ihren Jungen", "einem Leitwolf und vielen fremden Wölfen", "mehreren Familien, die sich zusammentun", "nur erwachsenen Männchen"]],
+      ["Wie jagt ein Wolfsrudel meistens?", ["Es hetzt die Beute, bis sie ermüdet", "Es lauert versteckt und springt sie an", "Jeder Wolf jagt allein für sich", "Es treibt die Beute ins Wasser"]],
+      ["Welche Zähne halten beim Wolf die Beute fest?", ["Die Fangzähne", "Die Reißzähne", "Die Schneidezähne", "Die Backenzähne"]]
     ],
     s2: [
-      ["Warum kamen Wölfe in die Nähe der Steinzeitmenschen?", ["Dort fanden sie leichter Futter", "Sie wollten gestreichelt werden", "Sie suchten Wasser", "Die Menschen haben sie gerufen"]],
-      ["Welche Wölfe blieben bei den Menschen?", ["Die zutraulichsten", "Die größten", "Die schnellsten", "Die ältesten"]],
-      ["Wann wurde der Wolf zum Hund?", ["Lange bevor die Menschen Bauern wurden", "Vor 100 Jahren", "Im Mittelalter", "Zur Zeit der Römer"]]
+      ["Was war vermutlich der erste Schritt vom Wolf zum Hund?", ["Wenig scheue Wölfe suchten Futter an den Lagern", "Menschen fingen Wölfe und sperrten sie ein", "Bauern hielten Wölfe als Wachhunde", "Menschen zogen verletzte Wölfe gesund"]],
+      ["Warum wurden die Tiere mit jeder Generation zahmer?", ["Zahme Eltern bekamen oft zahme Junge", "Die Wölfe gewöhnten sich ans Feuer", "Die Menschen brachten ihnen Tricks bei", "Gekochtes Fleisch machte sie ruhiger"]],
+      ["Was gab es zuerst?", ["Den Hund", "Den Ackerbau", "Das Hausschwein", "Die ersten Dörfer"]]
     ],
     s3: [
-      ["Welches Merkmal gibt es nur bei Hunden, nicht beim Wolf?", ["Schlappohren", "Fangzähne", "Eine feine Nase", "Vier Beine"]],
-      ["Warum können Wolf und Hund gemeinsam Junge bekommen?", ["Sie gehören zur selben Art", "Weil Hunde klüger sind", "Das geht gar nicht", "Weil beide Fleisch fressen"]],
-      ["Was macht ein Hund, wenn ein Mensch auf etwas zeigt?", ["Er schaut dorthin", "Er beißt in den Finger", "Er bellt den Menschen an", "Er läuft weg"]]
+      ["Ein Labrador und ein Wolf …", ["gehören zur selben Art", "sind zwei verschiedene Arten", "sind nur entfernt verwandt", "können keine Jungen bekommen"]],
+      ["Ein Schäferhund hat Stehohren wie ein Wolf. Was folgt daraus?", ["Nichts – viele Hunde haben Stehohren", "Er ist eigentlich ein Wolf", "Er ist ein Mischling aus Wolf und Hund", "Er hört besser als andere Hunde"]],
+      ["Ein Mensch zeigt auf ein Futterversteck. Was passiert vermutlich?", ["Der Hund schaut hin, der Wolf kaum", "Beide schauen gleich gut hin", "Der Wolf schaut hin, der Hund kaum", "Keiner von beiden achtet darauf"]]
     ],
     s4: [
-      ["Was macht ein Züchter?", ["Er wählt passende Eltern für die nächsten Jungen aus", "Er verändert ein Tier im Labor", "Er füttert besonders viel", "Er trainiert die Tiere"]],
-      ["Wie lange dauert es, bis eine neue Rasse entsteht?", ["Viele Generationen", "Ein Jahr", "Einen Wurf", "Ein paar Tage"]],
-      ["Chihuahua und Dogge sind …", ["dieselbe Art, nur andere Rassen", "verschiedene Arten", "keine echten Hunde", "Wölfe"]]
+      ["Ein Züchter will Hunde mit kurzen Beinen. Was muss er tun?", ["Über viele Generationen kurzbeinige Tiere verpaaren", "Ein einziges Mal einen kurzbeinigen Rüden verpaaren", "Die Welpen weniger füttern", "Die Welpen wenig laufen lassen"]],
+      ["Ein Hund verliert bei einem Unfall ein Bein. Haben seine Welpen später nur drei Beine?", ["Nein, das wird nicht vererbt", "Ja, alle Welpen", "Ja, etwa jeder zweite Welpe", "Nur, wenn auch die Mutter drei Beine hat"]],
+      ["Was ist ein Chihuahua im Vergleich zu einer Dogge?", ["Eine andere Rasse derselben Art", "Eine eigene Art", "Eine Kreuzung aus Hund und Fuchs", "Ein Hund, der als Welpe zu wenig gefressen hat"]]
     ]
   },
   profi: [
-    ["Von welchem Wildtier stammen alle Hunde ab?", ["Wolf", "Fuchs", "Schakal", "Hyäne"],
-      ["Lena: Vom Wolf – das hatten wir doch!", "Ben: Wolf, glaube ich.", "Mia: Wolf oder Fuchs …", "Tom: Der Fuchs sieht doch auch so aus."]],
-    ["Wie heißt eine Wolfsfamilie?", ["Rudel", "Herde", "Schwarm", "Horde"],
-      ["Paul: Rudel natürlich!", "Emma: Rudel, oder?", "Noah: Rudel oder Herde …", "Lea: Eine Herde?"]],
-    ["Was war wohl der erste Schritt zum Haushund?", ["Zutrauliche Wölfe kamen in die Nähe der Menschen", "Menschen fingen Wölfe in Fallen", "Wölfe wurden im Labor verändert", "Hunde liefen aus dem Zoo weg"],
-      ["Jonas: Die zutraulichen Wölfe kamen von selbst ans Lager!", "Hanna: Die kamen wegen der Reste, oder?", "Finn: Fallen oder zutraulich …", "Ida: Aus dem Zoo!"]],
-    ["Welches Merkmal ist typisch für Haustiere?", ["Gefleckte Felle", "Immer graues Fell", "Stehohren", "Lange Beine"],
-      ["Clara: Flecken – die gibt es bei Wildtieren kaum!", "Elias: Ich glaube, die Flecken.", "Luisa: Flecken oder Stehohren …", "Max: Lange Beine?"]],
-    ["Welche Laute machen Wölfe vor allem?", ["Heulen", "Bellen", "Miauen", "Quieken"],
-      ["Sophie: Heulen – besonders nachts!", "Leon: Heulen, oder?", "Marie: Heulen oder Bellen …", "Felix: Die bellen wie Hunde."]],
-    ["Ein Züchter will kleine Hunde. Was tut er?", ["Er lässt immer die kleinsten Tiere Junge bekommen", "Er gibt weniger Futter", "Er schneidet die Beine kürzer", "Er wartet, bis sie schrumpfen"],
-      ["Anna: Immer die Kleinsten auswählen!", "Luca: Ich glaube, auswählen …", "Mila: Auswählen oder weniger Futter …", "Jan: Weniger Futter!"]],
-    ["Wie viele Hunderassen gibt es ungefähr?", ["Über 300", "Etwa 10", "Etwa 30", "Über 30.000"],
-      ["Theo: Über 300 – unglaublich viele!", "Lina: Ein paar Hundert, oder?", "Erik: 300 oder 30 …", "Nele: Mindestens 30.000!"]],
-    ["Warum versteht ein Hund unsere Zeigegesten?", ["Weil er seit Tausenden Jahren mit Menschen lebt", "Weil er Deutsch kann", "Weil Wölfe auch zeigen", "Weil er gut sieht"],
-      ["Moritz: Weil Hunde schon so lange mit uns leben!", "Greta: Wegen dem Zusammenleben?", "Karl: Zusammenleben oder gute Augen …", "Pia: Der kann halt Deutsch."]]
+    ["Welches dieser Tiere ist mit dem Hund am nächsten verwandt?", ["Wolf", "Fuchs", "Marderhund", "Hyäne"],
+      ["Lena: Der Wolf – die beiden sind sogar dieselbe Art!", "Ben: Wolf, glaube ich.", "Mia: Wolf oder Marderhund – der heißt ja schon so …", "Tom: Der Marderhund, steckt doch Hund im Namen!"]],
+    ["Wie lebten die Menschen, als aus Wölfen Hunde wurden?", ["Als Jäger und Sammler", "In Dörfern mit Feldern", "Auf Bauernhöfen mit Ställen", "In Städten mit Mauern"],
+      ["Paul: Als Jäger und Sammler – Bauern gab es noch nicht!", "Emma: Jäger, oder?", "Noah: Jäger oder schon Bauern …", "Lea: Auf Bauernhöfen natürlich."]],
+    ["Ein Wolfswelpe wird von Menschen großgezogen. Was stimmt?", ["Er bleibt ein Wildtier, auch wenn er zahm wirkt", "Er wird dadurch zu einem Hund", "Seine Jungen sind dann Hunde", "Er bekommt Schlappohren"],
+      ["Jonas: Zahm ist nicht gleich Haustier – er bleibt ein Wolf!", "Hanna: Er bleibt ein Wildtier …?", "Finn: Wildtier oder Hund …", "Ida: Dann ist er doch ein Hund!"]],
+    ["Warum heulen Wölfe?", ["Um sich mit dem Rudel zu verständigen", "Weil sie den Mond anheulen", "Weil sie Hunger haben", "Weil ihnen kalt ist"],
+      ["Clara: Zur Verständigung im Rudel!", "Elias: Damit die anderen sie hören?", "Luisa: Verständigung oder Mond …", "Max: Na, wegen dem Vollmond!"]],
+    ["Wie kam es, dass Doggen riesig und Chihuahuas winzig sind?", ["Menschen wählten über viele Generationen die Eltern aus", "Sie stammen von verschiedenen Wolfsarten ab", "Sie lebten in verschiedenen Klimazonen", "Die Größe hängt vom Futter der Welpen ab"],
+      ["Sophie: Züchtung – immer die passenden Eltern ausgesucht!", "Leon: Auslese, glaube ich.", "Marie: Züchtung oder verschiedene Wölfe …", "Felix: Die Kleinen haben weniger gefressen."]],
+    ["Welche Aussage ist FALSCH?", ["Hunde stammen vom Fuchs ab", "Hunde und Wölfe haben 42 Zähne", "Hunde riechen besser als Menschen", "Hunde verstehen Zeigegesten"],
+      ["Anna: Das mit dem Fuchs ist falsch!", "Luca: Ich glaube, der Fuchs …", "Mila: Fuchs oder 42 Zähne …", "Jan: 42 Zähne – so viele hat doch keiner!"]],
+    ["Wölfe leben wieder in Hessen. Wie sind sie hergekommen?", ["Sie sind von selbst eingewandert", "Sie wurden heimlich ausgesetzt", "Sie sind aus Zoos entkommen", "Es sind verwilderte Hunde"],
+      ["Theo: Von selbst aus dem Osten eingewandert!", "Lina: Eingewandert, oder?", "Erik: Eingewandert oder ausgesetzt …", "Nele: Die hat doch jemand ausgesetzt!"]],
+    ["Was hat sich vom Wolf zum Hund NICHT verändert?", ["Das Raubtiergebiss", "Die Fellfarben", "Die Form der Ohren", "Das Verhalten gegenüber Menschen"],
+      ["Moritz: Das Gebiss – 42 Zähne bei beiden!", "Greta: Die Zähne, glaube ich.", "Karl: Zähne oder Ohren …", "Pia: Die Ohren sind doch gleich."]]
   ],
   inhalt: {
 s1: () => `
@@ -524,7 +524,8 @@ s2: () => `
     <p class="feedback" aria-live="polite"></p>
   </div>
   <div class="merke"><span class="eyebrow">Merke</span>
-    <p>Der Hund ist das <b>älteste Haustier</b> des Menschen. Aus Wölfen, die immer zahmer wurden, entstanden über viele <b>Generationen</b> die ersten Hunde – vor über 15.000 Jahren.</p></div>`,
+    <p>Der Hund ist das <b>älteste Haustier</b> des Menschen. Aus Wölfen, die immer zahmer wurden, entstanden über viele <b>Generationen</b> die ersten Hunde – vor über 15.000 Jahren.</p>
+    <p>Achtung: Ein einzelner Wolf, den Menschen großziehen, wird zwar zahm – er bleibt aber ein <b>Wildtier</b>. Zum <b>Haustier</b> wird eine Tierart erst über viele Generationen.</p></div>`,
 s3: () => `
   <div class="prose lead"><p>Ein Wolf und ein Schäferhund sehen sich ähnlich. Ein Wolf und ein Mops eher nicht. Trotzdem sind alle drei näher verwandt, als du denkst.</p></div>
   ${bild("wolf-und-hund", "🐕", "Wolf und Schäferhund nebeneinander", "<b>Was du siehst:</b> Links ein Wolf, rechts ein Schäferhund. Vergleiche Kopf, Ohren, Beine und Schwanz.")}
@@ -540,7 +541,8 @@ s3: () => `
 s4: () => `
   <div class="prose lead"><p>Ein Chihuahua wiegt so viel wie eine Tafel Schokolade – eine Dogge so viel wie ein Erwachsener. Wie kommt das?</p></div>
   ${bild("hunderassen", "🐩", "Verschiedene Hunderassen nebeneinander", "<b>Was du siehst:</b> Vier Hunderassen nebeneinander – vom winzigen Chihuahua bis zur großen Dogge. Alle gehören zur selben Art.")}
-  <div class="prose"><p>Menschen haben über viele Generationen immer nur bestimmte Hunde Junge bekommen lassen: die kleinsten, die schnellsten oder die, die am besten hüten konnten. Das nennt man <b>Züchtung</b> oder <b>Auslese</b>. Probier es selbst!</p></div>
+  <div class="prose"><p>Menschen haben über viele Generationen immer nur bestimmte Hunde Junge bekommen lassen: die kleinsten, die schnellsten oder die, die am besten hüten konnten. Das nennt man <b>Züchtung</b> oder <b>Auslese</b>. Probier es selbst!</p>
+  <p>Wichtig: Weitergegeben wird nur, was in den <b>Erbanlagen</b> steckt. Was ein Hund in seinem Leben lernt oder erleidet – ein Kunststück, eine Narbe, ein verlorenes Bein –, erben seine Welpen nicht.</p></div>
   <div class="box" data-widget="zucht"></div>
   <div class="merke"><span class="eyebrow">Merke</span>
     <p>Bei der <b>Züchtung</b> wählt der Mensch die Eltern für die nächste Generation aus. Nach vielen Generationen verstärkt sich das gewünschte Merkmal. So entstehen neue <b>Rassen</b> – aber keine neue Art.</p></div>`,
@@ -576,43 +578,43 @@ h2: {
   ],
   checks: {
     s1: [
-      ["Woran erkennst du junge Wildschweine?", ["An den hellen Längsstreifen", "Am rosa Fell", "Am Ringelschwanz", "An den Schlappohren"]],
-      ["Wer bekommt mehr Junge auf einmal?", ["Das Hausschwein", "Das Wildschwein", "Beide gleich viele", "Keines von beiden"]],
-      ["Wie heißen die langen Eckzähne des Keilers?", ["Hauer", "Hörner", "Krallen", "Stoßzähne"]]
+      ["Ein Ferkel hat helle Längsstreifen. Was ist es wahrscheinlich?", ["Ein junges Wildschwein", "Ein junges Hausschwein", "Ein krankes Ferkel", "Ein Ferkel im Winterfell"]],
+      ["Warum ist das Hausschwein länger als das Wildschwein?", ["Züchter wollten mehr Fleisch", "Es bewegt sich im Stall weniger", "Es bekommt mehr Futter", "Es muss nicht mehr wühlen"]],
+      ["Was haben Wildschwein und Hausschwein gemeinsam?", ["Den Rüssel zum Wühlen", "Die gestreiften Jungen", "Die langen Hauer", "Das dichte Borstenfell"]]
     ],
     s2: [
-      ["Wer ist der Vorfahr unseres Hausrinds?", ["Auerochse", "Wisent", "Büffel", "Elch"]],
-      ["Warum kamen Wildkatzen zu den ersten Bauern?", ["In den Kornspeichern gab es Mäuse", "Sie wollten Milch", "Es war dort wärmer", "Sie mochten Getreide"]],
-      ["Welches Haustier ist am jüngsten?", ["Das Kaninchen", "Der Hund", "Das Schaf", "Das Rind"]]
+      ["Welcher dieser Vorfahren ist ausgestorben?", ["Der Auerochse", "Das Wildschwein", "Das Mufflon", "Das Bankivahuhn"]],
+      ["Der Wisent lebt heute wieder in einigen Wäldern. Ist er der Vorfahr unseres Hausrinds?", ["Nein, das war der Auerochse", "Ja, er ist der Vorfahr", "Ja, zusammen mit dem Büffel", "Nein, das war der Elch"]],
+      ["Welches Haustier wurde zuletzt gezähmt?", ["Das Kaninchen", "Das Pferd", "Die Katze", "Das Schaf"]]
     ],
     s3: [
-      ["Ein Hund zieht den Schwanz ein und legt die Ohren an. Er ist …", ["ängstlich", "fröhlich", "hungrig", "müde"]],
-      ["Ein fremder Hund läuft auf dich zu. Was tust du?", ["Ruhig stehen bleiben", "Schnell wegrennen", "Ihn anstarren", "Laut schreien"]],
-      ["Was solltest du tun, bevor du einen fremden Hund streichelst?", ["Den Halter fragen", "Ihm in die Augen schauen", "Ihn von hinten anfassen", "Gar nichts"]]
+      ["Ein Hund wedelt mit dem Schwanz. Was stimmt?", ["Das allein zeigt noch nicht, dass er freundlich ist", "Er ist auf jeden Fall freundlich", "Er will auf jeden Fall spielen", "Er hat auf jeden Fall Hunger"]],
+      ["Ein Hund gähnt, duckt sich und schaut weg. Was zeigt er?", ["Er ist unsicher und will keinen Streit", "Er ist müde und will schlafen", "Er will gleich angreifen", "Er langweilt sich"]],
+      ["Ein fremder Hund rennt auf dich zu. Was ist am besten?", ["Stehen bleiben und zur Seite schauen", "Schnell weglaufen", "Ihm fest in die Augen schauen", "Ihm entgegengehen und die Hand hinhalten"]]
     ],
     s4: [
-      ["Was bedeutet die 1 am Anfang des Eier-Codes?", ["Freilandhaltung", "Bio", "Bodenhaltung", "Käfighaltung"]],
-      ["Warum brauchen Schweine Stroh?", ["Zum Wühlen und Beschäftigen", "Als Futter für den Winter", "Damit sie sauber bleiben", "Zum Schlafen auf dem Dach"]],
-      ["Was bedeutet die 0 am Anfang des Eier-Codes?", ["Bio-Haltung", "Keine Hühner", "Käfighaltung", "Ein faules Ei"]]
+      ["Auf einem Ei steht 2-DE-0512345. Wie lebten die Hühner?", ["In einer Halle ohne Auslauf", "Draußen auf dem Boden einer Wiese", "Mit Auslauf und Bio-Futter", "In Käfigen"]],
+      ["Schweine beißen sich gegenseitig in den Schwanz. Was ist eine häufige Ursache?", ["Langeweile ohne Beschäftigung", "Zu viel Stroh im Stall", "Zu viel Auslauf", "Zu viel Futter"]],
+      ["Ein Kaninchen lebt allein in einem großen Gehege. Ist das artgerecht?", ["Nein, Kaninchen brauchen Artgenossen", "Ja, Platz ist das Wichtigste", "Ja, Kaninchen sind Einzelgänger", "Ja, wenn es täglich Möhren bekommt"]]
     ]
   },
   profi: [
-    ["Wer ist der Vorfahr des Hausschweins?", ["Wildschwein", "Warzenschwein", "Nilpferd", "Dachs"],
-      ["Lukas: Das Wildschwein – ganz klar!", "Amelie: Wildschwein, oder?", "Jakob: Wildschwein oder Warzenschwein …", "Laura: Das Nilpferd ist doch auch rund."]],
-    ["Warum suhlen sich Schweine im Schlamm?", ["Sie kühlen sich ab", "Sie sind schmutzig", "Sie suchen Futter", "Sie wollen sich verstecken"],
-      ["Mats: Zum Abkühlen – Schweine können kaum schwitzen!", "Emily: Abkühlen, glaube ich.", "Henry: Abkühlen oder Futter …", "Frieda: Weil sie Dreck mögen!"]],
-    ["Der Auerochse ist …", ["ausgestorben", "noch im Wald unterwegs", "ein Haustier", "ein anderer Name für den Elch"],
-      ["Oskar: Ausgestorben – schon seit fast 400 Jahren!", "Mathilda: Ausgestorben, oder?", "Anton: Ausgestorben oder im Wald …", "Romy: Der lebt noch im Zoo."]],
-    ["Von welchem Wildtier stammt das Haushuhn ab?", ["Bankivahuhn", "Fasan", "Rebhuhn", "Pfau"],
-      ["Johanna: Vom Bankivahuhn aus Asien!", "Leo: Bankivahuhn …?", "Ella: Bankiva oder Fasan …", "Ben: Vom Fasan!"]],
-    ["Ein Hund mit steifem Körper, gefletschten Zähnen und hohem Schwanz …", ["droht", "freut sich", "schläft gleich ein", "hat Hunger"],
-      ["Malte: Der droht – Abstand halten!", "Ronja: Der ist sauer, oder?", "Till: Droht oder freut sich …", "Merle: Der will spielen!"]],
-    ["Was zeigt die erste Ziffer auf dem Ei?", ["Wie die Hühner gehalten werden", "Wie alt das Ei ist", "Wie groß das Ei ist", "Welche Farbe das Huhn hat"],
-      ["Konstantin: Die Haltung – 0 ist Bio!", "Marlene: Wie die Hühner leben …?", "Vincent: Haltung oder Alter …", "Smilla: Das Datum!"]],
-    ["Was ist für Kaninchen artgerecht?", ["Zu zweit mit viel Auslauf", "Allein im kleinen Käfig", "Auf dem Balkon ohne Schatten", "In einem Karton"],
-      ["Juna: Zu zweit und mit viel Platz!", "Lotta: Zu zweit, oder?", "Arne: Zu zweit oder allein …", "Kian: Allein ist doch ruhiger."]],
-    ["Bei der Züchtung von Nutztieren …", ["wählt der Mensch die Eltern aus", "suchen sich die Tiere selbst Partner", "entstehen neue Arten über Nacht", "passiert gar nichts"],
-      ["Hannes: Der Mensch sucht die Eltern aus!", "Alma: Auswählen, oder?", "Bruno: Auswählen oder selbst suchen …", "Tilda: Über Nacht!"]]
+    ["Warum suhlen sich Schweine im Schlamm?", ["Sie können kaum schwitzen und kühlen sich ab", "Sie suchen im Schlamm nach Futter", "Sie mögen es schmutzig", "Sie verstecken sich vor Feinden"],
+      ["Lukas: Zum Abkühlen – Schweine schwitzen kaum!", "Amelie: Abkühlen, oder?", "Jakob: Abkühlen oder Futter suchen …", "Laura: Schweine sind halt Dreckspatzen!"]],
+    ["Welches dieser Tiere ist KEIN Vorfahr eines Haustiers?", ["Wisent", "Auerochse", "Mufflon", "Falbkatze"],
+      ["Mats: Der Wisent – der wurde nie gezähmt!", "Emily: Der Wisent, glaube ich.", "Henry: Wisent oder Falbkatze …", "Frieda: Die Falbkatze, die ist doch wild!"]],
+    ["Warum kamen Wildkatzen zu den ersten Bauern?", ["In den Kornspeichern gab es Mäuse", "Die Bauern lockten sie mit Milch", "Sie suchten Schutz vor Wölfen", "Sie fraßen gern Getreide"],
+      ["Oskar: Wegen der Mäuse im Korn!", "Mathilda: Mäuse, oder?", "Anton: Mäuse oder Milch …", "Romy: Wegen der Milch natürlich!"]],
+    ["Wo lebt der wilde Vorfahr des Haushuhns?", ["In Wäldern Südostasiens", "In den Alpen", "In der afrikanischen Savanne", "In Südamerika"],
+      ["Johanna: In Südostasien – das Bankivahuhn!", "Leo: Asien, glaube ich.", "Ella: Asien oder Afrika …", "Ben: In Südamerika, wie die Truthähne."]],
+    ["Ein Hund steht steif, Ohren nach vorn, Schwanz hoch – und wedelt. Was tust du?", ["Abstand halten – er droht vielleicht", "Ihn streicheln – er freut sich", "Ihn anlocken – er will spielen", "Laut schreien und wegrennen"],
+      ["Malte: Abstand! Steif und hoch heißt Vorsicht.", "Ronja: Lieber Abstand, oder?", "Till: Abstand oder streicheln …", "Merle: Der wedelt doch – der freut sich!"]],
+    ["Auf einem Ei steht 0-DE-0312345. Was bedeutet die 0?", ["Bio-Haltung mit Auslauf", "Käfighaltung", "Haltung ohne Tageslicht", "Das Ei ist null Tage alt"],
+      ["Konstantin: 0 ist Bio – die beste Stufe!", "Marlene: Bio, glaube ich.", "Vincent: Bio oder Käfig …", "Smilla: Null Tage alt, also ganz frisch!"]],
+    ["Was fehlt Schweinen auf hartem Boden ohne Stroh am meisten?", ["Etwas zum Wühlen", "Ein Sandbad", "Ein Kratzbaum", "Ein Platz zum Sonnen"],
+      ["Hannes: Etwas zum Wühlen – das machen schon Wildschweine!", "Alma: Wühlen, oder?", "Bruno: Wühlen oder Sandbad …", "Tilda: Ein Sandbad, wie bei den Hühnern."]],
+    ["Was haben Hund, Schwein und Rind gemeinsam?", ["Sie stammen alle von Wildtieren ab", "Sie stammen alle vom Wolf ab", "Sie wurden im Mittelalter gezähmt", "Ihre Vorfahren sind alle ausgestorben"],
+      ["Juna: Alle haben wilde Vorfahren!", "Lotta: Wildtiere als Vorfahren, oder?", "Arne: Wildtiere oder ausgestorben …", "Kian: Die sind alle ausgestorben."]]
   ],
   inhalt: {
 s1: () => `
@@ -641,7 +643,8 @@ s2: () => `
 s3: () => `
   <div class="prose lead"><p>Hunde können nicht sprechen – aber sie zeigen sehr deutlich, wie es ihnen geht. Wer die Körpersprache lesen kann, ist sicherer unterwegs.</p></div>
   ${bild("hund-begruessung", "🐕", "Freundlicher Hund wedelt mit dem Schwanz", "<b>Was du siehst:</b> Ein entspannter Hund. Lockerer Körper, leicht offenes Maul, der Schwanz wedelt locker hin und her.")}
-  <div class="prose"><p>Achte auf vier Dinge: <b>Körper</b> (locker oder steif?), <b>Ohren</b> (aufgerichtet, nach vorn oder angelegt?), <b>Schwanz</b> (locker, hoch oder eingeklemmt?) und <b>Maul</b> (entspannt oder Zähne gefletscht?).</p></div>
+  <div class="prose"><p>Achte auf vier Dinge: <b>Körper</b> (locker oder steif?), <b>Ohren</b> (aufgerichtet, nach vorn oder angelegt?), <b>Schwanz</b> (locker, hoch oder eingeklemmt?) und <b>Maul</b> (entspannt oder Zähne gefletscht?).</p>
+  <p>Vorsicht, Falle: <b>Schwanzwedeln</b> heißt nur, dass der Hund aufgeregt ist. Wedelt er mit hoch erhobenem, steifem Schwanz, kann das sogar eine Drohung sein. Und <b>Gähnen, Wegschauen oder Ducken</b> bedeutet oft: „Ich bin unsicher, ich will keinen Streit.“</p></div>
   <div class="box anim" data-widget="koerper"></div>
   <div class="box" data-widget="karten" data-set="hundregeln">
     <span class="eyebrow">Vier Regeln bei fremden Hunden</span>
