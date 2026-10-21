@@ -1,0 +1,1187 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Expedition Winter – Tiere im Winter · Bio Mibaso</title>
+<meta name="description" content="Wie überstehen Tiere den Winter? Zwei Expeditionen für eine Doppelstunde in Klasse 5/6 – mit Winterpass, Nuss-Vorrat, Abzeichen und Urkunde.">
+<meta name="theme-color" content="#233D5C">
+<link rel="icon" href="../assets/icon.svg">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<style>
+/* Expedition Winter – Technik wie chemie.mibaso.de (Laborpass), Farben wie Fauna Mibaso */
+:root{
+  --blau:#233D5C; --blau-tief:#1a2f47; --blau-mittel:#33587c; --blau-hell:#bcd0e2;
+  --creme:#F7F3E8; --creme-tief:#EEE7D5; --tile:#FFFFFF;
+  --honig:#C28A3A; --honig-tief:#a9762c; --nuss:#8a5a2b;
+  --ink:#1c2e42; --ink-soft:#5d6b78; --linie:#d9d2c1;
+  --ok:#2f6a45; --bad:#B23B2E;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html{background:var(--blau-tief);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--creme);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.55;min-height:100vh}
+img{max-width:100%}
+a{color:var(--blau)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--honig);outline-offset:2px}
+h1,h2,h3{font-weight:normal;margin:0;text-wrap:balance;line-height:1.2}
+p{margin:0}
+.huelle{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:40px}
+
+.app-head{background:linear-gradient(180deg,var(--blau-tief) 0%,var(--blau-mittel) 100%);color:var(--creme);text-align:center;
+  padding:calc(env(safe-area-inset-top,0px) + 22px) max(20px,env(safe-area-inset-right,0px)) 24px;border-bottom:4px double var(--blau-hell);position:relative;overflow:hidden}
+.app-head .zurueck-kopf{position:absolute;left:12px;top:calc(env(safe-area-inset-top,0px) + 10px);color:#dce8f3;font-family:var(--sans);font-size:14px;text-decoration:none;padding:6px}
+.app-head .logo{font-size:44px;line-height:1;margin:14px 0 6px}
+.app-head h1{font-size:clamp(28px,8vw,40px);letter-spacing:.02em}
+.app-head .untertitel{font-style:italic;color:#dce8f3;margin-top:8px;font-size:clamp(13px,3.6vw,16px)}
+.flocke{position:absolute;top:-10px;color:#fff;opacity:.55;font-size:12px;animation:schnee linear infinite;pointer-events:none}
+@keyframes schnee{to{transform:translateY(240px) translateX(20px)}}
+
+.subkopf{position:sticky;top:0;z-index:6;background:var(--creme);border-bottom:1px solid var(--linie);
+  padding:calc(env(safe-area-inset-top,0px) + 8px) max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px))}
+.subkopf .row{max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.zurueck{font-family:var(--sans);font-size:15px;text-decoration:none;color:var(--blau);padding:6px 4px}
+.tchip{font-family:var(--sans);font-size:14px;background:var(--tile);border:1px solid var(--linie);border-radius:999px;padding:5px 12px;color:var(--blau);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+section{padding-top:26px;display:grid;gap:14px}
+h2{font-size:25px}
+h2::after{content:"";display:block;width:46px;height:3px;margin-top:8px;background:currentColor;border-radius:2px}
+.h-blau{color:var(--blau)} .h-honig{color:var(--honig-tief)}
+h3{font-size:19px;color:var(--blau)}
+.eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.lead{font-size:19px}
+.prose{display:grid;gap:12px}
+.klein{font-size:15px;color:var(--ink-soft)}
+ul.clean{margin:0;padding-left:1.2em;display:grid;gap:4px}
+
+.kacheln{display:grid;gap:12px}
+.kachel{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;background:var(--tile);border:1px solid var(--linie);
+  border-radius:14px;padding:14px 16px;text-decoration:none;color:var(--ink);box-shadow:0 1px 4px rgba(35,61,92,.07);transition:transform .08s,box-shadow .08s}
+a.kachel:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(35,61,92,.14)}
+.kachel .ke{font-size:30px;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:var(--creme-tief)}
+.kachel .kt{font-size:18px;color:var(--blau);display:block;font-weight:bold}
+.kachel .kb{font-size:14px;color:var(--ink-soft);font-family:var(--sans)}
+.kachel .pf{font-size:24px;color:var(--blau-mittel)}
+.ablauf{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-family:var(--sans);font-size:15px;background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:14px 16px}
+.ablauf b{color:var(--blau)}
+
+.schalter{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:var(--sans);font-size:14px}
+.schalter .lab{color:var(--ink-soft);margin-right:4px}
+.sbtn{border:1px solid var(--linie);background:var(--tile);border-radius:999px;padding:7px 13px;cursor:pointer;color:var(--ink-soft)}
+.sbtn.an{background:var(--blau);border-color:var(--blau);color:#fff}
+.hint{font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+
+/* Pass-Bühne mit Vorratshöhle */
+.buehne{position:relative;background:linear-gradient(180deg,#e8f0f7 0%,#fff 60%,var(--creme-tief) 100%);border:1px solid var(--linie);border-radius:16px;padding:68px 12px 10px;display:grid;place-items:center;overflow:hidden}
+.buehne svg{width:min(240px,62vw);height:auto;display:block}
+.buehne .boden{position:absolute;left:0;right:0;bottom:0;height:18px;background:#fff;border-top:1px solid #dfe7ee;box-shadow:0 -6px 12px #fff}
+.rangchip{position:absolute;left:12px;top:12px;display:flex;gap:8px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:6px 10px;font-family:var(--sans);font-size:12px;color:var(--ink-soft);z-index:2}
+.rangchip .med{font-size:24px}
+.rangchip b{display:block;font-size:14px;color:var(--blau)}
+.zaehler{position:absolute;right:12px;top:12px;background:var(--nuss);color:#fff;border-radius:12px;padding:6px 12px;font-family:var(--sans);font-size:15px;font-variant-numeric:tabular-nums;z-index:2}
+.fbalken{height:10px;background:var(--creme-tief);border-radius:5px;overflow:hidden;border:1px solid var(--linie)}
+.fbalken i{display:block;height:100%;width:0;background:linear-gradient(90deg,#c9a46a,#a8743b,#8a5a2b);transition:width .8s}
+.naechster{text-align:center;font-size:16px;color:var(--ink-soft)}
+.nuss-neu{animation:pop .5s both}
+
+.stationen{display:grid;gap:10px}
+.station{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:12px 14px;text-decoration:none;color:var(--ink)}
+.station .nr{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--creme-tief);font-size:22px}
+.station .st{font-size:17px;color:var(--blau);font-weight:bold;display:block}
+.station .sk{font-size:14px;color:var(--ink-soft);font-family:var(--sans)}
+.station .stand{font-family:var(--sans);font-size:13px;color:var(--ink-soft);text-align:right;white-space:nowrap}
+.station.aktiv{border-color:var(--blau-hell);box-shadow:0 0 0 2px var(--blau-hell)}
+.station.fertig .nr{background:#e3f0e7}
+.station.gesperrt{opacity:.55}
+.nuesse{letter-spacing:1px;font-size:16px}
+.nuesse .leer{opacity:.22;filter:grayscale(1)}
+
+.album{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.abz{background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:10px 6px;text-align:center;font-family:var(--sans);font-size:12px;color:var(--ink-soft);display:grid;gap:4px;justify-items:center}
+.abz .em{font-size:28px}
+.abz.zu .em{filter:grayscale(1);opacity:.25}
+.abz.auf{border-color:var(--honig);color:var(--ink)}
+
+/* Bausteine */
+.merke{border:1.5px dashed var(--blau-mittel);border-radius:12px;padding:14px 16px;display:grid;gap:8px;background:#f8fbfd}
+.merke .eyebrow{color:var(--blau)}
+.achtung{border-left:5px solid var(--honig);background:#fbf1e2;padding:12px 14px;border-radius:0 12px 12px 0;font-size:16px}
+.achtung b{color:#8a5a17}
+.box{background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:16px;display:grid;gap:12px}
+.box > .eyebrow{color:var(--blau)}
+details{background:var(--creme-tief);border-radius:10px;padding:10px 14px}
+details summary{cursor:pointer;color:var(--blau);font-family:var(--sans);font-size:15px}
+details[open] summary{margin-bottom:8px}
+details .grid{display:grid;gap:8px}
+
+figure.bild{margin:0;background:var(--tile);border:1px solid var(--linie);border-radius:14px;overflow:hidden}
+figure.bild .rahmen-bild{aspect-ratio:16/10;background:linear-gradient(160deg,#e9f0f6,#d6e2ec);position:relative}
+figure.bild img{display:block;width:100%;height:100%;object-fit:cover}
+figure.bild .platzhalter{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:6px;text-align:center;color:var(--ink-soft);font-family:var(--sans);font-size:13px}
+figure.bild .platzhalter span{font-size:64px;line-height:1}
+figure.bild figcaption{padding:12px 14px;font-size:16px}
+figure.bild figcaption b{color:var(--blau)}
+
+.knopf{display:inline-block;border:1px solid var(--blau);background:var(--tile);color:var(--blau);border-radius:12px;padding:10px 16px;font-family:var(--sans);font-size:15px;cursor:pointer;text-decoration:none;text-align:center}
+.knopf.prim{background:var(--blau);color:#fff;box-shadow:0 2px 0 var(--blau-tief)}
+.knopf.prim:hover{background:var(--blau-tief)}
+.knopf.honig{background:var(--honig);border-color:var(--honig);color:#fff;box-shadow:0 2px 0 #8a5a17}
+.knopf:disabled{opacity:.4;cursor:default}
+.knopfreihe{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+
+/* Sortieren */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--linie);background:var(--creme);border-radius:999px;padding:6px 13px;cursor:pointer;font-size:16px;font-family:var(--serif)}
+.chip.sel{border-color:var(--blau);box-shadow:0 0 0 2px var(--blau) inset;background:#fff}
+.chip.ok{border-color:var(--ok);color:var(--ok);cursor:default;background:#fff}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bins.drei{grid-template-columns:repeat(3,1fr)}
+.bin{border:2px dashed var(--linie);border-radius:12px;padding:10px;min-height:110px;display:flex;flex-direction:column;gap:8px;cursor:pointer;background:var(--creme)}
+.bin h4{margin:0;font-weight:normal;font-size:16px;color:var(--blau)}
+.feedback{min-height:1.5em;font-size:16px;color:var(--ink-soft)}
+.feedback.good{color:var(--ok)} .feedback.bad{color:var(--bad)}
+
+/* Karten */
+.karten{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.karte{min-height:120px;border:1px solid var(--linie);border-radius:14px;background:var(--tile);padding:14px;text-align:left;cursor:pointer;display:grid;gap:6px;align-content:start}
+.karte .kk{font-size:18px;color:var(--blau)}
+.karte .kr{font-size:15px;color:var(--ink-soft)}
+.karte.offen{background:#eef4f9;border-color:var(--blau-hell)}
+.karte .tipp{font-family:var(--sans);font-size:12px;color:var(--blau-mittel)}
+
+/* Animationen / Widgets */
+.anim svg{width:100%;height:auto;display:block;background:#f3f7fa;border-radius:12px;border:1px solid var(--linie)}
+.regler{width:100%;accent-color:var(--blau);height:28px}
+.anim-text{min-height:4.6em;font-size:16px;background:var(--creme);border-radius:10px;padding:10px 12px}
+.anim-text b{color:var(--blau)}
+.lbl{font-family:var(--sans);font-size:11px;fill:var(--ink-soft)}
+.lbl.b{font-weight:600;fill:var(--ink);font-size:12px}
+.lbl.gross{font-size:15px;font-weight:700;fill:var(--ink)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.vgl{display:grid;gap:10px}
+.vgl-zeile{display:grid;gap:4px}
+.vgl-kopf{display:flex;justify-content:space-between;font-family:var(--sans);font-size:14px;color:var(--ink-soft)}
+.vgl-balken{display:grid;grid-template-columns:70px 1fr auto;gap:8px;align-items:center;font-family:var(--sans);font-size:13px}
+.vgl-balken .bb{height:14px;background:var(--creme-tief);border-radius:7px;overflow:hidden}
+.vgl-balken .bb i{display:block;height:100%;border-radius:7px;transition:width .8s}
+.vgl-balken .s i{background:#e3a447} .vgl-balken .w i{background:#6f9cc7}
+.vgl-typ{text-align:center;font-size:20px;color:var(--blau)}
+.feld{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.feld button{aspect-ratio:1;border:1px solid #c9b48f;border-radius:12px;background:linear-gradient(180deg,#f4efe4,#e2d3b5);font-size:30px;cursor:pointer;display:grid;place-items:center}
+.feld button:disabled{cursor:default}
+.spur-svg{max-width:260px;margin:0 auto}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ans{text-align:left;background:var(--creme);border:1px solid var(--linie);border-radius:12px;padding:11px 13px;cursor:pointer;display:flex;gap:10px;font-size:17px}
+.ans b{color:var(--blau-mittel);font-family:var(--sans);font-weight:normal}
+.ans.ok{border-color:var(--ok);background:#e3f0e7}
+.ans.bad{border-color:var(--bad);background:#f6e1de}
+.ans:disabled{cursor:default}
+.waerme{transition:opacity .4s}
+.federkleid{transition:r .5s}
+
+/* Quiz */
+.quiz{display:grid;gap:14px}
+.qhead{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.dots{display:flex;gap:4px;flex-wrap:wrap}
+.dots i{width:11px;height:11px;border-radius:50%;background:var(--creme-tief);border:1px solid var(--linie)}
+.dots i.ok{background:var(--ok);border-color:var(--ok)} .dots i.bad{background:var(--bad);border-color:var(--bad)} .dots i.now{background:var(--blau);border-color:var(--blau)}
+.qq{font-size:20px}
+.jokers{display:flex;gap:8px;flex-wrap:wrap}
+.publikum{font-style:italic;color:var(--ink-soft);border-left:3px solid var(--honig);padding-left:12px}
+.ergebnis{text-align:center;display:grid;gap:10px;justify-items:center}
+.ergebnis .gross{font-size:40px;letter-spacing:4px}
+
+/* Feier, Toast, Konfetti, Urkunde */
+.overlay{position:fixed;inset:0;z-index:50;background:rgba(20,32,45,.6);display:grid;place-items:center;
+  padding:calc(env(safe-area-inset-top,0px) + 16px) 16px calc(env(safe-area-inset-bottom,0px) + 16px);overflow-y:auto}
+.feierkarte{background:var(--tile);border-radius:18px;padding:24px 20px;max-width:420px;width:100%;text-align:center;display:grid;gap:10px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.feierkarte .fmed{font-size:64px;animation:pop .6s both}
+@keyframes pop{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;border-radius:999px;padding:10px 18px;font-family:var(--sans);font-size:15px;z-index:60;transition:transform .3s;max-width:90vw;text-align:center}
+.toast.zeigen{transform:translateX(-50%) translateY(0)}
+.konffeld{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.konf{position:absolute;top:-16px;font-size:18px;animation:fall 3.6s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+.urkunde{background:#fffdf7;max-width:640px;width:100%;border-radius:6px;padding:14px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.rahmen{border:3px double var(--blau);outline:1px solid var(--honig);outline-offset:-10px;padding:26px 22px;text-align:center;display:grid;gap:8px;justify-items:center}
+.urk-eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.urk-med{font-size:56px}
+.urk-titel{font-size:44px;color:var(--blau);letter-spacing:.06em}
+.urk-sub{font-size:18px;color:var(--honig-tief)}
+.urk-satz{font-size:17px}
+.urk-name{font:inherit;font-size:26px;text-align:center;border:0;border-bottom:1.5px solid var(--ink-soft);background:transparent;width:min(100%,380px);padding:4px;color:var(--ink)}
+.urk-name-druck{display:none;font-size:26px;border-bottom:1.5px solid var(--ink-soft);min-width:300px;padding:4px}
+.urk-tab{width:100%;max-width:440px;border-collapse:collapse;font-size:15px;margin-top:6px}
+.urk-tab td{padding:4px 6px;border-bottom:1px solid var(--linie);text-align:left}
+.urk-tab td:last-child{text-align:right;white-space:nowrap}
+.urk-summe{font-size:17px;color:var(--blau)}
+.urk-album{font-size:24px;letter-spacing:4px}
+.urk-fuss{display:flex;justify-content:space-between;width:100%;font-family:var(--sans);font-size:13px;color:var(--ink-soft);margin-top:12px;gap:10px;flex-wrap:wrap}
+.urk-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.lehrer{background:var(--tile);border:1px solid var(--linie);border-radius:14px}
+.lehrer summary{font-size:16px}
+.reset{display:grid;gap:8px;justify-items:center;text-align:center}
+footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;text-align:center;font-family:var(--sans);font-size:13px;color:var(--ink-soft);display:grid;gap:6px}
+
+@media (max-width:480px){.answers{grid-template-columns:1fr} body{font-size:17px} .bins,.bins.drei{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{
+  @page{size:A4 portrait;margin:12mm}
+  html,body{background:#fff}
+  body *{visibility:hidden}
+  #urkunde,#urkunde *{visibility:visible}
+  #urkunde{position:absolute;inset:0;background:#fff;display:block;padding:0}
+  .urkunde{box-shadow:none;max-width:none}
+  .urk-btns,.urk-name{display:none!important}
+  .urk-name-druck{display:block}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ============ Helfer ============ */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+const IM_RAHMEN = (() => { try { return window.self !== window.top; } catch (e) { return true; } })();
+const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+
+/* ============ Speicher (nur auf diesem Gerät) ============ */
+const KEY = "mibaso.fauna.winterpass";
+function laden() { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { return {}; } }
+let S = Object.assign({ modus: "level", name: "" }, laden());
+function speichern() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+/* ============ Bausteine ============ */
+function nuesseHTML(n) { let s = ""; for (let k = 0; k < 3; k++) s += k < n ? "🌰" : '<span class="leer">🌰</span>'; return `<span class="nuesse" aria-label="${n} von 3 Nüssen">${s}</span>`; }
+/* Bild mit Platzhalter, solange die Datei noch fehlt */
+function bild(datei, emoji, titel, text) {
+  return `<figure class="bild"><div class="rahmen-bild">
+    <div class="platzhalter"><span>${emoji}</span>Bild folgt</div>
+    <img src="../images/winter/${datei}.jpg" alt="${esc(titel)}" loading="lazy" onerror="this.remove()" onload="this.previousElementSibling.remove()">
+  </div>${text ? `<figcaption>${text}</figcaption>` : ""}</figure>`;
+}
+
+/* ============ Toast, Konfetti, Fanfare ============ */
+let toastTimer;
+function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("zeigen"); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove("zeigen"), 3200); }
+function konfetti() {
+  if (reduce) return;
+  const f = document.createElement("div"); f.className = "konffeld";
+  const zeichen = ["❄️", "🌰", "❄️", "⭐", "❄️", "🍂"];
+  for (let n = 0; n < 50; n++) {
+    const k = document.createElement("span"); k.className = "konf"; k.textContent = zeichen[n % zeichen.length];
+    k.style.cssText = `left:${Math.random() * 100}%;animation-delay:${(Math.random() * .8).toFixed(2)}s`;
+    f.appendChild(k);
+  }
+  document.body.appendChild(f); setTimeout(() => f.remove(), 4800);
+}
+function fanfare(gross) {
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext; if (!Ctx) return;
+    const ctx = new Ctx(); if (ctx.state === "suspended") ctx.resume();
+    const t0 = ctx.currentTime + .05;
+    const noten = gross
+      ? [[392, 0, .14], [523.25, .14, .14], [659.25, .28, .14], [783.99, .42, .28], [659.25, .72, .14], [783.99, .86, .9]]
+      : [[523.25, 0, .16], [659.25, .15, .16], [783.99, .30, .16], [1046.5, .46, .6]];
+    noten.forEach(([fr, st, du]) => {
+      [1, 2].forEach(oct => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = oct === 1 ? "triangle" : "sine"; o.frequency.value = fr * oct;
+        const v = oct === 1 ? .2 : .05;
+        g.gain.setValueAtTime(0, t0 + st); g.gain.linearRampToValueAtTime(v, t0 + st + .02);
+        g.gain.exponentialRampToValueAtTime(.001, t0 + st + du + .25);
+        o.connect(g); g.connect(ctx.destination); o.start(t0 + st); o.stop(t0 + st + du + .3);
+      });
+    });
+    setTimeout(() => ctx.close(), 3000);
+  } catch (e) {}
+}
+
+/* ============ Vorratshöhle im Baumstamm ============ */
+const NUSSPLATZ = [[78,182],[100,184],[122,182],[89,170],[111,170],[67,170],[133,170],[78,158],[100,158],[122,158],[89,146],[111,146],[70,146],[130,146],[100,134]];
+function hoehleSVG(summe, max, neu) {
+  const anz = Math.round(summe / max * NUSSPLATZ.length);
+  const nuss = ([x, y], i) => `<g class="${neu && i === anz - 1 ? "nuss-neu" : ""}" style="transform-origin:${x}px ${y}px">
+      <ellipse cx="${x}" cy="${y}" rx="10" ry="8" fill="#a8743b" stroke="#6b4320" stroke-width="1.5"/>
+      <path d="M${x - 9} ${y - 3} Q${x} ${y - 13} ${x + 9} ${y - 3}" fill="#c9a46a" stroke="#6b4320" stroke-width="1.5"/>
+      <ellipse cx="${x - 3}" cy="${y + 2}" rx="3" ry="2" fill="#fff" opacity=".25"/></g>`;
+  return `<svg viewBox="0 0 200 240" role="img" aria-label="Vorratshöhle mit ${summe} von ${max} Nüssen">
+    <path d="M38 240 Q44 120 50 20 L150 20 Q156 120 162 240 Z" fill="#8b6a4a" stroke="#5a412b" stroke-width="3"/>
+    <path d="M60 40 Q64 120 58 230 M140 34 Q134 120 142 230 M96 24 Q92 60 98 90" stroke="#6e5238" stroke-width="2" fill="none" opacity=".6"/>
+    <path d="M44 22 Q100 2 156 22 Q150 32 100 30 Q50 32 44 22 Z" fill="#fff" stroke="#dfe7ee" stroke-width="2"/>
+    <ellipse cx="100" cy="160" rx="50" ry="52" fill="#3b2a1b" stroke="#5a412b" stroke-width="4"/>
+    <ellipse cx="100" cy="160" rx="44" ry="46" fill="#2a1d12"/>
+    ${NUSSPLATZ.slice(0, anz).map(nuss).join("")}
+    <path d="M52 112 Q100 96 148 112" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" opacity=".9"/>
+  </svg>`;
+}
+
+/* ============ Daten: Sortieraufgaben ============ */
+const SORT_SETS = {
+  futter: { bins: [["noch", "✓ Gibt es noch"], ["weg", "✗ Fehlt jetzt"]], items: [
+    ["Beeren am Strauch", "noch", "Hagebutten, Schlehen und Efeubeeren hängen oft bis in den Winter."],
+    ["Samen und Nüsse", "noch", "Samen und Nüsse halten lange – viele Tiere legen sich daraus Vorräte an."],
+    ["Baumrinde und Knospen", "noch", "Rehe und Hasen knabbern im Winter an Knospen und Rinde."],
+    ["Mäuse", "noch", "Mäuse sind auch im Winter unterwegs – unter dem Schnee. Der Fuchs hört sie."],
+    ["fliegende Insekten", "weg", "Fliegende Insekten gibt es bei Frost kaum. Schwalben finden dann nichts zu fressen."],
+    ["Regenwürmer", "weg", "Regenwürmer ziehen sich tief in den Boden zurück. Ist der Boden gefroren, kommt kein Vogel heran."],
+    ["Blütennektar", "weg", "Ohne Blüten gibt es keinen Nektar – für Bienen und Hummeln ist im Winter nichts zu holen."],
+    ["frische Blätter", "weg", "Die meisten Bäume haben ihr Laub abgeworfen. Frisches Grün gibt es erst im Frühling wieder."]
+  ]},
+  temp: { bins: [["gw", "🔥 Gleichwarm"], ["ww", "🌡️ Wechselwarm"]], items: [
+    ["Igel", "gw", "Der Igel ist ein Säugetier – Säugetiere sind gleichwarm."],
+    ["Amsel", "gw", "Vögel sind gleichwarm. Ihre Körpertemperatur liegt sogar bei etwa 41 °C."],
+    ["Fuchs", "gw", "Der Fuchs ist ein Säugetier und hält seine Körperwärme selbst."],
+    ["Mensch", "gw", "Auch wir sind gleichwarm – rund 37 °C, egal ob Sommer oder Winter."],
+    ["Zauneidechse", "ww", "Reptilien sind wechselwarm. Morgens muss sich die Eidechse erst in der Sonne aufwärmen."],
+    ["Grasfrosch", "ww", "Amphibien sind wechselwarm – ihr Körper ist so warm wie die Umgebung."],
+    ["Karpfen", "ww", "Fische sind wechselwarm. Im Winter liegen Karpfen fast reglos am Teichgrund."],
+    ["Marienkäfer", "ww", "Insekten sind wechselwarm. Marienkäfer überwintern in Gruppen in Ritzen."]
+  ]},
+  ueber: { bins: [["schlaf", "😴 Winterschlaf"], ["ruhe", "🛌 Winterruhe"], ["starre", "🧊 Winterstarre"]], items: [
+    ["Igel", "schlaf", "Der Igel hält echten Winterschlaf – seine Körpertemperatur sinkt auf etwa 5 °C."],
+    ["Fledermaus", "schlaf", "Fledermäuse halten Winterschlaf, oft in Höhlen oder Kellern. Nicht stören!"],
+    ["Siebenschläfer", "schlaf", "Der Name sagt es schon: Er schläft etwa sieben Monate lang."],
+    ["Eichhörnchen", "ruhe", "Das Eichhörnchen hält Winterruhe. Es schläft viel, wacht aber auf und frisst aus seinen Vorräten."],
+    ["Dachs", "ruhe", "Der Dachs hält Winterruhe in seinem Bau. Seine Körpertemperatur bleibt fast normal."],
+    ["Grasfrosch", "starre", "Frösche fallen in Winterstarre – oft im Schlamm am Gewässergrund."],
+    ["Zauneidechse", "starre", "Die Eidechse wird bei Kälte starr, weil ihr Körper so kalt wird wie die Umgebung."],
+    ["Zitronenfalter", "starre", "Der Zitronenfalter überwintert als Falter – starr und ungeschützt im Gebüsch."]
+  ]},
+  zug: { bins: [["fort", "✈️ Zieht fort"], ["bleibt", "🏠 Bleibt hier"], ["kommt", "❄️ Kommt zu uns"]], items: [
+    ["Weißstorch", "fort", "Störche fliegen bis nach Afrika – Frösche und Mäuse sind hier im Winter schwer zu finden."],
+    ["Rauchschwalbe", "fort", "Schwalben fangen Insekten im Flug. Im Winter gibt es keine – also ab in den Süden."],
+    ["Kuckuck", "fort", "Der Kuckuck frisst vor allem Raupen und verbringt den Winter in Afrika."],
+    ["Kohlmeise", "bleibt", "Die Kohlmeise frisst im Winter Samen und Nüsse – sie bleibt hier."],
+    ["Amsel", "bleibt", "Die meisten Amseln bleiben bei uns und fressen Beeren und Fallobst."],
+    ["Buntspecht", "bleibt", "Der Buntspecht hackt Insekten aus der Rinde und frisst Samen aus Zapfen."],
+    ["Bergfink", "kommt", "Bergfinken brüten im hohen Norden und überwintern bei uns – manchmal in riesigen Schwärmen."],
+    ["Seidenschwanz", "kommt", "Seidenschwänze kommen in manchen Wintern aus Skandinavien und plündern Beerensträucher."]
+  ]},
+  helfen: { bins: [["hilft", "👍 Hilft"], ["schadet", "👎 Schadet"]], items: [
+    ["Laubhaufen liegen lassen", "hilft", "Im Laubhaufen finden Igel ein Winterquartier und Insekten ein Versteck."],
+    ["Futterhaus sauber halten", "hilft", "Ein sauberes Futterhaus verhindert, dass Vögel sich gegenseitig anstecken."],
+    ["Wasserstelle eisfrei halten", "hilft", "Bei Frost finden Vögel kaum offenes Wasser zum Trinken."],
+    ["Pflanzenstängel stehen lassen", "hilft", "In hohlen Stängeln überwintern Wildbienen und andere Insekten."],
+    ["Brot an Vögel und Enten füttern", "schadet", "Brot quillt im Magen auf und macht Vögel krank. Besser: Körner und Nüsse."],
+    ["Schlafenden Igel wecken", "schadet", "Jedes Aufwachen kostet den Igel viel Fett – das kann ihn das Leben kosten."],
+    ["Im Winter Fledermaushöhlen besuchen", "schadet", "Schon Licht und Stimmen wecken Fledermäuse auf. Winterquartiere sind tabu."],
+    ["Meisenknödel im Plastiknetz aufhängen", "schadet", "In den Netzen können sich Vögel mit den Füßen verfangen. Besser ohne Netz anbieten."]
+  ]}
+};
+const KARTEN_SETS = {
+  hart: [
+    ["🥶 Kälte", "Jeder warme Körper verliert im Winter mehr Wärme. Wärme machen kostet Energie – und Energie kommt aus Futter."],
+    ["🍽️ Wenig Futter", "Insekten, Blüten und frische Blätter fehlen. Ausgerechnet jetzt, wo der Körper mehr Energie braucht."],
+    ["🌙 Kurze Tage", "Im Dezember ist es nur etwa acht Stunden hell. Tagaktive Tiere haben wenig Zeit zur Futtersuche."],
+    ["❄️ Schnee und Eis", "Schnee deckt Futter zu, Eis versperrt das Wasser. Dafür hält eine Schneedecke den Boden darunter etwas wärmer."]
+  ],
+  regeln: [
+    ["🤫 Ruhe bewahren", "Tiere im Winterquartier nicht stören. Jedes Aufwachen verbraucht ihre Vorräte."],
+    ["🍂 Unordnung erlaubt", "Laub, Reisig und Stängel im Garten sind Winterquartiere. Erst im Frühling aufräumen."],
+    ["🥜 Richtig füttern", "Körner, Nüsse und Fettfutter ohne Netz – kein Brot, nichts Gesalzenes, nichts Gewürztes."],
+    ["🦔 Nur in Not helfen", "Ein Igel, der bei Frost tagsüber herumläuft, braucht Hilfe. Dann eine Igelstation oder Tierarztpraxis anrufen."]
+  ]
+};
+
+/* ============ Spuren im Schnee ============ */
+const pfote = (x, y, s = 1) => `<g transform="translate(${x} ${y}) scale(${s})"><ellipse cx="0" cy="4" rx="6" ry="5"/><ellipse cx="-5" cy="-5" rx="2.4" ry="3"/><ellipse cx="5" cy="-5" rx="2.4" ry="3"/><ellipse cx="-1.8" cy="-9" rx="2.2" ry="3"/><ellipse cx="1.8" cy="-9" rx="2.2" ry="3"/></g>`;
+const huf = (x, y) => `<g transform="translate(${x} ${y})"><path d="M-1 10 Q-8 2 -4 -10 Q-1 -6 -1 10 Z"/><path d="M1 10 Q8 2 4 -10 Q1 -6 1 10 Z"/></g>`;
+const hase = (x, y) => `<g transform="translate(${x} ${y})"><ellipse cx="-9" cy="-14" rx="5" ry="11"/><ellipse cx="9" cy="-14" rx="5" ry="11"/><ellipse cx="0" cy="10" rx="4" ry="5"/><ellipse cx="2" cy="24" rx="4" ry="5"/></g>`;
+const vogel = (x, y) => `<g transform="translate(${x} ${y})" fill="none" stroke-width="2.5" stroke-linecap="round"><path d="M0 8 V-8 M0 -2 L-7 -10 M0 -2 L7 -10 M0 8 V14"/></g>`;
+const SPUREN = [
+  { name: "Fuchs", art: "ein Fuchs", svg: () => [0, 1, 2, 3, 4].map(i => pfote(120 + (i % 2 ? 4 : -4), 200 - i * 40, 1.1)).join(""),
+    warum: "Der Fuchs „schnürt“: Er setzt die Hinterpfote genau in den Abdruck der Vorderpfote. So entsteht eine Spur wie auf einer Perlenkette – fast eine gerade Linie." },
+  { name: "Reh", art: "ein Reh", svg: () => [0, 1, 2, 3, 4].map(i => huf(110 + (i % 2) * 20, 200 - i * 40)).join(""),
+    warum: "Das Reh ist ein Paarhufer. Jeder Abdruck besteht aus zwei schmalen, spitzen Hälften – den beiden Hufen." },
+  { name: "Feldhase", art: "ein Feldhase", svg: () => hase(120, 170) + hase(120, 70),
+    warum: "Der Hase hoppelt: Die langen Hinterläufe landen vor den kleinen Vorderpfoten. Das ergibt immer wieder dieselbe Vierergruppe." },
+  { name: "Amsel", art: "eine Amsel", svg: () => [0, 1, 2, 3].map(i => vogel(108, 196 - i * 48) + vogel(132, 196 - i * 48)).join(""),
+    warum: "Amseln hüpfen auf dem Boden mit beiden Füßen gleichzeitig. Darum stehen die Abdrücke immer paarweise nebeneinander – drei Zehen nach vorn, eine nach hinten." }
+];
+function spurSVG(sp) {
+  return `<svg class="spur-svg" viewBox="0 0 240 230" role="img" aria-label="Spur im Schnee">
+    <rect width="240" height="230" fill="#fbfdff"/><path d="M0 214 Q60 204 120 212 T240 208 V230 H0 Z" fill="#eef3f8"/>
+    <g fill="#9fb2c4" stroke="#9fb2c4">${sp.svg()}</g>
+    <text x="232" y="20" text-anchor="end" class="lbl">Laufrichtung ↑</text></svg>`;
+}
+
+/* ============ Expeditionen ============ */
+const EXPS = {
+w1: {
+  id: "w1", titel: "Kalt erwischt?", motto: "Wie Tiere der Kälte trotzen", em: "🥶",
+  lead: "Wie überstehen Tiere Frost und Hunger? Für jede Station gibt es bis zu drei Nüsse für deinen Wintervorrat.",
+  stationen: [
+    { id: "s1", em: "❄️", titel: "Winter – eine harte Zeit", kurz: "Was den Tieren jetzt fehlt", min: 8 },
+    { id: "s2", em: "🌡️", titel: "Gleichwarm oder wechselwarm?", kurz: "Maus und Eidechse im Vergleich", min: 10 },
+    { id: "s3", em: "🦔", titel: "Schlafen, ruhen, erstarren", kurz: "Drei Wege durch den Winter", min: 10 },
+    { id: "s4", em: "🧥", titel: "Fell, Federn, Fett", kurz: "Warm eingepackt – mit Versuch", min: 9 },
+    { id: "s5", em: "🏆", titel: "Wer wird Winter-Profi?", kurz: "Das Abschlussquiz mit Jokern", min: 8 }
+  ],
+  raenge: [
+    { ab: 0, name: "Frierender Neuling", med: "🥶" }, { ab: 1, name: "Schneeflocken-Sammler", med: "❄️" },
+    { ab: 5, name: "Wärme-Kenner", med: "🧣" }, { ab: 9, name: "Winterschlaf-Experte", med: "🦔" },
+    { ab: 13, name: "Kälte-Meister", med: "🏅" }
+  ],
+  abzeichen: [
+    { em: "❄️", name: "Erste Station", ok: h => h.fertige >= 1 },
+    { em: "🎯", name: "Volltreffer", ok: h => h.dreier >= 1 },
+    { em: "🌡️", name: "Temperatur-Profi", ok: h => h.d.s2 && h.d.s2.done },
+    { em: "🦔", name: "Igel-Freund", ok: h => h.d.s3 && h.d.s3.done },
+    { em: "🔥", name: "Dreier-Serie", ok: h => h.dreier >= 3 },
+    { em: "🏆", name: "Winter-Profi", ok: h => h.d.s5 && h.d.s5.nuesse >= 3 },
+    { em: "🏅", name: "Kälte-Meister", ok: h => h.fertige >= 5 },
+    { em: "🌰", name: "Voller Vorrat", ok: h => h.summe >= 15 }
+  ],
+  checks: {
+    s1: [
+      ["Warum brauchen Tiere im Winter mehr Futter?", ["Weil sie mehr Wärme verlieren", "Weil sie wachsen", "Weil sie mehr laufen", "Weil Futter im Winter kleiner ist"]],
+      ["Welches Futter fehlt im Winter fast ganz?", ["Fliegende Insekten", "Samen", "Baumrinde", "Mäuse"]],
+      ["Wie lange ist es im Dezember ungefähr hell?", ["Etwa 8 Stunden", "Etwa 12 Stunden", "Etwa 16 Stunden", "Etwa 3 Stunden"]]
+    ],
+    s2: [
+      ["Was bedeutet „gleichwarm“?", ["Die Körpertemperatur bleibt immer ungefähr gleich", "Das Tier ist so warm wie die Umgebung", "Das Tier ist immer kalt", "Das Tier mag nur warmes Wetter"]],
+      ["Welches Tier ist wechselwarm?", ["Zauneidechse", "Fuchs", "Amsel", "Igel"]],
+      ["Warum ist eine Eidechse bei Kälte so langsam?", ["Ihr Körper kühlt mit der Umgebung ab", "Sie ist müde vom Sommer", "Sie hat Angst vor Schnee", "Sie hat zu viel gefressen"]]
+    ],
+    s3: [
+      ["Wie warm ist ein Igel im Winterschlaf ungefähr?", ["5 °C", "36 °C", "20 °C", "−5 °C"]],
+      ["Welches Tier hält Winterruhe?", ["Eichhörnchen", "Igel", "Grasfrosch", "Fledermaus"]],
+      ["Wovon lebt der Igel im Winterschlaf?", ["Von seinem Fettvorrat", "Von Regenwürmern", "Von Vorräten im Nest", "Von Schnee"]]
+    ],
+    s4: [
+      ["Warum plustern sich Vögel bei Kälte auf?", ["Die Luft zwischen den Federn hält warm", "Damit sie größer aussehen", "Damit Schnee abrutscht", "Weil sie wütend sind"]],
+      ["Wozu dient beim Versuch die Hand ohne Fett?", ["Als Kontrollversuch zum Vergleich", "Damit es schneller geht", "Als Ersatz, falls Fett fehlt", "Zum Aufwärmen"]],
+      ["Was hilft vielen Säugetieren im Winter?", ["Ein dichtes Winterfell", "Ein dünneres Sommerfell", "Nasses Fell", "Gar kein Fell"]]
+    ]
+  },
+  profi: [
+    ["Welches Tier ist gleichwarm?", ["Igel", "Grasfrosch", "Zauneidechse", "Karpfen"],
+      ["Lena: Igel – der ist ein Säugetier!", "Ben: Ich glaube, der Igel …", "Mia: Igel oder Frosch …", "Tom: Karpfen? Der ist doch im Wasser warm."]],
+    ["Ein Igel im Winterschlaf atmet …", ["nur wenige Male pro Minute", "schneller als im Sommer", "gar nicht", "genauso oft wie im Sommer"],
+      ["Paul: Ganz, ganz langsam – das spart Energie!", "Emma: Weniger als im Sommer, oder?", "Noah: Langsamer … oder gar nicht?", "Lea: Bestimmt genauso oft."]],
+    ["Was unterscheidet Winterruhe von Winterschlaf?", ["Die Körpertemperatur sinkt kaum", "Das Tier schläft länger", "Das Tier zieht in den Süden", "Das Tier frisst gar nichts"],
+      ["Jonas: Bei der Winterruhe bleibt der Körper fast normal warm!", "Hanna: Ich glaube, die Temperatur …", "Finn: Temperatur oder Schlafdauer …", "Ida: Ziehen die nicht weg?"]],
+    ["Warum fällt ein Frosch in Winterstarre?", ["Er ist wechselwarm und kühlt aus", "Er hat sich verletzt", "Er hält Winterschlaf wie der Igel", "Er hat zu wenig gegessen"],
+      ["Clara: Wechselwarm – der wird so kalt wie das Wasser!", "Elias: Weil er wechselwarm ist?", "Luisa: Wechselwarm oder Winterschlaf …", "Max: Zu wenig Fliegen gefangen!"]],
+    ["Ein Vogel plustert sich auf. Was passiert?", ["Zwischen den Federn entsteht ein Luftpolster", "Er wird schwerer", "Er verliert Federn", "Er wird kälter"],
+      ["Sophie: Luftpolster – wie eine Daunenjacke!", "Leon: Irgendwas mit Luft …", "Marie: Luft oder schwerer …", "Felix: Sieht einfach dicker aus."]],
+    ["Wozu braucht man beim Versuch einen Kontrollversuch?", ["Zum Vergleichen: nur ein Unterschied", "Damit es länger dauert", "Weil zwei Hände kälter werden", "Für den Fall, dass etwas kaputtgeht"],
+      ["Anna: Zum Vergleichen – sonst weiß man nichts!", "Luca: Ich glaube, zum Vergleich …", "Mila: Vergleich oder Ersatz …", "Jan: Keine Ahnung!"]],
+    ["Welches Tier ist im Winter oft draußen aktiv?", ["Fuchs", "Igel", "Siebenschläfer", "Fledermaus"],
+      ["Theo: Der Fuchs jagt sogar Mäuse unter dem Schnee!", "Lina: Fuchs, glaube ich.", "Erik: Fuchs oder Igel …", "Nele: Die Fledermaus?"]],
+    ["Was nutzt dem Igel im Winterschlaf am meisten?", ["Ein dicker Fettvorrat", "Ein Vorrat an Nüssen", "Ein warmer Stall", "Viele Regenwürmer"],
+      ["Moritz: Fett! Er frisst sich im Herbst rund.", "Greta: Fett, oder?", "Karl: Fett oder Nüsse …", "Pia: Ein Stall wäre schön warm."]]
+  ],
+  inhalt: {
+s1: () => `
+  <div class="prose lead"><p>Im Sommer ist der Tisch reich gedeckt. Dann kommt der Winter – und plötzlich wird es für viele Tiere eng.</p></div>
+  ${bild("winter-hart", "🐦", "Rotkehlchen auf einem verschneiten Zweig", "<b>Was du siehst:</b> Ein Rotkehlchen bei Frost. Es muss jeden Tag viel fressen, um nicht auszukühlen – und hat dafür nur wenige helle Stunden.")}
+  <div class="box" data-widget="karten" data-set="hart">
+    <span class="eyebrow">Vier Probleme im Winter</span>
+    <p class="klein">Tippe jede Karte an.</p>
+    <div class="karten"></div>
+  </div>
+  <div class="box" data-widget="sort" data-set="futter">
+    <span class="eyebrow">Mitmachen</span>
+    <h3>Was gibt es im Winter noch zu fressen?</h3>
+    <p class="klein">Tippe ein Futter an und dann das passende Fach.</p>
+    <div class="chips" data-pool></div><div class="bins"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Im Winter brauchen Tiere <b>mehr Energie</b>, um warm zu bleiben – finden aber <b>weniger Futter</b>. Jedes Tier hat seinen eigenen Weg, damit fertigzuwerden. Die lernst du in dieser Expedition kennen.</p></div>`,
+s2: () => `
+  <div class="prose lead"><p>Fass dir an die Stirn: Sie ist warm, auch wenn es draußen friert. Bei einer Eidechse wäre das anders.</p></div>
+  <div class="prose"><p><b>Gleichwarme</b> Tiere halten ihre Körpertemperatur selbst, ungefähr immer gleich. Dazu gehören alle <b>Säugetiere</b> und <b>Vögel</b>. Die Wärme erzeugen sie aus ihrem Futter – wie ein Ofen, der Holz verbrennt.</p>
+  <p><b>Wechselwarme</b> Tiere sind ungefähr so warm wie ihre Umgebung. Dazu gehören <b>Reptilien, Amphibien, Fische</b> und <b>Insekten</b>. Sie brauchen viel weniger Futter – werden bei Kälte aber langsam und schließlich starr.</p></div>
+  <div class="box anim" data-widget="thermo"></div>
+  ${bild("eidechse-sonne", "🦎", "Zauneidechse sonnt sich auf einem Stein", "<b>Was du siehst:</b> Eine Zauneidechse tankt Sonne. Erst wenn sie aufgewärmt ist, kann sie flink jagen.")}
+  <div class="box" data-widget="sort" data-set="temp">
+    <span class="eyebrow">Mitmachen</span>
+    <h3>Gleichwarm oder wechselwarm?</h3>
+    <p class="klein">Tippe ein Tier an und dann das passende Fach.</p>
+    <div class="chips" data-pool></div><div class="bins"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p><b>Gleichwarm</b> (Säugetiere, Vögel): Körpertemperatur bleibt fast gleich – kostet viel Futter.</p>
+    <p><b>Wechselwarm</b> (Reptilien, Amphibien, Fische, Insekten): Körpertemperatur folgt der Umgebung – spart Futter, aber bei Kälte geht nichts mehr.</p></div>`,
+s3: () => `
+  <div class="prose lead"><p>Wer im Winter kaum Futter findet, kann einfach „abschalten“. Das klappt auf drei verschiedene Arten.</p></div>
+  ${bild("igel-winterschlaf", "🦔", "Igel zusammengerollt im Laubnest", "<b>Was du siehst:</b> Ein Igel im Winterschlaf, eingerollt in einem Nest aus Laub. Bis zum Frühling lebt er nur von seinem Fett.")}
+  <div class="box anim" data-widget="vergleich"></div>
+  <div class="box" data-widget="sort" data-set="ueber">
+    <span class="eyebrow">Mitmachen</span>
+    <h3>Wer macht was?</h3>
+    <p class="klein">Tippe ein Tier an und dann das passende Fach.</p>
+    <div class="chips" data-pool></div><div class="bins drei"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p><b>Winterschlaf:</b> Gleichwarme Tiere senken ihre Körpertemperatur stark ab. Herz und Atmung werden sehr langsam. Sie leben vom Fett.</p>
+    <p><b>Winterruhe:</b> Die Körpertemperatur bleibt fast normal. Die Tiere schlafen viel, wachen aber auf und fressen von ihren Vorräten.</p>
+    <p><b>Winterstarre:</b> Wechselwarme Tiere kühlen mit der Umgebung aus und erstarren. Erst die Frühlingswärme weckt sie wieder.</p></div>
+  <div class="achtung"><b>Wichtig:</b> Ein Igel, der im Winterschlaf geweckt wird, verbraucht beim Aufwärmen so viel Fett wie in vielen Tagen Schlaf. Deshalb: Laubhaufen in Ruhe lassen!</div>`,
+s4: () => `
+  <div class="prose lead"><p>Wer wach bleibt, muss sich warm einpacken. Tiere haben dafür eingebaute Winterjacken.</p></div>
+  ${bild("meise-aufgeplustert", "🐦", "Aufgeplusterte Kohlmeise im Schnee", "<b>Was du siehst:</b> Eine Kohlmeise hat sich zur runden Kugel aufgeplustert. Sie friert nicht – sie wärmt sich.")}
+  <div class="box anim" data-widget="plustern"></div>
+  <div class="prose"><p><b>Säugetiere</b> wie Fuchs, Reh und Eichhörnchen bekommen im Herbst ein <b>dichtes Winterfell</b> mit vielen feinen Wollhaaren. Auch darin steckt Luft, die die Wärme hält. Viele Tiere fressen sich außerdem eine <b>Fettschicht</b> an. Doch hilft Fett wirklich gegen Kälte? Das lässt sich prüfen.</p></div>
+  <div class="box anim" data-widget="handschuh"></div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p><b>Federn, Fell und Fett</b> halten die Körperwärme fest. Luft zwischen Federn und Haaren und eine Fettschicht unter der Haut lassen kaum Wärme nach außen.</p>
+    <p>Bei einem Versuch ändert man immer <b>nur eine Sache</b>. Der <b>Kontrollversuch</b> ist genau gleich – nur ohne diese eine Sache. So sieht man, was sie bewirkt.</p></div>`,
+s5: () => `
+  <div class="prose lead"><p>Jetzt zeigst du, was du kannst! Acht Fragen, zwei Joker: Bei <b>50:50</b> verschwinden zwei falsche Antworten, beim <b>Publikumsjoker</b> ruft dir jemand aus der Klasse einen Tipp zu – aber Vorsicht, nicht jeder Tipp stimmt.</p></div>
+  <p class="klein">Für die Nüsse zählt: 7–8 richtig = 3 Nüsse, 5–6 = 2, 3–4 = 1.</p>`
+  }
+},
+w2: {
+  id: "w2", titel: "Fortfliegen oder bleiben?", motto: "Zugvögel, Vorräte und Spuren", em: "🐾",
+  lead: "Manche fliegen weg, manche legen Vorräte an, manche hinterlassen Spuren im Schnee. Sammle Nüsse für deinen Wintervorrat!",
+  stationen: [
+    { id: "s1", em: "🐦", titel: "Zugvögel und Wintergäste", kurz: "Wer geht, wer bleibt, wer kommt?", min: 10 },
+    { id: "s2", em: "🌰", titel: "Vorräte anlegen", kurz: "Eichhörnchen und Eichelhäher", min: 8 },
+    { id: "s3", em: "🐾", titel: "Spuren im Schnee", kurz: "Wer war denn hier unterwegs?", min: 9 },
+    { id: "s4", em: "🏡", titel: "Helfen – aber richtig", kurz: "Was Tieren im Winter nützt", min: 10 },
+    { id: "s5", em: "🏆", titel: "Wer wird Spuren-Profi?", kurz: "Das Abschlussquiz mit Jokern", min: 8 }
+  ],
+  raenge: [
+    { ab: 0, name: "Wintergast", med: "🧤" }, { ab: 1, name: "Spurenleser", med: "🐾" },
+    { ab: 5, name: "Vorrats-Profi", med: "🌰" }, { ab: 9, name: "Naturhelfer", med: "🏡" },
+    { ab: 13, name: "Wintermeister", med: "🏅" }
+  ],
+  abzeichen: [
+    { em: "🐾", name: "Erste Station", ok: h => h.fertige >= 1 },
+    { em: "🎯", name: "Volltreffer", ok: h => h.dreier >= 1 },
+    { em: "🐦", name: "Vogelkenner", ok: h => h.d.s1 && h.d.s1.done },
+    { em: "🔍", name: "Spurenleser", ok: h => h.d.s3 && h.d.s3.done },
+    { em: "🔥", name: "Dreier-Serie", ok: h => h.dreier >= 3 },
+    { em: "🏆", name: "Spuren-Profi", ok: h => h.d.s5 && h.d.s5.nuesse >= 3 },
+    { em: "🏅", name: "Wintermeister", ok: h => h.fertige >= 5 },
+    { em: "🌰", name: "Voller Vorrat", ok: h => h.summe >= 15 }
+  ],
+  checks: {
+    s1: [
+      ["Warum zieht die Rauchschwalbe im Herbst fort?", ["Im Winter gibt es keine fliegenden Insekten", "Ihr ist der Schnee zu nass", "Sie will Urlaub machen", "Ihr Nest wird abgerissen"]],
+      ["Welcher Vogel kommt im Winter aus dem Norden zu uns?", ["Bergfink", "Weißstorch", "Kuckuck", "Rauchschwalbe"]],
+      ["Ein Vogel mit kräftigem, kurzem Kegelschnabel …", ["knackt Samen und kann hierbleiben", "fängt nur Insekten im Flug", "muss nach Afrika", "frisst nur Fische"]]
+    ],
+    s2: [
+      ["Wie findet das Eichhörnchen seine Vorräte wieder?", ["Vor allem mit seiner feinen Nase", "Mit einer Landkarte", "Gar nicht", "Mit Hilfe der Eichelhäher"]],
+      ["Was passiert mit vergessenen Eicheln?", ["Daraus können neue Eichen wachsen", "Sie verschwinden einfach", "Sie werden zu Steinen", "Sie fliegen weg"]],
+      ["Welcher Vogel versteckt im Herbst Tausende Eicheln?", ["Eichelhäher", "Amsel", "Storch", "Rotkehlchen"]]
+    ],
+    s3: [
+      ["Eine Spur sieht aus wie eine gerade Perlenkette. Wer war das?", ["Fuchs", "Feldhase", "Amsel", "Reh"]],
+      ["Woran erkennst du die Spur eines Rehs?", ["Zwei schmale, spitze Hufhälften", "Vier Zehen mit Krallen", "Drei Zehen nach vorn", "Zwei lange und zwei kurze Abdrücke"]],
+      ["Warum stehen Amselspuren immer paarweise?", ["Die Amsel hüpft mit beiden Füßen", "Die Amsel hat vier Füße", "Zwei Amseln laufen nebeneinander", "Die Amsel schleift die Flügel"]]
+    ],
+    s4: [
+      ["Was sollte man Vögeln nicht füttern?", ["Brot", "Sonnenblumenkerne", "Haferflocken", "Ungesalzene Nüsse"]],
+      ["Warum soll man Laubhaufen im Herbst liegen lassen?", ["Igel und Insekten überwintern darin", "Damit der Garten unordentlich aussieht", "Damit Schnee nicht schmilzt", "Weil Laub schwer ist"]],
+      ["Ein Igel läuft bei Frost am Tag umher. Was tust du?", ["Eine Igelstation oder Tierarztpraxis anrufen", "Ihn wieder einschlafen lassen", "Ihm Milch geben", "Ihn mit nach Hause nehmen und behalten"]]
+    ]
+  },
+  profi: [
+    ["Warum fliegt der Weißstorch nach Afrika?", ["Hier findet er im Winter kaum Futter", "Ihm ist es hier zu laut", "In Afrika brütet er", "Er folgt den Schwalben"],
+      ["Lukas: Kein Futter – Frösche und Mäuse sind weg!", "Amelie: Wegen dem Futter, oder?", "Jakob: Futter oder Brüten …", "Laura: Dem ist es zu laut hier."]],
+    ["Welcher Vogel bleibt im Winter bei uns?", ["Kohlmeise", "Rauchschwalbe", "Kuckuck", "Mauersegler"],
+      ["Mats: Die Kohlmeise sieht man doch am Futterhaus!", "Emily: Kohlmeise, glaube ich.", "Henry: Kohlmeise oder Kuckuck …", "Frieda: Der Mauersegler?"]],
+    ["Was ist ein Wintergast?", ["Ein Vogel, der aus dem Norden zu uns kommt", "Ein Vogel, der nach Süden zieht", "Ein Tier im Winterschlaf", "Ein Vogel am Futterhaus"],
+      ["Oskar: Kommt aus dem Norden zu uns – wie der Bergfink!", "Mathilda: Aus dem Norden, oder?", "Anton: Norden oder Süden …", "Romy: Jeder Vogel am Futterhaus!"]],
+    ["Welches Tier hilft beim Bäumepflanzen, ohne es zu wollen?", ["Eichelhäher", "Fuchs", "Igel", "Reh"],
+      ["Johanna: Der Eichelhäher vergisst Eicheln – und daraus wachsen Eichen!", "Leo: Der Eichelhäher …", "Ella: Eichelhäher oder Igel …", "Ben: Das Reh frisst doch Bäume!"]],
+    ["Hinterläufe landen vor den Vorderpfoten. Wessen Spur?", ["Feldhase", "Fuchs", "Reh", "Amsel"],
+      ["Malte: Hase! Der hoppelt so.", "Ronja: Hase, glaube ich.", "Till: Hase oder Fuchs …", "Merle: Das Reh springt doch auch."]],
+    ["Wie heißt es, wenn der Fuchs Pfote in Pfote setzt?", ["Schnüren", "Hoppeln", "Hüpfen", "Trippeln"],
+      ["Konstantin: Schnüren – wie eine Perlenschnur!", "Marlene: Schnüren …?", "Vincent: Schnüren oder Trippeln …", "Smilla: Hoppeln."]],
+    ["Was überwintert in hohlen Pflanzenstängeln?", ["Wildbienen", "Igel", "Eichhörnchen", "Amseln"],
+      ["Juna: Wildbienen – die brauchen die Stängel!", "Lotta: Insekten … Wildbienen?", "Arne: Wildbienen oder Amseln …", "Kian: Ein Igel passt da doch rein."]],
+    ["Was ist gutes Winterfutter für Vögel?", ["Sonnenblumenkerne", "Brot", "Salzige Chips", "Gewürzte Essensreste"],
+      ["Hannes: Sonnenblumenkerne – die lieben Meisen!", "Alma: Kerne, glaube ich.", "Bruno: Kerne oder Brot …", "Tilda: Chips mögen doch alle!"]]
+  ],
+  inhalt: {
+s1: () => `
+  <div class="prose lead"><p>Im Herbst sammeln sich die Schwalben auf den Stromleitungen – und eines Morgens sind sie weg. Andere Vögel bleiben. Und manche kommen sogar erst im Winter zu uns.</p></div>
+  ${bild("stoerche-zug", "🦩", "Weißstörche im Flug am Himmel", "<b>Was du siehst:</b> Weißstörche auf dem Weg nach Süden. Sie segeln auf warmen Aufwinden und fliegen bis nach Afrika – mehrere Tausend Kilometer weit.")}
+  <div class="prose"><p>Ob ein Vogel wegziehen muss, verrät oft schon sein <b>Schnabel</b>. Ein dünner, spitzer <b>Pinzettenschnabel</b> ist zum Insektenfangen gemacht – im Winter gibt es aber kaum Insekten. Ein kurzer, kräftiger <b>Kegelschnabel</b> knackt Samen und Nüsse – die gibt es auch im Winter.</p></div>
+  <div class="box anim" data-widget="schnabel"></div>
+  <div class="box" data-widget="sort" data-set="zug">
+    <span class="eyebrow">Mitmachen</span>
+    <h3>Wer geht, wer bleibt, wer kommt?</h3>
+    <p class="klein">Tippe einen Vogel an und dann das passende Fach.</p>
+    <div class="chips" data-pool></div><div class="bins drei"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  ${bild("bergfink", "🐤", "Bergfinken im Schnee unter Buchen", "<b>Was du siehst:</b> Bergfinken suchen unter Buchen nach Bucheckern. Sie brüten in Skandinavien und kommen als <b>Wintergäste</b> zu uns.")}
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p><b>Zugvögel</b> fliegen im Herbst in wärmere Gebiete, weil sie hier im Winter kein Futter finden – vor allem Insektenfresser. <b>Standvögel</b> bleiben das ganze Jahr. <b>Wintergäste</b> kommen aus dem kalten Norden zu uns.</p></div>`,
+s2: () => `
+  <div class="prose lead"><p>Wer im Winter wach bleibt, aber wenig findet, legt sich im Herbst einen Vorrat an – wie ein Vorratsschrank im Wald.</p></div>
+  ${bild("eichelhaeher", "🐦", "Eichelhäher mit einer Eichel im Schnabel", "<b>Was du siehst:</b> Ein Eichelhäher trägt eine Eichel davon. Im Herbst versteckt er Tausende davon im Boden – jede einzeln.")}
+  <div class="prose"><p>Das <b>Eichhörnchen</b> vergräbt Nüsse und Bucheckern an vielen Stellen. Im Winter findet es sie vor allem mit seiner feinen <b>Nase</b> wieder – sogar unter dem Schnee. Der <b>Eichelhäher</b> merkt sich viele Verstecke, aber längst nicht alle.</p></div>
+  <div class="box anim" data-widget="verstecken"></div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Eichhörnchen und Eichelhäher legen im Herbst <b>Vorräte</b> an. Was sie vergessen, kann im Frühling keimen. So helfen die Tiere den Bäumen, sich zu verbreiten – Tier und Pflanze sind aufeinander angewiesen.</p></div>`,
+s3: () => `
+  <div class="prose lead"><p>Im Schnee verrät sich jedes Tier. Wer die Spuren lesen kann, weiß, wer nachts unterwegs war – ohne das Tier je gesehen zu haben.</p></div>
+  ${bild("spuren-schnee", "🦊", "Fuchsspur im frischen Schnee am Waldrand", "<b>Was du siehst:</b> Eine Fuchsspur zieht sich schnurgerade über den Schnee.")}
+  <div class="prose"><p>Eine Spur besteht aus vielen einzelnen <b>Abdrücken</b>. Achte auf zwei Dinge: Wie sieht <b>ein</b> Abdruck aus? Und wie sind die Abdrücke <b>angeordnet</b>?</p></div>
+  <div class="box anim" data-widget="spuren"></div>
+  <div class="box">
+    <span class="eyebrow">Für draußen</span>
+    <p>Nach frischem Schnee lohnt sich ein Spaziergang am Waldrand oder im Park. Fotografiere eine Spur und lege einen Stift daneben – so siehst du später, wie groß sie war.</p>
+  </div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Die Spur verrät, <b>wie</b> sich ein Tier bewegt: Der Fuchs <b>schnürt</b>, der Hase <b>hoppelt</b>, die Amsel <b>hüpft</b>, das Reh geht auf zwei <b>Hufen</b>.</p></div>`,
+s4: () => `
+  <div class="prose lead"><p>Wir Menschen können den Tieren durch den Winter helfen – oder ihnen aus Versehen schaden. Gut gemeint ist nicht immer gut gemacht.</p></div>
+  ${bild("futterplatz", "🏠", "Vögel an einer Futterstelle im Schnee", "<b>Was du siehst:</b> Meisen und ein Rotkehlchen an einer Futterstelle. Die Kohlmeise holt sich einen Sonnenblumenkern.")}
+  <div class="box" data-widget="karten" data-set="regeln">
+    <span class="eyebrow">Vier Regeln für den Winter</span>
+    <p class="klein">Tippe jede Karte an.</p>
+    <div class="karten"></div>
+  </div>
+  <div class="box" data-widget="sort" data-set="helfen">
+    <span class="eyebrow">Bewerten</span>
+    <h3>Hilft das – oder schadet es?</h3>
+    <p class="klein">Tippe eine Idee an und dann das passende Fach.</p>
+    <div class="chips" data-pool></div><div class="bins"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  ${bild("laubhaufen-igel", "🍂", "Laubhaufen mit Reisig in einer Gartenecke", "<b>Was du siehst:</b> Eine „unordentliche“ Gartenecke mit Laub und Reisig – für einen Igel das perfekte Winterquartier.")}
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Die beste Winterhilfe ist oft: <b>in Ruhe lassen</b> und <b>Verstecke stehen lassen</b>. Wer Vögel füttert, nimmt passendes Futter und hält die Futterstelle sauber.</p></div>`,
+s5: () => `
+  <div class="prose lead"><p>Zum Schluss: Acht Fragen, zwei Joker. Bei <b>50:50</b> verschwinden zwei falsche Antworten, beim <b>Publikumsjoker</b> ruft dir jemand einen Tipp zu – nicht jeder stimmt!</p></div>
+  <p class="klein">Für die Nüsse zählt: 7–8 richtig = 3 Nüsse, 5–6 = 2, 3–4 = 1.</p>`
+  }
+}
+};
+const IDS = Object.keys(EXPS);
+const MAXN = eid => EXPS[eid].stationen.length * 3;
+const rangIndex = (eid, t) => { let i = 0; EXPS[eid].raenge.forEach((r, k) => { if (t >= r.ab) i = k; }); return i; };
+function kennzahlen(eid) {
+  const d = S[eid] || {}; let summe = 0, fertige = 0, dreier = 0;
+  EXPS[eid].stationen.forEach(s => { const e = d[s.id]; if (e && e.done) { summe += e.nuesse || 0; fertige++; if (e.nuesse >= 3) dreier++; } });
+  return { summe, fertige, dreier, d };
+}
+
+/* ============ Übungs-Widgets ============ */
+const WIDGETS = {
+  sort(el) {
+    const set = SORT_SETS[el.dataset.set], pool = $("[data-pool]", el), fb = $(".feedback", el), binsEl = $(".bins", el);
+    binsEl.innerHTML = set.bins.map(([k, t]) => `<div class="bin" data-bin="${k}" role="button" tabindex="0"><h4>${t}</h4><div class="chips"></div></div>`).join("");
+    let sel = null, rest = set.items.length;
+    shuffle(set.items).forEach(([name, bin, why]) => {
+      const c = document.createElement("button"); c.type = "button"; c.className = "chip"; c.textContent = name;
+      c.dataset.bin = bin; c.dataset.why = why;
+      c.onclick = () => { $$(".chip.sel", pool).forEach(x => x.classList.remove("sel")); sel = c; c.classList.add("sel"); };
+      pool.appendChild(c);
+    });
+    $$(".bin", el).forEach(b => {
+      b.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); b.click(); } };
+      b.onclick = () => {
+        if (!sel) { fb.className = "feedback"; fb.textContent = "Tippe zuerst einen Begriff an."; return; }
+        if (sel.dataset.bin === b.dataset.bin) {
+          sel.classList.remove("sel"); sel.classList.add("ok"); sel.onclick = null; $(".chips", b).appendChild(sel);
+          fb.className = "feedback good"; fb.textContent = "Richtig! " + sel.dataset.why; sel = null; rest--;
+          if (!rest) fb.textContent += " – Alles einsortiert, prima!";
+        } else {
+          const c = sel; c.classList.add("shake"); setTimeout(() => c.classList.remove("shake"), 400);
+          fb.className = "feedback bad"; fb.textContent = "Nicht ganz – probier ein anderes Fach.";
+        }
+      };
+    });
+  },
+
+  karten(el) {
+    const box = $(".karten", el);
+    KARTEN_SETS[el.dataset.set].forEach(([vorn, hinten]) => {
+      const k = document.createElement("button"); k.type = "button"; k.className = "karte";
+      const zeig = offen => { k.classList.toggle("offen", offen); k.innerHTML = offen ? `<span class="kk">${vorn}</span><span class="kr">${hinten}</span>` : `<span class="kk">${vorn}</span><span class="tipp">Antippen ›</span>`; };
+      let offen = false; zeig(false); k.onclick = () => { offen = !offen; zeig(offen); };
+      box.appendChild(k);
+    });
+  },
+
+  thermo(el) {
+    el.innerHTML = `<span class="eyebrow">Ausprobieren</span><h3>Wie warm ist der Körper?</h3>
+      <p class="klein">Schiebe den Regler: Wie kalt ist es draußen?</p>
+      <svg viewBox="0 0 320 210" role="img" aria-label="Zwei Thermometer: Maus und Eidechse">
+        <text x="160" y="22" text-anchor="middle" class="lbl b" id="th-aussen">Draußen: 20 °C</text>
+        ${[["m", 80, "🐭 Maus"], ["e", 240, "🦎 Eidechse"]].map(([k, x, n]) => `
+          <text x="${x}" y="200" text-anchor="middle" class="lbl gross">${n}</text>
+          <rect x="${x - 9}" y="40" width="18" height="120" rx="9" fill="#fff" stroke="#5d6b78" stroke-width="2"/>
+          <circle cx="${x}" cy="166" r="15" fill="#d9534f" stroke="#5d6b78" stroke-width="2"/>
+          <rect id="th-${k}" x="${x - 5}" y="100" width="10" height="66" rx="5" fill="#d9534f"/>
+          <text id="th-${k}t" x="${x + 22}" y="104" class="lbl b">20 °C</text>`).join("")}
+        ${[40, 30, 20, 10, 0, -10].map(t => `<text x="160" y="${152 - (t + 10) * 2.2 + 4}" text-anchor="middle" class="lbl">${t}°</text>`).join("")}
+      </svg>
+      <input type="range" class="regler" min="-10" max="35" value="20" aria-label="Außentemperatur">
+      <p class="anim-text" aria-live="polite"></p>`;
+    const r = $("input", el), txt = $(".anim-text", el);
+    const y = t => 152 - (Math.max(-10, Math.min(42, t)) + 10) * 2.2;
+    const setz = (k, t) => { const yy = y(t); const b = $("#th-" + k, el); b.setAttribute("y", yy); b.setAttribute("height", 170 - yy); const tt = $("#th-" + k + "t", el); tt.setAttribute("y", yy + 4); tt.textContent = Math.round(t) + " °C"; };
+    const upd = () => {
+      const a = +r.value, maus = 37, eid = Math.min(a + 2, 38);
+      $("#th-aussen", el).textContent = `Draußen: ${a} °C`;
+      setz("m", maus); setz("e", eid);
+      const e = eid >= 25 ? "flink und jagt Insekten" : eid >= 15 ? "langsam und träge" : eid >= 6 ? "kaum noch beweglich" : "<b>starr</b> – sie kann sich nicht mehr bewegen";
+      const m = a >= 15 ? "munter" : a >= 0 ? "munter – sie muss aber mehr fressen, um warm zu bleiben" : "immer noch 37 °C warm – aber sie frisst fast ununterbrochen";
+      txt.innerHTML = `<b>Maus</b> (Körper 37 °C): ${m}.<br><b>Eidechse</b> (Körper ${Math.round(eid)} °C): ${e}.`;
+    };
+    r.oninput = upd; upd();
+  },
+
+  vergleich(el) {
+    const T = {
+      igel: { n: "🦔 Igel", typ: "😴 Winterschlaf", z: [
+        ["Körpertemperatur", "36 °C", "5 °C", 100, 14], ["Herzschläge pro Minute", "ca. 180", "ca. 10", 100, 6], ["Atemzüge pro Minute", "ca. 50", "ca. 4", 100, 8]],
+        txt: "Der Igel schaltet fast ganz ab. Er wacht nur selten kurz auf und lebt bis zum Frühling von seinem Fett." },
+      hoernchen: { n: "🐿️ Eichhörnchen", typ: "🛌 Winterruhe", z: [
+        ["Körpertemperatur", "38 °C", "fast 38 °C", 100, 95], ["Herzschlag", "normal", "etwas langsamer", 100, 80], ["Schlafzeit", "nur nachts", "fast den ganzen Tag", 40, 90]],
+        txt: "Das Eichhörnchen bleibt warm. Es schläft viel in seinem Kobel und wacht immer wieder auf, um von seinen Vorräten zu fressen." },
+      frosch: { n: "🐸 Grasfrosch", typ: "🧊 Winterstarre", z: [
+        ["Körpertemperatur", "wie die Luft", "wie das Wasser: 2–4 °C", 70, 12], ["Herzschlag", "langsam", "sehr, sehr langsam", 50, 5], ["Kann sich bewegen?", "ja", "nein – starr", 100, 2]],
+        txt: "Der Frosch kann seine Körperwärme nicht selbst halten. Er wird so kalt wie seine Umgebung und erstarrt – meist im Schlamm am Grund eines Teichs." }
+    };
+    el.innerHTML = `<span class="eyebrow">Vergleichen</span><h3>Sommer und Winter im Vergleich</h3>
+      <div class="tabs">${Object.entries(T).map(([k, v], i) => `<button type="button" class="sbtn ${i ? "" : "an"}" data-t="${k}">${v.n}</button>`).join("")}</div>
+      <div class="vgl"></div><p class="anim-text"></p>`;
+    const zeig = k => {
+      const v = T[k];
+      $$(".sbtn", el).forEach(b => b.classList.toggle("an", b.dataset.t === k));
+      $(".vgl", el).innerHTML = `<div class="vgl-typ">${v.typ}</div>` + v.z.map(([was, so, wi, ps, pw]) => `<div class="vgl-zeile">
+        <div class="vgl-kopf"><span>${was}</span></div>
+        <div class="vgl-balken s"><span>☀️ Sommer</span><span class="bb"><i style="width:0" data-w="${ps}"></i></span><span>${so}</span></div>
+        <div class="vgl-balken w"><span>❄️ Winter</span><span class="bb"><i style="width:0" data-w="${pw}"></i></span><span>${wi}</span></div></div>`).join("");
+      $(".anim-text", el).textContent = v.txt;
+      requestAnimationFrame(() => requestAnimationFrame(() => $$(".bb i", el).forEach(i => i.style.width = i.dataset.w + "%")));
+    };
+    $$(".sbtn", el).forEach(b => b.onclick = () => zeig(b.dataset.t)); zeig("igel");
+  },
+
+  plustern(el) {
+    el.innerHTML = `<span class="eyebrow">Ausprobieren</span><h3>Aufplustern – die eingebaute Daunenjacke</h3>
+      <svg viewBox="0 0 320 200" role="img" aria-label="Vogel mit Federkleid und Wärmeverlust">
+        <rect width="320" height="200" fill="#eef4fa"/><rect y="170" width="320" height="30" fill="#fff"/>
+        <path d="M70 168 H250" stroke="#7a5a3a" stroke-width="6" stroke-linecap="round"/>
+        <g class="waerme" id="pl-w">${[[-1, -1], [1, -1], [-1.3, .2], [1.3, .2], [0, -1.4]].map(([dx, dy]) =>
+          `<path d="M${160 + dx * 70} ${110 + dy * 50} l${dx * 22} ${dy * 18}" stroke="#d9534f" stroke-width="4" stroke-linecap="round" marker-end="url(#pf)"/>`).join("")}</g>
+        <defs><marker id="pf" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#d9534f"/></marker></defs>
+        <circle class="federkleid" id="pl-f" cx="160" cy="118" r="40" fill="#c8d3c0" stroke="#7d8b72" stroke-width="2" stroke-dasharray="3 3"/>
+        <circle cx="160" cy="118" r="34" fill="#f2d16b" stroke="#c9a23a" stroke-width="2"/>
+        <circle cx="142" cy="106" r="14" fill="#222"/><circle cx="138" cy="104" r="3" fill="#fff"/>
+        <path d="M126 108 L114 112 L126 114 Z" fill="#333"/>
+        <path d="M156 152 v14 M168 152 v14" stroke="#555" stroke-width="3"/>
+        <text x="160" y="24" text-anchor="middle" class="lbl b" id="pl-t">Federn anliegend</text>
+      </svg>
+      <input type="range" class="regler" min="0" max="100" value="0" aria-label="Aufplustern">
+      <p class="anim-text" aria-live="polite"></p>`;
+    const r = $("input", el), f = $("#pl-f", el), w = $("#pl-w", el), t = $("#pl-t", el), txt = $(".anim-text", el);
+    const upd = () => {
+      const v = +r.value; f.setAttribute("r", 38 + v * .26); w.style.opacity = (1 - v / 100 * .85).toFixed(2);
+      t.textContent = v < 30 ? "Federn anliegend" : v < 70 ? "Etwas aufgeplustert" : "Kugelrund aufgeplustert";
+      txt.innerHTML = v < 30 ? "Die Federn liegen glatt an. Es geht <b>viel Wärme</b> verloren (rote Pfeile)."
+        : v < 70 ? "Zwischen den Federn sammelt sich Luft. Es geht <b>weniger Wärme</b> verloren."
+        : "Ein dickes Luftpolster umgibt den Vogel – wie eine Daunenjacke. Kaum noch <b>Wärmeverlust</b>!";
+    };
+    r.oninput = upd; upd();
+  },
+
+  handschuh(el) {
+    const SCHRITTE = [
+      ["❓ Frage", "Hält eine Fettschicht wirklich warm?"],
+      ["💭 Vermutung", "Eine Hand mit Fettschicht kühlt in Eiswasser langsamer aus als eine Hand ohne."],
+      ["🧪 Versuch", "Zwei Gefrierbeutel ineinander, dazwischen eine dicke Schicht Pflanzenfett – das ist der „Speckhandschuh“. Die Hand kommt in den inneren Beutel und dann in Eiswasser."],
+      ["⚖️ Kontrollversuch", "Die andere Hand kommt in zwei leere Gefrierbeutel – genau gleich, nur <b>ohne Fett</b>. Nur so sieht man, was das Fett bewirkt."],
+      ["👀 Beobachtung", "Drück auf „Start“ und vergleiche die beiden Hände."]
+    ];
+    let i = 0;
+    el.innerHTML = `<span class="eyebrow">Versuch</span><h3>Der Speckhandschuh</h3>
+      <div class="schritte-box"></div>
+      <svg viewBox="0 0 320 170" role="img" aria-label="Zwei Hände im Eiswasser, Temperatur der Haut" hidden>
+        <rect width="320" height="170" fill="#f3f7fa"/>
+        ${[["f", 90, "mit Fett"], ["o", 230, "ohne Fett"]].map(([k, x, n]) => `
+          <rect x="${x - 50}" y="70" width="100" height="70" rx="10" fill="#cfe4f3" stroke="#6f9cc7" stroke-width="2"/>
+          <text x="${x}" y="160" text-anchor="middle" class="lbl b">${n}</text>
+          <text x="${x - 30}" y="100" class="lbl">🧊</text><text x="${x + 18}" y="128" class="lbl">🧊</text>
+          <text x="${x}" y="44" text-anchor="middle" class="lbl gross" id="hs-${k}">33 °C</text>
+          <text x="${x}" y="112" text-anchor="middle" style="font-size:24px" id="hs-${k}e">✋</text>`).join("")}
+      </svg>
+      <div class="knopfreihe"><button type="button" class="knopf prim" id="hs-weiter">Weiter ›</button></div>
+      <p class="anim-text" aria-live="polite" hidden></p>`;
+    const box = $(".schritte-box", el), btn = $("#hs-weiter", el), svg = $("svg", el), txt = $(".anim-text", el);
+    const zeigeSchritte = () => { box.innerHTML = SCHRITTE.slice(0, i + 1).map(([a, b]) => `<p style="margin-bottom:8px"><b>${a}:</b> ${b}</p>`).join(""); };
+    zeigeSchritte();
+    btn.onclick = () => {
+      if (i < SCHRITTE.length - 1) { i++; zeigeSchritte(); if (i === SCHRITTE.length - 1) { svg.removeAttribute("hidden"); btn.textContent = "▶ Start"; } return; }
+      btn.disabled = true; txt.hidden = false; txt.textContent = "Die Hände sind im Eiswasser …";
+      const t0 = performance.now(), dauer = reduce ? 1 : 6000;
+      const f = t => { const k = Math.min(1, (t - t0) / dauer);
+        const tf = 33 - k * 5, to = 33 - k * 21;
+        $("#hs-f", el).textContent = Math.round(tf) + " °C"; $("#hs-o", el).textContent = Math.round(to) + " °C";
+        $("#hs-oe", el).textContent = to < 18 ? "🥶" : "✋";
+        if (k < 1) requestAnimationFrame(f);
+        else { txt.innerHTML = "<b>Ergebnis:</b> Die Hand ohne Fett wird schnell eiskalt. Die Hand im Speckhandschuh bleibt lange warm. Die Vermutung stimmt: <b>Fett hält warm.</b>"; btn.disabled = false; btn.textContent = "↻ Nochmal"; } };
+      requestAnimationFrame(f);
+    };
+  },
+
+  schnabel(el) {
+    const V = [["Rauchschwalbe", "pinz", "fort"], ["Kohlmeise", "beides", "bleibt"], ["Gimpel", "kegel", "bleibt"], ["Gartenrotschwanz", "pinz", "fort"]];
+    el.innerHTML = `<span class="eyebrow">Schnabel-Check</span><h3>Wer muss im Winter weg?</h3>
+      <svg viewBox="0 0 320 120" role="img" aria-label="Zwei Schnabelformen im Vergleich">
+        <rect width="320" height="120" fill="#f3f7fa"/>
+        <circle cx="70" cy="60" r="28" fill="#5a6b80"/><circle cx="62" cy="52" r="4" fill="#fff"/><path d="M42 58 L6 62 L42 66 Z" fill="#333"/>
+        <text x="70" y="108" text-anchor="middle" class="lbl b">Pinzettenschnabel</text>
+        <circle cx="240" cy="60" r="28" fill="#c0563a"/><circle cx="232" cy="52" r="4" fill="#fff"/><path d="M214 48 L192 60 L214 74 Z" fill="#333"/>
+        <text x="240" y="108" text-anchor="middle" class="lbl b">Kegelschnabel</text>
+        <text x="70" y="18" text-anchor="middle" class="lbl">für Insekten 🪰</text><text x="240" y="18" text-anchor="middle" class="lbl">für Samen 🌻</text>
+      </svg>
+      <p class="klein">Die Kohlmeise hat einen Schnabel „dazwischen“: Im Sommer frisst sie Raupen, im Winter Samen. Darum kann sie bleiben.</p>`;
+  },
+
+  verstecken(el) {
+    const N = 12;
+    el.innerHTML = `<span class="eyebrow">Spiel</span><h3>Du bist ein Eichelhäher</h3>
+      <p class="klein" id="vs-auf">Herbst: Tippe auf 8 Stellen im Boden und verstecke dort je eine Eichel.</p>
+      <div class="feld">${Array.from({ length: N }, (_, i) => `<button type="button" data-i="${i}" aria-label="Bodenstelle ${i + 1}"></button>`).join("")}</div>
+      <div class="knopfreihe"><button type="button" class="knopf prim" id="vs-btn" disabled>❄️ Winter: Vorräte suchen</button></div>
+      <p class="anim-text" aria-live="polite">Versteckt: 0 von 8</p>`;
+    const felder = $$(".feld button", el), btn = $("#vs-btn", el), txt = $(".anim-text", el), auf = $("#vs-auf", el);
+    let versteckt = new Set(), phase = 0;
+    felder.forEach(b => b.onclick = () => {
+      if (phase !== 0 || versteckt.has(+b.dataset.i) || versteckt.size >= 8) return;
+      versteckt.add(+b.dataset.i); b.textContent = "🌰";
+      setTimeout(() => { if (phase === 0) b.textContent = ""; }, 500);
+      txt.textContent = `Versteckt: ${versteckt.size} von 8`;
+      if (versteckt.size === 8) { btn.disabled = false; txt.textContent = "Alle 8 Eicheln sind versteckt. Weißt du noch, wo?"; }
+    });
+    btn.onclick = () => {
+      if (phase === 0) {
+        phase = 1; const liste = shuffle([...versteckt]), gefunden = liste.slice(0, 5);
+        gefunden.forEach(i => felder[i].textContent = "✔️");
+        felder.forEach(b => b.disabled = true);
+        auf.textContent = "Winter: Der Eichelhäher sucht seine Verstecke …";
+        txt.innerHTML = `Er hat <b>5 von 8</b> Eicheln wiedergefunden und gefressen. Drei hat er vergessen …`;
+        btn.textContent = "🌱 Frühling";
+        el._rest = liste.slice(5);
+      } else if (phase === 1) {
+        phase = 2; el._rest.forEach(i => felder[i].textContent = "🌱");
+        auf.textContent = "Frühling: Aus den vergessenen Eicheln keimen junge Eichen!";
+        txt.innerHTML = "Ein Eichelhäher versteckt in einem Herbst <b>mehrere Tausend</b> Eicheln. Was er vergisst, wird zu neuen Eichen – oft weit weg vom alten Baum. So „pflanzt“ der Vogel den Wald.";
+        btn.textContent = "↻ Nochmal";
+      } else {
+        phase = 0; versteckt = new Set(); felder.forEach(b => { b.textContent = ""; b.disabled = false; });
+        auf.textContent = "Herbst: Tippe auf 8 Stellen im Boden und verstecke dort je eine Eichel.";
+        txt.textContent = "Versteckt: 0 von 8"; btn.textContent = "❄️ Winter: Vorräte suchen"; btn.disabled = true;
+      }
+    };
+  },
+
+  spuren(el) {
+    const reihe = shuffle(SPUREN); let i = 0, richtig = 0;
+    const zeig = () => {
+      if (i >= reihe.length) {
+        el.innerHTML = `<span class="eyebrow">Spurenrätsel</span><h3>${richtig} von ${reihe.length} Spuren erkannt!</h3>
+          <p>${richtig === reihe.length ? "Du bist ein echter Spurenleser! 🐾" : "Schau dir die Erklärungen noch mal an – im Station-Check kommen die Spuren wieder."}</p>
+          <div class="knopfreihe"><button type="button" class="knopf" id="sp-neu">↻ Nochmal</button></div>`;
+        $("#sp-neu", el).onclick = () => { i = 0; richtig = 0; zeig(); }; return;
+      }
+      const sp = reihe[i], opt = shuffle(SPUREN.map(s => s.name));
+      el.innerHTML = `<span class="eyebrow">Spurenrätsel ${i + 1} von ${reihe.length}</span><h3>Wer war hier unterwegs?</h3>
+        ${spurSVG(sp)}
+        <div class="answers">${opt.map(n => `<button type="button" class="ans" data-n="${n}"><span>${n}</span></button>`).join("")}</div>
+        <p class="feedback" aria-live="polite"></p>
+        <div class="knopfreihe"><button type="button" class="knopf prim" id="sp-w" hidden>${i + 1 < reihe.length ? "Nächste Spur ›" : "Auswertung"}</button></div>`;
+      $$(".ans", el).forEach(b => b.onclick = () => {
+        const ok = b.dataset.n === sp.name; if (ok) richtig++;
+        $$(".ans", el).forEach(x => { x.disabled = true; if (x.dataset.n === sp.name) x.classList.add("ok"); });
+        if (!ok) b.classList.add("bad");
+        const fb = $(".feedback", el); fb.className = "feedback " + (ok ? "good" : "bad");
+        fb.textContent = (ok ? "Richtig! " : `Das war ${sp.art}. `) + sp.warum;
+        $("#sp-w", el).hidden = false;
+      });
+      $("#sp-w", el).onclick = () => { i++; zeig(); };
+    };
+    zeig();
+  }
+};
+
+/* ============ Quiz ============ */
+function quiz(el, data, jokers, fertig) {
+  let i = 0, score = 0, j50 = false, jpub = false; const marks = [];
+  const qs = data.map(([q, a, hints]) => ({ q, hints, a: shuffle(a.map((t, k) => ({ t, ok: k === 0 }))) }));
+  const zeichne = () => {
+    if (i >= qs.length) return fertig(score, qs.length);
+    const q = qs[i];
+    el.innerHTML = `<div class="quiz">
+      <div class="qhead"><span class="eyebrow">Frage ${i + 1} von ${qs.length}</span><div class="dots">${qs.map((_, k) => `<i class="${marks[k] || (k === i ? "now" : "")}"></i>`).join("")}</div></div>
+      <p class="qq">${q.q}</p>
+      <div class="answers">${q.a.map((a, k) => `<button type="button" class="ans" data-k="${k}"><b>${"ABCD"[k]}</b><span>${a.t}</span></button>`).join("")}</div>
+      ${jokers ? `<div class="jokers"><button type="button" class="knopf" data-j="50" ${j50 ? "disabled" : ""}>50:50</button><button type="button" class="knopf" data-j="pub" ${jpub ? "disabled" : ""}>📣 Publikumsjoker</button></div>` : ""}
+      <p class="publikum" hidden></p>
+      <p class="feedback" aria-live="polite"></p>
+      <div><button type="button" class="knopf prim" data-weiter hidden>${i + 1 < qs.length ? "Nächste Frage" : "Auswertung"}</button></div></div>`;
+    $$(".ans", el).forEach(b => b.onclick = () => antwort(+b.dataset.k));
+    const b50 = $('[data-j="50"]', el), bp = $('[data-j="pub"]', el);
+    if (b50) b50.onclick = () => { j50 = true; b50.disabled = true;
+      shuffle(q.a.map((a, k) => k).filter(k => !q.a[k].ok)).slice(0, 2).forEach(k => { $(`.ans[data-k="${k}"]`, el).hidden = true; }); };
+    if (bp) bp.onclick = () => { jpub = true; bp.disabled = true; const p = $(".publikum", el); p.hidden = false;
+      const r = Math.random(), h = q.hints[r < .45 ? 0 : r < .7 ? 1 : r < .88 ? 2 : 3];
+      p.textContent = "„" + h.replace(/^([^:]+): /, "$1 ruft: ") + "“"; };
+    $("[data-weiter]", el).onclick = () => { i++; zeichne(); };
+  };
+  const antwort = k => {
+    const q = qs[i], ok = q.a[k].ok;
+    $$(".ans", el).forEach(b => { b.disabled = true; if (q.a[+b.dataset.k].ok) b.classList.add("ok"); });
+    if (!ok) $(`.ans[data-k="${k}"]`, el).classList.add("bad");
+    $$("[data-j]", el).forEach(b => b.disabled = true);
+    marks[i] = ok ? "ok" : "bad"; if (ok) score++;
+    const fb = $(".feedback", el); fb.className = "feedback " + (ok ? "good" : "bad"); fb.textContent = ok ? "Richtig!" : "Leider falsch.";
+    $("[data-weiter]", el).hidden = false; $("[data-weiter]", el).focus();
+  };
+  zeichne();
+}
+
+/* ============ Station abschließen ============ */
+function abschliessen(eid, sid, score, total) {
+  const X = EXPS[eid], n = X.stationen.length;
+  const nuesse = total === 3 ? score : (score >= 7 ? 3 : score >= 5 ? 2 : score >= 3 ? 1 : 0);
+  const vorher = kennzahlen(eid), rangVorher = rangIndex(eid, vorher.summe), alleVorher = vorher.fertige === n;
+  const abzVorher = X.abzeichen.map(a => a.ok(vorher));
+  S[eid] = S[eid] || {};
+  const alt = S[eid][sid];
+  S[eid][sid] = { done: true, nuesse: Math.max(nuesse, alt ? alt.nuesse || 0 : 0), ts: Date.now() };
+  speichern();
+  const nach = kennzahlen(eid), rangNach = rangIndex(eid, nach.summe);
+  return { nuesse, best: S[eid][sid].nuesse, neuerRang: rangNach > rangVorher ? X.raenge[rangNach] : null,
+    geschafft: !alleVorher && nach.fertige === n, neueAbz: X.abzeichen.filter((a, k) => !abzVorher[k] && a.ok(nach)) };
+}
+
+/* ============ Ansichten ============ */
+const app = $("#app");
+const kopf = (titel, unter) => `<header class="app-head">
+  <a class="zurueck-kopf" href="../index.html">‹ Fauna</a>
+  ${reduce ? "" : Array.from({ length: 14 }, (_, i) => `<span class="flocke" style="left:${(i * 7.3 + 3) % 100}%;animation-duration:${6 + (i % 5)}s;animation-delay:-${i * .7}s">❄</span>`).join("")}
+  <div class="logo">🦔❄️</div><h1>${titel}</h1><div class="untertitel">${unter}</div></header>`;
+const fuss = () => `<footer class="fuss">
+  <div>Fortschritt wird nur auf diesem Gerät gespeichert. Keine Anmeldung, keine Datensammlung.</div>
+  <div><a href="../../index.html">⌂ Bio Mibaso</a> · <a href="../../ueber/">Über mich</a> · <a href="../../impressum/">Impressum &amp; Datenschutz</a></div>
+  <div>© 2026 Michael Baur · Expedition Winter</div></footer>`;
+
+function seiteStart() {
+  const kachel = eid => { const X = EXPS[eid], h = kennzahlen(eid);
+    return `<a class="kachel" href="#${eid}"><span class="ke">${X.em}</span><span><span class="kt">Teil ${IDS.indexOf(eid) + 1} · ${X.titel}</span><span class="kb">${X.motto} · 5 Stationen · ca. 45 Min · 🌰 ${h.summe}/${MAXN(eid)}</span></span><span class="pf">›</span></a>`; };
+  app.innerHTML = `${kopf("Expedition Winter", "Wie Tiere die kalte Zeit überstehen")}
+  <div class="huelle">
+    <section>
+      <p class="lead">Frost, Schnee und kaum Futter – wie schaffen Tiere das? Zwei Expeditionen führen dich durch den Winter. Für jede Station gibt es bis zu drei Nüsse 🌰. Füll deine Vorratshöhle und hol dir die Urkunde!</p>
+    </section>
+    <section>
+      <h2 class="h-blau">Deine Expeditionen</h2>
+      <div class="kacheln">${IDS.map(kachel).join("")}</div>
+    </section>
+    <section>
+      <details class="lehrer"><summary>Für Lehrkräfte: Einsatz in Klasse 5/6</summary><div class="grid">
+        <div class="ablauf"><b>Teil 1</b><span>Kalt erwischt? – gleichwarm/wechselwarm, Winterschlaf, Winterruhe, Winterstarre, Fell, Federn, Fett (ca. 45 Min)</span>
+          <b>Teil 2</b><span>Fortfliegen oder bleiben? – Zugvögel, Vorräte, Spuren, Naturschutz im Winter (ca. 45 Min)</span></div>
+        <p>Beide Teile zusammen füllen eine Doppelstunde, lassen sich aber auch einzeln in zwei Stunden einsetzen. Alles läuft im Browser auf Tablet, Handy oder am Beamer – ohne Anmeldung, ohne Datensammlung, ohne Ton (nur bei voller Punktzahl erklingt eine kurze Fanfare).</p>
+        <p><b>Bezug zum hessischen Kerncurriculum Biologie, Jahrgangsstufe 5/6:</b> Stoffwechsel und Regelmechanismen (Regelung der Körpertemperatur), Vielfalt, Veränderung und Abstammung (Körperbau, Lebensweise und Lebensraum), Wechselwirkungen in Ökosystemen (Nahrungsbeziehungen), Bewertung (einfache Regeln des Naturschutzes), Erkenntnisgewinnung (einfaches Experiment mit Kontrollversuch).</p>
+        <ul class="clean">
+          <li><b>Stufenweise:</b> Jede Station öffnet sich erst, wenn die vorige geschafft ist. Mit „Alle offen“ kann frei gewählt werden.</li>
+          <li><b>Speckhandschuh live:</b> zwei Gefrierbeutel, Pflanzenfett (z. B. Kokosfett), eine Schüssel Eiswasser. Der zweite Beutel ohne Fett ist der Kontrollversuch.</li>
+          <li><b>Urkunde:</b> Am Ende tragen die Kinder ihren Namen ein und drucken die Urkunde oder speichern sie als PDF.</li>
+          <li><b>Geteilte Geräte:</b> Im Winterpass ganz unten „Pass zurücksetzen“.</li>
+        </ul></div></details>
+    </section>
+    ${fuss()}
+  </div>`;
+}
+
+function seitePass(eid, neu) {
+  const X = EXPS[eid], MAX = MAXN(eid), h = kennzahlen(eid), ri = rangIndex(eid, h.summe), rang = X.raenge[ri], next = X.raenge[ri + 1], n = X.stationen.length;
+  const anderer = IDS.find(k => k !== eid);
+  app.innerHTML = `
+  <div class="subkopf"><div class="row"><a class="zurueck" href="#start">‹ Expedition Winter</a><span class="tchip">🌰 ${h.summe} / ${MAX}</span></div></div>
+  <div class="huelle">
+    <section>
+      <span class="eyebrow">Dein Winterpass · Teil ${IDS.indexOf(eid) + 1}</span>
+      <h2 class="h-blau">${X.titel}</h2>
+      <p class="lead">${X.lead}</p>
+      <div class="buehne">
+        <div class="rangchip"><span class="med">${rang.med}</span><span>Rang<b>${rang.name}</b></span></div>
+        <div class="zaehler">${h.summe} / ${MAX} 🌰</div>
+        ${hoehleSVG(h.summe, MAX, neu)}
+        <div class="boden"></div>
+      </div>
+      <div class="fbalken"><i id="fbar"></i></div>
+      <p class="naechster">${next ? `Noch <b>${next.ab - h.summe} Nüsse</b> bis zum Rang „${next.name}“` : `Höchster Rang erreicht – ${rang.name}! 🎉`}</p>
+      <div class="schalter"><span class="lab">Spielmodus:</span>
+        <button type="button" class="sbtn ${S.modus === "frei" ? "an" : ""}" data-m="frei">🔓 Alle offen</button>
+        <button type="button" class="sbtn ${S.modus === "level" ? "an" : ""}" data-m="level">🔒 Stufenweise</button></div>
+    </section>
+    <section>
+      <h2 class="h-honig">Deine Stationen</h2>
+      <div class="stationen">${X.stationen.map((s, k) => {
+        const e = h.d[s.id], done = !!(e && e.done), vor = k === 0 || !!(h.d[X.stationen[k - 1].id] && h.d[X.stationen[k - 1].id].done);
+        const offen = S.modus === "frei" || done || vor;
+        const cls = done ? "fertig" : offen ? "aktiv" : "gesperrt";
+        const rechts = done ? nuesseHTML(e.nuesse) : offen ? `ca. ${s.min} Min ›` : "🔒";
+        const inner = `<span class="nr">${s.em}</span><span><span class="st">${k + 1}. ${s.titel}</span><span class="sk">${s.kurz}</span></span><span class="stand">${rechts}</span>`;
+        return offen ? `<a class="station ${cls}" href="#${eid}-${s.id}">${inner}</a>` : `<div class="station ${cls}" aria-disabled="true">${inner}</div>`;
+      }).join("")}</div>
+      ${h.fertige === n && anderer ? `<p class="klein">Weiter geht’s mit <a href="#${anderer}">Teil ${IDS.indexOf(anderer) + 1}: ${EXPS[anderer].titel}</a>.</p>` : ""}
+    </section>
+    <section>
+      <h2 class="h-blau">Urkunde</h2>
+      ${h.fertige ? `<p>${h.fertige === n ? "Geschafft! Trag deinen Namen ein und hol dir deine Urkunde." : `Du hast ${h.fertige} von ${n} Stationen geschafft. Die Urkunde zeigt deinen Zwischenstand.`}</p>
+        <div><button type="button" class="knopf honig" id="urkBtn">📜 Urkunde ansehen</button></div>`
+        : `<p class="klein">Schaff die erste Station – dann gibt es hier deine Urkunde.</p>`}
+    </section>
+    <section>
+      <h2 class="h-honig">Abzeichen-Album</h2>
+      <div class="album">${X.abzeichen.map(a => { const ok = a.ok(h); return `<div class="abz ${ok ? "auf" : "zu"}"><span class="em">${a.em}</span>${a.name}</div>`; }).join("")}</div>
+    </section>
+    <section class="reset" id="resetBox">
+      <button type="button" class="knopf" id="resetBtn">Pass zurücksetzen</button>
+      <p class="hint">Löscht Nüsse und Abzeichen dieses Teils auf diesem Gerät – zum Beispiel für die nächste Person.</p>
+    </section>
+    ${fuss()}
+  </div>`;
+  requestAnimationFrame(() => requestAnimationFrame(() => { const b = $("#fbar"); if (b) b.style.width = (h.summe / MAX * 100) + "%"; }));
+  $$("[data-m]", app).forEach(b => b.onclick = () => { S.modus = b.dataset.m; speichern(); route(true); });
+  const ub = $("#urkBtn"); if (ub) ub.onclick = () => urkunde(eid);
+  $("#resetBtn").onclick = () => {
+    $("#resetBox").innerHTML = `<p><b>Wirklich alles löschen?</b> Nüsse, Abzeichen und Name auf diesem Gerät sind dann weg.</p>
+      <div class="knopfreihe"><button type="button" class="knopf prim" id="jaReset">Ja, zurücksetzen</button><button type="button" class="knopf" id="neinReset">Abbrechen</button></div>`;
+    $("#jaReset").onclick = () => { S[eid] = {}; S.name = ""; speichern(); toast("Winterpass zurückgesetzt."); route(true); };
+    $("#neinReset").onclick = () => route(true);
+  };
+}
+
+function seiteStation(eid, sid) {
+  const X = EXPS[eid], MAX = MAXN(eid), k = X.stationen.findIndex(s => s.id === sid), s = X.stationen[k], h = kennzahlen(eid);
+  const vor = k === 0 || !!(h.d[X.stationen[k - 1].id] && h.d[X.stationen[k - 1].id].done);
+  if (S.modus === "level" && !vor && !(h.d[sid] && h.d[sid].done)) { location.hash = eid; return; }
+  const finale = sid === "s5";
+  app.innerHTML = `
+  <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Winterpass</a><span class="tchip" id="tchip">🌰 ${h.summe} / ${MAX}</span></div></div>
+  <div class="huelle">
+    <section>
+      <span class="eyebrow">Teil ${IDS.indexOf(eid) + 1} · Station ${k + 1} von ${X.stationen.length} · ca. ${s.min} Min</span>
+      <h2 class="h-blau">${s.em} ${s.titel}</h2>
+      ${X.inhalt[sid]()}
+    </section>
+    <section>
+      <h2 class="h-honig">${finale ? "Los geht’s!" : "Station-Check"}</h2>
+      ${finale ? "" : `<p class="klein">Drei Fragen – für jede richtige Antwort gibt es eine Nuss.</p>`}
+      <div class="box" id="check"></div>
+    </section>
+    ${fuss()}
+  </div>`;
+  $$("[data-widget]", app).forEach(el => WIDGETS[el.dataset.widget](el));
+  const box = $("#check");
+  const starte = () => quiz(box, finale ? X.profi : X.checks[sid], finale, (score, total) => {
+    const r = abschliessen(eid, sid, score, total), naechste = X.stationen[k + 1];
+    $("#tchip").textContent = `🌰 ${kennzahlen(eid).summe} / ${MAX}`;
+    const lob = r.nuesse === 3 ? "Volle Punktzahl – stark!" : r.nuesse === 2 ? "Gut gemacht!" : r.nuesse === 1 ? "Geschafft! Mit einem zweiten Versuch holst du mehr Nüsse." : "Station erledigt – aber probier’s gleich noch mal!";
+    box.innerHTML = `<div class="ergebnis">
+      <span class="eyebrow">${score} von ${total} richtig</span>
+      <div class="gross">${nuesseHTML(r.nuesse)}</div>
+      <p>${lob}</p>
+      ${r.best > r.nuesse ? `<p class="klein">In deinem Pass zählt dein bestes Ergebnis: ${r.best} Nüsse.</p>` : ""}
+      <div class="knopfreihe">
+        <button type="button" class="knopf" id="nochmal">Nochmal</button>
+        ${naechste ? `<a class="knopf prim" href="#${eid}-${naechste.id}">Weiter: ${naechste.titel} ›</a>` : ""}
+        <a class="knopf ${naechste ? "" : "prim"}" href="#${eid}">🌰 Zum Winterpass</a>
+      </div></div>`;
+    $("#nochmal").onclick = starte;
+    if (r.geschafft) feier(eid);
+    else {
+      if (r.nuesse === 3) { konfetti(); fanfare(false); }
+      if (r.neuerRang) setTimeout(() => toast(`${r.neuerRang.med} Neuer Rang: ${r.neuerRang.name}!`), 600);
+      else if (r.neueAbz.length) setTimeout(() => toast(`${r.neueAbz[0].em} Neues Abzeichen: ${r.neueAbz[0].name}`), 600);
+    }
+  });
+  starte();
+}
+
+/* ============ Feier & Urkunde ============ */
+function feier(eid) {
+  konfetti(); fanfare(true);
+  const X = EXPS[eid], h = kennzahlen(eid), rang = X.raenge[rangIndex(eid, h.summe)];
+  const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = `<div class="feierkarte"><div class="fmed">${rang.med}</div><h3>Teil ${IDS.indexOf(eid) + 1} geschafft!</h3>
+    <p>Du hast alle Stationen von „${X.titel}“ gemeistert und ${h.summe} von ${MAXN(eid)} Nüssen gesammelt. Dein Rang: <b>${rang.name}</b>.</p>
+    <div class="knopfreihe"><button type="button" class="knopf honig" id="fUrk">📜 Zur Urkunde</button><button type="button" class="knopf" id="fZu">Weiter</button></div></div>`;
+  document.body.appendChild(o);
+  $("#fUrk", o).onclick = () => { o.remove(); urkunde(eid); };
+  $("#fZu", o).onclick = () => o.remove();
+  $("#fUrk", o).focus();
+}
+
+function urkunde(eid) {
+  const X = EXPS[eid], h = kennzahlen(eid), rang = X.raenge[rangIndex(eid, h.summe)], n = X.stationen.length, alle = h.fertige === n;
+  const datum = new Date().toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+  const abz = X.abzeichen.filter(a => a.ok(h)).map(a => a.em).join(" ");
+  const titel = `„${X.titel} – ${X.motto}“`;
+  const o = document.createElement("div"); o.className = "overlay"; o.id = "urkunde"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = `<div class="urkunde"><div class="rahmen">
+    <div class="urk-eyebrow">Bio Mibaso · Expedition Winter · Teil ${IDS.indexOf(eid) + 1}</div>
+    <div class="urk-med">${rang.med}</div>
+    <div class="urk-titel">Urkunde</div>
+    <div class="urk-sub">${rang.name}</div>
+    <div class="urk-satz">Diese Urkunde bestätigt, dass</div>
+    <input class="urk-name" id="urkName" placeholder="Dein Name" aria-label="Dein Name" value="${esc(S.name || "")}">
+    <div class="urk-name-druck" id="urkNameDruck">${S.name ? esc(S.name) : "&nbsp;"}</div>
+    <div class="urk-satz">${alle ? `die Expedition <b>${titel}</b> erfolgreich abgeschlossen hat.` : `in der Expedition <b>${titel}</b> ${h.fertige} von ${n} Stationen gemeistert hat.`}</div>
+    <table class="urk-tab">${X.stationen.map((s, k) => { const e = h.d[s.id]; return `<tr><td>${k + 1}. ${s.titel}</td><td>${e && e.done ? nuesseHTML(e.nuesse) : "–"}</td></tr>`; }).join("")}</table>
+    <div class="urk-summe">🌰 ${h.summe} von ${MAXN(eid)} Nüssen</div>
+    ${abz ? `<div class="urk-album" aria-label="Abzeichen">${abz}</div>` : ""}
+    <div class="urk-fuss"><span>${datum}</span><span>Bio Mibaso · mibaso.de</span></div>
+  </div>
+  <div class="urk-btns">
+    ${IM_RAHMEN ? `<span class="hint">Drucken klappt auf bio.mibaso.de.</span>` : `<button type="button" class="knopf prim" id="urkDruck">🖨️ Drucken / als PDF sichern</button>`}
+    <button type="button" class="knopf" id="urkZu">Schließen</button>
+  </div></div>`;
+  document.body.appendChild(o);
+  const inp = $("#urkName", o);
+  inp.oninput = () => { S.name = inp.value.slice(0, 60); speichern(); $("#urkNameDruck", o).textContent = S.name || " "; };
+  const d = $("#urkDruck", o); if (d) d.onclick = () => window.print();
+  $("#urkZu", o).onclick = () => o.remove();
+  o.onclick = e => { if (e.target === o) o.remove(); };
+  if (!S.name) inp.focus();
+}
+
+/* ============ Navigation ============ */
+let letzteSumme = {};
+function route(behalteScroll) {
+  $$(".overlay").forEach(o => o.remove());
+  const h = location.hash.slice(1), m = h.match(/^(w[12])-(s[1-5])$/);
+  if (EXPS[h]) { const s = kennzahlen(h).summe; seitePass(h, letzteSumme[h] !== undefined && s > letzteSumme[h]); letzteSumme[h] = s; }
+  else if (m) { if (letzteSumme[m[1]] === undefined) letzteSumme[m[1]] = kennzahlen(m[1]).summe; seiteStation(m[1], m[2]); }
+  else seiteStart();
+  if (behalteScroll !== true) window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", () => route());
+route();
+</script>
+</body>
+</html>

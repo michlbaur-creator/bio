@@ -43,7 +43,10 @@ REPOS = [
     {"key": "fauna", "label": "Fauna Mibaso", "emoji": "🦋", "akzent": "#233D5C",
      "pass": {"href": "interaktiv/wiesenpass.html", "img": "images/wiese/wiese-sommer.png",
               "eyebrow": "Dein Forscherpass", "titel": "Expedition Wiese",
-              "sub": "Die Tiere der Wiese — spiel dich zum Wiesen-Meister."}},
+              "sub": "Die Tiere der Wiese — spiel dich zum Wiesen-Meister."},
+     "pass2": {"href": "interaktiv/winterpass.html", "img": "images/winter/igel-winterschlaf.jpg",
+               "eyebrow": "Dein Winterpass · Klasse 5/6", "titel": "Expedition Winter",
+               "sub": "Wie Tiere die kalte Zeit überstehen — sammle Nüsse für deinen Wintervorrat."}},
 ]
 
 # Thematische Gruppen je Repo: (Überschrift, Farbe, [Dateien]). Seit dem Fauna-Stil-
@@ -150,7 +153,7 @@ def _icon(fn):
 # Kopiert, aber nicht auf der Startseite gelistet (z.B. der Pass als Footer-Ziel)
 # kopiert, aber nicht als eigene Kachel gelistet (bestaeubung-animiert wird als iframe
 # in „Bestäubung" eingebunden – Datei muss vorhanden sein, Kachel entfällt).
-SKIP_LISTING = {"tafel.html", "wiesenpass.html", "sammelpass.html", "bestaeubung-animiert.html"}
+SKIP_LISTING = {"tafel.html", "wiesenpass.html", "winterpass.html", "sammelpass.html", "bestaeubung-animiert.html"}
 # Ganz aus bio ausschließen (nicht kopieren, nicht listen): Staunen-Häppchen,
 # Quizze/Tests und Ordnen-/Zuordnungs-Spiele — bio zeigt nur die echten Lernpfade.
 # Einträge ohne Repo-Präfix gelten für beide; mit Präfix nur für ein Repo.
@@ -198,7 +201,7 @@ NATIVE_LIST = {
 # beim Kopieren zu überspringen: die Expeditions-Pfade + der Forscherpass selbst
 NATIVE_SKIP = {
     "flora": set(NATIVE_LIST["flora"]),
-    "fauna": set(NATIVE_LIST["fauna"]) | {"wiesenpass.html"},
+    "fauna": set(NATIVE_LIST["fauna"]) | {"wiesenpass.html", "winterpass.html"},
 }
 
 # Stimmige Reihenfolge je Repo (nicht gelistete kommen alphabetisch danach).
