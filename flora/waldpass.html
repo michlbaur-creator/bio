@@ -302,10 +302,12 @@
       <div class="urk-album" id="urkAlbum"></div>
       <div class="urk-fuss"><span id="urkDatum"></span><span>Flora Mibaso</span></div>
     </div>
-    <div class="urk-btns">
+    <div class="urk-btns" style="flex-wrap:wrap">
       <button class="druck" id="urkPdf">🖨️ Drucken / PDF</button>
+      <button class="druck" id="urkTeilen">📤 Teilen / Bild</button>
       <button class="zu" id="urkZu">Schließen</button>
     </div>
+    <p class="urk-btns" style="font-family:var(--sans);font-size:12px;color:#7a7468;text-align:center;margin:0 12px 12px">Auf iPhone und iPad: „Teilen / Bild“ antippen, dann „Drucken“ oder „Bild sichern“.</p>
   </div>
 </div>
 
@@ -589,5 +591,78 @@ durchlauf();
 ersterLauf=false;
 </script>
 <script src="assets/app.js" defer></script>
+<script>
+/* ---- Urkunde als Bild teilen (iPhone/iPad: Teilen → Drucken oder Bild sichern) ----
+   Liest die fertige Urkunde aus der Seite, zeichnet sie als A4-Bild und reicht sie an das
+   Teilen-Menü weiter. Das Bild wird vorab erzeugt, weil iOS das Teilen nur direkt beim Antippen erlaubt. */
+(function(){
+  const FARBE="#2F4F3E", DATEI="Urkunde-Expedition-Wald";
+  const $=(s,el=document)=>el.querySelector(s), $$=(s,el=document)=>[...el.querySelectorAll(s)];
+  const ov=document.getElementById("urkunde"), btn=document.getElementById("urkTeilen");
+  if(!ov||!btn) return;
+  function daten(){
+    const t=s=>{const el=$(s,ov);return el?el.textContent.replace(/\s+/g," ").trim():"";};
+    const zeilen=$$(".urk-zeile",ov).map(z=>{const ub=$(".ub",z), alles=ub.textContent, n=3-$$(".leer",ub).length;
+      return [$(".un",z).textContent.trim(), n, alles.slice(0, alles.length/3)];});
+    return { eyebrow:t(".urk-eyebrow"), med:t("#urkMed"), rang:t("#urkSub"), name:($("#urkName",ov).value||"").trim(),
+      satz:t("#urkSatz2"), zeilen, summe:$$("#urkSumme span",ov).map(s=>s.textContent.trim()).join(": "),
+      abz:$$(".urk-abz.hat .ue",ov).map(s=>s.textContent.trim()).join(" "), datum:t("#urkDatum"),
+      fuss:(($$(".urk-fuss span",ov)[1]||{}).textContent||"")+" · mibaso.de" };
+  }
+  function zeichne(d){
+    const W=1240,H=1754,c=document.createElement("canvas"); c.width=W; c.height=H;
+    const x=c.getContext("2d"), SANS='-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif', SERIF='Georgia,"Times New Roman",serif';
+    x.fillStyle="#fffdf7"; x.fillRect(0,0,W,H);
+    x.strokeStyle=FARBE; x.lineWidth=6; x.strokeRect(60,60,W-120,H-120); x.lineWidth=2; x.strokeRect(76,76,W-152,H-152);
+    x.strokeStyle="#C28A3A"; x.strokeRect(100,100,W-200,H-200);
+    x.textAlign="center";
+    const zeile=(s,font,farbe,y)=>{x.font=font;x.fillStyle=farbe;x.fillText(s,W/2,y);};
+    const umbrechen=(s,max)=>{const out=[];let z="";s.split(" ").forEach(w=>{const p=z?z+" "+w:w;if(x.measureText(p).width>max&&z){out.push(z);z=w;}else z=p;});if(z)out.push(z);return out;};
+    let y=200;
+    zeile(d.eyebrow.toUpperCase(),`600 26px ${SANS}`,"#5d6b78",y);
+    y+=150; zeile(d.med,`120px ${SANS}`,"#000",y);
+    y+=140; zeile("Urkunde",`108px ${SERIF}`,FARBE,y);
+    y+=70; zeile(d.rang,`44px ${SERIF}`,"#a9762c",y);
+    y+=100; zeile("Diese Urkunde bestätigt, dass",`38px ${SERIF}`,"#26312b",y);
+    y+=105; zeile(d.name||" ",`64px ${SERIF}`,"#26312b",y);
+    x.strokeStyle="#5d6b78"; x.lineWidth=2; x.beginPath(); x.moveTo(W/2-360,y+24); x.lineTo(W/2+360,y+24); x.stroke();
+    y+=100; x.font=`38px ${SERIF}`;
+    umbrechen(d.satz,W-320).forEach(l=>{zeile(l,`38px ${SERIF}`,"#26312b",y); y+=54;});
+    y+=20; const x0=W/2-430, x1=W/2+430, hoehe=d.zeilen.length>7?54:62, gr=d.zeilen.length>7?30:34;
+    d.zeilen.forEach(([titel,n,em])=>{
+      x.textAlign="left"; x.font=`${gr}px ${SERIF}`; x.fillStyle="#26312b"; x.fillText(titel,x0,y);
+      x.textAlign="right"; x.font=`${gr}px ${SANS}`;
+      for(let k=0;k<3;k++){x.globalAlpha=k<n?1:.22; x.fillText(em,x1-(2-k)*44,y);}
+      x.globalAlpha=1; x.strokeStyle="#d8ccb2"; x.lineWidth=1.5; x.beginPath(); x.moveTo(x0,y+16); x.lineTo(x1,y+16); x.stroke();
+      y+=hoehe;
+    });
+    x.textAlign="center";
+    y+=36; zeile(d.summe,`40px ${SERIF}`,FARBE,y);
+    if(d.abz){ y+=85; zeile(d.abz,`50px ${SANS}`,"#000",y); }
+    x.font=`28px ${SANS}`; x.fillStyle="#5d6b78";
+    x.textAlign="left"; x.fillText(d.datum,140,H-150);
+    x.textAlign="right"; x.fillText(d.fuss,W-140,H-150);
+    return new Promise(r=>c.toBlob(r,"image/png"));
+  }
+  let blob=null, timer;
+  const neu=()=>{ clearTimeout(timer); timer=setTimeout(()=>{ if(ov.classList.contains("an")) zeichne(daten()).then(b=>blob=b); },250); };
+  new MutationObserver(neu).observe(ov,{attributes:true,attributeFilter:["class"]});
+  $("#urkName",ov).addEventListener("input",neu);
+  const melde=t=>{ const alt=btn.textContent; btn.textContent=t; setTimeout(()=>btn.textContent=alt,2600); };
+  btn.addEventListener("click",()=>{
+    if(!blob){ melde("Einen Moment …"); neu(); return; }
+    const nm=$("#urkName",ov).value.trim();
+    const name=(DATEI+(nm?"-"+nm:"")).replace(/[^\wäöüÄÖÜß-]+/g,"-")+".png";
+    const file=new File([blob],name,{type:"image/png"});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      navigator.share({files:[file],title:"Meine Urkunde"}).catch(e=>{ if(!e||e.name!=="AbortError") melde("Teilen klappte nicht"); });
+    } else {
+      const url=URL.createObjectURL(blob), a=document.createElement("a");
+      a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),5000); melde("✓ Als Bild gespeichert");
+    }
+  });
+})();
+</script>
 </body>
 </html>
