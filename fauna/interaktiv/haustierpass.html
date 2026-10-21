@@ -1,0 +1,1117 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Expedition Haustier – Vom Wildtier zum Haustier · Bio Mibaso</title>
+<meta name="description" content="Vom Wolf zum Hund, vom Wildschwein zum Hausschwein: zwei Expeditionen für eine Doppelstunde in Klasse 5/6 – mit Haustierpass, Knochen-Napf, Abzeichen und Urkunde.">
+<meta name="theme-color" content="#233D5C">
+<link rel="icon" href="../assets/icon.svg">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<style>
+/* Expedition Haustier – Technik wie chemie.mibaso.de (Laborpass), Farben wie Fauna Mibaso */
+:root{
+  --blau:#233D5C; --blau-tief:#1a2f47; --blau-mittel:#33587c; --blau-hell:#bcd0e2;
+  --creme:#F7F3E8; --creme-tief:#EEE7D5; --tile:#FFFFFF;
+  --honig:#C28A3A; --honig-tief:#a9762c; --nuss:#8a5a2b;
+  --ink:#1c2e42; --ink-soft:#5d6b78; --linie:#d9d2c1;
+  --ok:#2f6a45; --bad:#B23B2E;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html{background:var(--blau-tief);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--creme);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.55;min-height:100vh}
+img{max-width:100%}
+a{color:var(--blau)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--honig);outline-offset:2px}
+h1,h2,h3{font-weight:normal;margin:0;text-wrap:balance;line-height:1.2}
+p{margin:0}
+.huelle{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:40px}
+
+.app-head{background:linear-gradient(180deg,var(--blau-tief) 0%,var(--blau-mittel) 100%);color:var(--creme);text-align:center;
+  padding:calc(env(safe-area-inset-top,0px) + 22px) max(20px,env(safe-area-inset-right,0px)) 24px;border-bottom:4px double var(--blau-hell);position:relative;overflow:hidden}
+.app-head .zurueck-kopf{position:absolute;left:12px;top:calc(env(safe-area-inset-top,0px) + 10px);color:#dce8f3;font-family:var(--sans);font-size:14px;text-decoration:none;padding:6px}
+.app-head .logo{font-size:44px;line-height:1;margin:14px 0 6px}
+.app-head h1{font-size:clamp(28px,8vw,40px);letter-spacing:.02em}
+.app-head .untertitel{font-style:italic;color:#dce8f3;margin-top:8px;font-size:clamp(13px,3.6vw,16px)}
+
+.subkopf{position:sticky;top:0;z-index:6;background:var(--creme);border-bottom:1px solid var(--linie);
+  padding:calc(env(safe-area-inset-top,0px) + 8px) max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px))}
+.subkopf .row{max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.zurueck{font-family:var(--sans);font-size:15px;text-decoration:none;color:var(--blau);padding:6px 4px}
+.tchip{font-family:var(--sans);font-size:14px;background:var(--tile);border:1px solid var(--linie);border-radius:999px;padding:5px 12px;color:var(--blau);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+section{padding-top:26px;display:grid;gap:14px}
+h2{font-size:25px}
+h2::after{content:"";display:block;width:46px;height:3px;margin-top:8px;background:currentColor;border-radius:2px}
+.h-blau{color:var(--blau)} .h-honig{color:var(--honig-tief)}
+h3{font-size:19px;color:var(--blau)}
+.eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.lead{font-size:19px}
+.prose{display:grid;gap:12px}
+.klein{font-size:15px;color:var(--ink-soft)}
+ul.clean{margin:0;padding-left:1.2em;display:grid;gap:4px}
+
+.kacheln{display:grid;gap:12px}
+.kachel{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;background:var(--tile);border:1px solid var(--linie);
+  border-radius:14px;padding:14px 16px;text-decoration:none;color:var(--ink);box-shadow:0 1px 4px rgba(35,61,92,.07);transition:transform .08s,box-shadow .08s}
+a.kachel:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(35,61,92,.14)}
+.kachel .ke{font-size:30px;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:var(--creme-tief)}
+.kachel .kt{font-size:18px;color:var(--blau);display:block;font-weight:bold}
+.kachel .kb{font-size:14px;color:var(--ink-soft);font-family:var(--sans)}
+.kachel .pf{font-size:24px;color:var(--blau-mittel)}
+.ablauf{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-family:var(--sans);font-size:15px;background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:14px 16px}
+.ablauf b{color:var(--blau)}
+
+.schalter{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:var(--sans);font-size:14px}
+.schalter .lab{color:var(--ink-soft);margin-right:4px}
+.sbtn{border:1px solid var(--linie);background:var(--tile);border-radius:999px;padding:7px 13px;cursor:pointer;color:var(--ink-soft)}
+.sbtn.an{background:var(--blau);border-color:var(--blau);color:#fff}
+.hint{font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+
+/* Pass-Bühne mit Vorratshöhle */
+.buehne{position:relative;background:linear-gradient(180deg,#f4efe4 0%,#fff 60%,var(--creme-tief) 100%);border:1px solid var(--linie);border-radius:16px;padding:68px 12px 10px;display:grid;place-items:center;overflow:hidden}
+.buehne svg{width:min(240px,62vw);height:auto;display:block}
+.buehne .boden{position:absolute;left:0;right:0;bottom:0;height:16px;background:repeating-linear-gradient(90deg,#efe6d3 0 38px,#e2d6bd 38px 40px);border-top:1px solid var(--linie)}
+.rangchip{position:absolute;left:12px;top:12px;display:flex;gap:8px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:6px 10px;font-family:var(--sans);font-size:12px;color:var(--ink-soft);z-index:2}
+.rangchip .med{font-size:24px}
+.rangchip b{display:block;font-size:14px;color:var(--blau)}
+.zaehler{position:absolute;right:12px;top:12px;background:var(--nuss);color:#fff;border-radius:12px;padding:6px 12px;font-family:var(--sans);font-size:15px;font-variant-numeric:tabular-nums;z-index:2}
+.fbalken{height:10px;background:var(--creme-tief);border-radius:5px;overflow:hidden;border:1px solid var(--linie)}
+.fbalken i{display:block;height:100%;width:0;background:linear-gradient(90deg,#c9a46a,#a8743b,#8a5a2b);transition:width .8s}
+.naechster{text-align:center;font-size:16px;color:var(--ink-soft)}
+.kn-neu{animation:pop .5s both}
+
+.stationen{display:grid;gap:10px}
+.station{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:12px 14px;text-decoration:none;color:var(--ink)}
+.station .nr{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--creme-tief);font-size:22px}
+.station .st{font-size:17px;color:var(--blau);font-weight:bold;display:block}
+.station .sk{font-size:14px;color:var(--ink-soft);font-family:var(--sans)}
+.station .stand{font-family:var(--sans);font-size:13px;color:var(--ink-soft);text-align:right;white-space:nowrap}
+.station.aktiv{border-color:var(--blau-hell);box-shadow:0 0 0 2px var(--blau-hell)}
+.station.fertig .nr{background:#e3f0e7}
+.station.gesperrt{opacity:.55}
+.knochen{letter-spacing:1px;font-size:16px}
+.knochen .leer{opacity:.22;filter:grayscale(1)}
+
+.album{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.abz{background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:10px 6px;text-align:center;font-family:var(--sans);font-size:12px;color:var(--ink-soft);display:grid;gap:4px;justify-items:center}
+.abz .em{font-size:28px}
+.abz.zu .em{filter:grayscale(1);opacity:.25}
+.abz.auf{border-color:var(--honig);color:var(--ink)}
+
+/* Bausteine */
+.merke{border:1.5px dashed var(--blau-mittel);border-radius:12px;padding:14px 16px;display:grid;gap:8px;background:#f8fbfd}
+.merke .eyebrow{color:var(--blau)}
+.achtung{border-left:5px solid var(--honig);background:#fbf1e2;padding:12px 14px;border-radius:0 12px 12px 0;font-size:16px}
+.achtung b{color:#8a5a17}
+.box{background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:16px;display:grid;gap:12px}
+.box > .eyebrow{color:var(--blau)}
+details{background:var(--creme-tief);border-radius:10px;padding:10px 14px}
+details summary{cursor:pointer;color:var(--blau);font-family:var(--sans);font-size:15px}
+details[open] summary{margin-bottom:8px}
+details .grid{display:grid;gap:8px}
+
+figure.bild{margin:0;background:var(--tile);border:1px solid var(--linie);border-radius:14px;overflow:hidden}
+figure.bild .rahmen-bild{aspect-ratio:16/10;background:linear-gradient(160deg,#e9f0f6,#d6e2ec);position:relative}
+figure.bild img{display:block;width:100%;height:100%;object-fit:cover}
+figure.bild .platzhalter{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:6px;text-align:center;color:var(--ink-soft);font-family:var(--sans);font-size:13px}
+figure.bild .platzhalter span{font-size:64px;line-height:1}
+figure.bild figcaption{padding:12px 14px;font-size:16px}
+figure.bild figcaption b{color:var(--blau)}
+
+.knopf{display:inline-block;border:1px solid var(--blau);background:var(--tile);color:var(--blau);border-radius:12px;padding:10px 16px;font-family:var(--sans);font-size:15px;cursor:pointer;text-decoration:none;text-align:center}
+.knopf.prim{background:var(--blau);color:#fff;box-shadow:0 2px 0 var(--blau-tief)}
+.knopf.prim:hover{background:var(--blau-tief)}
+.knopf.honig{background:var(--honig);border-color:var(--honig);color:#fff;box-shadow:0 2px 0 #8a5a17}
+.knopf:disabled{opacity:.4;cursor:default}
+.knopfreihe{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+
+/* Sortieren */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--linie);background:var(--creme);border-radius:999px;padding:6px 13px;cursor:pointer;font-size:16px;font-family:var(--serif)}
+.chip.sel{border-color:var(--blau);box-shadow:0 0 0 2px var(--blau) inset;background:#fff}
+.chip.ok{border-color:var(--ok);color:var(--ok);cursor:default;background:#fff}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bins.drei{grid-template-columns:repeat(3,1fr)}
+.bin{border:2px dashed var(--linie);border-radius:12px;padding:10px;min-height:110px;display:flex;flex-direction:column;gap:8px;cursor:pointer;background:var(--creme)}
+.bin h4{margin:0;font-weight:normal;font-size:16px;color:var(--blau)}
+.feedback{min-height:1.5em;font-size:16px;color:var(--ink-soft)}
+.feedback.good{color:var(--ok)} .feedback.bad{color:var(--bad)}
+
+/* Karten */
+.karten{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.karte{min-height:120px;border:1px solid var(--linie);border-radius:14px;background:var(--tile);padding:14px;text-align:left;cursor:pointer;display:grid;gap:6px;align-content:start}
+.karte .kk{font-size:18px;color:var(--blau)}
+.karte .kr{font-size:15px;color:var(--ink-soft)}
+.karte.offen{background:#eef4f9;border-color:var(--blau-hell)}
+.karte .tipp{font-family:var(--sans);font-size:12px;color:var(--blau-mittel)}
+
+/* Animationen / Widgets */
+.anim svg{width:100%;height:auto;display:block;background:#f3f7fa;border-radius:12px;border:1px solid var(--linie)}
+.regler{width:100%;accent-color:var(--blau);height:28px}
+.anim-text{min-height:4.6em;font-size:16px;background:var(--creme);border-radius:10px;padding:10px 12px}
+.anim-text b{color:var(--blau)}
+.lbl{font-family:var(--sans);font-size:11px;fill:var(--ink-soft)}
+.lbl.b{font-weight:600;fill:var(--ink);font-size:12px}
+.lbl.gross{font-size:15px;font-weight:700;fill:var(--ink)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.vgl{display:grid;gap:10px}
+.vgl-zeile{display:grid;gap:4px}
+.vgl-kopf{display:flex;justify-content:space-between;font-family:var(--sans);font-size:14px;color:var(--ink-soft)}
+.vgl-balken{display:grid;grid-template-columns:70px 1fr auto;gap:8px;align-items:center;font-family:var(--sans);font-size:13px}
+.vgl-balken .bb{height:14px;background:var(--creme-tief);border-radius:7px;overflow:hidden}
+.vgl-balken .bb i{display:block;height:100%;border-radius:7px;transition:width .8s}
+.vgl-balken .s i{background:#e3a447} .vgl-balken .w i{background:#6f9cc7}
+.vgl-typ{text-align:center;font-size:20px;color:var(--blau)}
+.feld{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.feld button{aspect-ratio:1;border:1px solid #c9b48f;border-radius:12px;background:linear-gradient(180deg,#f4efe4,#e2d3b5);font-size:30px;cursor:pointer;display:grid;place-items:center}
+.feld button:disabled{cursor:default}
+.spur-svg{max-width:260px;margin:0 auto}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ans{text-align:left;background:var(--creme);border:1px solid var(--linie);border-radius:12px;padding:11px 13px;cursor:pointer;display:flex;gap:10px;font-size:17px}
+.ans b{color:var(--blau-mittel);font-family:var(--sans);font-weight:normal}
+.ans.ok{border-color:var(--ok);background:#e3f0e7}
+.ans.bad{border-color:var(--bad);background:#f6e1de}
+.ans:disabled{cursor:default}
+.waerme{transition:opacity .4s}
+.federkleid{transition:r .5s}
+
+/* Quiz */
+.quiz{display:grid;gap:14px}
+.qhead{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.dots{display:flex;gap:4px;flex-wrap:wrap}
+.dots i{width:11px;height:11px;border-radius:50%;background:var(--creme-tief);border:1px solid var(--linie)}
+.dots i.ok{background:var(--ok);border-color:var(--ok)} .dots i.bad{background:var(--bad);border-color:var(--bad)} .dots i.now{background:var(--blau);border-color:var(--blau)}
+.qq{font-size:20px}
+.jokers{display:flex;gap:8px;flex-wrap:wrap}
+.publikum{font-style:italic;color:var(--ink-soft);border-left:3px solid var(--honig);padding-left:12px}
+.ergebnis{text-align:center;display:grid;gap:10px;justify-items:center}
+.ergebnis .gross{font-size:40px;letter-spacing:4px}
+
+/* Feier, Toast, Konfetti, Urkunde */
+.overlay{position:fixed;inset:0;z-index:50;background:rgba(20,32,45,.6);display:grid;place-items:center;
+  padding:calc(env(safe-area-inset-top,0px) + 16px) 16px calc(env(safe-area-inset-bottom,0px) + 16px);overflow-y:auto}
+.feierkarte{background:var(--tile);border-radius:18px;padding:24px 20px;max-width:420px;width:100%;text-align:center;display:grid;gap:10px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.feierkarte .fmed{font-size:64px;animation:pop .6s both}
+@keyframes pop{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;border-radius:999px;padding:10px 18px;font-family:var(--sans);font-size:15px;z-index:60;transition:transform .3s;max-width:90vw;text-align:center}
+.toast.zeigen{transform:translateX(-50%) translateY(0)}
+.konffeld{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.konf{position:absolute;top:-16px;font-size:18px;animation:fall 3.6s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+.urkunde{background:#fffdf7;max-width:640px;width:100%;border-radius:6px;padding:14px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.rahmen{border:3px double var(--blau);outline:1px solid var(--honig);outline-offset:-10px;padding:26px 22px;text-align:center;display:grid;gap:8px;justify-items:center}
+.urk-eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.urk-med{font-size:56px}
+.urk-titel{font-size:44px;color:var(--blau);letter-spacing:.06em}
+.urk-sub{font-size:18px;color:var(--honig-tief)}
+.urk-satz{font-size:17px}
+.urk-name{font:inherit;font-size:26px;text-align:center;border:0;border-bottom:1.5px solid var(--ink-soft);background:transparent;width:min(100%,380px);padding:4px;color:var(--ink)}
+.urk-name-druck{display:none;font-size:26px;border-bottom:1.5px solid var(--ink-soft);min-width:300px;padding:4px}
+.urk-tab{width:100%;max-width:440px;border-collapse:collapse;font-size:15px;margin-top:6px}
+.urk-tab td{padding:4px 6px;border-bottom:1px solid var(--linie);text-align:left}
+.urk-tab td:last-child{text-align:right;white-space:nowrap}
+.urk-summe{font-size:17px;color:var(--blau)}
+.urk-album{font-size:24px;letter-spacing:4px}
+.urk-fuss{display:flex;justify-content:space-between;width:100%;font-family:var(--sans);font-size:13px;color:var(--ink-soft);margin-top:12px;gap:10px;flex-wrap:wrap}
+.urk-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.lehrer{background:var(--tile);border:1px solid var(--linie);border-radius:14px}
+.lehrer summary{font-size:16px}
+.reset{display:grid;gap:8px;justify-items:center;text-align:center}
+footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;text-align:center;font-family:var(--sans);font-size:13px;color:var(--ink-soft);display:grid;gap:6px}
+
+@media (max-width:480px){.answers{grid-template-columns:1fr} body{font-size:17px} .bins,.bins.drei{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{
+  @page{size:A4 portrait;margin:12mm}
+  html,body{background:#fff}
+  body *{visibility:hidden}
+  #urkunde,#urkunde *{visibility:visible}
+  #urkunde{position:absolute;inset:0;background:#fff;display:block;padding:0}
+  .urkunde{box-shadow:none;max-width:none}
+  .urk-btns,.urk-name{display:none!important}
+  .urk-name-druck{display:block}
+}
+
+.kn-neu{transform-box:fill-box;transform-origin:center}
+.reihe{display:grid;gap:12px}
+.reihe-nav{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.reihe-punkte{display:flex;gap:6px}
+.reihe-punkte i{width:10px;height:10px;border-radius:50%;background:var(--creme-tief);border:1px solid var(--linie)}
+.reihe-punkte i.an{background:var(--blau);border-color:var(--blau)}
+.reihe-zeit{font-family:var(--sans);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--honig-tief)}
+.ordnen{display:grid;gap:8px}
+.ordnen ol{margin:0;padding-left:1.4em;display:grid;gap:6px;min-height:1.5em}
+.ordnen ol li{color:var(--ok)}
+.zucht{display:grid;gap:10px}
+.welpen{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-items:end}
+.welpe{border:1px solid var(--linie);border-radius:12px;background:var(--creme);cursor:pointer;display:grid;justify-items:center;gap:2px;padding:8px 2px;font-family:var(--sans);font-size:12px;color:var(--ink-soft)}
+.welpe span{line-height:1}
+.welpe:disabled{cursor:default;opacity:.55}
+.welpe.gewaehlt{border-color:var(--ok);background:#e3f0e7;opacity:1}
+.zucht-leiste{display:flex;gap:4px;align-items:flex-end;height:70px;padding:6px;background:var(--creme);border-radius:10px}
+.zucht-leiste div{flex:1;background:var(--blau-mittel);border-radius:4px 4px 0 0;display:grid;place-items:start center;color:#fff;font-family:var(--sans);font-size:10px;padding-top:2px;transition:height .6s}
+.eier{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ei{border:1px solid var(--linie);border-radius:50% 50% 46% 46% / 58% 58% 42% 42%;background:linear-gradient(160deg,#fff8ec,#ead9bd);aspect-ratio:3/4;cursor:pointer;display:grid;place-items:center;font-family:var(--sans);font-size:11px;color:#7a1f15;padding:4px;text-align:center}
+.ei.an{box-shadow:0 0 0 3px var(--honig)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ============ Helfer ============ */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+const IM_RAHMEN = (() => { try { return window.self !== window.top; } catch (e) { return true; } })();
+const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+
+/* ============ Speicher (nur auf diesem Gerät) ============ */
+const KEY = "mibaso.fauna.haustierpass";
+function laden() { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { return {}; } }
+let S = Object.assign({ modus: "level", name: "" }, laden());
+function speichern() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+/* ============ Bausteine ============ */
+function knochenHTML(n) { let s = ""; for (let k = 0; k < 3; k++) s += k < n ? "🦴" : '<span class="leer">🦴</span>'; return `<span class="knochen" aria-label="${n} von 3 Knochen">${s}</span>`; }
+function bild(datei, emoji, titel, text) {
+  return `<figure class="bild"><div class="rahmen-bild">
+    <div class="platzhalter"><span>${emoji}</span>Bild folgt</div>
+    <img src="../images/haustier/${datei}.jpg" alt="${esc(titel)}" loading="lazy" onerror="this.remove()" onload="this.previousElementSibling.remove()">
+  </div>${text ? `<figcaption>${text}</figcaption>` : ""}</figure>`;
+}
+
+/* ============ Toast, Konfetti, Fanfare ============ */
+let toastTimer;
+function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("zeigen"); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove("zeigen"), 3200); }
+function konfetti() {
+  if (reduce) return;
+  const f = document.createElement("div"); f.className = "konffeld";
+  const zeichen = ["🦴", "🐾", "⭐", "🐾", "🦴", "✨"];
+  for (let n = 0; n < 50; n++) {
+    const k = document.createElement("span"); k.className = "konf"; k.textContent = zeichen[n % zeichen.length];
+    k.style.cssText = `left:${Math.random() * 100}%;animation-delay:${(Math.random() * .8).toFixed(2)}s`;
+    f.appendChild(k);
+  }
+  document.body.appendChild(f); setTimeout(() => f.remove(), 4800);
+}
+function fanfare(gross) {
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext; if (!Ctx) return;
+    const ctx = new Ctx(); if (ctx.state === "suspended") ctx.resume();
+    const t0 = ctx.currentTime + .05;
+    const noten = gross
+      ? [[392, 0, .14], [523.25, .14, .14], [659.25, .28, .14], [783.99, .42, .28], [659.25, .72, .14], [783.99, .86, .9]]
+      : [[523.25, 0, .16], [659.25, .15, .16], [783.99, .30, .16], [1046.5, .46, .6]];
+    noten.forEach(([fr, st, du]) => {
+      [1, 2].forEach(oct => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = oct === 1 ? "triangle" : "sine"; o.frequency.value = fr * oct;
+        const v = oct === 1 ? .2 : .05;
+        g.gain.setValueAtTime(0, t0 + st); g.gain.linearRampToValueAtTime(v, t0 + st + .02);
+        g.gain.exponentialRampToValueAtTime(.001, t0 + st + du + .25);
+        o.connect(g); g.connect(ctx.destination); o.start(t0 + st); o.stop(t0 + st + du + .3);
+      });
+    });
+    setTimeout(() => ctx.close(), 3000);
+  } catch (e) {}
+}
+
+/* ============ Futternapf mit Knochen ============ */
+const KNPLATZ = [[64,176,-20],[100,180,8],[136,176,22],[80,164,30],[120,164,-28],[56,152,10],[100,152,-8],[144,152,-14],[76,140,-30],[124,140,26],[100,128,14],[60,128,-6],[140,128,6],[86,116,-18],[116,116,20]];
+function napfSVG(summe, max, neu) {
+  const anz = Math.round(summe / max * KNPLATZ.length);
+  const kn = ([x, y, r], i) => `<g transform="translate(${x} ${y}) rotate(${r})"><g class="${neu && i === anz - 1 ? "kn-neu" : ""}">
+      <rect x="-15" y="-4" width="30" height="8" rx="3" fill="#f6efe0" stroke="#a08a63" stroke-width="1.5"/>
+      <circle cx="-16" cy="-4" r="5" fill="#f6efe0" stroke="#a08a63" stroke-width="1.5"/><circle cx="-16" cy="4" r="5" fill="#f6efe0" stroke="#a08a63" stroke-width="1.5"/>
+      <circle cx="16" cy="-4" r="5" fill="#f6efe0" stroke="#a08a63" stroke-width="1.5"/><circle cx="16" cy="4" r="5" fill="#f6efe0" stroke="#a08a63" stroke-width="1.5"/>
+      <rect x="-15" y="-3" width="30" height="6" fill="#f6efe0"/></g></g>`;
+  return `<svg viewBox="0 0 200 240" role="img" aria-label="Futternapf mit ${summe} von ${max} Knochen">
+    ${KNPLATZ.slice(0, anz).map(kn).join("")}
+    <path d="M22 178 H178 L162 222 Q160 228 152 228 H48 Q40 228 38 222 Z" fill="#b23b2e" stroke="#7a2318" stroke-width="3" stroke-linejoin="round"/>
+    <ellipse cx="100" cy="178" rx="78" ry="10" fill="#c9503f" stroke="#7a2318" stroke-width="3"/>
+    <path d="M50 198 H150" stroke="#fff" stroke-width="3" opacity=".35" stroke-linecap="round"/>
+    <text x="100" y="216" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#fff" opacity=".9">BELLO</text>
+  </svg>`;
+}
+
+/* ============ Daten: Sortier- und Kartenaufgaben ============ */
+const SORT_SETS = {
+  wolfhund: { bins: [["wolf", "🐺 Nur beim Wolf"], ["hund", "🐕 Nur beim Hund"], ["beide", "🤝 Bei beiden"]], items: [
+    ["heult, bellt aber kaum", "wolf", "Wölfe heulen, um sich im Rudel zu verständigen. Bellen hört man von ihnen nur selten – Hunde bellen viel mehr."],
+    ["Ohren stehen immer aufrecht", "wolf", "Wölfe haben immer Stehohren. Bei Hunden gibt es auch Schlapp- und Kippohren."],
+    ["lebt frei und jagt selbst", "wolf", "Ein Wolf muss seine Beute selbst jagen – Rehe, Hirsche oder Wildschweine."],
+    ["Schlappohren kommen vor", "hund", "Schlappohren gibt es nur bei Haustieren – auch bei Kaninchen, Schafen oder Schweinen."],
+    ["viele Fellfarben, auch gefleckt", "hund", "Gefleckte Felle kommen bei Wildtieren selten vor. Bei Haustieren hat der Mensch sie gezielt weitergezüchtet."],
+    ["versteht Zeigegesten des Menschen", "hund", "Zeigt ein Mensch auf einen Becher, schaut ein Hund dorthin. Ein Wolf achtet kaum darauf."],
+    ["Fangzähne und Reißzähne", "beide", "Wolf und Hund haben das gleiche Raubtiergebiss mit 42 Zähnen."],
+    ["feine Nase", "beide", "Beide riechen viel besser als wir – deshalb arbeiten Hunde als Spürhunde."],
+    ["können gemeinsam Junge bekommen", "beide", "Wolf und Hund gehören zur selben Art. Deshalb können sie miteinander Junge bekommen."]
+  ]},
+  vorfahren: { bins: [["rind", "🐄 Hausrind"], ["schaf", "🐑 Hausschaf"], ["huhn", "🐓 Haushuhn"], ["katze", "🐈 Hauskatze"], ["pferd", "🐎 Hauspferd"], ["kaninchen", "🐇 Hauskaninchen"]], items: [
+    ["Auerochse", "rind", "Der Auerochse war ein riesiges Wildrind. Er ist ausgestorben – das letzte Tier starb 1627 in Polen."],
+    ["Mufflon (Wildschaf)", "schaf", "Wildschafe wie der Mufflon haben ein kurzes, braunes Haarkleid. Die dicke Wolle gibt es erst durch Züchtung."],
+    ["Bankivahuhn", "huhn", "Das Bankivahuhn lebt in den Wäldern Südostasiens und legt nur wenige Eier im Jahr. Ein Legehuhn heute legt fast jeden Tag eins."],
+    ["Falbkatze", "katze", "Die Falbkatze ist eine Wildkatze aus Afrika und Vorderasien. Sie kam zu den ersten Bauern, weil es in den Kornspeichern Mäuse gab."],
+    ["Wildpferd", "pferd", "Wildpferde lebten in den weiten Steppen Osteuropas und Asiens. Dort wurden sie vor etwa 4.000 bis 5.000 Jahren gezähmt."],
+    ["Wildkaninchen", "kaninchen", "Das Kaninchen ist ein junges Haustier: Es wurde erst im Mittelalter in Europa gezähmt."]
+  ]},
+  haltung: { bins: [["gut", "👍 Artgerecht"], ["schlecht", "👎 Nicht artgerecht"]], items: [
+    ["Schweine mit Stroh zum Wühlen", "gut", "Schweine wühlen von Natur aus mit dem Rüssel – wie ihre wilden Vorfahren im Waldboden."],
+    ["Suhle aus Schlamm im Sommer", "gut", "Schweine können kaum schwitzen. Im Schlamm kühlen sie sich ab und schützen ihre Haut."],
+    ["Kaninchen zu zweit mit viel Auslauf", "gut", "Kaninchen sind Gruppentiere und wollen hoppeln, graben und sich verstecken."],
+    ["Hund jeden Tag lange spazieren führen", "gut", "Hunde brauchen Bewegung, Schnüffeln und Kontakt – das steckt noch vom Wolf in ihnen."],
+    ["Hühner mit Auslauf und Sandbad", "gut", "Hühner scharren, picken und baden im Sand, um ihr Gefieder zu pflegen."],
+    ["Schweine ohne Beschäftigung auf hartem Boden", "schlecht", "Ohne Stroh oder Spielzeug langweilen sich Schweine. Dann beißen sie sich manchmal gegenseitig in den Schwanz."],
+    ["Kaninchen allein im kleinen Käfig", "schlecht", "Allein und ohne Platz wird ein Kaninchen krank und unglücklich."],
+    ["Hund den ganzen Tag allein lassen", "schlecht", "Hunde sind Rudeltiere. Den ganzen Tag allein zu sein, macht sie ängstlich oder unruhig."]
+  ]}
+};
+const KARTEN_SETS = {
+  wolf: [
+    ["🐺 Rudel", "Wölfe leben in Familien: Vater, Mutter und ihre Jungen aus den letzten ein bis zwei Jahren. So ein Rudel jagt gemeinsam."],
+    ["🦷 Raubtiergebiss", "Lange Fangzähne halten die Beute fest, scharfe Reißzähne zerschneiden das Fleisch."],
+    ["🏃 Ausdauerläufer", "Wölfe laufen in einer Nacht oft 20 Kilometer und mehr. Sie hetzen ihre Beute, bis sie müde wird."],
+    ["🌲 Zurück bei uns", "Lange waren Wölfe in Deutschland ausgerottet. Heute leben sie wieder bei uns – auch in Hessen."]
+  ],
+  hundregeln: [
+    ["🙋 Erst fragen", "Fremde Hunde nie einfach streicheln. Immer zuerst den Halter fragen."],
+    ["🧍 Stehen bleiben", "Kommt ein Hund auf dich zu: ruhig stehen bleiben, Arme an den Körper. Nicht wegrennen – sonst denkt er, es ist ein Spiel oder Beute."],
+    ["👀 Nicht anstarren", "Langes Anstarren ist für Hunde eine Drohung. Schau lieber zur Seite."],
+    ["🍖 In Ruhe lassen", "Einen Hund beim Fressen oder Schlafen nie stören."]
+  ]
+};
+
+/* ============ Hund: Körpersprache ============ */
+function hundSVG(art) {
+  const A = {
+    freundlich: { koerper: 0, kopf: 0, ohr: "M74 52 L80 34 L88 52 M92 52 L100 34 L104 52", schwanz: "M196 92 Q214 70 220 82", maul: "M58 78 Q66 86 76 80", zunge: '<path d="M64 82 q2 10 8 6 q-2-6 -2-8" fill="#e57373"/>', fell: "" },
+    aengstlich: { koerper: 10, kopf: 16, ohr: "M80 50 L108 54 L86 58 Z M86 46 L112 48 L92 54 Z", schwanz: "M200 104 Q202 136 178 140", vorn: true, maul: "M50 80 L62 80", zunge: "", fell: "" },
+    drohend: { koerper: -4, kopf: -6, ohr: "M72 46 L80 24 L88 46 M90 46 L100 22 L104 46", schwanz: "M196 86 Q206 52 204 40", maul: "M56 70 L60 76 L64 70 L68 76 L72 70 L76 76", zunge: "", fell: '<path d="M108 84 l4 -10 l4 8 l4 -10 l4 8 l4 -10 l4 8 l4 -10 l4 8" stroke="#5b4630" stroke-width="2.5" fill="none"/>' }
+  }[art];
+  return `<svg viewBox="0 0 260 170" role="img" aria-label="Hund in Körperhaltung ${art}">
+    <rect width="260" height="170" fill="#f6f1e6"/><rect y="148" width="260" height="22" fill="#e7dcc6"/>
+    <g transform="translate(0 ${A.koerper})">
+      ${A.vorn ? "" : `<path d="${A.schwanz}" stroke="#8a6a46" stroke-width="9" fill="none" stroke-linecap="round"/>`}
+      <ellipse cx="150" cy="100" rx="56" ry="26" fill="#a9825a"/>
+      ${A.fell}
+      <path d="M112 112 v38 M128 116 v34 M172 116 v34 M188 112 v38" stroke="#8a6a46" stroke-width="10" stroke-linecap="round"/>
+      ${A.vorn ? `<path d="${A.schwanz}" stroke="#7a5a38" stroke-width="9" fill="none" stroke-linecap="round"/>` : ""}
+      <g transform="translate(0 ${A.kopf})">
+        <path d="M100 86 L118 92" stroke="#a9825a" stroke-width="18" stroke-linecap="round"/>
+        <ellipse cx="84" cy="66" rx="26" ry="20" fill="#a9825a"/>
+        <ellipse cx="56" cy="74" rx="14" ry="10" fill="#a9825a"/>
+        <circle cx="44" cy="70" r="4" fill="#33302b"/>
+        <circle cx="80" cy="60" r="3.5" fill="#33302b"/>
+        <path d="${A.ohr}" fill="#8a6a46" stroke="#8a6a46" stroke-width="2" stroke-linejoin="round"/>
+        <path d="${A.maul}" stroke="#33302b" stroke-width="2.5" fill="none" stroke-linecap="round"/>${A.zunge}
+      </g>
+    </g></svg>`;
+}
+const KOERPER = [
+  { art: "freundlich", name: "freundlich", warum: "Lockerer Körper, Schwanz wedelt locker, Maul leicht offen – dieser Hund ist entspannt und freundlich." },
+  { art: "aengstlich", name: "ängstlich", warum: "Geduckter Körper, Ohren angelegt, Schwanz zwischen den Beinen – dieser Hund hat Angst. Lass ihn in Ruhe!" },
+  { art: "drohend", name: "drohend", warum: "Steifer Körper, Ohren nach vorn, Schwanz hoch, Zähne gefletscht, Nackenhaare gesträubt – Vorsicht, dieser Hund droht!" }
+];
+
+/* ============ Bilderreihe Wolf → Hund ============ */
+const REIHE = [
+  { bild: "wolf-rudel", em: "🐺", zeit: "Vor über 15.000 Jahren", titel: "Wölfe und Menschen jagen dasselbe", text: "In der Steinzeit jagen Wolfsrudel und Menschen dieselben Tiere: Rentiere, Wildpferde, Hirsche. Beide sind Jäger, die in Gruppen zusammenarbeiten." },
+  { bild: "steinzeit-lager", em: "🔥", zeit: "Am Lagerfeuer", titel: "Reste am Rand des Lagers", text: "Rund um die Lager der Menschen bleiben Knochen und Fleischreste liegen. Wölfe, die nicht so scheu sind, trauen sich näher heran – sie finden hier leichter Futter." },
+  { bild: "wolfswelpe-lager", em: "🐾", zeit: "Viele Generationen", titel: "Die Zahmsten bleiben", text: "Wer zutraulich ist, bleibt in der Nähe der Menschen und bekommt dort Junge. Viele der Jungtiere sind ebenfalls zutraulich. Mit jeder Generation werden die Tiere etwas zahmer." },
+  { bild: "jaeger-hund", em: "🏹", zeit: "Die ersten Hunde", titel: "Aus Wölfen werden Begleiter", text: "Die zahmen Tiere helfen bei der Jagd, bellen bei Gefahr und wärmen nachts. Aus dem Wolf ist der erste Haushund geworden – lange bevor die Menschen Bauern wurden." },
+  { bild: "hunderassen", em: "🐕", zeit: "Heute", titel: "Über 300 Rassen", text: "Später züchten Menschen Hunde für bestimmte Aufgaben: zum Hüten, Jagen, Bewachen – oder einfach als Freund. Vom Chihuahua bis zur Dogge stammen alle vom Wolf ab." }
+];
+
+/* ============ Expeditionen ============ */
+const EXPS = {
+h1: {
+  id: "h1", titel: "Vom Wolf zum Hund", motto: "Wie aus einem Wildtier ein Freund wurde", em: "🐺",
+  lead: "Wie wurde aus dem Wolf der beste Freund des Menschen? Für jede Station gibt es bis zu drei Knochen für deinen Napf.",
+  stationen: [
+    { id: "s1", em: "🐺", titel: "Der Wolf", kurz: "Steckbrief eines Rudeljägers", min: 8 },
+    { id: "s2", em: "🔥", titel: "Wie der Wolf zum Hund wurde", kurz: "Eine Bilderreihe durch die Zeit", min: 10 },
+    { id: "s3", em: "🔍", titel: "Wolf und Hund im Vergleich", kurz: "Was ist gleich, was ist anders?", min: 9 },
+    { id: "s4", em: "🐩", titel: "Du bist Züchter!", kurz: "Wie neue Rassen entstehen", min: 10 },
+    { id: "s5", em: "🏆", titel: "Wer wird Hunde-Profi?", kurz: "Das Abschlussquiz mit Jokern", min: 8 }
+  ],
+  raenge: [
+    { ab: 0, name: "Welpe", med: "🐶" }, { ab: 1, name: "Spürnase", med: "👃" },
+    { ab: 5, name: "Rudelkenner", med: "🐺" }, { ab: 9, name: "Zucht-Profi", med: "🐩" },
+    { ab: 13, name: "Hunde-Meister", med: "🏅" }
+  ],
+  abzeichen: [
+    { em: "🐾", name: "Erste Spur", ok: h => h.fertige >= 1 },
+    { em: "🎯", name: "Volltreffer", ok: h => h.dreier >= 1 },
+    { em: "🔥", name: "Zeitreisender", ok: h => h.d.s2 && h.d.s2.done },
+    { em: "🐩", name: "Züchter", ok: h => h.d.s4 && h.d.s4.done },
+    { em: "⭐", name: "Dreier-Serie", ok: h => h.dreier >= 3 },
+    { em: "🏆", name: "Hunde-Profi", ok: h => h.d.s5 && h.d.s5.knochen >= 3 },
+    { em: "🏅", name: "Hunde-Meister", ok: h => h.fertige >= 5 },
+    { em: "🦴", name: "Voller Napf", ok: h => h.summe >= 15 }
+  ],
+  checks: {
+    s1: [
+      ["Wer gehört zu einem Wolfsrudel?", ["Eine Familie: Eltern und ihre Jungen", "Viele fremde Wölfe", "Nur Männchen", "Wölfe und Füchse"]],
+      ["Wozu dienen die langen Fangzähne?", ["Zum Festhalten der Beute", "Zum Kauen von Gras", "Zum Graben", "Zum Putzen des Fells"]],
+      ["Leben heute wieder Wölfe in Hessen?", ["Ja", "Nein, nur im Zoo", "Nein, nur in Amerika", "Nur im Winter"]]
+    ],
+    s2: [
+      ["Warum kamen Wölfe in die Nähe der Steinzeitmenschen?", ["Dort fanden sie leichter Futter", "Sie wollten gestreichelt werden", "Sie suchten Wasser", "Die Menschen haben sie gerufen"]],
+      ["Welche Wölfe blieben bei den Menschen?", ["Die zutraulichsten", "Die größten", "Die schnellsten", "Die ältesten"]],
+      ["Wann wurde der Wolf zum Hund?", ["Lange bevor die Menschen Bauern wurden", "Vor 100 Jahren", "Im Mittelalter", "Zur Zeit der Römer"]]
+    ],
+    s3: [
+      ["Welches Merkmal gibt es nur bei Hunden, nicht beim Wolf?", ["Schlappohren", "Fangzähne", "Eine feine Nase", "Vier Beine"]],
+      ["Warum können Wolf und Hund gemeinsam Junge bekommen?", ["Sie gehören zur selben Art", "Weil Hunde klüger sind", "Das geht gar nicht", "Weil beide Fleisch fressen"]],
+      ["Was macht ein Hund, wenn ein Mensch auf etwas zeigt?", ["Er schaut dorthin", "Er beißt in den Finger", "Er bellt den Menschen an", "Er läuft weg"]]
+    ],
+    s4: [
+      ["Was macht ein Züchter?", ["Er wählt passende Eltern für die nächsten Jungen aus", "Er verändert ein Tier im Labor", "Er füttert besonders viel", "Er trainiert die Tiere"]],
+      ["Wie lange dauert es, bis eine neue Rasse entsteht?", ["Viele Generationen", "Ein Jahr", "Einen Wurf", "Ein paar Tage"]],
+      ["Chihuahua und Dogge sind …", ["dieselbe Art, nur andere Rassen", "verschiedene Arten", "keine echten Hunde", "Wölfe"]]
+    ]
+  },
+  profi: [
+    ["Von welchem Wildtier stammen alle Hunde ab?", ["Wolf", "Fuchs", "Schakal", "Hyäne"],
+      ["Lena: Vom Wolf – das hatten wir doch!", "Ben: Wolf, glaube ich.", "Mia: Wolf oder Fuchs …", "Tom: Der Fuchs sieht doch auch so aus."]],
+    ["Wie heißt eine Wolfsfamilie?", ["Rudel", "Herde", "Schwarm", "Horde"],
+      ["Paul: Rudel natürlich!", "Emma: Rudel, oder?", "Noah: Rudel oder Herde …", "Lea: Eine Herde?"]],
+    ["Was war wohl der erste Schritt zum Haushund?", ["Zutrauliche Wölfe kamen in die Nähe der Menschen", "Menschen fingen Wölfe in Fallen", "Wölfe wurden im Labor verändert", "Hunde liefen aus dem Zoo weg"],
+      ["Jonas: Die zutraulichen Wölfe kamen von selbst ans Lager!", "Hanna: Die kamen wegen der Reste, oder?", "Finn: Fallen oder zutraulich …", "Ida: Aus dem Zoo!"]],
+    ["Welches Merkmal ist typisch für Haustiere?", ["Gefleckte Felle", "Immer graues Fell", "Stehohren", "Lange Beine"],
+      ["Clara: Flecken – die gibt es bei Wildtieren kaum!", "Elias: Ich glaube, die Flecken.", "Luisa: Flecken oder Stehohren …", "Max: Lange Beine?"]],
+    ["Welche Laute machen Wölfe vor allem?", ["Heulen", "Bellen", "Miauen", "Quieken"],
+      ["Sophie: Heulen – besonders nachts!", "Leon: Heulen, oder?", "Marie: Heulen oder Bellen …", "Felix: Die bellen wie Hunde."]],
+    ["Ein Züchter will kleine Hunde. Was tut er?", ["Er lässt immer die kleinsten Tiere Junge bekommen", "Er gibt weniger Futter", "Er schneidet die Beine kürzer", "Er wartet, bis sie schrumpfen"],
+      ["Anna: Immer die Kleinsten auswählen!", "Luca: Ich glaube, auswählen …", "Mila: Auswählen oder weniger Futter …", "Jan: Weniger Futter!"]],
+    ["Wie viele Hunderassen gibt es ungefähr?", ["Über 300", "Etwa 10", "Etwa 30", "Über 30.000"],
+      ["Theo: Über 300 – unglaublich viele!", "Lina: Ein paar Hundert, oder?", "Erik: 300 oder 30 …", "Nele: Mindestens 30.000!"]],
+    ["Warum versteht ein Hund unsere Zeigegesten?", ["Weil er seit Tausenden Jahren mit Menschen lebt", "Weil er Deutsch kann", "Weil Wölfe auch zeigen", "Weil er gut sieht"],
+      ["Moritz: Weil Hunde schon so lange mit uns leben!", "Greta: Wegen dem Zusammenleben?", "Karl: Zusammenleben oder gute Augen …", "Pia: Der kann halt Deutsch."]]
+  ],
+  inhalt: {
+s1: () => `
+  <div class="prose lead"><p>Bevor es Hunde gab, gab es Wölfe. Jeder Dackel und jeder Labrador hat einen wilden Vorfahren – und den lernst du jetzt kennen.</p></div>
+  ${bild("wolf-portrait", "🐺", "Ein Wolf im Wald", "<b>Was du siehst:</b> Ein Wolf im Wald. Er ist etwa so groß wie ein Schäferhund, hat aber längere Beine und einen breiteren Kopf.")}
+  <div class="box" data-widget="karten" data-set="wolf">
+    <span class="eyebrow">Steckbrief Wolf</span>
+    <p class="klein">Tippe jede Karte an.</p>
+    <div class="karten"></div>
+  </div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Der Wolf ist ein <b>Raubtier</b>. Er lebt im <b>Rudel</b>, einer Familie, und jagt gemeinsam mit ihr. Der Wolf ist der wilde Vorfahr aller Hunde.</p></div>`,
+s2: () => `
+  <div class="prose lead"><p>Wie genau aus Wölfen Hunde wurden, hat niemand aufgeschrieben – das war lange vor der Erfindung der Schrift. So stellen es sich viele Forschende vor:</p></div>
+  <div class="box" data-widget="reihe"></div>
+  <div class="box" data-widget="ordnen">
+    <span class="eyebrow">Mitmachen</span>
+    <h3>Bring die Geschichte in die richtige Reihenfolge</h3>
+    <p class="klein">Tippe die Schritte nacheinander an – vom Wolf bis zum Hund heute.</p>
+    <div class="chips" data-pool></div>
+    <div class="ordnen"><ol></ol></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Der Hund ist das <b>älteste Haustier</b> des Menschen. Aus Wölfen, die immer zahmer wurden, entstanden über viele <b>Generationen</b> die ersten Hunde – vor über 15.000 Jahren.</p></div>`,
+s3: () => `
+  <div class="prose lead"><p>Ein Wolf und ein Schäferhund sehen sich ähnlich. Ein Wolf und ein Mops eher nicht. Trotzdem sind alle drei näher verwandt, als du denkst.</p></div>
+  ${bild("wolf-und-hund", "🐕", "Wolf und Schäferhund nebeneinander", "<b>Was du siehst:</b> Links ein Wolf, rechts ein Schäferhund. Vergleiche Kopf, Ohren, Beine und Schwanz.")}
+  <div class="box" data-widget="sort" data-set="wolfhund">
+    <span class="eyebrow">Mitmachen</span>
+    <h3>Wolf, Hund – oder beide?</h3>
+    <p class="klein">Tippe ein Merkmal an und dann das passende Fach.</p>
+    <div class="chips" data-pool></div><div class="bins drei"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Wolf und Hund gehören zur <b>selben Art</b>. Durch das lange Zusammenleben mit dem Menschen haben Hunde typische <b>Haustier-Merkmale</b> bekommen: Schlappohren, gefleckte Felle, eine kürzere Schnauze – und sie verstehen uns besonders gut.</p></div>`,
+s4: () => `
+  <div class="prose lead"><p>Ein Chihuahua wiegt so viel wie eine Tafel Schokolade – eine Dogge so viel wie ein Erwachsener. Wie kommt das?</p></div>
+  ${bild("hunderassen", "🐩", "Verschiedene Hunderassen nebeneinander", "<b>Was du siehst:</b> Vier Hunderassen nebeneinander – vom winzigen Chihuahua bis zur großen Dogge. Alle gehören zur selben Art.")}
+  <div class="prose"><p>Menschen haben über viele Generationen immer nur bestimmte Hunde Junge bekommen lassen: die kleinsten, die schnellsten oder die, die am besten hüten konnten. Das nennt man <b>Züchtung</b> oder <b>Auslese</b>. Probier es selbst!</p></div>
+  <div class="box" data-widget="zucht"></div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Bei der <b>Züchtung</b> wählt der Mensch die Eltern für die nächste Generation aus. Nach vielen Generationen verstärkt sich das gewünschte Merkmal. So entstehen neue <b>Rassen</b> – aber keine neue Art.</p></div>`,
+s5: () => `
+  <div class="prose lead"><p>Jetzt zeigst du, was du kannst! Acht Fragen, zwei Joker: Bei <b>50:50</b> verschwinden zwei falsche Antworten, beim <b>Publikumsjoker</b> ruft dir jemand aus der Klasse einen Tipp zu – aber Vorsicht, nicht jeder Tipp stimmt.</p></div>
+  <p class="klein">Für die Knochen zählt: 7–8 richtig = 3 Knochen, 5–6 = 2, 3–4 = 1.</p>`
+  }
+},
+h2: {
+  id: "h2", titel: "Vom Wildschwein zum Hausschwein", motto: "Nutztiere, Verhalten und gute Haltung", em: "🐷",
+  lead: "Woher kommen unsere Nutztiere – und wie geht es ihnen gut? Sammle Knochen für deinen Napf!",
+  stationen: [
+    { id: "s1", em: "🐗", titel: "Wildschwein und Hausschwein", kurz: "Ein Vergleich zum Durchklicken", min: 9 },
+    { id: "s2", em: "🐄", titel: "Wer ist der Vorfahr?", kurz: "Haustiere und ihre wilden Verwandten", min: 9 },
+    { id: "s3", em: "🐕", titel: "Was will mir der Hund sagen?", kurz: "Körpersprache verstehen", min: 9 },
+    { id: "s4", em: "⚖️", titel: "Artgerecht oder nicht?", kurz: "Haltung bewerten – und der Eier-Code", min: 10 },
+    { id: "s5", em: "🏆", titel: "Wer wird Haustier-Profi?", kurz: "Das Abschlussquiz mit Jokern", min: 8 }
+  ],
+  raenge: [
+    { ab: 0, name: "Ferkel", med: "🐷" }, { ab: 1, name: "Hofkenner", med: "🐓" },
+    { ab: 5, name: "Tierversteher", med: "🐕" }, { ab: 9, name: "Tierschutz-Profi", med: "⚖️" },
+    { ab: 13, name: "Haustier-Meister", med: "🏅" }
+  ],
+  abzeichen: [
+    { em: "🐾", name: "Erste Station", ok: h => h.fertige >= 1 },
+    { em: "🎯", name: "Volltreffer", ok: h => h.dreier >= 1 },
+    { em: "🐗", name: "Schweine-Kenner", ok: h => h.d.s1 && h.d.s1.done },
+    { em: "🥚", name: "Eier-Detektiv", ok: h => h.d.s4 && h.d.s4.done },
+    { em: "⭐", name: "Dreier-Serie", ok: h => h.dreier >= 3 },
+    { em: "🏆", name: "Haustier-Profi", ok: h => h.d.s5 && h.d.s5.knochen >= 3 },
+    { em: "🏅", name: "Haustier-Meister", ok: h => h.fertige >= 5 },
+    { em: "🦴", name: "Voller Napf", ok: h => h.summe >= 15 }
+  ],
+  checks: {
+    s1: [
+      ["Woran erkennst du junge Wildschweine?", ["An den hellen Längsstreifen", "Am rosa Fell", "Am Ringelschwanz", "An den Schlappohren"]],
+      ["Wer bekommt mehr Junge auf einmal?", ["Das Hausschwein", "Das Wildschwein", "Beide gleich viele", "Keines von beiden"]],
+      ["Wie heißen die langen Eckzähne des Keilers?", ["Hauer", "Hörner", "Krallen", "Stoßzähne"]]
+    ],
+    s2: [
+      ["Wer ist der Vorfahr unseres Hausrinds?", ["Auerochse", "Wisent", "Büffel", "Elch"]],
+      ["Warum kamen Wildkatzen zu den ersten Bauern?", ["In den Kornspeichern gab es Mäuse", "Sie wollten Milch", "Es war dort wärmer", "Sie mochten Getreide"]],
+      ["Welches Haustier ist am jüngsten?", ["Das Kaninchen", "Der Hund", "Das Schaf", "Das Rind"]]
+    ],
+    s3: [
+      ["Ein Hund zieht den Schwanz ein und legt die Ohren an. Er ist …", ["ängstlich", "fröhlich", "hungrig", "müde"]],
+      ["Ein fremder Hund läuft auf dich zu. Was tust du?", ["Ruhig stehen bleiben", "Schnell wegrennen", "Ihn anstarren", "Laut schreien"]],
+      ["Was solltest du tun, bevor du einen fremden Hund streichelst?", ["Den Halter fragen", "Ihm in die Augen schauen", "Ihn von hinten anfassen", "Gar nichts"]]
+    ],
+    s4: [
+      ["Was bedeutet die 1 am Anfang des Eier-Codes?", ["Freilandhaltung", "Bio", "Bodenhaltung", "Käfighaltung"]],
+      ["Warum brauchen Schweine Stroh?", ["Zum Wühlen und Beschäftigen", "Als Futter für den Winter", "Damit sie sauber bleiben", "Zum Schlafen auf dem Dach"]],
+      ["Was bedeutet die 0 am Anfang des Eier-Codes?", ["Bio-Haltung", "Keine Hühner", "Käfighaltung", "Ein faules Ei"]]
+    ]
+  },
+  profi: [
+    ["Wer ist der Vorfahr des Hausschweins?", ["Wildschwein", "Warzenschwein", "Nilpferd", "Dachs"],
+      ["Lukas: Das Wildschwein – ganz klar!", "Amelie: Wildschwein, oder?", "Jakob: Wildschwein oder Warzenschwein …", "Laura: Das Nilpferd ist doch auch rund."]],
+    ["Warum suhlen sich Schweine im Schlamm?", ["Sie kühlen sich ab", "Sie sind schmutzig", "Sie suchen Futter", "Sie wollen sich verstecken"],
+      ["Mats: Zum Abkühlen – Schweine können kaum schwitzen!", "Emily: Abkühlen, glaube ich.", "Henry: Abkühlen oder Futter …", "Frieda: Weil sie Dreck mögen!"]],
+    ["Der Auerochse ist …", ["ausgestorben", "noch im Wald unterwegs", "ein Haustier", "ein anderer Name für den Elch"],
+      ["Oskar: Ausgestorben – schon seit fast 400 Jahren!", "Mathilda: Ausgestorben, oder?", "Anton: Ausgestorben oder im Wald …", "Romy: Der lebt noch im Zoo."]],
+    ["Von welchem Wildtier stammt das Haushuhn ab?", ["Bankivahuhn", "Fasan", "Rebhuhn", "Pfau"],
+      ["Johanna: Vom Bankivahuhn aus Asien!", "Leo: Bankivahuhn …?", "Ella: Bankiva oder Fasan …", "Ben: Vom Fasan!"]],
+    ["Ein Hund mit steifem Körper, gefletschten Zähnen und hohem Schwanz …", ["droht", "freut sich", "schläft gleich ein", "hat Hunger"],
+      ["Malte: Der droht – Abstand halten!", "Ronja: Der ist sauer, oder?", "Till: Droht oder freut sich …", "Merle: Der will spielen!"]],
+    ["Was zeigt die erste Ziffer auf dem Ei?", ["Wie die Hühner gehalten werden", "Wie alt das Ei ist", "Wie groß das Ei ist", "Welche Farbe das Huhn hat"],
+      ["Konstantin: Die Haltung – 0 ist Bio!", "Marlene: Wie die Hühner leben …?", "Vincent: Haltung oder Alter …", "Smilla: Das Datum!"]],
+    ["Was ist für Kaninchen artgerecht?", ["Zu zweit mit viel Auslauf", "Allein im kleinen Käfig", "Auf dem Balkon ohne Schatten", "In einem Karton"],
+      ["Juna: Zu zweit und mit viel Platz!", "Lotta: Zu zweit, oder?", "Arne: Zu zweit oder allein …", "Kian: Allein ist doch ruhiger."]],
+    ["Bei der Züchtung von Nutztieren …", ["wählt der Mensch die Eltern aus", "suchen sich die Tiere selbst Partner", "entstehen neue Arten über Nacht", "passiert gar nichts"],
+      ["Hannes: Der Mensch sucht die Eltern aus!", "Alma: Auswählen, oder?", "Bruno: Auswählen oder selbst suchen …", "Tilda: Über Nacht!"]]
+  ],
+  inhalt: {
+s1: () => `
+  <div class="prose lead"><p>Im Wald wühlt das Wildschwein, im Stall grunzt das Hausschwein. Die beiden sind eng verwandt – doch tausende Jahre Züchtung haben aus dem einen das andere gemacht.</p></div>
+  ${bild("wildschwein-frischlinge", "🐗", "Wildschwein-Bache mit gestreiften Frischlingen", "<b>Was du siehst:</b> Eine Bache mit ihren Frischlingen. Die Jungen haben helle Längsstreifen – im Waldboden sind sie damit gut getarnt.")}
+  <div class="box anim" data-widget="schwein"></div>
+  ${bild("hausschwein-stroh", "🐷", "Hausschweine im Stroh", "<b>Was du siehst:</b> Hausschweine im Stroh. Sie wühlen mit dem Rüssel – genau wie ihre wilden Verwandten.")}
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Das <b>Hausschwein</b> stammt vom <b>Wildschwein</b> ab. Vor etwa 10.000 Jahren begannen Bauern, Wildschweine zu halten. Durch Züchtung wurden sie größer, bekamen mehr Ferkel, verloren ihr dichtes Borstenfell und ihre langen Hauer.</p></div>`,
+s2: () => `
+  <div class="prose lead"><p>Nicht nur Hund und Schwein haben wilde Vorfahren. Fast alle unsere Haustiere wurden in den letzten 10.000 Jahren aus Wildtieren gezähmt und gezüchtet.</p></div>
+  <div class="box" data-widget="sort" data-set="vorfahren">
+    <span class="eyebrow">Mitmachen</span>
+    <h3>Wer ist der wilde Vorfahr?</h3>
+    <p class="klein">Tippe ein Wildtier an und dann das passende Haustier.</p>
+    <div class="chips" data-pool></div><div class="bins"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  ${bild("huehner-freiland", "🐓", "Hühner im Freilauf auf einer Wiese", "<b>Was du siehst:</b> Hühner scharren auf einer Wiese. Ihr wilder Vorfahr, das Bankivahuhn, lebt noch heute in den Wäldern Südostasiens.")}
+  <details><summary>Für Neugierige: Auch Gemüse hat wilde Vorfahren</summary><div class="grid">
+    <p>An den Küsten Europas wächst der <b>Wildkohl</b>. Aus dieser einen Pflanze haben Menschen viele Gemüse gezüchtet – je nachdem, welcher Teil besonders groß werden sollte:</p>
+    <ul class="clean"><li>große Blätter → Grünkohl, Weißkohl, Rotkohl</li><li>dicker Stängel → Kohlrabi</li><li>viele Blüten → Blumenkohl, Brokkoli</li><li>Knospen am Stängel → Rosenkohl</li></ul>
+    <p>Das funktioniert genau wie beim Hund: Auslese über viele Generationen.</p></div></details>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Jedes Haustier hat eine <b>Wildform</b>. Die Haustiere nennt man auch <b>Nutzformen</b>. Durch Züchtung unterscheiden sie sich heute oft stark von ihren wilden Vorfahren.</p></div>`,
+s3: () => `
+  <div class="prose lead"><p>Hunde können nicht sprechen – aber sie zeigen sehr deutlich, wie es ihnen geht. Wer die Körpersprache lesen kann, ist sicherer unterwegs.</p></div>
+  ${bild("hund-begruessung", "🐕", "Freundlicher Hund wedelt mit dem Schwanz", "<b>Was du siehst:</b> Ein entspannter Hund. Lockerer Körper, leicht offenes Maul, der Schwanz wedelt locker hin und her.")}
+  <div class="prose"><p>Achte auf vier Dinge: <b>Körper</b> (locker oder steif?), <b>Ohren</b> (aufgerichtet, nach vorn oder angelegt?), <b>Schwanz</b> (locker, hoch oder eingeklemmt?) und <b>Maul</b> (entspannt oder Zähne gefletscht?).</p></div>
+  <div class="box anim" data-widget="koerper"></div>
+  <div class="box" data-widget="karten" data-set="hundregeln">
+    <span class="eyebrow">Vier Regeln bei fremden Hunden</span>
+    <p class="klein">Tippe jede Karte an.</p>
+    <div class="karten"></div>
+  </div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Hunde zeigen mit ihrem <b>Körper</b>, wie sie sich fühlen. Ein ängstlicher Hund macht sich klein, ein drohender Hund macht sich groß und steif. Viele Signale kennt schon der Wolf – sie helfen dem Rudel, Streit zu vermeiden.</p></div>`,
+s4: () => `
+  <div class="prose lead"><p>Haustiere sind auf uns angewiesen. Artgerecht heißt: Ein Tier darf sich so verhalten, wie es seiner Natur entspricht – und die stammt oft noch von seinen wilden Vorfahren.</p></div>
+  <div class="box" data-widget="sort" data-set="haltung">
+    <span class="eyebrow">Bewerten</span>
+    <h3>Artgerecht oder nicht?</h3>
+    <p class="klein">Tippe eine Haltung an und dann das passende Fach.</p>
+    <div class="chips" data-pool></div><div class="bins"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  <div class="box" data-widget="eier"></div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p><b>Artgerechte Haltung</b> lässt Tiere ihr natürliches Verhalten zeigen: Schweine wühlen, Hühner scharren, Kaninchen hoppeln, Hunde schnüffeln. Beim Einkaufen können wir mitentscheiden – zum Beispiel mit dem <b>Eier-Code</b>.</p></div>`,
+s5: () => `
+  <div class="prose lead"><p>Zum Schluss: Acht Fragen, zwei Joker. Bei <b>50:50</b> verschwinden zwei falsche Antworten, beim <b>Publikumsjoker</b> ruft dir jemand einen Tipp zu – nicht jeder stimmt!</p></div>
+  <p class="klein">Für die Knochen zählt: 7–8 richtig = 3 Knochen, 5–6 = 2, 3–4 = 1.</p>`
+  }
+}
+};
+const IDS = Object.keys(EXPS);
+const MAXN = eid => EXPS[eid].stationen.length * 3;
+const rangIndex = (eid, t) => { let i = 0; EXPS[eid].raenge.forEach((r, k) => { if (t >= r.ab) i = k; }); return i; };
+function kennzahlen(eid) {
+  const d = S[eid] || {}; let summe = 0, fertige = 0, dreier = 0;
+  EXPS[eid].stationen.forEach(s => { const e = d[s.id]; if (e && e.done) { summe += e.knochen || 0; fertige++; if (e.knochen >= 3) dreier++; } });
+  return { summe, fertige, dreier, d };
+}
+
+/* ============ Übungs-Widgets ============ */
+const WIDGETS = {
+  sort(el) {
+    const set = SORT_SETS[el.dataset.set], pool = $("[data-pool]", el), fb = $(".feedback", el), binsEl = $(".bins", el);
+    binsEl.innerHTML = set.bins.map(([k, t]) => `<div class="bin" data-bin="${k}" role="button" tabindex="0"><h4>${t}</h4><div class="chips"></div></div>`).join("");
+    let sel = null, rest = set.items.length;
+    shuffle(set.items).forEach(([name, bin, why]) => {
+      const c = document.createElement("button"); c.type = "button"; c.className = "chip"; c.textContent = name;
+      c.dataset.bin = bin; c.dataset.why = why;
+      c.onclick = () => { $$(".chip.sel", pool).forEach(x => x.classList.remove("sel")); sel = c; c.classList.add("sel"); };
+      pool.appendChild(c);
+    });
+    $$(".bin", el).forEach(b => {
+      b.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); b.click(); } };
+      b.onclick = () => {
+        if (!sel) { fb.className = "feedback"; fb.textContent = "Tippe zuerst einen Begriff an."; return; }
+        if (sel.dataset.bin === b.dataset.bin) {
+          sel.classList.remove("sel"); sel.classList.add("ok"); sel.onclick = null; $(".chips", b).appendChild(sel);
+          fb.className = "feedback good"; fb.textContent = "Richtig! " + sel.dataset.why; sel = null; rest--;
+          if (!rest) fb.textContent += " – Alles einsortiert, prima!";
+        } else {
+          const c = sel; c.classList.add("shake"); setTimeout(() => c.classList.remove("shake"), 400);
+          fb.className = "feedback bad"; fb.textContent = "Nicht ganz – probier ein anderes Fach.";
+        }
+      };
+    });
+  },
+
+  karten(el) {
+    const box = $(".karten", el);
+    KARTEN_SETS[el.dataset.set].forEach(([vorn, hinten]) => {
+      const k = document.createElement("button"); k.type = "button"; k.className = "karte";
+      const zeig = offen => { k.classList.toggle("offen", offen); k.innerHTML = offen ? `<span class="kk">${vorn}</span><span class="kr">${hinten}</span>` : `<span class="kk">${vorn}</span><span class="tipp">Antippen ›</span>`; };
+      let offen = false; zeig(false); k.onclick = () => { offen = !offen; zeig(offen); };
+      box.appendChild(k);
+    });
+  },
+
+  reihe(el) {
+    let i = 0;
+    const zeig = () => {
+      const r = REIHE[i];
+      el.innerHTML = `<span class="eyebrow">Bilderreihe · Bild ${i + 1} von ${REIHE.length}</span>
+        <div class="reihe">
+          <span class="reihe-zeit">${r.zeit}</span>
+          <h3>${r.titel}</h3>
+          ${bild(r.bild, r.em, r.titel, "")}
+          <p>${r.text}</p>
+          <div class="reihe-nav">
+            <button type="button" class="knopf" id="rh-z" ${i ? "" : "disabled"}>‹ Zurück</button>
+            <div class="reihe-punkte">${REIHE.map((_, k) => `<i class="${k === i ? "an" : ""}"></i>`).join("")}</div>
+            <button type="button" class="knopf prim" id="rh-w">${i + 1 < REIHE.length ? "Weiter ›" : "↻ Von vorn"}</button>
+          </div>
+        </div>`;
+      $("#rh-z", el).onclick = () => { i--; zeig(); };
+      $("#rh-w", el).onclick = () => { i = (i + 1) % REIHE.length; zeig(); };
+    };
+    zeig();
+  },
+
+  ordnen(el) {
+    const pool = $("[data-pool]", el), liste = $("ol", el), fb = $(".feedback", el);
+    let naechster = 0;
+    shuffle(REIHE.map((r, k) => [r.titel, k])).forEach(([t, k]) => {
+      const c = document.createElement("button"); c.type = "button"; c.className = "chip"; c.textContent = t;
+      c.onclick = () => {
+        if (k === naechster) {
+          c.remove(); const li = document.createElement("li"); li.textContent = t; liste.appendChild(li); naechster++;
+          fb.className = "feedback good"; fb.textContent = naechster === REIHE.length ? "Perfekt – vom Wolf zum Hund in der richtigen Reihenfolge!" : "Richtig!";
+        } else {
+          c.classList.add("shake"); setTimeout(() => c.classList.remove("shake"), 400);
+          fb.className = "feedback bad"; fb.textContent = "Noch nicht – was passiert davor?";
+        }
+      };
+      pool.appendChild(c);
+    });
+  },
+
+  zucht(el) {
+    const ZIEL = 22, START = 62;
+    let gen = 1, mittel = START, verlauf = [START];
+    const zeichne = () => {
+      const welpen = shuffle([-8, -3, 2, 7].map(d => Math.max(14, Math.round(mittel + d + (Math.random() * 4 - 2)))));
+      el.innerHTML = `<span class="eyebrow">Spiel</span><h3>Züchte einen kleinen Hund!</h3>
+        <p class="klein">Deine Hunde sind ${START} cm groß. Ziel: kleiner als ${ZIEL} cm. Wähle in jeder Generation den Welpen aus, der Eltern der nächsten Generation werden soll.</p>
+        <div class="zucht">
+          <p><b>Generation ${gen}</b> – welcher Welpe darf später Junge bekommen?</p>
+          <div class="welpen">${welpen.map(g => `<button type="button" class="welpe" data-g="${g}"><span style="font-size:${Math.max(18, g * .62)}px">🐕</span>${g} cm</button>`).join("")}</div>
+          <div class="zucht-leiste" aria-label="Größe der Hunde in jeder Generation">${verlauf.map((g, k) => `<div style="height:${g / START * 100}%">${k + 1}</div>`).join("")}</div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>`;
+      $$(".welpe", el).forEach(b => b.onclick = () => {
+        const g = +b.dataset.g; $$(".welpe", el).forEach(x => x.disabled = true); b.classList.add("gewaehlt");
+        const fb = $(".feedback", el), kleinster = Math.min(...welpen);
+        mittel = g; gen++; verlauf.push(g);
+        if (g <= ZIEL) {
+          fb.className = "feedback good";
+          fb.innerHTML = `Geschafft! Nach ${gen - 1} Generationen sind deine Hunde nur noch ${g} cm groß. Echte Züchter brauchen dafür viele Jahrzehnte.`;
+          const k = document.createElement("div"); k.className = "knopfreihe"; k.innerHTML = `<button type="button" class="knopf">↻ Nochmal züchten</button>`;
+          $(".zucht", el).appendChild(k); $("button", k).onclick = () => { gen = 1; mittel = START; verlauf = [START]; zeichne(); };
+        } else {
+          fb.className = "feedback " + (g === kleinster ? "good" : "bad");
+          fb.textContent = g === kleinster ? "Gute Wahl – der kleinste Welpe! Seine Jungen werden etwas kleiner." : `Hm, es gab einen kleineren Welpen (${kleinster} cm). So dauert es länger …`;
+          setTimeout(zeichne, reduce ? 300 : 1600);
+        }
+      });
+    };
+    zeichne();
+  },
+
+  schwein(el) {
+    const M = [
+      ["Fell", "dichte, dunkle Borsten", "wenige, helle Borsten – die Haut ist rosa"],
+      ["Kopf", "lang und keilförmig", "kürzer und runder"],
+      ["Zähne", "Keiler haben lange Hauer", "Hauer sind klein oder fehlen"],
+      ["Körperbau", "vorn hoch, hinten schmal", "lang, gleichmäßig breit – mehr Fleisch"],
+      ["Schwanz", "gerade, mit einer Quaste", "oft geringelt"],
+      ["Junge", "4 bis 8 Frischlinge, gestreift", "10 bis 14 Ferkel, ohne Streifen"]
+    ];
+    let i = 0;
+    el.innerHTML = `<span class="eyebrow">Vergleichen</span><h3>Wildschwein 🐗 oder Hausschwein 🐷?</h3>
+      <div class="tabs">${M.map(([n], k) => `<button type="button" class="sbtn ${k ? "" : "an"}" data-k="${k}">${n}</button>`).join("")}</div>
+      <div class="vgl"></div>`;
+    const zeig = k => {
+      i = k; $$(".sbtn", el).forEach(b => b.classList.toggle("an", +b.dataset.k === k));
+      const [n, w, h] = M[k];
+      $(".vgl", el).innerHTML = `<div class="karten"><div class="karte offen"><span class="kk">🐗 Wildschwein</span><span class="kr">${w}</span></div>
+        <div class="karte offen"><span class="kk">🐷 Hausschwein</span><span class="kr">${h}</span></div></div>`;
+    };
+    $$(".sbtn", el).forEach(b => b.onclick = () => zeig(+b.dataset.k)); zeig(0);
+  },
+
+  koerper(el) {
+    const reihe = shuffle(KOERPER); let i = 0, richtig = 0;
+    const zeig = () => {
+      if (i >= reihe.length) {
+        el.innerHTML = `<span class="eyebrow">Körpersprache</span><h3>${richtig} von ${reihe.length} richtig gedeutet!</h3>
+          <p>${richtig === reihe.length ? "Du verstehst Hunde! 🐕" : "Schau dir die Erklärungen noch mal an."}</p>
+          <div class="knopfreihe"><button type="button" class="knopf" id="kp-neu">↻ Nochmal</button></div>`;
+        $("#kp-neu", el).onclick = () => { i = 0; richtig = 0; zeig(); }; return;
+      }
+      const h = reihe[i];
+      el.innerHTML = `<span class="eyebrow">Körpersprache ${i + 1} von ${reihe.length}</span><h3>Wie fühlt sich dieser Hund?</h3>
+        ${hundSVG(h.art)}
+        <div class="answers">${KOERPER.map(k => `<button type="button" class="ans" data-a="${k.art}"><span>${k.name}</span></button>`).join("")}</div>
+        <p class="feedback" aria-live="polite"></p>
+        <div class="knopfreihe"><button type="button" class="knopf prim" id="kp-w" hidden>${i + 1 < reihe.length ? "Nächster Hund ›" : "Auswertung"}</button></div>`;
+      $$(".ans", el).forEach(b => b.onclick = () => {
+        const ok = b.dataset.a === h.art; if (ok) richtig++;
+        $$(".ans", el).forEach(x => { x.disabled = true; if (x.dataset.a === h.art) x.classList.add("ok"); });
+        if (!ok) b.classList.add("bad");
+        const fb = $(".feedback", el); fb.className = "feedback " + (ok ? "good" : "bad"); fb.textContent = (ok ? "Richtig! " : "Nicht ganz. ") + h.warum;
+        $("#kp-w", el).hidden = false;
+      });
+      $("#kp-w", el).onclick = () => { i++; zeig(); };
+    };
+    zeig();
+  },
+
+  eier(el) {
+    const E = [
+      ["0-DE-0312345", "0", "🌿 Bio-Haltung", "Die Hühner haben Auslauf ins Freie (mindestens 4 m² pro Huhn), weniger Tiere im Stall und Bio-Futter."],
+      ["1-DE-0612345", "1", "🌳 Freilandhaltung", "Die Hühner dürfen tagsüber nach draußen – mindestens 4 m² Auslauf pro Huhn."],
+      ["2-DE-0512345", "2", "🏠 Bodenhaltung", "Die Hühner leben in einer großen Halle, aber ohne Auslauf ins Freie. Bis zu 9 Hühner teilen sich einen Quadratmeter."],
+      ["3-DE-0112345", "3", "🔒 Käfighaltung", "Die Hühner leben in Käfigen mit sehr wenig Platz. In Deutschland ist das kaum noch erlaubt – in anderen Ländern schon."]
+    ];
+    el.innerHTML = `<span class="eyebrow">Für den Einkauf</span><h3>Der Eier-Code</h3>
+      <p class="klein">Auf jedem frischen Ei steht ein Code. Die <b>erste Ziffer</b> verrät, wie die Hühner leben. Tippe ein Ei an!</p>
+      <div class="eier">${E.map((e, k) => `<button type="button" class="ei" data-k="${k}">${e[0]}</button>`).join("")}</div>
+      <p class="anim-text" aria-live="polite">Die Buchstaben <b>DE</b> stehen für Deutschland, die Zahlen danach für den Hof.</p>
+      <p class="klein">Tipp: In Nudeln oder Keksen steht meist nicht dabei, woher die Eier kommen.</p>`;
+    $$(".ei", el).forEach(b => b.onclick = () => {
+      $$(".ei", el).forEach(x => x.classList.toggle("an", x === b));
+      const e = E[+b.dataset.k]; $(".anim-text", el).innerHTML = `<b>${e[1]} = ${e[2]}</b><br>${e[3]}`;
+    });
+  }
+};
+
+/* ============ Quiz ============ */
+function quiz(el, data, jokers, fertig) {
+  let i = 0, score = 0, j50 = false, jpub = false; const marks = [];
+  const qs = data.map(([q, a, hints]) => ({ q, hints, a: shuffle(a.map((t, k) => ({ t, ok: k === 0 }))) }));
+  const zeichne = () => {
+    if (i >= qs.length) return fertig(score, qs.length);
+    const q = qs[i];
+    el.innerHTML = `<div class="quiz">
+      <div class="qhead"><span class="eyebrow">Frage ${i + 1} von ${qs.length}</span><div class="dots">${qs.map((_, k) => `<i class="${marks[k] || (k === i ? "now" : "")}"></i>`).join("")}</div></div>
+      <p class="qq">${q.q}</p>
+      <div class="answers">${q.a.map((a, k) => `<button type="button" class="ans" data-k="${k}"><b>${"ABCD"[k]}</b><span>${a.t}</span></button>`).join("")}</div>
+      ${jokers ? `<div class="jokers"><button type="button" class="knopf" data-j="50" ${j50 ? "disabled" : ""}>50:50</button><button type="button" class="knopf" data-j="pub" ${jpub ? "disabled" : ""}>📣 Publikumsjoker</button></div>` : ""}
+      <p class="publikum" hidden></p>
+      <p class="feedback" aria-live="polite"></p>
+      <div><button type="button" class="knopf prim" data-weiter hidden>${i + 1 < qs.length ? "Nächste Frage" : "Auswertung"}</button></div></div>`;
+    $$(".ans", el).forEach(b => b.onclick = () => antwort(+b.dataset.k));
+    const b50 = $('[data-j="50"]', el), bp = $('[data-j="pub"]', el);
+    if (b50) b50.onclick = () => { j50 = true; b50.disabled = true;
+      shuffle(q.a.map((a, k) => k).filter(k => !q.a[k].ok)).slice(0, 2).forEach(k => { $(`.ans[data-k="${k}"]`, el).hidden = true; }); };
+    if (bp) bp.onclick = () => { jpub = true; bp.disabled = true; const p = $(".publikum", el); p.hidden = false;
+      const r = Math.random(), h = q.hints[r < .45 ? 0 : r < .7 ? 1 : r < .88 ? 2 : 3];
+      p.textContent = "„" + h.replace(/^([^:]+): /, "$1 ruft: ") + "“"; };
+    $("[data-weiter]", el).onclick = () => { i++; zeichne(); };
+  };
+  const antwort = k => {
+    const q = qs[i], ok = q.a[k].ok;
+    $$(".ans", el).forEach(b => { b.disabled = true; if (q.a[+b.dataset.k].ok) b.classList.add("ok"); });
+    if (!ok) $(`.ans[data-k="${k}"]`, el).classList.add("bad");
+    $$("[data-j]", el).forEach(b => b.disabled = true);
+    marks[i] = ok ? "ok" : "bad"; if (ok) score++;
+    const fb = $(".feedback", el); fb.className = "feedback " + (ok ? "good" : "bad"); fb.textContent = ok ? "Richtig!" : "Leider falsch.";
+    $("[data-weiter]", el).hidden = false; $("[data-weiter]", el).focus();
+  };
+  zeichne();
+}
+
+/* ============ Station abschließen ============ */
+function abschliessen(eid, sid, score, total) {
+  const X = EXPS[eid], n = X.stationen.length;
+  const knochen = total === 3 ? score : (score >= 7 ? 3 : score >= 5 ? 2 : score >= 3 ? 1 : 0);
+  const vorher = kennzahlen(eid), rangVorher = rangIndex(eid, vorher.summe), alleVorher = vorher.fertige === n;
+  const abzVorher = X.abzeichen.map(a => a.ok(vorher));
+  S[eid] = S[eid] || {};
+  const alt = S[eid][sid];
+  S[eid][sid] = { done: true, knochen: Math.max(knochen, alt ? alt.knochen || 0 : 0), ts: Date.now() };
+  speichern();
+  const nach = kennzahlen(eid), rangNach = rangIndex(eid, nach.summe);
+  return { knochen, best: S[eid][sid].knochen, neuerRang: rangNach > rangVorher ? X.raenge[rangNach] : null,
+    geschafft: !alleVorher && nach.fertige === n, neueAbz: X.abzeichen.filter((a, k) => !abzVorher[k] && a.ok(nach)) };
+}
+
+/* ============ Ansichten ============ */
+const app = $("#app");
+const kopf = (titel, unter) => `<header class="app-head">
+  <a class="zurueck-kopf" href="../index.html">‹ Fauna</a>
+  <div class="logo">🐺 → 🐕</div><h1>${titel}</h1><div class="untertitel">${unter}</div></header>`;
+const fuss = () => `<footer class="fuss">
+  <div>Fortschritt wird nur auf diesem Gerät gespeichert. Keine Anmeldung, keine Datensammlung.</div>
+  <div><a href="../../index.html">⌂ Bio Mibaso</a> · <a href="../../ueber/">Über mich</a> · <a href="../../impressum/">Impressum &amp; Datenschutz</a></div>
+  <div>© 2026 Michael Baur · Expedition Haustier</div></footer>`;
+
+function seiteStart() {
+  const kachel = eid => { const X = EXPS[eid], h = kennzahlen(eid);
+    return `<a class="kachel" href="#${eid}"><span class="ke">${X.em}</span><span><span class="kt">Teil ${IDS.indexOf(eid) + 1} · ${X.titel}</span><span class="kb">${X.motto} · 5 Stationen · ca. 45 Min · 🦴 ${h.summe}/${MAXN(eid)}</span></span><span class="pf">›</span></a>`; };
+  app.innerHTML = `${kopf("Wild &amp; zahm", "Vom Wildtier zum Haustier")}
+  <div class="huelle">
+    <section>
+      <p class="lead">Jeder Hund hat einen Wolf als Vorfahren, jedes Hausschwein ein Wildschwein. Zwei Expeditionen zeigen dir, wie aus Wildtieren Haustiere wurden – und was sie heute brauchen. Für jede Station gibt es bis zu drei Knochen 🦴. Füll deinen Napf und hol dir die Urkunde!</p>
+    </section>
+    <section>
+      <h2 class="h-blau">Deine Expeditionen</h2>
+      <div class="kacheln">${IDS.map(kachel).join("")}</div>
+    </section>
+    <section>
+      <details class="lehrer"><summary>Für Lehrkräfte: Einsatz in Klasse 5/6</summary><div class="grid">
+        <div class="ablauf"><b>Teil 1</b><span>Vom Wolf zum Hund – Wolf als Wildform, Bilderreihe zur Domestikation, Vergleich Wolf und Hund, Züchtung als Auslese (ca. 45 Min)</span>
+          <b>Teil 2</b><span>Vom Wildschwein zum Hausschwein – Wild- und Nutzformen, Körpersprache des Hundes, artgerechte Haltung, Eier-Code (ca. 45 Min)</span></div>
+        <p>Beide Teile zusammen füllen eine Doppelstunde, lassen sich aber auch einzeln in zwei Stunden einsetzen. Alles läuft im Browser auf Tablet, Handy oder am Beamer – ohne Anmeldung, ohne Datensammlung, ohne Ton (nur bei voller Punktzahl erklingt eine kurze Fanfare).</p>
+        <p><b>Bezug zum hessischen Kerncurriculum Biologie, Jahrgangsstufe 5/6:</b> Vielfalt, Veränderung und Abstammung von Lebewesen (Abstammung und Züchtung, Wild- und Nutzformen), Informationsfluss (Verhaltensweisen bei Haus- und Nutztieren), Bewertung (Züchtung, Haltung und Nutzung von Haus- und Nutztieren, Konsumverhalten).</p>
+        <ul class="clean">
+          <li><b>Stufenweise:</b> Jede Station öffnet sich erst, wenn die vorige geschafft ist. Mit „Alle offen“ kann frei gewählt werden.</li>
+          <li><b>Zum Weiterarbeiten:</b> Eierkartons von zu Hause mitbringen lassen und die Codes vergleichen.</li>
+          <li><b>Urkunde:</b> Am Ende tragen die Kinder ihren Namen ein und drucken die Urkunde oder speichern sie als PDF.</li>
+          <li><b>Geteilte Geräte:</b> Im Haustierpass ganz unten „Pass zurücksetzen“.</li>
+        </ul></div></details>
+    </section>
+    ${fuss()}
+  </div>`;
+}
+
+function seitePass(eid, neu) {
+  const X = EXPS[eid], MAX = MAXN(eid), h = kennzahlen(eid), ri = rangIndex(eid, h.summe), rang = X.raenge[ri], next = X.raenge[ri + 1], n = X.stationen.length;
+  const anderer = IDS.find(k => k !== eid);
+  app.innerHTML = `
+  <div class="subkopf"><div class="row"><a class="zurueck" href="#start">‹ Wild &amp; zahm</a><span class="tchip">🦴 ${h.summe} / ${MAX}</span></div></div>
+  <div class="huelle">
+    <section>
+      <span class="eyebrow">Dein Haustierpass · Teil ${IDS.indexOf(eid) + 1}</span>
+      <h2 class="h-blau">${X.titel}</h2>
+      <p class="lead">${X.lead}</p>
+      <div class="buehne">
+        <div class="rangchip"><span class="med">${rang.med}</span><span>Rang<b>${rang.name}</b></span></div>
+        <div class="zaehler">${h.summe} / ${MAX} 🦴</div>
+        ${napfSVG(h.summe, MAX, neu)}
+        <div class="boden"></div>
+      </div>
+      <div class="fbalken"><i id="fbar"></i></div>
+      <p class="naechster">${next ? `Noch <b>${next.ab - h.summe} Knochen</b> bis zum Rang „${next.name}“` : `Höchster Rang erreicht – ${rang.name}! 🎉`}</p>
+      <div class="schalter"><span class="lab">Spielmodus:</span>
+        <button type="button" class="sbtn ${S.modus === "frei" ? "an" : ""}" data-m="frei">🔓 Alle offen</button>
+        <button type="button" class="sbtn ${S.modus === "level" ? "an" : ""}" data-m="level">🔒 Stufenweise</button></div>
+    </section>
+    <section>
+      <h2 class="h-honig">Deine Stationen</h2>
+      <div class="stationen">${X.stationen.map((s, k) => {
+        const e = h.d[s.id], done = !!(e && e.done), vor = k === 0 || !!(h.d[X.stationen[k - 1].id] && h.d[X.stationen[k - 1].id].done);
+        const offen = S.modus === "frei" || done || vor;
+        const cls = done ? "fertig" : offen ? "aktiv" : "gesperrt";
+        const rechts = done ? knochenHTML(e.knochen) : offen ? `ca. ${s.min} Min ›` : "🔒";
+        const inner = `<span class="nr">${s.em}</span><span><span class="st">${k + 1}. ${s.titel}</span><span class="sk">${s.kurz}</span></span><span class="stand">${rechts}</span>`;
+        return offen ? `<a class="station ${cls}" href="#${eid}-${s.id}">${inner}</a>` : `<div class="station ${cls}" aria-disabled="true">${inner}</div>`;
+      }).join("")}</div>
+      ${h.fertige === n && anderer ? `<p class="klein">Weiter geht’s mit <a href="#${anderer}">Teil ${IDS.indexOf(anderer) + 1}: ${EXPS[anderer].titel}</a>.</p>` : ""}
+    </section>
+    <section>
+      <h2 class="h-blau">Urkunde</h2>
+      ${h.fertige ? `<p>${h.fertige === n ? "Geschafft! Trag deinen Namen ein und hol dir deine Urkunde." : `Du hast ${h.fertige} von ${n} Stationen geschafft. Die Urkunde zeigt deinen Zwischenstand.`}</p>
+        <div><button type="button" class="knopf honig" id="urkBtn">📜 Urkunde ansehen</button></div>`
+        : `<p class="klein">Schaff die erste Station – dann gibt es hier deine Urkunde.</p>`}
+    </section>
+    <section>
+      <h2 class="h-honig">Abzeichen-Album</h2>
+      <div class="album">${X.abzeichen.map(a => { const ok = a.ok(h); return `<div class="abz ${ok ? "auf" : "zu"}"><span class="em">${a.em}</span>${a.name}</div>`; }).join("")}</div>
+    </section>
+    <section class="reset" id="resetBox">
+      <button type="button" class="knopf" id="resetBtn">Pass zurücksetzen</button>
+      <p class="hint">Löscht Knochen und Abzeichen dieses Teils auf diesem Gerät – zum Beispiel für die nächste Person.</p>
+    </section>
+    ${fuss()}
+  </div>`;
+  requestAnimationFrame(() => requestAnimationFrame(() => { const b = $("#fbar"); if (b) b.style.width = (h.summe / MAX * 100) + "%"; }));
+  $$("[data-m]", app).forEach(b => b.onclick = () => { S.modus = b.dataset.m; speichern(); route(true); });
+  const ub = $("#urkBtn"); if (ub) ub.onclick = () => urkunde(eid);
+  $("#resetBtn").onclick = () => {
+    $("#resetBox").innerHTML = `<p><b>Wirklich alles löschen?</b> Knochen, Abzeichen und Name auf diesem Gerät sind dann weg.</p>
+      <div class="knopfreihe"><button type="button" class="knopf prim" id="jaReset">Ja, zurücksetzen</button><button type="button" class="knopf" id="neinReset">Abbrechen</button></div>`;
+    $("#jaReset").onclick = () => { S[eid] = {}; S.name = ""; speichern(); toast("Haustierpass zurückgesetzt."); route(true); };
+    $("#neinReset").onclick = () => route(true);
+  };
+}
+
+function seiteStation(eid, sid) {
+  const X = EXPS[eid], MAX = MAXN(eid), k = X.stationen.findIndex(s => s.id === sid), s = X.stationen[k], h = kennzahlen(eid);
+  const vor = k === 0 || !!(h.d[X.stationen[k - 1].id] && h.d[X.stationen[k - 1].id].done);
+  if (S.modus === "level" && !vor && !(h.d[sid] && h.d[sid].done)) { location.hash = eid; return; }
+  const finale = sid === "s5";
+  app.innerHTML = `
+  <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Haustierpass</a><span class="tchip" id="tchip">🦴 ${h.summe} / ${MAX}</span></div></div>
+  <div class="huelle">
+    <section>
+      <span class="eyebrow">Teil ${IDS.indexOf(eid) + 1} · Station ${k + 1} von ${X.stationen.length} · ca. ${s.min} Min</span>
+      <h2 class="h-blau">${s.em} ${s.titel}</h2>
+      ${X.inhalt[sid]()}
+    </section>
+    <section>
+      <h2 class="h-honig">${finale ? "Los geht’s!" : "Station-Check"}</h2>
+      ${finale ? "" : `<p class="klein">Drei Fragen – für jede richtige Antwort gibt es einen Knochen.</p>`}
+      <div class="box" id="check"></div>
+    </section>
+    ${fuss()}
+  </div>`;
+  $$("[data-widget]", app).forEach(el => WIDGETS[el.dataset.widget](el));
+  const box = $("#check");
+  const starte = () => quiz(box, finale ? X.profi : X.checks[sid], finale, (score, total) => {
+    const r = abschliessen(eid, sid, score, total), naechste = X.stationen[k + 1];
+    $("#tchip").textContent = `🦴 ${kennzahlen(eid).summe} / ${MAX}`;
+    const lob = r.knochen === 3 ? "Volle Punktzahl – stark!" : r.knochen === 2 ? "Gut gemacht!" : r.knochen === 1 ? "Geschafft! Mit einem zweiten Versuch holst du mehr Knochen." : "Station erledigt – aber probier’s gleich noch mal!";
+    box.innerHTML = `<div class="ergebnis">
+      <span class="eyebrow">${score} von ${total} richtig</span>
+      <div class="gross">${knochenHTML(r.knochen)}</div>
+      <p>${lob}</p>
+      ${r.best > r.knochen ? `<p class="klein">In deinem Pass zählt dein bestes Ergebnis: ${r.best} Knochen.</p>` : ""}
+      <div class="knopfreihe">
+        <button type="button" class="knopf" id="nochmal">Nochmal</button>
+        ${naechste ? `<a class="knopf prim" href="#${eid}-${naechste.id}">Weiter: ${naechste.titel} ›</a>` : ""}
+        <a class="knopf ${naechste ? "" : "prim"}" href="#${eid}">🦴 Zum Haustierpass</a>
+      </div></div>`;
+    $("#nochmal").onclick = starte;
+    if (r.geschafft) feier(eid);
+    else {
+      if (r.knochen === 3) { konfetti(); fanfare(false); }
+      if (r.neuerRang) setTimeout(() => toast(`${r.neuerRang.med} Neuer Rang: ${r.neuerRang.name}!`), 600);
+      else if (r.neueAbz.length) setTimeout(() => toast(`${r.neueAbz[0].em} Neues Abzeichen: ${r.neueAbz[0].name}`), 600);
+    }
+  });
+  starte();
+}
+
+/* ============ Feier & Urkunde ============ */
+function feier(eid) {
+  konfetti(); fanfare(true);
+  const X = EXPS[eid], h = kennzahlen(eid), rang = X.raenge[rangIndex(eid, h.summe)];
+  const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = `<div class="feierkarte"><div class="fmed">${rang.med}</div><h3>Teil ${IDS.indexOf(eid) + 1} geschafft!</h3>
+    <p>Du hast alle Stationen von „${X.titel}“ gemeistert und ${h.summe} von ${MAXN(eid)} Knochen gesammelt. Dein Rang: <b>${rang.name}</b>.</p>
+    <div class="knopfreihe"><button type="button" class="knopf honig" id="fUrk">📜 Zur Urkunde</button><button type="button" class="knopf" id="fZu">Weiter</button></div></div>`;
+  document.body.appendChild(o);
+  $("#fUrk", o).onclick = () => { o.remove(); urkunde(eid); };
+  $("#fZu", o).onclick = () => o.remove();
+  $("#fUrk", o).focus();
+}
+
+function urkunde(eid) {
+  const X = EXPS[eid], h = kennzahlen(eid), rang = X.raenge[rangIndex(eid, h.summe)], n = X.stationen.length, alle = h.fertige === n;
+  const datum = new Date().toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+  const abz = X.abzeichen.filter(a => a.ok(h)).map(a => a.em).join(" ");
+  const titel = `„${X.titel}“`;
+  const o = document.createElement("div"); o.className = "overlay"; o.id = "urkunde"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = `<div class="urkunde"><div class="rahmen">
+    <div class="urk-eyebrow">Bio Mibaso · Wild &amp; zahm · Teil ${IDS.indexOf(eid) + 1}</div>
+    <div class="urk-med">${rang.med}</div>
+    <div class="urk-titel">Urkunde</div>
+    <div class="urk-sub">${rang.name}</div>
+    <div class="urk-satz">Diese Urkunde bestätigt, dass</div>
+    <input class="urk-name" id="urkName" placeholder="Dein Name" aria-label="Dein Name" value="${esc(S.name || "")}">
+    <div class="urk-name-druck" id="urkNameDruck">${S.name ? esc(S.name) : "&nbsp;"}</div>
+    <div class="urk-satz">${alle ? `die Expedition <b>${titel}</b> erfolgreich abgeschlossen hat.` : `in der Expedition <b>${titel}</b> ${h.fertige} von ${n} Stationen gemeistert hat.`}</div>
+    <table class="urk-tab">${X.stationen.map((s, k) => { const e = h.d[s.id]; return `<tr><td>${k + 1}. ${s.titel}</td><td>${e && e.done ? knochenHTML(e.knochen) : "–"}</td></tr>`; }).join("")}</table>
+    <div class="urk-summe">🦴 ${h.summe} von ${MAXN(eid)} Knochen</div>
+    ${abz ? `<div class="urk-album" aria-label="Abzeichen">${abz}</div>` : ""}
+    <div class="urk-fuss"><span>${datum}</span><span>Bio Mibaso · mibaso.de</span></div>
+  </div>
+  <div class="urk-btns">
+    ${IM_RAHMEN ? `<span class="hint">Drucken klappt auf bio.mibaso.de.</span>` : `<button type="button" class="knopf prim" id="urkDruck">🖨️ Drucken / als PDF sichern</button>`}
+    <button type="button" class="knopf" id="urkZu">Schließen</button>
+  </div></div>`;
+  document.body.appendChild(o);
+  const inp = $("#urkName", o);
+  inp.oninput = () => { S.name = inp.value.slice(0, 60); speichern(); $("#urkNameDruck", o).textContent = S.name || " "; };
+  const d = $("#urkDruck", o); if (d) d.onclick = () => window.print();
+  $("#urkZu", o).onclick = () => o.remove();
+  o.onclick = e => { if (e.target === o) o.remove(); };
+  if (!S.name) inp.focus();
+}
+
+/* ============ Navigation ============ */
+let letzteSumme = {};
+function route(behalteScroll) {
+  $$(".overlay").forEach(o => o.remove());
+  const h = location.hash.slice(1), m = h.match(/^(h[12])-(s[1-5])$/);
+  if (EXPS[h]) { const s = kennzahlen(h).summe; seitePass(h, letzteSumme[h] !== undefined && s > letzteSumme[h]); letzteSumme[h] = s; }
+  else if (m) { if (letzteSumme[m[1]] === undefined) letzteSumme[m[1]] = kennzahlen(m[1]).summe; seiteStation(m[1], m[2]); }
+  else seiteStart();
+  if (behalteScroll !== true) window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", () => route());
+route();
+</script>
+</body>
+</html>
