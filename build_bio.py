@@ -49,7 +49,10 @@ REPOS = [
                "sub": "Wie Tiere die kalte Zeit überstehen — sammle Nüsse für deinen Wintervorrat."},
      "pass3": {"href": "interaktiv/haustierpass.html", "img": "images/haustier/wildschwein-frischlinge.jpg",
                "eyebrow": "Dein Haustierpass · Klasse 5/6", "titel": "Wild & zahm",
-               "sub": "Vom Wolf zum Hund, vom Wildschwein zum Hausschwein — sammle Knochen für deinen Napf."}},
+               "sub": "Vom Wolf zum Hund, vom Wildschwein zum Hausschwein — sammle Knochen für deinen Napf."},
+     "pass4": {"href": "interaktiv/vogelpass.html", "img": "images/voegel/foto-rotkehlchen.jpg",
+               "eyebrow": "Dein Vogelpass · Klasse 5/6", "titel": "Vögel – gebaut zum Fliegen",
+               "sub": "Federn, Schnäbel, Ei und Nest — und ein Schlüssel für 20 Gartenvögel. Sammle Federn für dein Nest."}},
 ]
 
 # Thematische Gruppen je Repo: (Überschrift, Farbe, [Dateien]). Seit dem Fauna-Stil-
@@ -156,7 +159,7 @@ def _icon(fn):
 # Kopiert, aber nicht auf der Startseite gelistet (z.B. der Pass als Footer-Ziel)
 # kopiert, aber nicht als eigene Kachel gelistet (bestaeubung-animiert wird als iframe
 # in „Bestäubung" eingebunden – Datei muss vorhanden sein, Kachel entfällt).
-SKIP_LISTING = {"tafel.html", "wiesenpass.html", "winterpass.html", "haustierpass.html", "sammelpass.html", "bestaeubung-animiert.html"}
+SKIP_LISTING = {"tafel.html", "wiesenpass.html", "winterpass.html", "haustierpass.html", "vogelpass.html", "sammelpass.html", "bestaeubung-animiert.html"}
 # Ganz aus bio ausschließen (nicht kopieren, nicht listen): Staunen-Häppchen,
 # Quizze/Tests und Ordnen-/Zuordnungs-Spiele — bio zeigt nur die echten Lernpfade.
 # Einträge ohne Repo-Präfix gelten für beide; mit Präfix nur für ein Repo.
@@ -204,7 +207,7 @@ NATIVE_LIST = {
 # beim Kopieren zu überspringen: die Expeditions-Pfade + der Forscherpass selbst
 NATIVE_SKIP = {
     "flora": set(NATIVE_LIST["flora"]),
-    "fauna": set(NATIVE_LIST["fauna"]) | {"wiesenpass.html", "winterpass.html", "haustierpass.html"},
+    "fauna": set(NATIVE_LIST["fauna"]) | {"wiesenpass.html", "winterpass.html", "haustierpass.html", "vogelpass.html"},
 }
 
 # Stimmige Reihenfolge je Repo (nicht gelistete kommen alphabetisch danach).
@@ -832,6 +835,7 @@ def write_sub(r, items):
     banner = _pass_banner(r["pass"]) if r.get("pass") else ""
     if r.get("pass2"): banner += _pass_banner(r["pass2"])
     if r.get("pass3"): banner += _pass_banner(r["pass3"])
+    if r.get("pass4"): banner += _pass_banner(r["pass4"])
     # Zeitreise direkt unter dem Forscherpass (nur bei Fauna — dort passt sie thematisch)
     if key == "fauna": banner += _zeitreise_banner()
     body = ('<div class="subkopf"><a class="zurueck" href="../index.html">‹ Bio Mibaso</a></div>'

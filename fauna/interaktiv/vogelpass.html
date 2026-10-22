@@ -1,0 +1,1421 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Vogelpass – Vögel, gebaut zum Fliegen · Bio Mibaso</title>
+<meta name="description" content="Vögel – gebaut zum Fliegen: Leichtbau, Federn, Schnäbel, Füße, Ei, Nest, Brutpflege und ein Bestimmungsschlüssel für 20 Gartenvögel. Zwei Expeditionen für eine Doppelstunde in Klasse 5/6 – mit Vogelpass, Federnest, Abzeichen und Urkunde.">
+<meta name="theme-color" content="#233D5C">
+<link rel="icon" href="../assets/icon.svg">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<style>
+/* Vogelpass – Technik wie chemie.mibaso.de (Laborpass), Farben wie Fauna Mibaso */
+:root{
+  --blau:#233D5C; --blau-tief:#1a2f47; --blau-mittel:#33587c; --blau-hell:#bcd0e2;
+  --creme:#F7F3E8; --creme-tief:#EEE7D5; --tile:#FFFFFF;
+  --honig:#C28A3A; --honig-tief:#a9762c; --nuss:#8a5a2b;
+  --ink:#1c2e42; --ink-soft:#5d6b78; --linie:#d9d2c1;
+  --ok:#2f6a45; --bad:#B23B2E;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html{background:var(--blau-tief);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--creme);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.55;min-height:100vh}
+img{max-width:100%}
+a{color:var(--blau)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--honig);outline-offset:2px}
+h1,h2,h3{font-weight:normal;margin:0;text-wrap:balance;line-height:1.2}
+p{margin:0}
+.huelle{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:40px}
+
+.app-head{background:linear-gradient(180deg,var(--blau-tief) 0%,var(--blau-mittel) 100%);color:var(--creme);text-align:center;
+  padding:calc(env(safe-area-inset-top,0px) + 22px) max(20px,env(safe-area-inset-right,0px)) 24px;border-bottom:4px double var(--blau-hell);position:relative;overflow:hidden}
+.app-head .zurueck-kopf{position:absolute;left:12px;top:calc(env(safe-area-inset-top,0px) + 10px);color:#dce8f3;font-family:var(--sans);font-size:14px;text-decoration:none;padding:6px}
+.app-head .logo{font-size:44px;line-height:1;margin:14px 0 6px}
+.app-head h1{font-size:clamp(28px,8vw,40px);letter-spacing:.02em}
+.app-head .untertitel{font-style:italic;color:#dce8f3;margin-top:8px;font-size:clamp(13px,3.6vw,16px)}
+
+.subkopf{position:sticky;top:0;z-index:6;background:var(--creme);border-bottom:1px solid var(--linie);
+  padding:calc(env(safe-area-inset-top,0px) + 8px) max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px))}
+.subkopf .row{max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.zurueck{font-family:var(--sans);font-size:15px;text-decoration:none;color:var(--blau);padding:6px 4px}
+.tchip{font-family:var(--sans);font-size:14px;background:var(--tile);border:1px solid var(--linie);border-radius:999px;padding:5px 12px;color:var(--blau);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+section{padding-top:26px;display:grid;gap:14px}
+h2{font-size:25px}
+h2::after{content:"";display:block;width:46px;height:3px;margin-top:8px;background:currentColor;border-radius:2px}
+.h-blau{color:var(--blau)} .h-honig{color:var(--honig-tief)}
+h3{font-size:19px;color:var(--blau)}
+.eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.lead{font-size:19px}
+.prose{display:grid;gap:12px}
+.klein{font-size:15px;color:var(--ink-soft)}
+ul.clean{margin:0;padding-left:1.2em;display:grid;gap:4px}
+
+.kacheln{display:grid;gap:12px}
+.kachel{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;background:var(--tile);border:1px solid var(--linie);
+  border-radius:14px;padding:14px 16px;text-decoration:none;color:var(--ink);box-shadow:0 1px 4px rgba(35,61,92,.07);transition:transform .08s,box-shadow .08s}
+a.kachel:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(35,61,92,.14)}
+.kachel .ke{font-size:30px;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:var(--creme-tief)}
+.kachel .kt{font-size:18px;color:var(--blau);display:block;font-weight:bold}
+.kachel .kb{font-size:14px;color:var(--ink-soft);font-family:var(--sans)}
+.kachel .pf{font-size:24px;color:var(--blau-mittel)}
+.ablauf{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-family:var(--sans);font-size:15px;background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:14px 16px}
+.ablauf b{color:var(--blau)}
+
+.schalter{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:var(--sans);font-size:14px}
+.schalter .lab{color:var(--ink-soft);margin-right:4px}
+.sbtn{border:1px solid var(--linie);background:var(--tile);border-radius:999px;padding:7px 13px;cursor:pointer;color:var(--ink-soft)}
+.sbtn.an{background:var(--blau);border-color:var(--blau);color:#fff}
+.hint{font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+
+/* Pass-Bühne mit Vorratshöhle */
+.buehne{position:relative;background:linear-gradient(180deg,#f4efe4 0%,#fff 60%,var(--creme-tief) 100%);border:1px solid var(--linie);border-radius:16px;padding:68px 12px 10px;display:grid;place-items:center;overflow:hidden}
+.buehne svg{width:min(240px,62vw);height:auto;display:block}
+.buehne .boden{position:absolute;left:0;right:0;bottom:0;height:16px;background:repeating-linear-gradient(90deg,#efe6d3 0 38px,#e2d6bd 38px 40px);border-top:1px solid var(--linie)}
+.rangchip{position:absolute;left:12px;top:12px;display:flex;gap:8px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:6px 10px;font-family:var(--sans);font-size:12px;color:var(--ink-soft);z-index:2}
+.rangchip .med{font-size:24px}
+.rangchip b{display:block;font-size:14px;color:var(--blau)}
+.zaehler{position:absolute;right:12px;top:12px;background:var(--nuss);color:#fff;border-radius:12px;padding:6px 12px;font-family:var(--sans);font-size:15px;font-variant-numeric:tabular-nums;z-index:2}
+.fbalken{height:10px;background:var(--creme-tief);border-radius:5px;overflow:hidden;border:1px solid var(--linie)}
+.fbalken i{display:block;height:100%;width:0;background:linear-gradient(90deg,#c9a46a,#a8743b,#8a5a2b);transition:width .8s}
+.naechster{text-align:center;font-size:16px;color:var(--ink-soft)}
+.kn-neu{animation:pop .5s both}
+
+.stationen{display:grid;gap:10px}
+.station{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:12px 14px;text-decoration:none;color:var(--ink)}
+.station .nr{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--creme-tief);font-size:22px}
+.station .st{font-size:17px;color:var(--blau);font-weight:bold;display:block}
+.station .sk{font-size:14px;color:var(--ink-soft);font-family:var(--sans)}
+.station .stand{font-family:var(--sans);font-size:13px;color:var(--ink-soft);text-align:right;white-space:nowrap}
+.station.aktiv{border-color:var(--blau-hell);box-shadow:0 0 0 2px var(--blau-hell)}
+.station.fertig .nr{background:#e3f0e7}
+.station.gesperrt{opacity:.55}
+.knochen{letter-spacing:1px;font-size:16px}
+.knochen .leer{opacity:.22;filter:grayscale(1)}
+
+.album{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.abz{background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:10px 6px;text-align:center;font-family:var(--sans);font-size:12px;color:var(--ink-soft);display:grid;gap:4px;justify-items:center}
+.abz .em{font-size:28px}
+.abz.zu .em{filter:grayscale(1);opacity:.25}
+.abz.auf{border-color:var(--honig);color:var(--ink)}
+
+/* Bausteine */
+.merke{border:1.5px dashed var(--blau-mittel);border-radius:12px;padding:14px 16px;display:grid;gap:8px;background:#f8fbfd}
+.merke .eyebrow{color:var(--blau)}
+.achtung{border-left:5px solid var(--honig);background:#fbf1e2;padding:12px 14px;border-radius:0 12px 12px 0;font-size:16px}
+.achtung b{color:#8a5a17}
+.box{background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:16px;display:grid;gap:12px}
+.box > .eyebrow{color:var(--blau)}
+details{background:var(--creme-tief);border-radius:10px;padding:10px 14px}
+details summary{cursor:pointer;color:var(--blau);font-family:var(--sans);font-size:15px}
+details[open] summary{margin-bottom:8px}
+details .grid{display:grid;gap:8px}
+
+figure.bild{margin:0;background:var(--tile);border:1px solid var(--linie);border-radius:14px;overflow:hidden}
+figure.bild .rahmen-bild{aspect-ratio:16/10;background:linear-gradient(160deg,#e9f0f6,#d6e2ec);position:relative}
+figure.bild img{display:block;width:100%;height:100%;object-fit:cover}
+figure.bild .platzhalter{position:absolute;inset:0;display:none;place-items:center;align-content:center;gap:6px;text-align:center;color:var(--ink-soft);font-family:var(--sans);font-size:13px}
+figure.bild .platzhalter.zeigen{display:grid}
+figure.bild .platzhalter span{font-size:64px;line-height:1}
+figure.bild figcaption{padding:12px 14px;font-size:16px}
+figure.bild figcaption b{color:var(--blau)}
+
+.knopf{display:inline-block;border:1px solid var(--blau);background:var(--tile);color:var(--blau);border-radius:12px;padding:10px 16px;font-family:var(--sans);font-size:15px;cursor:pointer;text-decoration:none;text-align:center}
+.knopf.prim{background:var(--blau);color:#fff;box-shadow:0 2px 0 var(--blau-tief)}
+.knopf.prim:hover{background:var(--blau-tief)}
+.knopf.honig{background:var(--honig);border-color:var(--honig);color:#fff;box-shadow:0 2px 0 #8a5a17}
+.knopf:disabled{opacity:.4;cursor:default}
+.knopfreihe{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+
+/* Sortieren */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--linie);background:var(--creme);border-radius:999px;padding:6px 13px;cursor:pointer;font-size:16px;font-family:var(--serif)}
+.chip.sel{border-color:var(--blau);box-shadow:0 0 0 2px var(--blau) inset;background:#fff}
+.chip.ok{border-color:var(--ok);color:var(--ok);cursor:default;background:#fff}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bins.drei{grid-template-columns:repeat(3,1fr)}
+.bin{border:2px dashed var(--linie);border-radius:12px;padding:10px;min-height:110px;display:flex;flex-direction:column;gap:8px;cursor:pointer;background:var(--creme)}
+.bin h4{margin:0;font-weight:normal;font-size:16px;color:var(--blau)}
+.feedback{min-height:1.5em;font-size:16px;color:var(--ink-soft)}
+.feedback.good{color:var(--ok)} .feedback.bad{color:var(--bad)}
+
+/* Karten */
+.karten{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.karte{min-height:120px;border:1px solid var(--linie);border-radius:14px;background:var(--tile);padding:14px;text-align:left;cursor:pointer;display:grid;gap:6px;align-content:start}
+.karte .kk{font-size:18px;color:var(--blau)}
+.karte .kr{font-size:15px;color:var(--ink-soft)}
+.karte.offen{background:#eef4f9;border-color:var(--blau-hell)}
+.karte .tipp{font-family:var(--sans);font-size:12px;color:var(--blau-mittel)}
+
+/* Animationen / Widgets */
+.anim svg{width:100%;height:auto;display:block;background:#f3f7fa;border-radius:12px;border:1px solid var(--linie)}
+.regler{width:100%;accent-color:var(--blau);height:28px}
+.anim-text{min-height:4.6em;font-size:16px;background:var(--creme);border-radius:10px;padding:10px 12px}
+.anim-text b{color:var(--blau)}
+.lbl{font-family:var(--sans);font-size:11px;fill:var(--ink-soft)}
+.lbl.b{font-weight:600;fill:var(--ink);font-size:12px}
+.lbl.gross{font-size:15px;font-weight:700;fill:var(--ink)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.vgl{display:grid;gap:10px}
+.vgl-zeile{display:grid;gap:4px}
+.vgl-kopf{display:flex;justify-content:space-between;font-family:var(--sans);font-size:14px;color:var(--ink-soft)}
+.vgl-balken{display:grid;grid-template-columns:70px 1fr auto;gap:8px;align-items:center;font-family:var(--sans);font-size:13px}
+.vgl-balken .bb{height:14px;background:var(--creme-tief);border-radius:7px;overflow:hidden}
+.vgl-balken .bb i{display:block;height:100%;border-radius:7px;transition:width .8s}
+.vgl-balken .s i{background:#e3a447} .vgl-balken .w i{background:#6f9cc7}
+.vgl-typ{text-align:center;font-size:20px;color:var(--blau)}
+.feld{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.feld button{aspect-ratio:1;border:1px solid #c9b48f;border-radius:12px;background:linear-gradient(180deg,#f4efe4,#e2d3b5);font-size:30px;cursor:pointer;display:grid;place-items:center}
+.feld button:disabled{cursor:default}
+.spur-svg{max-width:260px;margin:0 auto}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ans{text-align:left;background:var(--creme);border:1px solid var(--linie);border-radius:12px;padding:11px 13px;cursor:pointer;display:flex;gap:10px;font-size:17px}
+.ans b{color:var(--blau-mittel);font-family:var(--sans);font-weight:normal}
+.ans.ok{border-color:var(--ok);background:#e3f0e7}
+.ans.bad{border-color:var(--bad);background:#f6e1de}
+.ans:disabled{cursor:default}
+.waerme{transition:opacity .4s}
+.federkleid{transition:r .5s}
+
+/* Quiz */
+.quiz{display:grid;gap:14px}
+.qhead{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.dots{display:flex;gap:4px;flex-wrap:wrap}
+.dots i{width:11px;height:11px;border-radius:50%;background:var(--creme-tief);border:1px solid var(--linie)}
+.dots i.ok{background:var(--ok);border-color:var(--ok)} .dots i.bad{background:var(--bad);border-color:var(--bad)} .dots i.now{background:var(--blau);border-color:var(--blau)}
+.qq{font-size:20px}
+.jokers{display:flex;gap:8px;flex-wrap:wrap}
+.publikum{font-style:italic;color:var(--ink-soft);border-left:3px solid var(--honig);padding-left:12px}
+.ergebnis{text-align:center;display:grid;gap:10px;justify-items:center}
+.ergebnis .gross{font-size:40px;letter-spacing:4px}
+
+/* Feier, Toast, Konfetti, Urkunde */
+.overlay{position:fixed;inset:0;z-index:50;background:rgba(20,32,45,.6);display:grid;place-items:center;
+  padding:calc(env(safe-area-inset-top,0px) + 16px) 16px calc(env(safe-area-inset-bottom,0px) + 16px);overflow-y:auto}
+.feierkarte{background:var(--tile);border-radius:18px;padding:24px 20px;max-width:420px;width:100%;text-align:center;display:grid;gap:10px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.feierkarte .fmed{font-size:64px;animation:pop .6s both}
+@keyframes pop{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;border-radius:999px;padding:10px 18px;font-family:var(--sans);font-size:15px;z-index:60;transition:transform .3s;max-width:90vw;text-align:center}
+.toast.zeigen{transform:translateX(-50%) translateY(0)}
+.konffeld{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.konf{position:absolute;top:-16px;font-size:18px;animation:fall 3.6s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+.urkunde{background:#fffdf7;max-width:640px;width:100%;border-radius:6px;padding:14px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.rahmen{border:3px double var(--blau);outline:1px solid var(--honig);outline-offset:-10px;padding:26px 22px;text-align:center;display:grid;gap:8px;justify-items:center}
+.urk-eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.urk-med{font-size:56px}
+.urk-titel{font-size:44px;color:var(--blau);letter-spacing:.06em}
+.urk-sub{font-size:18px;color:var(--honig-tief)}
+.urk-satz{font-size:17px}
+.urk-name{font:inherit;font-size:26px;text-align:center;border:0;border-bottom:1.5px solid var(--ink-soft);background:transparent;width:min(100%,380px);padding:4px;color:var(--ink)}
+.urk-name-druck{display:none;font-size:26px;border-bottom:1.5px solid var(--ink-soft);min-width:300px;padding:4px}
+.urk-tab{width:100%;max-width:440px;border-collapse:collapse;font-size:15px;margin-top:6px}
+.urk-tab td{padding:4px 6px;border-bottom:1px solid var(--linie);text-align:left}
+.urk-tab td:last-child{text-align:right;white-space:nowrap}
+.urk-summe{font-size:17px;color:var(--blau)}
+.urk-album{font-size:24px;letter-spacing:4px}
+.urk-fuss{display:flex;justify-content:space-between;width:100%;font-family:var(--sans);font-size:13px;color:var(--ink-soft);margin-top:12px;gap:10px;flex-wrap:wrap}
+.urk-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.lehrer{background:var(--tile);border:1px solid var(--linie);border-radius:14px}
+.lehrer summary{font-size:16px}
+.reset{display:grid;gap:8px;justify-items:center;text-align:center}
+footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;text-align:center;font-family:var(--sans);font-size:13px;color:var(--ink-soft);display:grid;gap:6px}
+
+@media (max-width:480px){.answers{grid-template-columns:1fr} body{font-size:17px} .bins,.bins.drei{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{
+  @page{size:A4 portrait;margin:12mm}
+  html,body{background:#fff}
+  body *{visibility:hidden}
+  #urkunde,#urkunde *{visibility:visible}
+  #urkunde{position:absolute;inset:0;background:#fff;display:block;padding:0}
+  .urkunde{box-shadow:none;max-width:none}
+  .urk-btns,.urk-name{display:none!important}
+  .urk-name-druck{display:block}
+}
+
+.kn-neu{transform-box:fill-box;transform-origin:center}
+.reihe{display:grid;gap:12px}
+.reihe-nav{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.reihe-punkte{display:flex;gap:6px}
+.reihe-punkte i{width:10px;height:10px;border-radius:50%;background:var(--creme-tief);border:1px solid var(--linie)}
+.reihe-punkte i.an{background:var(--blau);border-color:var(--blau)}
+.reihe-zeit{font-family:var(--sans);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--honig-tief)}
+.ordnen{display:grid;gap:8px}
+.ordnen ol{margin:0;padding-left:1.4em;display:grid;gap:6px;min-height:1.5em}
+.ordnen ol li{color:var(--ok)}
+.zucht{display:grid;gap:10px}
+.welpen{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-items:end}
+.welpe{border:1px solid var(--linie);border-radius:12px;background:var(--creme);cursor:pointer;display:grid;justify-items:center;gap:2px;padding:8px 2px;font-family:var(--sans);font-size:12px;color:var(--ink-soft)}
+.welpe span{line-height:1}
+.welpe:disabled{cursor:default;opacity:.55}
+.welpe.gewaehlt{border-color:var(--ok);background:#e3f0e7;opacity:1}
+.zucht-leiste{display:flex;gap:4px;align-items:flex-end;height:70px;padding:6px;background:var(--creme);border-radius:10px}
+.zucht-leiste div{flex:1;background:var(--blau-mittel);border-radius:4px 4px 0 0;display:grid;place-items:start center;color:#fff;font-family:var(--sans);font-size:10px;padding-top:2px;transition:height .6s}
+.eier{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ei{border:1px solid var(--linie);border-radius:50% 50% 46% 46% / 58% 58% 42% 42%;background:linear-gradient(160deg,#fff8ec,#ead9bd);aspect-ratio:3/4;cursor:pointer;display:grid;place-items:center;font-family:var(--sans);font-size:11px;color:#7a1f15;padding:4px;text-align:center}
+.ei.an{box-shadow:0 0 0 3px var(--honig)}
+.sb-bild .rahmen-bild{aspect-ratio:480/407;background:#fff}
+.sb-bild img{object-fit:contain}
+.galerie{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.galerie figure.bild .rahmen-bild{aspect-ratio:4/3}
+.galerie figure.bild figcaption{font-size:15px}
+.kn-svg svg,.anim .kn-svg svg{width:100%;height:auto;display:block}
+.sk-opt{display:grid;gap:8px}
+.sk-ende{display:grid;grid-template-columns:minmax(120px,200px) 1fr;gap:14px;align-items:start}
+.sk-ende img{width:100%;border-radius:8px;border:1px solid var(--linie);box-shadow:0 2px 8px rgba(35,61,92,.12)}
+.sk-ende > div{display:grid;gap:8px;justify-items:start}
+@media (max-width:480px){.sk-ende{grid-template-columns:1fr}.sk-ende img{max-width:260px}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ============ Helfer ============ */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+const IM_RAHMEN = (() => { try { return window.self !== window.top; } catch (e) { return true; } })();
+const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+
+/* ============ Speicher (nur auf diesem Gerät) ============ */
+const KEY = "mibaso.fauna.vogelpass";
+function laden() { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { return {}; } }
+let S = Object.assign({ modus: "level", name: "" }, laden());
+function speichern() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+/* ============ Bausteine ============ */
+function knochenHTML(n) { let s = ""; for (let k = 0; k < 3; k++) s += k < n ? "🪶" : '<span class="leer">🪶</span>'; return `<span class="knochen" aria-label="${n} von 3 Federn">${s}</span>`; }
+const federn = n => n === 1 ? "1 Feder" : n + " Federn";
+function bild(datei, emoji, titel, text) {
+  return `<figure class="bild"><div class="rahmen-bild">
+    <div class="platzhalter"><span>${emoji}</span>Bild folgt</div>
+    <img src="../images/voegel/${datei}.jpg" alt="${esc(titel)}" loading="lazy" onerror="this.previousElementSibling.classList.add('zeigen');this.remove()">
+  </div>${text ? `<figcaption>${text}</figcaption>` : ""}</figure>`;
+}
+
+/* ============ Toast, Konfetti, Fanfare ============ */
+let toastTimer;
+function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("zeigen"); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove("zeigen"), 3200); }
+function konfetti() {
+  if (reduce) return;
+  const f = document.createElement("div"); f.className = "konffeld";
+  const zeichen = ["🪶", "🥚", "⭐", "🐦", "🪶", "✨"];
+  for (let n = 0; n < 50; n++) {
+    const k = document.createElement("span"); k.className = "konf"; k.textContent = zeichen[n % zeichen.length];
+    k.style.cssText = `left:${Math.random() * 100}%;animation-delay:${(Math.random() * .8).toFixed(2)}s`;
+    f.appendChild(k);
+  }
+  document.body.appendChild(f); setTimeout(() => f.remove(), 4800);
+}
+function fanfare(gross) {
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext; if (!Ctx) return;
+    const ctx = new Ctx(); if (ctx.state === "suspended") ctx.resume();
+    const t0 = ctx.currentTime + .05;
+    const noten = gross
+      ? [[392, 0, .14], [523.25, .14, .14], [659.25, .28, .14], [783.99, .42, .28], [659.25, .72, .14], [783.99, .86, .9]]
+      : [[523.25, 0, .16], [659.25, .15, .16], [783.99, .30, .16], [1046.5, .46, .6]];
+    noten.forEach(([fr, st, du]) => {
+      [1, 2].forEach(oct => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = oct === 1 ? "triangle" : "sine"; o.frequency.value = fr * oct;
+        const v = oct === 1 ? .2 : .05;
+        g.gain.setValueAtTime(0, t0 + st); g.gain.linearRampToValueAtTime(v, t0 + st + .02);
+        g.gain.exponentialRampToValueAtTime(.001, t0 + st + du + .25);
+        o.connect(g); g.connect(ctx.destination); o.start(t0 + st); o.stop(t0 + st + du + .3);
+      });
+    });
+    setTimeout(() => ctx.close(), 3000);
+  } catch (e) {}
+}
+
+/* ============ Nest mit Federn ============ */
+const FDPLATZ = [[70,114,-62],[100,117,8],[130,114,58],[84,104,-32],[116,104,32],[58,102,-78],[142,102,78],[100,96,0],[76,90,-42],[124,90,42],[100,82,-12],[88,74,-26],[112,74,26],[100,64,6],[100,50,0]];
+const FDFARBE = ["#fbf7ee", "#e9dcc2", "#c9d6e3", "#f3eadb", "#d9c6a5"];
+function nestSVG(summe, max, neu) {
+  const anz = Math.round(summe / max * FDPLATZ.length);
+  const fd = ([x, y, r], i) => `<g transform="translate(${x} ${y}) rotate(${r})"><g class="${neu && i === anz - 1 ? "kn-neu" : ""}">
+      <path d="M0 -18 Q8 -6 3 12 L0 16 L-3 12 Q-8 -6 0 -18Z" fill="${FDFARBE[i % FDFARBE.length]}" stroke="#a08a63" stroke-width="1"/>
+      <path d="M0 -17 V20" stroke="#8a7350" stroke-width="1.2"/>
+      <path d="M0 -8 l5 -3 M0 -2 l5 -3 M0 4 l4 -3 M0 -8 l-5 -3 M0 -2 l-5 -3 M0 4 l-4 -3" stroke="#a08a63" stroke-width=".6"/></g></g>`;
+  const zweige = [[30,128,170,150],[38,146,166,132],[46,160,154,162],[34,122,120,170],[80,170,172,118],[58,166,176,138]]
+    .map(([a, b, c, d]) => `<path d="M${a} ${b} Q100 ${(b + d) / 2 + 14} ${c} ${d}" stroke="#6b4a2b" stroke-width="2" fill="none" opacity=".7"/>`).join("");
+  return `<svg viewBox="0 0 200 200" role="img" aria-label="Nest mit ${summe} von ${max} Federn">
+    <path d="M0 176 L200 150" stroke="#6b4a2b" stroke-width="10" stroke-linecap="round"/>
+    <ellipse cx="100" cy="112" rx="76" ry="20" fill="#5e4127"/>
+    <ellipse cx="100" cy="114" rx="66" ry="14" fill="#4a3220"/>
+    ${FDPLATZ.slice(0, anz).map(fd).join("")}
+    <path d="M24 112 Q28 172 100 176 Q172 172 176 112 Q100 136 24 112 Z" fill="#9a7447" stroke="#6b4a2b" stroke-width="2.5"/>
+    ${zweige}
+    <path d="M24 112 Q100 136 176 112" stroke="#c19a63" stroke-width="3" fill="none"/>
+  </svg>`;
+}
+
+/* ============ Daten: Sortier-, Karten- und Bildaufgaben ============ */
+const SORT_SETS = {
+  klassen: { bins: [["vogel", "🐦 Nur Vögel"], ["saeuger", "🐿️ Nur Säugetiere"], ["beide", "🤝 Beide"]], items: [
+    ["Federn", "vogel", "Federn gibt es nur bei Vögeln. Sie wachsen aus der Haut – wie Haare, aber viel komplizierter gebaut."],
+    ["Schnabel aus Horn, keine Zähne", "vogel", "Kein heutiger Vogel hat Zähne. Das spart Gewicht. Zerkleinert wird im Muskelmagen."],
+    ["Eier mit harter Kalkschale", "vogel", "Vogeleier haben eine Kalkschale. Unter den Säugetieren legen nur Schnabeltier und Ameisenigel Eier – mit weicher, lederartiger Schale."],
+    ["Luftsäcke, die bis in die Knochen reichen", "vogel", "Vögel haben neben der Lunge große Luftsäcke. Sie reichen sogar bis in manche Knochen hinein."],
+    ["Fell", "saeuger", "Fell haben nur Säugetiere. Auch der Igel: Seine Stacheln sind umgebaute Haare."],
+    ["Junge trinken Milch", "saeuger", "Milch aus Milchdrüsen gibt es nur bei Säugetieren. Die „Kropfmilch“ der Tauben ist etwas ganz anderes."],
+    ["Wirbelsäule und Schädel aus Knochen", "beide", "Vögel und Säugetiere sind beide Wirbeltiere."],
+    ["gleichwarm – Körpertemperatur bleibt gleich", "beide", "Beide halten ihre Körperwärme selbst. Vögel liegen sogar meist bei 40 bis 42 °C."],
+    ["kann aktiv fliegen", "beide", "Fangfrage! Auch Fledermäuse fliegen aktiv mit Flügelschlägen – und sie sind Säugetiere."]
+  ]},
+  federn: { bins: [["schwung", "🪶 Schwungfeder"], ["kontur", "🍂 Deckfeder"], ["daune", "☁️ Daunenfeder"]], items: [
+    ["lang, steif, sitzt an Flügel und Schwanz", "schwung", "Die großen Schwungfedern tragen den Vogel durch die Luft. Am Schwanz steuern und bremsen sie."],
+    ["die beiden Hälften der Fahne sind ungleich breit", "schwung", "Die schmale Seite zeigt beim Fliegen nach vorn. So schneidet die Feder durch die Luft wie ein kleiner Flügel."],
+    ["macht den Körper glatt und stromlinienförmig", "kontur", "Die Deckfedern liegen wie Dachziegel übereinander. Der Vogel wird glatt und windschlüpfrig."],
+    ["schützt vor Regen und Wind", "kontur", "Die Deckfedern sind außen geschlossen und halten Regen ab – wie eine Regenjacke."],
+    ["trägt die Farben und Muster des Vogels", "kontur", "Die bunten Farben des Stieglitz oder der Blaumeise sitzen auf den Deckfedern."],
+    ["flauschig, ohne Häkchen und ohne festen Schaft", "daune", "Die Äste der Daune bleiben locker – sie haken nicht ineinander."],
+    ["hält Luft fest und wärmt", "daune", "Zwischen den lockeren Ästen bleibt Luft hängen. Luft ist ein guter Wärmeschutz – darum stecken Daunen auch in Winterjacken."]
+  ]},
+  fuesse: { bins: [["sitz", "🌿 Sitzfuß"], ["kletter", "🪵 Kletterfuß"], ["greif", "🦅 Greiffuß"], ["schwimm", "🌊 Schwimmfuß"]], items: [
+    ["Amsel", "sitz", "Drei Zehen nach vorn, eine nach hinten – damit umklammert die Amsel Zweige."],
+    ["Buchfink", "sitz", "Die meisten Singvögel haben Sitzfüße."],
+    ["Kleiber", "sitz", "Fangfrage! Der Kleiber klettert, hat aber einen Sitzfuß. Er hält sich mit sehr kräftigen Zehen und langen Krallen fest – auch kopfüber."],
+    ["Buntspecht", "kletter", "Zwei Zehen nach vorn, zwei nach hinten – und dazu ein Stützschwanz."],
+    ["Grünspecht", "kletter", "Auch der Grünspecht hat Kletterfüße, obwohl er viel am Boden nach Ameisen sucht."],
+    ["Turmfalke", "greif", "Kräftige Zehen mit spitzen, gebogenen Krallen packen die Maus."],
+    ["Waldkauz", "greif", "Eulen packen ihre Beute ebenfalls mit Greiffüßen. Eine Zehe können sie nach hinten drehen."],
+    ["Stockente", "schwimm", "Zwischen drei Zehen spannen sich Schwimmhäute – wie Paddel."],
+    ["Kormoran", "schwimm", "Beim Kormoran sind sogar alle vier Zehen durch Häute verbunden. Er treibt sich damit unter Wasser an."]
+  ]},
+  nester: { bins: [["napf", "🥣 Napfnest"], ["hoehle", "🕳️ Höhle oder Nistkasten"], ["lehm", "🧱 Lehmnest"], ["kugel", "⚽ Kugelnest mit Dach"], ["boden", "🌾 Mulde am Boden"], ["kein", "❌ Kein eigenes Nest"]], items: [
+    ["Amsel", "napf", "Ein Napf aus Gras und Zweigen, innen mit Erde verstrichen."],
+    ["Buchfink", "napf", "Ein tiefer Napf, außen mit Flechten getarnt."],
+    ["Buntspecht", "hoehle", "Spechte hacken ihre Höhle selbst ins Holz."],
+    ["Star", "hoehle", "Der Star brütet in alten Spechthöhlen oder Nistkästen."],
+    ["Haubenmeise", "hoehle", "Sie hackt sich ihre Höhle oft selbst in morsches Holz."],
+    ["Rauchschwalbe", "lehm", "Sie klebt ihr Nest aus Lehmklümpchen in Viehställe."],
+    ["Elster", "kugel", "Ein großes Reisignest mit stacheligem Dach und Seiteneingang."],
+    ["Zaunkönig", "kugel", "Das Männchen baut mehrere Kugelnester aus Moos – das Weibchen sucht sich eines aus."],
+    ["Stockente", "boden", "Eine Mulde am Boden, gut versteckt und mit Daunen gepolstert."],
+    ["Kiebitz", "boden", "Eine flache Mulde auf Wiese oder Acker – die Eier sind perfekt getarnt."],
+    ["Turmfalke", "kein", "Er baut kein Nest, sondern legt die Eier in Nischen, Nistkästen oder alte Krähennester."],
+    ["Kuckuck", "kein", "Das Kuckucksweibchen legt seine Eier in die Nester anderer Vögel. Die ziehen das Junge groß."]
+  ]},
+  hocker: { bins: [["hocker", "🐣 Nesthocker"], ["fluechter", "🦆 Nestflüchter"]], items: [
+    ["Amsel", "hocker", "Junge Amseln schlüpfen nackt und blind und bleiben knapp zwei Wochen im Nest."],
+    ["Kohlmeise", "hocker", "Meisenjunge sitzen gut zwei Wochen in der Höhle und werden gefüttert."],
+    ["Buntspecht", "hocker", "Junge Buntspechte bleiben rund drei Wochen in der Baumhöhle."],
+    ["Ringeltaube", "hocker", "Junge Tauben werden im Nest mit Kropfmilch gefüttert."],
+    ["Weißstorch", "hocker", "Fangfrage! Junge Störche haben zwar Flaum, bleiben aber rund zwei Monate im Horst und werden gefüttert."],
+    ["Stockente", "fluechter", "Die Küken folgen der Mutter schon am ersten Tag zum Wasser."],
+    ["Haushuhn", "fluechter", "Küken laufen gleich nach dem Schlüpfen herum und picken selbst."],
+    ["Kiebitz", "fluechter", "Kiebitz-Küken verlassen die Bodenmulde wenige Stunden nach dem Schlüpfen."],
+    ["Höckerschwan", "fluechter", "Die grauen Jungschwäne schwimmen bald hinter den Eltern her."]
+  ]}
+};
+const KARTEN_SETS = {
+  leicht: [
+    ["🦴 Hohle Knochen", "Viele Knochen sind innen hohl und mit Luft gefüllt. Dünne Streben machen sie trotzdem stabil – wie bei einem Fachwerk."],
+    ["👄 Schnabel statt Zähne", "Ein Schnabel aus Horn ist viel leichter als Kiefer mit Zähnen. Das Zerkleinern übernimmt der Muskelmagen, oft mit verschluckten Steinchen."],
+    ["🫁 Luftsäcke", "Neben der Lunge hat der Vogel große Luftsäcke. Sie machen leicht und versorgen die Flugmuskeln besonders gut mit Sauerstoff."],
+    ["💪 Brustbein mit Kiel", "Am hohen Kiel des Brustbeins sitzen die Flugmuskeln. Bei guten Fliegern machen sie bis zu ein Viertel des Körpergewichts aus."],
+    ["🥚 Eier statt Bauch", "Ein Vogel trägt seine Jungen nicht wochenlang im Bauch. Er legt Eier und brütet sie außen aus."]
+  ],
+  schnabel: [
+    ["🌰 Kegelschnabel", "Kurz und dick wie ein Nussknacker: Finken und Sperlinge knacken damit Samen und Kerne."],
+    ["🔬 Pinzettenschnabel", "Fein und spitz: Meisen und Rotkehlchen picken damit kleine Insekten von Blättern und Zweigen."],
+    ["🔨 Meißelschnabel", "Hart und gerade wie ein Meißel: Spechte hacken damit Löcher ins Holz."],
+    ["🪝 Hakenschnabel", "Spitz und nach unten gebogen: Falken, Bussarde und Eulen zerteilen damit ihre Beute."],
+    ["🥄 Seihschnabel", "Breit und flach mit Hornleisten am Rand: Enten seihen damit Nahrung aus dem Wasser."],
+    ["🧰 Allzweckschnabel", "Mittellang und kräftig: Amseln, Stare und Krähen fressen damit Würmer, Insekten, Beeren und vieles mehr."]
+  ]
+};
+const SCHNABEL_ESSEN = ["Harte Kerne knacken", "Kleine Insekten von Zweigen picken", "Holz aufhacken und Larven herausholen",
+  "Samen aus Distelköpfen ziehen", "Fast alles fressen – vom Wurm bis zum Aas", "Beute packen und zerteilen",
+  "Nahrung aus dem Wasser seihen", "Würmer aus dem Boden ziehen und Beeren pflücken"];
+const SCHNAEBEL = [
+  ["kernbeisser", "Kernbeißer", 0, "Der riesige Kegelschnabel knackt sogar Kirschkerne."],
+  ["blaumeise", "Blaumeise", 1, "Kurz, fein und spitz – eine Pinzette für Blattläuse und winzige Raupen."],
+  ["buntspecht", "Buntspecht", 2, "Gerade, hart und spitz wie ein Meißel."],
+  ["stieglitz", "Stieglitz", 3, "Für einen Finken ungewöhnlich lang und spitz – er passt zwischen die Stacheln der Distel."],
+  ["rabenkraehe", "Rabenkrähe", 4, "Kräftig und leicht gebogen – ein Werkzeug für fast jede Nahrung."],
+  ["turmfalke", "Turmfalke", 5, "Der Haken an der Spitze zerteilt die Beute. Gepackt wird mit den Füßen."],
+  ["stockente", "Stockente", 6, "Breit und flach, mit feinen Hornleisten am Rand – ein Sieb."],
+  ["amsel", "Amsel", 7, "Mittellang und kräftig – damit zieht sie Würmer aus dem Rasen und pflückt Beeren."]
+];
+const GALERIEN = {
+  nester: [
+    ["nest-amsel", "🥣", "Napfnest der Amsel", "<b>Napfnest:</b> aus Gras und Zweigen, innen mit feuchter Erde verstrichen."],
+    ["nest-buchfink", "🥣", "Napfnest des Buchfinken", "<b>Getarnter Napf:</b> Der Buchfink beklebt sein Nest außen mit Flechten."],
+    ["nest-buntspecht", "🕳️", "Bruthöhle des Buntspechts", "<b>Höhle:</b> selbst ins Holz gehackt. Die Eier liegen auf Holzspänen."],
+    ["nest-kleiber", "🧱", "Höhle des Kleibers", "<b>Höhle mit Lehmtür:</b> Der Kleiber verkleinert das Einflugloch mit Lehm."],
+    ["nest-elster", "⚽", "Kugelnest der Elster", "<b>Kugelnest:</b> Reisig mit Dach und einem Eingang an der Seite."],
+    ["schwalben-nestlinge", "🧱", "Lehmnest der Rauchschwalbe mit Jungen", "<b>Lehmnest:</b> Rauchschwalben im Stall – das Nest besteht aus vielen hundert Lehmklümpchen. <i>Foto: Michael Baur</i>"],
+    ["storch-horst", "🪵", "Weißstörche auf ihrem Horst", "<b>Horst:</b> Das Storchennest wird jedes Jahr weiter ausgebaut und kann sehr schwer werden. <i>Foto: Michael Baur</i>"],
+    ["kormoran-fuetterung", "🪵", "Kormoran füttert sein Junges im Nest", "<b>Nest in der Kolonie:</b> Ein Kormoran füttert sein Junges. <i>Foto: Michael Baur</i>"]
+  ]
+};
+const NH = [
+  ["Beim Schlüpfen", "nackt oder mit wenig Flaum, die Augen geschlossen", "dichtes Daunenkleid, die Augen offen"],
+  ["Die ersten Tage", "bleiben im Nest und wärmen sich aneinander", "laufen oder schwimmen schon nach Stunden hinter der Mutter her"],
+  ["Futter", "die Eltern bringen alles ans Nest – oft hunderte Male am Tag", "picken selbst; die Mutter führt sie zu gutem Futter"],
+  ["Im Ei", "kurze Brutzeit, bei Singvögeln etwa zwei Wochen", "lange Brutzeit – bei der Stockente etwa vier Wochen – und viel Dotter"],
+  ["Beispiele", "Amsel, Meisen, Spechte, Schwalben, Tauben, Störche", "Enten, Gänse, Hühner, Kiebitz, Schwäne"]
+];
+const EI_TEILE = [
+  ["schale", "Kalkschale", "Fest und trotzdem luftdurchlässig: Tausende winzige Poren lassen Sauerstoff hinein und Kohlenstoffdioxid hinaus. Aus der Schale holt sich das Küken auch Kalk für seine Knochen."],
+  ["haut", "Schalenhäute", "Zwei dünne Häute direkt unter der Schale. Sie halten Keime ab."],
+  ["luft", "Luftkammer", "Am stumpfen Ende trennen sich die beiden Schalenhäute. Dort sammelt sich Luft. Kurz vor dem Schlüpfen atmet das Küken hier zum ersten Mal."],
+  ["klar", "Eiklar", "Es besteht vor allem aus Wasser und Eiweiß. Es polstert, schützt vor Keimen und liefert Wasser."],
+  ["hagel", "Hagelschnüre", "Zwei gedrehte Stränge aus Eiklar. Sie halten den Dotter in der Mitte – und drehen ihn so, dass die Keimscheibe immer oben liegt."],
+  ["dotter", "Dotter", "Der Vorrat an Nahrung für das Küken: viel Fett und Eiweiß. Im Ei des Huhns reicht er für drei Wochen."],
+  ["keim", "Keimscheibe", "Ein kleiner heller Fleck auf dem Dotter. Ist das Ei befruchtet und wird es gebrütet, wächst hier das Küken heran."]
+];
+const BRUT = [
+  [0, "Die <b>Keimscheibe</b> ist ein heller Fleck auf dem Dotter. Erst wenn die Henne brütet – bei etwa 38 °C –, geht es los."],
+  [2, "Ein winziges <b>Herz</b> beginnt zu schlagen. Feine Blutgefäße wachsen über den Dotter und holen Nahrung heran."],
+  [5, "Die <b>Augen</b> sind als dunkle Punkte zu sehen. Beine und Flügel wachsen als kleine Knospen."],
+  [10, "Erste <b>Federanlagen</b> zeigen sich. Das Küken bewegt sich schon im Ei."],
+  [14, "Das Küken ist fast fertig gebaut. Es <b>dreht sich</b> mit dem Kopf zum stumpfen Ende."],
+  [19, "Der Rest des Dotters wandert in den Bauch. Das Küken pickt in die <b>Luftkammer</b> und atmet zum ersten Mal Luft."],
+  [21, "Mit dem <b>Eizahn</b>, einer kleinen Spitze auf dem Schnabel, sprengt es die Schale. Es schlüpft! 🐣"]
+];
+const ARTEN = {
+  amsel: ["Amsel", "Männchen schwarz mit gelbem Schnabel und gelbem Augenring; das Weibchen ist braun."],
+  star: ["Star", "Schillerndes Gefieder, im Herbst und Winter hell getupft; spitzer Schnabel."],
+  rabenkraehe: ["Rabenkrähe", "Ganz schwarz, groß, mit kräftigem schwarzem Schnabel."],
+  elster: ["Elster", "Schwarz-weiß mit sehr langem, grün schillerndem Schwanz."],
+  buntspecht: ["Buntspecht", "Schwarz-weiß, klettert am Stamm, leuchtend rot unter dem Schwanz."],
+  haubenmeise: ["Haubenmeise", "Spitze, schwarz-weiß gesprenkelte Federhaube."],
+  tannenmeise: ["Tannenmeise", "Kleinste Meise: schwarzer Kopf mit weißem Nackenfleck, kein Gelb."],
+  rotkehlchen: ["Rotkehlchen", "Orange Brust und Gesicht, sonst graubraun, große dunkle Augen."],
+  gimpel: ["Gimpel", "Schwarze Kappe; das Männchen hat eine leuchtend rote Brust."],
+  stieglitz: ["Stieglitz", "Rote Gesichtsmaske und breite gelbe Flügelbinden."],
+  buchfink: ["Buchfink", "Männchen mit rostroter Brust und blaugrauem Kopf; zwei weiße Flügelbinden."],
+  kernbeisser: ["Kernbeißer", "Riesiger Kegelschnabel, orangebrauner Kopf, kurzer Schwanz."],
+  eichelhaeher: ["Eichelhäher", "Rosabraun mit leuchtend blau-schwarz gebändertem Flügelfleck."],
+  blaumeise: ["Blaumeise", "Blaue Kappe, weißes Gesicht, gelbe Unterseite."],
+  kohlmeise: ["Kohlmeise", "Schwarzer Kopf, weiße Wangen, gelber Bauch mit schwarzem Streif."],
+  gruenfink: ["Grünfink", "Olivgrün mit gelben Flügelkanten und kräftigem hellem Schnabel."],
+  erlenzeisig: ["Erlenzeisig", "Klein, gelbgrün und gestrichelt; Männchen mit schwarzer Kappe."],
+  kleiber: ["Kleiber", "Blaugrauer Rücken, schwarzer Augenstreif; klettert auch kopfüber."],
+  haussperling: ["Haussperling", "Männchen mit grauem Scheitel und schwarzem Latz; Weibchen schlicht graubraun."],
+  feldsperling: ["Feldsperling", "Brauner Scheitel und schwarzer Fleck auf der weißen Wange."]
+};
+const SCHLUESSEL = {
+  start: { f: "Wie sieht das Gefieder auf den ersten Blick aus?", o: [
+    ["Ganz oder fast ganz schwarz", "schwarz"], ["Kräftig schwarz-weiß gemustert", "sw"], ["Mit Rot, Orange oder Rosa", "rot"],
+    ["Mit Gelb, Grün oder Blau", "gelb"], ["Vor allem braun, grau oder beige", "braun"]] },
+  schwarz: { f: "Schau auf Schnabel und Gefieder.", o: [
+    ["Gelber Schnabel, Gefieder ohne Punkte", "=amsel"], ["Gefieder schillert, oft hell getupft, spitzer Schnabel", "=star"],
+    ["Groß wie eine Taube, dicker schwarzer Schnabel", "=rabenkraehe"]] },
+  sw: { f: "Welches Merkmal fällt dir auf?", o: [
+    ["Sehr langer Schwanz", "=elster"], ["Klettert am Stamm, rot unter dem Schwanz", "=buntspecht"],
+    ["Klein, mit spitzer Federhaube", "=haubenmeise"], ["Klein, schwarzer Kopf mit weißem Fleck im Nacken", "=tannenmeise"]] },
+  rot: { f: "Wo sitzt die Farbe – und wie sieht der Rest aus?", o: [
+    ["Orange Brust und Gesicht, sonst graubraun", "=rotkehlchen"], ["Leuchtend rote Brust und schwarze Kappe", "=gimpel"],
+    ["Rote Gesichtsmaske und gelbe Flügelbinde", "=stieglitz"], ["Rostrote Brust, blaugrauer Kopf, weiße Flügelbinden", "=buchfink"],
+    ["Orangebrauner Kopf mit riesigem Schnabel", "=kernbeisser"], ["Rosabraun mit leuchtend blauem Fleck am Flügel", "=eichelhaeher"]] },
+  gelb: { f: "Schau dir Kopf und Schnabel an.", o: [
+    ["Blaue Kappe, weißes Gesicht", "=blaumeise"], ["Schwarzer Kopf, weiße Wangen, schwarzer Bauchstreif", "=kohlmeise"],
+    ["Olivgrün mit dickem, hellem Schnabel", "=gruenfink"], ["Klein, gelbgrün und gestrichelt", "=erlenzeisig"],
+    ["Blaugrauer Rücken, schwarzer Streif durchs Auge", "=kleiber"]] },
+  braun: { f: "Welches Merkmal passt?", o: [
+    ["Ein Spatz: braun gestreifter Rücken, kurzer dicker Schnabel", "spatz"], ["Schwarzer Kopf mit weißem Fleck im Nacken", "=tannenmeise"],
+    ["Spitze, schwarz-weiße Federhaube", "=haubenmeise"], ["Ganz braun, so groß wie eine Amsel", "=amsel"]] },
+  spatz: { f: "Schau auf Scheitel und Wange.", o: [
+    ["Grauer Scheitel, großer schwarzer Latz", "=haussperling"], ["Brauner Scheitel, schwarzer Fleck auf weißer Wange", "=feldsperling"],
+    ["Schlicht graubraun, ohne Abzeichen", "=haussperling"]] }
+};
+const BESTIMM_FOTOS = ["amsel", "blaumeise", "buntspecht", "eichelhaeher", "feldsperling", "rotkehlchen", "star"];
+
+/* ============ Expeditionen ============ */
+const EXPS = {
+v1: {
+  id: "v1", titel: "Bauplan Vogel", motto: "Leichtbau, Federn, Schnäbel und Füße", em: "🪶",
+  lead: "Was macht einen Vogel zum Flieger – und warum sieht jeder Schnabel anders aus? Für jede Station gibt es bis zu drei Federn für dein Nest.",
+  stationen: [
+    { id: "s1", em: "🦴", titel: "Leicht gebaut", kurz: "Knochen, Schnabel, Luftsäcke", min: 9 },
+    { id: "s2", em: "🪶", titel: "Wunderwerk Feder", kurz: "Aufbau und Federtypen", min: 10 },
+    { id: "s3", em: "🔍", titel: "Zeig mir deinen Schnabel", kurz: "Schnabelform und Nahrung", min: 10 },
+    { id: "s4", em: "🦶", titel: "Auf die Füße geschaut", kurz: "Sitzen, klettern, greifen, schwimmen", min: 9 },
+    { id: "s5", em: "🏆", titel: "Wer wird Flug-Profi?", kurz: "Das Abschlussquiz mit Jokern", min: 8 }
+  ],
+  raenge: [
+    { ab: 0, name: "Nestling", med: "🐣" }, { ab: 1, name: "Ästling", med: "🐤" },
+    { ab: 5, name: "Jungvogel", med: "🐦" }, { ab: 9, name: "Segelflieger", med: "🦅" },
+    { ab: 13, name: "Flug-Meister", med: "🏅" }
+  ],
+  abzeichen: [
+    { em: "🪶", name: "Erste Feder", ok: h => h.fertige >= 1 },
+    { em: "🎯", name: "Volltreffer", ok: h => h.dreier >= 1 },
+    { em: "🦴", name: "Leichtbauer", ok: h => h.d.s1 && h.d.s1.done },
+    { em: "🔍", name: "Schnabel-Kenner", ok: h => h.d.s3 && h.d.s3.done },
+    { em: "⭐", name: "Dreier-Serie", ok: h => h.dreier >= 3 },
+    { em: "🏆", name: "Flug-Profi", ok: h => h.d.s5 && h.d.s5.knochen >= 3 },
+    { em: "🏅", name: "Flug-Meister", ok: h => h.fertige >= 5 },
+    { em: "🪺", name: "Volles Nest", ok: h => h.summe >= 15 }
+  ],
+  checks: {
+    s1: [
+      ["Warum hat ein Vogel keine Zähne?", ["Ein Hornschnabel ist leichter – zerkleinert wird im Magen", "Vögel fressen nur weiche Nahrung", "Die Zähne fallen beim Schlüpfen aus", "Zähne würden im Flug zu kalt werden"]],
+      ["Ein Röhrenknochen eines Vogels ist innen …", ["hohl, mit dünnen Streben und Luft", "mit Knochenmark gefüllt wie bei uns", "durch und durch massiv", "mit Wasser gefüllt"]],
+      ["Wozu hat das Brustbein guter Flieger einen hohen Kiel?", ["Dort setzen die kräftigen Flugmuskeln an", "Er schützt das Herz bei harten Landungen", "Er hält die Luftsäcke an ihrem Platz", "Er teilt beim Schwimmen das Wasser"]]
+    ],
+    s2: [
+      ["Woraus bestehen Federn?", ["Aus Horn – wie unsere Haare und Nägel", "Aus ganz dünnem Knochen", "Aus Knorpel", "Aus getrockneter Haut"]],
+      ["Die Fahne einer Feder ist aufgerissen. Was tut der Vogel?", ["Er zieht die Feder durch den Schnabel und hakt sie wieder ein", "Er reißt die Feder sofort aus", "Er klebt sie mit Speichel zusammen", "Er kann nicht mehr fliegen, bis sie nachwächst"]],
+      ["Warum haben Daunenfedern keine Häkchen?", ["Lockere Äste halten mehr Luft – das wärmt", "Daunen sind noch nicht fertig gewachsen", "Die Häkchen nutzen sich ab", "Daunen dienen vor allem der Tarnung"]]
+    ],
+    s3: [
+      ["Ein Vogel hat einen kurzen, sehr dicken Kegelschnabel. Was frisst er vermutlich?", ["Harte Samen und Kerne", "Fische", "Fliegende Insekten", "Würmer aus dem Boden"]],
+      ["Stieglitz und Gimpel sind beide Finken. Warum ist der Schnabel des Stieglitz spitzer?", ["Er zieht Samen aus engen Distelköpfen", "Er hackt damit Löcher ins Holz", "Er fängt damit Fliegen im Flug", "Er verteidigt sich damit gegen Katzen"]],
+      ["Stockente und Weißstorch suchen beide im Wasser Futter. Was stimmt?", ["Die Ente seiht, der Storch packt einzeln zu", "Beide seihen den Schlamm durch", "Beide fressen nur Fische", "Der Storch seiht, die Ente packt einzeln zu"]]
+    ],
+    s4: [
+      ["Ein Specht hat zwei Zehen vorn und zwei hinten. Wozu?", ["Zum sicheren Halt am senkrechten Stamm", "Zum schnelleren Laufen am Boden", "Zum Paddeln im Wasser", "Zum Festhalten der Beute im Flug"]],
+      ["Warum fällt ein schlafender Buchfink nicht vom Ast?", ["Beim Hinhocken ziehen Sehnen die Zehen von selbst zu", "Er hält sich die ganze Nacht mit Muskelkraft fest", "Er klebt sich mit Speichel fest", "Er wacht alle paar Minuten auf und greift neu zu"]],
+      ["Der Kleiber klettert kopfüber den Stamm hinab. Was für Füße hat er?", ["Sitzfüße mit kräftigen Zehen und Krallen", "Kletterfüße wie die Spechte", "Greiffüße wie der Falke", "Füße mit Haftlappen wie ein Gecko"]]
+    ]
+  },
+  profi: [
+    ["Welches heute lebende Tier ist mit den Vögeln am nächsten verwandt?", ["Das Krokodil", "Die Fledermaus", "Die Eidechse", "Die Schildkröte"],
+      ["Lina: Das Krokodil – Vögel sind Dinosaurier-Nachfahren!", "Ben: Das Krokodil, oder?", "Mia: Krokodil oder Eidechse …", "Tom: Na klar, die Fledermaus – die fliegt doch auch!"]],
+    ["Was hat die Fledermaus NICHT mit den Vögeln gemeinsam?", ["Federn auf den Flügeln", "Eine Wirbelsäule", "Einen gleichwarmen Körper", "Aktiven Flug mit Flügelschlägen"],
+      ["Jonas: Die Federn – Fledermäuse haben Flughäute!", "Hanna: Die Federn, glaube ich.", "Finn: Federn oder Wirbelsäule …", "Ida: Fledermäuse sind doch nicht gleichwarm."]],
+    ["Was ist eine „Mauser“?", ["Der Wechsel des Federkleids", "Das Jagen von Mäusen", "Das Putzen der Federn", "Der Zug in den Süden"],
+      ["Sophie: Der Federwechsel – kommt von „mausern“!", "Leon: Der Federwechsel, oder?", "Marie: Federwechsel oder Putzen …", "Felix: Mausern heißt doch Mäuse fangen!"]],
+    ["Eine Stockente gründelt. Womit holt sie ihr Futter aus dem Schlamm?", ["Mit Hornleisten am Schnabelrand, die wie ein Sieb wirken", "Mit ihren Schwimmfüßen", "Mit einer langen, klebrigen Zunge", "Mit einem Hakenschnabel"],
+      ["Clara: Mit dem Sieb am Schnabelrand!", "Elias: Mit dem Schnabel-Sieb, oder?", "Luisa: Sieb oder Zunge …", "Max: Mit den Füßen scharrt sie das raus."]],
+    ["Ein Grünspecht sucht am Boden nach Ameisen. Was hilft ihm dabei am meisten?", ["Eine sehr lange, klebrige Zunge", "Ein Hakenschnabel", "Schwimmhäute zwischen den Zehen", "Sein Stützschwanz"],
+      ["Moritz: Die Zunge – die schnellt weit raus!", "Greta: Die lange Zunge, glaube ich.", "Karl: Zunge oder Schnabel …", "Pia: Der Stützschwanz hilft beim Graben."]],
+    ["Welcher Fuß gehört zu einem Vogel, der Mäuse fängt?", ["Ein Greiffuß mit langen, spitzen Krallen", "Ein Schwimmfuß mit Häuten", "Ein Kletterfuß mit Stützschwanz", "Ein Sitzfuß mit kurzen Krallen"],
+      ["Theo: Greiffuß – damit packt er die Maus!", "Lea: Greiffuß, oder?", "Erik: Greiffuß oder Kletterfuß …", "Nele: Ein Sitzfuß reicht doch für eine Maus."]],
+    ["Warum ist ein Vogelskelett so leicht?", ["Viele Knochen sind hohl und mit Luft gefüllt", "Die Knochen bestehen aus Horn", "Vögel haben keine Knochen in den Flügeln", "Die Knochen sind innen mit Federn gepolstert"],
+      ["Paul: Hohle Knochen mit Luft drin!", "Emma: Hohle Knochen, oder?", "Noah: Hohl oder aus Horn …", "Frieda: Die sind aus Horn, wie der Schnabel."]],
+    ["Eine Meise plustert sich im Winter auf. Warum?", ["Zwischen den Federn bleibt mehr warme Luft", "Sie will größer wirken als die Katze", "So trocknet ihr Gefieder schneller", "Dann passen mehr Daunen hinein"],
+      ["Malte: Mehr Luft zwischen den Federn – das wärmt!", "Ronja: Wegen der Luft, oder?", "Till: Luft oder größer wirken …", "Merle: Die will die Katze erschrecken."]]
+  ],
+  inhalt: {
+s1: () => `
+  <div class="prose lead"><p>Eine Kohlmeise wiegt keine 20 Gramm – so viel wie ein gewöhnlicher Brief. Trotzdem fliegt sie jeden Tag kilometerweit. Ihr ganzer Körper ist auf Leichtigkeit gebaut.</p></div>
+  ${bild("skelett", "🦴", "Vogelskelett mit aufgeschnittenem Röhrenknochen", "<b>Was du siehst:</b> Das Skelett eines Vogels. Rechts ist ein Flügelknochen aufgeschnitten: innen hohl, mit dünnen Streben.")}
+  <div class="box anim" data-widget="knochen"></div>
+  <div class="box" data-widget="karten" data-set="leicht">
+    <span class="eyebrow">Fünf Leichtbau-Tricks</span>
+    <p class="klein">Tippe jede Karte an.</p>
+    <div class="karten"></div>
+  </div>
+  <div class="box" data-widget="sort" data-set="klassen">
+    <span class="eyebrow">Mitmachen</span>
+    <h3>Vogel, Säugetier – oder beide?</h3>
+    <p class="klein">Tippe ein Merkmal an und dann das passende Fach. Vorsicht, eine Fangfrage ist dabei!</p>
+    <div class="chips" data-pool></div><div class="bins drei"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Vögel sind <b>Wirbeltiere</b> mit Federn, einem Schnabel ohne Zähne und Eiern mit Kalkschale. Ihr Körper ist auf <b>Leichtbau</b> eingerichtet: hohle Knochen, Luftsäcke, ein leichter Hornschnabel. Am Kiel des Brustbeins sitzen die starken Flugmuskeln.</p></div>`,
+s2: () => `
+  <div class="prose lead"><p>Nur Vögel haben Federn. Sie bestehen aus Horn – wie unsere Haare und Fingernägel. Eine einzige Feder ist ein kleines Meisterwerk.</p></div>
+  <div class="box anim" data-widget="feder"></div>
+  ${bild("federtypen", "🪶", "Schwungfeder, Deckfeder und Daunenfeder nebeneinander", "<b>Was du siehst:</b> Drei Federn von einem Vogel: links eine lange Schwungfeder, in der Mitte eine Deckfeder, rechts eine flauschige Daune.")}
+  <div class="box" data-widget="sort" data-set="federn">
+    <span class="eyebrow">Mitmachen</span>
+    <h3>Welche Feder macht was?</h3>
+    <p class="klein">Tippe eine Beschreibung an und dann die passende Feder.</p>
+    <div class="chips" data-pool></div><div class="bins drei"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  <details><summary>Für Neugierige: die Mauser</summary><div class="grid">
+    <p>Federn nutzen sich ab. Darum wechseln Vögel sie mindestens einmal im Jahr – das nennt man <b>Mauser</b>. Die meisten Singvögel tauschen die Schwungfedern nach und nach aus, damit sie flugfähig bleiben. Enten verlieren sie dagegen alle auf einmal und können dann einige Wochen nicht fliegen.</p></div></details>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Eine Feder hat einen <b>Kiel</b>, einen <b>Schaft</b> und eine <b>Fahne</b> aus vielen <b>Ästen</b>. Winzige Häkchen verbinden die Äste wie ein Klettverschluss. <b>Schwungfedern</b> tragen beim Fliegen, <b>Deckfedern</b> machen den Körper glatt und wasserdicht, <b>Daunen</b> halten warm.</p></div>`,
+s3: () => `
+  <div class="prose lead"><p>Vögel haben keine Hände. Ihr Schnabel ist Werkzeug, Besteck und Pinzette zugleich. An seiner Form erkennst du, was ein Vogel frisst.</p></div>
+  <div class="box" data-widget="karten" data-set="schnabel">
+    <span class="eyebrow">Der Werkzeugkasten</span>
+    <p class="klein">Tippe jede Karte an.</p>
+    <div class="karten"></div>
+  </div>
+  <div class="box" data-widget="schnabel"></div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Die <b>Schnabelform</b> passt zur <b>Nahrung</b>: Kegelschnabel für Körner, Pinzettenschnabel für Insekten, Meißelschnabel für Holz, Hakenschnabel für Fleisch, Seihschnabel für Nahrung im Wasser. Körperbau und Lebensweise gehören zusammen.</p></div>`,
+s4: () => `
+  <div class="prose lead"><p>Ein Specht am Stamm, eine Ente im Teich, ein Falke mit Maus – alle drei brauchen ganz andere Füße.</p></div>
+  ${bild("fussformen", "🦶", "Vier Vogelfüße nebeneinander: Sitzfuß, Kletterfuß, Greiffuß und Schwimmfuß", "<b>Was du siehst:</b> Vier Fußformen: Sitzfuß einer Amsel, Kletterfuß eines Spechts, Greiffuß eines Falken und Schwimmfuß einer Ente.")}
+  <div class="box anim" data-widget="sitzfuss"></div>
+  <div class="box" data-widget="sort" data-set="fuesse">
+    <span class="eyebrow">Mitmachen</span>
+    <h3>Wer hat welchen Fuß?</h3>
+    <p class="klein">Tippe einen Vogel an und dann die passende Fußform.</p>
+    <div class="chips" data-pool></div><div class="bins"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Auch die <b>Füße</b> passen zur Lebensweise: <b>Sitzfuß</b> (drei Zehen vorn, eine hinten) zum Umklammern von Zweigen, <b>Kletterfuß</b> (zwei vorn, zwei hinten) am Stamm, <b>Greiffuß</b> mit Krallen zum Beutefang, <b>Schwimmfuß</b> mit Häuten zum Paddeln.</p></div>`,
+s5: () => `
+  <div class="prose lead"><p>Jetzt zeigst du, was du kannst! Acht Fragen, zwei Joker: Bei <b>50:50</b> verschwinden zwei falsche Antworten, beim <b>Publikumsjoker</b> ruft dir jemand aus der Klasse einen Tipp zu – aber Vorsicht, nicht jeder Tipp stimmt.</p></div>
+  <p class="klein">Für die Federn zählt: 7–8 richtig = 3 Federn, 5–6 = 2, 3–4 = 1.</p>`
+  }
+},
+v2: {
+  id: "v2", titel: "Ei, Nest und Brutpflege", motto: "Wie Vögel ihre Jungen großziehen – und wer wer ist", em: "🥚",
+  lead: "Vom Ei bis zum flüggen Jungvogel – und zum Schluss bestimmst du selbst Vögel. Sammle Federn für dein Nest!",
+  stationen: [
+    { id: "s1", em: "🥚", titel: "Das Vogelei", kurz: "Was in der Schale steckt", min: 10 },
+    { id: "s2", em: "🪺", titel: "Baumeister Vogel", kurz: "Nester im Vergleich", min: 9 },
+    { id: "s3", em: "🐣", titel: "Nesthocker und Nestflüchter", kurz: "Wie Vogeleltern sorgen", min: 9 },
+    { id: "s4", em: "🔎", titel: "Wer ist das?", kurz: "Gartenvögel bestimmen", min: 10 },
+    { id: "s5", em: "🏆", titel: "Wer wird Vogel-Profi?", kurz: "Das Abschlussquiz mit Jokern", min: 8 }
+  ],
+  raenge: [
+    { ab: 0, name: "Ei-Entdecker", med: "🥚" }, { ab: 1, name: "Schlüpfling", med: "🐣" },
+    { ab: 5, name: "Nestbauer", med: "🪺" }, { ab: 9, name: "Vogelkenner", med: "🔎" },
+    { ab: 13, name: "Vogel-Meister", med: "🏅" }
+  ],
+  abzeichen: [
+    { em: "🪶", name: "Erste Feder", ok: h => h.fertige >= 1 },
+    { em: "🎯", name: "Volltreffer", ok: h => h.dreier >= 1 },
+    { em: "🥚", name: "Ei-Forscher", ok: h => h.d.s1 && h.d.s1.done },
+    { em: "🔎", name: "Bestimmer", ok: h => h.d.s4 && h.d.s4.done },
+    { em: "⭐", name: "Dreier-Serie", ok: h => h.dreier >= 3 },
+    { em: "🏆", name: "Vogel-Profi", ok: h => h.d.s5 && h.d.s5.knochen >= 3 },
+    { em: "🏅", name: "Vogel-Meister", ok: h => h.fertige >= 5 },
+    { em: "🪺", name: "Volles Nest", ok: h => h.summe >= 15 }
+  ],
+  checks: {
+    s1: [
+      ["Wozu sind die Hagelschnüre da?", ["Sie halten den Dotter in der Mitte", "Sie liefern Kalk für die Schale", "Sie verschließen die Luftkammer", "Aus ihnen werden später die Federn"]],
+      ["Kann aus einem Ei aus dem Supermarkt ein Küken schlüpfen?", ["Fast nie – die Eier sind meist nicht befruchtet", "Ja, nach 21 Tagen im Warmen", "Nur wenn das Ei im Kühlschrank lag", "Ja, aber nur aus braunen Eiern"]],
+      ["Wovon ernährt sich das Küken im Ei vor allem?", ["Vom Dotter", "Von der Luft in der Luftkammer", "Von Nahrung, die durch die Poren kommt", "Es braucht im Ei keine Nahrung"]]
+    ],
+    s2: [
+      ["Warum verkleinert der Kleiber das Einflugloch mit Lehm?", ["Größere Konkurrenten und Räuber passen nicht mehr hinein", "Damit es in der Höhle dunkler ist", "Damit die Eier nicht herausrollen", "Weil Lehm Insekten fernhält"]],
+      ["Was braucht die Rauchschwalbe zum Nestbau unbedingt?", ["Pfützen mit feuchtem Lehm", "Moos und Flechten", "Dicke, trockene Äste", "Einen morschen Baum"]],
+      ["Der Turmfalke baut kein eigenes Nest. Wo brütet er?", ["In Nischen, Nistkästen oder alten Krähennestern", "Direkt auf dem Acker", "Er legt seine Eier anderen Vögeln unter", "Im Schilf über dem Wasser"]]
+    ],
+    s3: [
+      ["Woran erkennst du einen Nestflüchter direkt nach dem Schlüpfen?", ["Dichter Flaum und offene Augen", "Nackte Haut und geschlossene Augen", "Fertige Schwungfedern", "Ein besonders großer Schnabel"]],
+      ["Junge Amseln reißen den Schnabel weit auf. Warum ist ihr Rachen so leuchtend gefärbt?", ["Das Signal bringt die Eltern zum Füttern", "Damit erschrecken sie Feinde", "Die Farbe kommt vom Futter", "Damit sie im Dunkeln besser sehen"]],
+      ["Was stimmt für die Stockente?", ["Ihre Küken suchen ihr Futter vom ersten Tag an selbst", "Beide Eltern füttern die Küken im Nest", "Die Küken bleiben drei Wochen im Nest", "Die Küken schlüpfen nackt und blind"]]
+    ],
+    s4: [
+      ["Ein kleiner Vogel: schwarzer Kopf, weiße Wangen, weißer Nackenfleck, aber kein Gelb. Wer ist das?", ["Tannenmeise", "Kohlmeise", "Blaumeise", "Haubenmeise"]],
+      ["Zwei Spatzen: einer mit grauem Scheitel, einer mit braunem Scheitel und schwarzem Wangenfleck. Welcher ist der Feldsperling?", ["Der mit dem braunen Scheitel", "Der mit dem grauen Scheitel", "Beide – das sind Männchen und Weibchen", "Keiner – das sind zwei Finken"]],
+      ["Warum fragt ein Bestimmungsschlüssel nach Zeichnung und Farbe – und kaum nach dem Verhalten?", ["Zeichnung und Farbe sieht man sicher, Verhalten wechselt", "Vögel zeigen kein Verhalten", "Die Farbe ändert sich jeden Tag", "Alle Vögel verhalten sich gleich"]]
+    ]
+  },
+  profi: [
+    ["Wer füttert seine Jungen mit Kropfmilch?", ["Tauben – Männchen und Weibchen", "Nur Tauben-Weibchen", "Alle Singvögel", "Enten"],
+      ["Mats: Tauben – und zwar beide Eltern!", "Emily: Die Tauben, oder?", "Henry: Beide Tauben oder nur die Mutter …", "Frieda: Milch gibt doch nur die Mutter."]],
+    ["Der Kuckuck baut kein Nest. Was macht er stattdessen?", ["Er legt seine Eier in Nester anderer Vögel", "Er brütet die Eier im Flug", "Er vergräbt sie in warmem Sand", "Er legt sie ins Wasser"],
+      ["Jonas: Andere Vögel müssen seine Jungen großziehen!", "Hanna: In fremde Nester, oder?", "Finn: Fremde Nester oder Sand …", "Ida: Die vergräbt er im warmen Sand."]],
+    ["Wo liegt die Luftkammer im Hühnerei?", ["Am stumpfen Ende", "Am spitzen Ende", "Genau in der Mitte", "Mitten im Dotter"],
+      ["Konstantin: Am stumpfen Ende – schau mal beim Frühstücksei!", "Marlene: Am dicken Ende, oder?", "Vincent: Dickes oder spitzes Ende …", "Smilla: Natürlich an der Spitze."]],
+    ["Warum schlüpfen Enten-Küken weiter entwickelt als Amsel-Küken?", ["Sie bleiben länger im Ei, das viel Dotter hat", "Sie werden im Ei gefüttert", "Enteneier sind wärmer", "Sie schlüpfen erst im Wasser"],
+      ["Juna: Längere Brutzeit und mehr Dotter!", "Lotta: Weil sie länger im Ei bleiben?", "Arne: Länger im Ei oder wärmer …", "Kian: Weil Enteneier wärmer sind."]],
+    ["Welche Eier legen Vögel, die in dunklen Höhlen brüten, oft?", ["Weiße oder sehr helle Eier", "Grün getarnte Eier", "Schwarze Eier", "Eier ohne Schale"],
+      ["Oskar: Weiße – Tarnung braucht man im Dunkeln nicht!", "Mathilda: Helle Eier, oder?", "Anton: Hell oder getarnt …", "Romy: Die müssen sich doch tarnen."]],
+    ["Blaumeisen legen bis zu 13 Eier, Ringeltauben nur zwei. Was hilft, das zu erklären?", ["Viele junge Meisen sterben früh – im Frühjahr gibt es aber Raupen im Überfluss", "Meisen haben mehr Platz in der Höhle", "Ringeltauben brüten nur einmal im Leben", "Tauben-Eier sind zu schwer für mehr"],
+      ["Lukas: Viele Junge, weil viele sterben – und Futter ist genug da!", "Amelie: Wegen der vielen Raupen?", "Jakob: Raupen oder Platz …", "Laura: Tauben brüten nur einmal im Leben."]],
+    ["Ein Vogel ist braun mit dunkel geflecktem Hals und so groß wie eine Amsel. Wer kann das sein?", ["Ein Amsel-Weibchen", "Ein Rotkehlchen", "Ein Haussperling-Männchen", "Ein Gimpel-Weibchen"],
+      ["Paul: Ein Amsel-Weibchen – die sind braun!", "Emma: Amsel-Weibchen?", "Noah: Amsel oder Spatz …", "Lea: Ein Spatz, der ist doch braun."]],
+    ["Ein junger Vogel sitzt im Mai allein im Gras. Er hat schon Federn, fliegt aber kaum. Was tust du?", ["In Ruhe lassen – die Eltern füttern ihn noch", "Mitnehmen und zu Hause füttern", "In irgendein Nest setzen", "Ihm Wasser einflößen"],
+      ["Theo: In Ruhe lassen – das ist ein Ästling!", "Lina: Liegen lassen, oder?", "Erik: Liegen lassen oder mitnehmen …", "Nele: Der braucht Hilfe, ich nehm ihn mit."]]
+  ],
+  inhalt: {
+s1: () => `
+  <div class="prose lead"><p>Ein Vogelei ist eine Kinderstube zum Mitnehmen: Alles, was das Küken braucht, ist schon drin. Nur Wärme muss von außen kommen.</p></div>
+  <div class="box anim" data-widget="ei"></div>
+  <div class="box anim" data-widget="brut"></div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Im <b>Ei</b> wächst das Küken aus der <b>Keimscheibe</b> heran. Der <b>Dotter</b> ist sein Nahrungsvorrat, das <b>Eiklar</b> schützt und liefert Wasser, die <b>Kalkschale</b> lässt Luft hindurch. Damit sich ein Küken entwickelt, muss das Ei befruchtet sein und <b>bebrütet</b> werden.</p></div>`,
+s2: () => `
+  <div class="prose lead"><p>Vögel bauen ohne Hände – nur mit Schnabel und Füßen. Trotzdem entstehen erstaunliche Bauwerke: Näpfe, Höhlen, Lehmschalen und Kugeln mit Dach.</p></div>
+  <div class="box" data-widget="galerie" data-set="nester"><span class="eyebrow">Nester-Galerie</span><div class="galerie"></div></div>
+  <div class="box" data-widget="sort" data-set="nester">
+    <span class="eyebrow">Mitmachen</span>
+    <h3>Wer baut wie?</h3>
+    <p class="klein">Tippe einen Vogel an und dann die passende Nestform.</p>
+    <div class="chips" data-pool></div><div class="bins"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Das <b>Nest</b> schützt Eier und Junge vor Kälte, Regen und Feinden. Je nach Art ist es ein <b>Napf</b>, eine <b>Höhle</b>, eine Schale aus <b>Lehm</b>, eine <b>Kugel</b> mit Dach oder eine <b>Mulde</b> am Boden. Manche Vögel bauen gar nicht selbst.</p></div>`,
+s3: () => `
+  <div class="prose lead"><p>Nackt und blind – oder flauschig und sofort unterwegs? Vogelkinder kommen sehr verschieden auf die Welt.</p></div>
+  ${bild("schwalben-nestlinge", "🐣", "Junge Rauchschwalben schauen aus ihrem Lehmnest", "<b>Was du siehst:</b> Junge Rauchschwalben im Nest. Sie werden noch gefüttert – typische <b>Nesthocker</b>. <i>Foto: Michael Baur</i>")}
+  ${bild("entenkueken", "🦆", "Stockenten-Küken schwimmen hinter ihrer Mutter", "<b>Was du siehst:</b> Stockenten-Küken folgen ihrer Mutter schon am ersten Tag aufs Wasser – typische <b>Nestflüchter</b>.")}
+  <div class="box" data-widget="nh"></div>
+  <div class="box" data-widget="sort" data-set="hocker">
+    <span class="eyebrow">Mitmachen</span>
+    <h3>Nesthocker oder Nestflüchter?</h3>
+    <p class="klein">Tippe einen Vogel an und dann das passende Fach. Eine Fangfrage ist dabei!</p>
+    <div class="chips" data-pool></div><div class="bins"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p><b>Nesthocker</b> schlüpfen nackt und blind und werden im Nest gefüttert, gewärmt und sauber gehalten. <b>Nestflüchter</b> schlüpfen mit Daunen und offenen Augen und folgen bald den Eltern. In beiden Fällen kümmern sich die Eltern – das ist <b>Brutpflege</b>.</p></div>`,
+s4: () => `
+  <div class="prose lead"><p>Am Futterhaus sitzt ein Vogel – aber wer ist das? Ein <b>Bestimmungsschlüssel</b> führt dich mit wenigen Fragen zur richtigen Art. Er kennt 20 häufige Gartenvögel.</p></div>
+  <div class="box" data-widget="schluessel"></div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Ein <b>Bestimmungsschlüssel</b> fragt Schritt für Schritt nach sichtbaren Merkmalen. Bei Vögeln helfen vor allem <b>Farbe</b>, <b>Zeichnung am Kopf</b> und die <b>Schnabelform</b>. Achtung: Männchen und Weibchen sehen oft verschieden aus.</p></div>`,
+s5: () => `
+  <div class="prose lead"><p>Zum Schluss: Acht Fragen, zwei Joker. Bei <b>50:50</b> verschwinden zwei falsche Antworten, beim <b>Publikumsjoker</b> ruft dir jemand einen Tipp zu – nicht jeder stimmt!</p></div>
+  <p class="klein">Für die Federn zählt: 7–8 richtig = 3 Federn, 5–6 = 2, 3–4 = 1.</p>`
+  }
+}
+};
+
+const IDS = Object.keys(EXPS);
+const MAXN = eid => EXPS[eid].stationen.length * 3;
+const rangIndex = (eid, t) => { let i = 0; EXPS[eid].raenge.forEach((r, k) => { if (t >= r.ab) i = k; }); return i; };
+function kennzahlen(eid) {
+  const d = S[eid] || {}; let summe = 0, fertige = 0, dreier = 0;
+  EXPS[eid].stationen.forEach(s => { const e = d[s.id]; if (e && e.done) { summe += e.knochen || 0; fertige++; if (e.knochen >= 3) dreier++; } });
+  return { summe, fertige, dreier, d };
+}
+
+/* ============ Übungs-Widgets ============ */
+const WIDGETS = {
+  sort(el) {
+    const set = SORT_SETS[el.dataset.set], pool = $("[data-pool]", el), fb = $(".feedback", el), binsEl = $(".bins", el);
+    binsEl.innerHTML = set.bins.map(([k, t]) => `<div class="bin" data-bin="${k}" role="button" tabindex="0"><h4>${t}</h4><div class="chips"></div></div>`).join("");
+    let sel = null, rest = set.items.length;
+    shuffle(set.items).forEach(([name, bin, why]) => {
+      const c = document.createElement("button"); c.type = "button"; c.className = "chip"; c.textContent = name;
+      c.dataset.bin = bin; c.dataset.why = why;
+      c.onclick = () => { $$(".chip.sel", pool).forEach(x => x.classList.remove("sel")); sel = c; c.classList.add("sel"); };
+      pool.appendChild(c);
+    });
+    $$(".bin", el).forEach(b => {
+      b.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); b.click(); } };
+      b.onclick = () => {
+        if (!sel) { fb.className = "feedback"; fb.textContent = "Tippe zuerst einen Begriff an."; return; }
+        if (sel.dataset.bin === b.dataset.bin) {
+          sel.classList.remove("sel"); sel.classList.add("ok"); sel.onclick = null; $(".chips", b).appendChild(sel);
+          fb.className = "feedback good"; fb.textContent = "Richtig! " + sel.dataset.why; sel = null; rest--;
+          if (!rest) fb.textContent += " – Alles einsortiert, prima!";
+        } else {
+          const c = sel; c.classList.add("shake"); setTimeout(() => c.classList.remove("shake"), 400);
+          fb.className = "feedback bad"; fb.textContent = "Nicht ganz – probier ein anderes Fach.";
+        }
+      };
+    });
+  },
+
+  karten(el) {
+    const box = $(".karten", el);
+    KARTEN_SETS[el.dataset.set].forEach(([vorn, hinten]) => {
+      const k = document.createElement("button"); k.type = "button"; k.className = "karte";
+      const zeig = offen => { k.classList.toggle("offen", offen); k.innerHTML = offen ? `<span class="kk">${vorn}</span><span class="kr">${hinten}</span>` : `<span class="kk">${vorn}</span><span class="tipp">Antippen ›</span>`; };
+      let offen = false; zeig(false); k.onclick = () => { offen = !offen; zeig(offen); };
+      box.appendChild(k);
+    });
+  },
+
+  galerie(el) {
+    $(".galerie", el).innerHTML = GALERIEN[el.dataset.set].map(([d, em, t, txt]) => bild(d, em, t, txt)).join("");
+  },
+
+  /* Röhrenknochen: Säugetier gegen Vogel */
+  knochen(el) {
+    const T = {
+      saeuger: { n: "🐿️ Säugetier", txt: "Beim Säugetier ist die Knochenwand dick. Innen steckt rotes <b>Knochenmark</b>. Stabil – aber schwer." },
+      vogel: { n: "🐦 Vogel", txt: "Beim Vogel ist die Wand dünn und innen ist <b>Luft</b>. Feine <b>Streben</b> stützen den Knochen von innen – wie die Balken einer Fachwerkbrücke. Leicht – und trotzdem fest." }
+    };
+    el.innerHTML = `<span class="eyebrow">Vergleichen</span><h3>Ein Knochen von innen</h3>
+      <div class="tabs">${Object.entries(T).map(([k, v], i) => `<button type="button" class="sbtn ${i ? "an" : ""}" data-t="${k}">${v.n}</button>`).join("")}</div>
+      <div class="kn-svg"></div><p class="anim-text" aria-live="polite"></p>`;
+    const svg = art => {
+      const v = art === "vogel", wand = v ? 4 : 14;
+      const streben = v ? [[-30, -18, 26, 22], [-28, 20, 30, -14], [-8, -34, 6, 34], [-34, 2, 34, 4], [10, -32, -22, 26]]
+        .map(([a, b, c, d]) => `<line x1="${80 + a}" y1="${95 + b}" x2="${80 + c}" y2="${95 + d}" stroke="#d8c7a3" stroke-width="3" stroke-linecap="round"/>`).join("") : "";
+      const fach = v ? Array.from({ length: 9 }, (_, i) => { const x = 160 + i * 16, o = i % 2 ? 1 : -1;
+        return `<line x1="${x}" y1="${95 - 17 * o}" x2="${x + 16}" y2="${95 + 17 * o}" stroke="#d8c7a3" stroke-width="3" stroke-linecap="round"/>`; }).join("") : "";
+      return `<svg viewBox="0 0 320 180" role="img" aria-label="Querschnitt und Längsschnitt eines ${v ? "Vogel" : "Säugetier"}knochens">
+        <text x="80" y="22" text-anchor="middle" class="lbl b">Querschnitt</text><text x="232" y="22" text-anchor="middle" class="lbl b">Längsschnitt</text>
+        <circle cx="80" cy="95" r="${46 - wand / 2}" fill="${v ? "#eef5fb" : "#c9705f"}" stroke="#efe3c8" stroke-width="${wand}"/>
+        <circle cx="80" cy="95" r="46" fill="none" stroke="#b7a27c" stroke-width="1.5"/>
+        ${streben}
+        <rect x="152" y="${74 - (v ? 2 : 6)}" width="160" height="${42 + (v ? 4 : 12)}" rx="20" fill="#efe3c8" stroke="#b7a27c" stroke-width="1.5"/>
+        <rect x="160" y="${74 + (v ? 2 : 8)}" width="144" height="${42 - (v ? 4 : 16)}" rx="12" fill="${v ? "#eef5fb" : "#c9705f"}"/>
+        ${fach}
+        <text x="80" y="165" text-anchor="middle" class="lbl">${v ? "dünne Wand, Luft, Streben" : "dicke Wand, Knochenmark"}</text>
+        <text x="232" y="165" text-anchor="middle" class="lbl">${v ? "innen wie ein Fachwerk" : "innen gefüllt"}</text></svg>`;
+    };
+    const zeig = k => { $$(".sbtn", el).forEach(b => b.classList.toggle("an", b.dataset.t === k)); $(".kn-svg", el).innerHTML = svg(k); $(".anim-text", el).innerHTML = T[k].txt; };
+    $$(".sbtn", el).forEach(b => b.onclick = () => zeig(b.dataset.t)); zeig("vogel");
+  },
+
+  /* Feder: Klettverschluss aufreißen und glattstreichen */
+  feder(el) {
+    el.innerHTML = `<span class="eyebrow">Ausprobieren</span><h3>Der Klettverschluss in der Feder</h3>
+      <svg viewBox="0 0 320 210" role="img" aria-label="Feder mit Lupe auf die Äste und Häkchen">
+        <defs><clipPath id="fd-lupe"><circle cx="232" cy="105" r="78"/></clipPath></defs>
+        <path d="M44 196 Q70 120 132 24" stroke="#8a7350" stroke-width="3" fill="none"/>
+        <path d="M58 150 Q40 110 70 70 Q96 34 132 24 Q120 70 104 96 Q86 130 64 158 Z" fill="#e8dcc4" stroke="#b9a37c" stroke-width="1"/>
+        <path d="M64 158 Q100 140 116 104 Q128 70 132 24 Q140 60 132 98 Q122 140 72 172 Z" fill="#dccdb1" stroke="#b9a37c" stroke-width="1"/>
+        <g stroke="#b9a37c" stroke-width=".7">${Array.from({ length: 12 }, (_, i) => { const t = .18 + i * .065, x = 44 + (132 - 44) * t + 8 * Math.sin(t * 3), y = 196 - 172 * t;
+          return `<path d="M${x.toFixed(0)} ${y.toFixed(0)} l-22 -6 M${x.toFixed(0)} ${y.toFixed(0)} l20 -4"/>`; }).join("")}</g>
+        <circle cx="100" cy="92" r="9" fill="none" stroke="#C28A3A" stroke-width="2"/><line x1="108" y1="88" x2="156" y2="80" stroke="#C28A3A" stroke-width="1.5"/>
+        <text x="30" y="204" class="lbl b">Kiel</text><text x="138" y="40" class="lbl b">Schaft</text><text x="8" y="112" class="lbl b">Fahne</text>
+        <circle cx="232" cy="105" r="78" fill="#fffdf7" stroke="#C28A3A" stroke-width="3"/>
+        <g clip-path="url(#fd-lupe)" id="fd-aeste"></g>
+        <text x="232" y="200" text-anchor="middle" class="lbl b">Lupe: Äste mit Häkchen</text>
+      </svg>
+      <div class="knopfreihe"><button type="button" class="knopf" id="fd-auf">✋ Feder aufreißen</button><button type="button" class="knopf prim" id="fd-zu" disabled>🐦 Durch den Schnabel ziehen</button></div>
+      <p class="anim-text" aria-live="polite"></p>`;
+    const g = $("#fd-aeste", el), txt = $(".anim-text", el);
+    const ast = (y, i) => {
+      let s = `<line x1="150" y1="${y}" x2="320" y2="${y + 18}" stroke="#8a7350" stroke-width="3"/>`;
+      for (let x = 158; x < 316; x += 9) {
+        const yy = y + (x - 150) * 18 / 170;
+        s += `<path d="M${x} ${yy.toFixed(1)} l5 9" stroke="#b9a37c" stroke-width="1.2" fill="none"/>`;
+        s += `<path d="M${x + 5} ${(yy + 22).toFixed(1)} l-3 -10 q-1 -3 2 -3" stroke="#a08a63" stroke-width="1.2" fill="none"/>`;
+      }
+      return `<g class="fd-ast" data-i="${i}" style="transition:transform .9s ease">${s}</g>`;
+    };
+    g.innerHTML = Array.from({ length: 7 }, (_, i) => ast(28 + i * 22, i)).join("");
+    const setze = offen => {
+      $$(".fd-ast", g).forEach(a => { const i = +a.dataset.i; a.style.transform = offen && i >= 4 ? "translate(6px,22px)" : offen && i === 3 ? "translate(-4px,-6px)" : "none"; });
+      $("#fd-auf", el).disabled = offen; $("#fd-zu", el).disabled = !offen;
+      txt.innerHTML = offen
+        ? "Ein Riss! Die Häkchen haben sich gelöst, zwischen den Ästen klafft eine Lücke. So hält die Feder keine Luft und keinen Regen mehr ab."
+        : "Jeder <b>Ast</b> trägt winzige <b>Strahlen</b>. Die einen haben <b>Häkchen</b>, die anderen Rinnen. Sie greifen ineinander wie ein <b>Klettverschluss</b> – die Fahne wird zu einer glatten Fläche.";
+    };
+    $("#fd-auf", el).onclick = () => setze(true);
+    $("#fd-zu", el).onclick = () => { setze(false); txt.innerHTML += " Der Vogel zieht die Feder durch den Schnabel – und schon ist sie wieder geschlossen. Das tun Vögel täglich beim <b>Putzen</b>."; };
+    setze(false);
+  },
+
+  /* Bilderquiz: Schnabel → Nahrung */
+  schnabel(el) {
+    const reihe = shuffle(SCHNAEBEL); let i = 0, richtig = 0;
+    const zeig = () => {
+      if (i >= reihe.length) {
+        el.innerHTML = `<span class="eyebrow">Schnabel-Detektiv</span><h3>${richtig} von ${reihe.length} richtig!</h3>
+          <p>${richtig >= reihe.length - 1 ? "Du liest Schnäbel wie ein Profi. 🔍" : "Schau dir die Werkzeug-Karten noch einmal an."}</p>
+          <div class="knopfreihe"><button type="button" class="knopf" id="sb-neu">↻ Nochmal</button></div>`;
+        $("#sb-neu", el).onclick = () => { i = 0; richtig = 0; zeig(); }; return;
+      }
+      const [s, name, k, warum] = reihe[i];
+      const opts = shuffle([k, ...shuffle(SCHNABEL_ESSEN.map((_, j) => j).filter(j => j !== k)).slice(0, 3)]);
+      el.innerHTML = `<span class="eyebrow">Schnabel-Detektiv · ${i + 1} von ${reihe.length}</span><h3>Was frisst dieser Vogel vermutlich?</h3>
+        <figure class="bild sb-bild"><div class="rahmen-bild"><img src="../images/voegel/schnabel-${s}.jpg" alt="Kopf und Schnabel eines Vogels"></div></figure>
+        <div class="answers">${opts.map(o => `<button type="button" class="ans" data-a="${o}"><span>${SCHNABEL_ESSEN[o]}</span></button>`).join("")}</div>
+        <p class="feedback" aria-live="polite"></p>
+        <div class="knopfreihe"><button type="button" class="knopf prim" id="sb-w" hidden>${i + 1 < reihe.length ? "Nächster Schnabel ›" : "Auswertung"}</button></div>`;
+      $$(".ans", el).forEach(b => b.onclick = () => {
+        const ok = +b.dataset.a === k; if (ok) richtig++;
+        $$(".ans", el).forEach(x => { x.disabled = true; if (+x.dataset.a === k) x.classList.add("ok"); });
+        if (!ok) b.classList.add("bad");
+        const fb = $(".feedback", el); fb.className = "feedback " + (ok ? "good" : "bad");
+        fb.innerHTML = `${ok ? "Richtig!" : "Nicht ganz."} Das ist der <b>${name}</b>. ${warum}`;
+        $("#sb-w", el).hidden = false;
+      });
+      $("#sb-w", el).onclick = () => { i++; zeig(); };
+    };
+    zeig();
+  },
+
+  /* Sitzfuß: Sehnen schließen die Zehen beim Hinhocken */
+  sitzfuss(el) {
+    el.innerHTML = `<span class="eyebrow">Ausprobieren</span><h3>Warum fällt ein schlafender Vogel nicht vom Ast?</h3>
+      <svg viewBox="0 0 260 220" role="img" aria-label="Vogelbein auf einem Ast"><g id="sf"></g></svg>
+      <input type="range" class="regler" min="0" max="100" value="0" aria-label="Vogel hockt sich hin">
+      <p class="anim-text" aria-live="polite"></p>`;
+    const r = $("input", el), g = $("#sf", el), txt = $(".anim-text", el);
+    const P = (x, y, w, l) => [x + Math.cos(w) * l, y + Math.sin(w) * l];
+    const zeh = (x, y, w0, dw, n, l) => { let p = `M${x.toFixed(1)} ${y.toFixed(1)}`, w = w0;
+      for (let k = 0; k < n; k++) { [x, y] = P(x, y, w, l); p += ` L${x.toFixed(1)} ${y.toFixed(1)}`; w += dw; } return [p, x, y]; };
+    const upd = () => {
+      const f = r.value / 100, F = [130, 157], rad = d => d * Math.PI / 180;
+      const A = P(F[0], F[1], rad(-90 + 18 + f * 40), 50);
+      const K = P(A[0], A[1], rad(-90 - 25 - f * 55), 44);
+      const [v1, vx, vy] = zeh(F[0], F[1], rad(180), -rad(4 + f * 22), 6, 6);
+      const [v2] = zeh(F[0], F[1], rad(176), -rad(2 + f * 18), 5, 6.5);
+      const [h1, hx, hy] = zeh(F[0], F[1], rad(0), rad(4 + f * 24), 4, 6);
+      const rot = `rgba(196,59,46,${(.35 + f * .65).toFixed(2)})`;
+      g.innerHTML = `<rect width="260" height="220" fill="#f3f7fa"/>
+        <circle cx="130" cy="172" r="14" fill="#7a5a3a" stroke="#5b4026" stroke-width="2"/>
+        <ellipse cx="${K[0] + 18}" cy="${K[1] - 30}" rx="58" ry="34" fill="#c7b089" opacity=".7"/><path d="M${K[0] + 70} ${K[1] - 38} l44 -10 l-40 22 Z" fill="#a8946f" opacity=".8"/><circle cx="${K[0] - 34}" cy="${K[1] - 56}" r="20" fill="#c7b089"/><circle cx="${K[0] - 42}" cy="${K[1] - 60}" r="3" fill="#2b2b2b"/><path d="M${K[0] - 52} ${K[1] - 58} l-14 4 l14 4 Z" fill="#6b5a40"/>
+        <path d="M${K[0]} ${K[1]} L${A[0]} ${A[1]} L${F[0]} ${F[1]}" stroke="#8b8378" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="${v1}" stroke="#8b8378" stroke-width="4" stroke-linecap="round" fill="none"/><path d="${v2}" stroke="#a49c90" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <path d="${h1}" stroke="#8b8378" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M${K[0] + 3} ${K[1]} L${A[0] + 5} ${A[1]} L${F[0] + 2} ${F[1] + 2} ${v1.replace(/^M[^L]+/, "")}" stroke="${rot}" stroke-width="1.8" fill="none" stroke-dasharray="${f > .1 ? "none" : "4 3"}"/>
+        <circle cx="${A[0]}" cy="${A[1]}" r="5" fill="#fff" stroke="#8b8378" stroke-width="2"/>
+        <text x="${A[0] + 10}" y="${A[1] + 4}" class="lbl b">Ferse</text>
+        <text x="${K[0] + 8}" y="${K[1] + 18}" class="lbl" fill="#b23b2e">Sehne</text>
+        <text x="130" y="208" text-anchor="middle" class="lbl">Ast</text>`;
+      txt.innerHTML = f < .3 ? "Der Vogel steht aufrecht, die Zehen liegen locker auf dem Ast. Was wie ein Knie nach hinten aussieht, ist übrigens die <b>Ferse</b>."
+        : f < .75 ? "Er hockt sich hin. Dabei knickt die Ferse ein und die <b>Sehnen</b> an ihrer Rückseite werden straff gezogen …"
+        : "… und die Zehen schließen sich <b>von ganz allein</b> fest um den Ast. Dafür braucht der Vogel keine Kraft. So kann er auf dem Ast sogar schlafen.";
+    };
+    r.oninput = upd; upd();
+  },
+
+  /* Das Ei: Teile antippen */
+  ei(el) {
+    el.innerHTML = `<span class="eyebrow">Erkunden</span><h3>Ein Ei im Längsschnitt</h3>
+      <svg viewBox="0 0 320 220" role="img" aria-label="Längsschnitt durch ein Hühnerei">
+        <rect width="320" height="220" fill="#f3f7fa"/>
+        <path data-t="schale" d="M48 110 C48 48 124 26 190 36 C254 46 286 84 286 110 C286 136 254 174 190 184 C124 194 48 172 48 110 Z" fill="#fbf6ea" stroke="#d8c39a" stroke-width="7"/>
+        <path data-t="haut" d="M57 110 C57 55 127 35 190 44 C248 53 277 87 277 110 C277 133 248 167 190 176 C127 185 57 165 57 110 Z" fill="none" stroke="#bfa98a" stroke-width="1.5" stroke-dasharray="4 2"/>
+        <path data-t="luft" d="M58 84 Q80 110 58 136 Q52 110 58 84 Z" fill="#dfeaf4" stroke="#9fb6cc" stroke-width="1.2"/>
+        <path data-t="klar" d="M72 110 C72 66 130 52 188 58 C240 64 266 92 266 110 C266 128 240 156 188 162 C130 168 72 154 72 110 Z" fill="#fffef8" stroke="#e8dfc8" stroke-width="1"/>
+        <path data-t="hagel" d="M120 110 q-6 -6 -12 0 t-12 0 t-12 0 M212 110 q6 -6 12 0 t12 0 t12 0" stroke="#b89a5e" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <circle data-t="dotter" cx="166" cy="110" r="44" fill="#f5b532" stroke="#d9951a" stroke-width="2"/>
+        <ellipse data-t="keim" cx="166" cy="70" rx="9" ry="4" fill="#fff8e6" stroke="#d9951a" stroke-width="1"/>
+      </svg>
+      <div class="chips ei-knoepfe">${EI_TEILE.map(([k, n]) => `<button type="button" class="chip" data-k="${k}">${n}</button>`).join("")}</div>
+      <p class="anim-text" aria-live="polite">Tippe einen Teil an – im Bild oder auf die Knöpfe.</p>`;
+    const txt = $(".anim-text", el);
+    const zeig = k => {
+      const t = EI_TEILE.find(e => e[0] === k);
+      $$("[data-t]", el).forEach(p => p.style.opacity = p.dataset.t === k ? 1 : .28);
+      $$(".ei-knoepfe .chip", el).forEach(c => c.classList.toggle("sel", c.dataset.k === k));
+      txt.innerHTML = `<b>${t[1]}:</b> ${t[2]}`;
+    };
+    $$(".ei-knoepfe .chip", el).forEach(c => c.onclick = () => zeig(c.dataset.k));
+    $$("[data-t]", el).forEach(p => { p.style.cursor = "pointer"; p.style.transition = "opacity .3s"; p.addEventListener("click", () => zeig(p.dataset.t)); });
+  },
+
+  /* 21 Tage im Hühnerei */
+  brut(el) {
+    el.innerHTML = `<span class="eyebrow">Zeitraffer</span><h3>21 Tage im Hühnerei</h3>
+      <svg viewBox="0 0 320 200" role="img" aria-label="Entwicklung des Kükens im Ei"><g id="br"></g></svg>
+      <input type="range" class="regler" min="0" max="21" value="0" aria-label="Bruttag">
+      <p class="anim-text" aria-live="polite"></p>`;
+    const r = $("input", el), g = $("#br", el), txt = $(".anim-text", el);
+    const upd = () => {
+      const d = +r.value, f = d / 21, schlupf = d >= 21;
+      const dot = 46 - f * 34, luft = 10 + f * 16, em = f * 44;
+      const st = BRUT.filter(b => b[0] <= d).pop();
+      const kueken = em < 3 ? `<ellipse cx="${170}" cy="${100 - dot + 2}" rx="7" ry="3" fill="#fff8e6"/>`
+        : `<g transform="translate(${178 - em * .3} ${100}) scale(${(.2 + f * 1.45).toFixed(2)})">
+            <path d="M-40 10 Q-44 -30 -6 -34 Q30 -34 36 0 Q36 30 0 34 Q-34 34 -40 10 Z" fill="${d >= 10 ? "#f4d58a" : "#f1b9a8"}" stroke="#c9905c" stroke-width="2"/>
+            <circle cx="-14" cy="-14" r="15" fill="${d >= 10 ? "#f6dc98" : "#f1b9a8"}" stroke="#c9905c" stroke-width="2"/>
+            <circle cx="-18" cy="-17" r="${d >= 5 ? 4 : 1.5}" fill="#2b2b2b"/>
+            ${d >= 14 ? `<path d="M-30 -14 l-10 3 l10 3 Z" fill="#e0a12a"/>` : ""}</g>`;
+      g.innerHTML = `<rect width="320" height="200" fill="#f3f7fa"/>
+        ${schlupf ? `<path d="M56 100 C56 46 124 26 184 34 L196 52 L182 66 L204 82 L188 100 Z" fill="#fbf6ea" stroke="#d8c39a" stroke-width="5"/>
+                      <path d="M196 116 L214 130 L200 146 L216 160 C200 168 120 178 56 100" fill="#fbf6ea" stroke="#d8c39a" stroke-width="5"/>
+                      <text x="244" y="118" text-anchor="middle" font-size="64">🐣</text>`
+        : `<path d="M56 100 C56 46 124 26 184 34 C240 42 270 74 270 100 C270 126 240 158 184 166 C124 174 56 154 56 100 Z" fill="#fffef8" stroke="#d8c39a" stroke-width="5"/>
+           <path d="M62 ${100 - luft * 1.6} Q${62 + luft} 100 62 ${100 + luft * 1.6} Q57 100 62 ${100 - luft * 1.6} Z" fill="#dfeaf4"/>
+           ${dot > 4 ? `<circle cx="170" cy="${100 + (46 - dot) * .4}" r="${dot.toFixed(1)}" fill="#f5b532" stroke="#d9951a" stroke-width="1.5"/>` : ""}
+           ${d >= 2 && d < 19 ? `<path d="M${170 - dot} ${100} q${dot / 2} -${dot / 3} ${dot} 0 t${dot} 0" stroke="#c0392b" stroke-width="1.2" fill="none" opacity=".7"/>` : ""}
+           ${kueken}`}
+        <text x="20" y="190" class="lbl b">Tag ${d} von 21</text>`;
+      txt.innerHTML = st[1];
+    };
+    r.oninput = upd; upd();
+  },
+
+  /* Nesthocker – Nestflüchter im Vergleich */
+  nh(el) {
+    el.innerHTML = `<span class="eyebrow">Vergleichen</span><h3>Nesthocker 🐣 oder Nestflüchter 🦆?</h3>
+      <div class="tabs">${NH.map(([n], k) => `<button type="button" class="sbtn ${k ? "" : "an"}" data-k="${k}">${n}</button>`).join("")}</div>
+      <div class="vgl"></div>`;
+    const zeig = k => {
+      $$(".sbtn", el).forEach(b => b.classList.toggle("an", +b.dataset.k === k));
+      const [, h, f] = NH[k];
+      $(".vgl", el).innerHTML = `<div class="karten"><div class="karte offen"><span class="kk">🐣 Nesthocker</span><span class="kr">${h}</span></div>
+        <div class="karte offen"><span class="kk">🦆 Nestflüchter</span><span class="kr">${f}</span></div></div>`;
+    };
+    $$(".sbtn", el).forEach(b => b.onclick = () => zeig(+b.dataset.k)); zeig(0);
+  },
+
+  /* Bestimmungsschlüssel – frei oder mit Foto */
+  schluessel(el) {
+    let modus = "frei", knoten = "start", pfad = [], foto = null, fotos = shuffle(BESTIMM_FOTOS), fi = 0, treffer = 0, versuche = 0;
+    const kopfzeile = () => `<span class="eyebrow">Bestimmungsschlüssel</span>
+      <div class="tabs"><button type="button" class="sbtn ${modus === "frei" ? "an" : ""}" data-m="frei">🔎 Frei bestimmen</button>
+      <button type="button" class="sbtn ${modus === "foto" ? "an" : ""}" data-m="foto">📷 Foto bestimmen</button></div>
+      ${modus === "foto" ? `<p class="klein">Bestimme den Vogel auf dem Foto – Fotos: Michael Baur. ${versuche ? `Bisher ${treffer} von ${versuche} richtig.` : ""}</p>
+        <figure class="bild"><div class="rahmen-bild"><img src="../images/voegel/foto-${foto}.jpg" alt="Foto eines Vogels zum Bestimmen"></div></figure>` : ""}`;
+    const binde = () => {
+      $$("[data-m]", el).forEach(b => b.onclick = () => { modus = b.dataset.m; neu(); });
+    };
+    const neu = () => { knoten = "start"; pfad = []; if (modus === "foto") { foto = fotos[fi % fotos.length]; fi++; } zeichne(); };
+    const zeichne = () => {
+      if (knoten.startsWith("=")) return ende(knoten.slice(1));
+      const K = SCHLUESSEL[knoten];
+      el.innerHTML = `${kopfzeile()}
+        ${pfad.length ? `<p class="hint">Dein Weg: ${pfad.map(p => esc(p)).join(" › ")}</p>` : ""}
+        <h3>${K.f}</h3>
+        <div class="sk-opt">${K.o.map(([t], k) => `<button type="button" class="ans" data-k="${k}"><span>${t}</span></button>`).join("")}</div>
+        ${pfad.length ? `<div class="knopfreihe"><button type="button" class="knopf" id="sk-neu">↺ Von vorn</button></div>` : ""}`;
+      binde();
+      $$(".sk-opt .ans", el).forEach(b => b.onclick = () => { const [t, z] = K.o[+b.dataset.k]; pfad.push(t); knoten = z.startsWith("=") ? z : z; zeichne(); });
+      const n = $("#sk-neu", el); if (n) n.onclick = neu;
+    };
+    const ende = slug => {
+      const [name, merk] = ARTEN[slug];
+      let urteil = "";
+      if (modus === "foto") {
+        versuche++; const ok = slug === foto; if (ok) treffer++;
+        urteil = `<p class="feedback ${ok ? "good" : "bad"}">${ok ? "Richtig bestimmt! 🎉" : `Nicht ganz – auf dem Foto ist ein <b>${ARTEN[foto][0]}</b>. Geh den Weg noch einmal durch.`}</p>`;
+      }
+      el.innerHTML = `${kopfzeile()}
+        <p class="hint">Dein Weg: ${pfad.map(p => esc(p)).join(" › ")}</p>
+        ${urteil}
+        <div class="sk-ende">
+          <img src="../images/voegel/tafel-${slug}.jpg" alt="Lehrtafel ${name}" loading="lazy">
+          <div><span class="eyebrow">Ergebnis</span><h3>${name}</h3><p>${merk}</p>
+            <a class="knopf" href="https://fauna.mibaso.de/arten/${slug}.html" target="_blank" rel="noopener">Zur Artseite ↗</a></div>
+        </div>
+        <div class="knopfreihe"><button type="button" class="knopf prim" id="sk-neu">${modus === "foto" ? "Nächstes Foto ›" : "↺ Neuen Vogel bestimmen"}</button></div>`;
+      binde(); $("#sk-neu", el).onclick = neu;
+    };
+    neu();
+  }
+};
+
+/* ============ Quiz ============ */
+function quiz(el, data, jokers, fertig) {
+  let i = 0, score = 0, j50 = false, jpub = false; const marks = [];
+  const qs = data.map(([q, a, hints]) => ({ q, hints, a: shuffle(a.map((t, k) => ({ t, ok: k === 0 }))) }));
+  const zeichne = () => {
+    if (i >= qs.length) return fertig(score, qs.length);
+    const q = qs[i];
+    el.innerHTML = `<div class="quiz">
+      <div class="qhead"><span class="eyebrow">Frage ${i + 1} von ${qs.length}</span><div class="dots">${qs.map((_, k) => `<i class="${marks[k] || (k === i ? "now" : "")}"></i>`).join("")}</div></div>
+      <p class="qq">${q.q}</p>
+      <div class="answers">${q.a.map((a, k) => `<button type="button" class="ans" data-k="${k}"><b>${"ABCD"[k]}</b><span>${a.t}</span></button>`).join("")}</div>
+      ${jokers ? `<div class="jokers"><button type="button" class="knopf" data-j="50" ${j50 ? "disabled" : ""}>50:50</button><button type="button" class="knopf" data-j="pub" ${jpub ? "disabled" : ""}>📣 Publikumsjoker</button></div>` : ""}
+      <p class="publikum" hidden></p>
+      <p class="feedback" aria-live="polite"></p>
+      <div><button type="button" class="knopf prim" data-weiter hidden>${i + 1 < qs.length ? "Nächste Frage" : "Auswertung"}</button></div></div>`;
+    $$(".ans", el).forEach(b => b.onclick = () => antwort(+b.dataset.k));
+    const b50 = $('[data-j="50"]', el), bp = $('[data-j="pub"]', el);
+    if (b50) b50.onclick = () => { j50 = true; b50.disabled = true;
+      shuffle(q.a.map((a, k) => k).filter(k => !q.a[k].ok)).slice(0, 2).forEach(k => { $(`.ans[data-k="${k}"]`, el).hidden = true; }); };
+    if (bp) bp.onclick = () => { jpub = true; bp.disabled = true; const p = $(".publikum", el); p.hidden = false;
+      const r = Math.random(), h = q.hints[r < .45 ? 0 : r < .7 ? 1 : r < .88 ? 2 : 3];
+      p.textContent = "„" + h.replace(/^([^:]+): /, "$1 ruft: ") + "“"; };
+    $("[data-weiter]", el).onclick = () => { i++; zeichne(); };
+  };
+  const antwort = k => {
+    const q = qs[i], ok = q.a[k].ok;
+    $$(".ans", el).forEach(b => { b.disabled = true; if (q.a[+b.dataset.k].ok) b.classList.add("ok"); });
+    if (!ok) $(`.ans[data-k="${k}"]`, el).classList.add("bad");
+    $$("[data-j]", el).forEach(b => b.disabled = true);
+    marks[i] = ok ? "ok" : "bad"; if (ok) score++;
+    const fb = $(".feedback", el); fb.className = "feedback " + (ok ? "good" : "bad"); fb.textContent = ok ? "Richtig!" : "Leider falsch.";
+    $("[data-weiter]", el).hidden = false; $("[data-weiter]", el).focus();
+  };
+  zeichne();
+}
+
+/* ============ Station abschließen ============ */
+function abschliessen(eid, sid, score, total) {
+  const X = EXPS[eid], n = X.stationen.length;
+  const knochen = total === 3 ? score : (score >= 7 ? 3 : score >= 5 ? 2 : score >= 3 ? 1 : 0);
+  const vorher = kennzahlen(eid), rangVorher = rangIndex(eid, vorher.summe), alleVorher = vorher.fertige === n;
+  const abzVorher = X.abzeichen.map(a => a.ok(vorher));
+  S[eid] = S[eid] || {};
+  const alt = S[eid][sid];
+  S[eid][sid] = { done: true, knochen: Math.max(knochen, alt ? alt.knochen || 0 : 0), ts: Date.now() };
+  speichern();
+  const nach = kennzahlen(eid), rangNach = rangIndex(eid, nach.summe);
+  return { knochen, best: S[eid][sid].knochen, neuerRang: rangNach > rangVorher ? X.raenge[rangNach] : null,
+    geschafft: !alleVorher && nach.fertige === n, neueAbz: X.abzeichen.filter((a, k) => !abzVorher[k] && a.ok(nach)) };
+}
+
+/* ============ Ansichten ============ */
+const app = $("#app");
+const kopf = (titel, unter) => `<header class="app-head">
+  <a class="zurueck-kopf" href="../index.html">‹ Fauna</a>
+  <div class="logo">🥚 → 🐦</div><h1>${titel}</h1><div class="untertitel">${unter}</div></header>`;
+const fuss = () => `<footer class="fuss">
+  <div>Fortschritt wird nur auf diesem Gerät gespeichert. Keine Anmeldung, keine Datensammlung.</div>
+  <div><a href="../../index.html">⌂ Bio Mibaso</a> · <a href="../../ueber/">Über mich</a> · <a href="../../impressum/">Impressum &amp; Datenschutz</a></div>
+  <div>© 2026 Michael Baur · Vogelpass</div></footer>`;
+
+function seiteStart() {
+  const kachel = eid => { const X = EXPS[eid], h = kennzahlen(eid);
+    return `<a class="kachel" href="#${eid}"><span class="ke">${X.em}</span><span><span class="kt">Teil ${IDS.indexOf(eid) + 1} · ${X.titel}</span><span class="kb">${X.motto} · ${X.stationen.length} Stationen · ca. ${X.stationen.reduce((a, s) => a + s.min, 0)} Min · 🪶 ${h.summe}/${MAXN(eid)}</span></span><span class="pf">›</span></a>`; };
+  app.innerHTML = `${kopf("Vögel", "Gebaut zum Fliegen")}
+  <div class="huelle">
+    <section>
+      <p class="lead">Hohle Knochen, Federn mit Klettverschluss, Schnäbel wie Werkzeuge – ein Vogel ist ein Meisterwerk des Leichtbaus. Zwei Expeditionen zeigen dir, wie Vögel gebaut sind, wie sie ihre Jungen großziehen und wie du sie bestimmst. Für jede Station gibt es bis zu drei Federn 🪶. Polstere dein Nest und hol dir die Urkunde!</p>
+    </section>
+    <section>
+      <h2 class="h-blau">Deine Expeditionen</h2>
+      <div class="kacheln">${IDS.map(kachel).join("")}</div>
+    </section>
+    <section>
+      <details class="lehrer"><summary>Für Lehrkräfte: Einsatz in Klasse 5/6</summary><div class="grid">
+        <div class="ablauf"><b>Teil 1</b><span>Bauplan Vogel – Leichtbau (Knochen, Schnabel, Luftsäcke, Vergleich mit Säugetieren), Aufbau und Typen der Federn, Schnabelformen und Nahrung (Bilderquiz mit Tafel-Ausschnitten), Fußformen und Sitzfuß-Mechanismus (ca. 46 Min)</span>
+          <b>Teil 2</b><span>Ei, Nest und Brutpflege – Aufbau des Eis und Entwicklung im Zeitraffer, Nestformen, Nesthocker und Nestflüchter, Bestimmungsschlüssel für 20 Gartenvögel mit Fotobestimmung (ca. 46 Min)</span></div>
+        <p>Beide Teile zusammen füllen eine Doppelstunde, lassen sich aber auch einzeln einsetzen. Alles läuft im Browser auf Tablet, Handy oder am Beamer – ohne Anmeldung, ohne Datensammlung, ohne Ton (nur bei voller Punktzahl erklingt eine kurze Fanfare).</p>
+        <p><b>Bezug zum hessischen Kerncurriculum Biologie, Jahrgangsstufe 5/6:</b> Biologische Strukturen (Zusammenhang von Körperbau, Lebensweise und Lebensraum: Leichtbau, Federn, Schnabel- und Fußformen), Fortpflanzung und Entwicklung (Fortpflanzung bei Wirbeltieren: Ei, Nest, Brutpflege, Nesthocker und Nestflüchter), Vielfalt (Bestimmen heimischer Vögel, Merkmale der Wirbeltierklassen).</p>
+        <ul class="clean">
+          <li><b>Stufenweise:</b> Jede Station öffnet sich erst, wenn die vorige geschafft ist. Mit „Alle offen“ kann frei gewählt werden.</li>
+          <li><b>Zum Weiterarbeiten:</b> Federn sammeln und unter der Lupe ansehen, ein Frühstücksei aufschlagen und die Teile suchen, am Futterhaus mit dem Schlüssel bestimmen.</li>
+          <li><b>Zum Nachschlagen:</b> Alle Vögel haben eine eigene Artseite mit Tafel und Steckbrief auf <a href="https://fauna.mibaso.de/interaktiv/stammbaum.html?gruppe=V%C3%B6gel" target="_blank" rel="noopener">fauna.mibaso.de im Stammbaum</a>.</li>
+          <li><b>Urkunde:</b> Am Ende tragen die Kinder ihren Namen ein und drucken die Urkunde oder speichern sie als PDF.</li>
+          <li><b>Geteilte Geräte:</b> Im Vogelpass ganz unten „Pass zurücksetzen“.</li>
+        </ul></div></details>
+    </section>
+    ${fuss()}
+  </div>`;
+}
+
+function seitePass(eid, neu) {
+  const X = EXPS[eid], MAX = MAXN(eid), h = kennzahlen(eid), ri = rangIndex(eid, h.summe), rang = X.raenge[ri], next = X.raenge[ri + 1], n = X.stationen.length;
+  const anderer = IDS.find(k => k !== eid);
+  app.innerHTML = `
+  <div class="subkopf"><div class="row"><a class="zurueck" href="#start">‹ Vögel</a><span class="tchip">🪶 ${h.summe} / ${MAX}</span></div></div>
+  <div class="huelle">
+    <section>
+      <span class="eyebrow">Dein Vogelpass · Teil ${IDS.indexOf(eid) + 1}</span>
+      <h2 class="h-blau">${X.titel}</h2>
+      <p class="lead">${X.lead}</p>
+      <div class="buehne">
+        <div class="rangchip"><span class="med">${rang.med}</span><span>Rang<b>${rang.name}</b></span></div>
+        <div class="zaehler">${h.summe} / ${MAX} 🪶</div>
+        ${nestSVG(h.summe, MAX, neu)}
+        <div class="boden"></div>
+      </div>
+      <div class="fbalken"><i id="fbar"></i></div>
+      <p class="naechster">${next ? `Noch <b>${federn(next.ab - h.summe)}</b> bis zum Rang „${next.name}“` : `Höchster Rang erreicht – ${rang.name}! 🎉`}</p>
+      <div class="schalter"><span class="lab">Spielmodus:</span>
+        <button type="button" class="sbtn ${S.modus === "frei" ? "an" : ""}" data-m="frei">🔓 Alle offen</button>
+        <button type="button" class="sbtn ${S.modus === "level" ? "an" : ""}" data-m="level">🔒 Stufenweise</button></div>
+    </section>
+    <section>
+      <h2 class="h-honig">Deine Stationen</h2>
+      <div class="stationen">${X.stationen.map((s, k) => {
+        const e = h.d[s.id], done = !!(e && e.done), vor = k === 0 || !!(h.d[X.stationen[k - 1].id] && h.d[X.stationen[k - 1].id].done);
+        const offen = S.modus === "frei" || done || vor;
+        const cls = done ? "fertig" : offen ? "aktiv" : "gesperrt";
+        const rechts = done ? knochenHTML(e.knochen) : offen ? `ca. ${s.min} Min ›` : "🔒";
+        const inner = `<span class="nr">${s.em}</span><span><span class="st">${k + 1}. ${s.titel}</span><span class="sk">${s.kurz}</span></span><span class="stand">${rechts}</span>`;
+        return offen ? `<a class="station ${cls}" href="#${eid}-${s.id}">${inner}</a>` : `<div class="station ${cls}" aria-disabled="true">${inner}</div>`;
+      }).join("")}</div>
+      ${h.fertige === n && anderer ? `<p class="klein">Weiter geht’s mit <a href="#${anderer}">Teil ${IDS.indexOf(anderer) + 1}: ${EXPS[anderer].titel}</a>.</p>` : ""}
+    </section>
+    <section>
+      <h2 class="h-blau">Urkunde</h2>
+      ${h.fertige ? `<p>${h.fertige === n ? "Geschafft! Trag deinen Namen ein und hol dir deine Urkunde." : `Du hast ${h.fertige} von ${n} Stationen geschafft. Die Urkunde zeigt deinen Zwischenstand.`}</p>
+        <div><button type="button" class="knopf honig" id="urkBtn">📜 Urkunde ansehen</button></div>`
+        : `<p class="klein">Schaff die erste Station – dann gibt es hier deine Urkunde.</p>`}
+    </section>
+    <section>
+      <h2 class="h-honig">Abzeichen-Album</h2>
+      <div class="album">${X.abzeichen.map(a => { const ok = a.ok(h); return `<div class="abz ${ok ? "auf" : "zu"}"><span class="em">${a.em}</span>${a.name}</div>`; }).join("")}</div>
+    </section>
+    <section class="reset" id="resetBox">
+      <button type="button" class="knopf" id="resetBtn">Pass zurücksetzen</button>
+      <p class="hint">Löscht Federn und Abzeichen dieses Teils auf diesem Gerät – zum Beispiel für die nächste Person.</p>
+    </section>
+    ${fuss()}
+  </div>`;
+  requestAnimationFrame(() => requestAnimationFrame(() => { const b = $("#fbar"); if (b) b.style.width = (h.summe / MAX * 100) + "%"; }));
+  $$("[data-m]", app).forEach(b => b.onclick = () => { S.modus = b.dataset.m; speichern(); route(true); });
+  const ub = $("#urkBtn"); if (ub) ub.onclick = () => urkunde(eid);
+  $("#resetBtn").onclick = () => {
+    $("#resetBox").innerHTML = `<p><b>Wirklich alles löschen?</b> Federn, Abzeichen und Name auf diesem Gerät sind dann weg.</p>
+      <div class="knopfreihe"><button type="button" class="knopf prim" id="jaReset">Ja, zurücksetzen</button><button type="button" class="knopf" id="neinReset">Abbrechen</button></div>`;
+    $("#jaReset").onclick = () => { S[eid] = {}; S.name = ""; speichern(); toast("Vogelpass zurückgesetzt."); route(true); };
+    $("#neinReset").onclick = () => route(true);
+  };
+}
+
+function seiteStation(eid, sid) {
+  const X = EXPS[eid], MAX = MAXN(eid), k = X.stationen.findIndex(s => s.id === sid), s = X.stationen[k], h = kennzahlen(eid);
+  if (k < 0) { location.hash = eid; return; }
+  const vor = k === 0 || !!(h.d[X.stationen[k - 1].id] && h.d[X.stationen[k - 1].id].done);
+  if (S.modus === "level" && !vor && !(h.d[sid] && h.d[sid].done)) { location.hash = eid; return; }
+  const finale = sid === "s5";
+  app.innerHTML = `
+  <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Vogelpass</a><span class="tchip" id="tchip">🪶 ${h.summe} / ${MAX}</span></div></div>
+  <div class="huelle">
+    <section>
+      <span class="eyebrow">Teil ${IDS.indexOf(eid) + 1} · Station ${k + 1} von ${X.stationen.length} · ca. ${s.min} Min</span>
+      <h2 class="h-blau">${s.em} ${s.titel}</h2>
+      ${X.inhalt[sid]()}
+    </section>
+    <section>
+      <h2 class="h-honig">${finale ? "Los geht’s!" : "Station-Check"}</h2>
+      ${finale ? "" : `<p class="klein">Drei Fragen – für jede richtige Antwort gibt es eine Feder.</p>`}
+      <div class="box" id="check"></div>
+    </section>
+    ${fuss()}
+  </div>`;
+  $$("[data-widget]", app).forEach(el => WIDGETS[el.dataset.widget](el));
+  const box = $("#check");
+  const starte = () => quiz(box, finale ? X.profi : X.checks[sid], finale, (score, total) => {
+    const r = abschliessen(eid, sid, score, total), naechste = X.stationen[k + 1];
+    $("#tchip").textContent = `🪶 ${kennzahlen(eid).summe} / ${MAX}`;
+    const lob = r.knochen === 3 ? "Volle Punktzahl – stark!" : r.knochen === 2 ? "Gut gemacht!" : r.knochen === 1 ? "Geschafft! Mit einem zweiten Versuch holst du mehr Federn." : "Station erledigt – aber probier’s gleich noch mal!";
+    box.innerHTML = `<div class="ergebnis">
+      <span class="eyebrow">${score} von ${total} richtig</span>
+      <div class="gross">${knochenHTML(r.knochen)}</div>
+      <p>${lob}</p>
+      ${r.best > r.knochen ? `<p class="klein">In deinem Pass zählt dein bestes Ergebnis: ${federn(r.best)}.</p>` : ""}
+      <div class="knopfreihe">
+        <button type="button" class="knopf" id="nochmal">Nochmal</button>
+        ${naechste ? `<a class="knopf prim" href="#${eid}-${naechste.id}">Weiter: ${naechste.titel} ›</a>` : ""}
+        <a class="knopf ${naechste ? "" : "prim"}" href="#${eid}">🪶 Zum Vogelpass</a>
+      </div></div>`;
+    $("#nochmal").onclick = starte;
+    if (r.geschafft) feier(eid);
+    else {
+      if (r.knochen === 3) { konfetti(); fanfare(false); }
+      if (r.neuerRang) setTimeout(() => toast(`${r.neuerRang.med} Neuer Rang: ${r.neuerRang.name}!`), 600);
+      else if (r.neueAbz.length) setTimeout(() => toast(`${r.neueAbz[0].em} Neues Abzeichen: ${r.neueAbz[0].name}`), 600);
+    }
+  });
+  starte();
+}
+
+/* ============ Feier & Urkunde ============ */
+function feier(eid) {
+  konfetti(); fanfare(true);
+  const X = EXPS[eid], h = kennzahlen(eid), rang = X.raenge[rangIndex(eid, h.summe)];
+  const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = `<div class="feierkarte"><div class="fmed">${rang.med}</div><h3>Teil ${IDS.indexOf(eid) + 1} geschafft!</h3>
+    <p>Du hast alle Stationen von „${X.titel}“ gemeistert und ${h.summe} von ${MAXN(eid)} Federn gesammelt. Dein Rang: <b>${rang.name}</b>.</p>
+    <div class="knopfreihe"><button type="button" class="knopf honig" id="fUrk">📜 Zur Urkunde</button><button type="button" class="knopf" id="fZu">Weiter</button></div></div>`;
+  document.body.appendChild(o);
+  $("#fUrk", o).onclick = () => { o.remove(); urkunde(eid); };
+  $("#fZu", o).onclick = () => o.remove();
+  $("#fUrk", o).focus();
+}
+
+function urkunde(eid) {
+  const X = EXPS[eid], h = kennzahlen(eid), rang = X.raenge[rangIndex(eid, h.summe)], n = X.stationen.length, alle = h.fertige === n;
+  const datum = new Date().toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+  const abz = X.abzeichen.filter(a => a.ok(h)).map(a => a.em).join(" ");
+  const titel = `„${X.titel}“`;
+  const o = document.createElement("div"); o.className = "overlay"; o.id = "urkunde"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = `<div class="urkunde"><div class="rahmen">
+    <div class="urk-eyebrow">Bio Mibaso · Vogelpass · Teil ${IDS.indexOf(eid) + 1}</div>
+    <div class="urk-med">${rang.med}</div>
+    <div class="urk-titel">Urkunde</div>
+    <div class="urk-sub">${rang.name}</div>
+    <div class="urk-satz">Diese Urkunde bestätigt, dass</div>
+    <input class="urk-name" id="urkName" placeholder="Dein Name" aria-label="Dein Name" value="${esc(S.name || "")}">
+    <div class="urk-name-druck" id="urkNameDruck">${S.name ? esc(S.name) : "&nbsp;"}</div>
+    <div class="urk-satz">${alle ? `die Expedition <b>${titel}</b> erfolgreich abgeschlossen hat.` : `in der Expedition <b>${titel}</b> ${h.fertige} von ${n} Stationen gemeistert hat.`}</div>
+    <table class="urk-tab">${X.stationen.map((s, k) => { const e = h.d[s.id]; return `<tr><td>${k + 1}. ${s.titel}</td><td>${e && e.done ? knochenHTML(e.knochen) : "–"}</td></tr>`; }).join("")}</table>
+    <div class="urk-summe">🪶 ${h.summe} von ${MAXN(eid)} Federn</div>
+    ${abz ? `<div class="urk-album" aria-label="Abzeichen">${abz}</div>` : ""}
+    <div class="urk-fuss"><span>${datum}</span><span>Bio Mibaso · mibaso.de</span></div>
+  </div>
+  <div class="urk-btns">
+    ${IM_RAHMEN ? `<span class="hint">Drucken klappt auf bio.mibaso.de.</span>` : `<button type="button" class="knopf prim" id="urkDruck">🖨️ Drucken / als PDF sichern</button>`}
+    <button type="button" class="knopf honig" id="urkTeilen">📤 Teilen / als Bild sichern</button>
+    <p class="hint" style="width:100%;text-align:center;margin:2px 0 0">Auf iPhone und iPad: „Teilen“ antippen, dann „Drucken“ oder „Bild sichern“.</p>
+    <button type="button" class="knopf" id="urkZu">Schließen</button>
+  </div></div>`;
+  document.body.appendChild(o);
+  const inp = $("#urkName", o);
+  const aktualisiere = urkundeTeilen(o, "🪶", "Urkunde-Vogelpass");
+  inp.oninput = () => { S.name = inp.value.slice(0, 60); speichern(); $("#urkNameDruck", o).textContent = S.name || " "; aktualisiere(); };
+  const d = $("#urkDruck", o); if (d) d.onclick = () => window.print();
+  $("#urkZu", o).onclick = () => o.remove();
+  o.onclick = e => { if (e.target === o) o.remove(); };
+  if (!S.name) inp.focus();
+}
+
+/* ============ Urkunde als Bild (Teilen / Drucken auf iPhone und iPad) ============ */
+function urkundeDaten(o, em) {
+  const t = s => { const el = $(s, o); return el ? el.textContent.trim() : ""; };
+  return {
+    eyebrow: t(".urk-eyebrow"), med: t(".urk-med"), rang: t(".urk-sub"), name: (S.name || "").trim(),
+    satz: $$(".urk-satz", o)[1].textContent.replace(/\s+/g, " ").trim(),
+    zeilen: $$(".urk-tab tr", o).map(tr => { const td = $$("td", tr), sp = $("[aria-label]", td[1]);
+      return [td[0].textContent.trim(), sp ? parseInt(sp.getAttribute("aria-label"), 10) : null]; }),
+    em, summe: t(".urk-summe"), abz: t(".urk-album"), datum: t(".urk-fuss span"), fuss: "Bio Mibaso · mibaso.de"
+  };
+}
+function zeichneUrkunde(d) {
+  const W = 1240, H = 1754, c = document.createElement("canvas"); c.width = W; c.height = H;
+  const x = c.getContext("2d"), SANS = '-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif', SERIF = 'Georgia,"Times New Roman",serif';
+  x.fillStyle = "#fffdf7"; x.fillRect(0, 0, W, H);
+  x.strokeStyle = "#233D5C"; x.lineWidth = 6; x.strokeRect(60, 60, W - 120, H - 120);
+  x.lineWidth = 2; x.strokeRect(76, 76, W - 152, H - 152);
+  x.strokeStyle = "#C28A3A"; x.strokeRect(100, 100, W - 200, H - 200);
+  x.textAlign = "center"; x.textBaseline = "alphabetic";
+  const zeile = (txt, font, farbe, y) => { x.font = font; x.fillStyle = farbe; x.fillText(txt, W / 2, y); };
+  const umbrechen = (txt, max) => { const out = []; let z = "";
+    txt.split(" ").forEach(w => { const p = z ? z + " " + w : w; if (x.measureText(p).width > max && z) { out.push(z); z = w; } else z = p; });
+    if (z) out.push(z); return out; };
+  let y = 200;
+  zeile(d.eyebrow.toUpperCase(), `600 26px ${SANS}`, "#5d6b78", y);
+  y += 150; zeile(d.med, `120px ${SANS}`, "#000", y);
+  y += 140; zeile("Urkunde", `108px ${SERIF}`, "#233D5C", y);
+  y += 70; zeile(d.rang, `44px ${SERIF}`, "#a9762c", y);
+  y += 100; zeile("Diese Urkunde bestätigt, dass", `38px ${SERIF}`, "#1c2e42", y);
+  y += 105; zeile(d.name || " ", `64px ${SERIF}`, "#1c2e42", y);
+  x.strokeStyle = "#5d6b78"; x.lineWidth = 2; x.beginPath(); x.moveTo(W / 2 - 360, y + 24); x.lineTo(W / 2 + 360, y + 24); x.stroke();
+  y += 100; x.font = `38px ${SERIF}`;
+  umbrechen(d.satz, W - 320).forEach(l => { zeile(l, `38px ${SERIF}`, "#1c2e42", y); y += 54; });
+  y += 30; const x0 = W / 2 - 430, x1 = W / 2 + 430;
+  d.zeilen.forEach(([titel, n]) => {
+    x.textAlign = "left"; x.font = `34px ${SERIF}`; x.fillStyle = "#1c2e42"; x.fillText(titel, x0, y);
+    x.textAlign = "right"; x.font = `34px ${SANS}`;
+    if (n === null) { x.fillStyle = "#5d6b78"; x.fillText("–", x1, y); }
+    else for (let k = 0; k < 3; k++) { x.globalAlpha = k < n ? 1 : .22; x.fillText(d.em, x1 - (2 - k) * 46, y); }
+    x.globalAlpha = 1; x.strokeStyle = "#d9d2c1"; x.lineWidth = 1.5; x.beginPath(); x.moveTo(x0, y + 18); x.lineTo(x1, y + 18); x.stroke();
+    y += 64;
+  });
+  x.textAlign = "center";
+  y += 40; zeile(d.summe, `40px ${SERIF}`, "#233D5C", y);
+  if (d.abz) { y += 85; zeile(d.abz, `54px ${SANS}`, "#000", y); }
+  x.font = `28px ${SANS}`; x.fillStyle = "#5d6b78";
+  x.textAlign = "left"; x.fillText(d.datum, 140, H - 150);
+  x.textAlign = "right"; x.fillText(d.fuss, W - 140, H - 150);
+  return new Promise(r => c.toBlob(r, "image/png"));
+}
+/* Bild wird vorab erzeugt, damit „Teilen“ direkt beim Antippen startet (iOS verlangt das) */
+function urkundeTeilen(o, em, dateiname) {
+  let blob = null, timer;
+  const neu = () => { clearTimeout(timer); timer = setTimeout(() => zeichneUrkunde(urkundeDaten(o, em)).then(b => blob = b), 250); };
+  neu();
+  const btn = $("#urkTeilen", o);
+  btn.onclick = () => {
+    if (!blob) { toast("Einen Moment, die Urkunde wird vorbereitet …"); return; }
+    const name = (dateiname + (S.name ? "-" + S.name : "")).replace(/[^\wäöüÄÖÜß-]+/g, "-") + ".png";
+    const file = new File([blob], name, { type: "image/png" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: "Meine Urkunde" }).catch(e => { if (!e || e.name !== "AbortError") toast("Teilen hat nicht geklappt."); });
+    } else {
+      const url = URL.createObjectURL(blob), a = document.createElement("a");
+      a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 5000); toast("Die Urkunde wurde als Bild gespeichert.");
+    }
+  };
+  return neu;
+}
+
+/* ============ Navigation ============ */
+let letzteSumme = {};
+function route(behalteScroll) {
+  $$(".overlay").forEach(o => o.remove());
+  const h = location.hash.slice(1), m = h.match(/^(v[12])-(s[1-5])$/);
+  if (EXPS[h]) { const s = kennzahlen(h).summe; seitePass(h, letzteSumme[h] !== undefined && s > letzteSumme[h]); letzteSumme[h] = s; }
+  else if (m) { if (letzteSumme[m[1]] === undefined) letzteSumme[m[1]] = kennzahlen(m[1]).summe; seiteStation(m[1], m[2]); }
+  else seiteStart();
+  if (behalteScroll !== true) window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", () => route());
+route();
+</script>
+</body>
+</html>
