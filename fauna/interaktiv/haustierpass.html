@@ -394,35 +394,12 @@ const KARTEN_SETS = {
 };
 
 /* ============ Hund: Körpersprache ============ */
-function hundSVG(art) {
-  const A = {
-    freundlich: { koerper: 0, kopf: 0, ohr: "M74 52 L80 34 L88 52 M92 52 L100 34 L104 52", schwanz: "M196 92 Q214 70 220 82", maul: "M58 78 Q66 86 76 80", zunge: '<path d="M64 82 q2 10 8 6 q-2-6 -2-8" fill="#e57373"/>', fell: "" },
-    aengstlich: { koerper: 10, kopf: 16, ohr: "M80 50 L108 54 L86 58 Z M86 46 L112 48 L92 54 Z", schwanz: "M200 104 Q202 136 178 140", vorn: true, maul: "M50 80 L62 80", zunge: "", fell: "" },
-    drohend: { koerper: -4, kopf: -6, ohr: "M72 46 L80 24 L88 46 M90 46 L100 22 L104 46", schwanz: "M196 86 Q206 52 204 40", maul: "M56 70 L60 76 L64 70 L68 76 L72 70 L76 76", zunge: "", fell: '<path d="M108 84 l4 -10 l4 8 l4 -10 l4 8 l4 -10 l4 8 l4 -10 l4 8" stroke="#5b4630" stroke-width="2.5" fill="none"/>' }
-  }[art];
-  return `<svg viewBox="0 0 260 170" role="img" aria-label="Hund in Körperhaltung ${art}">
-    <rect width="260" height="170" fill="#f6f1e6"/><rect y="148" width="260" height="22" fill="#e7dcc6"/>
-    <g transform="translate(0 ${A.koerper})">
-      ${A.vorn ? "" : `<path d="${A.schwanz}" stroke="#8a6a46" stroke-width="9" fill="none" stroke-linecap="round"/>`}
-      <ellipse cx="150" cy="100" rx="56" ry="26" fill="#a9825a"/>
-      ${A.fell}
-      <path d="M112 112 v38 M128 116 v34 M172 116 v34 M188 112 v38" stroke="#8a6a46" stroke-width="10" stroke-linecap="round"/>
-      ${A.vorn ? `<path d="${A.schwanz}" stroke="#7a5a38" stroke-width="9" fill="none" stroke-linecap="round"/>` : ""}
-      <g transform="translate(0 ${A.kopf})">
-        <path d="M100 86 L118 92" stroke="#a9825a" stroke-width="18" stroke-linecap="round"/>
-        <ellipse cx="84" cy="66" rx="26" ry="20" fill="#a9825a"/>
-        <ellipse cx="56" cy="74" rx="14" ry="10" fill="#a9825a"/>
-        <circle cx="44" cy="70" r="4" fill="#33302b"/>
-        <circle cx="80" cy="60" r="3.5" fill="#33302b"/>
-        <path d="${A.ohr}" fill="#8a6a46" stroke="#8a6a46" stroke-width="2" stroke-linejoin="round"/>
-        <path d="${A.maul}" stroke="#33302b" stroke-width="2.5" fill="none" stroke-linecap="round"/>${A.zunge}
-      </g>
-    </g></svg>`;
-}
 const KOERPER = [
-  { art: "freundlich", name: "freundlich", warum: "Lockerer Körper, Schwanz wedelt locker, Maul leicht offen – dieser Hund ist entspannt und freundlich." },
-  { art: "aengstlich", name: "ängstlich", warum: "Geduckter Körper, Ohren angelegt, Schwanz zwischen den Beinen – dieser Hund hat Angst. Lass ihn in Ruhe!" },
-  { art: "drohend", name: "drohend", warum: "Steifer Körper, Ohren nach vorn, Schwanz hoch, Zähne gefletscht, Nackenhaare gesträubt – Vorsicht, dieser Hund droht!" }
+  { art: "freundlich", name: "entspannt und freundlich", warum: "Lockerer Körper, Maul offen, die Zunge schaut heraus, der Schwanz hängt locker auf mittlerer Höhe. Dieser Hund fühlt sich wohl." },
+  { art: "aufmerksam", name: "aufmerksam", warum: "Maul geschlossen, Ohren nach vorn, der Blick hängt an etwas fest, der Kopf ist leicht schief. Er hat etwas bemerkt und weiß noch nicht, was er davon halten soll. Erst mal abwarten!" },
+  { art: "spielen", name: "will spielen", warum: "Vorne tief, hinten hoch, Maul offen, Schwanz in Bewegung: die Spielverbeugung. Sie heißt „Alles nur Spaß!“ – schon Wolfswelpen laden so zum Toben ein." },
+  { art: "aengstlich", name: "ängstlich", warum: "Geduckt, Kopf gesenkt, Ohren zurück, Schwanz zwischen den Hinterbeinen, der Blick weicht aus. Dieser Hund hat Angst. Lass ihn in Ruhe – wer ihn bedrängt, kann gebissen werden." },
+  { art: "drohend", name: "drohend", warum: "Steif nach vorn gestemmt, Kopf gesenkt, Zähne gefletscht, Schwanz hoch aufgestellt. Vorsicht, dieser Hund droht! Langsam Abstand nehmen und nicht wegrennen." }
 ];
 
 /* ============ Bilderreihe Wolf → Hund ============ */
@@ -443,13 +420,14 @@ h1: {
     { id: "s1", em: "🐺", titel: "Der Wolf", kurz: "Steckbrief eines Rudeljägers", min: 8 },
     { id: "s2", em: "🔥", titel: "Wie der Wolf zum Hund wurde", kurz: "Eine Bilderreihe durch die Zeit", min: 10 },
     { id: "s3", em: "🔍", titel: "Wolf und Hund im Vergleich", kurz: "Was ist gleich, was ist anders?", min: 9 },
+    { id: "s6", em: "🐕", titel: "Was will mir der Hund sagen?", kurz: "Körpersprache verstehen", min: 10 },
     { id: "s4", em: "🐩", titel: "Du bist Züchter!", kurz: "Wie neue Rassen entstehen", min: 10 },
     { id: "s5", em: "🏆", titel: "Wer wird Hunde-Profi?", kurz: "Das Abschlussquiz mit Jokern", min: 8 }
   ],
   raenge: [
     { ab: 0, name: "Welpe", med: "🐶" }, { ab: 1, name: "Spürnase", med: "👃" },
-    { ab: 5, name: "Rudelkenner", med: "🐺" }, { ab: 9, name: "Zucht-Profi", med: "🐩" },
-    { ab: 13, name: "Hunde-Meister", med: "🏅" }
+    { ab: 6, name: "Rudelkenner", med: "🐺" }, { ab: 11, name: "Zucht-Profi", med: "🐩" },
+    { ab: 16, name: "Hunde-Meister", med: "🏅" }
   ],
   abzeichen: [
     { em: "🐾", name: "Erste Spur", ok: h => h.fertige >= 1 },
@@ -458,8 +436,8 @@ h1: {
     { em: "🐩", name: "Züchter", ok: h => h.d.s4 && h.d.s4.done },
     { em: "⭐", name: "Dreier-Serie", ok: h => h.dreier >= 3 },
     { em: "🏆", name: "Hunde-Profi", ok: h => h.d.s5 && h.d.s5.knochen >= 3 },
-    { em: "🏅", name: "Hunde-Meister", ok: h => h.fertige >= 5 },
-    { em: "🦴", name: "Voller Napf", ok: h => h.summe >= 15 }
+    { em: "🏅", name: "Hunde-Meister", ok: h => h.fertige >= 6 },
+    { em: "🦴", name: "Voller Napf", ok: h => h.summe >= 18 }
   ],
   checks: {
     s1: [
@@ -481,6 +459,11 @@ h1: {
       ["Züchterin Ana lässt nur die Hunde mit dem dichtesten Fell Junge bekommen. Was erwartest du nach vielen Generationen?", ["Die meisten Hunde haben dichteres Fell", "Alle Hunde haben danach genau gleich dichtes Fell", "Nichts – Felldichte wird nicht vererbt", "Das Fell wird mit jedem Wurf zufällig dünner"]],
       ["Ein Dackel hat gelernt, auf Kommando Pfötchen zu geben. Was gilt für seine Welpen?", ["Sie müssen es selbst lernen", "Sie können es von Geburt an", "Sie lernen es doppelt so schnell", "Nur die Rüden können es"]],
       ["Warum sehen Wölfe einander viel ähnlicher als Hunde?", ["Kein Mensch sucht ihre Eltern aus", "Wölfe bekommen viel zu wenige Junge dafür", "Wölfe gibt es noch nicht lange genug dafür", "Bei Wölfen werden Merkmale nicht vererbt"]]
+    ],
+    s6: [
+      ["Ein Hund wedelt mit dem Schwanz. Was weißt du sicher?", ["Er ist aufgeregt – mehr verrät der übrige Körper", "Er ist freundlich und will gestreichelt werden", "Er ist ängstlich und möchte lieber weg", "Er droht und wird gleich angreifen"]],
+      ["Ein Hund gähnt, duckt sich und schaut weg. Was zeigt er?", ["Er ist unsicher und will keinen Streit", "Er ist müde und will jetzt schlafen", "Er sammelt Kraft für einen Angriff", "Er langweilt sich und will spielen"]],
+      ["Ein Hund frisst gerade. Ein Kind will ihn streicheln. Was ist das Problem?", ["Er könnte sein Futter verteidigen", "Er verschluckt sich vor Schreck am Futter", "Hunde mögen beim Fressen keine Kinder", "Es gibt gar kein Problem, er ist ja abgelenkt"]]
     ]
   },
   profi: [
@@ -498,8 +481,8 @@ h1: {
       ["Moritz: Das Gebiss – 42 Zähne bei beiden!", "Greta: Die Zähne, glaube ich.", "Karl: Zähne oder Ohren …", "Pia: Die Ohren sind doch gleich."]],
     ["Wölfe leben wieder in Hessen. Wie sind sie hergekommen?", ["Sie sind von selbst eingewandert", "Sie wurden heimlich im Wald ausgesetzt", "Sie sind aus Wildparks ausgebrochen", "Es sind verwilderte Hunde"],
       ["Theo: Von selbst aus Osteuropa eingewandert!", "Lina: Eingewandert, oder?", "Erik: Eingewandert oder ausgesetzt …", "Nele: Die hat doch jemand ausgesetzt!"]],
-    ["Wer hat zuerst mit dem Menschen zusammengelebt?", ["Der Hund – schon bei Jägern und Sammlern", "Die Katze – wegen der Mäuse im Korn", "Das Rind – als erstes Nutztier der Bauern", "Alle gleichzeitig mit den ersten Bauern"],
-      ["Paul: Der Hund – lange vor den Bauern!", "Emma: Der Hund, oder?", "Noah: Hund oder Katze …", "Lea: Die Katze, wegen der Mäuse."]]
+    ["Ein Hund steht steif, Ohren nach vorn, Nackenhaare hoch – und wedelt. Was tust du?", ["Abstand halten – er droht vielleicht", "Ihn streicheln – er freut sich sichtlich", "Ihn anlocken – er will bestimmt spielen", "Laut schreien und schnell wegrennen"],
+      ["Malte: Abstand! Steif und Nackenhaare heißt Vorsicht.", "Ronja: Lieber Abstand, oder?", "Till: Abstand oder streicheln …", "Merle: Der wedelt doch – der freut sich!"]]
   ],
   inhalt: {
 s1: () => `
@@ -538,6 +521,20 @@ s3: () => `
   </div>
   <div class="merke"><span class="eyebrow">Merke</span>
     <p>Wolf und Hund gehören zur <b>selben Art</b>. Durch das lange Zusammenleben mit dem Menschen haben Hunde typische <b>Haustier-Merkmale</b> bekommen: Schlappohren, gefleckte Felle, eine kürzere Schnauze – und sie verstehen uns besonders gut.</p></div>`,
+s6: () => `
+  <div class="prose lead"><p>Hunde können nicht sprechen – aber sie zeigen sehr deutlich, wie es ihnen geht. Wer die Körpersprache lesen kann, ist sicherer unterwegs.</p></div>
+  ${bild("hund-begruessung", "🐕", "Freundlicher Hund wedelt mit dem Schwanz", "<b>Was du siehst:</b> Ein entspannter Hund. Lockerer Körper, leicht offenes Maul, der Schwanz wedelt locker hin und her.")}
+  <div class="prose"><p>Achte auf vier Dinge: <b>Körper</b> (locker oder steif?), <b>Ohren</b> (aufgerichtet, nach vorn oder angelegt?), <b>Schwanz</b> (locker, hoch oder eingeklemmt?) und <b>Maul</b> (entspannt oder Zähne gefletscht?).</p>
+  <p>Vorsicht, Falle: <b>Schwanzwedeln</b> heißt nur, dass der Hund aufgeregt ist. Wedelt er mit hoch erhobenem, steifem Schwanz, kann das sogar eine Drohung sein. Und <b>Gähnen, Wegschauen oder Ducken</b> bedeutet oft: „Ich bin unsicher, ich will keinen Streit.“</p>
+  <p>Gleich siehst du fünfmal <b>denselben Hund</b> – jedes Mal in einer anderen Stimmung. Lies seinen Körper wie ein Hunde-Profi!</p></div>
+  <div class="box anim" data-widget="koerper"></div>
+  <div class="box" data-widget="karten" data-set="hundregeln">
+    <span class="eyebrow">Vier Regeln bei fremden Hunden</span>
+    <p class="klein">Tippe jede Karte an.</p>
+    <div class="karten"></div>
+  </div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Hunde zeigen mit ihrem <b>Körper</b>, wie sie sich fühlen. Ein ängstlicher Hund macht sich klein, ein drohender Hund macht sich groß und steif. Viele Signale kennt schon der Wolf – sie helfen dem Rudel, Streit zu vermeiden.</p></div>`,
 s4: () => `
   <div class="prose lead"><p>Ein Chihuahua wiegt etwa so viel wie zwei Packungen Mehl, also 2 bis 3 Kilogramm. Eine Deutsche Dogge kann so schwer werden wie ein erwachsener Mensch. Wie kommt das?</p></div>
   ${bild("hunderassen", "🐩", "Verschiedene Hunderassen nebeneinander", "<b>Was du siehst:</b> Vier Hunderassen nebeneinander – vom winzigen Chihuahua bis zur großen Dogge. Alle gehören zur selben Art.")}
@@ -557,14 +554,13 @@ h2: {
   stationen: [
     { id: "s1", em: "🐗", titel: "Wildschwein und Hausschwein", kurz: "Ein Vergleich zum Durchklicken", min: 9 },
     { id: "s2", em: "🐄", titel: "Wer ist der Vorfahr?", kurz: "Haustiere und ihre wilden Verwandten", min: 9 },
-    { id: "s3", em: "🐕", titel: "Was will mir der Hund sagen?", kurz: "Körpersprache verstehen", min: 9 },
     { id: "s4", em: "⚖️", titel: "Artgerecht oder nicht?", kurz: "Haltung bewerten – und der Eier-Code", min: 10 },
     { id: "s5", em: "🏆", titel: "Wer wird Haustier-Profi?", kurz: "Das Abschlussquiz mit Jokern", min: 8 }
   ],
   raenge: [
     { ab: 0, name: "Ferkel", med: "🐷" }, { ab: 1, name: "Hofkenner", med: "🐓" },
-    { ab: 5, name: "Tierversteher", med: "🐕" }, { ab: 9, name: "Tierschutz-Profi", med: "⚖️" },
-    { ab: 13, name: "Haustier-Meister", med: "🏅" }
+    { ab: 4, name: "Tierversteher", med: "🐄" }, { ab: 7, name: "Tierschutz-Profi", med: "⚖️" },
+    { ab: 10, name: "Haustier-Meister", med: "🏅" }
   ],
   abzeichen: [
     { em: "🐾", name: "Erste Station", ok: h => h.fertige >= 1 },
@@ -573,8 +569,8 @@ h2: {
     { em: "🥚", name: "Eier-Detektiv", ok: h => h.d.s4 && h.d.s4.done },
     { em: "⭐", name: "Dreier-Serie", ok: h => h.dreier >= 3 },
     { em: "🏆", name: "Haustier-Profi", ok: h => h.d.s5 && h.d.s5.knochen >= 3 },
-    { em: "🏅", name: "Haustier-Meister", ok: h => h.fertige >= 5 },
-    { em: "🦴", name: "Voller Napf", ok: h => h.summe >= 15 }
+    { em: "🏅", name: "Haustier-Meister", ok: h => h.fertige >= 4 },
+    { em: "🦴", name: "Voller Napf", ok: h => h.summe >= 12 }
   ],
   checks: {
     s1: [
@@ -586,11 +582,6 @@ h2: {
       ["Welcher dieser Vorfahren ist ausgestorben?", ["Der Auerochse", "Der Wisent", "Das Mufflon", "Das Bankivahuhn"]],
       ["Ein Bankivahuhn legt nur wenige Eier im Jahr, ein Legehuhn fast täglich eins. Wie kam das?", ["Menschen wählten die besten Legerinnen aus", "Legehühner bekommen im Stall mehr Licht", "Legehühner fressen besonderes Eierfutter", "Legehühner gehören zu einer anderen Vogelart"]],
       ["Warum kamen Wildkatzen von selbst zu den ersten Bauern?", ["In den Kornspeichern gab es viele Mäuse", "Die Bauern lockten sie mit Milch an", "Sie suchten bei den Menschen Schutz vor Wölfen", "Sie fraßen gern das gelagerte Getreide"]]
-    ],
-    s3: [
-      ["Ein Hund wedelt mit dem Schwanz. Was weißt du sicher?", ["Er ist aufgeregt – mehr verrät der übrige Körper", "Er ist freundlich und will gestreichelt werden", "Er ist ängstlich und möchte lieber weg", "Er droht und wird gleich angreifen"]],
-      ["Ein Hund gähnt, duckt sich und schaut weg. Was zeigt er?", ["Er ist unsicher und will keinen Streit", "Er ist müde und will jetzt schlafen", "Er sammelt Kraft für einen Angriff", "Er langweilt sich und will spielen"]],
-      ["Ein Hund frisst gerade. Ein Kind will ihn streicheln. Was ist das Problem?", ["Er könnte sein Futter verteidigen", "Er verschluckt sich vor Schreck am Futter", "Hunde mögen beim Fressen keine Kinder", "Es gibt gar kein Problem, er ist ja abgelenkt"]]
     ],
     s4: [
       ["Auf einem Ei steht 2-DE-0512345. Wie lebten die Hühner?", ["In einer Halle ohne Auslauf", "Draußen auf dem Boden einer Wiese", "Mit Auslauf und Bio-Futter", "In Käfigen"]],
@@ -605,8 +596,8 @@ h2: {
       ["Mats: Wisent ist falsch – beim Rind war es der Auerochse!", "Emily: Das mit dem Wisent, oder?", "Henry: Wisent oder Falbkatze …", "Frieda: Die Falbkatze, die ist doch wild!"]],
     ["Warum gab es Hunde viel früher als Kühe?", ["Rinder halten konnten erst Bauern", "Auerochsen waren viel zu gefährlich zum Zähmen", "Es gab damals viel mehr Wölfe als Auerochsen", "Hunde sind kleiner und leichter zu füttern"],
       ["Jonas: Rinder braucht man erst, wenn man Bauer ist!", "Hanna: Wegen der Bauern, oder?", "Finn: Bauern oder zu gefährlich …", "Ida: Auerochsen waren viel zu wild."]],
-    ["Ein Hund steht steif, Ohren nach vorn, Nackenhaare hoch – und wedelt. Was tust du?", ["Abstand halten – er droht vielleicht", "Ihn streicheln – er freut sich sichtlich", "Ihn anlocken – er will bestimmt spielen", "Laut schreien und schnell wegrennen"],
-      ["Malte: Abstand! Steif und Nackenhaare heißt Vorsicht.", "Ronja: Lieber Abstand, oder?", "Till: Abstand oder streicheln …", "Merle: Der wedelt doch – der freut sich!"]],
+    ["Hühner schlafen am liebsten auf einer Stange. Warum?", ["Ihre wilden Vorfahren schlafen nachts auf Bäumen", "Auf der Stange bleiben ihre Füße schön warm", "So können sie den Stall vor Ratten bewachen", "Weil der Boden im Stall meistens nass ist"],
+      ["Konrad: Wie das Bankivahuhn – das schläft auf Bäumen!", "Wilma: Wegen der Vorfahren, oder?", "Levi: Vorfahren oder warme Füße …", "Paula: Damit die Füße warm bleiben."]],
     ["Ein Ei trägt die 1, ein anderes die 2. Was stimmt?", ["Nur die Hühner der 1 hatten Auslauf", "Beide Hühnergruppen durften nach draußen", "Die 2 bedeutet doppelt so viel Platz im Stall", "Die 1 bedeutet, dass es Bio-Futter gab"],
       ["Konstantin: Nur bei der 1 ging es nach draußen – Freiland!", "Marlene: Die 1 ist Freiland, oder?", "Vincent: Freiland oder Bio …", "Smilla: Die 2 heißt doppelt so viel Platz."]],
     ["Du kaufst Nudeln mit Ei. Was weißt du über die Hühner?", ["Meist nichts – der Code fehlt", "Es sind laut Gesetz immer Bio-Eier", "Es sind in Nudeln immer Käfig-Eier", "Der Code steht klein auf jeder Packung"],
@@ -640,19 +631,6 @@ s2: () => `
     <p>Das funktioniert genau wie beim Hund: Auslese über viele Generationen.</p></div></details>
   <div class="merke"><span class="eyebrow">Merke</span>
     <p>Jedes Haustier hat eine <b>Wildform</b>. Die Haustiere nennt man auch <b>Nutzformen</b>. Durch Züchtung unterscheiden sie sich heute oft stark von ihren wilden Vorfahren.</p></div>`,
-s3: () => `
-  <div class="prose lead"><p>Hunde können nicht sprechen – aber sie zeigen sehr deutlich, wie es ihnen geht. Wer die Körpersprache lesen kann, ist sicherer unterwegs.</p></div>
-  ${bild("hund-begruessung", "🐕", "Freundlicher Hund wedelt mit dem Schwanz", "<b>Was du siehst:</b> Ein entspannter Hund. Lockerer Körper, leicht offenes Maul, der Schwanz wedelt locker hin und her.")}
-  <div class="prose"><p>Achte auf vier Dinge: <b>Körper</b> (locker oder steif?), <b>Ohren</b> (aufgerichtet, nach vorn oder angelegt?), <b>Schwanz</b> (locker, hoch oder eingeklemmt?) und <b>Maul</b> (entspannt oder Zähne gefletscht?).</p>
-  <p>Vorsicht, Falle: <b>Schwanzwedeln</b> heißt nur, dass der Hund aufgeregt ist. Wedelt er mit hoch erhobenem, steifem Schwanz, kann das sogar eine Drohung sein. Und <b>Gähnen, Wegschauen oder Ducken</b> bedeutet oft: „Ich bin unsicher, ich will keinen Streit.“</p></div>
-  <div class="box anim" data-widget="koerper"></div>
-  <div class="box" data-widget="karten" data-set="hundregeln">
-    <span class="eyebrow">Vier Regeln bei fremden Hunden</span>
-    <p class="klein">Tippe jede Karte an.</p>
-    <div class="karten"></div>
-  </div>
-  <div class="merke"><span class="eyebrow">Merke</span>
-    <p>Hunde zeigen mit ihrem <b>Körper</b>, wie sie sich fühlen. Ein ängstlicher Hund macht sich klein, ein drohender Hund macht sich groß und steif. Viele Signale kennt schon der Wolf – sie helfen dem Rudel, Streit zu vermeiden.</p></div>`,
 s4: () => `
   <div class="prose lead"><p>Haustiere sind auf uns angewiesen. Artgerecht heißt: Ein Tier darf sich so verhalten, wie es seiner Natur entspricht – und die stammt oft noch von seinen wilden Vorfahren.</p></div>
   <div class="box" data-widget="sort" data-set="haltung">
@@ -823,6 +801,7 @@ const WIDGETS = {
   },
 
   koerper(el) {
+    KOERPER.forEach(k => { const im = new Image(); im.src = `../images/haustier/hund-${k.art}.jpg`; });
     const reihe = shuffle(KOERPER); let i = 0, richtig = 0;
     const zeig = () => {
       if (i >= reihe.length) {
@@ -832,8 +811,8 @@ const WIDGETS = {
         $("#kp-neu", el).onclick = () => { i = 0; richtig = 0; zeig(); }; return;
       }
       const h = reihe[i];
-      el.innerHTML = `<span class="eyebrow">Körpersprache ${i + 1} von ${reihe.length}</span><h3>Wie fühlt sich dieser Hund?</h3>
-        ${hundSVG(h.art)}
+      el.innerHTML = `<span class="eyebrow">Körpersprache ${i + 1} von ${reihe.length}</span><h3>Was will dir dieser Hund sagen?</h3>
+        <figure class="bild"><div class="rahmen-bild" style="aspect-ratio:4/3"><img src="../images/haustier/hund-${h.art}.jpg" alt="Ein Hund – wie fühlt er sich?"></div></figure>
         <div class="answers">${KOERPER.map(k => `<button type="button" class="ans" data-a="${k.art}"><span>${k.name}</span></button>`).join("")}</div>
         <p class="feedback" aria-live="polite"></p>
         <div class="knopfreihe"><button type="button" class="knopf prim" id="kp-w" hidden>${i + 1 < reihe.length ? "Nächster Hund ›" : "Auswertung"}</button></div>`;
@@ -931,7 +910,7 @@ const fuss = () => `<footer class="fuss">
 
 function seiteStart() {
   const kachel = eid => { const X = EXPS[eid], h = kennzahlen(eid);
-    return `<a class="kachel" href="#${eid}"><span class="ke">${X.em}</span><span><span class="kt">Teil ${IDS.indexOf(eid) + 1} · ${X.titel}</span><span class="kb">${X.motto} · 5 Stationen · ca. 45 Min · 🦴 ${h.summe}/${MAXN(eid)}</span></span><span class="pf">›</span></a>`; };
+    return `<a class="kachel" href="#${eid}"><span class="ke">${X.em}</span><span><span class="kt">Teil ${IDS.indexOf(eid) + 1} · ${X.titel}</span><span class="kb">${X.motto} · ${X.stationen.length} Stationen · ca. ${X.stationen.reduce((a, s) => a + s.min, 0)} Min · 🦴 ${h.summe}/${MAXN(eid)}</span></span><span class="pf">›</span></a>`; };
   app.innerHTML = `${kopf("Wild &amp; zahm", "Vom Wildtier zum Haustier")}
   <div class="huelle">
     <section>
@@ -943,9 +922,9 @@ function seiteStart() {
     </section>
     <section>
       <details class="lehrer"><summary>Für Lehrkräfte: Einsatz in Klasse 5/6</summary><div class="grid">
-        <div class="ablauf"><b>Teil 1</b><span>Vom Wolf zum Hund – Wolf als Wildform, Bilderreihe zur Domestikation, Vergleich Wolf und Hund, Züchtung als Auslese (ca. 45 Min)</span>
-          <b>Teil 2</b><span>Vom Wildschwein zum Hausschwein – Wild- und Nutzformen, Körpersprache des Hundes, artgerechte Haltung, Eier-Code (ca. 45 Min)</span></div>
-        <p>Beide Teile zusammen füllen eine Doppelstunde, lassen sich aber auch einzeln in zwei Stunden einsetzen. Alles läuft im Browser auf Tablet, Handy oder am Beamer – ohne Anmeldung, ohne Datensammlung, ohne Ton (nur bei voller Punktzahl erklingt eine kurze Fanfare).</p>
+        <div class="ablauf"><b>Teil 1</b><span>Vom Wolf zum Hund – Wolf als Wildform, Bilderreihe zur Domestikation, Vergleich Wolf und Hund, Körpersprache des Hundes mit Fotos, Züchtung als Auslese (ca. 55 Min)</span>
+          <b>Teil 2</b><span>Vom Wildschwein zum Hausschwein – Wild- und Nutzformen weiterer Haustiere, artgerechte Haltung, Eier-Code (ca. 35 Min)</span></div>
+        <p>Beide Teile zusammen füllen eine Doppelstunde, lassen sich aber auch einzeln einsetzen. Alles läuft im Browser auf Tablet, Handy oder am Beamer – ohne Anmeldung, ohne Datensammlung, ohne Ton (nur bei voller Punktzahl erklingt eine kurze Fanfare).</p>
         <p><b>Bezug zum hessischen Kerncurriculum Biologie, Jahrgangsstufe 5/6:</b> Vielfalt, Veränderung und Abstammung von Lebewesen (Abstammung und Züchtung, Wild- und Nutzformen), Informationsfluss (Verhaltensweisen bei Haus- und Nutztieren), Bewertung (Züchtung, Haltung und Nutzung von Haus- und Nutztieren, Konsumverhalten).</p>
         <ul class="clean">
           <li><b>Stufenweise:</b> Jede Station öffnet sich erst, wenn die vorige geschafft ist. Mit „Alle offen“ kann frei gewählt werden.</li>
@@ -1021,6 +1000,7 @@ function seitePass(eid, neu) {
 
 function seiteStation(eid, sid) {
   const X = EXPS[eid], MAX = MAXN(eid), k = X.stationen.findIndex(s => s.id === sid), s = X.stationen[k], h = kennzahlen(eid);
+  if (k < 0) { location.hash = eid; return; }
   const vor = k === 0 || !!(h.d[X.stationen[k - 1].id] && h.d[X.stationen[k - 1].id].done);
   if (S.modus === "level" && !vor && !(h.d[sid] && h.d[sid].done)) { location.hash = eid; return; }
   const finale = sid === "s5";
@@ -1191,7 +1171,7 @@ function urkundeTeilen(o, em, dateiname) {
 let letzteSumme = {};
 function route(behalteScroll) {
   $$(".overlay").forEach(o => o.remove());
-  const h = location.hash.slice(1), m = h.match(/^(h[12])-(s[1-5])$/);
+  const h = location.hash.slice(1), m = h.match(/^(h[12])-(s[1-6])$/);
   if (EXPS[h]) { const s = kennzahlen(h).summe; seitePass(h, letzteSumme[h] !== undefined && s > letzteSumme[h]); letzteSumme[h] = s; }
   else if (m) { if (letzteSumme[m[1]] === undefined) letzteSumme[m[1]] = kennzahlen(m[1]).summe; seiteStation(m[1], m[2]); }
   else seiteStart();
