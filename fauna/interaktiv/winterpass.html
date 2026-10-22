@@ -165,13 +165,21 @@ figure.bild figcaption b{color:var(--blau)}
 .lbl.b{font-weight:600;fill:var(--ink);font-size:12px}
 .lbl.gross{font-size:15px;font-weight:700;fill:var(--ink)}
 .tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.pl-kopf{display:flex;justify-content:space-between;align-items:center;gap:8px;font-family:var(--sans);font-size:15px;font-weight:600;color:var(--blau)}
+.pl-meter{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:center;font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+.pl-meter .bb{height:12px;background:var(--creme-tief);border-radius:6px;overflow:hidden}
+.pl-meter .bb i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#f0a35a,#d9534f)}
+@keyframes pl-fluss{to{stroke-dashoffset:-24}}
+.pl-pfeil{stroke-dasharray:8 4;animation:pl-fluss .9s linear infinite}
 .vgl{display:grid;gap:10px}
 .vgl-zeile{display:grid;gap:4px}
 .vgl-kopf{display:flex;justify-content:space-between;font-family:var(--sans);font-size:14px;color:var(--ink-soft)}
-.vgl-balken{display:grid;grid-template-columns:70px 1fr auto;gap:8px;align-items:center;font-family:var(--sans);font-size:13px}
+.vgl-balken{display:grid;grid-template-columns:5.6em 1fr 9em;gap:8px;align-items:center;font-family:var(--sans);font-size:13px}
+.vgl-balken>span:first-child{white-space:nowrap}
+.vgl-balken>span:last-child{text-align:right}
 .vgl-balken .bb{height:14px;background:var(--creme-tief);border-radius:7px;overflow:hidden}
 .vgl-balken .bb i{display:block;height:100%;border-radius:7px;transition:width .8s}
-.vgl-balken .s i{background:#e3a447} .vgl-balken .w i{background:#6f9cc7}
+.vgl-balken.s i{background:linear-gradient(90deg,#f0c060,#e08a2e)} .vgl-balken.w i{background:linear-gradient(90deg,#9cc3e4,#4f86b8)}
 .vgl-typ{text-align:center;font-size:20px;color:var(--blau)}
 .feld{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .feld button{aspect-ratio:1;border:1px solid #c9b48f;border-radius:12px;background:linear-gradient(180deg,#f4efe4,#e2d3b5);font-size:30px;cursor:pointer;display:grid;place-items:center}
@@ -778,31 +786,91 @@ const WIDGETS = {
   },
 
   plustern(el) {
+    const N = 34, LUFT = 18;
     el.innerHTML = `<span class="eyebrow">Ausprobieren</span><h3>Aufplustern – die eingebaute Daunenjacke</h3>
-      <svg viewBox="0 0 320 200" role="img" aria-label="Vogel mit Federkleid und Wärmeverlust">
-        <rect width="320" height="200" fill="#eef4fa"/><rect y="170" width="320" height="30" fill="#fff"/>
-        <path d="M70 168 H250" stroke="#7a5a3a" stroke-width="6" stroke-linecap="round"/>
-        <g class="waerme" id="pl-w">${[[-1, -1], [1, -1], [-1.3, .2], [1.3, .2], [0, -1.4]].map(([dx, dy]) =>
-          `<path d="M${160 + dx * 70} ${110 + dy * 50} l${dx * 22} ${dy * 18}" stroke="#d9534f" stroke-width="4" stroke-linecap="round" marker-end="url(#pf)"/>`).join("")}</g>
-        <defs><marker id="pf" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#d9534f"/></marker></defs>
-        <circle class="federkleid" id="pl-f" cx="160" cy="118" r="40" fill="#c8d3c0" stroke="#7d8b72" stroke-width="2" stroke-dasharray="3 3"/>
-        <circle cx="160" cy="118" r="34" fill="#f2d16b" stroke="#c9a23a" stroke-width="2"/>
-        <circle cx="142" cy="106" r="14" fill="#222"/><circle cx="138" cy="104" r="3" fill="#fff"/>
-        <path d="M126 108 L114 112 L126 114 Z" fill="#333"/>
-        <path d="M156 152 v14 M168 152 v14" stroke="#555" stroke-width="3"/>
-        <text x="160" y="24" text-anchor="middle" class="lbl b" id="pl-t">Federn anliegend</text>
+      <div class="pl-kopf"><span id="pl-t">Federn anliegend</span><button type="button" class="knopf" id="pl-play">▶ Vorführen</button></div>
+      <svg viewBox="0 0 320 220" role="img" aria-label="Kohlmeise plustert sich auf, der Wärmeverlust wird kleiner">
+        <defs>
+          <linearGradient id="pl-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7f9a55"/><stop offset=".42" stop-color="#93ab5e"/><stop offset=".5" stop-color="#f2cf4b"/><stop offset="1" stop-color="#e9bb2f"/></linearGradient>
+          <clipPath id="pl-clip"><path id="pl-cp"/></clipPath>
+          <marker id="pl-m" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#d9534f"/></marker>
+        </defs>
+        <rect width="320" height="220" fill="#eaf2f9"/>
+        <g fill="#fff" opacity=".9">${[[24,30],[290,22],[60,70],[268,92],[30,150],[296,160],[150,14],[205,40]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.2"/>`).join("")}</g>
+        <text x="12" y="210" class="lbl b">❄️ draußen −10 °C</text>
+        <path d="M40 196 H285" stroke="#6b4a2b" stroke-width="7" stroke-linecap="round"/>
+        <g id="pl-pf"></g>
+        <g id="pl-v">
+          <path d="M0 0" id="pl-sw" fill="#3b4652"/>
+          <path id="pl-coat" fill="url(#pl-g)" stroke="#6f7f4a" stroke-width="1"/>
+          <g clip-path="url(#pl-clip)">
+            <ellipse id="pl-cap" fill="#1d1d1f"/><ellipse id="pl-wange" fill="#fff"/>
+            <path id="pl-streif" fill="#1d1d1f"/><ellipse id="pl-flug" fill="#5a6f86"/><path id="pl-band" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+          </g>
+          <ellipse id="pl-haut" fill="none" stroke="#a35a2a" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <g id="pl-luft" fill="#ffffff"></g>
+          <circle id="pl-auge" r="3.4" fill="#111"/><circle id="pl-glanz" r="1.1" fill="#fff"/>
+          <path id="pl-schnabel" fill="#2b2b2b"/>
+          <path id="pl-beine" stroke="#5b5b66" stroke-width="2.5" fill="none"/>
+        </g>
       </svg>
+      <div class="pl-meter"><span>Wärmeverlust</span><span class="bb"><i id="pl-mi"></i></span></div>
       <input type="range" class="regler" min="0" max="100" value="0" aria-label="Aufplustern">
       <p class="anim-text" aria-live="polite"></p>`;
-    const r = $("input", el), f = $("#pl-f", el), w = $("#pl-w", el), t = $("#pl-t", el), txt = $(".anim-text", el);
-    const upd = () => {
-      const v = +r.value; f.setAttribute("r", 38 + v * .26); w.style.opacity = (1 - v / 100 * .85).toFixed(2);
+    const r = $("input", el), t = $("#pl-t", el), txt = $(".anim-text", el), q = id => $("#" + id, el);
+    const luftPos = Array.from({ length: LUFT }, (_, k) => [k / LUFT * Math.PI * 2 + (k % 2) * .09, .35 + (k * 37 % 10) / 22]);
+    const pfeile = [-2.75, -2.05, -1.57, -1.09, -.4];
+    const set = (id, a) => { const e = q(id); Object.entries(a).forEach(([k, v]) => e.setAttribute(k, typeof v === "number" ? v.toFixed(1) : v)); };
+    const upd = v => {
+      const f = v / 100, rx = 40 + f * 18, ry = 32 + f * 16, cx = 160, cy = 186 - ry - 2 * (1 - f) - 4, bump = .02 + f * .07;
+      const P = (a, m) => (cx + Math.cos(a) * rx * m).toFixed(1) + " " + (cy + Math.sin(a) * ry * m).toFixed(1);
+      let d = "M" + P(0, 1);
+      for (let k = 0; k < N; k++) { const a0 = k / N * Math.PI * 2, a1 = (k + 1) / N * Math.PI * 2; d += "Q" + P((a0 + a1) / 2, 1 + bump * 2) + " " + P(a1, 1); }
+      d += "Z";
+      q("pl-coat").setAttribute("d", d); q("pl-cp").setAttribute("d", d);
+      set("pl-cap", { cx: cx - rx * .62, cy: cy - ry * .62, rx: rx * .5, ry: ry * .5 });
+      set("pl-wange", { cx: cx - rx * .6, cy: cy - ry * .28, rx: rx * .26, ry: ry * .17 });
+      q("pl-streif").setAttribute("d", `M${cx - rx * .78} ${cy - ry * .2} Q${cx - rx * .45} ${cy + ry * .5} ${cx - rx * .1} ${cy + ry} L${cx + rx * .1} ${cy + ry} Q${cx - rx * .2} ${cy + ry * .4} ${cx - rx * .5} ${cy - ry * .25} Z`);
+      set("pl-flug", { cx: cx + rx * .45, cy: cy - ry * .15, rx: rx * .55, ry: ry * .42 });
+      q("pl-band").setAttribute("d", `M${cx + rx * .05} ${cy - ry * .32} Q${cx + rx * .4} ${cy - ry * .42} ${cx + rx * .75} ${cy - ry * .3}`);
+      q("pl-sw").setAttribute("d", `M${cx + rx * .8} ${cy - ry * .05} L${cx + rx + 30} ${cy + ry * .25} L${cx + rx + 26} ${cy + ry * .45} L${cx + rx * .7} ${cy + ry * .3} Z`);
+      const ex = cx - rx * .7, ey = cy - ry * .38;
+      set("pl-auge", { cx: ex, cy: ey }); set("pl-glanz", { cx: ex - 1, cy: ey - 1.1 });
+      q("pl-schnabel").setAttribute("d", `M${cx - rx * .96} ${cy - ry * .36} L${cx - rx - 10} ${cy - ry * .28} L${cx - rx * .94} ${cy - ry * .2} Z`);
+      q("pl-beine").setAttribute("d", `M${cx - 6} ${cy + ry - 2} V196 M${cx + 6} ${cy + ry - 2} V196 M${cx - 10} 194 h8 M${cx + 2} 194 h8`);
+      set("pl-haut", { cx, cy, rx: 38, ry: 30, opacity: Math.min(.8, f * 1.8) });
+      q("pl-luft").innerHTML = f < .12 ? "" : luftPos.map(([a, u]) => {
+        const m = .5 + u * .55;
+        return `<circle cx="${(cx + Math.cos(a) * (38 + (rx - 38) * m)).toFixed(1)}" cy="${(cy + Math.sin(a) * (30 + (ry - 30) * m)).toFixed(1)}" r="${(1 + f * 1.6).toFixed(1)}" opacity="${Math.min(.9, (f - .12) * 2).toFixed(2)}"/>`;
+      }).join("");
+      const len = 34 * (1 - f * .8), op = 1 - f * .7;
+      q("pl-pf").innerHTML = pfeile.map(a => {
+        const x0 = cx + Math.cos(a) * (rx + 8), y0 = cy + Math.sin(a) * (ry + 8);
+        return `<path class="pl-pfeil" d="M${x0.toFixed(1)} ${y0.toFixed(1)} l${(Math.cos(a) * len).toFixed(1)} ${(Math.sin(a) * len).toFixed(1)}" stroke="#d9534f" stroke-width="${(4.5 - f * 2.5).toFixed(1)}" stroke-linecap="round" marker-end="url(#pl-m)" opacity="${op.toFixed(2)}"/>`;
+      }).join("");
+      q("pl-mi").style.width = (100 - f * 78).toFixed(0) + "%";
       t.textContent = v < 30 ? "Federn anliegend" : v < 70 ? "Etwas aufgeplustert" : "Kugelrund aufgeplustert";
-      txt.innerHTML = v < 30 ? "Die Federn liegen glatt an. Es geht <b>viel Wärme</b> verloren (rote Pfeile)."
-        : v < 70 ? "Zwischen den Federn sammelt sich Luft. Es geht <b>weniger Wärme</b> verloren."
-        : "Ein dickes Luftpolster umgibt den Vogel – wie eine Daunenjacke. Kaum noch <b>Wärmeverlust</b>!";
+      txt.innerHTML = v < 30 ? "Die Federn liegen glatt an. Die Wärme des Körpers entweicht schnell in die kalte Luft (rote Pfeile)."
+        : v < 70 ? "Die Meise stellt ihre Federn auf. Zwischen Haut und Federspitzen bleibt <b>Luft</b> hängen (helle Bläschen). Es geht weniger Wärme verloren."
+        : "Ein dickes, ruhendes <b>Luftpolster</b> umgibt den Körper – wie bei einer Daunenjacke. Die Meise braucht viel weniger Futter, um warm zu bleiben.";
     };
-    r.oninput = upd; upd();
+    let lauf = null;
+    const stop = () => { if (lauf) cancelAnimationFrame(lauf); lauf = null; $("#pl-play", el).textContent = "▶ Vorführen"; };
+    r.oninput = () => { stop(); upd(+r.value); };
+    $("#pl-play", el).onclick = () => {
+      if (lauf) return stop();
+      if (reduce) { r.value = +r.value > 50 ? 0 : 100; upd(+r.value); return; }
+      $("#pl-play", el).textContent = "⏸ Stopp";
+      const t0 = performance.now(), start = +r.value, D = 7000;
+      const schritt = now => {
+        const ph = ((now - t0) / D + (start / 100) * .3) % 1;
+        const v = ph < .35 ? ph / .35 : ph < .55 ? 1 : ph < .9 ? 1 - (ph - .55) / .35 : 0;
+        const e = v < .5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2;
+        r.value = Math.round(e * 100); upd(e * 100); lauf = requestAnimationFrame(schritt);
+      };
+      lauf = requestAnimationFrame(schritt);
+    };
+    upd(0);
   },
 
   handschuh(el) {
