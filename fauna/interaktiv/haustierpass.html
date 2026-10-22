@@ -119,7 +119,8 @@ details .grid{display:grid;gap:8px}
 figure.bild{margin:0;background:var(--tile);border:1px solid var(--linie);border-radius:14px;overflow:hidden}
 figure.bild .rahmen-bild{aspect-ratio:16/10;background:linear-gradient(160deg,#e9f0f6,#d6e2ec);position:relative}
 figure.bild img{display:block;width:100%;height:100%;object-fit:cover}
-figure.bild .platzhalter{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:6px;text-align:center;color:var(--ink-soft);font-family:var(--sans);font-size:13px}
+figure.bild .platzhalter{position:absolute;inset:0;display:none;place-items:center;align-content:center;gap:6px;text-align:center;color:var(--ink-soft);font-family:var(--sans);font-size:13px}
+figure.bild .platzhalter.zeigen{display:grid}
 figure.bild .platzhalter span{font-size:64px;line-height:1}
 figure.bild figcaption{padding:12px 14px;font-size:16px}
 figure.bild figcaption b{color:var(--blau)}
@@ -288,7 +289,7 @@ function knochenHTML(n) { let s = ""; for (let k = 0; k < 3; k++) s += k < n ? "
 function bild(datei, emoji, titel, text) {
   return `<figure class="bild"><div class="rahmen-bild">
     <div class="platzhalter"><span>${emoji}</span>Bild folgt</div>
-    <img src="../images/haustier/${datei}.jpg" alt="${esc(titel)}" loading="lazy" onerror="this.remove()" onload="this.previousElementSibling.remove()">
+    <img src="../images/haustier/${datei}.jpg" alt="${esc(titel)}" loading="lazy" onerror="this.previousElementSibling.classList.add('zeigen');this.remove()">
   </div>${text ? `<figcaption>${text}</figcaption>` : ""}</figure>`;
 }
 
@@ -746,10 +747,10 @@ const WIDGETS = {
       const welpen = shuffle([...echt, { g: Math.max(12, mittel - 16), falle: true }]);
       const kleinsterEchter = Math.min(...echt.map(w => w.g));
       el.innerHTML = `<span class="eyebrow">Spiel</span><h3>Züchte einen kleinen Hund!</h3>
-        <p class="klein">Deine Hunde sind ${START} cm groß. Ziel: höchstens ${ZIEL} cm. Wähle in jeder Generation den Welpen, der später Junge bekommen soll. Lies genau – einer ist eine Falle!</p>
+        <p class="klein">Deine Hunde sind ${START} cm groß. Ziel: höchstens ${ZIEL} cm. Wähle in jeder Generation den Welpen, der später Junge bekommen soll.</p>
         <div class="zucht">
           <p><b>Generation ${gen}</b></p>
-          <div class="welpen">${welpen.map((w, k) => `<button type="button" class="welpe" data-k="${k}"><span style="font-size:${Math.max(18, w.g * .62)}px">🐕</span>${w.g} cm${w.falle ? "<br>als Welpe kaum Futter" : "<br>&nbsp;"}</button>`).join("")}</div>
+          <div class="welpen">${welpen.map((w, k) => `<button type="button" class="welpe" data-k="${k}"><span style="font-size:${Math.max(18, w.g * .62)}px">🐕</span>${w.g} cm</button>`).join("")}</div>
           <div class="zucht-leiste" aria-label="Größe der Hunde in jeder Generation">${verlauf.map((g, k) => `<div style="height:${g / START * 100}%">${k + 1}</div>`).join("")}</div>
           <p class="feedback" aria-live="polite"></p>
         </div>`;
