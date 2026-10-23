@@ -269,6 +269,12 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
 .fd-sw{display:inline-block;width:20px;height:3px;background:#b08a55;vertical-align:middle;margin-right:6px}
 .fd-sw.fein{height:2px;background:var(--ink)}
 @media(max-width:520px){.fd-views{grid-template-columns:1fr;gap:10px}.anim svg.fd-over{height:230px}}
+.anim svg.gr-szene{width:100%;height:420px;display:block}
+.gr-leg{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+.gr-leg span::before{content:"";display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:6px;background:#7d8a96}
+.gr-leg .sehne::before{background:#c0392b}
+.gr-kopf{display:flex;justify-content:space-between;gap:12px;font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+.gr-kopf output{color:var(--blau);font-weight:600}
 .sb-bild .rahmen-bild{aspect-ratio:480/407;background:#fff}
 .sb-bild img{object-fit:contain}
 .galerie{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
@@ -590,7 +596,7 @@ v1: {
     ],
     s4: [
       ["Ein Specht hat zwei Zehen vorn und zwei hinten. Wozu?", ["Zum sicheren Halt am senkrechten Stamm", "Zum schnelleren Laufen am Boden", "Zum Paddeln im Wasser", "Zum Festhalten der Beute im Flug"]],
-      ["Warum fällt ein schlafender Buchfink nicht vom Ast?", ["Beim Hinhocken ziehen Sehnen die Zehen von selbst zu", "Er hält sich die ganze Nacht mit Muskelkraft fest", "Er klebt sich mit Speichel fest", "Er wacht alle paar Minuten auf und greift neu zu"]],
+      ["Womit schließt ein Vogel seine Zehen um den Ast?", ["Muskeln oben im Bein ziehen über lange Sehnen an den Zehen", "Kräftige Muskeln direkt in den Zehen", "Saugnäpfe unter den Zehen", "Die Zehen schließen sich ganz ohne Muskeln"]],
       ["Der Kleiber klettert kopfüber den Stamm hinab. Was für Füße hat er?", ["Sitzfüße mit kräftigen Zehen und Krallen", "Kletterfüße wie die Spechte", "Greiffüße wie der Falke", "Füße mit Haftlappen wie ein Gecko"]]
     ]
   },
@@ -965,98 +971,67 @@ const WIDGETS = {
     zeig();
   },
 
-  /* Sitzfuß: Beim Hinhocken ziehen die Beugesehnen die Zehen zu (Vogel + Lupe aufs Bein) */
+  /* Sitzfuß: Wie die Zehen den Ast umfassen (vereinfachtes Modell, Grafik von Micha) */
   sitzfuss(el) {
-    el.innerHTML = `<span class="eyebrow">Ausprobieren</span><h3>Warum fällt ein schlafender Vogel nicht vom Ast?</h3>
-      <div class="fd-views">
-        <div><svg class="fd-draw sf-vogel" role="img" aria-label="Ein Singvogel sitzt auf einem Ast und hockt sich zum Schlafen hin."></svg><div class="fd-cap">Vogel auf dem Ast</div></div>
-        <div><svg class="fd-draw sf-lupe" role="img" aria-label="Lupe auf das Bein: Die Beugesehne läuft hinter der Ferse entlang bis in die Zehen. Beim Hinhocken spannt sie sich und schließt die Zehen."></svg><div class="fd-cap">Lupe · Bein von der Seite, vereinfacht</div></div>
-      </div>
-      <input type="range" class="regler" min="0" max="100" value="0" aria-label="Vogel hockt sich hin">
-      <div class="knopfreihe"><button type="button" class="knopf prim" data-a="hock">⬇ Hinhocken und schlafen</button><button type="button" class="knopf" data-a="steh" disabled>⬆ Aufwachen</button></div>
+    el.innerHTML = `<span class="eyebrow">Ausprobieren</span><h3>Wie die Zehen den Ast umfassen</h3>
+      <svg class="gr-szene" role="img" aria-label="Schematischer Vogel auf einem Ast. Der Regler verändert Haltung und Zehengriff. Die Beugesehnen sind farbig hervorgehoben, das Sprunggelenk ist beschriftet."></svg>
+      <div class="gr-leg"><span>Bein und Zehen</span><span class="sehne">Beugesehnen</span></div>
+      <div class="gr-kopf"><span>Aufgerichtet</span><output>Locker umfasst</output><span>Niedergelassen</span></div>
+      <input type="range" class="regler" min="0" max="100" value="0" step="1" aria-label="Niederlassen und Greifen">
       <p class="anim-text" aria-live="polite"></p>`;
-    const vog = $(".sf-vogel", el), lup = $(".sf-lupe", el), r = $("input", el), bH = $('[data-a="hock"]', el), bS = $('[data-a="steh"]', el), txt = $(".anim-text", el);
-    const NS = "http://www.w3.org/2000/svg", BEIN = "#8b8378", SEHNE = "#c0392b", HONIG = "#C28A3A", INK = "#1c2e42", ASTF = "#7a5a3a";
-    const mk = (par, tag, at) => { const n = document.createElementNS(NS, tag); for (const k in at) n.setAttribute(k, at[k]); par.appendChild(n); return n; };
-    const linie = (par, pts, stroke, w, extra = {}) => mk(par, "path", Object.assign({ d: "M" + pts.map(p => p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" L"), stroke, "stroke-width": w, fill: "none", "stroke-linecap": "round", "stroke-linejoin": "round" }, extra));
-    const rad = d => d * Math.PI / 180, P = (p, w, l) => [p[0] + Math.cos(w) * l, p[1] + Math.sin(w) * l];
-    const zeh = (start, w0, dw, n, l) => { const pts = [start]; let p = start, w = w0; for (let k = 0; k < n; k++) { p = P(p, w, l); pts.push(p); w += dw; } return pts; };
-    /* Beinstellung: f = 0 aufrecht, f = 1 tief gehockt */
-    const bein = (F, f, sL, sT) => {
-      const A = P(F, rad(-90 + 14 + f * 52), sL);          // Ferse: wandert nach hinten
-      const K = P(A, rad(-90 - 22 - f * 30), sT);          // Knie: verschwindet im Körper
-      return { A, K,
-        v1: zeh(F, rad(178), -rad(3 + f * 24), 4, sL * .17), v2: zeh(F, rad(170), -rad(2 + f * 21), 4, sL * .155),
-        h: zeh(F, rad(4), rad(3 + f * 26), 3, sL * .15) };
-    };
-    const text = (par, x, y, t, o = {}) => { const n = mk(par, "text", Object.assign({ x, y, fill: INK, "font-size": 13, "font-family": "var(--sans)" }, o)); n.textContent = t; return n; };
-    let f = 0, frame = 0;
+    const svg = $(".gr-szene", el), range = $("input", el), out = $("output", el), txt = $(".anim-text", el);
+    const NS = "http://www.w3.org/2000/svg", LEG = "#7d8a96", SEHNE = "#c0392b", BODY = "#c9ae86", WING = "#8a6d4b", WOOD = "#8b6a46", BG = "#f3f7fa", INK = "#1c2e42";
+    let t = 0;
+    const add = (tag, a, parent = svg) => { const n = document.createElementNS(NS, tag); for (const k in a) n.setAttribute(k, a[k]); parent.appendChild(n); return n; };
+    const path = (d, stroke, width, fill = "none", parent = svg) => add("path", { d, stroke, "stroke-width": width, fill, "stroke-linecap": "round", "stroke-linejoin": "round" }, parent);
+    const label = (x, y, text, anchor = "start") => { const n = add("text", { x, y, fill: INK, "text-anchor": anchor, "font-size": 13, "font-family": "var(--sans)" }); n.textContent = text; return n; };
     const draw = () => {
-      /* ---------- links: der ganze Vogel ---------- */
-      const vw = vog.clientWidth || 280, vh = vog.clientHeight || 290;
-      vog.setAttribute("viewBox", `0 0 ${vw} ${vh}`); vog.replaceChildren();
-      const s = Math.min(vw / 260, vh / 290), g = mk(vog, "g", { transform: `translate(${(vw - 260 * s) / 2} ${(vh - 290 * s) / 2}) scale(${s})` });
-      const C = [130, 240], F = [130, 226], b = bein(F, f, 46, 40), Kp = b.K;
-      const kp = [Kp[0] - 6, Kp[1] - 34 + f * 6], dick = 1 + f * .1;
-      linie(g, [b.K, b.A, F], BEIN, 6); linie(g, b.v2, "#a49c90", 4.5); linie(g, b.v1, BEIN, 5); linie(g, b.h, BEIN, 5);
-      mk(g, "path", { d: `M${kp[0] + 50} ${kp[1] + 6} L${kp[0] + 112} ${kp[1] + 30 - f * 8} L${kp[0] + 108} ${kp[1] + 44 - f * 8} L${kp[0] + 44} ${kp[1] + 24} Z`, fill: "#6e5539" });
-      mk(g, "ellipse", { cx: kp[0], cy: kp[1], rx: 62 * dick, ry: 40 * dick, fill: "#a98a63", transform: `rotate(${-12 + f * 8} ${kp[0]} ${kp[1]})` });
-      mk(g, "ellipse", { cx: kp[0] - 20, cy: kp[1] + 12, rx: 42 * dick, ry: 26 * dick, fill: "#ead9b8", transform: `rotate(${-12 + f * 8} ${kp[0]} ${kp[1]})` });
-      mk(g, "path", { d: `M${kp[0] - 10} ${kp[1] - 18} Q${kp[0] + 40} ${kp[1] - 30} ${kp[0] + 66} ${kp[1] + 4} Q${kp[0] + 30} ${kp[1] + 18} ${kp[0] - 6} ${kp[1] + 6} Z`, fill: "#7d6243" });
-      const kopf = [kp[0] - 52 + f * 8, kp[1] - 34 + f * 16];
-      mk(g, "circle", { cx: kopf[0], cy: kopf[1], r: 25, fill: "#a98a63" });
-      mk(g, "path", { d: `M${kopf[0] - 23} ${kopf[1] - 3} L${kopf[0] - 42} ${kopf[1] + 2 + f * 4} L${kopf[0] - 22} ${kopf[1] + 7} Z`, fill: "#4d3f2c" });
-      if (f > .85) linie(g, [[kopf[0] - 13, kopf[1] - 4], [kopf[0] - 4, kopf[1] - 3]], "#2b2b2b", 2.2);
-      else { mk(g, "circle", { cx: kopf[0] - 9, cy: kopf[1] - 4, r: 4.2, fill: "#1d1d1f" }); mk(g, "circle", { cx: kopf[0] - 10.5, cy: kopf[1] - 5.5, r: 1.3, fill: "#fff" }); }
-      if (f > .85) text(g, kopf[0] + 16, kopf[1] - 26, "z z z", { "font-size": 15, fill: "#5d6b78", "font-style": "italic" });
-      mk(g, "circle", { cx: C[0], cy: C[1], r: 14, fill: ASTF, stroke: "#5b4026", "stroke-width": 2 }); mk(g, "circle", { cx: C[0], cy: C[1], r: 7, fill: "none", stroke: "#a0805c", "stroke-width": 1.2 });
-      text(g, C[0], 282, "Ast, von vorn gesehen", { "font-size": 13 / s, "text-anchor": "middle", fill: "#5d6b78" });
-      mk(g, "circle", { cx: b.A[0], cy: b.A[1], r: 13, fill: "none", stroke: HONIG, "stroke-width": 2.2 });
-      /* ---------- rechts: Lupe aufs Bein ---------- */
-      const lw = lup.clientWidth || 340, lh = lup.clientHeight || 290;
-      lup.setAttribute("viewBox", `0 0 ${lw} ${lh}`); lup.replaceChildren();
-      const t = Math.min(lw / 330, lh / 300), q = mk(lup, "g", { transform: `translate(${(lw - 330 * t) / 2} ${(lh - 300 * t) / 2}) scale(${t})` });
-      const fs = 13 / t, CL = [150, 256], FL = [150, 232], B = bein(FL, f, 96, 92);
-      mk(q, "circle", { cx: CL[0], cy: CL[1], r: 23, fill: ASTF, stroke: "#5b4026", "stroke-width": 2.5 });
-      const u = (a, z) => { const d = [z[0] - a[0], z[1] - a[1]], l = Math.hypot(...d); return [d[0] / l, d[1] / l]; };
-      const u1 = u(B.A, B.K), u2 = u(B.A, FL), aus = u([0, 0], [-(u1[0] + u2[0]), -(u1[1] + u2[1])]);
-      const n1 = [-u1[1], u1[0]], n2 = [u2[1], -u2[0]];
-      const sgn = (n, ref) => (n[0] * ref[0] + n[1] * ref[1] < 0 ? [-n[0], -n[1]] : n);
-      const o1 = sgn(n1, aus), o2 = sgn(n2, aus);
-      const M0 = P(B.K, Math.atan2(-u1[1], -u1[0]), 0), mitte = [(B.K[0] + B.A[0]) / 2, (B.K[1] + B.A[1]) / 2];
-      mk(q, "ellipse", { cx: (B.K[0] * .7 + B.A[0] * .3) + o1[0] * 7, cy: (B.K[1] * .7 + B.A[1] * .3) + o1[1] * 7, rx: 13, ry: 30, fill: "#d98b7a", opacity: .85,
-        transform: `rotate(${Math.atan2(u1[1], u1[0]) * 180 / Math.PI + 90} ${(B.K[0] * .7 + B.A[0] * .3) + o1[0] * 7} ${(B.K[1] * .7 + B.A[1] * .3) + o1[1] * 7})` });
-      linie(q, [B.K, B.A, FL], "#d8cdb8", 13); linie(q, [B.K, B.A, FL], "#bfb29a", 13, { opacity: .35 });
-      [B.v2, B.v1, B.h].forEach((z, k) => { linie(q, z, k ? "#cfc4ae" : "#ddd3c0", k ? 9 : 8); z.slice(1, -1).forEach(p => mk(q, "circle", { cx: p[0], cy: p[1], r: 3, fill: "#b5a88f" })); });
-      const zehS = B.v1.map(p => { const d = u(p, CL); return [p[0] + d[0] * 5, p[1] + d[1] * 5]; });
-      const sehne = [[B.K[0] + o1[0] * 8, B.K[1] + o1[1] * 8], [B.A[0] + aus[0] * 13, B.A[1] + aus[1] * 13], [FL[0] + o2[0] * 6, FL[1] + o2[1] * 6], ...zehS.slice(1)];
-      linie(q, sehne, SEHNE, 3.2, { opacity: .55 + f * .45, "stroke-dasharray": f > .05 ? "none" : "6 4" });
-      if (f > .8) zehS.slice(0, 2).forEach(p => mk(q, "path", { d: `M${p[0] - 5} ${p[1] - 5} l3 3 l-3 3 M${p[0] + 1} ${p[1] - 5} l3 3 l-3 3`, stroke: HONIG, "stroke-width": 1.6, fill: "none" }));
-      mk(q, "circle", { cx: B.A[0], cy: B.A[1], r: 9, fill: "#fff", stroke: "#8b8378", "stroke-width": 3 });
-      const pfeil = f > .1 ? [mitte[0] + o1[0] * 26, mitte[1] + o1[1] * 26] : null;
-      if (pfeil) { const e = [pfeil[0] - u1[0] * 22, pfeil[1] - u1[1] * 22]; linie(q, [pfeil, e], HONIG, 2.5); mk(q, "path", { d: `M${e[0]} ${e[1]} l${(u1[0] * 8 + o1[0] * 5).toFixed(1)} ${(u1[1] * 8 + o1[1] * 5).toFixed(1)} M${e[0]} ${e[1]} l${(u1[0] * 8 - o1[0] * 5).toFixed(1)} ${(u1[1] * 8 - o1[1] * 5).toFixed(1)}`, stroke: HONIG, "stroke-width": 2.5, fill: "none", "stroke-linecap": "round" }); }
-      text(q, B.A[0] + aus[0] * 24, B.A[1] + aus[1] * 24 + 4, "Ferse", { "font-size": fs, "font-weight": 700 });
-      const mc = [B.K[0] * .7 + B.A[0] * .3, B.K[1] * .7 + B.A[1] * .3], tm = [(B.A[0] + FL[0]) / 2, (B.A[1] + FL[1]) / 2];
-      text(q, mc[0] - 24, mc[1] + 4, "Muskel", { "font-size": fs, fill: "#a2493a", "text-anchor": "end" });
-      text(q, B.A[0] + aus[0] * 24, B.A[1] + aus[1] * 24 + 4 + fs * 1.4, "Beugesehne", { "font-size": fs, fill: SEHNE });
-      text(q, 8, CL[1] + 6, "Zehen", { "font-size": fs });
-      mk(q, "circle", { cx: CL[0], cy: CL[1], r: 12, fill: "none", stroke: "#a0805c", "stroke-width": 1.5 });
-      text(q, CL[0], 298, "Ast", { "font-size": fs, "text-anchor": "middle", fill: "#5d6b78" });
-      text(q, 8, 20, f > .8 ? "Sehne gespannt · Zehen geschlossen" : f > .3 ? "Die Sehne wird straffer …" : "Sehne locker · Zehen offen", { "font-size": fs, "font-weight": 600 });
-      txt.innerHTML = f < .3 ? "Der Vogel steht aufrecht, die Zehen liegen locker auf dem Ast. Was wie ein Knie nach hinten aussieht, ist die <b>Ferse</b> – das Knie steckt versteckt im Gefieder."
-        : f < .8 ? "Er hockt sich hin. Die <b>Beugesehne</b> läuft hinter der Ferse entlang bis in die Zehen. Knickt die Ferse ein, muss die Sehne einen weiteren Weg um das Gelenk nehmen – sie wird straff gezogen …"
-        : "… und zieht die Zehen <b>von ganz allein</b> fest um den Ast. Muskelkraft braucht der Vogel dafür kaum. Bei vielen Singvögeln rasten zusätzlich winzige Rillen an Sehne und Sehnenhülle ineinander – wie bei einem Kabelbinder. So kann er auf dem Ast schlafen.";
-      r.value = Math.round(f * 100); bH.disabled = f > .99; bS.disabled = f < .01;
+      const w = svg.clientWidth || 360, s = Math.min(1.1, (w - 24) / 340), h = Math.round(26 + 352 * s);
+      if (svg.style.height !== h + "px") svg.style.height = h + "px";
+      svg.setAttribute("viewBox", `0 0 ${w} ${h}`); svg.replaceChildren();
+      const ox = (w - 340 * s) / 2, oy = 10;
+      const g = add("g", { transform: `translate(${ox} ${oy}) scale(${s})` });
+      const drop = 32 * t, ankX = 190 + 22 * t, ankY = 206 + 14 * t;
+      add("circle", { cx: 159, cy: 278, r: 33, fill: WOOD, stroke: "#6b4f33", "stroke-width": 2 }, g);
+      add("circle", { cx: 159, cy: 278, r: 24, fill: "none", stroke: "#fff", "stroke-width": 1, opacity: .4 }, g);
+      const toe = (side, j) => {
+        const r = 36 + j * 2, theta = (side < 0 ? -1 : 1) * (1.35 + t * 1.05), start = -Math.PI / 2, end = start + theta, pts = [];
+        for (let k = 0; k <= 16; k++) { const a = start + (end - start) * k / 16; pts.push([159 + r * Math.cos(a) + j * 1.5, 278 + r * Math.sin(a)]); }
+        const d = pts.map((p, k) => (k ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
+        path(d, LEG, 5, "none", g); path(d, SEHNE, 1.6, "none", g);
+        const last = pts[pts.length - 1], a = end + side * .23;
+        path(`M${last[0]} ${last[1]} Q${159 + (r - 2) * Math.cos(a)} ${278 + (r - 2) * Math.sin(a)} ${159 + (r - 9) * Math.cos(a)} ${278 + (r - 9) * Math.sin(a)}`, INK, 2.2, "none", g);
+      };
+      toe(1, 2); toe(1, 1);
+      path(`M142 ${148 + drop} L${ankX} ${ankY} L159 242`, LEG, 13, "none", g);
+      path(`M150 ${147 + drop} Q${ankX + 13} ${ankY - 7} ${ankX + 8} ${ankY + 7} L165 245`, SEHNE, 3, "none", g);
+      add("circle", { cx: ankX, cy: ankY, r: 8, fill: BG, stroke: LEG, "stroke-width": 3 }, g);
+      toe(-1, 0); toe(1, 0);
+      const b = add("g", { transform: `translate(0 ${drop})` }, g);
+      path("M228 113 L305 91 L255 141 Z", WING, 1, BODY, b);
+      add("ellipse", { cx: 175, cy: 111, rx: 85, ry: 55, fill: BODY }, b);
+      path("M150 88 Q201 76 230 127 Q186 145 151 105", WING, 1.5, WING, b);
+      add("circle", { cx: 105, cy: 68, r: 37, fill: BODY }, b);
+      path("M70 66 L47 75 L72 82 Z", WING, 1, WING, b);
+      if (t < .8) add("circle", { cx: 93, cy: 61, r: 4, fill: INK }, b); else path("M87 63 Q93 68 99 62", INK, 2, "none", b);
+      const ax = ox + ankX * s, ay = oy + ankY * s, textX = w - 8;
+      path(`M${ax + 12} ${ay} L${textX - 5} ${ay - 9}`, "#c9bfae", 1);
+      label(textX, ay - 14, "Sprunggelenk", "end"); label(textX, ay + 4, "(„Ferse“)", "end");
+      const tx = ox + 159 * s, ty = oy + 278 * s;
+      label(tx, ty + 48 * s, "Ast · Querschnitt", "middle");
+      label(12, Math.min(h - 8, ty + 72 * s), "Zehen und Sehnen vergrößert dargestellt");
     };
-    const fahre = ziel => {
-      cancelAnimationFrame(frame); const start = f, t0 = performance.now(), dauer = reduce ? 0 : 1600;
-      const tick = now => { const p = dauer ? Math.min(1, (now - t0) / dauer) : 1, e = p * p * (3 - 2 * p); f = start + (ziel - start) * e; draw(); if (p < 1) frame = requestAnimationFrame(tick); };
-      frame = requestAnimationFrame(tick);
+    const update = () => {
+      t = Number(range.value) / 100; draw();
+      const st = t < .3 ? "Locker umfasst" : t < .8 ? "Zehen beugen sich" : "Stärker umfasst";
+      out.textContent = st; range.setAttribute("aria-valuetext", st);
+      txt.innerHTML = t < .3 ? "Die Zehen liegen bereits um den Ast. Der Vogel hält sein Gleichgewicht."
+        : t < .8 ? "Die <b>Beugemuskeln</b> sitzen oben im Bein. Über lange <b>Sehnen</b>, die hinter dem Sprunggelenk entlanglaufen, ziehen sie an den Zehen: Der Griff schließt sich."
+        : "Ruhehaltung im Modell: Der Griff gibt Halt. <b>Muskelspannung</b> und <b>Gleichgewicht</b> bleiben dabei wichtig – auch ein schlafender Vogel hält sich aktiv fest.";
     };
-    r.oninput = () => { cancelAnimationFrame(frame); f = r.value / 100; draw(); };
-    bH.onclick = () => fahre(1); bS.onclick = () => fahre(0);
+    range.oninput = update;
     if (window.ResizeObserver) new ResizeObserver(() => draw()).observe(el);
-    draw();
+    update();
   },
 
   /* Das Ei: Teile antippen */
