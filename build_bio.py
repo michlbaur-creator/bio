@@ -52,7 +52,10 @@ REPOS = [
                "sub": "Vom Wolf zum Hund, vom Wildschwein zum Hausschwein — sammle Knochen für deinen Napf."},
      "pass4": {"href": "interaktiv/vogelpass.html", "img": "images/voegel/foto-rotkehlchen.jpg",
                "eyebrow": "Dein Vogelpass · Klasse 5/6", "titel": "Vögel – gebaut zum Fliegen",
-               "sub": "Federn, Schnäbel, Ei und Nest — und ein Schlüssel für 20 Gartenvögel. Sammle Federn für dein Nest."}},
+               "sub": "Federn, Schnäbel, Ei und Nest — und ein Schlüssel für 20 Gartenvögel. Sammle Federn für dein Nest."},
+     "pass5": {"href": "interaktiv/futterhauspass.html", "img": "images/futterhaus/fp-gimpel.jpg",
+               "eyebrow": "Dein Futterhaus-Pass · Klasse 5/6", "titel": "Vögel am Futterhaus",
+               "sub": "Aufstellen, füttern, beobachten — 21 Gäste, ein Film und ein Bilderquiz. Sammle Kerne für dein Futterhaus."}},
 ]
 
 # Thematische Gruppen je Repo: (Überschrift, Farbe, [Dateien]). Seit dem Fauna-Stil-
@@ -159,7 +162,7 @@ def _icon(fn):
 # Kopiert, aber nicht auf der Startseite gelistet (z.B. der Pass als Footer-Ziel)
 # kopiert, aber nicht als eigene Kachel gelistet (bestaeubung-animiert wird als iframe
 # in „Bestäubung" eingebunden – Datei muss vorhanden sein, Kachel entfällt).
-SKIP_LISTING = {"tafel.html", "wiesenpass.html", "winterpass.html", "haustierpass.html", "vogelpass.html", "sammelpass.html", "bestaeubung-animiert.html"}
+SKIP_LISTING = {"tafel.html", "wiesenpass.html", "winterpass.html", "haustierpass.html", "vogelpass.html", "futterhauspass.html", "sammelpass.html", "bestaeubung-animiert.html"}
 # Ganz aus bio ausschließen (nicht kopieren, nicht listen): Staunen-Häppchen,
 # Quizze/Tests und Ordnen-/Zuordnungs-Spiele — bio zeigt nur die echten Lernpfade.
 # Einträge ohne Repo-Präfix gelten für beide; mit Präfix nur für ein Repo.
@@ -207,7 +210,7 @@ NATIVE_LIST = {
 # beim Kopieren zu überspringen: die Expeditions-Pfade + der Forscherpass selbst
 NATIVE_SKIP = {
     "flora": set(NATIVE_LIST["flora"]),
-    "fauna": set(NATIVE_LIST["fauna"]) | {"wiesenpass.html", "winterpass.html", "haustierpass.html", "vogelpass.html"},
+    "fauna": set(NATIVE_LIST["fauna"]) | {"wiesenpass.html", "winterpass.html", "haustierpass.html", "vogelpass.html", "futterhauspass.html"},
 }
 
 # Stimmige Reihenfolge je Repo (nicht gelistete kommen alphabetisch danach).
@@ -388,6 +391,9 @@ def build():
         _i = _i.replace("Flora Mibaso", "Bio Mibaso")
         _i = _i.replace("Einstellungen, der Sammelpass und der Offline-Speicher",
                         "Einstellungen, der Forscherpass und der Offline-Speicher")
+        # YouTube-Film im Futterhaus-Pass (Zwei-Klick-Lösung) im Datenschutz erwähnen
+        if "youtube-nocookie" not in _i:
+            _i = _i.replace("  <h2>Transparenzhinweis zu KI-Inhalten</h2>", YT_HINWEIS + "\n\n  <h2>Transparenzhinweis zu KI-Inhalten</h2>", 1)
         open(_iidx, "w", encoding="utf-8").write(_i)
     # Der Flora-Forscherpass (pflanzenpass.html) wird NICHT mehr aus der Quelle kopiert –
     # er lebt jetzt nativ in bio (flora/ enthält nur eine Weiterleitung). Nur das
@@ -788,6 +794,12 @@ def _extra_pfad(basis, fn, icon, titel, sub, col, badge="Flora-App"):
             f'<span class="psub">{html.escape(sub)}</span></span>'
             f'<span class="badge badge-ext">{html.escape(badge)}&nbsp;↗</span></a>')
 
+YT_HINWEIS = ('  <p><strong>Eingebettete Videos (YouTube):</strong> Im Futterhaus-Pass ist ein Film von YouTube '
+              '(Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland) eingebunden. Er wird erst geladen, '
+              'wenn du auf das Vorschaubild tippst. Erst dann werden Daten wie deine IP-Adresse an YouTube übertragen; '
+              'genutzt wird der erweiterte Datenschutzmodus (youtube-nocookie.com). Näheres in der '
+              '<a href="https://policies.google.com/privacy?hl=de">Datenschutzerklärung von Google</a>.</p>')
+
 def _pass_banner(p):
     return (f'<a class="aktion-banner" href="{p["href"]}">'
             f'<img src="{p["img"]}" alt="" aria-hidden="true" onerror="this.style.display=\'none\'">'
@@ -836,6 +848,7 @@ def write_sub(r, items):
     if r.get("pass2"): banner += _pass_banner(r["pass2"])
     if r.get("pass3"): banner += _pass_banner(r["pass3"])
     if r.get("pass4"): banner += _pass_banner(r["pass4"])
+    if r.get("pass5"): banner += _pass_banner(r["pass5"])
     # Zeitreise direkt unter dem Forscherpass (nur bei Fauna — dort passt sie thematisch)
     if key == "fauna": banner += _zeitreise_banner()
     body = ('<div class="subkopf"><a class="zurueck" href="../index.html">‹ Bio Mibaso</a></div>'
