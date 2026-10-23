@@ -396,15 +396,18 @@ const SORT_SETS = {
     ["schützt vor Regen und Wind", "kontur", "Die Deckfedern sind außen geschlossen und halten Regen ab – wie eine Regenjacke."],
     ["trägt die Farben und Muster des Vogels", "kontur", "Die bunten Farben des Stieglitz oder der Blaumeise sitzen auf den Deckfedern."],
     ["flauschig, ohne Häkchen und ohne festen Schaft", "daune", "Die Äste der Daune bleiben locker – sie haken nicht ineinander."],
+    ["mit kammartig gefranstem Rand – Eulen fliegen damit fast lautlos", "schwung", "Bei Schleiereule und Waldkauz ist die Vorderkante der Schwungfedern gefranst wie ein Kamm. Das bricht die Luftwirbel – die Maus hört die Eule nicht kommen."],
     ["hält Luft fest und wärmt", "daune", "Zwischen den lockeren Ästen bleibt Luft hängen. Luft ist ein guter Wärmeschutz – darum stecken Daunen auch in Winterjacken."]
   ]},
-  fuesse: { bins: [["sitz", "🌿 Sitzfuß"], ["kletter", "🪵 Kletterfuß"], ["greif", "🦅 Greiffuß"], ["schwimm", "🌊 Schwimmfuß"]], items: [
+  fuesse: { bins: [["sitz", "🌿 Sitzfuß"], ["kletter", "🪵 Kletterfuß"], ["greif", "🦅 Greiffuß"], ["schwimm", "🌊 Schwimmfuß"], ["klammer", "🧗 Klammerfuß"]], items: [
     ["Amsel", "sitz", "Drei Zehen nach vorn, eine nach hinten – damit umklammert die Amsel Zweige."],
     ["Buchfink", "sitz", "Die meisten Singvögel haben Sitzfüße."],
     ["Kleiber", "sitz", "Fangfrage! Der Kleiber klettert, hat aber einen Sitzfuß. Er hält sich mit sehr kräftigen Zehen und langen Krallen fest – auch kopfüber."],
     ["Buntspecht", "kletter", "Zwei Zehen nach vorn, zwei nach hinten – und dazu ein Stützschwanz."],
     ["Grünspecht", "kletter", "Auch der Grünspecht hat Kletterfüße, obwohl er viel am Boden nach Ameisen sucht."],
     ["Turmfalke", "greif", "Kräftige Zehen mit spitzen, gebogenen Krallen packen die Maus."],
+    ["Sperber", "greif", "Lange, dünne Zehen mit nadelspitzen Krallen – damit packt er kleine Vögel im Flug."],
+    ["Mauersegler", "klammer", "Fangfrage! Seine winzigen Füße haben alle vier Zehen nach vorn. Laufen kann er damit kaum, aber er klammert sich an Mauern fest. Auf dem Boden landet er fast nie – er frisst, trinkt und schläft sogar im Flug."],
     ["Waldkauz", "greif", "Eulen packen ihre Beute ebenfalls mit Greiffüßen. Eine Zehe können sie nach hinten drehen."],
     ["Stockente", "schwimm", "Zwischen drei Zehen spannen sich Schwimmhäute – wie Paddel."],
     ["Kormoran", "schwimm", "Beim Kormoran sind sogar alle vier Zehen durch Häute verbunden. Er treibt sich damit unter Wasser an."]
@@ -448,22 +451,23 @@ const KARTEN_SETS = {
     ["🔬 Pinzettenschnabel", "Fein und spitz: Meisen und Rotkehlchen picken damit kleine Insekten von Blättern und Zweigen."],
     ["🔨 Meißelschnabel", "Hart und gerade wie ein Meißel: Spechte hacken damit Löcher ins Holz."],
     ["🪝 Hakenschnabel", "Spitz und nach unten gebogen: Falken, Bussarde und Eulen zerteilen damit ihre Beute."],
+    ["🗡️ Dolchschnabel", "Lang, gerade und spitz: Der Eisvogel stößt damit ins Wasser und packt Fische."],
     ["🥄 Seihschnabel", "Breit und flach mit Hornleisten am Rand: Enten seihen damit Nahrung aus dem Wasser."],
     ["🧰 Allzweckschnabel", "Mittellang und kräftig: Amseln, Stare und Krähen fressen damit Würmer, Insekten, Beeren und vieles mehr."]
   ]
 };
 const SCHNABEL_ESSEN = ["Harte Kerne knacken", "Kleine Insekten von Zweigen picken", "Holz aufhacken und Larven herausholen",
   "Samen aus Distelköpfen ziehen", "Fast alles fressen – vom Wurm bis zum Aas", "Beute packen und zerteilen",
-  "Nahrung aus dem Wasser seihen", "Würmer aus dem Boden ziehen und Beeren pflücken"];
+  "Nahrung aus dem Wasser seihen", "Würmer aus dem Boden ziehen und Beeren pflücken", "Fische im Sturzflug packen"];
 const SCHNAEBEL = [
   ["kernbeisser", "Kernbeißer", 0, "Der riesige Kegelschnabel knackt sogar Kirschkerne."],
   ["blaumeise", "Blaumeise", 1, "Kurz, fein und spitz – eine Pinzette für Blattläuse und winzige Raupen."],
   ["buntspecht", "Buntspecht", 2, "Gerade, hart und spitz wie ein Meißel."],
   ["stieglitz", "Stieglitz", 3, "Für einen Finken ungewöhnlich lang und spitz – er passt zwischen die Stacheln der Distel."],
-  ["rabenkraehe", "Rabenkrähe", 4, "Kräftig und leicht gebogen – ein Werkzeug für fast jede Nahrung."],
   ["turmfalke", "Turmfalke", 5, "Der Haken an der Spitze zerteilt die Beute. Gepackt wird mit den Füßen."],
   ["stockente", "Stockente", 6, "Breit und flach, mit feinen Hornleisten am Rand – ein Sieb."],
-  ["amsel", "Amsel", 7, "Mittellang und kräftig – damit zieht sie Würmer aus dem Rasen und pflückt Beeren."]
+  ["eisvogel", "Eisvogel", 8, "Lang, gerade und spitz wie ein Dolch – damit schießt er kopfüber ins Wasser und packt kleine Fische."],
+  ["maeusebussard", "Mäusebussard", 5, "Kräftiger Hakenschnabel wie beim Falken. Gepackt wird die Maus mit den Krallen, der Schnabel zerteilt sie."]
 ];
 const GALERIEN = {
   nester: [
@@ -674,7 +678,7 @@ s4: () => `
     <p class="feedback" aria-live="polite"></p>
   </div>
   <div class="merke"><span class="eyebrow">Merke</span>
-    <p>Auch die <b>Füße</b> passen zur Lebensweise: <b>Sitzfuß</b> (drei Zehen vorn, eine hinten) zum Umklammern von Zweigen, <b>Kletterfuß</b> (zwei vorn, zwei hinten) am Stamm, <b>Greiffuß</b> mit Krallen zum Beutefang, <b>Schwimmfuß</b> mit Häuten zum Paddeln.</p></div>`,
+    <p>Auch die <b>Füße</b> passen zur Lebensweise: <b>Sitzfuß</b> (drei Zehen vorn, eine hinten) zum Umklammern von Zweigen, <b>Kletterfuß</b> (zwei vorn, zwei hinten) am Stamm, <b>Greiffuß</b> mit Krallen zum Beutefang, <b>Schwimmfuß</b> mit Häuten zum Paddeln. Der Mauersegler hat einen <b>Klammerfuß</b> – alle vier Zehen zeigen nach vorn.</p></div>`,
 s5: () => `
   <div class="prose lead"><p>Jetzt zeigst du, was du kannst! Acht Fragen, zwei Joker: Bei <b>50:50</b> verschwinden zwei falsche Antworten, beim <b>Publikumsjoker</b> ruft dir jemand aus der Klasse einen Tipp zu – aber Vorsicht, nicht jeder Tipp stimmt.</p></div>
   <p class="klein">Für die Federn zählt: 7–8 richtig = 3 Federn, 5–6 = 2, 3–4 = 1.</p>`
