@@ -262,6 +262,13 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
 .eier{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .ei{border:1px solid var(--linie);border-radius:50% 50% 46% 46% / 58% 58% 42% 42%;background:linear-gradient(160deg,#fff8ec,#ead9bd);aspect-ratio:3/4;cursor:pointer;display:grid;place-items:center;font-family:var(--sans);font-size:11px;color:#7a1f15;padding:4px;text-align:center}
 .ei.an{box-shadow:0 0 0 3px var(--honig)}
+.fd-views{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:16px;align-items:start}
+.anim svg.fd-draw{width:100%;height:290px;display:block;background:#f3f7fa;border:1px solid var(--linie);border-radius:12px}
+.fd-cap{text-align:center;font-family:var(--sans);font-size:13px;color:var(--ink-soft);margin-top:6px}
+.fd-leg{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+.fd-sw{display:inline-block;width:20px;height:3px;background:#b08a55;vertical-align:middle;margin-right:6px}
+.fd-sw.fein{height:2px;background:var(--ink)}
+@media(max-width:520px){.fd-views{grid-template-columns:1fr;gap:10px}.anim svg.fd-over{height:230px}}
 .sb-bild .rahmen-bild{aspect-ratio:480/407;background:#fff}
 .sb-bild img{object-fit:contain}
 .galerie{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
@@ -638,7 +645,7 @@ s2: () => `
   <details><summary>Für Neugierige: die Mauser</summary><div class="grid">
     <p>Federn nutzen sich ab. Darum wechseln Vögel sie mindestens einmal im Jahr – das nennt man <b>Mauser</b>. Die meisten Singvögel tauschen die Schwungfedern nach und nach aus, damit sie flugfähig bleiben. Enten verlieren sie dagegen alle auf einmal und können dann einige Wochen nicht fliegen.</p></div></details>
   <div class="merke"><span class="eyebrow">Merke</span>
-    <p>Eine Feder hat einen <b>Kiel</b>, einen <b>Schaft</b> und eine <b>Fahne</b> aus vielen <b>Ästen</b>. Winzige Häkchen verbinden die Äste wie ein Klettverschluss. <b>Schwungfedern</b> tragen beim Fliegen, <b>Deckfedern</b> machen den Körper glatt und wasserdicht, <b>Daunen</b> halten warm.</p></div>`,
+    <p>Eine Feder hat eine hohle <b>Spule</b>, einen <b>Schaft</b> und eine <b>Fahne</b> aus vielen <b>Ästen</b>. Winzige Häkchen verbinden die Äste wie ein Klettverschluss. <b>Schwungfedern</b> tragen beim Fliegen, <b>Deckfedern</b> machen den Körper glatt und wasserdicht, <b>Daunen</b> halten warm.</p></div>`,
 s3: () => `
   <div class="prose lead"><p>Vögel haben keine Hände. Ihr Schnabel ist Werkzeug, Besteck und Pinzette zugleich. An seiner Form erkennst du, was ein Vogel frisst.</p></div>
   <div class="box" data-widget="karten" data-set="schnabel">
@@ -858,45 +865,74 @@ const WIDGETS = {
     $$(".sbtn", el).forEach(b => b.onclick = () => zeig(b.dataset.t)); zeig("vogel");
   },
 
-  /* Feder: Klettverschluss aufreißen und glattstreichen */
+  /* Feder: Klettverschluss öffnen und glattstreichen (Gesamtansicht + Lupe) */
   feder(el) {
     el.innerHTML = `<span class="eyebrow">Ausprobieren</span><h3>Der Klettverschluss in der Feder</h3>
-      <svg viewBox="0 0 320 210" role="img" aria-label="Feder mit Lupe auf die Äste und Häkchen">
-        <defs><clipPath id="fd-lupe"><circle cx="232" cy="105" r="78"/></clipPath></defs>
-        <path d="M44 196 Q70 120 132 24" stroke="#8a7350" stroke-width="3" fill="none"/>
-        <path d="M58 150 Q40 110 70 70 Q96 34 132 24 Q120 70 104 96 Q86 130 64 158 Z" fill="#e8dcc4" stroke="#b9a37c" stroke-width="1"/>
-        <path d="M64 158 Q100 140 116 104 Q128 70 132 24 Q140 60 132 98 Q122 140 72 172 Z" fill="#dccdb1" stroke="#b9a37c" stroke-width="1"/>
-        <g stroke="#b9a37c" stroke-width=".7">${Array.from({ length: 12 }, (_, i) => { const t = .18 + i * .065, x = 44 + (132 - 44) * t + 8 * Math.sin(t * 3), y = 196 - 172 * t;
-          return `<path d="M${x.toFixed(0)} ${y.toFixed(0)} l-22 -6 M${x.toFixed(0)} ${y.toFixed(0)} l20 -4"/>`; }).join("")}</g>
-        <circle cx="100" cy="92" r="9" fill="none" stroke="#C28A3A" stroke-width="2"/><line x1="108" y1="88" x2="156" y2="80" stroke="#C28A3A" stroke-width="1.5"/>
-        <text x="30" y="204" class="lbl b">Kiel</text><text x="138" y="40" class="lbl b">Schaft</text><text x="8" y="112" class="lbl b">Fahne</text>
-        <circle cx="232" cy="105" r="78" fill="#fffdf7" stroke="#C28A3A" stroke-width="3"/>
-        <g clip-path="url(#fd-lupe)" id="fd-aeste"></g>
-        <text x="232" y="200" text-anchor="middle" class="lbl b">Lupe: Äste mit Häkchen</text>
-      </svg>
-      <div class="knopfreihe"><button type="button" class="knopf" id="fd-auf">✋ Feder aufreißen</button><button type="button" class="knopf prim" id="fd-zu" disabled>🐦 Durch den Schnabel ziehen</button></div>
+      <div class="fd-views">
+        <div><svg class="fd-draw fd-over" role="img" aria-label="Feder mit Schaft und Fahne. Beim Öffnen entsteht ein Spalt zwischen benachbarten Federästen."></svg><div class="fd-cap">Federfahne · Gesamtansicht</div></div>
+        <div><svg class="fd-draw fd-det" role="img" aria-label="Vergrößerung: Hakenstrahlen eines Federastes greifen in die Bogenstrahlen des Nachbarastes. Beim Öffnen lösen sich die Verbindungen."></svg><div class="fd-cap">Lupe · stark vereinfacht</div></div>
+      </div>
+      <div class="fd-leg"><span><i class="fd-sw"></i>Federäste</span><span><i class="fd-sw fein"></i>Strahlen mit Häkchen</span></div>
+      <div class="knopfreihe"><button type="button" class="knopf" data-a="auf">✋ Fahne öffnen</button><button type="button" class="knopf prim" data-a="zu" disabled>🐦 Mit dem Schnabel glattstreichen</button></div>
       <p class="anim-text" aria-live="polite"></p>`;
-    const g = $("#fd-aeste", el), txt = $(".anim-text", el);
-    const ast = (y, i) => {
-      let s = `<line x1="150" y1="${y}" x2="320" y2="${y + 18}" stroke="#8a7350" stroke-width="3"/>`;
-      for (let x = 158; x < 316; x += 9) {
-        const yy = y + (x - 150) * 18 / 170;
-        s += `<path d="M${x} ${yy.toFixed(1)} l5 9" stroke="#b9a37c" stroke-width="1.2" fill="none"/>`;
-        s += `<path d="M${x + 5} ${(yy + 22).toFixed(1)} l-3 -10 q-1 -3 2 -3" stroke="#a08a63" stroke-width="1.2" fill="none"/>`;
+    const macro = $(".fd-over", el), micro = $(".fd-det", el), bAuf = $('[data-a="auf"]', el), bZu = $('[data-a="zu"]', el), txt = $(".anim-text", el);
+    const NS = "http://www.w3.org/2000/svg", GOLD = "#b08a55", FILL = "#f4ead8", INK = "#1c2e42", LEISE = "#7d8a96", HONIG = "#C28A3A", BG = "#f3f7fa";
+    const ZU_TXT = "<b>Geschlossen:</b> Jeder Federast trägt winzige <b>Strahlen</b>. Die Häkchen der einen greifen in die Bögen der Nachbarn – wie ein <b>Klettverschluss</b>. So wird die Fahne zu einer glatten Fläche, die Luft und Regen abhält.";
+    const AUF_TXT = "<b>Geöffnet:</b> Die Häkchen haben sich gelöst, zwischen den Ästen klafft eine Lücke. Die Feder ist dabei nicht zerbrochen!";
+    let amount = 0, frame = 0, busy = false, strokeP = -1;
+    const mk = (par, tag, at) => { const n = document.createElementNS(NS, tag); for (const k in at) n.setAttribute(k, at[k]); par.appendChild(n); return n; };
+    const pfad = (par, d, stroke, w, fill = "none") => mk(par, "path", { d, stroke, "stroke-width": w, fill, "stroke-linecap": "round", "stroke-linejoin": "round" });
+    const text = (par, x, y, t, anchor = "start") => { const n = mk(par, "text", { x, y, fill: INK, "text-anchor": anchor, "font-size": 13, "font-family": "var(--sans)" }); n.textContent = t; return n; };
+    const draw = () => {
+      const mw = macro.clientWidth || 280, mh = macro.clientHeight || 290;
+      macro.setAttribute("viewBox", `0 0 ${mw} ${mh}`); macro.replaceChildren();
+      const sc = Math.min((mw - 35) / 245, (mh - 20) / 290), tx = (mw - 245 * sc) / 2, ty = (mh - 290 * sc) / 2;
+      const g = mk(macro, "g", { transform: `translate(${tx} ${ty}) scale(${sc})` });
+      pfad(g, "M80 235 Q12 151 177 10 Q220 166 99 252 Q87 245 80 235", GOLD, 1.8, FILL);
+      for (let i = 0; i < 45; i++) {
+        const t = i / 45, y = 232 - t * 212, x = 83 + 96 * t - 6 * Math.sin(t * Math.PI), sp = Math.sin(Math.PI * t) * 68 + 3;
+        const gap = (i > 18 && i < 26) ? amount * (26 - i) * 2.4 : 0;
+        pfad(g, `M${x} ${y} Q${x - sp * .6} ${y - 10 - gap} ${x - sp} ${y - 26 - gap}`, GOLD, 1.1);
+        pfad(g, `M${x} ${y} Q${x + sp * .65} ${y - 13 + gap} ${x + sp * .66} ${y - 27 + gap}`, GOLD, 1.1);
       }
-      return `<g class="fd-ast" data-i="${i}" style="transition:transform .9s ease">${s}</g>`;
+      if (amount > 0) pfad(g, `M130 127 Q99 ${121 - amount * 22} 64 ${111 - amount * 10} L62 ${112 + amount * 14} Q100 ${135 + amount * 16} 130 127`, "none", 0, BG);
+      pfad(g, "M53 287 Q89 216 121 149 Q160 68 177 10", GOLD, 3.6);
+      mk(g, "circle", { cx: 119, cy: 140, r: 20, fill: "none", stroke: HONIG, "stroke-width": 2.5 });
+      pfad(g, "M139 140 L220 117", HONIG, 1.5);
+      text(macro, mw - 8, 45, "Schaft", "end"); text(macro, 8, mh * .55, "Fahne"); text(macro, Math.max(8, tx + 20 * sc), mh - 5, "Spule");
+      const w = micro.clientWidth || 350, h = 290;
+      micro.setAttribute("viewBox", `0 0 ${w} ${h}`); micro.replaceChildren();
+      const y1 = 74 - amount * 24, y2 = 208 + amount * 24, n = Math.max(5, Math.floor((w - 40) / 35)), L = 22, R = w - 22;
+      pfad(micro, `M${L} ${y1} L${R} ${y1 + 16}`, GOLD, 7); pfad(micro, `M${L} ${y2} L${R} ${y2 + 16}`, GOLD, 7);
+      for (let j = 0; j < n; j++) {
+        const x = L + 10 + j * (R - L - 30) / n, sl = (x - L) / (R - L) * 16;
+        const loc = strokeP >= 0 ? (j / n < strokeP ? 0 : 1) : amount;
+        const up = 74 - loc * 24 + sl, lo = 208 + loc * 24 + sl;
+        pfad(micro, `M${x} ${up} Q${x + 4} ${up + 44} ${x + 25} ${up + 88}`, LEISE, 2);
+        pfad(micro, `M${x + 12} ${lo} Q${x + 8} ${lo - 48} ${x + 21} ${lo - 88}`, INK, 2);
+        for (let k = 0; k < 3; k++) { const hy = lo - 75 + k * 12, hx = x + 17 - k * 2; pfad(micro, `M${hx} ${hy} q13 -7 13 2 q0 6 -6 4`, INK, 1.7); }
+      }
+      text(micro, L, 26, amount > .5 ? "Häkchen gelöst" : "Strahlen greifen ineinander");
+      text(micro, L, 283, "Zwei benachbarte Federäste");
+      if (strokeP >= 0) { const x = L + (R - L) * strokeP; pfad(micro, `M${x} 48 L${x} 258`, HONIG, 3); mk(micro, "circle", { cx: x, cy: 50, r: 5, fill: HONIG }); }
     };
-    g.innerHTML = Array.from({ length: 7 }, (_, i) => ast(28 + i * 22, i)).join("");
-    const setze = offen => {
-      $$(".fd-ast", g).forEach(a => { const i = +a.dataset.i; a.style.transform = offen && i >= 4 ? "translate(6px,22px)" : offen && i === 3 ? "translate(-4px,-6px)" : "none"; });
-      $("#fd-auf", el).disabled = offen; $("#fd-zu", el).disabled = !offen;
-      txt.innerHTML = offen
-        ? "Ein Riss! Die Häkchen haben sich gelöst, zwischen den Ästen klafft eine Lücke. So hält die Feder keine Luft und keinen Regen mehr ab."
-        : "Jeder <b>Ast</b> trägt winzige <b>Strahlen</b>. Die einen haben <b>Häkchen</b>, die anderen Rinnen. Sie greifen ineinander wie ein <b>Klettverschluss</b> – die Fahne wird zu einer glatten Fläche.";
+    const knoepfe = () => { bAuf.disabled = busy || amount === 1; bZu.disabled = busy || amount === 0; };
+    const animiere = ziel => {
+      cancelAnimationFrame(frame); busy = true; knoepfe();
+      const start = amount, t0 = performance.now(), dauer = reduce ? 0 : ziel ? 850 : 1700;
+      txt.innerHTML = ziel ? "Die Federäste weichen auseinander, ihre Häkchen lösen sich …" : "Der Vogel zieht die Feder durch den Schnabel: Die Strahlen werden ausgerichtet und haken sich wieder ein …";
+      const tick = now => {
+        const p = dauer === 0 ? 1 : Math.min(1, (now - t0) / dauer), e = p * p * (3 - 2 * p);
+        amount = start + (ziel - start) * e; strokeP = ziel === 0 && p < 1 ? p : -1; draw();
+        if (p < 1) frame = requestAnimationFrame(tick);
+        else { amount = ziel; busy = false; strokeP = -1; draw(); knoepfe();
+          txt.innerHTML = ziel ? AUF_TXT : ZU_TXT + (start ? " Genau das machen Vögel jeden Tag beim <b>Putzen</b>." : ""); }
+      };
+      frame = requestAnimationFrame(tick);
     };
-    $("#fd-auf", el).onclick = () => setze(true);
-    $("#fd-zu", el).onclick = () => { setze(false); txt.innerHTML += " Der Vogel zieht die Feder durch den Schnabel – und schon ist sie wieder geschlossen. Das tun Vögel täglich beim <b>Putzen</b>."; };
-    setze(false);
+    bAuf.onclick = () => animiere(1); bZu.onclick = () => animiere(0);
+    if (window.ResizeObserver) new ResizeObserver(() => draw()).observe(el);
+    draw(); txt.innerHTML = ZU_TXT;
   },
 
   /* Bilderquiz: Schnabel → Nahrung */
