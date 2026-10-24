@@ -341,7 +341,25 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
 .fd-karte.verpasst{border:2px dashed var(--ok)}
 .fd-karte.raus{opacity:.45}
 .fd-karte:disabled{cursor:default}
-.fd-fragen{display:grid;gap:12px;border-top:1px solid var(--linie);padding-top:14px}
+.fd-schritt{display:grid;gap:12px}
+.fd-schritt + .fd-schritt{border-top:1px solid var(--linie);padding-top:16px}
+.fd-zahl{display:flex;align-items:center;justify-content:center;gap:18px}
+.fd-zahl output{font-family:var(--sans);font-size:40px;color:var(--blau);min-width:60px;text-align:center;font-variant-numeric:tabular-nums}
+.fd-zahl .zbtn{width:52px;height:52px;font-size:28px}
+.wb-karte{position:relative;display:grid;gap:6px;background:#fbf1e2;border:2px solid var(--honig);border-radius:14px;padding:14px 16px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;box-shadow:0 3px 10px rgba(194,138,58,.25)}
+.wb-karte.flieg{opacity:.35}
+.wb-frage{font-family:var(--sans);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--honig-tief)}
+.wb-text{font-size:18px;line-height:1.45}
+.wb-griff{position:absolute;right:10px;top:8px;font-family:var(--sans);font-size:12px;color:var(--honig-tief)}
+.wb-geist{position:fixed;z-index:80;pointer-events:none;transform:translate(-50%,-60%) rotate(-3deg);opacity:.95;padding:10px 12px}
+.wb-geist .wb-text{font-size:14px}
+.wb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.wb-bild{position:relative;border:2px solid var(--linie);border-radius:12px;padding:0;overflow:hidden;background:var(--tile);cursor:pointer;display:grid;text-align:left}
+.wb-bild img{display:block;width:100%;aspect-ratio:12/5;object-fit:cover}
+.wb-name{font-size:15px;padding:5px 9px;color:var(--ok);font-weight:bold}
+.wb-name.leer{color:var(--ink-soft);font-weight:normal}
+.wb-bild.ziel{border-color:var(--honig);box-shadow:0 0 0 3px var(--honig)}
+.wb-bild.ok{border-color:var(--ok);box-shadow:0 0 0 2px var(--ok);cursor:default}
 @media (max-width:520px){.bq-grid{grid-template-columns:1fr}.zreihe{grid-template-columns:56px 1fr 40px 30px 40px}.zreihe img{width:56px}}
 
 </style>
@@ -568,9 +586,23 @@ const FILM_ARTEN = [["kohlmeise", "Kohlmeise"], ["haussperling", "Haussperling"]
   ["elster", "Elster"], ["buchfink", "Buchfink"], ["rotkehlchen", "Rotkehlchen"], ["feldsperling", "Feldsperling"],
   ["buntspecht", "Buntspecht"], ["mittelspecht", "Mittelspecht"], ["goldammer", "Goldammer"], ["eichelhaeher", "Eichelhäher"], ["amsel", "Amsel"]];
 const FILM_NICHT = [["kernbeisser", "Kernbeißer"], ["kleiber", "Kleiber"], ["gimpel", "Gimpel"], ["gruenfink", "Grünfink"], ["stieglitz", "Stieglitz"], ["tannenmeise", "Tannenmeise"]];
+const FILM_NAME = Object.fromEntries(FILM_ARTEN);
+const WER_BIN_ICH = {
+  kohlmeise: "Ich trage einen schwarzen Schlips auf meinem gelben Bauch – und am Futterplatz bin ich ein kleiner Raufbold.",
+  blaumeise: "Ich habe eine himmelblaue Kappe und ein weißes Gesicht. Am Knödel turne ich gern kopfüber.",
+  haussperling: "Ich bin ein frecher Spatz. Das Männchen hat einen grauen Scheitel und einen schwarzen Latz.",
+  feldsperling: "Ich sehe aus wie ein Spatz, habe aber einen braunen Scheitel und einen schwarzen Fleck auf der weißen Wange.",
+  star: "Mein Gefieder schillert grün und lila – im Winter bin ich mit hellen Pünktchen übersät.",
+  elster: "Ich bin schwarz-weiß, habe einen sehr langen Schwanz – und im Film habe ich den Knödel stibitzt.",
+  buchfink: "Das Männchen hat eine rosarote Brust und einen blaugrauen Kopf. Auf den Flügeln trage ich weiße Streifen.",
+  rotkehlchen: "Brust und Gesicht sind orangerot, dazu große, dunkle Kulleraugen. Mein Revier verteidige ich auch im Winter.",
+  buntspecht: "Ich bin schwarz-weiß, unter dem Schwanz knallrot und klettere am Stamm. Das Männchen hat einen roten Fleck im Nacken.",
+  mittelspecht: "Ich bin auch ein Specht – aber meine ganze Kopfplatte ist rot, und unter dem Schwanz bin ich nur zartrosa.",
+  goldammer: "Mein Kopf leuchtet zitronengelb. Am liebsten sitze ich auf Hecken am Feldrand.",
+  eichelhaeher: "Ich bin rosabraun mit einem leuchtend blau gestreiften Fleck am Flügel. Im Herbst verstecke ich Eicheln.",
+  amsel: "Das Männchen ist ganz schwarz mit gelbem Schnabel. Am Boden suche ich nach Würmern und Äpfeln."
+};
 const FILM_FRAGEN = [
-  ["Wie viele verschiedene Vogelarten zeigt der Film?", ["13", "8", "10", "16"],
-    "Es sind <b>13 Arten</b>: Kohlmeise, Haussperling, Blaumeise, Star, Elster, Buchfink, Rotkehlchen, Feldsperling, Buntspecht, Mittelspecht, Goldammer, Eichelhäher und Amsel."],
   ["Welcher Vogel ist als Erster zu sehen?", ["Kohlmeise", "Amsel", "Rotkehlchen", "Eichelhäher"],
     "Die <b>Kohlmeise</b> eröffnet den Film. Meisen sind oft die Ersten am Futterplatz."],
   ["Welcher Vogel zeigt sich besonders aggressiv?", ["Kohlmeise", "Goldammer", "Feldsperling", "Eichelhäher"],
@@ -590,7 +622,7 @@ f1: {
     { id: "s1", em: "📍", titel: "Der richtige Platz", kurz: "Aufstellen, Katzen, Glas, Sauberkeit", min: 9 },
     { id: "s2", em: "🌻", titel: "Was kommt auf den Tisch?", kurz: "Gutes und schlechtes Futter", min: 9 },
     { id: "s3", em: "🐦", titel: "Wer kommt zu Besuch?", kurz: "21 Futterhausgäste mit Tafeln", min: 10 },
-    { id: "s4", em: "🎬", titel: "Beobachten wie die Profis", kurz: "Film-Detektiv, Verhalten, Vögel zählen", min: 12 },
+    { id: "s4", em: "🎬", titel: "Beobachten wie die Profis", kurz: "Film-Detektiv, Verhalten, Vögel zählen", min: 15 },
     { id: "s5", em: "🏆", titel: "Das große Bilderquiz", kurz: "10 Fragen, je 4 Bilder, 2 Joker", min: 8 }
   ],
   raenge: [
@@ -799,7 +831,7 @@ const WIDGETS = {
   /* Film – liegt direkt auf bio.mibaso.de, ohne YouTube */
   video(el) {
     el.innerHTML = `<span class="eyebrow">Film ab!</span><h3>Vögel an der Futterstelle</h3>
-      <p class="klein">Knapp 2 Minuten, ohne Ton. Schau genau hin: Gleich darunter wartet das Detektiv-Rätsel!</p>
+      <p class="klein">Knapp 2 Minuten, ohne Ton. Schau genau hin und zähle mit: Wie viele verschiedene Vogelarten kommen vorbei? Danach wartet das Detektiv-Rätsel.</p>
       <div class="video"><video controls playsinline preload="none" poster="../images/futterhaus/video-vorschau.jpg" aria-label="Film: Vögel an der Futterstelle">
         <source src="${VIDEO_DATEI}" type="video/mp4">Dein Browser kann den Film leider nicht abspielen.</video></div>
       <p class="hint vcopy">© M. Baur</p>`;
@@ -807,51 +839,84 @@ const WIDGETS = {
 
   /* Film-Detektiv: Arten ankreuzen, dann fünf Fragen zum Film */
   filmdetektiv(el) {
+    const ANZ = FILM_ARTEN.length;
     const film = new Set(FILM_ARTEN.map(a => a[0]));
-    const karten = shuffle([...FILM_ARTEN, ...FILM_NICHT]);
-    const gewaehlt = new Set();
-    el.innerHTML = `<span class="eyebrow">Film-Detektiv</span><h3>Wen hast du im Film gesehen?</h3>
-      <p class="klein">Tippe alle Vögel an, die im Film vorkommen. Vorsicht: Ein paar sind nicht dabei! Du kannst den Film auch noch einmal schauen.</p>
-      <div class="fd-grid">${karten.map(([s, n]) => `<button type="button" class="fd-karte" data-s="${s}" aria-pressed="false">
-        <img src="../images/futterhaus/fp-${s}.jpg" alt="" loading="lazy"><span class="fd-name">${n}</span><span class="fd-haken" aria-hidden="true">✓</span></button>`).join("")}</div>
-      <div class="knopfreihe"><button type="button" class="knopf prim" id="fdAuf">🔍 Auflösen</button></div>
-      <p class="feedback" aria-live="polite"></p>
-      <div class="fd-fragen" hidden></div>`;
-    $$(".fd-karte", el).forEach(b => b.onclick = () => {
-      const s = b.dataset.s; gewaehlt.has(s) ? gewaehlt.delete(s) : gewaehlt.add(s);
-      b.classList.toggle("an", gewaehlt.has(s)); b.setAttribute("aria-pressed", gewaehlt.has(s));
-    });
-    $("#fdAuf", el).onclick = () => {
-      let treffer = 0, falsch = 0;
-      $$(".fd-karte", el).forEach(b => {
-        const s = b.dataset.s, im = film.has(s), an = gewaehlt.has(s); b.disabled = true;
-        if (im && an) { b.classList.add("ok"); treffer++; }
-        else if (im) b.classList.add("verpasst");
-        else if (an) { b.classList.add("bad"); falsch++; }
-        else b.classList.add("raus");
-      });
-      const fb = $(".feedback", el), gut = treffer >= 10 && falsch <= 1;
-      fb.className = "feedback " + (gut ? "good" : "");
-      fb.innerHTML = `Du hast <b>${treffer} von ${film.size}</b> Arten erkannt${falsch ? ` und ${falsch} Mal danebengetippt` : ""}. ${gut ? "Echte Detektiv-Augen! 🔍" : "Die gestrichelten hast du übersehen – schau den Film ruhig noch einmal."}`;
-      $("#fdAuf", el).parentElement.innerHTML = `<button type="button" class="knopf" id="fdNeu">↺ Nochmal</button>`;
-      $("#fdNeu", el).onclick = () => WIDGETS.filmdetektiv(el);
-      fragen();
+    el.innerHTML = `<span class="eyebrow">Film-Detektiv</span>
+      <div class="fd-schritt" id="fdZahl"></div>
+      <div class="fd-schritt" id="fdBilder" hidden></div>
+      <div class="fd-schritt" id="fdFragen" hidden></div>
+      <div class="fd-schritt" id="fdWer" hidden></div>`;
+    const weiter = (id, fn) => { const b = $("#" + id, el); b.hidden = false; fn(b); };
+
+    /* Schritt 1: Wie viele Arten? – noch ohne Bilder */
+    const zahl = box => {
+      let n = 5;
+      box.innerHTML = `<h3>1 · Wie viele verschiedene Vogelarten hast du im Film gesehen?</h3>
+        <p class="klein">Zähle jede Art nur einmal – auch wenn sie mehrmals vorbeikommt.</p>
+        <div class="fd-zahl"><button type="button" class="zbtn" data-d="-1" aria-label="weniger">−</button>
+          <output aria-live="polite">${n}</output>
+          <button type="button" class="zbtn" data-d="1" aria-label="mehr">+</button></div>
+        <div class="knopfreihe"><button type="button" class="knopf prim" id="fdZ">Prüfen</button></div>
+        <p class="feedback" aria-live="polite"></p>`;
+      $$(".zbtn", box).forEach(b => b.onclick = () => { n = Math.max(1, Math.min(30, n + +b.dataset.d)); $("output", box).textContent = n; });
+      $("#fdZ", box).onclick = () => {
+        $$(".zbtn", box).forEach(b => b.disabled = true);
+        const d = Math.abs(n - ANZ), fb = $(".feedback", box);
+        fb.className = "feedback " + (d === 0 ? "good" : d <= 2 ? "" : "bad");
+        fb.innerHTML = d === 0 ? `Genau! Es sind <b>${ANZ} Arten</b>. Super gezählt! 🎯`
+          : d <= 2 ? `Knapp daneben – es sind <b>${ANZ} Arten</b>. Gleich siehst du, welche.`
+          : `Es sind <b>${ANZ} Arten</b>. Nicht leicht – im nächsten Schritt siehst du sie alle.`;
+        $("#fdZ", box).parentElement.remove();
+        weiter("fdBilder", bilder);
+      };
     };
-    const fragen = () => {
-      const box = $(".fd-fragen", el); box.hidden = false;
+
+    /* Schritt 2: Wen hast du gesehen? */
+    const bilder = box => {
+      const karten = shuffle([...FILM_ARTEN, ...FILM_NICHT]), gewaehlt = new Set();
+      box.innerHTML = `<h3>2 · Wen hast du im Film gesehen?</h3>
+        <p class="klein">Tippe alle Vögel an, die im Film vorkommen. Vorsicht: Ein paar sind nicht dabei! Du kannst den Film auch noch einmal schauen.</p>
+        <div class="fd-grid">${karten.map(([s, n]) => `<button type="button" class="fd-karte" data-s="${s}" aria-pressed="false">
+          <img src="../images/futterhaus/fp-${s}.jpg" alt="" loading="lazy"><span class="fd-name">${n}</span><span class="fd-haken" aria-hidden="true">✓</span></button>`).join("")}</div>
+        <div class="knopfreihe"><button type="button" class="knopf prim" id="fdAuf">🔍 Auflösen</button></div>
+        <p class="feedback" aria-live="polite"></p>`;
+      $$(".fd-karte", box).forEach(b => b.onclick = () => {
+        const s = b.dataset.s; gewaehlt.has(s) ? gewaehlt.delete(s) : gewaehlt.add(s);
+        b.classList.toggle("an", gewaehlt.has(s)); b.setAttribute("aria-pressed", gewaehlt.has(s));
+      });
+      $("#fdAuf", box).onclick = () => {
+        let treffer = 0, falsch = 0;
+        $$(".fd-karte", box).forEach(b => {
+          const s = b.dataset.s, im = film.has(s), an = gewaehlt.has(s); b.disabled = true;
+          if (im && an) { b.classList.add("ok"); treffer++; }
+          else if (im) b.classList.add("verpasst");
+          else if (an) { b.classList.add("bad"); falsch++; }
+          else b.classList.add("raus");
+        });
+        const fb = $(".feedback", box), gut = treffer >= ANZ - 2 && falsch <= 1;
+        fb.className = "feedback " + (gut ? "good" : "");
+        fb.innerHTML = `Du hast <b>${treffer} von ${ANZ}</b> Arten erkannt${falsch ? ` und ${falsch} Mal danebengetippt` : ""}. ${gut ? "Echte Detektiv-Augen! 🔍" : "Die gestrichelten hast du übersehen – schau den Film ruhig noch einmal."}`;
+        $("#fdAuf", box).parentElement.remove();
+        weiter("fdFragen", fragen);
+      };
+    };
+
+    /* Schritt 3: Fragen zum Film */
+    const fragen = box => {
       let i = 0, richtig = 0;
       const qs = FILM_FRAGEN.map(([q, a, w]) => ({ q, w, a: shuffle(a.map((t, k) => ({ t, ok: k === 0 }))) }));
       const zeig = () => {
         if (i >= qs.length) {
-          box.innerHTML = `<span class="eyebrow">Fragen zum Film</span><h3>${richtig} von ${qs.length} richtig!</h3>
+          box.innerHTML = `<h3>3 · Fragen zum Film: ${richtig} von ${qs.length} richtig!</h3>
             <p>${richtig === qs.length ? "Dir entgeht nichts. 🦉" : richtig >= 3 ? "Gut aufgepasst!" : "Schau den Film noch einmal – mit Detektiv-Blick."}</p>`;
+          weiter("fdWer", werBinIch);
           return;
         }
         const q = qs[i];
-        box.innerHTML = `<span class="eyebrow">Fragen zum Film · ${i + 1} von ${qs.length}</span><p class="qq">${q.q}</p>
+        box.innerHTML = `<h3>3 · Fragen zum Film</h3><span class="eyebrow">Frage ${i + 1} von ${qs.length}</span><p class="qq">${q.q}</p>
           <div class="answers">${q.a.map((a, k) => `<button type="button" class="ans" data-k="${k}"><b>${"ABCD"[k]}</b><span>${a.t}</span></button>`).join("")}</div>
           <p class="feedback" aria-live="polite"></p>
-          <div><button type="button" class="knopf prim" data-w hidden>${i + 1 < qs.length ? "Nächste Frage" : "Auswertung"}</button></div>`;
+          <div><button type="button" class="knopf prim" data-w hidden>${i + 1 < qs.length ? "Nächste Frage" : "Weiter"}</button></div>`;
         $$(".ans", box).forEach(b => b.onclick = () => {
           const ok = q.a[+b.dataset.k].ok; if (ok) richtig++;
           $$(".ans", box).forEach(x => { x.disabled = true; if (q.a[+x.dataset.k].ok) x.classList.add("ok"); });
@@ -864,6 +929,89 @@ const WIDGETS = {
       };
       zeig();
     };
+
+    /* Schritt 4: Wer bin ich? – Rätselkarte auf das passende Bild ziehen (oder Bild antippen) */
+    const werBinIch = box => {
+      const alle = shuffle(FILM_ARTEN.map(a => a[0]));
+      const runden = [alle.slice(0, 7), alle.slice(7)];
+      let r = 0, punkte = 0, versuche = 0;
+      const runde = () => {
+        const arten = runden[r], stapel = shuffle(arten);
+        let k = 0, fehler = 0;
+        box.innerHTML = `<h3>4 · Wer bin ich?</h3>
+          <p class="klein">Lies das Rätsel und zieh die Karte auf den passenden Vogel – oder tippe den Vogel einfach an. Runde ${r + 1} von ${runden.length}.</p>
+          <div class="wb-karte" tabindex="0" aria-live="polite"></div>
+          <div class="wb-grid">${shuffle(arten).map(s => `<button type="button" class="wb-bild" data-s="${s}">
+            <img src="../images/futterhaus/fp-${s}.jpg" alt="Ein Vogel – wer ist das?"><span class="wb-name leer">?</span></button>`).join("")}</div>
+          <p class="feedback" aria-live="polite"></p>`;
+        const karte = $(".wb-karte", box), fb = $(".feedback", box);
+        const zeigKarte = () => {
+          if (k >= stapel.length) return fertig();
+          karte.innerHTML = `<span class="wb-frage">❓ Wer bin ich?</span><span class="wb-text">${WER_BIN_ICH[stapel[k]]}</span><span class="wb-griff" aria-hidden="true">⠿ ziehen</span>`;
+          karte.classList.remove("flieg");
+        };
+        const pruefe = s => {
+          if (k >= stapel.length) return;
+          const ziel = $(`.wb-bild[data-s="${s}"]`, box); if (!ziel || ziel.disabled) return;
+          versuche++;
+          if (s === stapel[k]) {
+            punkte++; ziel.disabled = true; ziel.classList.add("ok"); const nm = $(".wb-name", ziel); nm.textContent = FILM_NAME[s]; nm.classList.remove("leer");
+            fb.className = "feedback good"; fb.textContent = `Richtig – das ist ${FILM_NAME[s]}!`;
+            k++; zeigKarte();
+          } else {
+            fehler++; ziel.classList.add("shake"); setTimeout(() => ziel.classList.remove("shake"), 400);
+            fb.className = "feedback bad"; fb.textContent = "Das bin ich nicht – lies noch einmal genau.";
+          }
+        };
+        $$(".wb-bild", box).forEach(b => b.onclick = () => pruefe(b.dataset.s));
+        /* Ziehen mit Finger oder Maus */
+        let geist = null, start = null;
+        karte.addEventListener("pointerdown", e => {
+          if (k >= stapel.length) return;
+          start = { x: e.clientX, y: e.clientY }; karte.setPointerCapture(e.pointerId);
+        });
+        karte.addEventListener("pointermove", e => {
+          if (!start) return;
+          if (!geist && Math.hypot(e.clientX - start.x, e.clientY - start.y) > 8) {
+            geist = karte.cloneNode(true); geist.classList.add("wb-geist"); geist.style.width = karte.offsetWidth * .6 + "px";
+            document.body.appendChild(geist); karte.classList.add("flieg");
+          }
+          if (geist) {
+            geist.style.left = e.clientX + "px"; geist.style.top = e.clientY + "px";
+            const unter = document.elementFromPoint(e.clientX, e.clientY), t = unter && unter.closest(".wb-bild");
+            $$(".wb-bild", box).forEach(b => b.classList.toggle("ziel", b === t && !b.disabled));
+          }
+        });
+        const ende = e => {
+          if (!start) return; start = null;
+          if (geist) {
+            geist.remove(); geist = null; karte.classList.remove("flieg");
+            $$(".wb-bild", box).forEach(b => b.classList.remove("ziel"));
+            const unter = document.elementFromPoint(e.clientX, e.clientY), t = unter && unter.closest(".wb-bild");
+            if (t) pruefe(t.dataset.s);
+          }
+        };
+        karte.addEventListener("pointerup", ende);
+        karte.addEventListener("pointercancel", ende);
+        const fertig = () => {
+          karte.innerHTML = `<span class="wb-frage">${fehler ? "Geschafft!" : "Alles auf Anhieb! 🎉"}</span><span class="wb-text">Runde ${r + 1}: ${arten.length} Vögel erkannt${fehler ? `, ${fehler} Fehlversuch${fehler > 1 ? "e" : ""}` : ""}.</span>`;
+          fb.textContent = "";
+          r++;
+          if (r < runden.length) {
+            karte.insertAdjacentHTML("afterend", `<div class="knopfreihe"><button type="button" class="knopf prim" id="wbW">Nächste Runde ›</button></div>`);
+            $("#wbW", box).onclick = runde;
+          } else {
+            karte.insertAdjacentHTML("afterend", `<p class="merke">Du kennst jetzt alle ${ANZ} Vögel aus dem Film – ${punkte} von ${versuche} Versuchen saßen. Am Futterhaus erkennst du sie wieder! 🐦</p>
+              <div class="knopfreihe"><button type="button" class="knopf" id="fdNeu">↺ Film-Detektiv neu starten</button></div>`);
+            $("#fdNeu", box).onclick = () => WIDGETS.filmdetektiv(el);
+          }
+        };
+        zeigKarte();
+      };
+      runde();
+    };
+
+    zahl($("#fdZahl", el));
   },
 
   /* Zählkarte wie bei der Stunde der Wintervögel */
@@ -1035,7 +1183,7 @@ function seiteStart() {
         <div class="ablauf"><b>1</b><span>Der richtige Platz – Aufstellen mit Blick auf Katzen, Glasscheiben und Deckung, Sauberkeit am Futterplatz</span>
           <b>2</b><span>Was kommt auf den Tisch? – geeignetes und ungeeignetes Futter, Schnabelform und Nahrung, Fettfutter selbst gemacht</span>
           <b>3</b><span>Wer kommt zu Besuch? – 21 Futterhausgäste mit Bildern und Lehrtafeln</span>
-          <b>4</b><span>Beobachten wie die Profis – Film (knapp 2 Min, ohne Ton) mit Detektiv-Rätsel, Verhalten am Futterhaus, Zählkarte wie bei der Stunde der Wintervögel</span>
+          <b>4</b><span>Beobachten wie die Profis – Film (knapp 2 Min, ohne Ton) mit Film-Detektiv: Arten zählen, auf Bildern wiederfinden, Fragen zum Film und „Wer bin ich?“ zum Zuordnen, Verhalten am Futterhaus, Zählkarte wie bei der Stunde der Wintervögel</span>
           <b>5</b><span>Bilderquiz – 10 Fragen mit je vier Bildern (ca. 45 Min insgesamt)</span></div>
         <p>Die Expedition füllt eine Unterrichtsstunde. Alles läuft im Browser auf Tablet, Handy oder am Beamer – ohne Anmeldung, ohne Datensammlung, ohne Ton (nur bei voller Punktzahl erklingt eine kurze Fanfare).</p>
         <p><b>Bezug zum hessischen Kerncurriculum Biologie, Jahrgangsstufe 5/6:</b> Biologische Strukturen (Zusammenhang von Körperbau und Ernährung: Schnabelformen), Vielfalt (heimische Vögel kennen und bestimmen), Mensch und Umwelt (Tiere im Winter, verantwortungsvoller Umgang mit Wildtieren).</p>
