@@ -1,0 +1,1216 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Zugvogel-Pass – Auf großer Reise · Bio Mibaso</title>
+<meta name="description" content="Zugvögel zwischen Europa und Afrika: warum Vögel fortziehen, wer wann bei uns ist, Zugwege auf der Karte, Orientierung und Gefahren unterwegs – mit Bilderquiz. Eine Expedition für Klasse 5/6 mit Zugvogel-Pass, Abzeichen und Urkunde.">
+<meta name="theme-color" content="#233D5C">
+<link rel="icon" href="../assets/icon.svg">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<style>
+/* Zugvogel-Pass – Technik wie der Futterhaus-Pass, Farben wie Fauna Mibaso */
+:root{
+  --blau:#233D5C; --blau-tief:#1a2f47; --blau-mittel:#33587c; --blau-hell:#bcd0e2;
+  --creme:#F7F3E8; --creme-tief:#EEE7D5; --tile:#FFFFFF;
+  --honig:#C28A3A; --honig-tief:#a9762c; --nuss:#8a5a2b;
+  --ink:#1c2e42; --ink-soft:#5d6b78; --linie:#d9d2c1;
+  --ok:#2f6a45; --bad:#B23B2E;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html{background:var(--blau-tief);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--creme);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.55;min-height:100vh}
+img{max-width:100%}
+a{color:var(--blau)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--honig);outline-offset:2px}
+h1,h2,h3{font-weight:normal;margin:0;text-wrap:balance;line-height:1.2}
+p{margin:0}
+.huelle{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:40px}
+
+.app-head{background:linear-gradient(180deg,var(--blau-tief) 0%,var(--blau-mittel) 100%);color:var(--creme);text-align:center;
+  padding:calc(env(safe-area-inset-top,0px) + 22px) max(20px,env(safe-area-inset-right,0px)) 24px;border-bottom:4px double var(--blau-hell);position:relative;overflow:hidden}
+.app-head .zurueck-kopf{position:absolute;left:12px;top:calc(env(safe-area-inset-top,0px) + 10px);color:#dce8f3;font-family:var(--sans);font-size:14px;text-decoration:none;padding:6px}
+.app-head .logo{font-size:44px;line-height:1;margin:14px 0 6px}
+.app-head h1{font-size:clamp(28px,8vw,40px);letter-spacing:.02em}
+.app-head .untertitel{font-style:italic;color:#dce8f3;margin-top:8px;font-size:clamp(13px,3.6vw,16px)}
+
+.subkopf{position:sticky;top:0;z-index:6;background:var(--creme);border-bottom:1px solid var(--linie);
+  padding:calc(env(safe-area-inset-top,0px) + 8px) max(16px,env(safe-area-inset-right,0px)) 8px max(16px,env(safe-area-inset-left,0px))}
+.subkopf .row{max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.zurueck{font-family:var(--sans);font-size:15px;text-decoration:none;color:var(--blau);padding:6px 4px}
+.tchip{font-family:var(--sans);font-size:14px;background:var(--tile);border:1px solid var(--linie);border-radius:999px;padding:5px 12px;color:var(--blau);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+section{padding-top:26px;display:grid;gap:14px}
+h2{font-size:25px}
+h2::after{content:"";display:block;width:46px;height:3px;margin-top:8px;background:currentColor;border-radius:2px}
+.h-blau{color:var(--blau)} .h-honig{color:var(--honig-tief)}
+h3{font-size:19px;color:var(--blau)}
+.eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.lead{font-size:19px}
+.prose{display:grid;gap:12px}
+.klein{font-size:15px;color:var(--ink-soft)}
+ul.clean{margin:0;padding-left:1.2em;display:grid;gap:4px}
+
+.kacheln{display:grid;gap:12px}
+.kachel{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;background:var(--tile);border:1px solid var(--linie);
+  border-radius:14px;padding:14px 16px;text-decoration:none;color:var(--ink);box-shadow:0 1px 4px rgba(35,61,92,.07);transition:transform .08s,box-shadow .08s}
+a.kachel:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(35,61,92,.14)}
+.kachel .ke{font-size:30px;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:var(--creme-tief)}
+.kachel .kt{font-size:18px;color:var(--blau);display:block;font-weight:bold}
+.kachel .kb{font-size:14px;color:var(--ink-soft);font-family:var(--sans)}
+.kachel .pf{font-size:24px;color:var(--blau-mittel)}
+.ablauf{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-family:var(--sans);font-size:15px;background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:14px 16px}
+.ablauf b{color:var(--blau)}
+
+.schalter{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:var(--sans);font-size:14px}
+.schalter .lab{color:var(--ink-soft);margin-right:4px}
+.sbtn{border:1px solid var(--linie);background:var(--tile);border-radius:999px;padding:7px 13px;cursor:pointer;color:var(--ink-soft)}
+.sbtn.an{background:var(--blau);border-color:var(--blau);color:#fff}
+.hint{font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+
+/* Pass-Bühne mit Vorratshöhle */
+.buehne{position:relative;background:linear-gradient(180deg,#f4efe4 0%,#fff 60%,var(--creme-tief) 100%);border:1px solid var(--linie);border-radius:16px;padding:68px 12px 10px;display:grid;place-items:center;overflow:hidden}
+.buehne svg{width:min(240px,62vw);height:auto;display:block}
+.buehne .boden{position:absolute;left:0;right:0;bottom:0;height:16px;background:repeating-linear-gradient(90deg,#efe6d3 0 38px,#e2d6bd 38px 40px);border-top:1px solid var(--linie)}
+.rangchip{position:absolute;left:12px;top:12px;display:flex;gap:8px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:6px 10px;font-family:var(--sans);font-size:12px;color:var(--ink-soft);z-index:2}
+.rangchip .med{font-size:24px}
+.rangchip b{display:block;font-size:14px;color:var(--blau)}
+.zaehler{position:absolute;right:12px;top:12px;background:var(--nuss);color:#fff;border-radius:12px;padding:6px 12px;font-family:var(--sans);font-size:15px;font-variant-numeric:tabular-nums;z-index:2}
+.fbalken{height:10px;background:var(--creme-tief);border-radius:5px;overflow:hidden;border:1px solid var(--linie)}
+.fbalken i{display:block;height:100%;width:0;background:linear-gradient(90deg,#c9a46a,#a8743b,#8a5a2b);transition:width .8s}
+.naechster{text-align:center;font-size:16px;color:var(--ink-soft)}
+.kn-neu{animation:pop .5s both}
+
+.stationen{display:grid;gap:10px}
+.station{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:12px 14px;text-decoration:none;color:var(--ink)}
+.station .nr{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--creme-tief);font-size:22px}
+.station .st{font-size:17px;color:var(--blau);font-weight:bold;display:block}
+.station .sk{font-size:14px;color:var(--ink-soft);font-family:var(--sans)}
+.station .stand{font-family:var(--sans);font-size:13px;color:var(--ink-soft);text-align:right;white-space:nowrap}
+.station.aktiv{border-color:var(--blau-hell);box-shadow:0 0 0 2px var(--blau-hell)}
+.station.fertig .nr{background:#e3f0e7}
+.station.gesperrt{opacity:.55}
+.knochen{letter-spacing:1px;font-size:16px}
+.knochen .leer{opacity:.22;filter:grayscale(1)}
+
+.album{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.abz{background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:10px 6px;text-align:center;font-family:var(--sans);font-size:12px;color:var(--ink-soft);display:grid;gap:4px;justify-items:center}
+.abz .em{font-size:28px}
+.abz.zu .em{filter:grayscale(1);opacity:.25}
+.abz.auf{border-color:var(--honig);color:var(--ink)}
+
+/* Bausteine */
+.merke{border:1.5px dashed var(--blau-mittel);border-radius:12px;padding:14px 16px;display:grid;gap:8px;background:#f8fbfd}
+.merke .eyebrow{color:var(--blau)}
+.achtung{border-left:5px solid var(--honig);background:#fbf1e2;padding:12px 14px;border-radius:0 12px 12px 0;font-size:16px}
+.achtung b{color:#8a5a17}
+.box{background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:16px;display:grid;gap:12px}
+.box > .eyebrow{color:var(--blau)}
+details{background:var(--creme-tief);border-radius:10px;padding:10px 14px}
+details summary{cursor:pointer;color:var(--blau);font-family:var(--sans);font-size:15px}
+details[open] summary{margin-bottom:8px}
+details .grid{display:grid;gap:8px}
+
+figure.bild{margin:0;background:var(--tile);border:1px solid var(--linie);border-radius:14px;overflow:hidden}
+figure.bild .rahmen-bild{aspect-ratio:16/10;background:linear-gradient(160deg,#e9f0f6,#d6e2ec);position:relative}
+figure.bild img{display:block;width:100%;height:100%;object-fit:cover}
+figure.bild .platzhalter{position:absolute;inset:0;display:none;place-items:center;align-content:center;gap:6px;text-align:center;color:var(--ink-soft);font-family:var(--sans);font-size:13px}
+figure.bild .platzhalter.zeigen{display:grid}
+figure.bild .platzhalter span{font-size:64px;line-height:1}
+figure.bild figcaption{padding:12px 14px;font-size:16px}
+figure.bild figcaption b{color:var(--blau)}
+
+.knopf{display:inline-block;border:1px solid var(--blau);background:var(--tile);color:var(--blau);border-radius:12px;padding:10px 16px;font-family:var(--sans);font-size:15px;cursor:pointer;text-decoration:none;text-align:center}
+.knopf.prim{background:var(--blau);color:#fff;box-shadow:0 2px 0 var(--blau-tief)}
+.knopf.prim:hover{background:var(--blau-tief)}
+.knopf.honig{background:var(--honig);border-color:var(--honig);color:#fff;box-shadow:0 2px 0 #8a5a17}
+.knopf:disabled{opacity:.4;cursor:default}
+.knopfreihe{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+
+/* Sortieren */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--linie);background:var(--creme);border-radius:999px;padding:6px 13px;cursor:pointer;font-size:16px;font-family:var(--serif)}
+.chip.sel{border-color:var(--blau);box-shadow:0 0 0 2px var(--blau) inset;background:#fff}
+.chip.ok{border-color:var(--ok);color:var(--ok);cursor:default;background:#fff}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.bins{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bins.drei{grid-template-columns:repeat(3,1fr)}
+.bin{border:2px dashed var(--linie);border-radius:12px;padding:10px;min-height:110px;display:flex;flex-direction:column;gap:8px;cursor:pointer;background:var(--creme)}
+.bin h4{margin:0;font-weight:normal;font-size:16px;color:var(--blau)}
+.feedback{min-height:1.5em;font-size:16px;color:var(--ink-soft)}
+.feedback.good{color:var(--ok)} .feedback.bad{color:var(--bad)}
+
+/* Karten */
+.karten{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.karte{min-height:120px;border:1px solid var(--linie);border-radius:14px;background:var(--tile);padding:14px;text-align:left;cursor:pointer;display:grid;gap:6px;align-content:start}
+.karte .kk{font-size:18px;color:var(--blau)}
+.karte .kr{font-size:15px;color:var(--ink-soft)}
+.karte.offen{background:#eef4f9;border-color:var(--blau-hell)}
+.karte .tipp{font-family:var(--sans);font-size:12px;color:var(--blau-mittel)}
+
+/* Animationen / Widgets */
+.anim svg{width:100%;height:auto;display:block;background:#f3f7fa;border-radius:12px;border:1px solid var(--linie)}
+.regler{width:100%;accent-color:var(--blau);height:28px}
+.anim-text{min-height:4.6em;font-size:16px;background:var(--creme);border-radius:10px;padding:10px 12px}
+.anim-text b{color:var(--blau)}
+.lbl{font-family:var(--sans);font-size:11px;fill:var(--ink-soft)}
+.lbl.b{font-weight:600;fill:var(--ink);font-size:12px}
+.lbl.gross{font-size:15px;font-weight:700;fill:var(--ink)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.vgl{display:grid;gap:10px}
+.vgl-zeile{display:grid;gap:4px}
+.vgl-kopf{display:flex;justify-content:space-between;font-family:var(--sans);font-size:14px;color:var(--ink-soft)}
+.vgl-balken{display:grid;grid-template-columns:70px 1fr auto;gap:8px;align-items:center;font-family:var(--sans);font-size:13px}
+.vgl-balken .bb{height:14px;background:var(--creme-tief);border-radius:7px;overflow:hidden}
+.vgl-balken .bb i{display:block;height:100%;border-radius:7px;transition:width .8s}
+.vgl-balken .s i{background:#e3a447} .vgl-balken .w i{background:#6f9cc7}
+.vgl-typ{text-align:center;font-size:20px;color:var(--blau)}
+.feld{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.feld button{aspect-ratio:1;border:1px solid #c9b48f;border-radius:12px;background:linear-gradient(180deg,#f4efe4,#e2d3b5);font-size:30px;cursor:pointer;display:grid;place-items:center}
+.feld button:disabled{cursor:default}
+.spur-svg{max-width:260px;margin:0 auto}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ans{text-align:left;background:var(--creme);border:1px solid var(--linie);border-radius:12px;padding:11px 13px;cursor:pointer;display:flex;gap:10px;font-size:17px}
+.ans b{color:var(--blau-mittel);font-family:var(--sans);font-weight:normal}
+.ans.ok{border-color:var(--ok);background:#e3f0e7}
+.ans.bad{border-color:var(--bad);background:#f6e1de}
+.ans:disabled{cursor:default}
+.waerme{transition:opacity .4s}
+.federkleid{transition:r .5s}
+
+/* Quiz */
+.quiz{display:grid;gap:14px}
+.qhead{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.dots{display:flex;gap:4px;flex-wrap:wrap}
+.dots i{width:11px;height:11px;border-radius:50%;background:var(--creme-tief);border:1px solid var(--linie)}
+.dots i.ok{background:var(--ok);border-color:var(--ok)} .dots i.bad{background:var(--bad);border-color:var(--bad)} .dots i.now{background:var(--blau);border-color:var(--blau)}
+.qq{font-size:20px}
+.jokers{display:flex;gap:8px;flex-wrap:wrap}
+.publikum{font-style:italic;color:var(--ink-soft);border-left:3px solid var(--honig);padding-left:12px}
+.ergebnis{text-align:center;display:grid;gap:10px;justify-items:center}
+.ergebnis .gross{font-size:40px;letter-spacing:4px}
+
+/* Feier, Toast, Konfetti, Urkunde */
+.overlay{position:fixed;inset:0;z-index:50;background:rgba(20,32,45,.6);display:grid;place-items:center;
+  padding:calc(env(safe-area-inset-top,0px) + 16px) 16px calc(env(safe-area-inset-bottom,0px) + 16px);overflow-y:auto}
+.feierkarte{background:var(--tile);border-radius:18px;padding:24px 20px;max-width:420px;width:100%;text-align:center;display:grid;gap:10px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.feierkarte .fmed{font-size:64px;animation:pop .6s both}
+@keyframes pop{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;border-radius:999px;padding:10px 18px;font-family:var(--sans);font-size:15px;z-index:60;transition:transform .3s;max-width:90vw;text-align:center}
+.toast.zeigen{transform:translateX(-50%) translateY(0)}
+.konffeld{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.konf{position:absolute;top:-16px;font-size:18px;animation:fall 3.6s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+.urkunde{background:#fffdf7;max-width:640px;width:100%;border-radius:6px;padding:14px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.rahmen{border:3px double var(--blau);outline:1px solid var(--honig);outline-offset:-10px;padding:26px 22px;text-align:center;display:grid;gap:8px;justify-items:center}
+.urk-eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.urk-med{font-size:56px}
+.urk-titel{font-size:44px;color:var(--blau);letter-spacing:.06em}
+.urk-sub{font-size:18px;color:var(--honig-tief)}
+.urk-satz{font-size:17px}
+.urk-name{font:inherit;font-size:26px;text-align:center;border:0;border-bottom:1.5px solid var(--ink-soft);background:transparent;width:min(100%,380px);padding:4px;color:var(--ink)}
+.urk-name-druck{display:none;font-size:26px;border-bottom:1.5px solid var(--ink-soft);min-width:300px;padding:4px}
+.urk-tab{width:100%;max-width:440px;border-collapse:collapse;font-size:15px;margin-top:6px}
+.urk-tab td{padding:4px 6px;border-bottom:1px solid var(--linie);text-align:left}
+.urk-tab td:last-child{text-align:right;white-space:nowrap}
+.urk-summe{font-size:17px;color:var(--blau)}
+.urk-album{font-size:24px;letter-spacing:4px}
+.urk-fuss{display:flex;justify-content:space-between;width:100%;font-family:var(--sans);font-size:13px;color:var(--ink-soft);margin-top:12px;gap:10px;flex-wrap:wrap}
+.urk-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.lehrer{background:var(--tile);border:1px solid var(--linie);border-radius:14px}
+.lehrer summary{font-size:16px}
+.reset{display:grid;gap:8px;justify-items:center;text-align:center}
+footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;text-align:center;font-family:var(--sans);font-size:13px;color:var(--ink-soft);display:grid;gap:6px}
+
+@media (max-width:480px){.answers{grid-template-columns:1fr} body{font-size:17px} .bins,.bins.drei{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{
+  @page{size:A4 portrait;margin:12mm}
+  html,body{background:#fff}
+  body *{visibility:hidden}
+  #urkunde,#urkunde *{visibility:visible}
+  #urkunde{position:absolute;inset:0;background:#fff;display:block;padding:0}
+  .urkunde{box-shadow:none;max-width:none}
+  .urk-btns,.urk-name{display:none!important}
+  .urk-name-druck{display:block}
+}
+
+.kn-neu{transform-box:fill-box;transform-origin:center}
+.reihe{display:grid;gap:12px}
+.reihe-nav{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.reihe-punkte{display:flex;gap:6px}
+.reihe-punkte i{width:10px;height:10px;border-radius:50%;background:var(--creme-tief);border:1px solid var(--linie)}
+.reihe-punkte i.an{background:var(--blau);border-color:var(--blau)}
+.reihe-zeit{font-family:var(--sans);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--honig-tief)}
+.ordnen{display:grid;gap:8px}
+.ordnen ol{margin:0;padding-left:1.4em;display:grid;gap:6px;min-height:1.5em}
+.ordnen ol li{color:var(--ok)}
+.zucht{display:grid;gap:10px}
+.welpen{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;align-items:end}
+.welpe{border:1px solid var(--linie);border-radius:12px;background:var(--creme);cursor:pointer;display:grid;justify-items:center;gap:2px;padding:8px 2px;font-family:var(--sans);font-size:12px;color:var(--ink-soft)}
+.welpe span{line-height:1}
+.welpe:disabled{cursor:default;opacity:.55}
+.welpe.gewaehlt{border-color:var(--ok);background:#e3f0e7;opacity:1}
+.zucht-leiste{display:flex;gap:4px;align-items:flex-end;height:70px;padding:6px;background:var(--creme);border-radius:10px}
+.zucht-leiste div{flex:1;background:var(--blau-mittel);border-radius:4px 4px 0 0;display:grid;place-items:start center;color:#fff;font-family:var(--sans);font-size:10px;padding-top:2px;transition:height .6s}
+.eier{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ei{border:1px solid var(--linie);border-radius:50% 50% 46% 46% / 58% 58% 42% 42%;background:linear-gradient(160deg,#fff8ec,#ead9bd);aspect-ratio:3/4;cursor:pointer;display:grid;place-items:center;font-family:var(--sans);font-size:11px;color:#7a1f15;padding:4px;text-align:center}
+.ei.an{box-shadow:0 0 0 3px var(--honig)}
+.fd-views{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:16px;align-items:start}
+.anim svg.fd-draw{width:100%;height:290px;display:block;background:#f3f7fa;border:1px solid var(--linie);border-radius:12px}
+.fd-cap{text-align:center;font-family:var(--sans);font-size:13px;color:var(--ink-soft);margin-top:6px}
+.fd-leg{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+.fd-sw{display:inline-block;width:20px;height:3px;background:#b08a55;vertical-align:middle;margin-right:6px}
+.fd-sw.fein{height:2px;background:var(--ink)}
+@media(max-width:520px){.fd-views{grid-template-columns:1fr;gap:10px}.anim svg.fd-over{height:230px}}
+.anim svg.gr-szene{width:100%;height:420px;display:block}
+.gr-leg{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+.gr-leg span::before{content:"";display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:6px;background:#7d8a96}
+.gr-leg .sehne::before{background:#c0392b}
+.gr-kopf{display:flex;justify-content:space-between;gap:12px;font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+.gr-kopf output{color:var(--blau);font-weight:600}
+.sb-bild .rahmen-bild{aspect-ratio:480/407;background:#fff}
+.sb-bild img{object-fit:contain}
+.galerie{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.galerie figure.bild .rahmen-bild{aspect-ratio:4/3}
+.galerie figure.bild figcaption{font-size:15px}
+.kn-svg svg,.anim .kn-svg svg{width:100%;height:auto;display:block}
+.sk-opt{display:grid;gap:8px}
+.sk-ende{display:grid;grid-template-columns:minmax(120px,200px) 1fr;gap:14px;align-items:start}
+.sk-ende img{width:100%;border-radius:8px;border:1px solid var(--linie);box-shadow:0 2px 8px rgba(35,61,92,.12)}
+.sk-ende > div{display:grid;gap:8px;justify-items:start}
+@media (max-width:480px){.sk-ende{grid-template-columns:1fr}.sk-ende img{max-width:260px}}
+
+/* Futterhaus-Pass */
+.tabs.links{justify-content:flex-start}
+.garten{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--linie)}
+.garten svg{display:block;width:100%;height:auto}
+.pmark{position:absolute;transform:translate(-50%,-50%);width:38px;height:38px;border-radius:50%;border:2px solid #fff;background:var(--blau);color:#fff;font-family:var(--sans);font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.pmark.p-ja{background:var(--ok)} .pmark.p-nein{background:var(--bad)} .pmark.p-geht{background:var(--honig)}
+.pmark.an{outline:3px solid var(--honig);outline-offset:2px}
+.gaeste{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.gast{display:grid;align-content:start;gap:4px;text-align:left;background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:0 0 12px;overflow:hidden;cursor:pointer;font-family:var(--serif)}
+.gast:hover{box-shadow:0 4px 14px rgba(35,61,92,.14)}
+.gbild{position:relative;display:block;aspect-ratio:12/5;background:#e9f0f6}
+.gbild img{display:block;width:100%;height:100%;object-fit:cover}
+.gname{font-size:18px;font-weight:bold;color:var(--blau);padding:6px 12px 0}
+.gtext{font-size:14px;line-height:1.45;color:var(--ink-soft);font-family:var(--sans);padding:0 12px}
+.marke{position:absolute;right:8px;top:8px;background:var(--blau);color:#fff;font-family:var(--sans);font-size:11px;letter-spacing:.04em;border-radius:999px;padding:3px 9px}
+.marke.inline{position:static;vertical-align:middle;margin-left:6px}
+.tafelkarte{background:var(--tile);border-radius:18px;padding:18px;max-width:560px;width:100%;display:grid;gap:10px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.tk-kopf{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tk-kopf .knopf{padding:6px 12px}
+.tk-bild{background:var(--creme);border-radius:10px;overflow:hidden;border:1px solid var(--linie)}
+.tk-bild img{display:block;width:100%;height:auto;max-height:70vh;object-fit:contain}
+.video{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000}
+.video video{position:absolute;inset:0;width:100%;height:100%;background:#000}
+.vcopy{text-align:right;margin-top:-6px}
+.zkarte{display:grid;gap:6px}
+.zreihe{display:grid;grid-template-columns:72px 1fr 40px 34px 40px;gap:8px;align-items:center;background:var(--creme);border-radius:10px;padding:5px 8px}
+.zreihe img{width:72px;height:30px;object-fit:cover;border-radius:6px}
+.zname{font-size:16px}
+.zreihe output{text-align:center;font-family:var(--sans);font-size:18px;color:var(--blau);font-variant-numeric:tabular-nums}
+.zbtn{width:40px;height:40px;border-radius:50%;border:1px solid var(--blau);background:var(--tile);color:var(--blau);font-size:22px;line-height:1;cursor:pointer}
+.zsumme{text-align:center;font-family:var(--sans);font-size:15px;color:var(--ink-soft)}
+.bq-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bq{position:relative;border:2px solid var(--linie);border-radius:12px;padding:0;overflow:hidden;background:var(--tile);cursor:pointer;display:grid;text-align:left}
+.bq img{display:block;width:100%;aspect-ratio:12/5;object-fit:cover}
+.bq-buch{position:absolute;left:8px;top:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.92);color:var(--blau);font-family:var(--sans);font-size:15px;font-weight:700;display:grid;place-items:center;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.bq-name{font-size:16px;padding:6px 10px;color:var(--blau);font-weight:bold}
+.bq-poll{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:6px 10px;font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+.bq-poll i{display:block;height:10px;width:0;background:var(--honig);border-radius:5px;transition:width .8s}
+.bq-poll em{font-style:normal}
+.bq.ok{border-color:var(--ok);box-shadow:0 0 0 2px var(--ok)}
+.bq.bad{border-color:var(--bad);box-shadow:0 0 0 2px var(--bad)}
+.bq:disabled{cursor:default}
+.bq:disabled:not(.ok):not(.bad) img{opacity:.6}
+.fd-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.fd-karte{position:relative;border:2px solid var(--linie);border-radius:12px;padding:0;overflow:hidden;background:var(--tile);cursor:pointer;display:grid;text-align:left}
+.fd-karte img{display:block;width:100%;aspect-ratio:12/5;object-fit:cover}
+.fd-name{font-size:15px;padding:5px 9px;color:var(--blau);font-weight:bold}
+.fd-haken{position:absolute;right:6px;top:6px;width:26px;height:26px;border-radius:50%;background:var(--blau);color:#fff;font-family:var(--sans);font-size:15px;display:none;place-items:center}
+.fd-karte.an{border-color:var(--blau);box-shadow:0 0 0 2px var(--blau)} .fd-karte.an .fd-haken{display:grid}
+.fd-karte.ok{border-color:var(--ok);box-shadow:0 0 0 2px var(--ok)} .fd-karte.ok .fd-haken{display:grid;background:var(--ok)}
+.fd-karte.bad{border-color:var(--bad);box-shadow:0 0 0 2px var(--bad)} .fd-karte.bad .fd-haken{display:grid;background:var(--bad)}
+.fd-karte.verpasst{border:2px dashed var(--ok)}
+.fd-karte.raus{opacity:.45}
+.fd-karte:disabled{cursor:default}
+.fd-schritt{display:grid;gap:12px}
+.fd-schritt + .fd-schritt{border-top:1px solid var(--linie);padding-top:16px}
+.fd-zahl{display:flex;align-items:center;justify-content:center;gap:18px}
+.fd-zahl output{font-family:var(--sans);font-size:40px;color:var(--blau);min-width:60px;text-align:center;font-variant-numeric:tabular-nums}
+.fd-zahl .zbtn{width:52px;height:52px;font-size:28px}
+.wb-karte{position:relative;display:grid;gap:6px;background:#fbf1e2;border:2px solid var(--honig);border-radius:14px;padding:14px 16px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;box-shadow:0 3px 10px rgba(194,138,58,.25)}
+.wb-karte.flieg{opacity:.35}
+.wb-frage{font-family:var(--sans);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--honig-tief)}
+.wb-text{font-size:18px;line-height:1.45}
+.wb-griff{position:absolute;right:10px;top:8px;font-family:var(--sans);font-size:12px;color:var(--honig-tief)}
+.wb-geist{position:fixed;z-index:80;pointer-events:none;transform:translate(-50%,-60%) rotate(-3deg);opacity:.95;padding:10px 12px}
+.wb-geist .wb-text{font-size:14px}
+.wb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.wb-bild{position:relative;border:2px solid var(--linie);border-radius:12px;padding:0;overflow:hidden;background:var(--tile);cursor:pointer;display:grid;text-align:left}
+.wb-bild img{display:block;width:100%;aspect-ratio:12/5;object-fit:cover}
+.wb-name{font-size:15px;padding:5px 9px;color:var(--ok);font-weight:bold}
+.wb-name.leer{color:var(--ink-soft);font-weight:normal}
+.wb-bild.ziel{border-color:var(--honig);box-shadow:0 0 0 3px var(--honig)}
+.wb-bild.ok{border-color:var(--ok);box-shadow:0 0 0 2px var(--ok);cursor:default}
+@media (max-width:520px){.bq-grid{grid-template-columns:1fr}.zreihe{grid-template-columns:56px 1fr 40px 30px 40px}.zreihe img{width:56px}}
+
+/* Zugvogel-Pass */
+.karte{width:100%;height:auto;display:block}
+.k-ort{font-family:var(--sans);font-size:15px;font-weight:600;fill:#233D5C;paint-order:stroke;stroke:#efe6cf;stroke-width:4px}
+.k-region{font-family:var(--serif);font-style:italic;font-size:19px;fill:#7a6a4a;letter-spacing:.04em;opacity:.85}
+.buehne .karte{width:min(300px,80vw);border-radius:10px;border:1px solid var(--linie)}
+.buehne{padding-top:62px}
+.kartenbox{border:1px solid var(--linie);border-radius:12px;overflow:hidden;max-width:520px;margin:0 auto;width:100%}
+.rwahl{display:flex;flex-wrap:wrap;gap:6px}
+.rchip{display:flex;align-items:center;gap:7px;border:2px solid var(--c);background:var(--tile);border-radius:999px;padding:3px 12px 3px 3px;cursor:pointer;font-family:var(--sans);font-size:14px;color:var(--ink)}
+.rchip img{width:32px;height:32px;border-radius:50%;object-fit:cover}
+.rchip.an{background:var(--c);color:#fff}
+.rinfo{font-size:16px}
+.kal{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;margin:4px 0 2px}
+.kal span{font-family:var(--sans);font-size:13px;text-align:center;padding:8px 0;border-radius:6px;background:var(--creme-tief);color:var(--ink-soft)}
+.kal span.da{background:var(--honig);color:#fff;font-weight:700}
+.bq-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bq img{aspect-ratio:4/3!important}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ============ Helfer ============ */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+const IM_RAHMEN = (() => { try { return window.self !== window.top; } catch (e) { return true; } })();
+const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+
+/* ============ Speicher (nur auf diesem Gerät) ============ */
+const KEY = "mibaso.fauna.zugvogelpass";
+function laden() { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { return {}; } }
+let S = Object.assign({ modus: "level", name: "" }, laden());
+function speichern() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+/* ============ Bausteine ============ */
+function knochenHTML(n) { let s = ""; for (let k = 0; k < 3; k++) s += k < n ? "📍" : '<span class="leer">📍</span>'; return `<span class="knochen" aria-label="${n} von 3 Etappen">${s}</span>`; }
+const federn = n => n === 1 ? "1 Etappe" : n + " Etappen";
+function bild(datei, emoji, titel, text, ordner = "voegel") {
+  return `<figure class="bild"><div class="rahmen-bild">
+    <div class="platzhalter"><span>${emoji}</span>Bild folgt</div>
+    <img src="../images/${ordner}/${datei}.jpg" alt="${esc(titel)}" loading="lazy" onerror="this.previousElementSibling.classList.add('zeigen');this.remove()">
+  </div>${text ? `<figcaption>${text}</figcaption>` : ""}</figure>`;
+}
+
+/* ============ Toast, Konfetti, Fanfare ============ */
+let toastTimer;
+function toast(t) { const el = $("#toast"); el.textContent = t; el.classList.add("zeigen"); clearTimeout(toastTimer); toastTimer = setTimeout(() => el.classList.remove("zeigen"), 3200); }
+function konfetti() {
+  if (reduce) return;
+  const f = document.createElement("div"); f.className = "konffeld";
+  const zeichen = ["📍", "🐦", "⭐", "🌍", "🧭", "✨"];
+  for (let n = 0; n < 50; n++) {
+    const k = document.createElement("span"); k.className = "konf"; k.textContent = zeichen[n % zeichen.length];
+    k.style.cssText = `left:${Math.random() * 100}%;animation-delay:${(Math.random() * .8).toFixed(2)}s`;
+    f.appendChild(k);
+  }
+  document.body.appendChild(f); setTimeout(() => f.remove(), 4800);
+}
+function fanfare(gross) {
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext; if (!Ctx) return;
+    const ctx = new Ctx(); if (ctx.state === "suspended") ctx.resume();
+    const t0 = ctx.currentTime + .05;
+    const noten = gross
+      ? [[392, 0, .14], [523.25, .14, .14], [659.25, .28, .14], [783.99, .42, .28], [659.25, .72, .14], [783.99, .86, .9]]
+      : [[523.25, 0, .16], [659.25, .15, .16], [783.99, .30, .16], [1046.5, .46, .6]];
+    noten.forEach(([fr, st, du]) => {
+      [1, 2].forEach(oct => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = oct === 1 ? "triangle" : "sine"; o.frequency.value = fr * oct;
+        const v = oct === 1 ? .2 : .05;
+        g.gain.setValueAtTime(0, t0 + st); g.gain.linearRampToValueAtTime(v, t0 + st + .02);
+        g.gain.exponentialRampToValueAtTime(.001, t0 + st + du + .25);
+        o.connect(g); g.connect(ctx.destination); o.start(t0 + st); o.stop(t0 + st + du + .3);
+      });
+    });
+    setTimeout(() => ctx.close(), 3000);
+  } catch (e) {}
+}
+const KARTE = {"W":600,"H":820,"land":"M320,98L321,98L321,98L321,98L322,98L323,99L323,99L323,99L322,99L322,99L322,100L322,100L321,100L321,101L320,101L320,101L319,101L319,102L319,103L318,103L318,103L318,103L318,103L319,102L319,101L318,101L318,101L317,101L317,100L317,100L318,100L318,100L318,100L317,99L317,99L318,99L318,99L318,99L319,99L319,99L319,98L320,98L320,98ZM389,5L390,5L390,5L390,6L389,5L389,5L389,6L389,6L389,7L388,8L388,9L387,9L386,9L385,8L385,8L385,7L384,7L384,7L384,6L384,5L384,5L384,4L384,4L385,3L388,4L389,4ZM346,271L347,271L347,271L347,271L348,270L348,270L348,271L348,271L348,271L348,271L348,271L349,271L349,272L349,272L349,272L349,272L350,272L351,272L351,272L352,271L354,271L354,272L355,272L357,272L357,272L358,272L358,272L358,273L359,273L359,273L359,273L359,273L360,272L361,272L362,272L362,272L362,272L362,273L362,273L362,274L361,274L361,274L359,274L358,274L355,275L353,275L352,275L352,275L352,274L352,274L351,274L350,274L347,273L347,273L345,273L345,273L345,273L344,273L344,272L344,271L345,271L345,271L345,271L345,271L345,271L345,270L346,270L346,271ZM341,245L341,246L342,246L342,246L343,246L344,247L345,247L346,247L346,247L346,248L346,248L346,248L346,249L347,250L347,251L348,251L349,251L349,251L349,252L349,252L348,252L348,252L348,252L348,252L347,252L347,251L346,251L346,251L346,250L346,250L346,250L345,249L345,249L345,249L344,249L343,249L343,249L342,248L342,248L342,248L341,247L341,247L340,246L339,246L339,246L338,246L338,246L338,246L338,245L339,245L340,244L340,244ZM413,264L410,266L410,267L410,268L411,268L411,268L411,269L411,269L410,269L410,269L409,269L408,271L408,271L407,271L406,272L406,272L406,272L405,272L405,273L405,273L405,273L405,272L404,272L404,272L403,272L402,272L402,272L401,272L401,270L400,269L401,270L401,269L402,269L402,268L403,268L403,268L404,268L404,267L404,267L405,267L406,267L407,267L408,266L411,265L412,264L412,264L413,263L414,263ZM305,104L305,105L305,105L305,105L304,105L304,107L305,108L305,108L304,108L304,108L304,109L303,109L303,109L303,110L303,111L302,111L302,111L302,111L302,110L302,110L302,109L301,109L302,108L301,107L301,107L302,106L302,106L302,105L303,105L304,104L304,104L304,104L305,104L305,104ZM276,120L276,121L276,121L276,121L276,121L275,121L275,122L275,122L275,123L275,123L276,124L275,124L274,124L274,125L274,126L274,126L274,127L273,127L272,126L272,126L272,125L272,125L272,124L271,124L271,124L270,124L270,124L270,123L270,122L270,122L270,121L270,121L269,121L269,121L269,120L269,120L270,120L270,120L271,120L271,119L271,119L271,119L272,119L272,119L272,120L272,120L273,120L273,121L273,120L273,120L273,120L273,119L273,119L273,119L274,118L275,117L275,117L276,118L276,118L276,118L277,118L276,119L276,119ZM267,121L268,121L268,122L268,123L268,124L268,124L268,125L267,125L266,125L265,125L264,124L264,124L264,124L264,123L264,122L264,122L266,121L266,121L266,121L267,121L267,121ZM217,238L217,238L218,238L218,238L219,238L219,239L218,239L218,240L218,240L217,241L217,241L216,242L215,241L214,241L214,241L214,240L214,240L214,239L213,240L213,240L213,240L212,239L212,239L212,239L215,237L216,237L217,237L217,237L217,237L217,237L217,237L217,237L217,238ZM559,628L559,629L560,630L561,632L561,632L562,633L562,635L562,637L563,640L563,644L563,646L564,648L564,649L565,651L564,653L563,655L563,655L562,656L562,656L561,655L561,655L560,653L560,652L560,652L559,652L558,653L558,653L558,654L558,655L558,656L558,657L559,657L559,658L559,658L559,660L559,661L558,662L558,662L558,663L558,663L557,664L557,664L556,665L556,666L555,667L556,670L555,672L554,675L553,677L553,679L551,681L550,685L549,688L548,690L547,692L545,696L544,699L542,703L540,708L540,708L539,710L538,712L538,714L536,717L536,718L536,719L534,721L534,722L533,723L533,724L533,725L532,727L530,728L530,729L528,730L527,730L526,730L524,730L522,731L520,732L519,733L519,733L516,733L516,733L514,732L513,732L511,732L511,731L511,731L510,730L509,730L508,730L508,729L508,729L508,728L508,727L508,726L507,725L507,725L507,723L507,722L507,720L507,719L508,719L508,718L507,717L507,716L507,715L506,714L506,713L506,712L505,710L505,709L506,708L506,707L506,706L506,706L507,705L507,705L507,704L508,702L509,702L510,701L510,701L511,700L511,698L513,697L513,696L514,694L515,692L516,692L516,691L516,689L517,688L517,687L516,686L515,684L515,684L516,683L516,682L515,681L515,680L514,678L514,676L514,675L514,674L514,673L515,671L518,666L518,665L518,663L519,663L519,662L519,662L520,662L522,661L523,661L523,661L524,660L525,659L525,659L525,660L526,660L527,659L527,659L528,659L528,659L528,659L528,658L528,658L530,658L531,657L532,657L532,657L533,658L533,658L534,658L534,658L533,657L533,657L533,657L534,656L534,655L536,654L538,653L538,652L538,653L539,654L539,654L539,654L539,654L539,653L540,653L539,652L539,652L539,652L540,651L541,650L541,649L541,649L542,648L542,648L542,648L543,649L542,649L542,650L542,650L542,650L543,650L543,649L544,648L544,648L545,647L545,647L546,647L545,646L545,645L546,643L546,642L547,642L547,642L546,641L546,641L546,640L546,639L547,639L547,639L548,639L548,640L549,640L549,639L550,638L551,637L552,637L553,636L554,633L554,632L554,631L554,630L553,629L553,629L554,629L554,629L555,628L557,626L557,626L557,626L557,627L558,627L559,628ZM517,215L517,215L516,214L515,213L515,213L516,213L516,213ZM482,174L482,174L482,174L481,174L481,173L481,173L481,173L481,173L481,173L481,174L482,174ZM482,173L482,173L482,173L482,172L482,172L483,173ZM257,232L257,232L258,234L258,235L257,235L257,235L257,236L257,237L257,238L257,238L257,239L256,243L256,244L256,245L255,245L255,245L254,244L254,244L253,244L253,244L253,244L252,246L252,246L251,247L251,247L250,246L250,246L250,246L249,246L249,245L249,244L249,244L249,242L249,242L249,242L249,241L249,240L249,240L249,240L250,240L250,240L250,239L249,239L249,239L249,238L249,238L249,238L249,237L249,236L249,235L249,235L249,234L249,234L248,233L248,233L248,232L248,231L248,231L248,231L249,232L249,232L250,232L250,232L251,231L252,231L253,230L254,230L254,229L254,229L254,229L255,229L255,229L256,230L256,230L256,230L256,231L257,231L257,231L256,231L256,231L256,231ZM257,217L256,218L256,218L257,219L257,219L257,222L257,222L256,223L256,224L256,225L255,226L255,226L255,227L254,228L253,227L253,227L252,226L252,226L252,226L253,226L253,225L252,225L252,225L252,224L252,224L252,224L251,224L251,223L251,223L251,223L252,223L252,222L251,222L251,222L251,221L251,221L252,221L251,220L251,220L251,220L251,220L251,220L252,219L253,218L254,218L254,218L254,218L254,217L255,217L255,218L255,218L256,218L256,217L256,217L256,216L256,215L256,215L256,216L256,216L257,217ZM293,252L292,253L292,254L291,256L291,256L290,257L290,257L290,258L290,258L290,259L290,259L290,259L290,260L291,260L290,260L291,261L291,261L291,261L291,262L290,262L290,263L290,263L290,263L290,264L290,264L289,264L289,264L288,264L287,264L287,264L286,263L285,262L285,261L284,261L283,261L282,261L282,261L280,260L279,259L278,259L278,258L278,258L277,258L276,257L276,257L275,257L275,257L274,257L274,257L273,256L273,255L274,255L274,254L274,253L275,253L275,253L275,253L276,254L276,254L276,254L277,253L277,253L278,253L279,253L279,253L279,253L279,253L280,253L281,254L281,254L282,254L283,254L283,254L285,254L286,254L286,254L287,253L288,253L288,253L288,253L289,253L290,253L290,253L291,252L291,252L291,252L292,252L293,252L293,252ZM209,95L209,95L209,95L209,96L209,96L208,96L206,97L205,98L204,98L204,99L205,99L205,99L205,99L204,100L203,101L204,101L204,101L206,100L207,100L207,100L208,101L208,101L209,101L209,101L212,101L212,101L213,101L213,102L213,103L213,103L213,103L212,104L212,104L212,105L211,105L211,105L210,107L209,108L209,109L208,109L208,109L207,110L206,110L205,110L205,110L204,110L205,110L206,110L206,110L207,111L207,111L207,112L206,111L205,112L204,112L204,112L203,112L202,112L202,112L202,112L203,112L205,113L205,113L206,113L207,113L209,114L209,115L210,116L210,116L211,117L211,117L211,119L211,121L211,123L211,123L211,124L213,125L213,125L214,126L215,127L215,128L216,128L215,129L215,129L215,130L215,130L216,131L216,132L216,132L216,132L215,132L215,132L215,132L214,131L213,131L213,131L212,131L213,131L214,131L216,133L216,134L216,136L216,136L215,137L215,137L215,137L216,138L216,138L216,138L216,138L217,137L217,137L218,137L218,137L219,138L220,138L221,138L221,138L222,139L222,140L222,141L222,142L222,142L222,143L221,144L221,144L221,144L220,145L220,145L219,145L219,145L219,145L219,146L219,146L219,146L218,146L218,146L216,147L217,147L217,147L217,148L216,148L216,148L215,148L215,148L214,148L215,148L215,148L215,149L216,149L217,149L217,149L219,149L219,150L219,150L219,150L219,151L219,151L217,152L217,152L216,153L215,153L215,153L214,153L214,153L213,153L212,153L210,153L209,153L207,153L207,153L206,152L206,152L205,152L204,152L205,152L204,153L203,153L203,153L202,153L201,152L201,153L201,153L201,153L201,153L199,153L199,153L199,153L198,153L198,152L197,152L197,152L196,152L194,152L193,153L193,154L193,154L192,155L191,155L191,154L190,154L190,153L190,153L189,153L189,154L189,153L188,154L187,154L186,154L185,154L185,155L184,155L184,155L183,155L183,155L182,155L182,155L182,155L182,154L182,154L184,154L185,153L185,152L186,152L186,152L186,152L187,151L188,150L189,150L189,149L189,149L190,149L191,147L191,147L193,147L194,148L195,148L196,148L196,148L197,148L198,147L198,146L199,146L200,145L201,145L200,145L199,145L199,146L198,146L197,146L196,147L196,147L195,146L194,145L193,145L193,145L193,145L192,145L191,145L192,144L192,144L191,144L191,144L191,143L190,143L190,143L189,143L188,144L187,143L187,143L187,142L187,142L187,142L188,141L188,141L189,141L191,140L192,140L193,139L193,139L194,139L194,138L194,138L194,137L194,137L194,137L194,136L194,136L194,135L194,135L195,135L194,135L193,135L193,135L192,135L192,135L192,135L192,135L193,134L193,134L194,134L194,133L194,133L195,133L197,132L197,132L197,132L198,132L199,132L199,132L200,133L200,132L200,132L201,133L201,133L202,133L202,133L201,133L201,132L201,132L201,131L201,131L201,130L202,130L201,129L201,129L201,129L201,128L202,128L202,127L203,127L203,126L202,126L202,126L201,127L201,126L201,126L200,125L200,124L200,123L201,122L202,121L203,121L203,120L201,120L201,120L200,121L200,121L200,121L199,121L199,121L199,121L198,121L198,121L198,121L198,121L197,120L197,121L197,121L196,121L195,121L195,120L195,120L194,121L194,121L194,121L193,120L193,119L193,119L194,119L194,119L195,118L196,116L196,116L197,115L197,115L197,115L196,114L196,113L197,113L197,112L197,112L198,112L198,112L197,111L197,111L197,111L197,111L197,111L197,111L196,111L196,112L196,112L196,112L195,112L195,112L195,112L195,112L195,111L195,111L196,111L197,110L196,110L195,111L195,111L194,111L194,111L194,112L194,113L194,113L193,116L192,116L192,116L192,116L192,116L191,116L192,115L192,115L192,114L193,113L193,113L194,113L194,113L193,113L193,113L193,112L194,111L194,110L194,109L195,109L195,108L196,107L196,107L196,107L197,106L197,106L197,106L195,107L194,107L194,107L194,107L193,106L193,106L193,106L193,106L193,105L193,105L194,105L195,105L194,104L194,104L195,104L196,103L196,102L196,102L196,101L196,101L196,100L196,100L196,100L196,100L197,100L196,100L196,99L196,99L196,99L197,98L197,98L197,97L199,98L199,97L199,97L199,98L199,98L199,96L199,96L199,96L199,95L199,95L199,95L200,95L201,95L201,95L201,95L201,94L201,94L201,94L201,93L201,93L201,93L202,93L202,93L202,93L202,93L203,94L203,94L203,93L204,93L204,94L205,94L206,94L207,94L208,94L209,93L210,94L210,94L210,94ZM184,117L185,117L185,117L186,116L186,116L186,116L187,116L188,116L188,116L189,116L190,116L190,117L190,118L190,119L191,120L191,120L190,120L190,120L190,121L190,121L190,121L191,121L191,121L191,122L191,122L191,123L191,122L191,122L191,122L190,122L190,122L190,123L190,123L190,123L190,124L189,124L189,124L189,124L189,124L188,125L188,125L187,125L187,125L187,125L187,125L187,125L186,125L186,125L186,126L186,126L186,126L186,127L186,128L186,128L186,129L186,129L186,130L186,130L186,130L186,131L186,132L185,133L185,134L185,134L184,135L184,135L184,136L183,137L182,137L182,137L183,138L182,138L181,138L181,138L180,138L180,138L180,138L180,138L179,137L179,138L179,138L178,138L177,138L176,138L176,138L176,139L176,139L176,139L175,139L174,139L174,139L173,140L173,140L173,139L172,139L172,139L172,139L172,139L172,139L172,140L172,140L171,140L171,140L170,140L170,140L169,141L167,141L166,141L166,141L166,141L165,141L164,141L164,141L165,140L166,139L166,139L166,139L164,139L163,139L163,139L163,139L164,139L164,138L165,138L165,138L166,138L163,138L163,138L163,138L162,138L162,137L163,137L164,136L164,136L165,136L165,136L165,136L163,135L163,135L163,135L163,135L164,134L164,134L165,134L165,135L165,135L166,135L166,135L166,134L166,134L166,133L167,133L167,133L168,133L169,133L170,133L172,133L171,132L171,132L170,133L170,133L169,133L168,132L168,132L168,132L168,132L167,133L166,132L167,132L168,131L169,131L169,131L169,130L169,130L170,129L171,129L171,129L171,129L172,129L172,129L172,129L172,128L171,128L170,128L170,128L169,128L169,128L169,127L169,127L169,127L169,127L168,127L168,127L169,127L168,126L168,126L167,126L167,126L168,126L167,125L167,125L168,125L168,125L169,125L169,125L169,125L169,125L169,124L169,124L170,124L171,124L171,123L171,123L170,123L169,123L169,122L170,122L170,122L170,121L170,121L170,121L170,121L169,121L169,120L169,120L170,120L170,120L171,120L171,120L172,120L173,120L174,121L174,121L174,121L174,121L176,121L176,122L176,121L176,121L176,121L177,120L177,120L177,120L178,120L178,120L179,119L179,119L178,119L176,118L177,118L177,118L178,118L178,117L178,117L179,117L179,116L179,116L179,116L179,115L180,115L180,115L181,115L181,115L182,115L182,115L182,115L183,115L183,115L183,115L183,116L183,116L183,116L182,116L183,117L182,117L182,117L183,117L183,116L183,116L183,115L183,115L184,115L184,115L184,114L185,114L185,115L185,115L185,115L186,116L185,116L185,116L184,116ZM478,158L478,159L477,159L477,159L477,159L477,160L476,161L476,161L475,162L475,162L474,162L474,163L473,163L473,163L473,163L473,164L473,164L472,164L473,165L473,165L472,165L472,166L472,166L471,167L471,167L471,167L471,168L471,168L472,168L472,169L471,169L471,169L471,169L470,169L470,169L469,170L469,171L469,171L468,172L467,172L467,172L467,172L467,173L466,172L466,172L466,172L466,172L466,173L466,173L467,173L466,174L466,174L466,174L466,175L466,176L466,176L466,177L466,178L466,178L466,179L466,179L466,179L466,179L466,179L465,180L465,181L465,181L465,182L465,182L466,182L467,182L467,183L468,183L469,183L469,184L470,185L471,186L472,188L472,186L472,185L472,186L472,187L472,188L472,189L473,190L473,190L473,192L474,192L474,192L475,193L475,193L476,194L476,194L476,194L479,196L480,197L481,198L481,199L482,199L482,199L483,199L483,199L485,200L487,202L487,202L488,203L488,204L489,204L490,206L491,206L492,207L493,207L493,207L494,207L495,207L495,207L496,207L496,207L497,208L496,208L494,209L494,209L493,210L493,210L493,211L493,213L493,215L493,216L494,216L494,217L494,217L494,218L494,219L494,220L494,220L493,220L493,219L493,219L493,220L493,220L493,222L493,222L494,225L494,225L495,227L495,228L496,229L496,229L497,230L498,231L499,231L500,231L501,231L503,230L504,231L504,231L504,231L506,232L507,233L510,234L511,234L515,234L518,233L524,229L526,228L527,228L526,228L526,229L526,229L527,229L527,229L528,228L527,228L527,227L526,226L525,225L525,224L524,222L523,220L523,219L522,218L522,217L521,216L521,215L521,214L521,213L520,213L520,212L519,212L519,211L519,211L518,211L517,211L517,211L516,210L516,211L516,211L515,211L515,211L515,210L515,209L515,209L516,209L516,209L517,208L517,208L516,208L516,208L516,207L515,207L515,206L515,206L515,206L514,206L513,206L512,206L512,207L513,208L513,207L512,207L511,206L510,205L510,203L509,202L509,201L509,200L509,198L509,199L510,199L511,200L511,200L512,200L512,199L513,199L513,199L514,199L514,200L515,200L516,199L516,199L517,199L517,199L518,198L517,198L517,197L517,197L518,197L519,197L519,197L519,196L519,196L518,195L518,195L518,195L517,194L515,194L514,193L513,193L513,192L512,191L511,190L510,189L510,189L510,189L509,189L508,189L507,190L507,190L506,190L506,191L506,192L506,193L506,194L507,194L507,196L508,197L508,197L508,197L507,196L505,195L504,193L504,193L503,192L503,191L503,190L503,189L503,188L502,187L501,186L501,186L501,186L500,186L500,186L500,186L499,186L498,186L498,186L498,186L497,186L497,186L497,186L496,185L496,185L495,185L494,185L494,185L493,185L493,185L493,184L493,183L492,183L492,182L492,182L491,182L490,181L489,180L488,178L487,178L487,178L485,178L485,178L484,178L484,177L484,177L484,176L484,176L484,176L485,175L486,175L488,175L488,175L488,175L489,175L489,175L490,174L490,174L489,174L489,174L489,174L488,174L487,173L487,173L486,172L486,172L487,171L487,171L487,170L487,169L487,169L488,168L488,168L490,167L492,167L492,166L494,166L495,166L495,166L496,166L495,165L494,165L493,165L493,163L493,161L493,160L492,158L491,158L491,157L491,157L491,156L491,156L490,155L490,155L489,154L488,155L487,155L486,155L486,155L486,156L486,156L486,157L485,157L485,156L484,156L483,156L483,156L482,156L480,156L480,156L479,157L478,158ZM600,306L600,306L599,306L599,305L598,305L598,306L595,307L595,307L594,307L593,307L592,307L590,308L589,308L587,308L586,308L584,308L583,308L582,308L582,308L581,309L580,308L578,309L577,308L576,307L576,306L575,304L574,302L573,301L573,300L572,300L571,299L570,299L568,299L567,299L567,300L566,301L564,302L564,303L564,304L563,304L562,304L561,305L560,307L559,308L559,308L558,307L556,307L555,307L553,308L552,308L551,307L550,306L549,306L547,306L544,305L544,304L544,303L542,303L540,302L539,302L538,302L537,302L536,302L536,302L534,301L533,300L532,299L532,298L531,296L531,296L529,296L529,295L529,294L529,294L528,294L528,294L527,293L527,292L527,292L526,291L525,290L523,289L523,288L522,287L521,286L521,286L519,289L517,288L515,287L514,287L514,287L514,286L515,286L515,286L516,286L515,286L515,285L514,286L514,286L514,287L514,287L514,288L514,289L514,289L514,290L513,290L513,290L512,291L512,291L511,291L510,291L509,291L509,291L509,291L509,292L509,292L510,293L510,294L511,294L510,294L510,294L509,294L509,295L508,296L508,296L509,296L510,296L510,296L510,296L511,297L511,297L512,299L513,299L514,300L514,301L514,301L515,302L515,302L516,303L517,305L518,306L518,306L519,307L519,307L519,308L520,308L521,309L521,309L522,309L522,309L523,310L524,311L525,311L526,312L528,313L530,314L529,314L529,314L529,314L529,314L529,315L529,315L530,316L530,316L531,317L531,318L531,318L530,318L530,318L530,319L531,320L531,320L532,321L532,322L533,322L534,323L535,324L535,326L536,327L537,327L538,328L538,327L538,327L537,325L536,323L536,323L536,322L536,321L536,320L537,318L537,317L538,316L539,317L540,318L541,319L541,320L541,321L541,321L541,322L542,323L542,324L542,324L542,325L542,326L542,328L542,328L541,329L542,329L542,329L542,329L542,329L542,331L543,331L543,331L543,331L544,331L544,330L544,330L544,331L545,330L545,330L546,332L546,332L547,332L548,332L549,332L550,330L551,330L554,329L556,329L559,329L559,328L561,327L562,326L562,326L562,325L562,324L563,324L563,323L563,323L563,322L563,321L565,319L566,317L566,316L566,315L567,314L569,311L569,310L569,309L569,309L569,307L569,307L569,307L570,307L570,306L570,306L570,306L570,306L571,307L571,308L571,310L571,311L571,311L571,312L572,312L573,316L573,317L575,319L576,320L577,321L579,322L580,323L581,324L584,324L586,324L587,324L589,324L589,324L590,323L591,323L592,324L593,325L593,325L594,326L595,327L596,328L597,329L598,330L599,330L600,330L600,340L600,340L599,341L598,343L598,346L597,349L597,350L596,350L596,350L595,350L595,349L595,348L595,349L594,349L594,351L593,352L594,353L594,354L594,356L594,357L594,357L594,359L595,360L595,361L596,362L595,362L595,363L593,363L592,364L590,365L590,366L589,368L589,371L588,373L587,373L586,374L583,375L582,376L581,378L581,379L582,379L582,380L582,380L581,382L581,383L579,384L578,384L577,384L576,384L574,385L573,386L572,386L571,387L569,388L568,389L565,391L564,392L563,393L563,394L563,396L563,398L563,399L563,399L562,400L561,401L560,401L560,402L560,402L558,403L556,405L552,406L551,407L550,408L548,409L546,410L545,411L543,412L543,413L542,414L542,415L541,416L540,417L540,417L539,417L538,418L536,418L535,418L535,418L533,420L532,421L531,422L529,423L528,424L527,424L526,425L524,425L522,425L520,426L519,427L518,429L516,430L516,430L516,431L515,432L514,432L513,432L511,433L510,433L509,434L508,434L508,434L507,434L506,433L505,434L504,433L502,430L502,427L502,426L502,425L500,424L500,422L500,421L499,420L499,420L499,420L498,418L498,418L498,417L498,417L498,417L498,416L497,415L496,415L496,414L496,414L497,414L497,414L497,413L496,411L496,408L496,406L495,405L495,404L495,403L494,403L494,402L493,402L493,401L493,401L492,400L491,399L491,398L489,396L486,395L486,394L484,392L483,391L482,389L482,388L481,388L481,387L480,386L478,383L478,383L477,382L477,381L477,381L476,381L475,379L472,378L470,378L469,377L468,376L467,375L465,373L463,371L464,370L464,369L463,368L462,367L462,366L462,365L462,364L462,363L462,362L462,360L461,360L461,359L460,359L460,358L460,358L460,358L459,357L459,356L458,355L457,353L456,352L455,351L453,350L452,350L452,349L451,349L450,349L450,349L449,349L448,347L447,346L446,345L446,344L446,344L446,343L446,342L445,341L443,339L442,338L442,338L441,337L441,336L440,335L437,332L436,331L435,330L434,329L433,327L432,326L430,324L428,322L427,321L426,321L425,321L424,322L424,321L424,320L425,318L425,317L425,312L425,311L425,310L424,311L424,311L424,312L423,317L423,320L423,322L423,322L422,324L422,325L421,324L419,323L417,321L416,320L414,319L414,318L414,318L413,316L413,315L411,314L411,313L410,313L410,312L409,310L408,309L408,309L408,310L407,311L407,312L408,312L409,313L409,314L410,315L410,316L410,317L411,318L411,318L412,319L412,319L413,320L415,322L416,323L417,324L417,324L418,326L418,326L419,328L419,328L420,329L420,329L421,330L421,334L422,334L425,338L427,340L428,342L429,345L432,349L434,351L435,352L436,352L437,353L436,353L436,353L435,353L435,354L435,355L436,357L436,359L438,361L438,362L439,362L439,362L442,363L443,365L447,367L447,367L447,367L447,369L448,371L449,372L450,373L451,374L451,374L451,375L450,374L450,374L450,375L450,376L450,377L451,378L451,380L451,382L452,384L452,386L454,390L455,392L455,392L456,392L457,393L458,393L459,394L460,395L461,396L461,395L461,395L461,396L463,397L464,397L466,401L468,404L469,407L470,411L471,413L472,414L473,416L473,416L474,416L475,418L475,419L475,418L475,418L475,417L475,416L475,416L476,416L477,417L477,418L477,418L478,419L479,419L480,419L481,419L482,420L483,421L486,421L488,424L490,426L495,428L496,430L496,431L497,431L499,432L499,433L501,434L501,433L501,433L502,434L502,435L503,436L504,437L504,438L504,439L504,439L504,440L502,441L500,442L499,444L499,444L499,445L499,445L500,444L501,444L501,443L502,443L503,443L504,444L505,445L507,447L509,449L512,450L512,451L513,451L517,450L520,448L523,446L523,446L525,446L527,446L528,446L529,446L532,444L533,442L535,441L535,441L537,441L539,441L542,439L543,439L544,439L545,439L546,439L547,438L549,437L551,436L554,435L556,433L557,432L557,431L558,430L561,431L562,431L562,432L562,432L561,434L561,435L562,437L562,441L562,441L562,442L562,442L562,442L562,442L562,442L563,442L563,441L563,441L564,442L564,442L564,442L564,442L563,442L563,442L562,443L561,443L561,444L561,447L561,449L561,451L561,453L560,454L559,456L558,458L558,459L557,462L556,464L555,467L555,468L554,470L553,473L552,474L551,478L551,479L549,485L546,490L545,494L542,499L537,505L531,513L530,514L523,519L519,523L517,526L514,528L513,530L507,537L507,538L506,538L505,540L505,540L504,542L503,543L502,544L501,545L501,546L501,546L500,548L499,549L499,550L498,552L497,552L495,553L495,553L495,553L494,553L494,554L494,554L494,553L494,554L494,555L494,555L493,556L493,556L492,558L490,558L489,559L489,559L488,560L489,562L488,563L488,564L487,565L487,565L486,566L486,566L486,568L485,569L485,570L485,570L485,570L485,571L484,571L483,574L482,575L482,575L481,576L481,576L481,576L481,578L480,579L480,580L480,580L479,582L479,583L478,585L478,587L478,588L479,589L479,590L480,590L481,590L481,591L482,592L483,593L484,594L484,595L483,595L482,596L482,598L482,600L482,600L483,600L483,602L482,603L482,604L482,605L482,607L483,608L483,608L483,609L484,611L484,612L485,614L485,615L485,616L485,616L485,617L486,617L487,617L487,618L488,618L488,618L489,618L490,619L490,620L490,620L490,620L491,621L492,621L491,622L491,622L491,623L491,624L491,624L491,624L491,625L491,625L490,626L490,627L490,628L490,629L490,631L490,631L491,632L490,633L490,634L490,635L490,636L491,636L491,637L491,638L491,638L490,639L490,639L490,640L491,639L491,640L491,640L491,641L490,642L491,642L490,643L490,644L490,644L490,646L490,648L490,649L491,649L491,649L491,649L491,650L491,651L491,651L491,650L492,650L492,651L492,651L492,652L492,652L492,653L492,653L491,654L491,654L491,655L491,655L490,656L490,656L490,656L490,657L490,659L488,661L487,662L486,663L486,663L486,664L485,665L484,665L483,665L484,667L483,667L482,668L479,670L478,670L478,671L477,671L476,672L475,672L475,672L474,672L474,672L472,673L470,674L470,674L469,674L468,675L465,676L463,678L462,679L461,679L461,680L460,681L460,681L459,682L457,684L457,685L456,685L456,686L456,686L455,686L455,687L454,687L454,687L453,687L452,688L450,689L448,692L445,695L444,695L444,695L443,694L442,694L443,694L443,695L443,696L443,697L442,699L442,700L443,700L444,701L444,702L445,705L445,706L446,708L446,709L446,711L446,713L446,714L446,714L446,714L446,713L447,712L447,712L447,712L447,712L448,713L448,713L448,714L447,716L447,717L447,718L447,720L445,724L445,724L445,725L446,725L446,724L446,724L447,724L446,726L445,727L444,729L443,730L442,731L439,732L433,734L430,735L429,736L426,738L425,739L424,740L423,741L423,741L423,742L424,743L424,743L424,743L425,743L425,742L425,742L426,742L425,743L425,747L424,748L424,749L423,752L422,753L421,758L419,760L419,761L417,762L416,763L416,763L415,763L411,766L410,768L408,770L407,772L405,774L404,776L402,778L400,781L399,781L398,782L396,783L393,786L391,788L388,790L386,791L383,793L382,794L379,796L377,797L374,798L372,799L369,798L368,799L367,799L367,801L366,801L365,801L363,800L362,800L361,801L361,802L359,802L356,801L353,801L352,801L350,801L350,801L347,801L346,801L344,801L343,801L342,801L339,803L337,803L336,804L335,804L334,803L333,803L332,804L332,804L330,804L329,804L326,806L325,806L325,806L323,806L322,805L321,805L321,805L321,804L321,804L321,804L320,804L320,803L318,803L318,803L318,804L318,803L318,803L318,802L318,802L317,802L317,801L316,802L316,802L315,802L315,802L315,803L315,803L314,802L314,802L314,801L315,800L315,800L315,799L314,798L314,797L313,796L312,795L312,795L312,794L311,794L311,793L311,792L312,792L312,792L313,792L314,792L314,790L315,789L314,788L314,785L313,784L312,783L310,780L308,776L307,773L305,769L303,766L301,763L301,763L300,762L298,760L297,760L296,758L293,754L293,753L292,751L292,750L291,749L292,748L292,748L291,747L290,746L290,744L289,742L290,741L289,739L289,739L289,737L289,735L288,734L287,731L287,730L287,727L287,726L287,724L286,723L286,722L286,721L287,722L287,722L287,721L287,720L287,718L285,716L283,713L282,712L282,711L279,707L277,704L277,702L276,700L271,692L270,691L268,689L268,689L267,687L266,685L265,684L265,681L265,680L266,677L266,676L266,674L266,670L265,670L265,669L266,669L267,668L267,668L267,667L268,665L269,660L270,656L271,654L272,651L274,648L275,646L276,646L278,645L280,643L280,642L281,639L281,637L282,633L282,633L281,631L281,630L280,629L279,629L279,627L278,626L277,624L277,623L277,622L276,621L276,620L275,618L275,618L275,617L276,617L276,617L275,618L275,618L278,616L278,615L278,615L278,614L278,613L276,609L274,604L274,602L271,600L270,598L270,597L269,596L270,596L270,596L272,595L273,595L275,594L276,594L275,594L274,594L273,594L273,595L271,595L271,595L270,595L270,594L269,594L269,593L269,593L268,592L269,592L269,591L269,590L268,589L267,588L267,587L267,587L267,587L266,586L266,586L266,585L265,585L265,584L265,583L262,581L262,581L260,579L259,578L259,577L258,576L256,575L256,574L254,572L251,570L249,568L249,568L249,568L251,569L252,569L252,568L251,568L250,568L249,567L249,567L248,567L248,566L248,566L248,565L247,564L246,564L246,563L246,563L247,564L247,564L247,563L246,563L246,563L245,562L245,562L245,561L244,559L244,559L246,561L246,561L247,561L248,561L247,561L247,560L247,561L246,561L246,560L246,560L246,559L246,559L246,559L246,559L245,559L244,559L243,557L243,557L242,556L242,556L241,553L242,553L242,554L243,554L243,554L244,554L244,554L245,553L246,551L246,549L246,548L246,547L246,546L246,546L247,547L247,547L247,548L248,548L249,548L250,549L250,548L251,547L251,547L250,547L248,547L247,546L247,545L246,545L246,544L247,544L248,544L248,544L248,544L248,544L248,544L248,543L248,541L248,541L248,541L248,540L247,540L247,540L247,539L247,538L248,537L249,537L249,536L249,535L250,534L250,533L250,531L250,529L250,528L251,526L251,525L251,524L251,523L249,522L250,521L249,521L249,520L248,519L248,519L249,519L250,519L250,519L249,518L249,518L249,517L249,517L249,518L248,518L248,517L248,517L248,518L247,518L247,518L247,518L246,518L246,518L246,518L245,518L244,517L244,516L243,516L243,515L243,514L243,514L243,513L243,513L242,513L242,513L242,513L241,513L241,513L241,514L241,514L240,513L240,513L241,512L240,512L240,512L240,512L239,512L239,511L239,511L238,511L238,511L239,513L238,513L236,513L234,514L233,513L233,513L232,512L232,513L232,513L232,513L230,513L230,513L229,512L229,512L229,512L230,513L229,513L228,514L228,514L227,514L227,513L227,512L227,512L226,512L227,512L227,513L227,514L227,514L226,515L226,515L225,515L225,514L225,514L225,514L225,515L224,515L224,515L223,515L222,515L222,515L223,514L223,514L222,514L222,515L222,515L221,515L220,515L220,514L219,514L217,512L217,511L216,510L216,510L216,508L216,508L216,508L216,508L216,508L216,508L216,507L216,507L216,506L217,506L217,506L217,506L216,506L215,505L214,505L214,505L215,505L216,505L216,504L216,504L216,504L215,504L215,504L215,504L215,504L214,504L214,504L214,503L214,503L213,503L212,501L210,500L209,498L206,498L201,498L201,497L201,497L202,497L203,496L203,496L201,497L201,497L200,498L196,498L195,498L192,498L188,498L187,498L184,499L183,499L183,499L182,500L182,500L181,501L180,502L179,501L176,501L173,503L171,503L170,504L169,504L168,505L166,505L162,506L161,506L160,507L158,508L158,508L156,507L155,506L153,506L151,505L150,505L150,505L149,504L149,504L150,504L151,504L150,504L150,504L149,504L150,503L149,503L149,503L148,504L148,504L144,503L143,503L142,502L140,502L139,502L138,503L142,503L142,503L143,503L138,503L136,503L135,503L135,503L133,502L133,502L132,503L133,503L134,503L135,503L131,503L128,503L127,504L123,505L121,505L120,506L119,506L118,507L116,507L115,507L114,507L112,506L110,505L104,501L102,499L100,497L95,492L94,491L93,490L92,490L92,489L91,488L90,487L88,486L86,484L86,484L85,482L83,481L80,480L79,479L79,479L80,478L79,477L80,476L79,476L79,477L78,477L77,476L77,476L77,475L77,474L76,473L76,472L75,472L75,471L74,470L74,470L75,470L75,470L76,470L76,470L77,469L77,469L77,469L77,469L76,469L75,469L75,469L75,468L75,468L75,467L76,467L76,467L75,467L75,466L74,465L74,465L75,464L75,464L74,463L74,463L74,462L73,461L72,461L72,460L72,459L72,459L72,458L72,458L72,458L71,458L70,457L70,457L70,456L70,456L69,456L69,456L67,455L66,452L66,451L66,451L66,450L66,451L65,450L65,449L65,449L65,449L64,448L64,449L63,450L63,450L63,449L63,448L63,448L63,447L63,447L62,448L62,448L62,447L62,446L61,446L61,446L61,445L61,445L61,445L61,444L61,444L60,444L60,444L61,444L62,443L63,443L63,443L63,443L62,442L62,442L61,443L61,443L60,442L60,441L61,441L61,441L63,441L63,441L63,441L64,440L64,440L63,440L63,440L61,440L60,440L59,441L58,441L57,441L58,440L57,440L57,439L56,439L55,439L55,438L55,437L55,437L55,437L55,437L54,437L52,435L52,435L52,434L52,434L53,434L54,433L54,434L54,434L54,434L54,433L54,433L53,433L53,433L53,433L52,433L52,433L52,433L52,433L52,432L52,431L52,430L52,430L53,429L52,427L53,427L54,426L54,427L54,427L54,428L55,428L56,428L57,428L57,428L57,428L59,428L60,428L61,428L62,428L63,428L63,428L62,427L60,427L57,427L56,428L55,428L55,427L55,426L54,425L54,424L53,423L53,423L54,422L54,422L55,422L54,422L54,422L53,422L53,421L53,420L52,419L52,418L51,416L51,416L50,416L50,416L49,416L49,415L50,415L52,414L54,412L57,409L57,408L58,404L58,403L59,402L60,399L61,397L63,395L63,392L64,389L64,387L64,385L64,383L63,382L62,380L62,380L62,380L63,380L64,379L63,379L64,377L65,375L65,374L65,373L65,372L64,370L64,369L64,369L64,369L63,370L63,370L63,368L62,366L62,365L61,366L61,366L60,368L60,367L61,363L63,359L64,357L65,356L66,356L68,354L68,353L69,352L70,351L70,351L70,350L71,348L72,347L73,346L73,346L73,345L73,345L73,346L72,346L72,346L73,345L74,344L75,344L79,341L80,341L81,339L82,338L82,336L83,334L84,333L85,331L85,330L86,329L87,328L87,328L89,327L90,327L92,326L93,325L94,324L95,322L96,320L97,318L98,318L99,317L100,316L102,316L106,316L109,315L110,315L111,314L113,312L116,311L117,310L120,308L121,306L122,305L123,304L124,303L125,301L125,300L124,299L124,299L124,298L124,297L125,295L125,293L127,291L129,288L130,287L130,285L131,284L134,282L136,280L136,280L138,279L143,278L146,277L148,276L149,275L152,270L156,263L156,263L158,263L158,263L159,262L160,262L161,262L160,263L160,263L160,265L161,266L163,267L164,268L166,269L168,268L169,269L170,268L170,269L172,269L173,269L174,269L174,268L175,268L174,269L175,269L175,270L175,270L176,270L176,270L178,271L179,271L180,271L181,271L182,271L184,270L185,269L186,268L187,268L188,267L191,266L192,266L193,267L193,267L194,266L195,265L196,264L197,264L199,263L200,262L202,262L207,262L209,262L211,262L213,261L213,261L217,261L218,260L225,261L225,261L226,262L227,263L228,263L229,263L231,262L233,262L234,261L235,260L236,260L236,261L238,261L240,261L240,261L240,260L242,260L243,261L244,262L244,262L246,262L249,262L250,261L252,260L252,260L256,259L256,259L257,259L257,260L256,260L257,260L257,260L257,260L257,260L258,260L258,260L259,260L259,261L260,263L260,263L260,264L261,263L261,263L263,262L264,261L264,261L265,262L265,263L264,263L264,264L263,266L262,266L261,267L261,267L261,268L261,269L261,270L262,271L262,271L264,272L264,273L264,274L264,274L264,275L263,277L263,278L262,279L260,280L258,282L258,282L257,283L257,284L257,284L258,286L259,287L260,287L261,287L261,288L261,288L262,288L263,288L263,288L264,288L264,290L265,290L265,290L265,290L265,291L265,291L265,291L266,291L267,291L268,292L269,292L272,294L273,294L275,294L277,293L278,293L280,294L281,294L282,294L284,295L285,295L286,296L286,296L291,297L291,298L292,299L292,301L292,302L293,303L294,304L294,305L295,305L297,306L299,306L302,306L305,307L309,308L310,309L311,310L315,312L316,313L318,313L319,313L321,312L322,311L323,309L324,308L324,307L324,306L324,305L323,304L323,303L323,301L323,300L323,299L324,298L325,296L327,295L330,293L331,293L332,293L333,292L334,292L335,292L337,292L338,292L339,293L341,293L342,293L343,294L343,295L343,296L343,296L345,297L348,297L349,297L350,298L350,298L353,298L354,298L355,298L356,298L356,299L357,300L357,300L358,301L359,301L362,300L366,301L368,301L371,301L374,303L374,303L376,303L377,303L380,303L382,304L383,304L384,305L385,305L385,304L386,304L387,303L389,301L390,301L391,301L391,301L392,300L392,300L392,299L392,299L393,299L396,298L395,298L393,299L394,299L395,299L396,298L396,298L396,297L397,297L397,297L400,298L400,298L402,297L402,297L402,297L404,298L403,299L402,298L402,298L401,299L402,299L403,300L404,300L404,300L405,300L405,299L405,299L404,299L405,299L405,299L407,300L407,300L408,300L409,300L409,300L411,299L411,299L411,300L412,299L414,299L416,298L417,297L417,297L418,296L419,295L419,295L420,292L420,290L420,286L421,285L421,283L421,282L421,282L421,281L421,280L422,279L422,276L423,275L423,273L423,271L424,271L424,270L424,270L423,268L423,267L423,266L423,265L423,265L423,264L422,264L421,263L421,260L422,260L422,259L421,258L420,257L421,256L421,255L422,254L422,253L422,253L422,252L421,252L420,253L420,253L419,254L419,254L419,254L418,255L417,255L416,255L414,255L414,254L413,254L412,254L411,256L409,258L409,259L408,260L406,260L406,260L404,261L403,261L402,262L400,261L399,261L399,260L397,259L397,258L395,258L392,257L391,257L390,257L388,257L387,258L388,260L387,260L387,261L387,262L387,262L386,262L386,262L385,262L383,263L382,263L380,262L379,262L379,262L379,261L378,260L378,260L378,259L377,259L377,260L376,260L376,259L374,259L373,259L373,260L372,260L372,260L371,260L372,259L370,260L369,260L368,260L368,260L368,260L368,260L369,259L371,259L371,259L372,258L372,258L373,257L372,257L369,258L367,258L367,258L366,258L366,257L367,257L367,257L368,257L368,256L367,256L367,255L366,255L366,255L366,254L365,253L365,253L365,253L365,253L365,251L365,251L365,251L363,250L363,250L362,250L362,249L361,249L361,250L361,250L360,249L359,249L359,249L359,248L360,248L360,247L359,247L359,246L360,246L360,246L361,246L361,247L361,248L361,248L361,248L362,248L362,247L362,248L363,248L364,247L364,247L363,247L363,247L362,246L362,246L362,246L362,245L362,245L362,245L363,244L363,244L362,243L362,244L362,243L362,243L362,243L362,242L361,241L361,241L361,240L361,240L362,239L362,239L361,239L359,239L358,240L357,240L357,239L357,239L357,238L357,237L357,236L358,235L358,234L360,232L361,232L362,232L363,232L363,232L363,232L364,232L366,232L366,232L366,232L366,231L366,231L366,231L367,231L367,231L367,231L367,232L367,232L369,231L371,231L372,231L373,231L374,231L373,230L373,230L372,230L372,230L373,229L373,229L376,228L378,228L378,228L378,228L375,228L374,227L373,227L373,227L373,226L373,226L373,225L373,225L374,224L378,225L380,224L383,225L386,224L386,224L387,222L390,220L391,218L392,218L394,217L396,216L397,215L402,215L405,215L406,214L407,214L407,214L407,214L407,215L408,216L408,216L410,216L412,215L412,216L413,216L414,217L415,218L416,218L416,218L416,218L417,218L418,217L419,218L420,218L422,219L424,219L425,219L428,219L429,219L430,218L433,217L436,217L436,217L437,217L438,217L438,217L440,215L441,214L442,214L442,214L444,212L444,211L445,209L445,208L445,208L445,207L444,206L443,204L442,202L441,202L439,202L439,201L437,200L435,200L435,200L433,199L431,198L431,198L428,197L427,196L423,193L422,193L420,193L419,193L417,191L416,191L416,192L415,191L415,191L414,191L414,190L413,190L411,189L410,189L409,189L409,189L411,188L411,187L410,187L410,187L410,187L410,187L410,187L411,187L412,187L412,187L413,187L415,186L415,186L414,185L414,185L414,185L414,185L414,184L415,183L415,181L415,181L415,181L416,181L416,182L416,181L416,180L417,180L417,180L418,180L416,179L415,178L414,178L414,178L413,177L413,177L413,176L414,177L414,176L415,176L415,176L416,176L416,175L416,175L417,174L417,174L419,172L420,172L420,172L420,172L419,171L419,170L418,171L417,171L416,172L416,172L416,171L416,171L416,171L415,171L415,172L414,173L414,173L412,173L410,174L410,175L409,175L408,175L408,176L407,177L407,177L406,177L405,177L405,178L404,178L403,178L402,179L400,181L400,182L400,182L399,183L399,183L399,183L400,182L400,182L400,181L400,181L399,180L399,182L398,182L398,183L398,184L398,184L399,185L400,186L401,188L402,188L403,189L403,189L404,188L405,188L406,188L406,187L406,187L407,187L408,187L409,187L409,188L408,188L408,189L408,190L408,190L407,190L406,191L405,190L405,190L404,190L404,190L403,190L403,191L402,192L402,193L401,193L400,193L398,194L398,196L397,197L396,197L395,197L394,197L393,196L393,196L393,196L393,195L393,193L393,193L393,192L392,191L391,192L391,192L389,191L388,191L387,191L387,191L386,190L388,189L389,187L390,187L391,186L392,185L392,185L391,184L391,185L390,185L389,184L389,184L388,185L387,185L385,185L384,185L382,184L382,184L381,184L381,184L381,184L382,184L382,184L382,183L382,183L381,183L380,183L380,183L379,183L380,182L381,183L383,182L384,183L384,182L385,182L385,181L384,182L382,182L382,182L381,181L381,181L381,180L381,179L380,178L380,178L379,177L380,178L380,179L381,179L381,181L381,182L380,182L380,182L379,182L379,181L379,181L378,182L378,182L377,182L375,183L375,184L375,185L375,185L375,185L374,187L374,187L373,189L373,189L372,189L372,190L371,190L370,190L370,190L370,190L370,191L371,191L371,193L371,194L371,194L371,194L371,196L371,196L371,197L368,198L368,197L368,197L368,197L368,196L368,196L367,196L367,197L367,197L367,198L367,198L367,199L367,199L367,199L368,199L367,200L367,201L366,202L367,204L367,205L367,206L367,208L367,209L366,208L365,209L364,210L364,210L364,210L364,212L364,214L364,214L363,214L362,216L363,217L363,217L364,218L365,219L366,220L366,220L366,221L367,223L368,223L372,225L373,225L373,225L373,226L372,226L371,227L368,226L368,226L367,226L366,227L365,227L364,227L363,229L363,230L361,231L360,232L358,233L358,235L357,235L357,235L357,235L357,234L357,234L357,233L358,233L358,232L360,231L360,231L359,231L357,231L357,231L356,231L356,230L355,230L355,230L354,229L352,229L351,229L350,229L349,229L349,229L348,230L347,230L346,229L346,229L345,230L344,231L344,231L343,231L342,231L342,232L342,232L343,233L342,233L343,234L343,234L344,234L345,234L345,235L346,235L345,235L344,234L344,234L343,234L342,234L342,234L342,235L342,235L343,236L343,236L344,236L344,237L343,237L343,237L342,235L340,235L340,235L340,236L340,236L342,237L342,237L342,237L340,237L340,236L339,235L338,235L337,234L336,233L337,233L337,233L336,233L336,233L335,233L335,234L335,234L335,235L335,236L335,237L337,239L337,240L338,240L339,241L340,242L340,242L340,243L340,244L339,244L339,244L339,243L339,243L338,242L338,242L337,243L338,243L338,244L338,245L339,244L338,245L337,246L336,246L336,246L336,246L336,246L337,246L337,246L339,247L339,247L340,247L341,248L342,248L343,249L344,250L345,250L345,250L345,251L345,252L346,253L346,254L346,254L346,254L345,255L345,254L344,253L343,252L342,252L342,252L342,252L340,253L340,253L339,253L339,253L340,254L340,254L340,255L341,255L341,255L341,255L342,255L342,256L342,256L342,256L342,257L341,257L341,257L341,257L340,257L340,257L340,256L339,256L338,256L338,256L338,256L338,257L339,258L340,260L340,261L340,262L340,263L341,264L341,264L341,264L340,264L340,264L339,263L338,262L338,262L337,262L337,264L337,265L336,264L336,264L336,263L336,263L335,261L335,261L334,261L334,260L333,260L333,261L333,261L333,262L333,263L332,262L331,260L331,259L331,258L331,258L330,256L329,256L329,256L329,255L328,254L328,254L327,254L328,254L329,253L329,251L329,251L330,252L331,252L331,251L332,250L332,250L334,251L336,252L337,252L338,253L338,253L339,253L339,252L338,252L339,252L340,252L340,252L340,251L340,251L339,251L339,251L339,251L338,251L338,251L338,250L337,250L336,250L335,249L335,250L335,250L334,250L332,250L331,250L331,250L330,250L330,250L329,250L329,250L329,249L328,249L328,250L328,250L328,250L327,250L327,249L326,248L325,247L325,247L325,246L325,246L325,246L327,246L327,246L327,246L327,246L327,245L326,245L326,245L326,245L325,245L324,245L324,245L323,244L323,244L322,243L321,241L320,241L320,240L320,240L319,239L319,238L316,237L316,236L315,236L315,235L315,235L316,235L316,235L316,235L316,235L315,233L315,233L315,232L316,231L316,230L316,229L316,228L315,227L316,226L316,226L316,226L316,224L315,224L315,224L314,223L313,223L312,221L310,220L310,220L310,220L310,220L310,220L310,220L310,220L308,219L307,218L305,217L304,217L302,216L301,216L301,216L302,215L305,217L304,216L304,216L304,216L302,215L301,214L300,213L298,212L297,212L296,212L295,212L295,212L294,212L294,212L294,211L294,211L294,210L293,210L292,209L290,207L289,206L290,206L290,206L290,206L291,206L291,206L291,206L290,205L289,204L288,203L288,202L288,201L288,200L287,199L286,198L285,198L285,198L284,199L284,200L284,201L283,201L283,202L282,202L282,202L282,201L281,200L281,199L281,199L280,197L281,197L281,197L281,196L282,196L281,195L281,195L280,195L279,195L278,195L278,195L278,196L277,196L276,197L275,197L275,197L274,197L275,197L274,197L274,197L273,197L273,198L273,199L273,199L274,200L275,201L274,201L274,202L274,202L273,202L273,202L273,203L273,205L274,207L274,207L275,208L277,209L279,211L280,211L280,212L281,213L282,215L283,217L283,218L284,220L286,222L288,223L290,224L291,224L295,224L295,224L296,224L296,225L296,225L295,226L294,226L294,227L295,228L298,229L302,230L303,231L304,232L307,233L307,234L309,236L310,237L310,238L310,238L310,239L309,240L309,240L308,239L306,236L304,236L304,236L303,236L303,235L302,235L302,235L301,235L301,235L300,236L299,238L298,240L298,241L299,241L300,242L301,243L302,243L302,245L303,246L302,247L301,247L300,247L299,248L299,249L299,250L299,251L297,252L296,253L296,254L296,255L294,255L293,254L293,253L294,252L294,252L295,250L295,249L295,249L295,249L296,248L297,248L297,247L296,246L296,245L295,244L294,242L294,240L293,239L293,238L291,238L291,238L289,237L289,237L289,236L289,236L289,235L288,235L288,234L288,234L287,234L286,234L286,234L285,234L285,234L286,233L286,233L285,233L284,233L284,232L283,233L283,233L283,232L282,230L281,229L281,229L280,229L279,229L278,229L278,229L278,229L277,229L277,229L276,228L275,228L272,225L272,224L270,223L269,221L268,221L267,220L267,220L266,220L266,220L266,220L266,220L266,220L266,219L265,218L264,217L264,217L264,216L264,216L263,216L263,216L263,216L263,215L263,215L263,214L262,213L262,212L261,209L261,208L260,208L258,207L256,205L255,205L254,205L253,205L252,205L250,207L249,208L248,208L247,209L245,209L244,210L244,210L242,211L241,212L241,212L240,213L240,213L239,213L238,214L237,214L237,214L235,214L235,213L233,213L233,212L232,212L231,212L231,211L231,211L231,211L231,211L230,211L230,211L230,211L230,211L230,211L230,211L229,211L229,211L227,211L227,210L226,210L226,210L226,210L226,209L225,209L225,209L224,210L224,210L221,212L220,213L219,214L219,215L219,217L220,218L220,218L220,218L220,218L220,219L220,219L219,219L219,220L219,220L219,220L219,220L219,222L219,222L218,223L213,225L212,226L212,226L209,226L207,227L205,227L204,228L203,229L204,229L204,230L204,230L203,230L203,230L203,230L202,230L201,232L199,234L198,235L198,236L196,238L196,239L196,242L196,242L197,243L198,244L198,244L198,245L196,245L194,246L193,247L193,248L192,248L192,250L191,250L191,251L191,251L191,252L191,252L191,253L190,253L190,253L187,252L185,254L184,255L183,257L182,258L181,258L180,258L179,257L179,257L178,258L177,258L177,258L175,257L174,257L173,258L172,257L171,257L167,257L167,257L166,257L165,258L164,258L162,258L162,259L161,260L160,260L160,260L160,260L160,260L160,261L159,261L159,261L158,260L157,260L156,259L156,258L156,257L155,257L156,256L155,256L155,256L155,255L156,254L156,254L156,254L156,254L155,254L155,253L153,251L153,251L153,250L152,251L152,251L151,251L149,251L149,251L146,252L146,251L145,251L143,250L142,250L141,250L140,250L140,250L139,250L140,249L141,247L141,246L142,245L142,244L142,243L143,242L143,241L143,239L144,240L144,239L143,239L143,239L142,239L141,239L141,239L141,239L141,238L141,238L141,237L142,237L142,237L143,237L143,236L143,235L144,235L144,235L143,235L142,236L142,237L141,237L140,237L140,237L140,237L140,236L140,236L140,235L141,234L141,233L141,233L141,232L142,232L142,232L143,231L144,229L146,227L146,226L146,226L146,226L147,223L147,223L148,222L148,221L149,220L149,220L149,219L149,218L149,216L149,215L149,215L149,215L149,214L149,214L149,213L149,213L149,213L149,212L150,211L151,211L150,210L150,210L150,210L150,210L151,209L150,209L150,209L150,208L151,208L151,208L150,208L149,208L149,207L150,207L150,206L150,206L149,206L149,205L149,205L149,204L150,203L150,203L151,203L152,202L153,203L153,203L154,202L155,202L155,202L155,202L155,201L156,201L156,201L157,200L158,200L159,200L160,201L160,201L161,201L161,202L162,202L163,202L165,202L166,203L167,203L168,203L169,203L170,203L172,204L173,204L176,205L177,206L179,206L180,205L181,206L182,205L182,206L183,206L185,207L185,207L186,206L187,207L189,208L189,208L191,208L192,208L192,208L193,207L194,207L195,203L196,199L197,198L198,198L197,198L197,198L197,198L197,198L198,195L198,193L199,192L199,193L200,193L200,194L200,195L200,196L201,196L201,196L200,196L200,193L200,193L200,192L198,191L198,190L198,190L199,190L199,190L199,190L199,190L199,189L199,187L199,186L199,186L199,186L198,186L198,186L196,184L196,183L195,182L195,181L195,181L196,180L195,179L195,179L195,179L195,178L195,178L196,178L196,178L197,179L197,179L196,178L194,178L194,178L193,178L193,177L194,177L194,176L194,176L193,176L193,176L192,176L192,176L193,175L192,175L192,175L191,175L191,175L190,174L190,174L190,174L190,174L189,174L189,174L189,174L187,173L186,172L185,173L185,172L184,172L184,171L183,171L183,170L184,170L185,170L185,170L185,169L184,169L184,169L184,169L184,169L184,169L185,169L186,169L186,169L185,168L185,168L184,168L184,168L183,168L183,168L183,167L184,167L185,166L187,166L188,166L189,166L190,166L191,166L192,166L193,166L194,168L194,168L196,168L198,168L198,168L198,168L199,168L199,168L199,168L201,168L201,168L201,168L201,167L201,164L201,163L200,162L200,161L200,161L200,160L201,160L202,161L203,160L203,161L203,161L203,162L203,162L204,163L205,163L206,163L207,164L209,164L209,164L210,164L212,163L212,163L211,163L210,163L210,162L210,162L211,161L213,160L215,160L217,160L218,159L218,158L219,158L219,158L219,158L219,154L220,154L220,153L221,153L221,153L224,152L225,152L227,151L228,151L229,150L229,150L230,150L231,151L232,151L232,151L233,151L233,151L233,151L232,150L231,150L231,150L230,150L230,150L230,149L230,149L230,149L231,149L232,149L233,150L233,150L234,150L234,150L233,150L233,149L233,149L233,149L233,149L233,149L232,147L233,147L233,147L233,146L234,146L234,146L235,145L236,144L236,143L237,140L237,140L238,139L238,139L238,140L239,139L241,138L241,138L242,137L243,137L244,136L246,136L247,136L248,136L248,137L249,137L249,137L250,138L250,137L249,137L249,136L249,136L250,135L250,135L252,135L254,135L255,136L254,136L255,137L255,137L255,136L255,136L255,135L256,136L256,136L256,137L256,136L256,135L256,134L257,134L257,134L258,134L260,134L260,134L262,136L262,136L262,136L262,136L260,134L260,134L259,133L259,133L258,133L258,133L259,131L258,130L258,130L258,130L257,130L257,130L257,130L258,129L259,129L259,129L259,128L258,128L258,127L258,125L258,125L257,124L258,124L258,123L258,122L257,121L256,121L256,118L256,118L256,117L256,115L256,113L257,113L257,113L258,114L258,114L258,114L259,114L259,114L259,113L260,112L260,112L261,112L261,112L261,113L261,112L262,111L261,110L260,110L260,111L259,113L259,113L258,113L257,113L257,112L257,112L257,111L258,111L259,110L260,110L260,109L261,109L262,110L263,109L263,109L264,107L265,106L266,106L268,105L268,105L267,106L267,106L267,107L268,108L267,108L267,109L267,110L266,111L266,111L266,112L266,112L266,114L267,114L267,114L269,114L269,115L269,115L269,116L269,116L268,116L267,117L267,117L267,116L266,116L266,117L266,118L265,119L265,119L265,119L265,119L264,119L264,119L265,120L264,120L264,120L264,121L263,121L263,121L262,122L263,122L263,123L263,123L263,124L262,125L262,125L262,125L262,125L263,125L263,126L263,126L263,127L264,127L264,127L264,128L264,129L264,129L263,129L265,129L265,130L265,130L266,130L267,131L268,130L269,130L269,131L269,132L268,132L268,133L268,133L269,133L270,133L271,133L272,132L272,132L274,132L274,131L275,131L275,131L276,130L277,130L278,130L278,130L279,131L280,132L282,132L282,133L282,134L283,135L283,135L284,135L285,136L286,136L286,136L286,135L286,135L286,134L285,134L284,134L283,134L283,134L283,134L283,133L282,133L282,133L282,132L282,132L283,133L284,134L284,134L285,134L286,133L289,132L292,131L293,131L293,131L294,131L294,130L294,130L295,129L297,129L297,128L298,128L301,127L302,127L303,127L304,127L306,128L306,128L305,128L304,127L304,127L305,129L305,130L306,130L307,130L309,130L310,129L310,129L310,129L311,128L311,127L311,126L311,126L312,125L313,125L314,125L314,124L315,123L315,123L316,122L316,121L316,121L316,120L316,121L316,121L316,122L315,124L314,125L314,125L315,125L315,126L316,126L317,125L317,124L317,123L317,122L317,121L316,120L316,119L315,117L315,117L315,116L315,113L315,111L316,111L316,110L316,109L316,108L316,108L317,106L318,105L319,105L321,104L321,105L321,105L323,107L324,107L325,109L326,109L328,109L328,109L329,108L329,107L329,107L329,104L328,103L328,103L328,102L329,101L329,100L329,100L329,99L329,99L328,99L328,99L328,99L328,100L327,100L327,100L325,99L325,99L325,98L324,98L324,97L324,97L324,96L325,96L324,96L324,96L324,96L323,95L324,95L324,95L323,95L323,94L324,94L323,93L324,93L325,93L326,92L326,92L326,92L327,91L328,91L329,90L331,90L331,90L331,90L331,89L332,89L333,89L335,90L336,89L337,90L338,90L339,90L342,90L342,89L342,89L342,89L342,88L342,88L342,87L342,87L342,87L343,88L343,87L343,87L343,86L344,87L344,87L345,86L345,86L345,86L345,86L346,85L346,85L348,85L350,85L350,85L350,85L350,84L349,84L349,84L348,83L347,83L346,84L345,84L344,83L343,83L342,82L342,81L343,82L343,81L343,81L342,81L342,80L341,81L339,82L339,82L339,82L338,82L338,82L337,82L337,82L337,82L336,83L335,83L335,83L335,83L334,83L334,82L335,82L334,82L334,82L334,82L334,83L334,83L333,83L332,83L332,83L332,83L333,84L333,84L332,84L332,84L332,85L331,85L331,84L331,85L330,85L330,85L329,85L328,86L328,86L327,86L327,87L326,87L326,87L325,87L324,88L323,88L322,88L322,88L321,89L321,89L320,89L321,89L321,88L321,88L321,87L321,87L321,87L320,87L320,86L320,86L320,86L320,87L320,87L319,87L319,87L319,88L318,88L318,87L318,87L318,87L318,87L318,86L318,86L318,86L319,86L319,86L318,86L318,86L318,85L318,85L318,85L318,85L317,85L316,84L315,84L315,84L315,84L314,84L314,84L313,84L313,83L313,83L313,83L313,82L313,81L313,80L313,80L313,80L313,79L313,78L313,78L313,77L313,77L313,77L313,77L313,77L313,77L313,77L313,77L313,77L313,76L313,76L313,75L312,74L312,74L312,73L312,72L312,72L312,71L311,71L311,70L310,69L310,69L311,68L311,68L312,67L312,66L312,66L312,66L312,65L312,65L313,65L313,65L314,64L314,64L314,64L314,63L314,63L314,63L314,63L314,63L314,63L315,63L315,62L315,61L316,61L317,60L317,60L317,59L318,58L318,58L319,58L319,57L319,57L320,56L320,55L321,54L321,53L321,53L321,53L322,52L322,52L323,52L323,52L324,52L323,52L323,51L323,51L324,51L324,50L323,50L323,50L323,49L323,48L323,48L322,47L321,46L321,46L320,46L320,46L320,45L320,45L320,45L320,45L319,46L319,46L318,46L317,46L317,46L316,46L316,46L315,46L315,46L315,46L314,46L313,46L313,46L313,46L312,46L312,46L312,46L312,46L312,47L312,47L312,47L312,48L311,48L311,48L312,48L312,48L311,48L311,48L311,48L311,49L311,49L311,49L310,49L310,49L310,49L310,50L310,50L310,50L310,50L310,50L310,50L309,50L309,50L309,50L310,50L310,51L310,51L310,51L310,52L309,53L309,53L309,54L309,54L309,54L310,55L310,55L310,56L310,56L310,57L310,57L309,58L308,60L308,61L307,61L307,61L306,62L305,62L305,63L305,63L304,64L304,63L304,63L304,64L304,64L303,63L303,64L303,64L302,65L301,65L301,65L301,65L301,65L301,66L301,66L301,66L301,66L300,66L300,67L300,67L300,67L299,67L300,67L300,67L300,68L300,68L299,68L299,68L299,69L299,69L299,68L299,68L298,68L298,68L298,68L298,68L298,69L298,69L298,69L298,70L298,70L298,70L299,70L298,70L298,71L297,71L297,71L297,71L297,71L296,71L296,71L296,71L296,72L297,72L297,73L297,73L297,73L297,74L296,75L296,75L296,76L297,76L297,77L296,77L296,76L296,77L295,77L296,78L296,78L296,79L296,79L296,79L296,80L296,80L296,81L296,82L296,82L296,83L296,83L296,84L297,84L297,84L298,84L298,84L298,85L298,85L298,85L299,85L299,85L300,85L300,86L301,86L301,86L302,87L302,88L302,88L303,88L303,88L303,89L304,89L304,90L304,90L304,91L303,91L303,92L302,92L302,92L301,93L301,93L301,93L301,93L300,93L300,94L301,94L301,94L301,93L301,93L302,93L302,93L302,93L302,93L303,94L302,94L302,94L302,95L301,95L301,95L301,96L300,96L299,96L299,96L299,97L298,97L297,98L296,98L296,99L294,99L293,99L293,99L293,99L293,99L294,99L295,99L295,99L296,100L295,100L295,100L295,101L295,102L295,102L295,104L294,104L294,105L294,105L294,106L295,107L295,107L295,108L294,109L294,110L294,110L294,110L294,111L294,112L294,113L293,114L293,115L292,117L292,117L291,117L291,117L290,117L290,117L289,117L288,117L287,117L286,117L286,118L286,118L286,118L285,118L285,119L284,119L284,120L284,120L284,121L285,122L284,123L283,123L282,123L280,123L278,123L278,122L278,122L278,121L278,121L278,120L278,120L278,119L277,117L276,117L276,116L276,116L277,117L277,117L277,116L277,116L277,116L277,115L277,115L278,115L278,115L278,114L277,114L277,113L277,112L276,112L275,109L274,108L274,108L274,107L274,106L274,106L273,106L273,105L273,104L272,104L272,103L272,101L271,101L271,101L271,100L271,100L271,99L271,97L271,97L271,96L271,96L271,96L271,96L272,96L272,96L272,95L271,95L271,95L270,95L270,95L269,95L269,94L269,93L269,93L269,92L269,91L269,91L268,91L268,92L268,92L268,92L268,93L268,93L268,93L268,94L267,96L267,96L267,96L266,96L266,96L265,96L265,96L264,95L264,95L264,96L265,96L264,96L264,96L264,97L263,97L263,97L263,98L262,98L262,98L262,98L261,99L259,101L258,101L257,102L257,102L256,102L254,103L253,102L252,103L252,102L252,102L252,102L252,102L252,102L251,102L251,102L251,102L251,102L251,102L250,102L251,101L251,101L251,101L251,101L251,101L250,101L250,101L248,100L248,99L247,99L247,98L246,97L247,96L247,95L247,95L248,95L249,96L249,96L250,96L250,95L250,95L249,96L249,95L248,95L248,94L249,94L249,94L249,93L249,93L249,93L250,92L250,92L251,91L251,91L250,91L250,92L249,92L248,93L248,93L248,93L247,93L247,94L246,94L245,94L245,93L246,92L246,91L246,90L247,90L247,90L247,90L248,90L248,90L249,90L249,90L250,89L250,89L250,89L249,89L249,89L248,89L248,89L249,88L250,88L250,87L250,87L250,87L250,86L251,85L252,85L252,85L252,87L252,87L253,85L253,85L253,85L254,85L254,84L253,85L251,85L251,85L250,86L250,86L249,87L249,87L249,88L248,88L248,88L247,89L247,89L246,90L246,90L246,90L246,90L246,90L246,90L246,89L246,88L246,88L246,87L246,87L247,87L247,87L248,87L248,87L248,87L248,87L247,87L247,86L247,85L246,84L247,84L248,83L249,83L249,83L248,83L247,84L247,83L246,83L246,81L247,81L247,80L247,80L247,80L248,80L249,80L251,80L252,80L252,80L253,80L254,80L254,80L255,81L255,81L255,81L255,81L255,81L255,80L257,80L257,80L256,79L256,79L257,78L257,78L256,78L256,79L256,79L256,80L255,80L254,80L254,80L253,79L253,79L253,79L253,79L253,79L253,80L252,80L251,80L249,80L248,80L248,80L247,79L247,79L247,78L247,77L248,77L248,77L248,77L248,77L248,77L248,76L247,76L247,75L247,75L247,74L247,74L248,74L249,74L250,75L251,75L253,75L254,75L254,74L253,75L252,75L250,74L249,74L249,74L248,74L248,73L248,72L249,72L249,72L249,72L249,72L250,72L250,71L251,71L251,71L251,70L252,71L252,71L252,71L253,71L254,71L254,71L255,70L254,70L253,71L252,71L252,70L253,70L253,70L253,69L253,69L254,69L254,69L255,69L256,69L257,69L258,70L258,70L258,70L259,70L258,69L258,69L258,69L259,69L260,69L260,68L258,69L257,68L256,68L256,68L255,69L255,68L255,68L256,67L256,67L256,67L258,66L258,66L259,66L259,66L260,66L260,66L261,67L261,67L262,68L262,68L261,67L261,66L261,66L261,65L261,65L262,65L263,64L263,64L263,64L262,64L262,64L262,63L262,63L263,63L263,62L264,62L265,63L265,63L264,63L264,64L265,64L265,63L266,63L266,63L267,63L267,63L267,64L268,64L268,64L268,64L268,64L269,64L269,64L270,64L271,64L271,64L271,63L270,63L271,63L271,62L272,62L272,62L273,62L273,61L273,61L273,61L273,61L272,61L273,60L274,60L273,60L273,60L273,60L272,60L271,61L272,61L272,61L272,62L269,63L268,63L268,63L268,63L267,63L267,62L267,62L266,62L266,62L267,61L267,61L268,60L268,60L268,59L269,59L270,57L271,56L272,56L272,56L273,55L273,55L274,55L274,54L274,54L274,55L273,55L273,54L273,54L274,53L276,52L277,52L277,52L278,52L278,51L279,51L279,51L278,51L278,52L277,52L277,52L277,51L277,51L277,51L276,51L276,50L277,49L277,49L277,48L278,47L278,47L279,46L279,46L280,46L279,46L279,45L279,45L281,45L282,45L282,44L283,44L283,44L283,44L282,44L281,44L281,44L281,44L280,44L280,43L280,42L280,42L280,41L281,41L281,41L281,41L282,40L282,40L283,40L283,40L282,40L282,39L282,39L282,39L283,39L283,38L283,38L284,38L284,38L285,38L285,38L286,37L288,37L288,37L287,37L286,37L285,37L285,37L284,37L284,37L285,36L285,36L285,35L286,35L287,35L287,35L288,35L288,36L288,36L288,36L288,36L289,35L288,35L288,35L287,35L287,34L287,34L287,34L287,34L287,33L286,34L286,34L286,34L286,33L286,33L286,32L287,32L287,32L288,32L288,32L288,32L288,32L287,32L287,31L287,31L288,31L288,30L289,30L289,30L289,30L290,30L290,31L290,32L290,32L290,32L290,31L291,31L291,31L290,31L290,31L290,30L290,29L291,29L291,29L292,29L292,29L293,29L294,29L294,28L294,28L294,28L294,28L294,28L294,28L293,28L291,28L291,28L291,28L291,27L291,27L292,27L293,27L294,26L294,25L294,24L294,24L296,23L296,23L295,23L295,22L296,21L296,21L296,21L296,21L297,22L297,22L298,22L298,22L297,22L297,21L297,21L297,21L297,21L298,21L298,20L298,20L298,20L298,20L299,19L300,18L300,19L300,20L300,21L300,21L300,21L301,19L301,18L301,18L301,18L301,18L302,17L302,18L302,18L302,19L302,20L302,20L301,22L301,22L302,22L302,21L303,20L303,20L303,20L303,20L303,20L303,19L303,18L303,18L303,18L304,17L304,18L304,18L304,17L305,17L306,17L306,18L307,18L307,18L306,17L306,16L305,16L305,16L305,15L305,15L305,15L306,15L306,15L307,15L307,14L307,15L307,15L308,14L308,14L309,14L309,14L309,15L310,16L310,16L310,16L311,16L311,16L310,16L310,16L310,15L310,15L311,14L312,13L312,13L312,11L313,11L313,11L313,11L312,11L312,10L313,10L313,9L313,9L314,9L314,9L315,10L315,10L315,10L315,10L315,9L316,9L316,10L316,10L316,10L317,10L316,10L316,11L315,12L315,12L315,14L315,14L315,15L315,15L316,15L316,14L316,13L317,11L318,10L318,9L319,9L319,9L319,10L319,11L319,11L319,12L319,12L319,12L319,13L320,12L320,12L321,11L321,10L321,10L321,10L322,9L321,9L321,9L320,9L321,8L321,7L322,7L322,8L323,8L324,8L324,9L324,9L324,9L323,10L323,10L323,10L324,10L324,10L324,11L324,12L324,12L324,13L324,13L324,12L324,12L325,11L324,10L325,9L325,9L325,9L326,8L326,9L327,9L327,9L328,9L328,10L328,10L328,10L328,9L329,9L329,10L329,10L330,10L330,10L331,10L332,11L332,11L332,12L331,12L331,13L330,13L326,14L326,14L329,14L329,15L329,15L329,15L329,16L330,16L330,16L331,16L331,16L331,16L331,15L331,15L331,15L332,16L332,16L332,15L332,15L333,15L333,15L334,15L335,15L335,15L335,15L336,14L336,14L336,14L336,14L336,14L336,13L337,14L338,14L339,14L339,14L339,15L340,15L339,15L339,15L337,15L337,16L337,16L338,16L338,16L339,16L340,16L340,16L340,16L340,17L340,17L341,16L341,16L341,16L342,17L342,17L342,17L342,18L341,18L341,19L342,19L342,18L342,17L342,17L344,17L344,17L346,17L346,17L347,17L347,16L347,16L349,16L352,17L356,19L359,20L359,20L360,20L360,20L360,20L363,21L364,21L364,21L364,21L364,21L364,21L365,21L366,22L367,22L367,23L368,23L368,23L369,23L370,25L370,25L371,26L371,26L372,26L372,26L372,28L372,29L371,32L371,33L369,35L367,36L366,36L364,36L363,36L362,36L361,36L360,36L359,36L355,36L355,36L353,35L352,35L352,35L351,35L351,35L351,35L350,35L349,35L349,34L348,34L348,35L348,35L347,34L346,34L345,33L345,33L345,33L344,32L342,33L342,33L343,33L344,33L344,33L344,34L345,35L346,35L346,35L346,35L347,35L347,36L347,36L348,36L348,37L349,37L349,37L349,37L349,37L349,38L349,38L349,38L351,38L353,38L354,39L354,40L355,40L355,41L355,41L355,41L355,43L355,43L354,44L355,44L356,45L357,46L357,47L357,47L358,48L358,48L358,48L358,49L359,50L360,50L361,50L361,50L362,50L363,51L364,52L365,52L366,52L367,52L369,52L369,52L369,52L370,51L371,50L370,50L370,49L369,48L369,48L368,48L367,48L367,49L366,48L366,48L364,47L364,46L363,46L363,46L363,45L363,45L364,45L363,43L364,43L364,43L366,43L368,45L368,45L369,45L369,44L370,45L370,45L370,45L372,45L374,45L375,45L375,45L375,44L375,44L376,43L376,43L377,43L376,42L375,42L375,42L373,40L373,40L372,39L372,39L372,38L373,37L373,36L374,35L374,35L375,34L376,33L376,32L376,30L377,30L377,30L377,30L378,30L379,30L379,30L380,30L381,30L382,30L382,30L382,31L382,31L382,31L383,31L383,31L383,31L384,31L384,32L384,31L384,31L383,30L383,29L383,28L383,27L382,26L382,25L382,25L381,24L380,24L379,24L379,23L379,23L378,22L378,20L377,18L377,18L377,17L377,17L376,16L376,16L373,15L372,15L372,14L372,14L373,14L375,15L375,15L378,13L379,13L380,13L382,14L383,15L385,16L385,17L384,17L384,18L382,19L382,19L381,21L382,21L382,22L383,22L384,22L386,23L387,24L387,24L387,24L388,24L388,24L389,24L389,24L389,24L391,22L391,22L391,21L391,20L390,19L390,18L390,18L390,17L390,17L391,16L392,16L392,15L391,15L391,15L391,14L391,15L392,14L392,14L393,12L394,11L394,11L394,10L395,9L395,9L396,8L396,8L397,7L397,7L397,7L398,7L398,7L398,8L398,8L399,8L399,8L399,7L399,7L399,6L399,6L398,6L398,6L397,6L398,5L399,3L399,2L400,1L401,1L401,1L400,2L400,2L400,3L400,3L401,3L401,3L401,3L401,4L401,4L402,5L403,5L403,6L402,6L402,6L401,7L401,7L402,7L402,7L402,7L403,7L404,7L404,6L404,6L405,6L405,6L405,6L406,6L406,6L405,5L405,4L406,3L406,2L407,2L407,1L408,1L409,1L410,1L410,1L410,0L600,0ZM184,31L185,31L185,31L186,31L186,30L187,30L187,30L188,30L188,30L187,31L187,31L186,31L186,31L185,32L185,32L185,32L186,32L186,32L186,33L186,33L186,33L186,33L186,34L185,34L185,34L185,34L185,35L186,35L186,35L186,35L186,35L186,35L186,35L186,36L185,36L186,36L187,36L187,36L187,36L187,37L188,37L188,37L188,37L188,37L188,38L187,38L187,38L187,38L187,38L187,38L187,39L187,39L187,39L187,39L187,39L187,39L187,39L186,39L187,40L187,40L187,40L187,40L186,40L186,41L186,40L185,41L185,41L185,41L185,41L184,42L184,42L184,42L183,42L183,42L183,42L182,42L182,43L182,43L182,43L182,43L181,44L181,44L180,44L180,44L179,44L178,44L177,44L176,44L175,44L174,45L173,45L172,46L172,46L171,45L170,46L168,45L168,45L167,46L167,46L167,46L167,46L167,46L166,46L166,47L166,47L166,46L165,46L165,46L165,46L165,47L165,47L164,47L162,46L161,45L160,44L160,44L159,44L159,43L159,43L159,42L159,42L159,42L159,42L159,42L159,42L159,42L159,42L158,42L158,42L158,42L158,42L158,41L157,41L157,41L157,40L158,40L158,40L157,40L157,40L156,40L156,40L153,39L152,39L152,39L152,39L152,38L153,38L153,38L153,37L153,38L153,38L153,38L153,38L154,38L155,38L155,38L156,38L156,38L156,38L157,37L157,37L157,37L158,37L158,37L158,37L158,37L156,37L156,37L156,37L156,36L157,36L157,36L157,36L157,36L157,35L158,35L159,35L159,35L159,35L159,35L157,35L157,35L157,35L156,35L156,35L156,34L157,34L157,34L157,34L157,34L157,33L156,33L154,32L154,32L153,32L152,32L152,32L152,31L152,31L152,31L152,30L153,30L153,30L153,31L154,31L155,31L155,31L155,31L155,31L155,31L155,31L156,31L157,31L157,31L157,31L157,31L157,31L158,31L158,31L160,32L160,32L160,32L161,31L161,31L159,31L159,31L159,31L158,30L159,30L159,30L160,30L161,30L161,30L161,29L161,29L160,29L160,28L160,28L159,28L159,27L158,27L156,27L155,27L155,27L155,27L154,26L154,26L154,26L155,25L155,25L155,26L155,26L156,26L156,26L156,26L156,25L156,25L156,25L156,25L156,25L157,25L157,26L158,26L158,26L158,26L158,26L158,25L157,25L157,25L157,24L157,24L158,24L158,25L158,24L158,24L158,23L158,23L158,23L158,23L159,24L159,24L159,23L159,23L159,23L159,23L159,23L160,23L160,23L160,23L160,23L161,24L161,24L160,24L160,24L160,24L161,25L161,25L161,25L161,24L161,25L161,25L161,25L161,25L161,26L161,26L161,26L162,26L162,26L162,25L162,25L162,25L162,24L162,23L161,23L162,23L162,23L162,23L163,23L163,23L163,23L163,23L163,23L163,23L162,22L162,22L162,22L162,22L162,22L162,22L163,22L163,22L164,22L164,22L164,23L164,23L165,24L165,24L165,24L165,25L165,26L165,26L165,26L165,26L165,26L165,27L165,27L165,27L164,28L164,28L164,28L163,28L163,28L163,29L163,29L163,29L163,29L164,29L164,29L163,29L163,29L163,30L163,30L163,30L163,30L163,30L163,31L163,31L163,31L164,31L164,30L164,30L164,30L164,30L165,30L165,29L166,29L166,29L166,29L166,30L166,30L166,30L167,30L167,29L168,28L168,28L169,27L169,27L169,27L169,27L170,27L170,28L170,29L170,29L170,30L170,30L170,30L170,30L170,30L171,28L171,28L172,28L172,28L173,28L173,28L174,28L174,28L174,28L174,28L174,29L174,30L174,30L174,31L174,31L174,31L174,31L174,31L175,31L175,30L175,29L175,29L175,28L176,29L176,29L177,29L177,30L177,30L177,30L177,30L177,30L178,30L178,30L179,29L179,29L179,29L180,30L180,30L180,30L180,30L181,30L181,30L181,30L182,29L182,28L182,28L183,28L184,28L184,28L184,29L184,29L184,30L184,30L184,30ZM285,269L285,269L284,269L284,269L285,269L285,269L285,269ZM283,233L282,233L282,233L282,233L282,233L283,233L283,233ZM271,264L270,264L270,263L270,263L270,263L270,263L271,263ZM246,136L245,136L245,136L245,136L246,136ZM244,136L243,136L242,136L242,136L243,136L243,136L244,136ZM240,137L239,137L239,137L239,137ZM241,136L240,136L240,136L241,136L242,136L242,136ZM44,229L44,229L44,229L44,229L44,229L44,228L44,229L44,229ZM298,216L300,216L300,216L301,216L302,216L302,216L301,216L300,216L300,217L299,216L299,216L299,216ZM302,215L301,215L299,215L298,215L297,214L297,214L298,214L298,214L299,214L301,215ZM299,214L298,214L297,214L297,213L297,213L297,213L298,213L299,213L300,213L300,213ZM197,161L196,162L196,161L196,161L197,161L197,161ZM199,164L199,164L199,164L198,164L198,164L198,164L198,163L199,163ZM493,166L493,166L493,166L492,166L492,165L493,165L493,166ZM469,173L469,173L468,172L468,172L468,172L469,172ZM495,414L495,414L495,414L495,413L495,413L495,414L495,414ZM476,411L477,412L476,411L476,411L476,411L476,411ZM443,341L443,341L442,340L442,340L442,340L440,339L440,339L440,339L440,339L441,339L442,340L443,340L443,340ZM441,338L441,339L440,338L440,338L440,337L440,338L441,338ZM302,96L302,96L302,96L302,96L302,95L302,95L302,95ZM302,93L302,93L302,93L302,92L302,92L303,92L303,92L303,92L303,92ZM579,421L579,421L580,420L581,420L584,420L583,420L583,421L582,421L581,422L579,423L578,423L577,423L575,422L576,421L576,421L576,421L577,420L578,420ZM555,328L555,328L554,328L555,327L555,327L556,327L556,327L556,327L556,328ZM600,348L600,349L599,350L599,351L599,351L599,351L599,351L598,350L599,348L599,347L600,348L600,348ZM551,329L550,329L550,329L550,328L550,328L551,328ZM568,302L567,303L567,304L566,304L566,304L565,304L565,305L564,305L564,306L563,306L563,306L563,306L563,305L563,305L564,305L565,303L565,303L565,302L565,302L566,302L567,301L567,301L568,301ZM559,328L559,328L559,328L559,328L558,328L557,328L558,328L559,327L559,327ZM489,404L490,404L490,403L490,403L490,403L491,404L491,404L491,405L491,405L490,404L490,404L490,404L489,404L489,404L488,403L488,403L488,403L488,402L488,402L488,402L489,402L489,402L489,403L489,403L489,404ZM477,414L477,414L478,414L478,414L478,414L479,414L479,414L478,415L478,415L477,415L476,415L476,414L476,414L477,414L477,414L476,414L476,414L476,413L476,413L476,413L476,412L476,412L477,413L477,413ZM498,427L498,427L498,426L498,426L498,426ZM534,319L534,320L534,320L533,319L533,318L533,317L533,317L533,317L533,317L533,317L534,318L534,318ZM498,425L498,425L498,425L497,424L498,424L498,424ZM511,294L511,294L511,294L510,293L510,293L510,292L510,292L510,292L510,292L510,291L510,291L510,291L511,292L512,293L512,293ZM382,185L383,185L382,185L381,185L380,185L380,184L379,184L380,184L380,185ZM321,96L321,97L321,96L321,96L320,97L320,97L320,97L319,97L319,96L319,96L318,96L318,96L319,95L319,95L320,94L320,94L320,94L320,95L320,95L321,95L321,95L322,96ZM323,98L323,98L322,98L322,97L323,97L323,97L323,98ZM360,44L360,44L360,45L360,45L360,45L360,45L360,45L359,45L359,45L359,44L359,44L359,44L359,44ZM378,28L377,28L377,28L376,28L376,28L377,28L377,28L377,28ZM219,5L218,5L218,4L219,4L220,4L221,3L222,3L222,3L222,4L221,4L220,4ZM371,266L371,266L371,266L370,266L370,265L370,264L370,264L370,264L371,263L371,263L373,262L373,262L373,262L373,264L372,264L373,265L372,265ZM367,270L367,270L367,270L367,270L367,269L367,268L367,267L367,267L367,268L367,269L367,269L368,270ZM371,261L370,261L370,261L370,261L370,261L371,260L371,261L371,261ZM365,259L364,259L364,258L364,258L365,258L365,258L365,258L365,258ZM365,260L365,260L365,260L365,259L366,259L367,259L367,259L366,260L366,260L365,260ZM356,259L355,260L355,259L354,259L355,257L356,258L356,258L356,259ZM354,259L354,259L353,259L353,259L353,258L354,258L354,258L354,258ZM356,264L356,264L355,264L355,264L355,264L355,263L355,263L355,263L356,263ZM355,262L355,262L354,261L354,261L354,261L355,261ZM363,252L364,252L364,252L364,252L364,253L364,253L363,253L363,253L362,253L362,253L361,253L362,252L362,252ZM358,255L358,255L358,254L359,254L359,254L360,253L360,253L360,254L359,254ZM358,260L357,261L357,260L357,260L358,260L358,260L358,260L359,259L359,259L359,260ZM362,262L361,262L361,262L361,262L361,262L361,262L361,262L361,261L362,261ZM348,255L347,256L347,255L347,254L348,254L348,255ZM348,257L348,257L348,257L348,256L348,256L348,256L348,256L349,256ZM350,261L350,262L350,262L348,262L348,262L348,262L349,262L349,262L349,261ZM352,255L352,256L351,256L351,256L351,256L351,255ZM352,253L351,254L351,253L350,253L350,253L350,252L350,252L350,252L350,252L351,252L351,252L351,253L351,253ZM353,255L353,255L353,255L352,254L352,254L352,254L352,254L352,254L353,254ZM351,260L350,260L350,260L350,259L350,259L350,259L351,260ZM358,249L357,250L357,249L357,249L357,249L357,248L357,248L356,247L356,247L357,246L358,247L358,247L358,247L358,247L358,249L358,249L358,249ZM359,241L359,241L360,242L360,242L360,243L360,243L360,243L360,243L360,243L360,243L360,243L359,243L358,243L357,243L358,242L358,242L358,242L357,243L356,242L356,242L356,242L356,241L357,241L357,241L357,241L357,240L358,240ZM343,244L343,244L342,244L342,243ZM344,243L343,243L344,243L344,242L344,243ZM349,246L348,246L348,246L348,245L348,245L347,245L347,244L347,244L348,245L348,245ZM353,233L353,233L352,232L353,232L353,232L353,232ZM352,236L352,236L352,237L352,238L352,238L351,237L351,237L351,237L351,237L351,237L351,237L351,238L350,237L350,237L350,236L350,236L351,236L352,236L352,236L352,236L352,236ZM348,232L347,232L346,232L346,231L347,231L347,230L347,230L348,231L348,231L348,231ZM355,235L354,235L354,235L354,234L355,234L355,234L355,234ZM55,446L55,446L54,446L54,446L55,446L55,446L55,445L55,445L56,445L56,445L56,446L56,446ZM63,377L63,378L63,378L63,377L63,376L63,376L64,376ZM81,273L82,273L83,273L83,274L84,274L83,275L83,275L82,275L81,274L81,273L81,273ZM57,446L57,447L56,446L56,446L56,446L57,446L57,445L57,446L57,446ZM78,309L77,311L76,311L76,311L75,311L74,310L74,309L74,308L74,308L75,308L76,308L76,308L78,307L79,308L79,308ZM96,308L95,308L95,308L95,307L95,307L96,306L97,306L98,306L98,306L98,306L98,306L97,308L97,308ZM91,313L90,314L89,314L89,313L90,313L91,313L92,311L93,310L93,309L94,309L94,309L94,309L95,310L94,310L94,312L93,313ZM79,479L79,479L79,479L76,477L77,477L79,477L79,478L79,478L79,478ZM83,312L83,312L83,313L83,314L82,314L82,315L81,315L81,314L80,313L80,313L81,312L81,311L83,312L83,312L83,312ZM58,445L58,446L58,446L58,446L58,445L58,445L59,445L59,445L59,445L59,445ZM60,443L60,443L59,443L60,442L60,442L60,443L60,443ZM71,311L71,311L71,310L71,310L71,309L71,309L72,309L72,310L72,310L72,310ZM57,443L57,443L56,443L56,443L56,443L57,442L57,442ZM57,440L56,441L56,441L56,440L56,440L57,440ZM66,311L65,312L65,312L65,312L65,311L65,311L66,311ZM13,396L13,396L13,396L14,396L14,397L14,397L14,398L13,398L12,398L12,397L12,397ZM0,403L0,403L1,404L1,404L1,405L1,405L0,405L0,405L0,403ZM68,306L68,306L68,305L67,304L68,303L69,303L69,304L69,304L69,305L69,305L69,305ZM5,391L5,391L5,391L5,391L4,391L4,391L3,392L3,391L3,390L3,390L4,391ZM13,393L13,393L13,392L13,392L13,391L13,391L14,391L13,392ZM9,404L9,404L9,404L9,403L9,403L9,403L10,403L10,403L10,404ZM7,405L7,406L6,405L5,405L5,404L5,403L5,403L5,402L5,402L6,402L6,402L6,404L7,404ZM521,630L521,631L521,632L521,632L521,632L520,631L519,631L519,630L520,630L520,630L520,630L520,630L521,630ZM515,632L516,632L514,632L514,632L514,632L515,632ZM526,636L525,636L525,636L525,636L525,635L525,635L525,634L525,634L526,634L526,634L526,634L526,635L526,635L526,636ZM513,629L513,629L512,629L512,629L511,628L512,625L512,625L512,625L512,625L513,625L513,627L513,628L513,629ZM485,601L485,601L484,601L484,601L485,600L485,600L486,599L486,598L487,598L486,599L486,600L485,601ZM495,554L494,554L494,554L495,553L496,553L496,554L496,554L495,554ZM483,587L484,589L484,589L484,589L483,589L483,589L483,589L483,589L482,588L481,588L481,587L481,587L481,585L482,585L482,584L482,584L482,585L483,587L483,587ZM598,694L597,694L597,694L595,694L595,693L595,692L595,692L595,691L596,691L597,691L598,691L598,692L599,692L599,694ZM550,637L550,637L549,637L548,636L549,636L549,635L549,635L550,636ZM559,663L558,665L559,664L560,662L560,662ZM129,666L129,666L129,666L129,666L130,666L130,666ZM486,577L486,577L486,578L486,579L486,580L486,581L485,581L485,581L485,581L485,581L485,579L485,577L486,577ZM242,520L242,520L243,520L243,520L243,521L242,522L242,523L241,524L241,524L240,523L239,523L239,523L239,522L240,522L240,522L240,522L241,521L241,520L241,520ZM225,547L224,548L224,548L224,547L224,546L224,546L224,546L225,545L225,545L226,546L226,546ZM231,536L231,537L231,536L230,536L231,535L231,535L231,535L231,536L231,536ZM231,514L230,514L229,514L230,513L230,514L231,514ZM265,279L264,280L265,279L265,278L265,279ZM263,287L263,287L263,287L262,287L262,287L262,287L262,287L262,286L262,286L263,286L263,286L264,286L264,286L263,287ZM195,125L194,126L194,126L194,126L193,126L194,125L194,125L195,124L195,124L196,124L196,124L196,124L196,125L196,125ZM190,106L190,106L190,106L191,106L191,106L191,106L191,106ZM195,115L194,115L194,115L194,115L194,114L194,114L194,114L194,113L195,113L195,114L195,114L195,115L195,115ZM193,108L192,109L191,108L191,108L191,108L192,108L192,107L192,107L192,106L192,106L192,106L192,106L193,106L193,106L193,106L193,107L194,107L194,107ZM191,111L191,112L191,113L191,113L191,113L190,113L190,113L190,113L190,113L190,113L190,112L190,112L190,112L189,113L189,113L189,112L189,112L189,112L189,112L190,112L190,111L190,111L190,112L191,111ZM192,112L191,112L191,112L191,112L191,112L191,112L191,111L192,111L192,111L192,111L192,110L193,110L193,110L193,110L193,111ZM221,81L221,81L221,81L222,80L222,80L222,80L222,80L222,80L222,80L222,81L222,81ZM220,81L220,82L221,81L221,82L221,82L221,82L221,82L221,83L220,84L220,84L220,84L220,85L220,85L219,86L219,86L219,85L220,85L220,84L220,84L220,84L219,83L219,84L219,83L219,83L219,83L219,83L219,83L219,83L219,83L219,83L219,83L220,82L220,81L219,81L219,81L219,81L220,81L220,81L220,80L221,81ZM223,79L223,79L223,80L223,80L222,80L222,80L222,80L222,79L222,79L223,79L223,79L223,79L223,79ZM210,92L209,93L209,93L209,92L209,92L209,92L209,91L209,92L209,92L209,92L209,92L210,92ZM195,132L195,132L195,132L195,132L195,132L194,133L194,133L193,133L193,133L193,132L193,131L194,131L194,131ZM213,90L213,90L213,89L213,89L214,89L214,89ZM211,93L210,93L210,93L210,92L211,92L211,92L211,93ZM211,91L210,91L211,91L211,91L211,91L212,92L211,92L211,92L211,92L211,92L210,92L210,92L210,91L210,91L210,91L210,91L209,91L209,91L209,91L209,91L209,90L210,90L210,90L210,90L211,90L211,91L211,91ZM202,69L202,69L202,69L202,68L201,68L201,68L201,68L202,68L202,68L202,68L202,68ZM201,71L201,71L201,71L201,71L201,70L201,70L201,70L201,70L201,70L201,70L201,70L201,70L201,71ZM201,66L201,66L201,66L201,67L201,67L200,66L200,66L200,66L200,66L201,66ZM203,66L203,67L203,67L202,66L202,66L202,66L202,66L202,67L202,67L202,67L202,67L202,67L201,66L201,65L202,65L203,65ZM212,90L212,90L212,90L212,89L211,89L211,89L211,89L211,89L211,89L212,89L212,89L212,90L212,90ZM204,66L204,66L203,66L203,66L203,66L204,65L204,65L204,65ZM196,94L195,95L195,95L195,95L194,95L194,95L195,95L194,96L194,96L193,96L193,96L192,97L192,97L192,97L191,97L191,97L191,97L191,97L192,97L192,96L192,96L192,96L192,96L192,95L192,95L192,95L192,95L192,95L192,95L192,95L192,94L192,94L192,94L192,94L192,94L193,94L193,94L193,94L193,94L193,94L193,94L193,94L194,93L195,93L196,93L196,92L196,93L196,93ZM193,104L192,104L192,104L192,103L192,103L193,103L193,103L193,103L193,103ZM194,100L194,100L194,100L194,101L194,101L194,101L194,101L195,102L196,102L196,102L196,102L196,102L195,103L194,103L194,103L194,103L194,103L194,102L194,102L193,102L193,102L193,102L193,101L192,100L192,100L192,100L192,100L192,99L192,100L192,100L192,99L193,99L192,99L192,99L194,99L194,98L194,98L194,99L194,99ZM190,98L191,98L190,99L189,99L189,98L189,98L189,98L189,98L189,98L189,98L190,98L190,98ZM189,102L189,102L188,102L188,101L188,101L188,101L188,100L189,100L189,100L189,100L189,102ZM169,123L169,123L169,122L169,122L168,122L168,122L169,122L169,122L169,122ZM188,103L187,103L187,103L187,103L187,102L188,102L188,102L188,103ZM316,85L316,86L315,85L315,85L315,85L315,85L315,85L316,85L316,85L316,85L316,85ZM306,87L307,87L306,87L306,87L306,88L306,87L306,87L306,87L306,87ZM308,86L308,86L308,86L308,86L308,86L309,86L309,86L309,86L309,87L309,87L308,87L308,87L308,87L308,87L308,88L307,88L307,88L307,87L307,87L307,86L307,86L307,87L307,87L307,87L307,86L307,86L307,86L307,86L307,86L307,86L308,86ZM310,65L310,65L311,65L311,65L311,65L311,65L311,65L311,65L311,65L311,65L311,65L310,65L310,65L310,64L310,65ZM306,104L306,104L305,104L305,104L306,103L306,103L306,103ZM295,116L294,117L294,116L294,116L294,115L294,114L295,112L295,112L296,110L296,110L296,109L296,109L297,108L297,108L297,108L297,109L297,109L297,109L296,111L296,112L296,112ZM288,126L288,126L287,126L286,125L286,124L287,124L288,125L288,125ZM282,130L282,131L282,131L281,131L280,131L280,131L280,131L279,131L279,130L279,130L279,129L279,129L279,129L279,128L280,128L280,128L280,128L281,129L281,129L281,129L281,129L281,130L281,130L281,130ZM276,126L276,126L275,126L274,127L274,126L274,126L274,126L275,126L275,126L275,125L275,125L276,125L276,126L276,126ZM277,121L276,122L276,122L276,121L276,121L276,121L277,121L277,121ZM271,126L271,127L272,127L272,127L272,127L272,128L272,128L272,128L271,128L269,127L269,126L269,126L270,126ZM266,127L266,127L266,127L265,126L265,126L265,126L266,126L266,126L266,127ZM264,126L264,126L264,126L263,126L263,125L263,125L263,125L264,126L264,126ZM267,127L267,127L267,127L267,127L267,126L268,126L268,125L269,124L269,124L268,125L268,127ZM267,120L267,120L267,120L267,119L267,119L267,118L267,118L267,119L268,119L267,119ZM270,130L269,130L269,130L269,130L269,129L269,129L270,129L270,130ZM270,109L270,109L269,109L269,109L270,108L270,109L270,109ZM256,127L256,127L256,126L257,125L257,125L257,125L257,125L256,126L256,126L258,126L257,126L256,126ZM199,189L198,190L198,189L198,188L198,188L198,188L198,188ZM206,153L205,153L205,154L205,154L205,154L205,154L204,153L203,153L204,153L204,153L205,152L206,153ZM238,138L238,139L237,139L237,139L238,138L238,138ZM262,217L262,217L262,217L262,217L262,218L261,217L261,218L260,218L260,217L260,217L261,217L261,217L262,217ZM249,245L249,246L248,246L248,245L248,245L249,245ZM249,230L248,231L248,230L248,230L249,230L249,230L249,230L249,230ZM224,238L224,238L222,237L221,237L221,237L221,236L221,236L223,236L224,237L224,237L224,238ZM206,246L206,246L206,246L205,246L205,245L205,245L206,245L206,245L206,245ZM206,244L206,244L205,244L204,244L205,243L205,243L205,243L205,242L207,242L207,243L207,243L206,244ZM19,199L18,200L18,199L18,199L18,198L19,198L19,199ZM38,213L38,213L37,212L37,212L37,211L37,211L38,211L38,212L39,212L38,213ZM34,212L34,212L32,211L32,211L32,210L33,211ZM29,211L29,211L28,210L29,210L29,210L29,210L29,211ZM32,212L32,213L31,212L31,213L30,212L30,212L29,211L30,211L30,211L30,211ZM43,221L44,222L46,222L46,222L46,223L45,223L44,223L43,222L42,221L42,221L43,221L43,221ZM287,271L286,271L286,271L285,271L285,270L286,270L286,270ZM290,208L290,208L289,208L289,207L289,207ZM288,201L287,201L287,201L286,201L286,200L286,200L285,200L286,200L286,199L287,199L287,200L287,200ZM288,203L288,203L287,203L287,202L287,202L287,202L287,202L287,202L287,202ZM290,206L290,206L289,206L289,205L289,205L288,205L288,204L287,203L287,203L288,203L288,204L288,204L289,204L289,205L290,206L290,206ZM290,209L290,209L290,209L290,209L290,209L288,207L288,207L288,207ZM291,208L291,209L291,209L291,209L290,208ZM286,203L286,204L285,203L285,203L285,201L285,201L285,201L285,201L285,200L285,199L285,199L285,200L285,200L286,201L286,202L286,203L286,203ZM304,217L305,218L303,217L303,217L303,217ZM324,250L324,251L325,251L325,252L325,252L325,253L324,252L324,252L324,252L323,252L323,252L323,252L323,251L323,252L323,252L322,252L323,251L323,251L323,251L323,251L324,250L324,250L324,250ZM326,255L327,255L326,255L326,256L325,255L324,255L324,254L325,254L325,254L326,254ZM324,249L324,249L324,249L324,249L324,249L324,248L324,247L324,247L324,247L324,247L325,248ZM325,251L325,251L324,250L324,250L324,249L324,250L325,250L325,250L325,250L325,250ZM320,242L320,243L320,243L319,242L318,241L317,240L317,240L318,240L319,239L319,240L319,240L319,240L319,240L319,241L319,241L319,241L319,242L319,242L320,242ZM343,253L342,253L342,253L342,253L342,253L342,253L342,252L342,252L342,252L342,252ZM341,266L341,267L340,266L340,266L340,265L340,265L340,265L340,265L341,266ZM232,148L233,148L233,149L233,149L232,149L232,148L231,148L231,148L231,148L232,148ZM118,8L118,8L118,7L119,7L120,7L119,7L119,8ZM64,20L63,20L63,20L63,19L63,19L63,19L63,19L65,19L65,19L65,19L65,19ZM257,127L257,128L257,127L256,127L257,127L257,127L257,127L257,127ZM248,135L247,135L247,135L248,135L248,135ZM2,0L2,0L3,1L2,1L2,1L2,1L1,2L1,2L1,2L1,2L1,2L1,3L1,3L1,5L0,5L0,0ZM4,0L4,0L4,1L4,1L4,1L3,2L3,1L3,0L3,0L4,0ZM317,85L317,85L317,85L318,86L317,86L317,86L318,86L318,87L317,87L317,86L317,86L317,86L316,86L316,86L317,85ZM314,84L314,85L313,85L313,85L313,84L313,84L313,84L313,84L313,84ZM316,87L315,87L315,87L315,87L315,87L316,87ZM311,88L311,88L310,88L310,88L310,88L310,88L310,88L310,88L310,88ZM315,87L314,87L314,87L314,87L314,87L315,87L315,87ZM322,51L321,51L321,51L321,51L321,51L321,50L322,51L322,51L322,51ZM330,15L330,16L330,16L330,15L330,15L330,15L330,15L331,15ZM246,80L246,80L246,80L246,79L246,79L246,79L247,79ZM261,64L260,64L260,64L260,64L260,64L260,63L261,63L261,64L261,64ZM262,62L262,62L262,62L262,62L263,61L263,61L263,61L264,61L264,62L263,62ZM278,47L278,47L278,46L278,46L278,46L278,46L279,46L279,46L279,46ZM277,46L277,46L277,45L278,45L278,45L278,44L278,44L278,45L278,45L278,45ZM300,16L300,16L300,16L300,16L301,16L301,16L301,16L301,17L300,17L300,17L300,16L300,16L299,16L299,15L300,15ZM310,11L310,11L310,11L310,11L309,12L309,12L309,13L308,13L308,13L308,13L308,13L307,13L307,13L307,13L306,12L306,12L306,12L307,12L307,12L307,12L308,12L308,11L309,12L309,11L309,11L310,10ZM303,16L303,16L303,17L302,16L302,16L302,16L302,16L302,16L302,16L303,15L303,15L303,16ZM315,8L316,8L317,8L317,8L317,8L317,9L317,9L316,9L316,9L316,9L315,9L315,9L315,8L315,8ZM311,12L311,13L311,13L311,13L310,14L310,14L310,14L310,14L310,14L310,14L309,14L309,14L309,14L309,14L309,13L309,13L309,13L310,13L310,12L311,12ZM312,12L311,13L311,12L311,12L311,12L311,11L311,11L311,11L311,11L312,11L312,12ZM283,30L283,30L283,30L283,30L283,30L283,30L283,30L282,31L282,31L282,31L282,31L281,31L281,31L281,31L281,32L281,32L280,32L280,31L281,31L281,31L281,30L281,31L282,30L282,30L282,30ZM280,33L279,33L279,32L280,32L280,31L280,31L280,32L280,32L280,32ZM294,20L294,21L294,21L294,20L295,21L295,21L295,21L295,21L295,22L295,22L295,22L295,22L295,23L295,23L294,23L294,23L293,24L293,24L293,24L292,24L292,24L292,24L292,24L292,24L292,24L292,23L292,22L292,22L292,22L292,22L293,22L293,22L293,21L293,21L293,21L293,21L293,21L294,20L294,20ZM299,17L299,17L299,17L299,17L299,17L300,17L300,17L299,18L299,18L299,19L298,19L298,19L298,19L297,20L297,20L297,20L296,20L296,21L295,20L295,20L295,20L296,20L296,20L296,19L296,19L296,19L296,19L296,19L297,19L297,19L297,19L297,19L297,18L297,18L297,18L297,17L298,17L298,17L298,17L298,16L298,16L298,16L298,15L298,16ZM289,28L289,28L289,27L289,27L289,27L290,26L290,26L290,26L290,26L290,25L290,25L291,26L291,26L291,27L291,27L290,28L290,28L289,28L289,29L289,29L289,29L289,29L289,29L288,29L288,29L287,29L287,29L287,29L287,29L286,30L286,30L286,29L285,30L284,30L284,30L284,30L284,29L285,29L286,29L287,27L288,26L288,25L288,25L287,25L287,25L288,24L288,24L288,23L289,23L289,22L289,22L289,23L289,23L289,24L289,24L289,25L289,25L289,26L289,26L289,27ZM287,25L287,26L287,26L287,27L287,27L286,27L286,27L286,27L285,27L285,27L285,27L285,27L284,27L284,27L285,26L285,26L285,26L285,26L285,26L286,26L286,25L286,25L286,25L286,25L286,25L286,25L287,25ZM273,54L273,54L272,54L272,54L271,54L271,53L272,53L273,53L273,54ZM246,85L246,86L246,86L246,86L246,86L246,85L246,85L246,84L246,84L246,85ZM276,48L276,49L275,49L275,48L275,48L276,48L276,48L276,48ZM175,0L175,0L175,0L174,0L174,0L174,0L175,0ZM173,0L173,0L173,0L173,1L173,1L172,1L171,1L170,1L170,1L169,1L169,1L169,2L168,2L167,2L167,2L167,2L167,3L166,3L165,3L165,3L164,3L164,3L163,3L163,3L162,3L161,3L161,3L159,3L158,2L157,2L155,2L155,2L154,2L154,2L153,2L153,1L152,1L152,1L151,2L151,1L150,1L150,1L150,1L150,2L149,2L148,1L148,1L148,0L148,0L173,0ZM145,0L145,0L144,1L144,1L144,1L142,1L141,1L141,1L140,1L139,2L139,2L138,2L138,2L138,2L138,3L137,3L137,3L135,4L133,5L132,6L132,6L132,6L132,5L131,6L131,6L130,6L130,6L128,7L127,7L127,6L127,6L127,5L127,5L127,4L127,5L127,5L126,5L126,5L126,7L125,7L125,7L124,7L122,7L122,7L122,7L123,7L123,6L122,6L122,6L121,7L121,7L121,7L120,7L120,7L120,6L120,6L119,6L119,6L119,6L118,7L118,7L117,6L117,7L117,6L117,5L118,5L118,5L119,5L119,4L121,3L122,3L122,3L122,2L122,2L121,1L121,1L121,2L121,3L120,3L120,3L118,4L118,4L118,3L117,3L117,3L117,4L117,5L116,5L115,5L114,4L113,4L111,3L111,3L110,3L111,5L111,5L110,5L110,5L109,6L108,6L107,6L107,5L106,4L105,4L105,4L105,5L104,6L105,6L105,6L105,7L104,8L104,8L104,9L104,9L103,9L102,9L102,9L101,10L101,10L100,9L100,9L100,9L99,8L99,9L99,10L100,10L100,10L101,11L99,12L98,13L98,13L97,13L96,14L96,14L96,13L95,14L94,14L94,15L94,15L93,15L93,15L92,16L92,15L91,15L91,15L91,14L91,13L91,13L90,14L90,14L90,15L91,16L90,16L90,16L88,17L88,16L88,17L87,16L87,16L86,15L86,15L86,15L86,15L86,16L86,16L87,17L86,17L86,18L86,18L85,18L85,19L84,19L83,20L83,20L83,21L82,21L82,22L81,22L81,21L80,21L81,22L80,23L80,23L78,24L76,25L74,27L72,28L71,28L71,28L71,27L70,26L70,26L70,26L69,26L69,26L70,27L70,27L70,28L70,28L70,29L70,29L70,29L69,31L68,31L67,31L66,30L66,30L66,29L66,29L66,30L66,31L66,31L65,30L65,30L64,30L65,30L65,29L65,29L64,29L64,29L64,29L64,29L64,28L65,28L66,28L67,27L67,27L66,27L65,28L64,28L64,28L64,27L63,25L64,24L64,24L65,24L65,24L66,24L67,24L68,24L68,23L66,24L65,24L65,24L65,23L64,23L64,22L64,22L64,21L64,21L65,20L66,19L67,19L67,19L68,18L68,18L68,18L68,18L67,18L67,18L66,18L65,18L64,18L63,18L63,18L63,18L62,18L62,18L61,17L61,17L61,16L61,16L61,16L60,16L60,17L60,17L59,16L59,16L59,16L59,15L60,15L61,15L62,15L62,15L61,14L61,14L60,14L61,13L61,13L61,13L61,12L61,12L61,12L61,11L61,11L62,10L62,9L62,9L62,8L62,8L63,8L63,8L63,8L63,7L63,7L64,7L64,6L65,7L65,7L66,6L66,7L66,6L66,6L66,6L65,6L65,6L64,5L64,5L64,5L65,4L66,4L66,4L65,3L65,3L65,2L65,2L66,1L65,1L66,1L66,1L67,0L67,0L145,0ZM354,256L354,256L354,255L354,255L355,255L355,256ZM349,259L349,259L349,258L349,258L349,258L349,258L349,258ZM61,599L60,599L60,599L60,599L60,598L60,598L61,598L61,599L61,599L61,599ZM562,324L562,325L562,325L562,325L561,324L562,324L562,324L562,324Z","routes":{"storchW":[[256.2,158],[234.9,172.6],[212.4,197.4],[185.1,221.6],[159.1,259.7],[148.9,283.7],[139,322.1],[125.1,368.2],[105.7,405.6],[80.4,430.3]],"storchO":[[256.2,158],[277.8,161.5],[299,173.3],[321.7,188.3],[346.6,209.6],[372.5,225.6],[399.9,242.6],[423.7,266.8],[419.8,299.2],[415.6,339.4],[418.6,394.6],[427.3,449.2],[442.7,511],[456.2,572.6],[439.9,643.3],[406.2,705.2],[380.5,750.1]],"schwalbe":[[256.2,158],[233.6,183.9],[213.1,212.9],[191,241.7],[191.9,280.8],[200.3,328.4],[210.3,383.9],[237.6,439.8],[275.2,495],[306.7,549],[330.5,609.9],[353.5,669.7],[366.8,728.6],[372.1,764.7]],"kuckuck":[[256.2,158],[261,185.3],[268.7,204.4],[277,231.1],[276.7,261.8],[276.3,300.4],[283,347],[290.4,401.5],[305.9,455.9],[322,502.3],[330.3,548.6],[338.4,571.4]],"segler":[[256.2,158],[233.2,187.7],[206.3,219.9],[176.9,251.8],[165,285.7],[164.2,340.9],[165.5,396.4],[183.9,452.9],[236.2,502.1],[290.9,549.1],[346.4,586.6],[385.7,623.3],[408.5,652.6]],"bergfink":[[310.7,44.8],[302.1,66.9],[291.3,89],[278.5,111],[271.1,129.4],[263.1,144],[256.2,158]]},"lab":{"hessen":[256.2,158],"gibraltar":[158.9,260.5],"bosporus":[372.5,225.6],"mittelmeer":[302.2,273.2],"sahara":[240.2,361.8],"afrika":[344.9,486.1],"europa":[359.6,128.2],"skandinavien":[283,67.4],"suedafrika":[364.2,772.1],"kongo":[346.2,563.5],"atlantik":[108.7,301.5],"westafrika":[110.3,430.3]}};
+/* ============ Karte Europa – Afrika (Küsten: Natural Earth, gemeinfrei) ============ */
+const ORTE = {
+  hessen: ["Hessen", 8, -6, "start"], gibraltar: ["Gibraltar", -8, 14, "end"], bosporus: ["Bosporus", 8, -4, "start"],
+  mittelmeer: ["Mittelmeer", 0, 0, "middle", 1], sahara: ["Sahara", 0, 0, "middle", 1], afrika: ["Afrika", 0, 0, "middle", 1],
+  europa: ["Europa", 0, 0, "middle", 1], skandinavien: ["Skandinavien", 0, 0, "middle", 1], atlantik: ["Atlantik", 0, 0, "middle", 1]
+};
+function glatt(pts) {            // Catmull-Rom → weiche Bézier-Kurve
+  let d = `M${pts[0][0]} ${pts[0][1]}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6], c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    d += ` C${c1[0].toFixed(1)} ${c1[1].toFixed(1)} ${c2[0].toFixed(1)} ${c2[1].toFixed(1)} ${p2[0]} ${p2[1]}`;
+  }
+  return d;
+}
+function karteSVG(innen, opt = {}) {
+  const orte = Object.entries(ORTE).map(([k, [t, dx, dy, a, gross]]) => {
+    const [x, y] = KARTE.lab[k];
+    return gross ? `<text x="${x}" y="${y}" text-anchor="middle" class="k-region">${t}</text>`
+      : `<circle cx="${x}" cy="${y}" r="3.2" fill="#233D5C"/><text x="${x + dx}" y="${y + dy}" text-anchor="${a}" class="k-ort">${t}</text>`;
+  }).join("");
+  return `<svg viewBox="0 0 ${KARTE.W} ${KARTE.H}" class="karte" role="img" aria-label="${opt.label || "Karte von Europa und Afrika"}">
+    <rect width="${KARTE.W}" height="${KARTE.H}" fill="#dceaf3"/>
+    <path d="${KARTE.land}" fill="#efe6cf" stroke="#b9a77d" stroke-width=".7"/>
+    ${opt.ohneOrte ? "" : orte}${innen}</svg>`;
+}
+
+/* ============ Pass-Bühne: ein Storch zieht mit jeder Etappe weiter ============ */
+const PASSROUTE = glatt(KARTE.routes.storchO);
+function passSVG(summe, max) {
+  return karteSVG(`<path d="${PASSROUTE}" fill="none" stroke="#8a5a2b" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round" opacity=".55"/>
+    <path id="passroute" d="${PASSROUTE}" pathLength="1" fill="none" stroke="#C28A3A" stroke-width="7" stroke-linecap="round" stroke-dasharray="${(summe / max).toFixed(3)} 2"/>
+    <g id="passvogel"><circle r="17" fill="#fff" stroke="#C28A3A" stroke-width="3"/><text y="7" text-anchor="middle" font-size="20">🐦</text></g>
+    <g transform="translate(${KARTE.lab.suedafrika[0]} ${KARTE.lab.suedafrika[1]})"><text text-anchor="middle" font-size="26" y="18">🏁</text></g>`,
+    { label: `Karte: Zugweg eines Storchs von Hessen nach Südafrika, ${summe} von ${max} Etappen geschafft` });
+}
+function setzePassvogel(f, vorher) {
+  const p = $("#passroute"), v = $("#passvogel"); if (!p || !v) return;
+  const L = p.getTotalLength(), setz = t => { const pt = p.getPointAtLength(L * t); v.setAttribute("transform", `translate(${pt.x} ${pt.y})`); };
+  if (reduce || vorher === undefined || vorher >= f) { setz(Math.max(f, 0.001)); return; }
+  const t0 = performance.now(), dauer = 1400;
+  p.style.strokeDasharray = `${vorher} 2`;
+  const tick = now => { const k = Math.min(1, (now - t0) / dauer), e = k * k * (3 - 2 * k), w = vorher + (f - vorher) * e;
+    p.style.strokeDasharray = `${w} 2`; setz(Math.max(w, 0.001)); if (k < 1) requestAnimationFrame(tick); };
+  requestAnimationFrame(tick);
+}
+
+/* ============ Daten ============ */
+const ZUGBILD = s => `../images/zug/${s}.jpg`;
+const SORT_SETS = {
+  fort: { bins: [["fort", "✈️ Muss im Herbst fort"], ["bleibt", "🏡 Kann bleiben"]], items: [
+    ["Mauersegler – fängt Insekten im Flug", "fort", "Im Winter fliegen bei uns keine Insekten. Der Mauersegler würde verhungern – also ab nach Afrika."],
+    ["Rauchschwalbe – fängt Fliegen und Mücken in der Luft", "fort", "Wie der Mauersegler braucht sie fliegende Insekten. Die gibt es im Winter nur im Süden."],
+    ["Kuckuck – frisst haarige Raupen", "fort", "Raupen gibt es bei uns nur im Sommer. Der Kuckuck zieht bis nach Zentralafrika."],
+    ["Weißstorch – frisst Frösche, Mäuse und große Insekten", "fort", "Frösche verstecken sich im Winter, der Boden ist oft gefroren. Störche ziehen nach Afrika – manche nur noch bis Spanien."],
+    ["Neuntöter – jagt Käfer und Heuschrecken", "fort", "Große Insekten gibt es im Winter nicht. Der Neuntöter überwintert im südlichen Afrika."],
+    ["Haussperling – frisst Körner und Samen", "bleibt", "Körner und Samen findet er auch im Winter. Spatzen bleiben das ganze Jahr in der Nähe ihres Nests."],
+    ["Gimpel – frisst Samen und Knospen", "bleibt", "Knospen und Samen gibt es auch im Winter. Der Gimpel bleibt."],
+    ["Kohlmeise – im Sommer Raupen, im Winter Samen", "bleibt", "Meisen stellen im Herbst ihre Kost um: von Insekten auf Samen und Nüsse. So können sie bleiben."],
+    ["Buntspecht – hackt Larven aus dem Holz, knackt Zapfen", "bleibt", "Im Holz findet er auch im Winter Larven, dazu Samen aus Zapfen. Er bleibt."],
+    ["Zaunkönig – frisst winzige Insekten und Spinnen", "bleibt", "Fangfrage! Er frisst Insekten – und bleibt trotzdem. Er sucht in Ritzen, unter Laub und im Gestrüpp nach überwinternden Tierchen. In sehr kalten Wintern sterben aber viele Zaunkönige."]
+  ]},
+  sgj: { bins: [["sommer", "☀️ Sommergast"], ["winter", "❄️ Wintergast"], ["jahr", "🏡 Jahresvogel"]], items: [
+    ["Mauersegler", "sommer", "Er ist nur von Mai bis August bei uns – so kurz wie kaum ein anderer Vogel."],
+    ["Kuckuck", "sommer", "Ab Mitte April ruft er – im August ist er schon wieder fort."],
+    ["Nachtigall", "sommer", "Sie singt von April bis Juni, auch nachts. Den Winter verbringt sie in Westafrika."],
+    ["Rauchschwalbe", "sommer", "Von April bis September. Im Herbst sammeln sich die Schwalben auf Stromleitungen und ziehen los."],
+    ["Bergfink", "winter", "Er brütet in Skandinavien und kommt im Oktober zu uns."],
+    ["Seidenschwanz", "winter", "Ein seltener Wintergast aus dem hohen Norden – in manchen Wintern kommen Tausende, in anderen fast keine."],
+    ["Rotdrossel", "winter", "Sie brütet im Norden und überwintert bei uns – gern dort, wo es viele Beeren gibt."],
+    ["Kohlmeise", "jahr", "Sie bleibt das ganze Jahr. Im Winter frisst sie Samen statt Raupen."],
+    ["Amsel", "jahr", "Die meisten Amseln bleiben bei uns – vor allem in den Städten."],
+    ["Kleiber", "jahr", "Er bleibt das ganze Jahr in seinem Revier."]
+  ]},
+  gefahr: { bins: [["gefahr", "⚠️ Gefahr unterwegs"], ["hilfe", "💚 So kannst du helfen"]], items: [
+    ["Große Glasscheiben", "gefahr", "Vögel sehen Glas nicht. Jedes Jahr sterben in Deutschland viele Millionen Vögel an Scheiben."],
+    ["Helle Lichter in der Nacht", "gefahr", "Viele kleine Zugvögel fliegen nachts. Beleuchtete Hochhäuser und Scheinwerfer locken sie an und bringen sie vom Weg ab."],
+    ["Vogelfang am Mittelmeer", "gefahr", "In manchen Ländern werden ziehende Vögel noch mit Netzen und Leimruten gefangen – verboten, aber es passiert."],
+    ["Dürre in der Sahelzone", "gefahr", "Südlich der Sahara tanken viele Vögel auf. Wird es dort trockener, finden sie weniger Futter für die Reise."],
+    ["Immer weniger Insekten", "gefahr", "Schwalben, Mauersegler und viele Sänger brauchen Insekten – für sich und ihre Jungen."],
+    ["Aufkleber oder Muster an große Fenster", "hilfe", "Dichte Muster auf der Außenseite machen Glas für Vögel sichtbar. Einzelne Greifvogel-Silhouetten helfen dagegen kaum."],
+    ["Nachts unnötiges Licht ausschalten", "hilfe", "Dunkle Nächte helfen nachts ziehenden Vögeln, den Weg zu finden."],
+    ["Eine Lehmpfütze für Schwalben", "hilfe", "Rauch- und Mehlschwalben bauen ihre Nester aus feuchtem Lehm. In trockenen Sommern fehlt er oft."],
+    ["Wilde Ecken mit Blüten und Insekten", "hilfe", "Wo es summt und brummt, finden Zugvögel Futter für sich und ihre Jungen."]
+  ]}
+};
+const KARTEN_SETS = {
+  warum: [
+    ["🐛 Hunger, nicht Kälte", "Ein Vogel im Federkleid hält Kälte gut aus. Das Problem ist das Futter: Im Winter fehlen Insekten, Raupen und Frösche."],
+    ["🌞 Lange Tage im Norden", "Im Sommer sind bei uns die Tage lang. Die Eltern haben viele Stunden Zeit, Futter für ihre Jungen zu suchen – und Insekten gibt es dann reichlich."],
+    ["⛽ Volltanken vor der Reise", "Vor dem Abflug fressen Zugvögel sich Fett an. Manche kleinen Sänger werden fast doppelt so schwer – das Fett ist ihr Treibstoff."],
+    ["📅 Die innere Uhr", "Wann es losgeht, sagt ihnen eine innere Uhr – zusammen mit der Tageslänge. Gefangene Zugvögel werden im Herbst unruhig, auch ohne Kälte und Hunger. Man nennt das Zugunruhe."]
+  ],
+  kompass: [
+    ["☀️ Die Sonne", "Tagsüber orientieren sich Zugvögel am Stand der Sonne. Eine innere Uhr gleicht aus, dass die Sonne über den Himmel wandert."],
+    ["✨ Die Sterne", "Nachts ziehende Vögel lesen den Sternenhimmel. Junge Vögel lernen, wo sich der Himmel um den Polarstern dreht."],
+    ["🧲 Das Magnetfeld", "Vögel spüren das Magnetfeld der Erde – wie mit einem eingebauten Kompass. Forscher vermuten den Sinn im Auge."],
+    ["🗺️ Landmarken", "Küsten, Flüsse und Gebirge helfen bei der Feinarbeit. Störche folgen gern Flusstälern."],
+    ["🐣 Angeboren", "Junge Kuckucke fliegen ganz allein nach Afrika – ohne Eltern, die ihnen den Weg zeigen. Richtung und Entfernung sind angeboren."]
+  ]
+};
+const ROUTEN = [
+  ["storchW", "Weißstorch – Westroute", "#c0392b", "weissstorch", "rund 4.500 km",
+    "Störche segeln auf warmen Aufwinden. Über dem Meer gibt es keine – darum fliegen sie an der engsten Stelle über die <b>Straße von Gibraltar</b>, nur 14 km breit. Ziel: Westafrika südlich der Sahara. Viele Westzieher bleiben inzwischen schon in Spanien, wo sie auf Müllkippen Futter finden."],
+  ["storchO", "Weißstorch – Ostroute", "#8e44ad", "weissstorch", "bis zu 10.000 km",
+    "Die Störche aus dem Osten Deutschlands fliegen außen herum über den <b>Bosporus</b> in Istanbul, dann durch Israel und das Niltal bis nach Ost- und Südafrika. Der Weg trennt sich ungefähr an der Weser."],
+  ["schwalbe", "Rauchschwalbe", "#2471a3", "rauchschwalbe", "rund 9.000 km",
+    "Schwalben fliegen auf breiter Front über Mittelmeer und Sahara – sie fressen unterwegs Insekten im Flug. Ihr Winterquartier liegt im <b>südlichen Afrika</b>."],
+  ["kuckuck", "Kuckuck", "#7d6608", "kuckuck", "rund 6.000 km",
+    "Über Italien und das Mittelmeer bis in die Regenwälder <b>Zentralafrikas</b>. Junge Kuckucke fliegen Wochen nach den Alten – ganz allein, und finden trotzdem hin."],
+  ["segler", "Mauersegler", "#1e8449", "mauersegler", "rund 7.000 km",
+    "Er fliegt durch – im wörtlichen Sinn: Mauersegler fressen, trinken und schlafen in der Luft. Forscher haben gemessen, dass sie bis zu <b>zehn Monate am Stück</b> fliegen, ohne zu landen."],
+  ["bergfink", "Bergfink", "#d35400", "bergfink", "rund 1.500 km",
+    "Andersherum: Er brütet in den Birkenwäldern <b>Skandinaviens</b> und kommt im Oktober zu uns. Für ihn ist unser Winter mild – und Bucheckern gibt es reichlich."]
+];
+// Kalender-Detektiv: [slug, Name, Monate]
+const KAL = [
+  ["mauersegler", "Mauersegler", [5, 6, 7, 8]], ["weissstorch", "Weißstorch", [3, 4, 5, 6, 7, 8]],
+  ["bergfink", "Bergfink", [10, 11, 12, 1, 2, 3, 4]], ["kuckuck", "Kuckuck", [4, 5, 6, 7, 8]],
+  ["rauchschwalbe", "Rauchschwalbe", [4, 5, 6, 7, 8, 9]], ["seidenschwanz", "Seidenschwanz", [11, 12, 1, 2, 3]],
+  ["kohlmeise", "Kohlmeise", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]], ["feldlerche", "Feldlerche", [2, 3, 4, 5, 6, 7, 8, 9, 10]]
+];
+const MON = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+const MONLANG = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+const BILDERQUIZ = [
+  ["Wer fliegt bis zu zehn Monate am Stück, ohne zu landen?", ["mauersegler", "rauchschwalbe", "mehlschwalbe", "weissstorch"],
+    "Der <b>Mauersegler</b>. Er frisst, trinkt und schläft sogar im Flug."],
+  ["Wer kommt im Winter aus Skandinavien zu uns?", ["bergfink", "buchfink", "girlitz", "stieglitz"],
+    "Der <b>Bergfink</b>. Der Girlitz ist dagegen ein Sommergast – er zieht im Herbst nach Süden."],
+  ["Wer findet als Jungvogel ganz ohne Eltern den Weg nach Afrika?", ["kuckuck", "graugans", "hoeckerschwan", "haussperling"],
+    "Der <b>Kuckuck</b>. Gänse ziehen dagegen als Familie – die Jungen lernen den Weg von den Eltern."],
+  ["Wer segelt über die Straße von Gibraltar, statt übers offene Meer zu fliegen?", ["weissstorch", "rauchschwalbe", "mauersegler", "kuckuck"],
+    "Der <b>Weißstorch</b>. Er braucht warme Aufwinde – und die gibt es nur über Land."],
+  ["Wer bleibt im Winter bei uns?", ["kohlmeise", "mauersegler", "kuckuck", "nachtigall"],
+    "Die <b>Kohlmeise</b>. Im Winter frisst sie Samen statt Raupen."],
+  ["Dieser Wintergast mit Federhaube kommt aus dem hohen Norden und frisst Beeren. Wer ist es?", ["seidenschwanz", "haubenmeise", "eichelhaeher", "star"],
+    "Der <b>Seidenschwanz</b>. Die Haubenmeise hat auch eine Haube – sie bleibt aber das ganze Jahr bei uns."],
+  ["Wer spießt Käfer auf Dornen und kommt erst im Mai aus Afrika zurück?", ["neuntoeter", "kleiber", "gimpel", "buntspecht"],
+    "Der <b>Neuntöter</b>. Seine „Vorratskammer“ aus aufgespießten Insekten ist berühmt."],
+  ["Wer baut sein Nest aus Lehm im Kuhstall und zieht bis ins südliche Afrika?", ["rauchschwalbe", "mauersegler", "haussperling", "elster"],
+    "Die <b>Rauchschwalbe</b>. Ihr Nest klebt sie aus vielen hundert Lehmklümpchen."],
+  ["Dieser Wintergast aus dem Norden hat rostrote Flanken und einen hellen Streif über dem Auge. Wer ist es?", ["rotdrossel", "rotkehlchen", "singdrossel", "amsel"],
+    "Die <b>Rotdrossel</b>. Das Rotkehlchen ist rot an der Brust, nicht an den Flanken."],
+  ["Wer kommt schon im Februar zurück und singt hoch in der Luft über dem Feld?", ["feldlerche", "haussperling", "kohlmeise", "rotkehlchen"],
+    "Die <b>Feldlerche</b>. Sie zieht nur bis Südeuropa und ist darum früh wieder da."]
+];
+const NAMEN = { mauersegler: "Mauersegler", rauchschwalbe: "Rauchschwalbe", mehlschwalbe: "Mehlschwalbe", weissstorch: "Weißstorch", bergfink: "Bergfink", buchfink: "Buchfink",
+  girlitz: "Girlitz", stieglitz: "Stieglitz", kuckuck: "Kuckuck", graugans: "Graugans", hoeckerschwan: "Höckerschwan", haussperling: "Haussperling", kohlmeise: "Kohlmeise",
+  nachtigall: "Nachtigall", seidenschwanz: "Seidenschwanz", haubenmeise: "Haubenmeise", eichelhaeher: "Eichelhäher", star: "Star", neuntoeter: "Neuntöter", kleiber: "Kleiber",
+  gimpel: "Gimpel", buntspecht: "Buntspecht", elster: "Elster", rotdrossel: "Rotdrossel", rotkehlchen: "Rotkehlchen", singdrossel: "Singdrossel", amsel: "Amsel", feldlerche: "Feldlerche" };
+
+/* ============ Expedition ============ */
+const EXPS = {
+z1: {
+  id: "z1", titel: "Auf großer Reise", motto: "Zugvögel zwischen Europa und Afrika", em: "🧭",
+  lead: "Warum ziehen Vögel fort, wann kommen sie wieder – und wie finden sie den Weg? Für jede Station gibt es bis zu drei Etappen. Mit jeder Etappe fliegt dein Storch ein Stück weiter Richtung Südafrika.",
+  stationen: [
+    { id: "s1", em: "🐛", titel: "Warum in die Ferne?", kurz: "Futter entscheidet, wer fort muss", min: 9 },
+    { id: "s2", em: "📅", titel: "Der Vogel-Kalender", kurz: "Wer kommt, wer geht, wer bleibt", min: 9 },
+    { id: "s3", em: "🗺️", titel: "Auf großer Fahrt", kurz: "Zugwege auf der Karte", min: 10 },
+    { id: "s4", em: "🧭", titel: "Kompass im Kopf", kurz: "Orientierung und Gefahren unterwegs", min: 9 },
+    { id: "s5", em: "🏆", titel: "Das große Bilderquiz", kurz: "10 Fragen, je 4 Bilder, 2 Joker", min: 8 }
+  ],
+  raenge: [
+    { ab: 0, name: "Startklar", med: "🐣" }, { ab: 1, name: "Kurzstreckler", med: "🐤" },
+    { ab: 5, name: "Alpenüberquerer", med: "⛰️" }, { ab: 9, name: "Sahara-Flieger", med: "🏜️" },
+    { ab: 13, name: "Afrika-Profi", med: "🏅" }
+  ],
+  abzeichen: [
+    { em: "📍", name: "Erste Etappe", ok: h => h.fertige >= 1 },
+    { em: "🎯", name: "Volltreffer", ok: h => h.dreier >= 1 },
+    { em: "🐛", name: "Futter-Kenner", ok: h => h.d.s1 && h.d.s1.done },
+    { em: "📅", name: "Kalender-Profi", ok: h => h.d.s2 && h.d.s2.done },
+    { em: "🗺️", name: "Kartenleser", ok: h => h.d.s3 && h.d.s3.done },
+    { em: "⭐", name: "Dreier-Serie", ok: h => h.dreier >= 3 },
+    { em: "🏆", name: "Bilder-Profi", ok: h => h.d.s5 && h.d.s5.knochen >= 3 },
+    { em: "🏁", name: "In Südafrika", ok: h => h.summe >= 15 }
+  ],
+  checks: {
+    s1: [
+      ["Warum ziehen viele Vögel im Herbst fort?", ["Im Winter finden sie nicht genug Futter", "Ihr Gefieder hält keine Kälte aus", "Sie wollen im Süden brüten", "Sie folgen einfach den anderen Vögeln"]],
+      ["Welcher Vogel muss im Herbst fort, weil er nur fliegende Insekten frisst?", ["Mauersegler", "Haussperling", "Gimpel", "Kohlmeise"]],
+      ["Was tun Zugvögel kurz vor der Reise?", ["Sie fressen sich eine Fettreserve an", "Sie werfen ihre Schwungfedern ab", "Sie halten Winterschlaf", "Sie bauen ein neues Nest"]]
+    ],
+    s2: [
+      ["Was ist ein Wintergast?", ["Ein Vogel, der im Norden brütet und bei uns überwintert", "Ein Vogel, der im Winter ans Futterhaus kommt", "Ein Vogel, der im Winter nach Afrika zieht", "Ein Vogel, der im Winter schläft"]],
+      ["Welcher Vogel ist am kürzesten bei uns – nur von Mai bis August?", ["Mauersegler", "Weißstorch", "Feldlerche", "Bergfink"]],
+      ["Die Feldlerche ist schon im Februar zurück, die Rauchschwalbe erst im April. Warum?", ["Die Lerche überwintert viel näher, in Südeuropa", "Die Lerche fliegt schneller", "Die Schwalbe macht unterwegs Winterschlaf", "Die Lerche bleibt das ganze Jahr hier"]]
+    ],
+    s3: [
+      ["Warum fliegen Störche über Gibraltar oder den Bosporus?", ["Über dem offenen Meer gibt es keine warmen Aufwinde zum Segeln", "Dort gibt es besonders viele Frösche", "Sie haben Angst vor Wasser", "Der Weg ist dort am kürzesten"]],
+      ["Wo überwintern unsere Rauchschwalben?", ["Im südlichen Afrika", "In Spanien", "In Skandinavien", "In Südamerika"]],
+      ["Woher kommen die Bergfinken, die bei uns überwintern?", ["Aus Skandinavien", "Aus Afrika", "Aus den Alpen", "Aus Spanien"]]
+    ],
+    s4: [
+      ["Woran orientieren sich Zugvögel, die nachts fliegen?", ["An den Sternen und am Magnetfeld der Erde", "Am Mondlicht allein", "An Straßenlaternen", "Am Geruch des Meeres"]],
+      ["Woher kennt ein junger Kuckuck den Weg nach Afrika?", ["Der Weg ist ihm angeboren", "Seine Eltern zeigen ihn ihm", "Er folgt den Schwalben", "Er findet ihn durch Zufall"]],
+      ["Was hilft Zugvögeln an großen Fensterscheiben?", ["Dichte Muster außen auf dem Glas", "Ein einzelner Greifvogel-Aufkleber", "Die Scheibe besonders gut putzen", "Licht hinter der Scheibe anlassen"]]
+    ]
+  },
+  inhalt: {
+s1: () => `
+  <div class="prose lead"><p>Mauersegler und Schwalben verschwinden im Spätsommer, als hätte jemand das Licht ausgeknipst. Wohin – und vor allem: warum?</p></div>
+  <div class="box" data-widget="karten" data-set="warum">
+    <span class="eyebrow">Gut zu wissen</span>
+    <p class="klein">Tippe jede Karte an.</p>
+    <div class="karten"></div>
+  </div>
+  <div class="box" data-widget="sort" data-set="fort">
+    <span class="eyebrow">Mitmachen</span>
+    <h3>Wer muss fort, wer kann bleiben?</h3>
+    <p class="klein">Schau, was der Vogel frisst – und tippe dann das passende Fach an. Eine Fangfrage ist dabei!</p>
+    <div class="chips" data-pool></div><div class="bins"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Vögel ziehen nicht vor der Kälte davon, sondern vor dem <b>Hunger</b>. Wer im Winter keine Insekten, Raupen oder Frösche findet, muss fort: Mauersegler, Schwalben, Kuckuck, Storch. <b>Körner- und Samenfresser</b> können bleiben. Vor der Reise fressen Zugvögel sich <b>Fett</b> als Treibstoff an.</p></div>`,
+s2: () => `
+  <div class="prose lead"><p>Manche Vögel sind nur ein paar Monate bei uns, andere das ganze Jahr – und einige kommen ausgerechnet im Winter.</p></div>
+  <div class="box" data-widget="kalender"></div>
+  <div class="box" data-widget="sort" data-set="sgj">
+    <span class="eyebrow">Mitmachen</span>
+    <h3>Sommergast, Wintergast oder Jahresvogel?</h3>
+    <p class="klein">Tippe einen Vogel an und dann das passende Fach.</p>
+    <div class="chips" data-pool></div><div class="bins drei"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  <p class="klein">Alle 35 Zugvögel Monat für Monat: <a href="https://fauna.mibaso.de/interaktiv/zugvoegel.html" target="_blank" rel="noopener">Zugvogel-Kalender auf fauna.mibaso.de ↗</a></p>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p><b>Sommergäste</b> brüten bei uns und überwintern im Süden. <b>Wintergäste</b> brüten im Norden und überwintern bei uns. <b>Jahresvögel</b> bleiben das ganze Jahr. Wer nur bis Südeuropa zieht, ist im Frühjahr früher zurück als die Afrika-Reisenden.</p></div>`,
+s3: () => `
+  <div class="prose lead"><p>Tausende Kilometer, über Gebirge, Meer und Wüste – und im Frühjahr wieder zurück, oft ins selbe Nest. Wähle einen Vogel und verfolge seine Reise.</p></div>
+  <div class="box" data-widget="zugkarte"></div>
+  ${bild("storch-horst", "🪵", "Weißstörche auf ihrem Horst", "<b>Zurück im Frühjahr:</b> Viele Störche kehren jedes Jahr zu ihrem alten Horst zurück. <i>Foto: Michael Baur</i>")}
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Unsere Zugvögel überwintern vor allem in <b>Afrika</b>. <b>Segler</b> wie der Storch meiden das offene Meer und fliegen über <b>Gibraltar</b> oder den <b>Bosporus</b>. Kleine Vögel fliegen auf breiter Front über <b>Mittelmeer und Sahara</b>. Wintergäste wie der Bergfink kommen aus dem <b>Norden</b> zu uns.</p></div>`,
+s4: () => `
+  <div class="prose lead"><p>Ohne Karte und Navi finden Zugvögel Jahr für Jahr ihr Ziel – und zurück. Wie machen sie das? Und was macht ihnen die Reise schwer?</p></div>
+  <div class="box" data-widget="karten" data-set="kompass">
+    <span class="eyebrow">Der Kompass im Kopf</span>
+    <p class="klein">Tippe jede Karte an.</p>
+    <div class="karten"></div>
+  </div>
+  <div class="box" data-widget="sort" data-set="gefahr">
+    <span class="eyebrow">Mitmachen</span>
+    <h3>Gefahr oder Hilfe?</h3>
+    <p class="klein">Tippe eine Karte an und dann das passende Fach.</p>
+    <div class="chips" data-pool></div><div class="bins"></div>
+    <p class="feedback" aria-live="polite"></p>
+  </div>
+  <details><summary>Für Neugierige: Das Klima verschiebt den Kalender</summary><div class="grid">
+    <p>Weil die Winter milder werden, kommen viele Zugvögel heute früher zurück als vor 50 Jahren. Manche Mönchsgrasmücken überwintern inzwischen in England statt in Afrika, viele Störche bleiben in Spanien. Für Langstreckenzieher wie den Trauerschnäpper wird es dagegen schwieriger: Sie kommen nach ihrer festen inneren Uhr zurück – und die Raupen für ihre Jungen sind dann manchmal schon vorbei.</p></div></details>
+  <div class="merke"><span class="eyebrow">Merke</span>
+    <p>Zugvögel orientieren sich an der <b>Sonne</b>, den <b>Sternen</b>, dem <b>Magnetfeld</b> der Erde und an <b>Landmarken</b>. Vieles davon ist <b>angeboren</b>. Unterwegs drohen <b>Glasscheiben</b>, <b>Licht in der Nacht</b>, Vogelfang und Futtermangel. Helfen kannst du mit Mustern an Fenstern, dunklen Nächten und wilden Ecken voller Insekten.</p></div>`,
+s5: () => `
+  <div class="prose lead"><p>Letzte Etappe! Zehn Fragen, zu jeder vier Bilder – tippe das richtige an. Zwei Joker helfen: Bei <b>50:50</b> verschwinden zwei falsche Bilder, beim <b>Publikumsjoker</b> stimmt die Klasse ab – aber die Klasse irrt sich auch mal.</p></div>
+  <p class="klein">Für die Etappen zählt: 9–10 richtig = 3 Etappen, 7–8 = 2, 5–6 = 1.</p>`
+  }
+}
+};
+
+const IDS = Object.keys(EXPS);
+const MAXN = eid => EXPS[eid].stationen.length * 3;
+const rangIndex = (eid, t) => { let i = 0; EXPS[eid].raenge.forEach((r, k) => { if (t >= r.ab) i = k; }); return i; };
+function kennzahlen(eid) {
+  const d = S[eid] || {}; let summe = 0, fertige = 0, dreier = 0;
+  EXPS[eid].stationen.forEach(s => { const e = d[s.id]; if (e && e.done) { summe += e.knochen || 0; fertige++; if (e.knochen >= 3) dreier++; } });
+  return { summe, fertige, dreier, d };
+}
+
+/* ============ Übungs-Widgets ============ */
+const WIDGETS = {
+  sort(el) {
+    const set = SORT_SETS[el.dataset.set], pool = $("[data-pool]", el), fb = $(".feedback", el), binsEl = $(".bins", el);
+    binsEl.innerHTML = set.bins.map(([k, t]) => `<div class="bin" data-bin="${k}" role="button" tabindex="0"><h4>${t}</h4><div class="chips"></div></div>`).join("");
+    let sel = null, rest = set.items.length;
+    shuffle(set.items).forEach(([name, bin, why]) => {
+      const c = document.createElement("button"); c.type = "button"; c.className = "chip"; c.textContent = name;
+      c.dataset.bin = bin; c.dataset.why = why;
+      c.onclick = () => { $$(".chip.sel", pool).forEach(x => x.classList.remove("sel")); sel = c; c.classList.add("sel"); };
+      pool.appendChild(c);
+    });
+    $$(".bin", el).forEach(b => {
+      b.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); b.click(); } };
+      b.onclick = () => {
+        if (!sel) { fb.className = "feedback"; fb.textContent = "Tippe zuerst einen Begriff an."; return; }
+        if (sel.dataset.bin === b.dataset.bin) {
+          sel.classList.remove("sel"); sel.classList.add("ok"); sel.onclick = null; $(".chips", b).appendChild(sel);
+          fb.className = "feedback good"; fb.textContent = "Richtig! " + sel.dataset.why; sel = null; rest--;
+          if (!rest) fb.textContent += " – Alles einsortiert, prima!";
+        } else {
+          const c = sel; c.classList.add("shake"); setTimeout(() => c.classList.remove("shake"), 400);
+          fb.className = "feedback bad"; fb.textContent = "Nicht ganz – probier ein anderes Fach.";
+        }
+      };
+    });
+  },
+
+  karten(el) {
+    const box = $(".karten", el);
+    KARTEN_SETS[el.dataset.set].forEach(([vorn, hinten]) => {
+      const k = document.createElement("button"); k.type = "button"; k.className = "karte";
+      const zeig = offen => { k.classList.toggle("offen", offen); k.innerHTML = offen ? `<span class="kk">${vorn}</span><span class="kr">${hinten}</span>` : `<span class="kk">${vorn}</span><span class="tipp">Antippen ›</span>`; };
+      let offen = false; zeig(false); k.onclick = () => { offen = !offen; zeig(offen); };
+      box.appendChild(k);
+    });
+  },
+
+
+  /* Karte mit Zugwegen */
+  zugkarte(el) {
+    el.innerHTML = `<span class="eyebrow">Auf der Karte</span><h3>Wähle einen Vogel</h3>
+      <div class="rwahl">${ROUTEN.map(([k, n, c, s]) => `<button type="button" class="rchip" data-r="${k}" style="--c:${c}"><img src="${ZUGBILD(s)}" alt="">${n}</button>`).join("")}</div>
+      <div class="kartenbox">${karteSVG(`<g id="zkRouten"></g><g id="zkVogel" opacity="0"><circle r="15" fill="#fff" stroke="#233D5C" stroke-width="3"/><text y="6" text-anchor="middle" font-size="17">🐦</text></g>`, { label: "Karte von Europa und Afrika mit Zugwegen" })}</div>
+      <div class="rinfo anim-text" aria-live="polite">Tippe oben einen Vogel an – dann siehst du seinen Weg.</div>
+      <p class="hint">Vereinfachte Zugwege, zur Übersicht alle mit Start in Hessen. Kartengrundlage: Natural Earth.</p>`;
+    const g = $("#zkRouten", el), vogel = $("#zkVogel", el), info = $(".rinfo", el), gesehen = new Set();
+    let frame;
+    const zeig = k => {
+      const r = ROUTEN.find(x => x[0] === k); if (!r) return;
+      gesehen.add(k);
+      $$(".rchip", el).forEach(b => b.classList.toggle("an", b.dataset.r === k));
+      const alt = [...gesehen].filter(x => x !== k).map(x => { const q = ROUTEN.find(y => y[0] === x);
+        return `<path d="${glatt(KARTE.routes[x])}" fill="none" stroke="${q[2]}" stroke-width="3" stroke-linecap="round" opacity=".28"/>`; }).join("");
+      g.innerHTML = alt + `<path id="zkAktiv" d="${glatt(KARTE.routes[k])}" pathLength="1" fill="none" stroke="${r[2]}" stroke-width="6" stroke-linecap="round" stroke-dasharray="1 1" stroke-dashoffset="1"/>`;
+      info.innerHTML = `<b>${r[1]}</b> · ${r[4]}<br>${r[5]}`;
+      const p = $("#zkAktiv", el), L = p.getTotalLength(), t0 = performance.now(), dauer = reduce ? 0 : 2600;
+      vogel.setAttribute("opacity", "1"); cancelAnimationFrame(frame);
+      const tick = now => {
+        const t = dauer ? Math.min(1, (now - t0) / dauer) : 1, e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+        p.setAttribute("stroke-dashoffset", (1 - e).toFixed(4));
+        const pt = p.getPointAtLength(L * e); vogel.setAttribute("transform", `translate(${pt.x} ${pt.y})`);
+        if (t < 1) frame = requestAnimationFrame(tick);
+        else if (gesehen.size === ROUTEN.length) info.innerHTML += `<br><i>Alle sechs Reisen angeschaut – prima!</i>`;
+      };
+      frame = requestAnimationFrame(tick);
+    };
+    $$(".rchip", el).forEach(b => b.onclick = () => zeig(b.dataset.r));
+  },
+
+  /* Kalender-Detektiv: Wer ist das an diesem Balken? */
+  kalender(el) {
+    const runden = shuffle(KAL).slice(0, 5); let i = 0, richtig = 0;
+    const balken = m => `<div class="kal">${MON.map((n, k) => `<span class="${m.includes(k + 1) ? "da" : ""}">${n}</span>`).join("")}</div>`;
+    const zeitraum = m => m.length === 12 ? "das ganze Jahr" : (() => {
+      let s = m.find(x => !m.includes(x === 1 ? 12 : x - 1)), e = m.find(x => !m.includes(x === 12 ? 1 : x + 1));
+      return `von ${MONLANG[s - 1]} bis ${MONLANG[e - 1]}`; })();
+    const zeig = () => {
+      if (i >= runden.length) {
+        el.innerHTML = `<span class="eyebrow">Kalender-Detektiv</span><h3>${richtig} von ${runden.length} richtig!</h3>
+          <p>${richtig >= 4 ? "Du kennst den Vogel-Kalender. 📅" : "Schau dir die Balken noch einmal genau an."}</p>
+          <div class="knopfreihe"><button type="button" class="knopf" id="kalNeu">↻ Nochmal</button></div>`;
+        $("#kalNeu", el).onclick = () => WIDGETS.kalender(el); return;
+      }
+      const [s, name, m] = runden[i];
+      const andere = shuffle(KAL.filter(x => x[0] !== s && x[2].join() !== m.join())).slice(0, 3);
+      const opts = shuffle([runden[i], ...andere]);
+      el.innerHTML = `<span class="eyebrow">Kalender-Detektiv · ${i + 1} von ${runden.length}</span>
+        <h3>Wer ist in diesen Monaten bei uns?</h3>${balken(m)}
+        <div class="bq-grid">${opts.map(([os], k) => `<button type="button" class="bq" data-s="${os}"><img src="${ZUGBILD(os)}" alt="Bild ${"ABCD"[k]}"><span class="bq-buch">${"ABCD"[k]}</span><span class="bq-name" hidden>${NAMEN[os]}</span></button>`).join("")}</div>
+        <p class="feedback" aria-live="polite"></p>
+        <div class="knopfreihe"><button type="button" class="knopf prim" id="kalW" hidden>${i + 1 < runden.length ? "Nächster Balken ›" : "Auswertung"}</button></div>`;
+      $$(".bq", el).forEach(b => b.onclick = () => {
+        const ok = b.dataset.s === s; if (ok) richtig++;
+        $$(".bq", el).forEach(x => { x.disabled = true; $(".bq-name", x).hidden = false; if (x.dataset.s === s) x.classList.add("ok"); });
+        if (!ok) b.classList.add("bad");
+        const fb = $(".feedback", el); fb.className = "feedback " + (ok ? "good" : "bad");
+        fb.innerHTML = `${ok ? "Richtig!" : "Nicht ganz."} Der Balken gehört zum <b>${name}</b> – bei uns ${zeitraum(m)}.`;
+        $("#kalW", el).hidden = false;
+      });
+      $("#kalW", el).onclick = () => { i++; zeig(); };
+    };
+    zeig();
+  }
+};
+
+
+/* ============ Bilderquiz: vier Bilder je Frage ============ */
+function bilderquiz(el, data, fertig) {
+  let i = 0, score = 0, j50 = false, jpub = false; const marks = [];
+  const qs = data.map(([q, opts, warum]) => ({ q, warum, a: shuffle(opts.map((s, k) => ({ s, ok: k === 0 }))) }));
+  const zeichne = () => {
+    if (i >= qs.length) return fertig(score, qs.length);
+    const q = qs[i];
+    el.innerHTML = `<div class="quiz">
+      <div class="qhead"><span class="eyebrow">Frage ${i + 1} von ${qs.length}</span><div class="dots">${qs.map((_, k) => `<i class="${marks[k] || (k === i ? "now" : "")}"></i>`).join("")}</div></div>
+      <p class="qq">${q.q}</p>
+      <div class="bq-grid">${q.a.map((a, k) => `<button type="button" class="bq" data-k="${k}">
+        <img src="${ZUGBILD(a.s)}" alt="Bild ${"ABCD"[k]}"><span class="bq-buch">${"ABCD"[k]}</span>
+        <span class="bq-name" hidden>${NAMEN[a.s] || a.s}</span>
+        <span class="bq-poll" hidden><i></i><em></em></span></button>`).join("")}</div>
+      <div class="jokers"><button type="button" class="knopf" data-j="50" ${j50 ? "disabled" : ""}>50:50</button><button type="button" class="knopf" data-j="pub" ${jpub ? "disabled" : ""}>📣 Publikumsjoker</button></div>
+      <p class="feedback" aria-live="polite"></p>
+      <div><button type="button" class="knopf prim" data-weiter hidden>${i + 1 < qs.length ? "Nächste Frage" : "Auswertung"}</button></div></div>`;
+    $$(".bq", el).forEach(b => b.onclick = () => antwort(+b.dataset.k));
+    const b50 = $('[data-j="50"]', el), bp = $('[data-j="pub"]', el);
+    b50.onclick = () => { j50 = true; b50.disabled = true;
+      shuffle(q.a.map((a, k) => k).filter(k => !q.a[k].ok)).slice(0, 2).forEach(k => { $(`.bq[data-k="${k}"]`, el).hidden = true; }); };
+    bp.onclick = () => { jpub = true; bp.disabled = true;
+      const sichtbar = q.a.map((a, k) => k).filter(k => !$(`.bq[data-k="${k}"]`, el).hidden);
+      // Die Klasse liegt meistens richtig – aber nicht immer
+      const irrt = Math.random() < .15, fav = irrt ? shuffle(sichtbar.filter(k => !q.a[k].ok))[0] : q.a.findIndex(a => a.ok);
+      const w = {}; sichtbar.forEach(k => w[k] = k === fav ? 40 + Math.random() * 30 : 5 + Math.random() * 20);
+      const sum = Object.values(w).reduce((a, b) => a + b, 0);
+      let pct = sichtbar.map(k => [k, Math.round(w[k] / sum * 100)]);
+      pct[0][1] += 100 - pct.reduce((a, [, p]) => a + p, 0);
+      pct.forEach(([k, p]) => { const pl = $(`.bq[data-k="${k}"] .bq-poll`, el); pl.hidden = false; $("em", pl).textContent = p + " %";
+        requestAnimationFrame(() => { $("i", pl).style.width = p + "%"; }); });
+    };
+    $("[data-weiter]", el).onclick = () => { i++; zeichne(); };
+  };
+  const antwort = k => {
+    const q = qs[i], ok = q.a[k].ok;
+    $$(".bq", el).forEach(b => { b.disabled = true; $(".bq-name", b).hidden = false; if (q.a[+b.dataset.k].ok) b.classList.add("ok"); });
+    if (!ok) $(`.bq[data-k="${k}"]`, el).classList.add("bad");
+    $$("[data-j]", el).forEach(b => b.disabled = true);
+    marks[i] = ok ? "ok" : "bad"; if (ok) score++;
+    const fb = $(".feedback", el); fb.className = "feedback " + (ok ? "good" : "bad");
+    fb.innerHTML = `${ok ? "Richtig!" : "Leider falsch."} ${q.warum}`;
+    $("[data-weiter]", el).hidden = false; $("[data-weiter]", el).focus();
+  };
+  zeichne();
+}
+
+
+/* ============ Quiz ============ */
+function quiz(el, data, jokers, fertig) {
+  let i = 0, score = 0, j50 = false, jpub = false; const marks = [];
+  const qs = data.map(([q, a, hints]) => ({ q, hints, a: shuffle(a.map((t, k) => ({ t, ok: k === 0 }))) }));
+  const zeichne = () => {
+    if (i >= qs.length) return fertig(score, qs.length);
+    const q = qs[i];
+    el.innerHTML = `<div class="quiz">
+      <div class="qhead"><span class="eyebrow">Frage ${i + 1} von ${qs.length}</span><div class="dots">${qs.map((_, k) => `<i class="${marks[k] || (k === i ? "now" : "")}"></i>`).join("")}</div></div>
+      <p class="qq">${q.q}</p>
+      <div class="answers">${q.a.map((a, k) => `<button type="button" class="ans" data-k="${k}"><b>${"ABCD"[k]}</b><span>${a.t}</span></button>`).join("")}</div>
+      ${jokers ? `<div class="jokers"><button type="button" class="knopf" data-j="50" ${j50 ? "disabled" : ""}>50:50</button><button type="button" class="knopf" data-j="pub" ${jpub ? "disabled" : ""}>📣 Publikumsjoker</button></div>` : ""}
+      <p class="publikum" hidden></p>
+      <p class="feedback" aria-live="polite"></p>
+      <div><button type="button" class="knopf prim" data-weiter hidden>${i + 1 < qs.length ? "Nächste Frage" : "Auswertung"}</button></div></div>`;
+    $$(".ans", el).forEach(b => b.onclick = () => antwort(+b.dataset.k));
+    const b50 = $('[data-j="50"]', el), bp = $('[data-j="pub"]', el);
+    if (b50) b50.onclick = () => { j50 = true; b50.disabled = true;
+      shuffle(q.a.map((a, k) => k).filter(k => !q.a[k].ok)).slice(0, 2).forEach(k => { $(`.ans[data-k="${k}"]`, el).hidden = true; }); };
+    if (bp) bp.onclick = () => { jpub = true; bp.disabled = true; const p = $(".publikum", el); p.hidden = false;
+      const r = Math.random(), h = q.hints[r < .45 ? 0 : r < .7 ? 1 : r < .88 ? 2 : 3];
+      p.textContent = "„" + h.replace(/^([^:]+): /, "$1 ruft: ") + "“"; };
+    $("[data-weiter]", el).onclick = () => { i++; zeichne(); };
+  };
+  const antwort = k => {
+    const q = qs[i], ok = q.a[k].ok;
+    $$(".ans", el).forEach(b => { b.disabled = true; if (q.a[+b.dataset.k].ok) b.classList.add("ok"); });
+    if (!ok) $(`.ans[data-k="${k}"]`, el).classList.add("bad");
+    $$("[data-j]", el).forEach(b => b.disabled = true);
+    marks[i] = ok ? "ok" : "bad"; if (ok) score++;
+    const fb = $(".feedback", el); fb.className = "feedback " + (ok ? "good" : "bad"); fb.textContent = ok ? "Richtig!" : "Leider falsch.";
+    $("[data-weiter]", el).hidden = false; $("[data-weiter]", el).focus();
+  };
+  zeichne();
+}
+
+/* ============ Station abschließen ============ */
+function abschliessen(eid, sid, score, total) {
+  const X = EXPS[eid], n = X.stationen.length;
+  const knochen = total === 3 ? score : (score >= 9 ? 3 : score >= 7 ? 2 : score >= 5 ? 1 : 0);
+  const vorher = kennzahlen(eid), rangVorher = rangIndex(eid, vorher.summe), alleVorher = vorher.fertige === n;
+  const abzVorher = X.abzeichen.map(a => a.ok(vorher));
+  S[eid] = S[eid] || {};
+  const alt = S[eid][sid];
+  S[eid][sid] = { done: true, knochen: Math.max(knochen, alt ? alt.knochen || 0 : 0), ts: Date.now() };
+  speichern();
+  const nach = kennzahlen(eid), rangNach = rangIndex(eid, nach.summe);
+  return { knochen, best: S[eid][sid].knochen, neuerRang: rangNach > rangVorher ? X.raenge[rangNach] : null,
+    geschafft: !alleVorher && nach.fertige === n, neueAbz: X.abzeichen.filter((a, k) => !abzVorher[k] && a.ok(nach)) };
+}
+
+/* ============ Ansichten ============ */
+const app = $("#app");
+const kopf = (titel, unter) => `<header class="app-head">
+  <a class="zurueck-kopf" href="../index.html">‹ Fauna</a>
+  <div class="logo">🐦 → 🌍</div><h1>${titel}</h1><div class="untertitel">${unter}</div></header>`;
+const fuss = () => `<footer class="fuss">
+  <div>Fortschritt wird nur auf diesem Gerät gespeichert. Keine Anmeldung, keine Datensammlung.</div>
+  <div><a href="../../index.html">⌂ Bio Mibaso</a> · <a href="../../ueber/">Über mich</a> · <a href="../../impressum/">Impressum &amp; Datenschutz</a></div>
+  <div>© 2026 Michael Baur · Zugvogel-Pass</div></footer>`;
+
+function seiteStart() {
+  const kachel = eid => { const X = EXPS[eid], h = kennzahlen(eid);
+    return `<a class="kachel" href="#${eid}"><span class="ke">${X.em}</span><span><span class="kt">${X.titel}</span><span class="kb">${X.motto} · ${X.stationen.length} Stationen · ca. ${X.stationen.reduce((a, s) => a + s.min, 0)} Min · 🌻 ${h.summe}/${MAXN(eid)}</span></span><span class="pf">›</span></a>`; };
+  app.innerHTML = `${kopf("Zugvögel", "Auf großer Reise")}
+  <div class="huelle">
+    <section>
+      <p class="lead">Jeden Herbst brechen Millionen Vögel auf – Schwalben, Störche, Kuckucke – und fliegen bis nach Afrika. Andere kommen aus dem hohen Norden zu uns. Finde heraus, warum Vögel ziehen, wann sie kommen und gehen und wie sie ihren Weg finden. Für jede Station gibt es bis zu drei Etappen 📍 – mit jeder fliegt dein Storch ein Stück weiter nach Südafrika!</p>
+    </section>
+    <section>
+      <h2 class="h-blau">Deine Expedition</h2>
+      <div class="kacheln">${IDS.map(kachel).join("")}</div>
+    </section>
+    <section>
+      <details class="lehrer"><summary>Für Lehrkräfte: Einsatz in Klasse 5/6</summary><div class="grid">
+        <div class="ablauf"><b>1</b><span>Warum in die Ferne? – Nahrung und Zugverhalten, Fettreserven, innere Uhr</span>
+          <b>2</b><span>Der Vogel-Kalender – Sommergäste, Wintergäste, Jahresvögel; Kalender-Detektiv mit Monatsbalken</span>
+          <b>3</b><span>Auf großer Fahrt – Zugwege von sechs Arten auf der Karte (Storch West und Ost, Rauchschwalbe, Kuckuck, Mauersegler, Bergfink)</span>
+          <b>4</b><span>Kompass im Kopf – Orientierung (Sonne, Sterne, Magnetfeld, Landmarken, angeboren), Gefahren unterwegs und Schutz</span>
+          <b>5</b><span>Bilderquiz – 10 Fragen mit je vier Bildern (ca. 45 Min insgesamt)</span></div>
+        <p>Die Expedition füllt eine Unterrichtsstunde. Alles läuft im Browser auf Tablet, Handy oder am Beamer – ohne Anmeldung, ohne Datensammlung, ohne Ton (nur bei voller Punktzahl erklingt eine kurze Fanfare).</p>
+        <p><b>Bezug zum hessischen Kerncurriculum Biologie, Jahrgangsstufe 5/6:</b> Biologische Strukturen (Angepasstheit: Ernährung und Zugverhalten), Vielfalt (heimische Vögel kennen), Mensch und Umwelt (Gefährdung von Zugvögeln, Vogelschutz). Gut kombinierbar mit „Expedition Winter“ (Station „Zugvögel und Wintergäste“).</p>
+        <ul class="clean">
+          <li><b>Stufenweise:</b> Jede Station öffnet sich erst, wenn die vorige geschafft ist. Mit „Alle offen“ kann frei gewählt werden.</li>
+          <li><b>Zum Weiterarbeiten:</b> den <a href="https://fauna.mibaso.de/interaktiv/zugvoegel.html" target="_blank" rel="noopener">Zugvogel-Kalender auf fauna.mibaso.de</a> nutzen, im Frühjahr die Ankunft von Schwalben und Mauerseglern notieren, einen Storchenhorst in der Nähe beobachten.</li>
+          <li><b>Karte:</b> Die Zugwege sind vereinfacht und starten zur Übersicht alle in Hessen. Kartengrundlage: Natural Earth (gemeinfrei).</li>
+          <li><b>Urkunde:</b> Am Ende tragen die Kinder ihren Namen ein und drucken die Urkunde oder speichern sie als PDF.</li>
+          <li><b>Geteilte Geräte:</b> Im Zugvogel-Pass ganz unten „Pass zurücksetzen“.</li>
+        </ul></div></details>
+    </section>
+    ${fuss()}
+  </div>`;
+}
+
+function seitePass(eid, neu) {
+  const X = EXPS[eid], MAX = MAXN(eid), h = kennzahlen(eid), ri = rangIndex(eid, h.summe), rang = X.raenge[ri], next = X.raenge[ri + 1], n = X.stationen.length;
+  const anderer = IDS.find(k => k !== eid);
+  app.innerHTML = `
+  <div class="subkopf"><div class="row"><a class="zurueck" href="#start">‹ Zugvögel</a><span class="tchip">📍 ${h.summe} / ${MAX}</span></div></div>
+  <div class="huelle">
+    <section>
+      <span class="eyebrow">Dein Zugvogel-Pass</span>
+      <h2 class="h-blau">${X.titel}</h2>
+      <p class="lead">${X.lead}</p>
+      <div class="buehne">
+        <div class="rangchip"><span class="med">${rang.med}</span><span>Rang<b>${rang.name}</b></span></div>
+        <div class="zaehler">${h.summe} / ${MAX} 📍</div>
+        ${passSVG(h.summe, MAX)}
+        <div class="boden"></div>
+      </div>
+      <div class="fbalken"><i id="fbar"></i></div>
+      <p class="naechster">${next ? `Noch <b>${federn(next.ab - h.summe)}</b> bis zum Rang „${next.name}“` : `Höchster Rang erreicht – ${rang.name}! 🎉`}</p>
+      <div class="schalter"><span class="lab">Spielmodus:</span>
+        <button type="button" class="sbtn ${S.modus === "frei" ? "an" : ""}" data-m="frei">🔓 Alle offen</button>
+        <button type="button" class="sbtn ${S.modus === "level" ? "an" : ""}" data-m="level">🔒 Stufenweise</button></div>
+    </section>
+    <section>
+      <h2 class="h-honig">Deine Stationen</h2>
+      <div class="stationen">${X.stationen.map((s, k) => {
+        const e = h.d[s.id], done = !!(e && e.done), vor = k === 0 || !!(h.d[X.stationen[k - 1].id] && h.d[X.stationen[k - 1].id].done);
+        const offen = S.modus === "frei" || done || vor;
+        const cls = done ? "fertig" : offen ? "aktiv" : "gesperrt";
+        const rechts = done ? knochenHTML(e.knochen) : offen ? `ca. ${s.min} Min ›` : "🔒";
+        const inner = `<span class="nr">${s.em}</span><span><span class="st">${k + 1}. ${s.titel}</span><span class="sk">${s.kurz}</span></span><span class="stand">${rechts}</span>`;
+        return offen ? `<a class="station ${cls}" href="#${eid}-${s.id}">${inner}</a>` : `<div class="station ${cls}" aria-disabled="true">${inner}</div>`;
+      }).join("")}</div>
+      ${h.fertige === n && anderer ? `<p class="klein">Weiter geht’s mit <a href="#${anderer}">Teil ${IDS.indexOf(anderer) + 1}: ${EXPS[anderer].titel}</a>.</p>` : ""}
+    </section>
+    <section>
+      <h2 class="h-blau">Urkunde</h2>
+      ${h.fertige ? `<p>${h.fertige === n ? "Geschafft! Trag deinen Namen ein und hol dir deine Urkunde." : `Du hast ${h.fertige} von ${n} Stationen geschafft. Die Urkunde zeigt deinen Zwischenstand.`}</p>
+        <div><button type="button" class="knopf honig" id="urkBtn">📜 Urkunde ansehen</button></div>`
+        : `<p class="klein">Schaff die erste Station – dann gibt es hier deine Urkunde.</p>`}
+    </section>
+    <section>
+      <h2 class="h-honig">Abzeichen-Album</h2>
+      <div class="album">${X.abzeichen.map(a => { const ok = a.ok(h); return `<div class="abz ${ok ? "auf" : "zu"}"><span class="em">${a.em}</span>${a.name}</div>`; }).join("")}</div>
+    </section>
+    <section class="reset" id="resetBox">
+      <button type="button" class="knopf" id="resetBtn">Pass zurücksetzen</button>
+      <p class="hint">Löscht Etappen und Abzeichen auf diesem Gerät – zum Beispiel für die nächste Person.</p>
+    </section>
+    ${fuss()}
+  </div>`;
+  requestAnimationFrame(() => requestAnimationFrame(() => { const b = $("#fbar"); if (b) b.style.width = (h.summe / MAX * 100) + "%";
+    setzePassvogel(h.summe / MAX, neu !== undefined && neu < h.summe ? neu / MAX : undefined); }));
+  $$("[data-m]", app).forEach(b => b.onclick = () => { S.modus = b.dataset.m; speichern(); route(true); });
+  const ub = $("#urkBtn"); if (ub) ub.onclick = () => urkunde(eid);
+  $("#resetBtn").onclick = () => {
+    $("#resetBox").innerHTML = `<p><b>Wirklich alles löschen?</b> Etappen, Abzeichen und Name auf diesem Gerät sind dann weg.</p>
+      <div class="knopfreihe"><button type="button" class="knopf prim" id="jaReset">Ja, zurücksetzen</button><button type="button" class="knopf" id="neinReset">Abbrechen</button></div>`;
+    $("#jaReset").onclick = () => { S[eid] = {}; S.name = ""; speichern(); toast("Zugvogel-Pass zurückgesetzt."); route(true); };
+    $("#neinReset").onclick = () => route(true);
+  };
+}
+
+function seiteStation(eid, sid) {
+  const X = EXPS[eid], MAX = MAXN(eid), k = X.stationen.findIndex(s => s.id === sid), s = X.stationen[k], h = kennzahlen(eid);
+  if (k < 0) { location.hash = eid; return; }
+  const vor = k === 0 || !!(h.d[X.stationen[k - 1].id] && h.d[X.stationen[k - 1].id].done);
+  if (S.modus === "level" && !vor && !(h.d[sid] && h.d[sid].done)) { location.hash = eid; return; }
+  const finale = sid === "s5";
+  app.innerHTML = `
+  <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Zugvogel-Pass</a><span class="tchip" id="tchip">📍 ${h.summe} / ${MAX}</span></div></div>
+  <div class="huelle">
+    <section>
+      <span class="eyebrow">Station ${k + 1} von ${X.stationen.length} · ca. ${s.min} Min</span>
+      <h2 class="h-blau">${s.em} ${s.titel}</h2>
+      ${X.inhalt[sid]()}
+    </section>
+    <section>
+      <h2 class="h-honig">${finale ? "Los geht’s!" : "Station-Check"}</h2>
+      ${finale ? "" : `<p class="klein">Drei Fragen – für jede richtige Antwort gibt es eine Etappe.</p>`}
+      <div class="box" id="check"></div>
+    </section>
+    ${fuss()}
+  </div>`;
+  $$("[data-widget]", app).forEach(el => WIDGETS[el.dataset.widget](el));
+  const box = $("#check");
+  const weiter = (score, total) => {
+    const r = abschliessen(eid, sid, score, total), naechste = X.stationen[k + 1];
+    $("#tchip").textContent = `📍 ${kennzahlen(eid).summe} / ${MAX}`;
+    const lob = r.knochen === 3 ? "Volle Punktzahl – stark!" : r.knochen === 2 ? "Gut gemacht!" : r.knochen === 1 ? "Geschafft! Mit einem zweiten Versuch holst du mehr Etappen." : "Station erledigt – aber probier’s gleich noch mal!";
+    box.innerHTML = `<div class="ergebnis">
+      <span class="eyebrow">${score} von ${total} richtig</span>
+      <div class="gross">${knochenHTML(r.knochen)}</div>
+      <p>${lob}</p>
+      ${r.best > r.knochen ? `<p class="klein">In deinem Pass zählt dein bestes Ergebnis: ${federn(r.best)}.</p>` : ""}
+      <div class="knopfreihe">
+        <button type="button" class="knopf" id="nochmal">Nochmal</button>
+        ${naechste ? `<a class="knopf prim" href="#${eid}-${naechste.id}">Weiter: ${naechste.titel} ›</a>` : ""}
+        <a class="knopf ${naechste ? "" : "prim"}" href="#${eid}">📍 Zum Zugvogel-Pass</a>
+      </div></div>`;
+    $("#nochmal").onclick = starte;
+    if (r.geschafft) feier(eid);
+    else {
+      if (r.knochen === 3) { konfetti(); fanfare(false); }
+      if (r.neuerRang) setTimeout(() => toast(`${r.neuerRang.med} Neuer Rang: ${r.neuerRang.name}!`), 600);
+      else if (r.neueAbz.length) setTimeout(() => toast(`${r.neueAbz[0].em} Neues Abzeichen: ${r.neueAbz[0].name}`), 600);
+    }
+  };
+  const starte = () => finale ? bilderquiz(box, BILDERQUIZ, weiter) : quiz(box, X.checks[sid], false, weiter);
+  starte();
+}
+
+/* ============ Feier & Urkunde ============ */
+function feier(eid) {
+  konfetti(); fanfare(true);
+  const X = EXPS[eid], h = kennzahlen(eid), rang = X.raenge[rangIndex(eid, h.summe)];
+  const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = `<div class="feierkarte"><div class="fmed">${rang.med}</div><h3>Geschafft!</h3>
+    <p>Du hast alle Stationen von „${X.titel}“ gemeistert und ${h.summe} von ${MAXN(eid)} Etappen geschafft. Dein Rang: <b>${rang.name}</b>.</p>
+    <div class="knopfreihe"><button type="button" class="knopf honig" id="fUrk">📜 Zur Urkunde</button><button type="button" class="knopf" id="fZu">Weiter</button></div></div>`;
+  document.body.appendChild(o);
+  $("#fUrk", o).onclick = () => { o.remove(); urkunde(eid); };
+  $("#fZu", o).onclick = () => o.remove();
+  $("#fUrk", o).focus();
+}
+
+function urkunde(eid) {
+  const X = EXPS[eid], h = kennzahlen(eid), rang = X.raenge[rangIndex(eid, h.summe)], n = X.stationen.length, alle = h.fertige === n;
+  const datum = new Date().toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+  const abz = X.abzeichen.filter(a => a.ok(h)).map(a => a.em).join(" ");
+  const titel = `„${X.titel}“`;
+  const o = document.createElement("div"); o.className = "overlay"; o.id = "urkunde"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
+  o.innerHTML = `<div class="urkunde"><div class="rahmen">
+    <div class="urk-eyebrow">Bio Mibaso · Zugvogel-Pass</div>
+    <div class="urk-med">${rang.med}</div>
+    <div class="urk-titel">Urkunde</div>
+    <div class="urk-sub">${rang.name}</div>
+    <div class="urk-satz">Diese Urkunde bestätigt, dass</div>
+    <input class="urk-name" id="urkName" placeholder="Dein Name" aria-label="Dein Name" value="${esc(S.name || "")}">
+    <div class="urk-name-druck" id="urkNameDruck">${S.name ? esc(S.name) : "&nbsp;"}</div>
+    <div class="urk-satz">${alle ? `die Expedition <b>${titel}</b> erfolgreich abgeschlossen hat.` : `in der Expedition <b>${titel}</b> ${h.fertige} von ${n} Stationen gemeistert hat.`}</div>
+    <table class="urk-tab">${X.stationen.map((s, k) => { const e = h.d[s.id]; return `<tr><td>${k + 1}. ${s.titel}</td><td>${e && e.done ? knochenHTML(e.knochen) : "–"}</td></tr>`; }).join("")}</table>
+    <div class="urk-summe">📍 ${h.summe} von ${MAXN(eid)} Etappen</div>
+    ${abz ? `<div class="urk-album" aria-label="Abzeichen">${abz}</div>` : ""}
+    <div class="urk-fuss"><span>${datum}</span><span>Bio Mibaso · mibaso.de</span></div>
+  </div>
+  <div class="urk-btns">
+    ${IM_RAHMEN ? `<span class="hint">Drucken klappt auf bio.mibaso.de.</span>` : `<button type="button" class="knopf prim" id="urkDruck">🖨️ Drucken / als PDF sichern</button>`}
+    <button type="button" class="knopf honig" id="urkTeilen">📤 Teilen / als Bild sichern</button>
+    <p class="hint" style="width:100%;text-align:center;margin:2px 0 0">Auf iPhone und iPad: „Teilen“ antippen, dann „Drucken“ oder „Bild sichern“.</p>
+    <button type="button" class="knopf" id="urkZu">Schließen</button>
+  </div></div>`;
+  document.body.appendChild(o);
+  const inp = $("#urkName", o);
+  const aktualisiere = urkundeTeilen(o, "📍", "Urkunde-Zugvogel-Pass");
+  inp.oninput = () => { S.name = inp.value.slice(0, 60); speichern(); $("#urkNameDruck", o).textContent = S.name || " "; aktualisiere(); };
+  const d = $("#urkDruck", o); if (d) d.onclick = () => window.print();
+  $("#urkZu", o).onclick = () => o.remove();
+  o.onclick = e => { if (e.target === o) o.remove(); };
+  if (!S.name) inp.focus();
+}
+
+/* ============ Urkunde als Bild (Teilen / Drucken auf iPhone und iPad) ============ */
+function urkundeDaten(o, em) {
+  const t = s => { const el = $(s, o); return el ? el.textContent.trim() : ""; };
+  return {
+    eyebrow: t(".urk-eyebrow"), med: t(".urk-med"), rang: t(".urk-sub"), name: (S.name || "").trim(),
+    satz: $$(".urk-satz", o)[1].textContent.replace(/\s+/g, " ").trim(),
+    zeilen: $$(".urk-tab tr", o).map(tr => { const td = $$("td", tr), sp = $("[aria-label]", td[1]);
+      return [td[0].textContent.trim(), sp ? parseInt(sp.getAttribute("aria-label"), 10) : null]; }),
+    em, summe: t(".urk-summe"), abz: t(".urk-album"), datum: t(".urk-fuss span"), fuss: "Bio Mibaso · mibaso.de"
+  };
+}
+function zeichneUrkunde(d) {
+  const W = 1240, H = 1754, c = document.createElement("canvas"); c.width = W; c.height = H;
+  const x = c.getContext("2d"), SANS = '-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif', SERIF = 'Georgia,"Times New Roman",serif';
+  x.fillStyle = "#fffdf7"; x.fillRect(0, 0, W, H);
+  x.strokeStyle = "#233D5C"; x.lineWidth = 6; x.strokeRect(60, 60, W - 120, H - 120);
+  x.lineWidth = 2; x.strokeRect(76, 76, W - 152, H - 152);
+  x.strokeStyle = "#C28A3A"; x.strokeRect(100, 100, W - 200, H - 200);
+  x.textAlign = "center"; x.textBaseline = "alphabetic";
+  const zeile = (txt, font, farbe, y) => { x.font = font; x.fillStyle = farbe; x.fillText(txt, W / 2, y); };
+  const umbrechen = (txt, max) => { const out = []; let z = "";
+    txt.split(" ").forEach(w => { const p = z ? z + " " + w : w; if (x.measureText(p).width > max && z) { out.push(z); z = w; } else z = p; });
+    if (z) out.push(z); return out; };
+  let y = 200;
+  zeile(d.eyebrow.toUpperCase(), `600 26px ${SANS}`, "#5d6b78", y);
+  y += 150; zeile(d.med, `120px ${SANS}`, "#000", y);
+  y += 140; zeile("Urkunde", `108px ${SERIF}`, "#233D5C", y);
+  y += 70; zeile(d.rang, `44px ${SERIF}`, "#a9762c", y);
+  y += 100; zeile("Diese Urkunde bestätigt, dass", `38px ${SERIF}`, "#1c2e42", y);
+  y += 105; zeile(d.name || " ", `64px ${SERIF}`, "#1c2e42", y);
+  x.strokeStyle = "#5d6b78"; x.lineWidth = 2; x.beginPath(); x.moveTo(W / 2 - 360, y + 24); x.lineTo(W / 2 + 360, y + 24); x.stroke();
+  y += 100; x.font = `38px ${SERIF}`;
+  umbrechen(d.satz, W - 320).forEach(l => { zeile(l, `38px ${SERIF}`, "#1c2e42", y); y += 54; });
+  y += 30; const x0 = W / 2 - 430, x1 = W / 2 + 430;
+  d.zeilen.forEach(([titel, n]) => {
+    x.textAlign = "left"; x.font = `34px ${SERIF}`; x.fillStyle = "#1c2e42"; x.fillText(titel, x0, y);
+    x.textAlign = "right"; x.font = `34px ${SANS}`;
+    if (n === null) { x.fillStyle = "#5d6b78"; x.fillText("–", x1, y); }
+    else for (let k = 0; k < 3; k++) { x.globalAlpha = k < n ? 1 : .22; x.fillText(d.em, x1 - (2 - k) * 46, y); }
+    x.globalAlpha = 1; x.strokeStyle = "#d9d2c1"; x.lineWidth = 1.5; x.beginPath(); x.moveTo(x0, y + 18); x.lineTo(x1, y + 18); x.stroke();
+    y += 64;
+  });
+  x.textAlign = "center";
+  y += 40; zeile(d.summe, `40px ${SERIF}`, "#233D5C", y);
+  if (d.abz) { y += 85; zeile(d.abz, `54px ${SANS}`, "#000", y); }
+  x.font = `28px ${SANS}`; x.fillStyle = "#5d6b78";
+  x.textAlign = "left"; x.fillText(d.datum, 140, H - 150);
+  x.textAlign = "right"; x.fillText(d.fuss, W - 140, H - 150);
+  return new Promise(r => c.toBlob(r, "image/png"));
+}
+/* Bild wird vorab erzeugt, damit „Teilen“ direkt beim Antippen startet (iOS verlangt das) */
+function urkundeTeilen(o, em, dateiname) {
+  let blob = null, timer;
+  const neu = () => { clearTimeout(timer); timer = setTimeout(() => zeichneUrkunde(urkundeDaten(o, em)).then(b => blob = b), 250); };
+  neu();
+  const btn = $("#urkTeilen", o);
+  btn.onclick = () => {
+    if (!blob) { toast("Einen Moment, die Urkunde wird vorbereitet …"); return; }
+    const name = (dateiname + (S.name ? "-" + S.name : "")).replace(/[^\wäöüÄÖÜß-]+/g, "-") + ".png";
+    const file = new File([blob], name, { type: "image/png" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: "Meine Urkunde" }).catch(e => { if (!e || e.name !== "AbortError") toast("Teilen hat nicht geklappt."); });
+    } else {
+      const url = URL.createObjectURL(blob), a = document.createElement("a");
+      a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 5000); toast("Die Urkunde wurde als Bild gespeichert.");
+    }
+  };
+  return neu;
+}
+
+/* ============ Navigation ============ */
+let letzteSumme = {};
+function route(behalteScroll) {
+  $$(".overlay").forEach(o => o.remove());
+  const h = location.hash.slice(1), m = h.match(/^(z1)-(s[1-5])$/);
+  if (EXPS[h]) { const s = kennzahlen(h).summe; seitePass(h, letzteSumme[h]); letzteSumme[h] = s; }
+  else if (m) { if (letzteSumme[m[1]] === undefined) letzteSumme[m[1]] = kennzahlen(m[1]).summe; seiteStation(m[1], m[2]); }
+  else seiteStart();
+  if (behalteScroll !== true) window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", () => route());
+route();
+</script>
+</body>
+</html>
