@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zählkarte Wintervögel zum Ausdrucken · Bio Mibaso</title>
+<meta name="description" content="Zählkarte zum Ausdrucken: 15 häufige Wintergäste am Futterhaus mit Bild – eine Stunde beobachten, die höchste Zahl je Art eintragen. Passend zur Stunde der Wintervögel im Januar.">
+<link rel="icon" href="../assets/icon.svg">
+<style>
+@font-face{font-family:'Source Sans 3';font-weight:400;font-display:swap;src:url('fonts/source-sans-3-latin-400-normal.woff2') format('woff2')}
+@font-face{font-family:'Source Sans 3';font-weight:600;font-display:swap;src:url('fonts/source-sans-3-latin-600-normal.woff2') format('woff2')}
+@font-face{font-family:'Source Sans 3';font-weight:700;font-display:swap;src:url('fonts/source-sans-3-latin-700-normal.woff2') format('woff2')}
+@font-face{font-family:'Source Serif 4';font-weight:600;font-display:swap;src:url('fonts/source-serif-4-latin-600-normal.woff2') format('woff2')}
+@page{size:A4;margin:0}
+:root{--blau:#233D5C;--blau-hell:#bcd0e2;--honig:#C28A3A;--honig-tief:#8a5a17;--creme:#F7F3E8;--linie:#d9d2c1;--ink:#1c2e42;--soft:#5d6b78}
+*{box-sizing:border-box}
+html,body{margin:0;background:#E9E4D8;font-family:'Source Sans 3',-apple-system,"Segoe UI",sans-serif;color:var(--ink)}
+.leiste{position:sticky;top:0;z-index:2;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;padding:10px 12px;background:#F7F3E8;border-bottom:1px solid #d7cfba}
+.leiste a,.leiste button{font:600 15px/1 'Source Sans 3',sans-serif;border-radius:999px;padding:10px 16px;text-decoration:none;cursor:pointer;border:1.5px solid var(--blau);color:var(--blau);background:#fff}
+.leiste button{background:var(--blau);color:#fff}
+.leiste .zurueck{border-color:transparent;background:none;padding:10px 8px}
+.leiste .hinweis{flex-basis:100%;margin:2px 0 0;text-align:center;font-size:13px;color:#6b6152}
+.rahmen{padding:16px 0 32px;display:flex;justify-content:center;overflow:hidden}
+.blatt{width:794px;height:1123px;box-shadow:0 6px 24px rgba(0,0,0,.18);transform-origin:top left;background:#fff;padding:30px 40px 24px;display:flex;flex-direction:column;gap:11px}
+.kopf{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;border-bottom:3px double var(--blau);padding-bottom:10px}
+.kopf .eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--honig-tief)}
+.kopf h1{margin:2px 0 0;font-family:'Source Serif 4',Georgia,serif;font-weight:600;font-size:34px;line-height:1.05;color:var(--blau)}
+.kopf .logo{font-size:34px;line-height:1}
+.felder{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:8px 18px;font-size:14px}
+.feld{display:flex;gap:8px;align-items:flex-end}
+.feld span{white-space:nowrap;color:var(--soft)}
+.feld i{flex:1;border-bottom:1.2px solid var(--soft);height:20px}
+.regel{display:flex;gap:12px;align-items:flex-start;background:var(--creme);border-left:5px solid var(--honig);border-radius:0 10px 10px 0;padding:9px 14px;font-size:14px;line-height:1.4}
+.regel b{color:var(--blau)}
+.raster{display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;flex:1}
+.vogel{display:grid;grid-template-columns:118px 1fr 58px;gap:10px;align-items:center;border:1.2px solid var(--linie);border-radius:10px;padding:5px 8px 5px 5px}
+.vogel img{width:118px;height:52px;object-fit:cover;border-radius:7px;display:block}
+.vogel .name{font-weight:700;font-size:16px;color:var(--blau);line-height:1.15}
+.vogel .tipp{font-size:11.5px;color:var(--soft);line-height:1.25;margin-top:2px}
+.vogel .striche{height:14px;border-bottom:1px dotted var(--linie);margin-top:5px}
+.vogel .zahl{height:46px;border:2px solid var(--blau);border-radius:8px;position:relative}
+.vogel .zahl::before{content:"höchste Zahl";position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:#fff;padding:0 3px;font-size:8.5px;color:var(--soft);white-space:nowrap}
+.vogel.frei img{display:none}
+.vogel.frei{grid-template-columns:1fr 58px}
+.vogel.frei .name{color:var(--soft);font-weight:600;font-size:14px}
+.vogel.frei .linie{border-bottom:1.2px solid var(--soft);height:22px;margin-top:4px}
+.fuss{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:end;border-top:1.5px solid var(--linie);padding-top:8px;font-size:12px;color:var(--soft);line-height:1.45}
+.fuss b{color:var(--blau)}
+.summe{display:flex;gap:10px;align-items:center;font-size:15px;color:var(--blau);font-weight:700}
+.summe i{display:inline-block;width:70px;height:34px;border:2px solid var(--blau);border-radius:8px}
+@media print{
+  html,body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .leiste{display:none}
+  .rahmen{padding:0;display:block;height:auto!important;overflow:visible}
+  .blatt{box-shadow:none;transform:none!important;margin:0!important}
+}
+</style>
+</head>
+<body>
+<div class="leiste">
+<a class="zurueck" href="../interaktiv/futterhauspass.html">‹ Futterhaus-Pass</a>
+<button type="button" id="drucken">🖨️ Drucken</button>
+<a href="zaehlkarte-wintervoegel.pdf" id="pdf" download>📄 PDF herunterladen</a>
+<p class="hinweis" id="hinweis" hidden>iPhone/iPad: „Drucken“ öffnet das Teilen-Menü – dort „Drucken“ wählen.</p>
+</div>
+<div class="rahmen" id="rahmen"><div class="blatt" id="blatt">
+
+<div class="kopf">
+  <div><div class="eyebrow">Bio Mibaso · Zählkarte</div><h1>Wer kommt ans Futterhaus?</h1></div>
+  <div class="logo" aria-hidden="true">🏠🐦</div>
+</div>
+
+<div class="felder">
+  <div class="feld"><span>Name</span><i></i></div>
+  <div class="feld"><span>Datum</span><i></i></div>
+  <div class="feld"><span>Uhrzeit</span><i></i></div>
+  <div class="feld"><span>Ort</span><i></i></div>
+  <div class="feld"><span>Wetter</span><i></i></div>
+  <div class="feld"><span>Schnee?</span><i></i></div>
+</div>
+
+<div class="regel"><div>⏱️</div><div><b>So wird gezählt:</b> Beobachte eine Stunde lang das Futterhaus oder den Garten. Mit Strichen kannst du mitzählen. Ins Kästchen kommt für jede Art die <b>höchste Zahl, die du gleichzeitig gesehen hast</b> – so zählst du keinen Vogel doppelt, der zweimal vorbeikommt.</div></div>
+
+<div class="raster">
+  <div class="vogel"><img src="../images/futterhaus/fp-haussperling.jpg" alt=""><div><div class="name">Haussperling</div><div class="tipp">♂ grauer Scheitel, schwarzer Latz</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel"><img src="../images/futterhaus/fp-feldsperling.jpg" alt=""><div><div class="name">Feldsperling</div><div class="tipp">brauner Scheitel, schwarzer Wangenfleck</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel"><img src="../images/futterhaus/fp-kohlmeise.jpg" alt=""><div><div class="name">Kohlmeise</div><div class="tipp">gelber Bauch, schwarzer „Schlips“</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel"><img src="../images/futterhaus/fp-blaumeise.jpg" alt=""><div><div class="name">Blaumeise</div><div class="tipp">blaue Kappe, weißes Gesicht</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel"><img src="../images/futterhaus/fp-amsel.jpg" alt=""><div><div class="name">Amsel</div><div class="tipp">♂ schwarz, gelber Schnabel · ♀ braun</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel"><img src="../images/futterhaus/fp-rotkehlchen.jpg" alt=""><div><div class="name">Rotkehlchen</div><div class="tipp">orangerote Brust und Stirn</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel"><img src="../images/futterhaus/fp-buchfink.jpg" alt=""><div><div class="name">Buchfink</div><div class="tipp">weiße Flügelstreifen · ♂ rosa Brust</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel"><img src="../images/futterhaus/fp-gruenfink.jpg" alt=""><div><div class="name">Grünfink</div><div class="tipp">olivgrün, gelbe Flügelkante</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel"><img src="../images/futterhaus/fp-elster.jpg" alt=""><div><div class="name">Elster</div><div class="tipp">schwarz-weiß, sehr langer Schwanz</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel"><img src="../images/futterhaus/fp-ringeltaube.jpg" alt=""><div><div class="name">Ringeltaube</div><div class="tipp">große Taube, weißer Halsfleck</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel"><img src="../images/futterhaus/fp-kleiber.jpg" alt=""><div><div class="name">Kleiber</div><div class="tipp">blaugrau, klettert kopfüber</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel"><img src="../images/futterhaus/fp-buntspecht.jpg" alt=""><div><div class="name">Buntspecht</div><div class="tipp">schwarz-weiß, rot unterm Schwanz</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel"><img src="../images/futterhaus/fp-eichelhaeher.jpg" alt=""><div><div class="name">Eichelhäher</div><div class="tipp">rosabraun, blauer Flügelfleck</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel"><img src="../images/futterhaus/fp-gimpel.jpg" alt=""><div><div class="name">Gimpel</div><div class="tipp">schwarze Kappe · ♂ rote Brust</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel"><img src="../images/futterhaus/fp-tannenmeise.jpg" alt=""><div><div class="name">Tannenmeise</div><div class="tipp">kein Gelb, weißer Nackenfleck</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel"><img src="../images/futterhaus/fp-bergfink.jpg" alt=""><div><div class="name">Bergfink</div><div class="tipp">Wintergast · orange Brust</div><div class="striche"></div></div><div class="zahl"></div></div>
+  <div class="vogel frei"><div><div class="name">Andere Art:</div><div class="linie"></div></div><div class="zahl"></div></div>
+  <div class="vogel frei"><div><div class="name">Andere Art:</div><div class="linie"></div></div><div class="zahl"></div></div>
+</div>
+
+<div class="fuss">
+  <div><b>Mitmachen:</b> Anfang Januar ist die „Stunde der Wintervögel“ – dann zählen in ganz Deutschland viele Menschen eine Stunde lang und melden ihre Zahlen online. So erfahren Forscherinnen und Forscher, wie es unseren Vögeln geht.<br>
+  Alle Arten mit Lehrtafel: <b>fauna.mibaso.de</b> · Mehr zum Füttern: <b>bio.mibaso.de</b> → Futterhaus-Pass · Bilder: Ausschnitte der Fauna-Mibaso-Lehrtafeln (mit KI erstellt) · © M. Baur</div>
+  <div class="summe">Vögel insgesamt <i></i></div>
+</div>
+
+</div></div>
+<script>
+(function(){
+  var b=document.getElementById('blatt'), r=document.getElementById('rahmen');
+  function passen(){ var w=document.documentElement.clientWidth, s=Math.min(1,(w-24)/794); b.style.transform=s<1?'scale('+s+')':''; b.style.marginLeft=s<1?((w-794*s)/2)+'px':''; r.style.justifyContent=s<1?'flex-start':''; r.style.height=s<1?(1123*s+48)+'px':''; }
+  window.addEventListener('resize',passen); passen();
+  var ios=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  var pdf=document.getElementById('pdf');
+  var datei=null, url=pdf.getAttribute('href');
+  if(ios){ document.getElementById('hinweis').hidden=false; pdf.style.display='none';
+    if(navigator.share&&navigator.canShare&&window.fetch) fetch(url).then(function(r){return r.blob();}).then(function(b){ var f=new File([b],url,{type:'application/pdf'}); if(navigator.canShare({files:[f]})) datei=f; }).catch(function(){}); }
+  document.getElementById('drucken').addEventListener('click',function(){
+    if(!ios) return window.print();
+    if(datei) navigator.share({files:[datei],title:document.title}).catch(function(){}); else window.location.href=url; });
+})();
+</script>
+</body>
+</html>

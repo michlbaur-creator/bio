@@ -1023,7 +1023,8 @@ const WIDGETS = {
         <button type="button" class="zbtn" data-s="${s}" data-d="-1" aria-label="${GAST[s][1]} weniger">−</button><output data-o="${s}">0</output>
         <button type="button" class="zbtn" data-s="${s}" data-d="1" aria-label="${GAST[s][1]} mehr">+</button></div>`).join("")}</div>
       <p class="zsumme" aria-live="polite">Zusammen: <b>0</b> Vögel</p>
-      <div class="knopfreihe"><button type="button" class="knopf" id="zNull">↺ Zurück auf null</button></div>`;
+      <div class="knopfreihe"><button type="button" class="knopf" id="zNull">↺ Zurück auf null</button>
+        <a class="knopf honig" href="../material/zaehlkarte-wintervoegel.html">🖨️ Zählkarte zum Ausdrucken</a></div>`;
     const neu = () => { ZAEHL.forEach(s => { $(`[data-o="${s}"]`, el).textContent = n[s]; });
       $(".zsumme b", el).textContent = Object.values(n).reduce((a, b) => a + b, 0); };
     $$(".zbtn", el).forEach(b => b.onclick = () => { const s = b.dataset.s; n[s] = Math.max(0, n[s] + +b.dataset.d); neu(); });
@@ -1191,6 +1192,7 @@ function seiteStart() {
           <li><b>Stufenweise:</b> Jede Station öffnet sich erst, wenn die vorige geschafft ist. Mit „Alle offen“ kann frei gewählt werden.</li>
           <li><b>Zum Weiterarbeiten:</b> ein Futtersilo auf dem Schulhof aufhängen und mit der Zählkarte beobachten; Anfang Januar bei der Stunde der Wintervögel mitzählen; im <a href="vogelpass.html">Vogelpass</a> die Gäste mit dem Bestimmungsschlüssel bestimmen.</li>
           <li><b>Zum Nachschlagen:</b> Alle Vögel haben eine eigene Artseite mit Tafel auf <a href="https://fauna.mibaso.de/interaktiv/stammbaum.html?ziel=Aves" target="_blank" rel="noopener">fauna.mibaso.de im Stammbaum</a>.</li>
+          <li><b>Zählkarte zum Ausdrucken:</b> <a href="../material/zaehlkarte-wintervoegel.html">16 Wintergäste mit Bild auf einer A4-Seite</a> – für den Schulhof oder die Stunde der Wintervögel im Januar.</li>
           <li><b>Urkunde:</b> Am Ende tragen die Kinder ihren Namen ein und drucken die Urkunde oder speichern sie als PDF.</li>
           <li><b>Geteilte Geräte:</b> Im Futterhaus-Pass ganz unten „Pass zurücksetzen“.</li>
         </ul></div></details>
