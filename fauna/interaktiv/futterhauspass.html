@@ -309,11 +309,8 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
 .tk-bild{background:var(--creme);border-radius:10px;overflow:hidden;border:1px solid var(--linie)}
 .tk-bild img{display:block;width:100%;height:auto;max-height:70vh;object-fit:contain}
 .video{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000}
-.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.vstart{position:absolute;inset:0;border:0;padding:0;cursor:pointer;background:#000}
-.vstart img{width:100%;height:100%;object-fit:cover;display:block;opacity:.92}
-.vplay{position:absolute;left:50%;top:50%;width:76px;transform:translate(-50%,-50%);filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
-.vstart:hover .vplay path:first-child{fill:#e00}
+.video video{position:absolute;inset:0;width:100%;height:100%;background:#000}
+.vcopy{text-align:right;margin-top:-6px}
 .zkarte{display:grid;gap:6px}
 .zreihe{display:grid;grid-template-columns:72px 1fr 40px 34px 40px;gap:8px;align-items:center;background:var(--creme);border-radius:10px;padding:5px 8px}
 .zreihe img{width:72px;height:30px;object-fit:cover;border-radius:6px}
@@ -565,15 +562,15 @@ const BILDERQUIZ = [
     "Die <b>Tannenmeise</b>. Die Sumpfmeise hat auch kein Gelb, aber keinen weißen Nackenfleck."]
 ];
 const ZAEHL = ["kohlmeise", "blaumeise", "amsel", "rotkehlchen", "buchfink", "haussperling", "kleiber", "gruenfink"];
-const VIDEO_ID = "p3VaUn5o_og";
+const VIDEO_DATEI = "../media/voegel-futterstelle.mp4";
 // Film-Detektiv: Wer ist im Film zu sehen? (Liste von Micha, Reihenfolge wie im Film)
 const FILM_ARTEN = [["kohlmeise", "Kohlmeise"], ["haussperling", "Haussperling"], ["blaumeise", "Blaumeise"], ["star", "Star"],
-  ["elster", "Elster"], ["buchfink-weibchen", "Buchfink-Weibchen"], ["rotkehlchen", "Rotkehlchen"], ["feldsperling", "Feldsperling"],
-  ["mittelspecht", "Mittelspecht"], ["goldammer", "Goldammer"], ["eichelhaeher", "Eichelhäher"], ["amsel", "Amsel"]];
-const FILM_NICHT = [["buntspecht", "Buntspecht"], ["kleiber", "Kleiber"], ["gimpel", "Gimpel"], ["gruenfink", "Grünfink"], ["stieglitz", "Stieglitz"], ["tannenmeise", "Tannenmeise"]];
+  ["elster", "Elster"], ["buchfink", "Buchfink"], ["rotkehlchen", "Rotkehlchen"], ["feldsperling", "Feldsperling"],
+  ["buntspecht", "Buntspecht"], ["mittelspecht", "Mittelspecht"], ["goldammer", "Goldammer"], ["eichelhaeher", "Eichelhäher"], ["amsel", "Amsel"]];
+const FILM_NICHT = [["kernbeisser", "Kernbeißer"], ["kleiber", "Kleiber"], ["gimpel", "Gimpel"], ["gruenfink", "Grünfink"], ["stieglitz", "Stieglitz"], ["tannenmeise", "Tannenmeise"]];
 const FILM_FRAGEN = [
-  ["Wie viele verschiedene Vogelarten zeigt der Film?", ["12", "8", "10", "15"],
-    "Es sind <b>12 Arten</b>: Kohlmeise, Haussperling, Blaumeise, Star, Elster, Buchfink (ein Weibchen), Rotkehlchen, Feldsperling, Mittelspecht, Goldammer, Eichelhäher und Amsel."],
+  ["Wie viele verschiedene Vogelarten zeigt der Film?", ["13", "8", "10", "16"],
+    "Es sind <b>13 Arten</b>: Kohlmeise, Haussperling, Blaumeise, Star, Elster, Buchfink, Rotkehlchen, Feldsperling, Buntspecht, Mittelspecht, Goldammer, Eichelhäher und Amsel."],
   ["Welcher Vogel ist als Erster zu sehen?", ["Kohlmeise", "Amsel", "Rotkehlchen", "Eichelhäher"],
     "Die <b>Kohlmeise</b> eröffnet den Film. Meisen sind oft die Ersten am Futterplatz."],
   ["Welcher Vogel zeigt sich besonders aggressiv?", ["Kohlmeise", "Goldammer", "Feldsperling", "Eichelhäher"],
@@ -799,20 +796,13 @@ const WIDGETS = {
     zeichne();
   },
 
-  /* Film mit Klick-Vorschau: YouTube lädt erst nach dem Antippen */
+  /* Film – liegt direkt auf bio.mibaso.de, ohne YouTube */
   video(el) {
     el.innerHTML = `<span class="eyebrow">Film ab!</span><h3>Vögel an der Futterstelle</h3>
-      <p class="klein">Ein Film von Michael Baur, knapp 2 Minuten, ohne Ton. Schau genau hin: Gleich darunter wartet das Detektiv-Rätsel!</p>
-      <div class="video">
-        <button type="button" class="vstart" aria-label="Film abspielen">
-          <img src="../images/futterhaus/video-vorschau.jpg" alt="Standbild aus dem Film: ein Vogel an einer Futterstelle im Schnee">
-          <span class="vplay" aria-hidden="true"><svg viewBox="0 0 68 48"><path d="M66.5 7.7c-.8-2.9-2.5-5.4-5.4-6.2C55.8.1 34 0 34 0S12.2.1 6.9 1.6C4 2.4 2.3 4.8 1.5 7.7 0 13 0 24 0 24s0 11 1.5 16.3c.8 2.9 2.5 5.4 5.4 6.2C12.2 47.9 34 48 34 48s21.8-.1 27.1-1.6c2.9-.8 4.6-3.2 5.4-6.2C68 35 68 24 68 24s0-11-1.5-16.3z" fill="#c4302b"/><path d="M45 24 27 14v20" fill="#fff"/></svg></span>
-        </button>
-      </div>
-      <p class="hint">Erst beim Antippen wird der Film von YouTube geladen. Dabei werden Daten an YouTube (Google) übertragen. · <a href="https://www.youtube.com/watch?v=${VIDEO_ID}" target="_blank" rel="noopener">Auf YouTube ansehen ↗</a></p>`;
-    $(".vstart", el).onclick = () => {
-      $(".video", el).innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${VIDEO_ID}?autoplay=1&rel=0" title="Vögel an der Futterstelle – Film von Michael Baur" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
-    };
+      <p class="klein">Knapp 2 Minuten, ohne Ton. Schau genau hin: Gleich darunter wartet das Detektiv-Rätsel!</p>
+      <div class="video"><video controls playsinline preload="none" poster="../images/futterhaus/video-vorschau.jpg" aria-label="Film: Vögel an der Futterstelle">
+        <source src="${VIDEO_DATEI}" type="video/mp4">Dein Browser kann den Film leider nicht abspielen.</video></div>
+      <p class="hint vcopy">© M. Baur</p>`;
   },
 
   /* Film-Detektiv: Arten ankreuzen, dann fünf Fragen zum Film */
@@ -1047,7 +1037,7 @@ function seiteStart() {
           <b>3</b><span>Wer kommt zu Besuch? – 21 Futterhausgäste mit Bildern und Lehrtafeln</span>
           <b>4</b><span>Beobachten wie die Profis – Film (knapp 2 Min, ohne Ton) mit Detektiv-Rätsel, Verhalten am Futterhaus, Zählkarte wie bei der Stunde der Wintervögel</span>
           <b>5</b><span>Bilderquiz – 10 Fragen mit je vier Bildern (ca. 45 Min insgesamt)</span></div>
-        <p>Die Expedition füllt eine Unterrichtsstunde. Alles läuft im Browser auf Tablet, Handy oder am Beamer – ohne Anmeldung, ohne Datensammlung, ohne Ton (nur bei voller Punktzahl erklingt eine kurze Fanfare). Der Film wird erst nach dem Antippen von YouTube geladen.</p>
+        <p>Die Expedition füllt eine Unterrichtsstunde. Alles läuft im Browser auf Tablet, Handy oder am Beamer – ohne Anmeldung, ohne Datensammlung, ohne Ton (nur bei voller Punktzahl erklingt eine kurze Fanfare).</p>
         <p><b>Bezug zum hessischen Kerncurriculum Biologie, Jahrgangsstufe 5/6:</b> Biologische Strukturen (Zusammenhang von Körperbau und Ernährung: Schnabelformen), Vielfalt (heimische Vögel kennen und bestimmen), Mensch und Umwelt (Tiere im Winter, verantwortungsvoller Umgang mit Wildtieren).</p>
         <ul class="clean">
           <li><b>Stufenweise:</b> Jede Station öffnet sich erst, wenn die vorige geschafft ist. Mit „Alle offen“ kann frei gewählt werden.</li>

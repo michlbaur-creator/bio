@@ -13,6 +13,8 @@ self.addEventListener("message", (e) => { if (e.data && e.data.type === "SKIP_WA
 self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET") return;
+  /* Videos nie über den Service Worker: Safari braucht Range-Anfragen direkt vom Server */
+  if (req.headers.has("range") || /\.(mp4|webm|m4v)(\?|$)/i.test(req.url)) return;
   const accept = req.headers.get("accept") || "";
   const isPage = req.mode === "navigate" || accept.includes("text/html");
   if (isPage) {

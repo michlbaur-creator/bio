@@ -391,9 +391,6 @@ def build():
         _i = _i.replace("Flora Mibaso", "Bio Mibaso")
         _i = _i.replace("Einstellungen, der Sammelpass und der Offline-Speicher",
                         "Einstellungen, der Forscherpass und der Offline-Speicher")
-        # YouTube-Film im Futterhaus-Pass (Zwei-Klick-Lösung) im Datenschutz erwähnen
-        if "youtube-nocookie" not in _i:
-            _i = _i.replace("  <h2>Transparenzhinweis zu KI-Inhalten</h2>", YT_HINWEIS + "\n\n  <h2>Transparenzhinweis zu KI-Inhalten</h2>", 1)
         open(_iidx, "w", encoding="utf-8").write(_i)
     # Der Flora-Forscherpass (pflanzenpass.html) wird NICHT mehr aus der Quelle kopiert –
     # er lebt jetzt nativ in bio (flora/ enthält nur eine Weiterleitung). Nur das
@@ -470,6 +467,8 @@ self.addEventListener("message", (e) => { if (e.data && e.data.type === "SKIP_WA
 self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET") return;
+  /* Videos nie über den Service Worker: Safari braucht Range-Anfragen direkt vom Server */
+  if (req.headers.has("range") || /\\.(mp4|webm|m4v)(\\?|$)/i.test(req.url)) return;
   const accept = req.headers.get("accept") || "";
   const isPage = req.mode === "navigate" || accept.includes("text/html");
   if (isPage) {
@@ -793,12 +792,6 @@ def _extra_pfad(basis, fn, icon, titel, sub, col, badge="Flora-App"):
             f'<span class="ptxt"><span class="pt2">{html.escape(titel)}</span>'
             f'<span class="psub">{html.escape(sub)}</span></span>'
             f'<span class="badge badge-ext">{html.escape(badge)}&nbsp;↗</span></a>')
-
-YT_HINWEIS = ('  <p><strong>Eingebettete Videos (YouTube):</strong> Im Futterhaus-Pass ist ein Film von YouTube '
-              '(Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland) eingebunden. Er wird erst geladen, '
-              'wenn du auf das Vorschaubild tippst. Erst dann werden Daten wie deine IP-Adresse an YouTube übertragen; '
-              'genutzt wird der erweiterte Datenschutzmodus (youtube-nocookie.com). Näheres in der '
-              '<a href="https://policies.google.com/privacy?hl=de">Datenschutzerklärung von Google</a>.</p>')
 
 def _pass_banner(p):
     return (f'<a class="aktion-banner" href="{p["href"]}">'
