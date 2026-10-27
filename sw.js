@@ -2,7 +2,7 @@
    Die CACHE-Version wird bei jedem Deploy in deploy.yml frisch gestempelt. Der neue SW
    wartet (KEIN skipWaiting bei install) → die Seite zeigt das „Neue Version"-Banner
    (wie Flora/Fauna); erst der Klick „Jetzt aktualisieren" aktiviert ihn. */
-const CACHE = "bio-cache-v1";
+const CACHE = "bio-cache-v2";
 self.addEventListener("install", (e) => {});   /* nicht skipWaiting: neuer SW wartet aufs Banner */
 self.addEventListener("activate", (e) => { e.waitUntil((async () => {
   const keys = await caches.keys();

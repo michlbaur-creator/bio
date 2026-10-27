@@ -8,12 +8,17 @@
    Einbinden mit:  <script src="…/assets/app.js" defer></script>
 */
 (function () {
-  // 1) GoatCounter dynamisch laden
-  var gc = document.createElement('script');
-  gc.async = true;
-  gc.src = '//gc.zgo.at/count.js';
-  gc.setAttribute('data-goatcounter', 'https://mibaso.goatcounter.com/count');
-  document.head.appendChild(gc);
+  // 1) GoatCounter: anonyme, cookiefreie Besucherzählung.
+  //    Gezählt wird der Pfad mit Adresse, z. B. „fauna.mibaso.de/arten/amsel.html“.
+  if (!window.__mibasoZaehler) {
+    window.__mibasoZaehler = true;
+    window.goatcounter = { path: function (p) { return location.host + p } };
+    var gc = document.createElement('script');
+    gc.async = true;
+    gc.src = '//gc.zgo.at/count.js';
+    gc.setAttribute('data-goatcounter', 'https://mibaso.goatcounter.com/count');
+    document.head.appendChild(gc);
+  }
 
   // 2) Service-Worker registrieren + automatisch aktualisieren
   if (!('serviceWorker' in navigator)) return;

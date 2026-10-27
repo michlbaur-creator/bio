@@ -459,7 +459,7 @@ SW_JS = '''/* bio Service Worker — network-first für Seiten (immer aktuell), 
    Die CACHE-Version wird bei jedem Deploy in deploy.yml frisch gestempelt. Der neue SW
    wartet (KEIN skipWaiting bei install) → die Seite zeigt das „Neue Version"-Banner
    (wie Flora/Fauna); erst der Klick „Jetzt aktualisieren" aktiviert ihn. */
-const CACHE = "bio-cache-v1";
+const CACHE = "bio-cache-v2";
 self.addEventListener("install", (e) => {});   /* nicht skipWaiting: neuer SW wartet aufs Banner */
 self.addEventListener("activate", (e) => { e.waitUntil((async () => {
   const keys = await caches.keys();
@@ -724,6 +724,10 @@ CSS = """
   .anl .tipp{font-family:var(--sans);font-size:13px;color:#6b5340;background:var(--creme-tief);border-radius:10px;padding:10px 13px;margin:10px 0 0;}
 """
 
+# Besucherzählung (GoatCounter, ohne Cookies) – gleicher Baustein wie in assets/app.js
+ZAEHLER = ('<script>window.goatcounter={path:function(p){return location.host+p}};</script>'
+           '<script data-goatcounter="https://mibaso.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>')
+
 def _shell(title, theme, body, akzent=None):
     style = f' style="--akzent:{akzent}"' if akzent else ""
     return ('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8">'
@@ -737,6 +741,7 @@ def _shell(title, theme, body, akzent=None):
             '<meta name="mobile-web-app-capable" content="yes">'
             '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">'
             '<meta name="apple-mobile-web-app-title" content="Bio Mibaso">'
+            + ZAEHLER +
             f'<style>{CSS}</style></head><body{style}><div class="huelle">{body}</div>'
             + REG_SCRIPT +
             '</body></html>')

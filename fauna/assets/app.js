@@ -1,11 +1,25 @@
 /* Gemeinsamer App-Baustein für Fauna Mibaso:
-   Service-Worker-Registrierung + vollautomatische Aktualisierung.
+   1. GoatCounter (anonyme, cookiefreie Besucherzählung)
+   2. Service-Worker-Registrierung + vollautomatische Aktualisierung.
    Die App prüft beim Öffnen, bei Rückkehr zur App und alle 3 Minuten,
    ob eine neue Version vorliegt (der Browser lädt sw.js dabei am
    Zwischenspeicher vorbei). Eine neue Version wird sofort übernommen
    und die Seite einmal sanft neu geladen — ohne Knopf, ohne Banner.
    Einbinden mit:  <script src="…/assets/app.js" defer></script>  */
 (function () {
+  // 1) GoatCounter: anonyme, cookiefreie Besucherzählung.
+  //    Gezählt wird der Pfad mit Adresse, z. B. „fauna.mibaso.de/arten/amsel.html“.
+  if (!window.__mibasoZaehler) {
+    window.__mibasoZaehler = true;
+    window.goatcounter = { path: function (p) { return location.host + p } };
+    var gc = document.createElement('script');
+    gc.async = true;
+    gc.src = '//gc.zgo.at/count.js';
+    gc.setAttribute('data-goatcounter', 'https://mibaso.goatcounter.com/count');
+    document.head.appendChild(gc);
+  }
+
+  // 2) Service-Worker registrieren + automatisch aktualisieren
   if (!('serviceWorker' in navigator)) return;
 
   // Wenn der neue Service Worker übernimmt: Seite einmal neu laden.
