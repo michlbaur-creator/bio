@@ -65,7 +65,7 @@ details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
 .lv .nm{font-size:23px;color:var(--blau);display:block;line-height:1.2}
 .lv .mo{font-size:15px;color:var(--ink-soft);display:block;line-height:1.35;margin-top:2px}
 .lv .st{font-family:var(--sans);font-size:14px;color:var(--ink);display:block;margin-top:6px}
-.lv:not(:disabled):hover{border-color:var(--blau);box-shadow:0 4px 14px rgba(35,61,92,.14)}
+@media (hover:hover){.lv:not(:disabled):hover{border-color:var(--blau);box-shadow:0 4px 14px rgba(35,61,92,.14)}}
 .lv:disabled{cursor:default;opacity:.6;border-style:dashed}
 .lv:disabled img{filter:grayscale(1)}
 .stern-leer{opacity:.22;filter:grayscale(1)}
@@ -110,7 +110,8 @@ details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
 .basis{font-family:var(--sans);font-size:14px;color:var(--ink-soft);background:var(--creme);border-radius:10px;padding:7px 11px}
 .wahl{display:grid;gap:8px;padding:10px 16px 16px}
 .wahl button{text-align:left;background:var(--creme);border:2px solid var(--blau-hell);border-radius:12px;padding:12px 14px;font-family:var(--sans);font-size:16px;line-height:1.35;cursor:pointer;color:var(--ink);touch-action:manipulation}
-.wahl button:not(:disabled):hover{border-color:var(--blau);background:#fff}
+@media (hover:hover){.wahl button:not(:disabled):hover{border-color:var(--blau);background:#fff}}
+.wahl button:focus:not(:focus-visible){outline:none}
 .wahl button:disabled{cursor:default;opacity:.45}
 .wahl button.gewaehlt{opacity:1;border-color:var(--ink);background:#fff;font-weight:bold}
 .folge{margin:0 16px 16px;border-radius:14px;padding:12px 14px;display:grid;gap:8px;font-family:var(--sans);font-size:15px;line-height:1.45;animation:rein .3s ease-out}
@@ -196,7 +197,7 @@ const TIERE = {
 meise: {
   name: "Kohlmeise", em: "🐦", bild: "../images/zug/kohlmeise.jpg", level: 1,
   motto: "Sie bleibt das ganze Jahr hier – und muss durch den Winter.",
-  intro: "Du bist eine Kohlmeise im Ebsdorfergrund. Es ist März. Vor dir liegen zwölf Monate: Junge aufziehen, Feinden entkommen – und den Winter überstehen.",
+  intro: "Du bist eine Kohlmeise. Es ist März. Vor dir liegen zwölf Monate: Junge aufziehen, Feinden entkommen – und den Winter überstehen.",
   start: { e: 8, s: 8 },
   basis: [0, 0, 0, 1, 1, 1, -1, -1, -1, -2, -2, -2],
   basisText: { 1: "Im Sommer ist der Tisch reich gedeckt.", "-1": "Die Tage werden kürzer, das Futter knapper.", "-2": "Kälte und lange Nächte zehren an deinen Kräften." },
@@ -228,7 +229,7 @@ meise: {
     { fang: true, t: "Hungrige Schnäbel", sz: "🐣🐛", p: "netz", e: 0,
       x: "Die Jungen sind geschlüpft und sperren die Schnäbel auf. Sie brauchen weiches, eiweißreiches Futter: Raupen, Spinnen und andere Kleintiere. Körner können sie noch nicht verdauen.",
       auftrag: "Tippe an, was die Jungen fressen können!",
-      gut: ["🐛", "🕷️", "🪰", "🦗"], schlecht: ["🌻", "🍞", "🥜", "🍒"], ziel: 12, dauer: 16,
+      gut: ["🐛", "🕷️", "🪰", "🦗"], schlecht: ["🌻", "🍞", "🥜", "🍒"], ziel: 9, dauer: 24,
       nach: (st, q) => { const n = Math.round(Math.min(st.eier, 12) * st.nest * q * (st.eier > 12 ? .6 : 1)); st.jung += n; const von = st.eier; st.eier = 0; return n + " von " + von + " Jungen sind flügge geworden."; },
       k: "Ein Meisenpaar trägt an einem einzigen Tag mehrere hundert Raupen ans Nest. Ohne Raupen keine jungen Meisen – und ohne Meisen zu viele Raupen." },
     { t: "Die Jungen fliegen aus", sz: "🐥🌿", p: "vogel",
@@ -242,15 +243,15 @@ meise: {
       x: "Deine Federn sind abgenutzt. Jetzt wachsen neue – solange fliegst du schlechter als sonst.",
       w: [
         { l: "Im dichten Gebüsch bleiben", e: 0, s: 1, r: 2, k: "In der Mauser sind Vögel langsamer und verstecken sich. Deshalb ist es im Spätsommer im Garten so still." },
-        { l: "Wie immer offen auf dem Rasen fressen", e: 1, s: -3, r: 0, k: "Mit Lücken im Flügel entkommst du dem Sperber kaum." },
-        { l: "Die alten Federn einfach behalten", e: -2, s: -1, r: 0, k: "Das geht nicht: Abgenutzte Federn tragen und wärmen schlecht. Jeder Vogel muss sein Gefieder wechseln." }
+        { l: "Raus auf den offenen Rasen und viel fressen – neue Federn kosten Kraft", e: 1, s: -3, r: 0, k: "Stimmt, Federn kosten Kraft. Aber mit Lücken im Flügel entkommst du dem Sperber auf freier Fläche kaum." },
+        { l: "Alle Federn auf einmal abwerfen, dann geht es schneller", e: -2, s: -2, r: 0, k: "Dann könntest du gar nicht mehr fliegen! Singvögel wechseln ihre Federn nach und nach. Enten machen es tatsächlich auf einmal – und sind dann wochenlang flugunfähig." }
       ] },
     { t: "Die Raupen werden knapp", sz: "🍂🌰", p: "zug",
-      x: "Der Herbst kommt. Es gibt immer weniger Insekten.",
+      x: "Der Herbst kommt, die Insekten verschwinden. Wovon lebst du jetzt?",
       w: [
-        { l: "Auf Samen, Nüsse und Bucheckern umstellen", e: 2, s: 0, r: 2, k: "Meisen wechseln im Herbst das Futter: von Insekten zu fettreichen Samen. Genau deshalb können sie im Winter hierbleiben." },
-        { l: "Weiter nur nach Raupen suchen", e: -2, s: 0, r: 0, k: "Raupen gibt es jetzt kaum noch. Wer sich nicht umstellt, hungert." },
-        { l: "Nach Afrika fliegen wie die Schwalben", e: -4, s: -2, r: 0, k: "Kohlmeisen sind Standvögel. Sie finden auch im Winter Futter – die weite Reise wäre für sie nur gefährlich." }
+        { l: "Fettreiche Samen, Nüsse und Bucheckern", e: 2, s: 0, r: 2, k: "Meisen wechseln im Herbst das Futter: von Insekten zu fettreichen Samen. Genau deshalb können sie im Winter hierbleiben." },
+        { l: "Rote Beeren – die hängen jetzt überall", e: -1, s: 0, r: 1, k: "Beeren sind die Sache von Amsel und Drossel. Meisen picken höchstens mal daran – satt werden sie davon nicht." },
+        { l: "Regenwürmer aus dem Rasen ziehen", e: -2, s: -1, r: 0, k: "Dafür ist der kurze Meisenschnabel nicht gemacht – das kann die Amsel besser. Und bald ist der Boden ohnehin gefroren." }
       ] },
     { t: "Ein bunter Trupp", sz: "🐦🐦🌲", p: "winter",
       x: "Blaumeisen, Kleiber und andere Kohlmeisen ziehen gemeinsam durch den Garten.",
@@ -263,20 +264,20 @@ meise: {
       x: "Die Nächte werden lang und kalt. Du brauchst einen guten Schlafplatz.",
       w: [
         { l: "In einer Baumhöhle oder im Nistkasten", e: 1, s: 1, r: 2, k: "Meisen schlafen im Winter in Höhlen: windstill, trocken und ein paar Grad wärmer. Darum Nistkästen im Herbst hängen lassen!" },
-        { l: "Im Gebüsch, dicht am Stamm", e: -1, s: 0, r: 1, k: "Besser als nichts – aber Wind und Nässe kommen trotzdem durch." },
-        { l: "Auf einem freien Ast", e: -2, s: -1, r: 0, k: "Im Wind kühlt ein so kleiner Körper schnell aus – und die Eule sieht dich auch." }
+        { l: "Dicht an dicht mit zehn anderen Meisen auf einem Ast", e: -1, s: 0, r: 1, k: "Kuscheln ist die Spezialität von Schwanzmeise und Zaunkönig. Kohlmeisen schlafen lieber einzeln – jede in ihrer eigenen Höhle." },
+        { l: "Unter der Hauslampe – da ist es hell und bestimmt wärmer", e: -2, s: -1, r: 0, k: "Wärmer ist es dort kaum. Dafür stört das Licht den Schlaf, und Eule und Katze sehen dich gut." }
       ] },
     { t: "Frostnacht", sz: "🥶⭐", bild: "../images/winter/meise-aufgeplustert.jpg", p: "winter",
       x: "Minus zehn Grad. Wie kommst du durch die Nacht?",
       w: [
         { l: "Aufplustern und den Kopf ins Gefieder stecken", e: 1, s: 0, r: 2, k: "Aufgeplusterte Federn halten eine dicke Luftschicht fest – wie eine Daunenjacke." },
-        { l: "Die ganze Nacht herumfliegen, um warm zu bleiben", e: -3, s: -1, r: 0, k: "Fliegen verbraucht viel mehr Energie, als es Wärme bringt. Schon im Schlaf verliert eine Meise in einer Frostnacht bis zu einem Zehntel ihres Gewichts." },
-        { l: "Winterschlaf halten wie der Igel", e: -2, s: 0, r: 0, k: "Unsere Vögel halten keinen Winterschlaf. Sie müssen jeden Tag fressen." }
+        { l: "Die Körpertemperatur ein paar Grad absenken", e: 0, s: 0, r: 1, urteil: "Fast!", k: "Das tun Meisen tatsächlich und sparen so Energie. Aber ohne aufgeplustertes Gefieder reicht es nicht – erst die Luftschicht zwischen den Federn hält warm." },
+        { l: "Vor dem Schlafen noch schnell baden – sauberes Gefieder wärmt besser", e: -3, s: 0, r: 0, k: "Sauberes Gefieder wärmt wirklich besser. Aber nasse Federn wärmen gar nicht! Gebadet wird am Vormittag, nie vor einer Frostnacht." }
       ] },
     { fang: true, t: "Am Futterhaus", sz: "🏠🌻", bild: "../images/winter/futterplatz.jpg", p: "futter", e: 0,
       x: "Schnee liegt, das Futter ist knapp. Zum Glück hängt im Garten ein Futterhaus. Aber nicht alles, was dort liegt, tut dir gut.",
       auftrag: "Tippe nur an, was einer Meise guttut!",
-      gut: ["🌻", "🥜", "🌰"], schlecht: ["🍞", "🥓", "🍪", "🧀"], ziel: 12, dauer: 14,
+      gut: ["🌻", "🥜", "🌰"], schlecht: ["🍞", "🥓", "🍪", "🧀"], ziel: 9, dauer: 22,
       nach: (st, q) => { const plus = Math.round(q * 3); st.e = Math.min(EMAX, st.e + plus); return plus ? "Das gibt Kraft: +" + plus + " ⚡" : "Das hat kaum Kraft gebracht."; },
       k: "Sonnenblumenkerne und ungesalzene Nüsse liefern viel Fett. Brot quillt im Magen auf, Salz schadet – auch in Speck, Käse und Keksen." },
     { t: "Fast geschafft", sz: "🌤️❄️", p: "futter",
@@ -284,7 +285,7 @@ meise: {
       w: [
         { l: "Morgens als Erstes fressen", e: 2, s: 0, r: 2, k: "Nach der langen Nacht sind die Reserven leer. Darum ist am Futterhaus morgens am meisten los." },
         { l: "Den ganzen Tag singen – der Frühling kommt!", e: -2, s: 0, r: 1, k: "Kohlmeisen singen schon ab Januar. Aber erst, wenn der Bauch voll ist." },
-        { l: "Nichts tun und auf den Frühling warten", e: -3, s: 0, r: 0, k: "Ein kleiner Vogel hält ohne Futter kaum einen Wintertag durch." }
+        { l: "Ausschlafen, bis die Sonne den Ast wärmt", e: -2, s: 0, r: 0, k: "Wintertage sind kurz. Wer spät aufsteht, verschenkt die wenigen hellen Stunden, in denen man fressen kann." }
       ] }
   ],
   zwischen: [
@@ -295,17 +296,33 @@ meise: {
         { l: "Übers offene Feld davonfliegen", e: -1, s: -4, r: 0, k: "Im freien Flug ist der Sperber viel schneller als du." },
         { l: "Auf dem freien Ast sitzen bleiben", e: 0, s: -3, r: 0, k: "Auf dem kahlen Ast bist du für den Sperber kaum zu übersehen." }
       ] },
-    { von: 0, bis: 8, t: "Da liegt was!", sz: "🐈🌾", p: "futter",
-      x: "Am Boden liegen leckere Körner. Im hohen Gras daneben bewegt sich etwas.",
+    { von: 0, bis: 11, t: "Kerne am Boden", sz: "🌻🌳", p: "futter",
+      x: "Unter dem Futterhaus liegen heruntergefallene Kerne. Gleich daneben steht ein dichter Busch.",
       w: [
-        { l: "Lieber oben im Baum weitersuchen", e: 0, s: 0, r: 2, k: "Richtig: Im Gras lauerte eine Katze. Am Boden sind kleine Vögel besonders gefährdet." },
-        { l: "Schnell runter und zugreifen", e: 1, s: -3, r: 0, k: "Im Gras lauerte eine Katze. Gerade noch entwischt!" }
+        { l: "Oben am Futterhaus fressen", e: 0, s: 0, r: 2, k: "Im Busch saß eine Katze! Ein Futterhaus hängt am besten frei und hoch – mit Büschen in der Nähe, aber nicht direkt daneben." },
+        { l: "Am Boden direkt neben dem Busch – da ist Deckung", e: 1, s: -3, r: 0, k: "Im Busch saß eine Katze! Deckung ist gut gegen den Sperber, aber dicht am Boden lauern Katzen genau dort." },
+        { l: "Am Boden, aber mitten auf dem freien Rasen", e: 1, s: -1, r: 1, k: "Hier siehst du die Katze wenigstens kommen. Sicherer ist es oben am Futterhaus." }
       ] },
-    { von: 0, bis: 11, t: "Die Scheibe", sz: "🪟🌳", p: "futter",
-      x: "Vor dir ein Haus mit großer Glasfront. Darin spiegeln sich Bäume und Himmel.",
+    { von: 0, bis: 4, t: "Der Fremde im Spiegel", sz: "🚗🪞", p: "futter",
+      x: "Im Außenspiegel eines Autos sitzt eine fremde Kohlmeise. Sie starrt dich an – mitten in deinem Revier!",
       w: [
-        { l: "Einen Bogen fliegen", e: 0, s: 0, r: 2, k: "Gut so. Vögel können Glas nicht sehen – Spiegelungen täuschen ihnen Landschaft vor. Muster auf der Scheibe helfen." },
-        { l: "Geradeaus – da geht es doch weiter", e: -1, s: -4, r: 0, k: "Aua! Vögel können Glas nicht sehen – Spiegelungen täuschen ihnen Landschaft vor. Muster auf der Scheibe helfen." }
+        { l: "Einfach weiterfliegen", e: 0, s: 0, r: 2, k: "Gut so – das war dein Spiegelbild. Vögel erkennen sich im Spiegel nicht. Glas können sie auch nicht sehen: Deshalb sind große Fensterscheiben für sie so gefährlich." },
+        { l: "Angreifen, bis der Eindringling verschwindet", e: -3, s: -1, r: 0, k: "Das ist dein Spiegelbild – und es gibt nie auf! Manche Vögel kämpfen stundenlang gegen Spiegel und Fensterscheiben, bis sie völlig erschöpft sind." },
+        { l: "Ihm zur Warnung ein Lied vorsingen", e: -1, s: 0, r: 1, urteil: "Na ja …", k: "Er singt genauso laut zurück. Kein Wunder: Es ist dein Spiegelbild." }
+      ] },
+    { von: 1, bis: 2, t: "Frisch gebürstet", sz: "🐕✨", p: "vogel",
+      x: "Im Garten wird ein Hund gebürstet. Überall liegen weiche Haarbüschel – und der Hund döst in der Sonne.",
+      w: [
+        { l: "Die Büschel einsammeln", e: 0, s: 0, r: 2, k: "Perfekt: Meisen polstern ihr Nest mit Tierhaaren. So bleiben Eier und Junge warm." },
+        { l: "Dem schlafenden Hund ein Büschel direkt aus dem Fell zupfen", e: 0, s: -1, r: 1, urteil: "Frech – aber das gibt es wirklich!", k: "Meisen sind dabei beobachtet worden, wie sie schlafenden Hunden, Füchsen und sogar Menschen Haare ausrupfen. Nur aufwachen sollte der Hund besser nicht." },
+        { l: "Liegen lassen – das riecht nach Raubtier", e: 0, s: 0, r: 0, k: "Schade drum: Vögel riechen nur schwach, und Tierhaare sind das beste Nestpolster.", fx: st => { st.nest *= .85; } }
+      ] },
+    { von: 3, bis: 5, t: "Der Mann mit Hut", sz: "🎩🍒", p: "netz",
+      x: "Mitten im Kirschbaum steht plötzlich eine Gestalt mit Hut und ausgebreiteten Armen.",
+      w: [
+        { l: "Erst mal aus sicherer Entfernung beobachten", e: 0, s: 1, r: 2, k: "Bewegt sich nicht, riecht nach Stroh: eine Vogelscheuche. Vögel sind vorsichtig, merken aber schnell, was harmlos ist – deshalb wirken Vogelscheuchen nur ein paar Tage." },
+        { l: "Dich auf den Hut setzen und singen", e: 0, s: -1, r: 1, urteil: "Mutig!", k: "Ging gut – es ist nur eine Vogelscheuche. Aber bei einer unbekannten Gestalt erst einmal Abstand zu halten, ist klüger." },
+        { l: "Den Garten für immer verlassen", e: -2, s: 0, r: 0, k: "Übertrieben: Es ist nur eine Vogelscheuche. Und ein Revier mit Kirschbaum gibt man nicht einfach auf." }
       ] },
     { von: 1, bis: 5, t: "Dauerregen", sz: "🌧️🌧️", p: "netz",
       x: "Eine ganze Woche Regen. Die Insekten haben sich verkrochen.",
@@ -319,17 +336,19 @@ meise: {
         { l: "Im Kasten bleiben und fauchen", e: -1, s: 0, r: 2, k: "Brütende Meisen zischen wie eine Schlange – das schreckt viele Nesträuber ab. Ein Blech um das Einflugloch hilft zusätzlich." },
         { l: "Hinausfliegen und das Nest verlassen", e: 0, s: -1, r: 0, k: "Ohne Gegenwehr holt sich der Specht einen Teil der Brut.", fx: st => { st.eier = Math.ceil(st.eier / 2); } }
       ] },
-    { von: 8, bis: 11, t: "Schmutziges Futterhaus", sz: "🦠🏚️", p: "futter",
-      x: "An einem alten Futterhaus liegt nasses, verschimmeltes Futter. Zwei Vögel sitzen aufgeplustert und matt daneben.",
+    { von: 8, bis: 11, t: "Der zahme Grünfink", sz: "🐦💤", p: "futter",
+      x: "Am Futterhaus sitzt ein Grünfink ganz ruhig neben dem Futter. Er ist dick aufgeplustert und fliegt nicht weg, als du landest.",
       w: [
-        { l: "Wegbleiben und woanders suchen", e: -1, s: 0, r: 2, k: "An schmutzigen Futterstellen stecken sich Vögel gegenseitig an. Futterhäuser müssen sauber und trocken sein." },
-        { l: "Fressen – Futter ist Futter", e: 1, s: -3, r: 0, k: "An schmutzigen Futterstellen stecken sich Vögel gegenseitig an. Futterhäuser müssen sauber und trocken sein." }
+        { l: "Wegbleiben und woanders fressen", e: -1, s: 0, r: 2, k: "Aufgeplustert und ohne Scheu: Dieser Vogel ist krank. An Futterstellen stecken sich Vögel gegenseitig an – deshalb müssen sie sauber und trocken sein." },
+        { l: "Dazusetzen – wenn er so ruhig ist, droht keine Gefahr", e: 1, s: -3, r: 0, k: "Aufgeplustert und ohne Scheu: Dieser Vogel ist krank. Am gemeinsamen Futter steckst du dich leicht an." },
+        { l: "Ihn verjagen und dann in Ruhe fressen", e: 1, s: -2, r: 0, k: "Der Fink ist krank – und sein Futterplatz ist es auch. Die Erreger kleben am Futter." }
       ] },
     { von: 0, bis: 11, t: "Alarm im Wald", sz: "📣🌲", p: "winter",
       x: "Ein Eichelhäher rätscht laut durch die Bäume.",
       w: [
         { l: "Sofort Deckung suchen", e: 0, s: 1, r: 2, k: "Der Eichelhäher ist die Alarmanlage des Waldes. Viele Tiere verstehen seinen Warnruf – auch Meisen." },
-        { l: "Weiterfressen, der meint dich nicht", e: 1, s: -2, r: 0, k: "Der Eichelhäher ist die Alarmanlage des Waldes. Wer seinen Warnruf überhört, lebt gefährlich." }
+        { l: "Weiterfressen, der meint dich nicht", e: 1, s: -2, r: 0, k: "Der Eichelhäher ist die Alarmanlage des Waldes. Wer seinen Warnruf überhört, lebt gefährlich." },
+        { l: "Laut zurückschimpfen", e: -1, s: -1, r: 1, urteil: "Na ja …", k: "Meisen schimpfen wirklich laut, wenn sie einen Feind entdeckt haben. Aber erst aus der Deckung – nicht mitten auf dem Präsentierteller." }
       ] },
     { von: 8, bis: 11, t: "Der Knödel im Netz", sz: "🧶🥜", p: "futter",
       x: "Zwei Meisenknödel hängen im Garten: einer im Plastiknetz, einer in einem Halter aus Draht.",
@@ -370,12 +389,12 @@ schwalbe: {
       w: [
         { l: "Lehmklümpchen aus der Pfütze, mit Halmen vermischt", e: 0, s: 0, r: 2, k: "Über tausend Lehmklümpchen werden zu einer Schale gemauert. Ohne feuchte, offene Erde kein Schwalbennest!", fx: st => { st.eier = 5; } },
         { l: "Moos und Haare wie die Meise", e: -1, s: 0, r: 0, k: "Moos hält an einem Balken nicht. Schwalben mauern mit Lehm – und polstern innen mit Federn.", fx: st => { st.eier = 5; st.nest *= .6; } },
-        { l: "Dicke Zweige wie die Elster", e: -3, s: 0, r: 0, k: "Zweige sind viel zu schwer für einen so zarten Vogel.", fx: st => { st.eier = 5; st.nest *= .5; } }
+        { l: "Spinnweben und Flechten wie der Buchfink", e: -2, s: 0, r: 0, k: "Daraus baut der Buchfink kunstvolle Nester in Astgabeln. An einem glatten Balken hält das nicht.", fx: st => { st.eier = 5; st.nest *= .5; } }
       ] },
     { fang: true, flug: true, t: "Jagd in der Luft", sz: "🐣🪰", bild: "../images/voegel/schwalben-nestlinge.jpg", p: "netz", e: 0,
       x: "Fünf Junge sitzen im Nest. Rauchschwalben fangen ihr Futter nur im Flug: Fliegen, Mücken und kleine Käfer. Was auf Blättern sitzt oder am Boden liegt, erreichst du nicht.",
       auftrag: "Tippe nur an, was durch die Luft fliegt!",
-      gut: ["🪰", "🦟", "🪲"], schlecht: ["🐛", "🌻", "🐌"], ziel: 12, dauer: 16,
+      gut: ["🪰", "🦟", "🪲"], schlecht: ["🐛", "🌻", "🐌"], ziel: 9, dauer: 24,
       nach: (st, q) => { const n = Math.round(st.eier * st.nest * q); st.jung += n; const von = st.eier; st.eier = 0; return n + " von " + von + " Jungen sind flügge geworden."; },
       k: "Ein Schwalbenpaar fängt für eine Brut viele tausend Insekten. Wo es keine Insekten mehr gibt, verschwinden auch die Schwalben." },
     { t: "Die Jungen fliegen aus", sz: "🐥☀️", p: "vogel",
@@ -403,7 +422,7 @@ schwalbe: {
       w: [
         { l: "Abwarten, dann durch die Täler und über einen niedrigen Pass", e: 0, s: 0, r: 2, k: "Zugvögel warten schlechtes Wetter ab und nutzen niedrige Pässe. Das spart Kraft." },
         { l: "Trotz Sturm über die höchsten Gipfel", e: -4, s: -2, r: 0, k: "Kälte, Sturm und kein einziges Insekt: Im Hochgebirge kommen bei Wetterstürzen viele Schwalben um." },
-        { l: "Umkehren und zurück nach Hause", e: -3, s: 0, r: 0, k: "Zu Hause gibt es bald keine Insekten mehr. Der Weg führt nach Süden." }
+        { l: "Am Alpenrand entlang nach Westen ausweichen", e: -2, s: 0, r: 1, k: "Ein Umweg, der Kraft kostet – aber sicher. Viele Zugvögel umfliegen die Alpen tatsächlich." }
       ] },
     { t: "Die Sahara", sz: "🏜️☀️", p: "zug",
       x: "Vor dir liegen fast 2000 Kilometer Wüste – ohne Wasser und fast ohne Insekten.",
@@ -443,7 +462,7 @@ schwalbe: {
       x: "Der alte Stall wurde umgebaut: Fenster und Tore sind jetzt geschlossen.",
       w: [
         { l: "Eine offene Scheune oder Garage suchen", e: -1, s: 0, r: 2, k: "Schwalben brauchen einen offenen Einflug. Wer im Frühjahr ein Stallfenster offen lässt, hilft ihnen sehr." },
-        { l: "Immer wieder gegen das Fenster fliegen", e: -1, s: -3, r: 0, k: "Vögel können Glas nicht sehen. Schwalben brauchen einen offenen Einflug." }
+        { l: "Außen am Stall ein Nest in den Efeu bauen", e: -1, s: -1, r: 0, k: "Rauchschwalben brauchen ein festes Dach über dem Nest und einen Balken oder eine Wand zum Ankleben.", fx: st => { st.nest *= .6; } }
       ] },
     { von: 1, bis: 3, t: "Alles trocken", sz: "☀️🏜️", p: "vogel",
       x: "Seit Wochen kein Regen. Alle Pfützen im Dorf sind ausgetrocknet.",
@@ -475,6 +494,13 @@ schwalbe: {
       w: [
         { l: "An der Küste abwarten", e: -1, s: 0, r: 2, k: "Über dem Meer gibt es keinen Landeplatz. Zugvögel warten deshalb gutes Wetter ab." },
         { l: "Mitten hindurch", e: -3, s: -2, r: 0, k: "Über dem Meer gibt es keinen Landeplatz. Bei Sturm ist das lebensgefährlich." }
+      ] },
+    { von: 3, bis: 5, t: "Das Ungetüm", sz: "🚜💨", p: "wiese",
+      x: "Ein riesiger Mähdrescher rattert über das Feld. Es staubt und dröhnt.",
+      w: [
+        { l: "Dicht hinterherfliegen", e: 2, s: 0, r: 2, urteil: "Schlau!", k: "Die Maschine scheucht Unmengen Insekten auf. Schwalben folgen deshalb gern Traktoren, Kühen und sogar Rasenmähern." },
+        { l: "Weit wegbleiben – das Ding ist unheimlich", e: 0, s: 0, r: 1, k: "Verständlich. Aber du verpasst ein Festessen: Die Maschine scheucht Unmengen Insekten auf." },
+        { l: "Dich zum Ausruhen aufs Fahrerdach setzen", e: 0, s: 0, r: 1, urteil: "Gemütlich!", k: "Nette Aussicht. Aber die Insekten fliegen hinter der Maschine – dort wird gejagt." }
       ] },
     { von: 2, bis: 5, t: "Die Hofkatze", sz: "🐈🏚️", p: "futter",
       x: "Unter dem Nest sitzt die Hofkatze und schaut nach oben. Am Stallboden krabbeln Fliegen.",
@@ -630,7 +656,7 @@ function seiteSpiel(tid) {
     if (k.fang) return fang(k);
     buehne.innerHTML = `<div class="karte">${szene(k, zw)}
       <div class="k-text">${schritt === 0 ? basisHinweis : ""}<h2>${k.t}</h2><p>${k.x}</p></div>
-      <div class="wahl">${k.w.map((w, i) => `<button type="button" data-i="${i}">${w.l}</button>`).join("")}</div>
+      <div class="wahl">${mische(k.w.map((w, i) => i), Math.random).map(i => `<button type="button" data-i="${i}">${k.w[i].l}</button>`).join("")}</div>
       <div id="folge"></div></div>`;
     $$(".wahl button", buehne).forEach(b => b.onclick = () => {
       const w = k.w[+b.dataset.i], jungVor = st.jung, eierVor = st.eier;
@@ -666,8 +692,8 @@ function seiteSpiel(tid) {
       const d = document.createElement("button"); d.type = "button"; d.className = "ding" + (k.flug && !reduce ? " flug" : "");
       d.textContent = liste[Math.floor(Math.random() * liste.length)]; d.dataset.gut = gut ? "1" : "";
       d.setAttribute("aria-label", gut ? "passt" : "passt nicht");
-      const x = 12 + Math.random() * 76, y = 14 + Math.random() * 72, leben = k.flug ? 1500 : 1350;
-      d.style.cssText = `left:${x}%;top:${y}%;--dx:${(Math.random() < .5 ? -1 : 1) * (40 + Math.random() * 50)}px;--dy:${-30 + Math.random() * 60}px;--dauer:${leben}ms`;
+      const x = 12 + Math.random() * 76, y = 14 + Math.random() * 72, leben = k.flug ? 3000 : 2800;
+      d.style.cssText = `left:${x}%;top:${y}%;--dx:${(Math.random() < .5 ? -1 : 1) * (50 + Math.random() * 60)}px;--dy:${-25 + Math.random() * 50}px;--dauer:${leben}ms`;
       d.addEventListener("pointerdown", ev => {
         ev.preventDefault(); if (!aktiv || d.dataset.weg) return; d.dataset.weg = "1";
         if (d.dataset.gut) { treffer++; d.classList.add("treffer"); } else { fehler++; d.classList.add("falsch"); }
@@ -698,7 +724,7 @@ function seiteSpiel(tid) {
     }
     $("#fLos").onclick = () => {
       $(".fang-start", feld).remove(); aktiv = true; t0 = performance.now(); laufend = stopp;
-      neu(); spawn = setInterval(neu, 430); raf = requestAnimationFrame(tick);
+      neu(); spawn = setInterval(neu, 1000); raf = requestAnimationFrame(tick);
       feld.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
     };
   }
