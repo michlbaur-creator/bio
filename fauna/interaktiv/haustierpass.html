@@ -262,6 +262,167 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
 .eier{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .ei{border:1px solid var(--linie);border-radius:50% 50% 46% 46% / 58% 58% 42% 42%;background:linear-gradient(160deg,#fff8ec,#ead9bd);aspect-ratio:3/4;cursor:pointer;display:grid;place-items:center;font-family:var(--sans);font-size:11px;color:#7a1f15;padding:4px;text-align:center}
 .ei.an{box-shadow:0 0 0 3px var(--honig)}
+/* ---------- Bonus-Spiele Teil 1: Job-Spiel, Rätselhund, Schnauzen-Duell, Rudel ---------- */
+.station.bonus{border-color:var(--honig);box-shadow:0 0 0 2px #ecd9b4}
+.station.bonus .nr{background:#f6ead2}
+.an-hud{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;font-family:var(--sans);font-variant-numeric:tabular-nums}
+.an-leben{font-size:20px;letter-spacing:2px;white-space:nowrap}
+.an-leben .weg{opacity:.2;filter:grayscale(1)}
+.an-punkte{font-size:26px;font-weight:bold;color:var(--blau);text-align:center;line-height:1}
+.an-punkte small{display:block;font-size:11px;font-weight:normal;color:var(--ink-soft);letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+.an-serie{justify-self:end;font-size:14px;background:var(--tile);border:1px solid var(--linie);border-radius:999px;padding:5px 11px;color:var(--ink-soft);white-space:nowrap}
+.an-serie.heiss{background:var(--honig);border-color:var(--honig);color:#fff;font-weight:bold}
+.an-feld{position:relative;background:var(--tile);border:1px solid var(--linie);border-radius:16px;overflow:hidden}
+.an-bild{position:relative;aspect-ratio:3/2;max-height:42vh;width:100%;background:linear-gradient(180deg,#dfe8ef,#f4f1e8);display:grid;place-items:center;overflow:hidden}
+.an-bild img{width:100%;height:100%;object-fit:cover;display:block}
+.an-bild .an-emoji{font-size:clamp(64px,22vw,110px);line-height:1}
+.an-karte{animation:anRein .32s cubic-bezier(.2,.9,.3,1.1)}
+.an-karte.raus{animation:anRaus .22s ease-in forwards}
+.an-karte.wackel{animation:anWackel .4s}
+@keyframes anRein{from{transform:translateX(60%);opacity:0}to{transform:none;opacity:1}}
+@keyframes anRaus{to{transform:translateX(-60%);opacity:0}}
+@keyframes anWackel{20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.an-name{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 14px 4px}
+.an-name b{font-size:22px;color:var(--blau);font-weight:normal}
+.an-name span{font-family:var(--sans);font-size:13px;color:var(--ink-soft);white-space:nowrap}
+.an-zeit{height:8px;background:var(--creme-tief);margin:6px 14px 14px;border-radius:999px;overflow:hidden}
+.an-zeit i{display:block;height:100%;width:100%;background:var(--ok);border-radius:999px}
+.an-zeit i.knapp{background:var(--bad)}
+.an-plus{position:absolute;right:14px;top:10px;font-family:var(--sans);font-weight:bold;font-size:22px;color:#fff;background:var(--ok);border-radius:999px;padding:4px 12px;pointer-events:none;animation:anPlus .8s ease-out forwards}
+@keyframes anPlus{from{transform:translateY(10px);opacity:0}25%{transform:none;opacity:1}to{transform:translateY(-26px);opacity:0}}
+.an-info{min-height:3.2em;font-family:var(--sans);font-size:15px;line-height:1.4;border-radius:12px;padding:10px 12px;background:var(--creme-tief);color:var(--ink-soft)}
+.an-info.falsch{background:#f7e3df;color:#7a2a20}
+.an-info b{color:inherit}
+.an-tasten{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.an-taste{border:0;border-radius:14px;padding:14px 8px;min-height:74px;font-family:var(--sans);font-size:16px;font-weight:bold;color:#fff;cursor:pointer;display:grid;gap:2px;justify-items:center;align-content:center;box-shadow:0 3px 0 rgba(0,0,0,.25);touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.an-taste .e{font-size:26px;line-height:1}
+.an-taste:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.an-taste.hueten{background:var(--ok)}
+.an-taste.jagen{background:var(--honig-tief)}
+.an-taste.arbeit{background:var(--blau-mittel)}
+.an-taste.begleit{background:#a8506b}
+.an-taste:disabled{cursor:default}
+.an-taste.blass{opacity:.3}
+.an-taste.richtig{outline:4px solid #7fd19a;outline-offset:2px}
+.an-regeln{display:grid;gap:10px;font-family:var(--sans);font-size:15px}
+.an-regel{display:grid;grid-template-columns:46px 1fr;gap:12px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:10px 12px}
+.an-regel .e{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:24px;color:#fff}
+.an-regel b{display:block;color:var(--blau);font-size:16px}
+.an-zahl{font-size:clamp(90px,34vw,150px);text-align:center;color:var(--blau);line-height:1.2;font-family:var(--sans);font-weight:bold;animation:anZahl .7s ease-out}
+@keyframes anZahl{from{transform:scale(1.6);opacity:0}40%{opacity:1}to{transform:scale(.9);opacity:.85}}
+.an-ende{text-align:center;display:grid;gap:10px;background:var(--tile);border:1px solid var(--linie);border-radius:16px;padding:20px 16px}
+.an-ende .gross{font-family:var(--sans);font-weight:bold;font-size:clamp(54px,18vw,80px);line-height:1;color:var(--blau);font-variant-numeric:tabular-nums}
+.an-ende .titel{font-size:22px;color:var(--honig-tief)}
+.an-ende .rekord{justify-self:center;font-family:var(--sans);font-weight:bold;font-size:14px;background:var(--honig);color:#fff;border-radius:999px;padding:5px 14px}
+.an-werte{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-family:var(--sans)}
+.an-werte div{background:var(--creme);border-radius:12px;padding:10px 4px;font-size:12px;color:var(--ink-soft)}
+.an-werte b{display:block;font-size:22px;color:var(--ink);font-variant-numeric:tabular-nums}
+.an-merk{font-family:var(--sans);font-size:15px;display:grid;gap:8px}
+.an-merk div{background:var(--tile);border:1px solid var(--linie);border-left:4px solid var(--honig);border-radius:10px;padding:9px 12px}
+@media (min-width:600px){.an-tasten{grid-template-columns:repeat(4,1fr)}}
+/* ---------- Gäste-Sammelalbum ---------- */
+.ga-kopf{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ga-zahl{font-family:var(--sans);font-size:15px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.ga-zahl b{font-size:22px;color:var(--blau)}
+.ga-balken{height:8px;background:var(--creme-tief);border-radius:999px;overflow:hidden}
+.ga-balken i{display:block;height:100%;background:var(--honig);border-radius:999px}
+.ga-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ga{position:relative;display:grid;align-content:start;background:var(--tile);border:1px solid var(--linie);border-radius:12px;overflow:hidden;padding:0 0 8px;text-align:left;font-family:var(--sans);color:var(--ink)}
+button.ga{cursor:pointer;font:inherit;font-family:var(--sans)}
+.ga-bild{position:relative;display:block;aspect-ratio:3/2;background:#dfe6ec;overflow:hidden}
+.ga-bild img{display:block;width:100%;height:100%;object-fit:cover}
+.ga.zu .ga-bild img{filter:grayscale(1) blur(7px) brightness(.75);transform:scale(1.2)}
+.ga.zu .ga-bild::after{content:"?";position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-size:38px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.ga-name{font-size:14px;font-weight:bold;color:var(--blau);padding:7px 8px 0;line-height:1.2;overflow-wrap:anywhere}
+.ga.zu .ga-name{color:var(--ink-soft)}
+.ga-wie{font-size:12px;line-height:1.3;color:var(--ink-soft);padding:3px 8px 0}
+.ga-art{position:absolute;left:6px;top:6px;z-index:1;font-size:10px;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:2px 7px;background:rgba(255,255,255,.9);color:var(--ink-soft)}
+.ga-art.selten{background:var(--blau);color:#fff}
+.ga-art.sehr{background:var(--honig);color:#fff}
+.ga.auf.selten{border-color:var(--blau-mittel)}
+.ga.auf.sehr{border-color:var(--honig);box-shadow:0 0 0 2px #ecd9b4}
+.ga-neu{position:absolute;right:6px;top:6px;z-index:1;font-size:10px;font-weight:bold;letter-spacing:.06em;border-radius:999px;padding:2px 7px;background:var(--bad);color:#fff}
+.ga.neu{animation:gaNeu .7s ease-out}
+@keyframes gaNeu{from{transform:scale(.8);opacity:0}60%{transform:scale(1.06)}to{transform:none;opacity:1}}
+@media (min-width:600px){.ga-grid{grid-template-columns:repeat(4,1fr)}}
+
+/* ---------- Rätselvogel des Tages ---------- */
+.rv-sterne{font-size:26px;letter-spacing:3px;line-height:1}
+.rv-sterne .weg{opacity:.2;filter:grayscale(1)}
+.rv-stand{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--sans);font-size:14px;color:var(--ink-soft)}
+.rv-hinweise{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:rv}
+.rv-hinweise li{counter-increment:rv;display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:10px 12px;font-size:17px;line-height:1.4}
+.rv-hinweise li::before{content:counter(rv);width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--blau);color:#fff;font-family:var(--sans);font-weight:bold;font-size:15px}
+.rv-hinweise li.zu{background:transparent;border-style:dashed;color:var(--ink-soft);font-family:var(--sans);font-size:14px}
+.rv-hinweise li.zu::before{background:var(--creme-tief);color:var(--ink-soft)}
+.rv-hinweise li.frisch{animation:gaNeu .5s ease-out;border-color:var(--honig)}
+.rv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rv-wahl{display:grid;align-content:start;background:var(--tile);border:1px solid var(--linie);border-radius:12px;overflow:hidden;padding:0 0 7px;font-family:var(--sans);font-size:13px;font-weight:bold;color:var(--blau);cursor:pointer;text-align:center;line-height:1.2;touch-action:manipulation}
+.rv-wahl img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;margin-bottom:6px}
+.rv-wahl span{padding:0 3px;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+.rv-wahl:disabled{opacity:.3;cursor:default;text-decoration:line-through}
+.rv-wahl:not(:disabled):hover{border-color:var(--blau);box-shadow:0 2px 10px rgba(35,61,92,.15)}
+.rv-ende{text-align:center;display:grid;gap:10px;background:var(--tile);border:1px solid var(--linie);border-radius:16px;overflow:hidden;padding:0 0 18px}
+.rv-ende > *{margin-left:16px;margin-right:16px}
+.rv-ende > img{margin:0;width:100%;aspect-ratio:3/2;max-height:46vh;object-fit:cover;display:block}
+.rv-ende h3{font-size:26px;color:var(--blau)}
+@media (min-width:600px){.rv-grid{grid-template-columns:repeat(6,1fr)}.rv-wahl{font-size:12px}}
+/* ---------- Schnabel-Duell (zwei Teams an einem Gerät) ---------- */
+.du-sitz{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.du-sitz button{background:var(--tile);border:2px solid var(--linie);border-radius:14px;padding:12px 10px;font-family:var(--sans);font-size:14px;color:var(--ink-soft);cursor:pointer;display:grid;gap:4px;justify-items:center;text-align:center}
+.du-sitz button b{font-size:16px;color:var(--blau)}
+.du-sitz button .e{font-size:28px;line-height:1}
+.du-sitz button.an{border-color:var(--blau);box-shadow:0 0 0 2px var(--blau-hell)}
+.du-buehne{position:fixed;inset:0;z-index:40;background:var(--blau-tief);display:grid;grid-template-rows:minmax(0,1fr) auto minmax(0,1fr);font-family:var(--sans);
+  padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);user-select:none;-webkit-user-select:none;touch-action:manipulation;overscroll-behavior:none}
+.du-buehne.neben{grid-template-rows:auto auto minmax(0,1fr);grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.du-buehne .du-gem{display:none}
+.du-buehne.neben .du-gem .du-text{font-size:clamp(19px,4.2vh,34px)}
+.du-buehne.neben .du-gem{display:grid;grid-column:1 / -1;grid-row:2;flex:none;aspect-ratio:3/2;max-height:46vh;width:100%;border-radius:0;border:0;border-bottom:2px solid var(--blau-tief)}
+.du-buehne.neben .du-gem .du-warte{color:var(--blau)}
+.du-buehne.neben:not(.fertig) .du-haelfte .du-frage{display:none}
+.du-buehne.neben.fertig .du-gem{display:none}
+.du-buehne.neben .du-haelfte{grid-row:3}
+.du-buehne.neben .du-mitte{grid-column:1 / -1;grid-row:1}
+.du-buehne.gegen .du-haelfte[data-p="0"]{transform:rotate(180deg)}
+.du-haelfte{min-height:0;min-width:0;display:flex;flex-direction:column;gap:8px;padding:10px 12px}
+.du-haelfte.blau{background:#e3edf6;--team:#2c5f8f}
+.du-haelfte.rot{background:#fbe9e0;--team:#c2542f}
+.du-buehne.neben .du-haelfte.blau{border-right:2px solid var(--blau-tief)}
+.du-kopf{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--team);font-weight:bold;font-size:16px}
+.du-pkt{display:flex;gap:4px}
+.du-pkt i{width:13px;height:13px;border-radius:50%;border:2px solid var(--team);display:block}
+.du-pkt i.voll{background:var(--team)}
+.du-frage{flex:1;min-height:0;border-radius:14px;overflow:hidden;background:#fff;display:grid;place-items:center;position:relative;border:2px solid var(--team)}
+.du-frage{background:#dbe7d2}
+.du-frage img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.du-frage .du-text{padding:10px 16px;font-family:var(--serif);font-size:clamp(17px,2.6vh + 4px,24px);line-height:1.35;text-align:center;color:var(--ink)}
+.du-frage .du-warte{font-size:clamp(20px,4vh,30px);color:var(--team);font-weight:bold;text-align:center;padding:8px}
+.du-frage .du-gross{font-size:clamp(44px,9vh,80px);line-height:1}
+.du-status{min-height:1.5em;text-align:center;font-size:15px;font-weight:bold;color:var(--ink-soft)}
+.du-status.gut{color:var(--ok)}
+.du-status.schlecht{color:var(--bad)}
+.du-wahl{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.du-wahl button{min-height:50px;border-radius:12px;border:2px solid var(--team);background:#fff;color:var(--ink);font:inherit;font-weight:bold;font-size:16px;padding:6px 6px;cursor:pointer;touch-action:manipulation;hyphens:auto;-webkit-hyphens:auto}
+.du-wahl button:disabled{cursor:default}
+.du-wahl button.blass{opacity:.35}
+.du-wahl button.richtig{background:var(--ok);border-color:var(--ok);color:#fff;opacity:1}
+.du-wahl button.falsch{background:var(--bad);border-color:var(--bad);color:#fff;opacity:1}
+.du-mitte{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 12px;color:#dce8f3;font-size:14px;background:var(--blau-tief)}
+.du-mitte button,.du-mitte a{border:1px solid #6f8aa6;background:transparent;color:#fff;border-radius:999px;padding:6px 14px;font:inherit;font-size:14px;cursor:pointer;text-decoration:none}
+.du-mitte .haupt{background:var(--honig);border-color:var(--honig);font-weight:bold}
+.du-mitte .gruppe{display:flex;gap:8px}
+@media (min-width:700px){.du-buehne.gegen .du-wahl{grid-template-columns:repeat(4,1fr)}.du-wahl button{font-size:17px;min-height:58px}}
+@media (max-width:520px){.du-buehne.neben .du-wahl{grid-template-columns:1fr}.du-buehne.neben .du-wahl button{min-height:44px;font-size:15px}.du-buehne.neben .du-kopf{font-size:13px}.du-buehne.neben .du-pkt i{width:9px;height:9px}}
+.marke{position:absolute;right:8px;top:8px;background:var(--blau);color:#fff;font-family:var(--sans);font-size:11px;letter-spacing:.04em;border-radius:999px;padding:3px 9px}
+.marke.inline{position:static;vertical-align:middle;margin-left:6px}
+.tafelkarte{background:var(--tile);border-radius:18px;padding:18px;max-width:560px;width:100%;display:grid;gap:10px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.tk-kopf{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tk-kopf .knopf{padding:6px 12px}
+.tk-bild{background:var(--creme);border-radius:10px;overflow:hidden;border:1px solid var(--linie)}
+.tk-bild img{display:block;width:100%;height:auto;max-height:70vh;object-fit:contain}
+.hk-jobs{display:flex;gap:6px;flex-wrap:wrap}
+.hk-jobs span{font-family:var(--sans);font-size:13px;background:var(--creme-tief);border-radius:999px;padding:4px 11px;color:var(--ink)}
 </style>
 <!-- Besucherzählung (GoatCounter, ohne Cookies) -->
 <script>window.goatcounter={path:function(p){return location.host+p}};</script><script data-goatcounter="https://mibaso.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -440,7 +601,13 @@ h1: {
     { em: "⭐", name: "Dreier-Serie", ok: h => h.dreier >= 3 },
     { em: "🏆", name: "Hunde-Profi", ok: h => h.d.s5 && h.d.s5.knochen >= 3 },
     { em: "🏅", name: "Hunde-Meister", ok: h => h.fertige >= 6 },
-    { em: "🦴", name: "Voller Napf", ok: h => h.summe >= 18 }
+    { em: "🦴", name: "Voller Napf", ok: h => h.summe >= 18 },
+    { em: "⚡", name: "Rassen-Profi", ok: h => h.d.spiel && h.d.spiel.best >= 250 },
+    { em: "🔥", name: "Zehner-Serie", ok: h => h.d.spiel && h.d.spiel.serie >= 10 },
+    { em: "🔍", name: "Spürhund", ok: h => h.d.raetsel && h.d.raetsel.min <= 2 },
+    { em: "🤝", name: "Schnauzen-Duell", ok: h => h.d.duell && h.d.duell.n >= 1 },
+    { em: "🐕", name: "Halbes Rudel", ok: h => albumOffen(h).length >= 8 },
+    { em: "👑", name: "Ganzes Rudel", ok: h => albumOffen(h).length >= ALBUM.length }
   ],
   checks: {
     s1: [
@@ -932,6 +1099,8 @@ function seiteStart() {
         <ul class="clean">
           <li><b>Stufenweise:</b> Jede Station öffnet sich erst, wenn die vorige geschafft ist. Mit „Alle offen“ kann frei gewählt werden.</li>
           <li><b>Zum Weiterarbeiten:</b> Eierkartons von zu Hause mitbringen lassen und die Codes vergleichen.</li>
+          <li><b>Bonus-Spiele in Teil 1:</b> „Wer macht den Job?“ (nach Station 2) ist ein Reaktionsspiel: 16 Hunderassen werden ihrer ursprünglichen Aufgabe zugeordnet – Hüten, Jagen, Ziehen &amp; Bewachen oder Begleiten. Beim „Rätselhund des Tages“ (nach Station 3) wird eine Rasse mit höchstens fünf Hinweisen erraten, im „Schnauzen-Duell“ treten zwei Teams an einem Gerät gegeneinander an. Nichts davon zählt für Knochen und Urkunde.</li>
+          <li><b>Rudel:</b> Mit den Knochen kommen nach und nach 16 Rassen ins Rudel, jede mit kurzem Steckbrief; manche nur für besondere Leistungen in den Bonus-Spielen.</li>
           <li><b>Urkunde:</b> Am Ende tragen die Kinder ihren Namen ein und drucken die Urkunde oder speichern sie als PDF.</li>
           <li><b>Geteilte Geräte:</b> Im Haustierpass ganz unten „Pass zurücksetzen“.</li>
         </ul></div></details>
@@ -974,6 +1143,17 @@ function seitePass(eid, neu) {
       }).join("")}</div>
       ${h.fertige === n && anderer ? `<p class="klein">Weiter geht’s mit <a href="#${anderer}">Teil ${IDS.indexOf(anderer) + 1}: ${EXPS[anderer].titel}</a>.</p>` : ""}
     </section>
+    ${eid !== "h1" ? "" : `<section>
+      <h2 class="h-blau">Bonus-Spiele</h2>
+      <div class="stationen">${(() => { const sp = h.d.spiel, rv = rvStand(eid), heuteFertig = !!(rv.heute && rv.heute.tag === rvTag() && rv.heute.fertig);
+        const fertig = id => S.modus === "frei" || !!(h.d[id] && h.d[id].done);
+        const karte = (frei, em, titel, text, zu, stand, ziel) => { const inner = `<span class="nr">${em}</span><span><span class="st">${titel}</span><span class="sk">${frei ? text : zu}</span></span><span class="stand">${frei ? stand : "🔒"}</span>`;
+          return frei ? `<a class="station bonus" href="#${eid}-${ziel}">${inner}</a>` : `<div class="station gesperrt" aria-disabled="true">${inner}</div>`; };
+        return karte(fertig("s2"), "⚡", "Wer macht den Job?", "Hüten, jagen, ziehen oder begleiten? Ordne die Rassen blitzschnell zu", "Öffnet sich nach Station 2", sp && sp.n ? `🏆 ${sp.best}` : "Spielen ›", "spiel")
+          + karte(fertig("s3"), "🔍", "Rätselhund des Tages", heuteFertig ? "Heute schon gelöst – morgen kommt ein neuer. Bis dahin: Übungsrätsel" : "Fünf Hinweise, ein Hund: Je früher du ihn errätst, desto mehr Sterne", "Öffnet sich nach Station 3", heuteFertig ? `⭐ ${rv.heute.sterne} heute` : "Neu ›", "raetsel")
+          + karte(fertig("s3"), "🤝", "Schnauzen-Duell", "Zu zweit an einem Gerät: Wer erkennt die Rasse schneller?", "Öffnet sich nach Station 3", h.d.duell && h.d.duell.n ? `${h.d.duell.n}× gespielt` : "Spielen ›", "duell"); })()}</div>
+    </section>
+    ${albumHTML(eid, h)}`}
     <section>
       <h2 class="h-blau">Urkunde</h2>
       ${h.fertige ? `<p>${h.fertige === n ? "Geschafft! Trag deinen Namen ein und hol dir deine Urkunde." : `Du hast ${h.fertige} von ${n} Stationen geschafft. Die Urkunde zeigt deinen Zwischenstand.`}</p>
@@ -993,6 +1173,8 @@ function seitePass(eid, neu) {
   requestAnimationFrame(() => requestAnimationFrame(() => { const b = $("#fbar"); if (b) b.style.width = (h.summe / MAX * 100) + "%"; }));
   $$("[data-m]", app).forEach(b => b.onclick = () => { S.modus = b.dataset.m; speichern(); route(true); });
   const ub = $("#urkBtn"); if (ub) ub.onclick = () => urkunde(eid);
+  $$("[data-ga]", app).forEach(b => b.onclick = () => hundKarte(b.dataset.ga));
+  $$("[data-gz]", app).forEach(b => b.onclick = () => albumWeg(eid, b.dataset.gz));
   $("#resetBtn").onclick = () => {
     $("#resetBox").innerHTML = `<p><b>Wirklich alles löschen?</b> Knochen, Abzeichen und Name auf diesem Gerät sind dann weg.</p>
       <div class="knopfreihe"><button type="button" class="knopf prim" id="jaReset">Ja, zurücksetzen</button><button type="button" class="knopf" id="neinReset">Abbrechen</button></div>`;
@@ -1170,12 +1352,506 @@ function urkundeTeilen(o, em, dateiname) {
   return neu;
 }
 
+/* ============ Bonus-Spiel: Wer macht den Job? ============ */
+// Aufgaben: [Schlüssel, Zeichen, Beschriftung, Erklärung]
+const AN_TASTEN = [
+  ["hueten", "🐑", "Hüten", "Schafe und Rinder zusammenhalten und treiben"],
+  ["jagen", "🦆", "Jagen", "Wild aufspüren, verfolgen oder zurückbringen"],
+  ["arbeit", "🛷", "Ziehen & Bewachen", "Schlitten und Karren ziehen, Haus und Hof beschützen"],
+  ["begleit", "🛋️", "Begleiten", "Einfach nur Freund und Gesellschaft sein"]
+];
+// Rassen: [slug, Name, Aufgabe(n), Steckbrief, Merksatz fürs Job-Spiel]
+const RASSEN = [
+  ["border-collie", "Border Collie", ["hueten"], "Der Streber unter den Hunden: Er hütet Schafe mit seinem starren Blick – und lernt neue Kommandos schneller als fast jeder andere.", "Der Border Collie hütet Schafe – mit seinem starren Blick hält er die Herde zusammen."],
+  ["schaeferhund", "Deutscher Schäferhund", ["hueten", "arbeit"], "Früher hütete er Schafherden, heute arbeitet er oft als Polizei- und Rettungshund. Aufmerksam, mutig und lernbegierig.", "Sein Name sagt es: Er hütete Schafe. Heute bewacht und beschützt er auch – etwa als Polizeihund."],
+  ["australian-shepherd", "Australian Shepherd", ["hueten"], "Trotz seines Namens stammt er aus den USA. Dort trieb er auf den Farmen Rinder und Schafe – ohne Bewegung und Aufgaben wird ihm schnell langweilig.", "„Shepherd“ heißt Schäfer: Er trieb auf Farmen Rinder und Schafe."],
+  ["dackel", "Dackel", ["jagen"], "Kurze Beine mit Absicht: So passt er in die Baue von Dachs und Fuchs. Daher sein zweiter Name: Dachshund.", "Der Dackel kriecht in den Bau von Dachs und Fuchs – ein Jagdhund auf kurzen Beinen."],
+  ["labrador", "Labrador", ["jagen"], "Er holte für Jäger geschossene Enten aus dem Wasser – und trägt bis heute gern alles durch die Gegend. Heute ist er oft Blindenführhund.", "Der Labrador holt für den Jäger geschossene Enten aus dem Wasser."],
+  ["beagle", "Beagle", ["jagen"], "Ein Hund für die Meute: In großen Gruppen verfolgte er Hasen – immer der Nase nach, die Rute mit der weißen Spitze hoch erhoben.", "Der Beagle verfolgt in der Meute die Spur von Hasen."],
+  ["jack-russell", "Jack Russell Terrier", ["jagen"], "Klein, aber furchtlos: Er wurde gezüchtet, um Füchse aus dem Bau zu treiben. Benannt ist er nach einem englischen Pfarrer, der gern jagte.", "Der Jack Russell treibt Füchse aus dem Bau."],
+  ["weimaraner", "Weimaraner", ["jagen"], "Der „graue Geist“ mit dem silbernen Fell stammt aus der Gegend um Weimar. Ein Jagdhund, der Wild aufspürt und dem Jäger anzeigt.", "Der Weimaraner spürt Wild auf und zeigt es dem Jäger an."],
+  ["husky", "Siberian Husky", ["arbeit"], "Gezüchtet in Sibirien, um Schlitten über weite Strecken durch Eis und Schnee zu ziehen. Statt zu bellen, heult er gern – fast wie ein Wolf.", "Der Husky zieht Schlitten durch Schnee und Eis."],
+  ["bernhardiner", "Bernhardiner", ["arbeit"], "Die Mönche auf dem Großen Sankt Bernhard hielten ihn als Wach- und Rettungshund. Der berühmte Barry soll über 40 Menschen im Schnee gerettet haben.", "Der Bernhardiner bewachte ein Kloster in den Alpen und suchte Verschüttete im Schnee."],
+  ["berner-sennenhund", "Berner Sennenhund", ["arbeit"], "Ein Bauernhund aus der Schweiz: Er bewachte den Hof und zog den Karren mit den Milchkannen zur Käserei.", "Der Berner Sennenhund bewachte den Bauernhof und zog den Milchkarren."],
+  ["rottweiler", "Rottweiler", ["arbeit", "hueten"], "Er stammt aus Rottweil in Baden-Württemberg. Dort trieb und bewachte er die Rinderherden der Metzger – daher hieß er früher „Metzgerhund“.", "Der Rottweiler trieb und bewachte die Rinderherden der Metzger."],
+  ["dogge", "Deutsche Dogge", ["arbeit", "jagen"], "Einer der größten Hunde der Welt. Früher jagte sie Wildschweine und bewachte Schlösser, heute ist sie ein sanfter Riese.", "Die Dogge jagte früher Wildschweine und bewachte später Schlösser und Höfe."],
+  ["chihuahua", "Chihuahua", ["begleit"], "Der kleinste Hund der Welt, benannt nach einem Bundesstaat in Mexiko. Er passt in eine Handtasche – hält sich selbst aber für riesig.", "Der Chihuahua ist ein reiner Begleithund – zum Arbeiten ist er viel zu klein."],
+  ["mops", "Mops", ["begleit"], "Er kommt ursprünglich aus China und lebte dort am Kaiserhof. Wegen seiner kurzen Nase bekommt er schlecht Luft – ein Beispiel dafür, dass Züchtung auch schaden kann.", "Der Mops war schon am chinesischen Kaiserhof nur zum Gesellschaftleisten da."],
+  ["malteser", "Malteser", ["begleit"], "Seit über 2000 Jahren ein Schoßhund: Schon im alten Rom ließen sich reiche Leute von ihm Gesellschaft leisten.", "Der Malteser ist seit über 2000 Jahren ein Schoßhund."]
+];
+const GAESTE = RASSEN, GAST = Object.fromEntries(RASSEN.map(r => [r[0], r]));
+const AN_GAESTE = RASSEN.map(r => [r[0], r[1], r[2], r[4]]);
+const AN_TITEL = [[0, "Hundesitter"], [100, "Hundekenner"], [250, "Rassen-Profi"], [500, "Hunde-Flüsterer"]];
+const AN_MAX = 50;
+let spielStop = null;
+
+function seiteSpiel(eid) {
+  const X = EXPS[eid], h = kennzahlen(eid);
+  if (!(S.modus === "frei" || (h.d.s2 && h.d.s2.done))) { location.hash = eid; return; }
+  const stand = () => (S[eid] && S[eid].spiel) || { best: 0, serie: 0, n: 0 };
+  app.innerHTML = `
+  <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Haustierpass</a><span class="tchip" id="anBest">🏆 Bestwert ${stand().best}</span></div></div>
+  <div class="huelle"><section id="anBox"></section>${fuss()}</div>`;
+  const box = $("#anBox");
+  let raf = 0, warte = 0, aktiv = false;
+  const stopp = () => { aktiv = false; cancelAnimationFrame(raf); clearTimeout(warte); document.removeEventListener("keydown", taste); };
+  spielStop = stopp;
+  let auf = null; // aktuelle Antwort-Funktion (für die Tastatur)
+  function taste(e) { const k = "1234".indexOf(e.key); if (k >= 0 && auf) { e.preventDefault(); auf(AN_TASTEN[k][0]); } }
+
+  function anleitung() {
+    stopp(); spielStop = stopp;
+    box.innerHTML = `
+      <span class="eyebrow">Bonus-Spiel</span>
+      <h2 class="h-blau">Wer macht den Job?</h2>
+      <p class="lead">Jede Hunderasse wurde für eine Aufgabe gezüchtet. Ein Hund nach dem anderen stellt sich vor – tippe schnell an, wofür er gezüchtet wurde!</p>
+      <div class="an-regeln">${AN_TASTEN.map(t => `<div class="an-regel"><span class="e an-taste ${t[0]}" style="min-height:0;padding:0;box-shadow:none">${t[1]}</span><span><b>${t[2]}</b>${t[3]}</span></div>`).join("")}</div>
+      <ul class="clean">
+        <li><b>Schnell sein lohnt sich:</b> Je mehr Zeit übrig ist, desto mehr Punkte.</li>
+        <li><b>Serien zählen doppelt:</b> Ab 5 Richtigen am Stück gibt es doppelte, ab 10 dreifache Punkte.</li>
+        <li><b>Drei Herzen:</b> Bei einem Fehler oder wenn die Zeit abläuft, ist ein Herz weg.</li>
+      </ul>
+      <div class="knopfreihe"><button type="button" class="knopf prim" id="anLos">▶ Los geht’s</button></div>
+      ${stand().n ? `<p class="klein" style="text-align:center">Dein Bestwert: <b>${stand().best} Punkte</b> · längste Serie: ${stand().serie}</p>` : ""}`;
+    $("#anLos").onclick = countdown;
+  }
+
+  function countdown() {
+    AN_GAESTE.forEach(g => { const i = new Image(); i.src = `../images/haustier/rasse-${g[0]}.jpg`; });
+    let z = 3; aktiv = true;
+    const zeig = () => {
+      if (!aktiv) return;
+      if (z === 0) return runde();
+      box.innerHTML = `<div class="an-zahl" aria-live="assertive">${z}</div><p class="klein" style="text-align:center">Gleich kommt der erste Hund …</p>`;
+      z--; warte = setTimeout(zeig, reduce ? 500 : 750);
+    };
+    zeig();
+  }
+
+  function runde() {
+    let punkte = 0, leben = 3, serie = 0, maxSerie = 0, richtig = 0, nr = 0, dauer = 7000, ende = 0;
+    const fehler = [];
+    let sack = [];
+    const naechste = () => {
+      if (!sack.length) sack = shuffle(AN_GAESTE);
+      const g = sack.pop(); return { slug: g[0], name: g[1], ok: g[2], merk: g[3] };
+    };
+    box.innerHTML = `
+      <div class="an-hud"><span class="an-leben" id="anLeben"></span><span class="an-punkte"><span id="anP">0</span><small>Punkte</small></span><span class="an-serie" id="anS">Serie 0</span></div>
+      <div class="an-feld" id="anFeld"></div>
+      <div class="an-tasten">${AN_TASTEN.map((t, k) => `<button type="button" class="an-taste ${t[0]}" data-a="${t[0]}"><span class="e">${t[1]}</span>${t[2]}</button>`).join("")}</div>
+      <div class="an-info" id="anInfo" aria-live="polite">Wofür wurde dieser Hund gezüchtet?</div>`;
+    const feld = $("#anFeld"), info = $("#anInfo"), tasten = $$(".an-taste", box);
+    const hud = () => {
+      $("#anLeben").innerHTML = [0, 1, 2].map(k => `<span class="${k < leben ? "" : "weg"}">❤️</span>`).join("");
+      $("#anLeben").setAttribute("aria-label", leben + " von 3 Herzen");
+      $("#anP").textContent = punkte;
+      const mal = serie >= 10 ? 3 : serie >= 5 ? 2 : 1, el = $("#anS");
+      el.textContent = mal > 1 ? `🔥 Serie ${serie} · ×${mal}` : `Serie ${serie}`;
+      el.classList.toggle("heiss", mal > 1);
+    };
+    let jetzt = null, offen = false;
+    function zeige() {
+      if (!aktiv) return;
+      nr++; jetzt = naechste(); offen = true;
+      feld.innerHTML = `<div class="an-karte">
+        <div class="an-bild">${jetzt.slug ? `<img src="../images/haustier/rasse-${jetzt.slug}.jpg" alt="${esc(jetzt.name)}">` : `<span class="an-emoji" aria-hidden="true">${jetzt.em}</span>`}</div>
+        <div class="an-name"><b>${jetzt.name}</b><span>Hund ${nr}</span></div>
+        <div class="an-zeit"><i id="anBar"></i></div></div>`;
+      tasten.forEach(b => { b.disabled = false; b.classList.remove("blass", "richtig"); });
+      const bar = $("#anBar");
+      ende = performance.now() + dauer;
+      const tick = () => {
+        if (!aktiv || !offen) return;
+        const rest = ende - performance.now(), teil = Math.max(0, rest / dauer);
+        bar.style.width = (teil * 100) + "%"; bar.classList.toggle("knapp", teil < .3);
+        if (rest <= 0) return antwort(null);
+        raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    }
+    function antwort(a) {
+      if (!aktiv || !offen) return;
+      offen = false; cancelAnimationFrame(raf);
+      const teil = Math.max(0, (ende - performance.now()) / dauer), karte = $(".an-karte", feld);
+      tasten.forEach(b => b.disabled = true);
+      if (a && jetzt.ok.includes(a)) {
+        serie++; richtig++; maxSerie = Math.max(maxSerie, serie);
+        const mal = serie >= 10 ? 3 : serie >= 5 ? 2 : 1, plus = (10 + Math.round(teil * 5)) * mal;
+        punkte += plus; dauer = Math.max(2600, dauer * .95);
+        hud();
+        info.className = "an-info"; info.textContent = serie === 5 ? "Fünf am Stück – ab jetzt doppelte Punkte!" : serie === 10 ? "Zehn am Stück – dreifache Punkte!" : "Richtig! " + jetzt.merk;
+        const p = document.createElement("span"); p.className = "an-plus"; p.textContent = "+" + plus; feld.appendChild(p);
+        setTimeout(() => p.remove(), 850);
+        if (karte) karte.classList.add("raus");
+        warte = setTimeout(nr >= AN_MAX ? schluss : zeige, reduce ? 120 : 240);
+      } else {
+        leben--; serie = 0; hud();
+        if (karte) karte.classList.add("wackel");
+        const soll = AN_TASTEN.find(t => t[0] === jetzt.ok[0]);
+        tasten.forEach(b => { const r = jetzt.ok.includes(b.dataset.a); b.classList.toggle("richtig", r); b.classList.toggle("blass", !r); });
+        info.className = "an-info falsch";
+        info.innerHTML = `<b>${a ? "Leider falsch." : "Zu langsam!"}</b> Richtig wäre: ${jetzt.ok.map(o => { const t = AN_TASTEN.find(t => t[0] === o); return t[1] + " " + t[2]; }).join(" oder ")}. ${esc(jetzt.merk)}`;
+        if (!fehler.some(f => f[0] === jetzt.name)) fehler.push([jetzt.name, soll[1] + " " + soll[2], jetzt.merk]);
+        const weiter = () => { clearTimeout(warte); feld.onclick = null; if (leben <= 0 || nr >= AN_MAX) schluss(); else { info.className = "an-info"; info.textContent = "Weiter geht’s!"; zeige(); } };
+        warte = setTimeout(weiter, 3200);
+        setTimeout(() => { if (!offen && aktiv) feld.onclick = weiter; }, 500);
+      }
+    }
+    function schluss() {
+      stopp(); spielStop = stopp;
+      const vorher = kennzahlen(eid), abzVorher = X.abzeichen.map(z => z.ok(vorher)), albVorher = albumOffen(vorher), alt = stand();
+      const rekord = punkte > alt.best;
+      S[eid] = S[eid] || {};
+      S[eid].spiel = { best: Math.max(alt.best, punkte), serie: Math.max(alt.serie, maxSerie), n: alt.n + 1 };
+      speichern();
+      const nach = kennzahlen(eid), neueAbz = X.abzeichen.filter((z, k) => !abzVorher[k] && z.ok(nach));
+      const titel = AN_TITEL.filter(t => punkte >= t[0]).pop()[1];
+      $("#anBest").textContent = "🏆 Bestwert " + S[eid].spiel.best;
+      box.innerHTML = `
+        <div class="an-ende">
+          <span class="eyebrow">${leben > 0 ? "Alle 50 Hunde geschafft!" : "Feierabend auf dem Hundeplatz"}</span>
+          <div class="gross">${punkte}</div>
+          <div class="titel">${titel}</div>
+          ${rekord && alt.n ? `<span class="rekord">🎉 Neuer Bestwert!</span>` : ""}
+          <div class="an-werte"><div><b>${richtig}</b>Hunde richtig zugeordnet</div><div><b>${maxSerie}</b>längste Serie</div><div><b>${S[eid].spiel.best}</b>Bestwert</div></div>
+          ${neueAbz.length ? `<p class="klein">Neues Abzeichen: ${neueAbz.map(z => `${z.em} <b>${z.name}</b>`).join(" · ")}</p>` : ""}
+          ${albumMeldung(albumNeu(eid, albVorher))}
+          <div class="knopfreihe"><button type="button" class="knopf prim" id="anNoch">🔁 Nochmal spielen</button><a class="knopf" href="#${eid}">Zum Haustierpass</a></div>
+        </div>
+        ${fehler.length ? `<h3 class="h-honig" style="font-size:20px">Merk dir fürs nächste Mal</h3>
+          <div class="an-merk">${fehler.slice(0, 4).map(f => `<div><b>${esc(f[0])}</b> → ${f[1]}<br>${esc(f[2])}</div>`).join("")}</div>` : ""}`;
+      $("#anNoch").onclick = countdown;
+      if (rekord && punkte >= 100) { konfetti(); if (alt.n) fanfare(false); }
+      window.scrollTo(0, 0);
+    }
+    tasten.forEach(b => b.onclick = () => antwort(b.dataset.a));
+    auf = antwort; document.addEventListener("keydown", taste);
+    hud(); zeige();
+  }
+  anleitung();
+}
+
+/* ============ Rudel: Sammelalbum der Rassen ============ */
+// Häufige Gäste kommen mit jedem Kern, seltene nur für besondere Leistungen.
+// [slug, Seltenheit, „Kommt …“, Bedingung(Kennzahlen)]
+const ALBUM = [["labrador", 1], ["schaeferhund", 2], ["dackel", 4], ["mops", 6], ["beagle", 8], ["jack-russell", 10], ["chihuahua", 12], ["border-collie", 14], ["husky", 16]]
+  .map(([s, k]) => [s, "haeufig", `Kommt bei ${k} Knochen 🦴`, h => h.summe >= k, "station"])
+  .concat([
+    ["malteser", "selten", "Kommt, wenn du deinen ersten Rätselhund löst", h => !!h.d.raetsel && h.d.raetsel.n >= 1, "raetsel"],
+    ["rottweiler", "selten", "Kommt bei einer Fünfer-Serie im Job-Spiel", h => !!h.d.spiel && h.d.spiel.serie >= 5, "spiel"],
+    ["australian-shepherd", "selten", "Kommt bei 100 Punkten im Job-Spiel", h => !!h.d.spiel && h.d.spiel.best >= 100, "spiel"],
+    ["berner-sennenhund", "selten", "Kommt nach eurem ersten Schnauzen-Duell", h => !!h.d.duell && h.d.duell.n >= 1, "duell"],
+    ["bernhardiner", "sehr", "Kommt bei 250 Punkten im Job-Spiel", h => !!h.d.spiel && h.d.spiel.best >= 250, "spiel"],
+    ["weimaraner", "sehr", "Kommt, wenn du einen Rätselhund mit höchstens zwei Hinweisen errätst", h => !!h.d.raetsel && h.d.raetsel.min <= 2, "raetsel"],
+    ["dogge", "sehr", "Kommt erst, wenn dein Napf mit allen 18 Knochen gefüllt ist", h => h.summe >= 18, "station"]
+  ]);
+const ALBUM_ART = { haeufig: "leicht", selten: "schwer", sehr: "sehr schwer" };
+const albumOffen = h => ALBUM.filter(a => a[3](h)).map(a => a[0]);
+// Welche Gäste sind seit „vorher“ dazugekommen? → Text für Meldungen
+const albumNeu = (eid, vorher) => albumOffen(kennzahlen(eid)).filter(s => !vorher.includes(s));
+const albumMeldung = neu => neu.length ? `<p class="klein">🐾 Neu in deinem Rudel: ${neu.map(s => `<b>${GAST[s][1]}</b>`).join(" · ")}</p>` : "";
+
+// Gast noch nicht da: zeigen, wie man ihn anlockt – mit Knopf zum passenden Ziel
+function albumWeg(eid, slug) {
+  const a = ALBUM.find(x => x[0] === slug), X = EXPS[eid], h = kennzahlen(eid), frei = S.modus === "frei";
+  const fertig = id => !!(h.d[id] && h.d[id].done);
+  let ziel, knopf, sperre = "";
+  if (a[4] === "spiel") { ziel = "spiel"; knopf = "⚡ Zum Job-Spiel"; if (!frei && !fertig("s2")) sperre = "Das Job-Spiel öffnet sich, sobald du Station 2 geschafft hast."; }
+  else if (a[4] === "raetsel") { ziel = "raetsel"; knopf = "🔍 Zum Rätselhund"; if (!frei && !fertig("s3")) sperre = "Der Rätselhund öffnet sich, sobald du Station 3 geschafft hast."; }
+  else if (a[4] === "duell") { ziel = "duell"; knopf = "🤝 Zum Schnauzen-Duell"; if (!frei && !fertig("s3")) sperre = "Das Schnauzen-Duell öffnet sich, sobald du Station 3 geschafft hast."; }
+  else {
+    const k = a[4] === "station" ? X.stationen.findIndex(s => !fertig(s.id)) : X.stationen.findIndex(s => s.id === a[4]);
+    const kk = k >= 0 ? k : X.stationen.findIndex(s => (h.d[s.id].knochen || 0) < 3), s = X.stationen[Math.max(kk, 0)];
+    ziel = s.id; knopf = `${s.em} Zu Station ${Math.max(kk, 0) + 1}`;
+    if (!frei && kk > 0 && !fertig(s.id) && !fertig(X.stationen[kk - 1].id)) sperre = `Station ${kk + 1} öffnet sich, sobald du die Stationen davor geschafft hast.`;
+    else if (a[4] === "station" && k < 0) sperre = "";
+  }
+  const extra = a[4] === "station" ? (X.stationen.every(s => fertig(s.id)) ? "Knochen bekommst du in den Stationen – wiederhole eine Station, in der dir noch Knochen fehlen." : "Knochen bekommst du in den Stationen: bis zu drei pro Station.") : "";
+  const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true"); o.setAttribute("aria-label", "Hund noch nicht im Rudel");
+  o.innerHTML = `<div class="tafelkarte">
+    <div class="tk-kopf"><h3>Dieser Hund fehlt noch im Rudel</h3><button type="button" class="knopf" data-zu aria-label="Schließen">✕</button></div>
+    <p><span class="marke inline" style="margin-left:0">${ALBUM_ART[a[1]]}</span></p>
+    <p><b>${a[2]}${a[2].endsWith("🦴") ? "" : "."}</b> ${extra}</p>
+    ${sperre ? `<p class="klein">🔒 ${sperre}</p>` : ""}
+    <div class="knopfreihe">${sperre ? "" : `<a class="knopf prim" href="#${eid}-${ziel}">${knopf} ›</a>`}<button type="button" class="knopf" data-zu>Schließen</button></div></div>`;
+  document.body.appendChild(o);
+  const zu = () => { o.remove(); document.removeEventListener("keydown", esc_); };
+  const esc_ = e => { if (e.key === "Escape") zu(); };
+  document.addEventListener("keydown", esc_);
+  $$("[data-zu]", o).forEach(b => b.onclick = zu);
+  o.onclick = e => { if (e.target === o) zu(); };
+}
+
+function albumHTML(eid, h) {
+  const offen = albumOffen(h), gesehen = (h.d.album || []), neu = offen.filter(s => !gesehen.includes(s));
+  if (neu.length) { S[eid] = S[eid] || {}; S[eid].album = offen; speichern(); setTimeout(() => toast(neu.length > 3 ? `🐾 ${neu.length} neue Hunde in deinem Rudel!` : "🐾 Neu in deinem Rudel: " + neu.map(s => GAST[s][1]).join(", ")), 400); }
+  return `<section>
+      <div class="ga-kopf"><h2 class="h-honig">Dein Rudel</h2><span class="ga-zahl"><b>${offen.length}</b> / ${ALBUM.length} Hunde</span></div>
+      <div class="ga-balken"><i style="width:${offen.length / ALBUM.length * 100}%"></i></div>
+      <p class="klein">${offen.length === ALBUM.length ? "Das Rudel ist komplett – alle 16 Hunde sind da! 👑" : "Graue Karten sind Hunde, die noch nicht zu deinem Rudel gehören. Mit den Knochen 🦴 aus den Stationen kommen neue dazu, manche nur für besondere Leistungen. Tippe eine Karte an: Bei grauen erfährst du, wie du den Hund anlockst – bei bunten siehst du seinen Steckbrief."}</p>
+      <div class="ga-grid">${ALBUM.map(a => { const auf = offen.includes(a[0]), n = neu.includes(a[0]);
+        const art = `<span class="ga-art ${a[1]}">${ALBUM_ART[a[1]]}</span>`, img = `<span class="ga-bild"><img src="../images/haustier/rasse-${a[0]}.jpg" alt="" loading="lazy"></span>`;
+        return auf
+          ? `<button type="button" class="ga auf ${a[1]} ${n ? "neu" : ""}" data-ga="${a[0]}">${art}${n ? '<span class="ga-neu">NEU</span>' : ""}${img}<span class="ga-name">${GAST[a[0]][1]}</span></button>`
+          : `<button type="button" class="ga zu ${a[1]}" data-gz="${a[0]}">${art}${img}<span class="ga-name">???</span><span class="ga-wie">${a[2]}</span></button>`; }).join("")}</div>
+    </section>`;
+}
+
+/* ============ Rätselhund des Tages ============ */
+// Fünf Hinweise je Vogel – von schwer nach leicht
+const RAETSEL = {
+  "border-collie": ["Ich kann mir die Namen von sehr vielen Spielzeugen merken.", "Ich komme aus dem Grenzland zwischen England und Schottland.", "Ohne Aufgabe wird mir schnell langweilig – ich brauche Arbeit für Kopf und Beine.", "Mein Fell ist meist schwarz-weiß und mittellang.", "Ich hüte Schafe – und halte sie allein mit meinem starren Blick zusammen."],
+  "schaeferhund": ["Meine Rasse gibt es erst seit gut 120 Jahren.", "Ich lerne schnell und will immer eine Aufgabe.", "Meine Ohren stehen spitz nach oben.", "Mein Fell ist schwarz und braun.", "Oft arbeite ich bei der Polizei – früher habe ich Schafe gehütet."],
+  "australian-shepherd": ["Mein Name führt in die Irre: Meine Rasse entstand gar nicht in dem Land, nach dem ich heiße.", "Ich habe auf Farmen in den USA Rinder und Schafe getrieben.", "Manche von uns haben ein blaues und ein braunes Auge.", "Ich brauche viel Bewegung und will immer etwas zu tun haben.", "Mein Fell ist oft grau-schwarz gesprenkelt, mit Weiß und Kupferbraun."],
+  "dackel": ["Ich bin mutiger, als ich aussehe – und habe meinen eigenen Kopf.", "Meine Rasse stammt aus Deutschland.", "Ich wurde gezüchtet, um in die Baue von Dachs und Fuchs zu kriechen.", "Man nennt mich auch Teckel oder Dachshund.", "Ich habe einen langen Rücken und sehr kurze Beine."],
+  "labrador": ["Meine Vorfahren halfen Fischern in Neufundland bei der Arbeit.", "Ich schwimme für mein Leben gern.", "Ich trage gern Dinge im Maul herum – das Zurückbringen liegt mir im Blut.", "Ich arbeite oft als Blindenführhund.", "Mich gibt es in drei Farben: Gelb, Braun und Schwarz."],
+  "beagle": ["Ich wurde in England gezüchtet.", "Bei der Jagd bin ich nie allein, sondern in einer großen Meute unterwegs.", "Meine Nase ist so gut, dass ich an Flughäfen Koffer nach verbotenen Lebensmitteln absuche.", "Ich bin eher klein und habe lange Schlappohren.", "Mein kurzes Fell ist dreifarbig – weiß, braun und schwarz – und meine Rute hat eine weiße Spitze."],
+  "jack-russell": ["Ich bin nach einem englischen Pfarrer benannt, der gern jagte.", "Ich wurde gezüchtet, um Füchse aus ihrem Bau zu treiben.", "Ich bin klein, aber voller Energie – und springe erstaunlich hoch.", "Ich gehöre zu den Terriern.", "Mein Fell ist fast ganz weiß, mit braunen Flecken am Kopf."],
+  "weimaraner": ["Man nennt mich den „grauen Geist“.", "Ich bin ein Jagdhund: Ich spüre Wild auf und bleibe dann wie erstarrt stehen.", "Meine Augen sind hell – bernsteinfarben oder blaugrau.", "Ich bin nach einer Stadt in Thüringen benannt.", "Mein kurzes Fell ist silbergrau."],
+  "husky": ["Meine Rasse stammt aus dem kalten Sibirien.", "Ich belle selten – lieber heule ich.", "Mein dichtes Fell hält auch bei minus 30 Grad warm.", "Viele von uns haben leuchtend blaue Augen.", "Ich ziehe im Team den Schlitten durch Schnee und Eis."],
+  "bernhardiner": ["Meine Heimat ist ein Kloster hoch oben auf einem Alpenpass.", "Der berühmteste Hund meiner Rasse hieß Barry.", "Ich gehöre zu den schwersten Hunden der Welt.", "Mein Fell ist weiß und rotbraun.", "Ich bin berühmt dafür, dass ich in den Bergen Verschüttete im Schnee gesucht habe."],
+  "berner-sennenhund": ["Ich komme aus der Schweiz.", "Früher habe ich den Karren mit den Milchkannen gezogen.", "Ich habe den Bauernhof bewacht.", "Ich bin groß und gemütlich.", "Mein langes Fell hat drei Farben: schwarz, mit weißer Brust und rostbraunen Abzeichen."],
+  "rottweiler": ["Meine Vorfahren sollen schon mit den Römern über die Alpen gekommen sein.", "Früher nannte man mich „Metzgerhund“.", "Ich habe Rinderherden getrieben und bewacht.", "Ich bin kräftig gebaut und habe einen breiten Kopf.", "Mein kurzes Fell ist schwarz mit rotbraunen Abzeichen – ganz ohne Weiß."],
+  "dogge": ["Früher habe ich Wildschweine gejagt.", "Später bewachte ich Schlösser und Höfe.", "Trotz meiner Größe bin ich ruhig und sanft.", "Ich bin schlank, hochbeinig und habe kurzes Fell.", "Ich gehöre zu den größten Hunden der Welt: Mein Rücken reicht einem Erwachsenen bis zur Hüfte."],
+  "chihuahua": ["Ich bin nach einem Bundesstaat in Mexiko benannt.", "Im Verhältnis zu meinem Körper sind meine Ohren riesig.", "Ich friere schnell.", "Ich wiege oft weniger als zwei Kilo.", "Ich bin die kleinste Hunderasse der Welt."],
+  "mops": ["Meine Vorfahren lebten am Hof der chinesischen Kaiser.", "Ich schnarche und schnaufe – das Atmen fällt mir oft schwer.", "Meine Rute ist eng eingeringelt.", "Mein Gesicht ist schwarz und voller Falten.", "Ich bin klein und stämmig und habe eine ganz platte Nase."],
+  "malteser": ["Schon im alten Rom war ich ein beliebter Schoßhund.", "Ich bin nach einer Insel im Mittelmeer benannt.", "Ich wurde nie zum Arbeiten gezüchtet – nur zum Gesellschaftleisten.", "Ich bin klein und habe schwarze Knopfaugen.", "Mein langes, seidiges Fell ist schneeweiß."]
+};
+// Feste Reihenfolge: Jeden Tag ist ein anderer Hund dran – auf allen Geräten derselbe.
+const RAETSEL_FOLGE = ["husky", "dackel", "malteser", "border-collie", "bernhardiner", "beagle", "mops", "rottweiler", "labrador", "australian-shepherd", "chihuahua", "weimaraner", "schaeferhund", "jack-russell", "berner-sennenhund", "dogge"];
+const rvTag = () => { const d = new Date(), z = n => String(n).padStart(2, "0"); return `${d.getFullYear()}-${z(d.getMonth() + 1)}-${z(d.getDate())}`; };
+const rvHeute = () => { const d = new Date(); return RAETSEL_FOLGE[Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5) % RAETSEL_FOLGE.length]; };
+const rvStand = eid => Object.assign({ n: 0, sterne: 0, min: 9 }, S[eid] && S[eid].raetsel);
+const rvSterne = n => `<span class="rv-sterne" aria-label="${n} von 5 Sternen">${[0, 1, 2, 3, 4].map(k => `<span class="${k < n ? "" : "weg"}">⭐</span>`).join("")}</span>`;
+
+function seiteRaetsel(eid) {
+  const X = EXPS[eid], h0 = kennzahlen(eid);
+  if (!(S.modus === "frei" || (h0.d.s3 && h0.d.s3.done))) { location.hash = eid; return; }
+  app.innerHTML = `
+  <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Haustierpass</a><span class="tchip" id="rvChip"></span></div></div>
+  <div class="huelle"><section id="rvBox"></section>${fuss()}</div>`;
+  const box = $("#rvBox");
+  const chip = () => { const r = rvStand(eid); $("#rvChip").textContent = `⭐ ${r.sterne} · ${r.n} gelöst`; };
+  const datum = new Date().toLocaleDateString("de-DE", { day: "numeric", month: "long" });
+  const liste = GAESTE.map(g => [g[0], g[1]]).sort((a, b) => a[1].localeCompare(b[1], "de"));
+
+  function spiele(slug, uebung, st) {
+    const tipps = RAETSEL[slug];
+    const merke = () => { if (!uebung) { S[eid] = S[eid] || {}; S[eid].raetsel = Object.assign(rvStand(eid), { heute: st }); speichern(); } };
+    function zeichne(frisch) {
+      const rest = 6 - st.k;
+      box.innerHTML = `
+        <span class="eyebrow">${uebung ? "Übungsrätsel" : "Rätselhund des Tages · " + datum}</span>
+        <h2 class="h-blau">Wer bin ich?</h2>
+        <div class="rv-stand">${rvSterne(rest)}<span>${uebung ? "Zum Üben – ohne Sterne" : `Jetzt lösen bringt <b>${rest} ${rest === 1 ? "Stern" : "Sterne"}</b>`}</span></div>
+        <ol class="rv-hinweise">${tipps.map((t, k) => k < st.k ? `<li class="${frisch && k === st.k - 1 ? "frisch" : ""}">${t}</li>` : `<li class="zu">Noch verdeckt</li>`).join("")}</ol>
+        <div class="knopfreihe"><button type="button" class="knopf" id="rvMehr" ${st.k >= 5 ? "disabled" : ""}>💡 Nächster Hinweis${uebung ? "" : " (kostet 1 Stern)"}</button></div>
+        <h3 class="h-honig" style="font-size:20px">Tippe den Hund an</h3>
+        <div class="rv-grid">${liste.map(g => `<button type="button" class="rv-wahl" data-s="${g[0]}" ${st.falsch.includes(g[0]) ? "disabled" : ""}><img src="../images/haustier/rasse-${g[0]}.jpg" alt="" loading="lazy"><span>${g[1]}</span></button>`).join("")}</div>`;
+      $("#rvMehr").onclick = () => { st.k++; merke(); zeichne(true); };
+      $$(".rv-wahl", box).forEach(b => b.onclick = () => {
+        if (b.dataset.s === slug) return fertig(6 - st.k);
+        st.falsch.push(b.dataset.s);
+        if (st.k >= 5) return fertig(0);
+        st.k++; merke(); zeichne(true);
+        toast(`${GAST[b.dataset.s][1]}? Leider nein – hier kommt Hinweis ${st.k}.`);
+        window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+      });
+    }
+    function fertig(sterne) {
+      const vorher = kennzahlen(eid), abzVorher = X.abzeichen.map(z => z.ok(vorher)), albVorher = albumOffen(vorher);
+      if (!uebung) {
+        const r = rvStand(eid);
+        st.fertig = true; st.sterne = sterne;
+        S[eid] = S[eid] || {};
+        S[eid].raetsel = { n: r.n + (sterne ? 1 : 0), sterne: r.sterne + sterne, min: sterne ? Math.min(r.min, st.k) : r.min, heute: st };
+        speichern();
+      }
+      const nach = kennzahlen(eid), neueAbz = X.abzeichen.filter((z, k) => !abzVorher[k] && z.ok(nach));
+      ergebnis(slug, uebung, st, sterne, neueAbz, albumNeu(eid, albVorher));
+      if (sterne >= 4 && !uebung) konfetti();
+    }
+    zeichne(false);
+  }
+
+  function ergebnis(slug, uebung, st, sterne, neueAbz, neuAlbum) {
+    chip();
+    const g = GAST[slug], r = rvStand(eid);
+    box.innerHTML = `
+      <div class="rv-ende">
+        <img src="../images/haustier/rasse-${slug}.jpg" alt="${esc(g[1])}">
+        <span class="eyebrow">${uebung ? "Übungsrätsel" : "Rätselhund des Tages · " + datum}</span>
+        <h3>${sterne ? "Richtig:" : "Es war:"} ${g[1]}</h3>
+        ${uebung ? "" : rvSterne(sterne)}
+        <p>${sterne ? `Gelöst mit ${st.k === 1 ? "nur einem Hinweis – stark!" : st.k + " Hinweisen."}` : "Diesmal nicht erraten – morgen klappt es bestimmt."}</p>
+        <p class="klein">${g[3]}</p>
+        ${neueAbz && neueAbz.length ? `<p class="klein">Neues Abzeichen: ${neueAbz.map(z => `${z.em} <b>${z.name}</b>`).join(" · ")}</p>` : ""}
+        ${albumMeldung(neuAlbum || [])}
+        <div class="knopfreihe"><button type="button" class="knopf" id="rvTafel">🐕 Steckbrief ansehen</button><button type="button" class="knopf prim" id="rvUeben">🔁 Übungsrätsel</button><a class="knopf" href="#${eid}">Zum Haustierpass</a></div>
+      </div>
+      <p class="klein" style="text-align:center">${uebung ? "Übungsrätsel zählen nicht für Sterne und Rudel." : "Morgen wartet ein neuer Rätselhund auf dich."} Bisher: ⭐ ${r.sterne} ${r.sterne === 1 ? "Stern" : "Sterne"} · ${r.n} ${r.n === 1 ? "Rätselhund" : "Rätselhunde"} gelöst.</p>`;
+    $("#rvTafel").onclick = () => hundKarte(slug);
+    $("#rvUeben").onclick = () => { const andere = RAETSEL_FOLGE.filter(s => s !== slug && s !== rvHeute()); spiele(andere[Math.floor(Math.random() * andere.length)], true, { k: 1, falsch: [] }); window.scrollTo(0, 0); };
+    window.scrollTo(0, 0);
+  }
+
+  chip();
+  const heute = rvHeute(), r = rvStand(eid), tag = rvTag();
+  const st = r.heute && r.heute.tag === tag ? r.heute : { tag, k: 1, falsch: [], fertig: false };
+  if (st.fertig) ergebnis(heute, false, st, st.sterne || 0);
+  else spiele(heute, false, st);
+}
+
+/* ============ Schnauzen-Duell: zwei Teams an einem Gerät ============ */
+const DU_ZIEL = 7, DU_ZEIT = 10000;
+const DU_TEAMS = [["blau", "Team Husky"], ["rot", "Team Dackel"]];
+
+function seiteDuell(eid) {
+  const X = EXPS[eid], h0 = kennzahlen(eid);
+  if (!(S.modus === "frei" || (h0.d.s3 && h0.d.s3.done))) { location.hash = eid; return; }
+  let sitz = "gegen", buehne = null, t1 = 0, t2 = 0, aktiv = false;
+  const stopp = () => { aktiv = false; clearTimeout(t1); clearTimeout(t2); if (buehne) { buehne.remove(); buehne = null; } };
+  spielStop = stopp;
+
+  function anleitung() {
+    stopp(); spielStop = stopp;
+    app.innerHTML = `
+    <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Haustierpass</a><span class="tchip">🤝 für 2 Teams</span></div></div>
+    <div class="huelle"><section>
+      <span class="eyebrow">Bonus-Spiel für zwei</span>
+      <h2 class="h-blau">Schnauzen-Duell</h2>
+      <p class="lead">Zwei Teams, ein Gerät: Beide sehen denselben Hund – wer zuerst den richtigen Namen antippt, holt den Punkt. Wer zuerst ${DU_ZIEL} Punkte hat, gewinnt.</p>
+      <ul class="clean">
+        <li><b>Erst schauen, dann tippen:</b> Wer daneben tippt, setzt für diesen Hund aus – das andere Team darf in Ruhe antworten.</li>
+        <li><b>Zwei Arten von Runden:</b> Meist seht ihr ein Bild. Manchmal stellt sich der Hund mit einem Satz vor.</li>
+        <li><b>Fair bleiben:</b> Finger weg vom Bildschirm, bis der Hund erscheint!</li>
+      </ul>
+      <h3 class="h-honig" style="font-size:20px">Wie sitzt ihr?</h3>
+      <div class="du-sitz">
+        <button type="button" data-sitz="gegen" class="an"><span class="e">🔄</span><b>Gegenüber</b>Das Gerät liegt flach zwischen euch</button>
+        <button type="button" data-sitz="neben"><span class="e">↔️</span><b>Nebeneinander</b>Ihr schaut gemeinsam auf den Bildschirm</button>
+      </div>
+      <div class="knopfreihe"><button type="button" class="knopf prim" id="duLos">▶ Duell starten</button></div>
+    </section>${fuss()}</div>`;
+    $$("[data-sitz]", app).forEach(b => b.onclick = () => { sitz = b.dataset.sitz; $$("[data-sitz]", app).forEach(x => x.classList.toggle("an", x === b)); });
+    $("#duLos").onclick = start;
+  }
+
+  function start() {
+    stopp(); spielStop = stopp; aktiv = true;
+    GAESTE.forEach(g => { const i = new Image(); i.src = `../images/haustier/rasse-${g[0]}.jpg`; });
+    buehne = document.createElement("div"); buehne.className = "du-buehne " + sitz;
+    buehne.innerHTML = `<div class="du-haelfte ${DU_TEAMS[0][0]}" data-p="0"></div>
+      <div class="du-mitte"><span id="duInfo"></span><span class="gruppe" id="duKnoepfe"><button type="button" id="duEnde">✕ Beenden</button></span></div>
+      <div class="du-frage du-gem"></div>
+      <div class="du-haelfte ${DU_TEAMS[1][0]}" data-p="1"></div>`;
+    document.body.appendChild(buehne);
+    const H = [0, 1].map(p => $(`.du-haelfte[data-p="${p}"]`, buehne));
+    H.forEach((el, p) => el.innerHTML = `<div class="du-kopf"><span>${DU_TEAMS[p][1]}</span><span class="du-pkt"></span></div><div class="du-frage"></div><div class="du-status"></div><div class="du-wahl"></div>`);
+    $("#duEnde", buehne).onclick = () => { location.hash = eid; };
+    const punkte = [0, 0]; let aus = [false, false], offen = false, ziel = null, opts = [], nr = 0, sack = [];
+    const punkteHTML = p => { let s = ""; for (let k = 0; k < DU_ZIEL; k++) s += `<i class="${k < punkte[p] ? "voll" : ""}"></i>`; return s; };
+    const kopf = () => { H.forEach((el, p) => { const e = $(".du-pkt", el); e.innerHTML = punkteHTML(p); e.setAttribute("aria-label", punkte[p] + " Punkte"); }); $("#duInfo", buehne).textContent = `Runde ${nr} · ${punkte[0]} : ${punkte[1]} · bis ${DU_ZIEL}`; };
+    const frage = html => { H.forEach(el => $(".du-frage", el).innerHTML = html); $(".du-gem", buehne).innerHTML = html; };
+    const status = (p, text, cls) => { const e = $(".du-status", H[p]); e.textContent = text; e.className = "du-status " + (cls || ""); };
+
+    function runde() {
+      if (!aktiv) return;
+      nr++; aus = [false, false]; offen = false;
+      if (!sack.length) sack = shuffle(GAESTE.map(g => g[0]));
+      ziel = sack.pop();
+      opts = shuffle([ziel].concat(shuffle(GAESTE.map(g => g[0]).filter(s => s !== ziel)).slice(0, 3)));
+      const hinweis = nr % 3 === 0;
+      kopf();
+      frage(`<div class="du-warte">Runde ${nr}<br>Achtung …</div>`);
+      H.forEach((el, p) => {
+        $(".du-wahl", el).innerHTML = opts.map(s => `<button type="button" data-s="${s}" disabled class="blass">${GAST[s][1]}</button>`).join("");
+        status(p, hinweis ? "Gleich stellt sich ein Hund vor" : "Gleich kommt ein Bild");
+        $$(".du-wahl button", el).forEach(b => b.addEventListener("pointerdown", e => { e.preventDefault(); tipp(p, b); }));
+      });
+      t1 = setTimeout(() => {
+        if (!aktiv) return;
+        frage(hinweis ? `<div class="du-text">„${RAETSEL[ziel][4]}“</div>` : `<img src="../images/haustier/rasse-${ziel}.jpg" alt="Wer ist das?">`);
+        H.forEach((el, p) => {
+          $$(".du-wahl button", el).forEach(b => { b.disabled = false; b.classList.remove("blass"); });
+          status(p, "Wer ist das?");
+        });
+        offen = true;
+        t2 = setTimeout(() => aufloesen(-1), DU_ZEIT);
+      }, 1100 + Math.random() * 1100);
+    }
+    function tipp(p, b) {
+      if (!aktiv || !offen || aus[p] || b.disabled) return;
+      if (b.dataset.s === ziel) { punkte[p]++; return aufloesen(p); }
+      aus[p] = true; b.classList.add("falsch");
+      $$(".du-wahl button", H[p]).forEach(x => { x.disabled = true; if (x !== b) x.classList.add("blass"); });
+      status(p, "Daneben! Ihr setzt aus.", "schlecht");
+      if (aus[0] && aus[1]) aufloesen(-1);
+      else status(1 - p, "Die anderen lagen daneben – eure Chance!");
+    }
+    function aufloesen(sieger) {
+      if (!aktiv || !offen) return;
+      offen = false; clearTimeout(t2); kopf();
+      H.forEach((el, p) => {
+        $$(".du-wahl button", el).forEach(x => { x.disabled = true; if (x.dataset.s === ziel) { x.classList.remove("blass"); x.classList.add("richtig"); } else if (!x.classList.contains("falsch")) x.classList.add("blass"); });
+        if (sieger === p) status(p, "✔ Punkt für euch!", "gut");
+        else if (sieger < 0) status(p, `Kein Punkt – es war: ${GAST[ziel][1]}`, "schlecht");
+        else if (!aus[p]) status(p, `Zu langsam – es war: ${GAST[ziel][1]}`);
+      });
+      t1 = setTimeout(() => { if (sieger >= 0 && punkte[sieger] >= DU_ZIEL) ende(sieger); else runde(); }, 1900);
+    }
+    function ende(sieger) {
+      aktiv = false; buehne.classList.add("fertig");
+      const vorher = kennzahlen(eid), abzVorher = X.abzeichen.map(z => z.ok(vorher));
+      S[eid] = S[eid] || {}; S[eid].duell = { n: ((S[eid].duell && S[eid].duell.n) || 0) + 1 }; speichern();
+      const nach = kennzahlen(eid), neueAbz = X.abzeichen.filter((z, k) => !abzVorher[k] && z.ok(nach));
+      H.forEach((el, p) => {
+        $(".du-frage", el).innerHTML = `<div class="du-warte"><div class="du-gross">${p === sieger ? "🏆" : "👏"}</div>${p === sieger ? "Gewonnen!" : "Gut gekämpft!"}<br>${punkte[p]} : ${punkte[1 - p]}</div>`;
+        $(".du-wahl", el).innerHTML = "";
+        status(p, p === sieger ? "Ihr habt die schnelleren Pfoten." : "Revanche?", p === sieger ? "gut" : "");
+      });
+      $("#duInfo", buehne).textContent = `${DU_TEAMS[sieger][1]} gewinnt ${punkte[sieger]} : ${punkte[1 - sieger]}`;
+      $("#duKnoepfe", buehne).innerHTML = `<button type="button" class="haupt" id="duNoch">🔁 Revanche</button><button type="button" id="duEnde">Zum Pass</button>`;
+      $("#duNoch", buehne).onclick = start;
+      $("#duEnde", buehne).onclick = () => { location.hash = eid; };
+      konfetti();
+      if (neueAbz.length) setTimeout(() => toast("Neues Abzeichen: " + neueAbz.map(z => z.em + " " + z.name).join(", ")), 600);
+    }
+    runde();
+  }
+  anleitung();
+}
+
+/* ============ Steckbrief einer Rasse ============ */
+function hundKarte(slug) {
+  const r = GAST[slug];
+  const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true"); o.setAttribute("aria-label", r[1]);
+  o.innerHTML = `<div class="tafelkarte">
+    <div class="tk-kopf"><h3>${r[1]}</h3><button type="button" class="knopf" data-zu aria-label="Schließen">✕</button></div>
+    <div class="tk-bild"><img src="../images/haustier/rasse-${slug}.jpg" alt="${esc(r[1])}"></div>
+    <div class="hk-jobs">${r[2].map(j => { const t = AN_TASTEN.find(t => t[0] === j); return `<span>${t[1]} ${t[2]}</span>`; }).join("")}</div>
+    <p>${r[3]}</p>
+    <div class="knopfreihe"><button type="button" class="knopf prim" data-zu>Schließen</button></div></div>`;
+  document.body.appendChild(o);
+  const zu = () => { o.remove(); document.removeEventListener("keydown", esc_); };
+  const esc_ = e => { if (e.key === "Escape") zu(); };
+  document.addEventListener("keydown", esc_);
+  $$("[data-zu]", o).forEach(b => b.onclick = zu);
+  o.onclick = e => { if (e.target === o) zu(); };
+  $("[data-zu]", o).focus();
+}
+
 /* ============ Navigation ============ */
 let letzteSumme = {};
 function route(behalteScroll) {
   $$(".overlay").forEach(o => o.remove());
+  if (spielStop) { spielStop(); spielStop = null; }
   const h = location.hash.slice(1), m = h.match(/^(h[12])-(s[1-6])$/);
   if (EXPS[h]) { const s = kennzahlen(h).summe; seitePass(h, letzteSumme[h] !== undefined && s > letzteSumme[h]); letzteSumme[h] = s; }
+  else if (h === "h1-spiel") seiteSpiel("h1");
+  else if (h === "h1-raetsel") seiteRaetsel("h1");
+  else if (h === "h1-duell") seiteDuell("h1");
   else if (m) { if (letzteSumme[m[1]] === undefined) letzteSumme[m[1]] = kennzahlen(m[1]).summe; seiteStation(m[1], m[2]); }
   else seiteStart();
   if (behalteScroll !== true) window.scrollTo(0, 0);
