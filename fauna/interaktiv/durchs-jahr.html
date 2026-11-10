@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Durchs Jahr! – Das Überlebensspiel · Bio Mibaso</title>
+<meta name="description" content="Ein Lernspiel für Klasse 5/6: Als Kohlmeise oder Rauchschwalbe zwölf Monate überstehen – Revier, Nest und Junge, Feinde, Vogelzug und Winter. Mit Ereigniskarten, Zwischenspielen und zwei Leveln. Ohne Anmeldung.">
+<meta name="theme-color" content="#233D5C">
+<link rel="icon" href="../assets/icon.svg">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<style>
+/* Durchs Jahr! – Farben und Schrift wie die Forscherpässe von Fauna Mibaso */
+:root{
+  --blau:#233D5C; --blau-tief:#1a2f47; --blau-mittel:#33587c; --blau-hell:#bcd0e2;
+  --creme:#F7F3E8; --creme-tief:#EEE7D5; --tile:#FFFFFF;
+  --honig:#C28A3A; --honig-tief:#a9762c;
+  --ink:#1c2e42; --ink-soft:#5d6b78; --linie:#d9d2c1;
+  --ok:#2f6a45; --bad:#B23B2E; --mittel:#a9762c;
+  --fruehling:#7fae5a; --sommer:#e0a630; --herbst:#c06a2c; --winter:#6f9cc4;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html{background:var(--blau-tief);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--creme);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.55;min-height:100vh}
+img{max-width:100%}
+a{color:var(--blau)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--honig);outline-offset:2px}
+h1,h2,h3{font-weight:normal;margin:0;text-wrap:balance;line-height:1.2}
+p{margin:0}
+.huelle{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:40px}
+section{padding-top:24px;display:grid;gap:14px}
+.app-head{background:linear-gradient(180deg,var(--blau-tief) 0%,var(--blau-mittel) 100%);color:var(--creme);text-align:center;
+  padding:calc(env(safe-area-inset-top,0px) + 22px) max(20px,env(safe-area-inset-right,0px)) 24px;border-bottom:4px double var(--blau-hell);position:relative}
+.app-head .zurueck-kopf{position:absolute;left:12px;top:calc(env(safe-area-inset-top,0px) + 10px);color:#dce8f3;font-family:var(--sans);font-size:14px;text-decoration:none;padding:6px}
+.app-head .logo{font-size:40px;line-height:1;margin:14px 0 6px;letter-spacing:6px}
+.app-head h1{font-size:clamp(30px,9vw,44px);letter-spacing:.02em}
+.app-head .untertitel{font-style:italic;color:#dce8f3;margin-top:8px;font-size:clamp(14px,3.8vw,17px)}
+.eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.lead{font-size:19px}
+.klein{font-size:15px;color:var(--ink-soft)}
+.h-blau{color:var(--blau);font-size:26px} .h-honig{color:var(--honig-tief);font-size:22px}
+ul.clean{margin:0;padding-left:1.2em;display:grid;gap:5px}
+.knopf{display:inline-block;border:1px solid var(--blau);background:var(--tile);color:var(--blau);border-radius:12px;padding:11px 18px;font-family:var(--sans);font-size:16px;cursor:pointer;text-decoration:none;text-align:center}
+.knopf.prim{background:var(--blau);color:#fff;box-shadow:0 2px 0 var(--blau-tief)}
+.knopf.honig{background:var(--honig);border-color:var(--honig);color:#fff;box-shadow:0 2px 0 #8a5a17}
+.knopfreihe{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.fuss{margin-top:34px;padding-top:16px;border-top:1px solid var(--linie);font-family:var(--sans);font-size:13px;color:var(--ink-soft);text-align:center;display:grid;gap:6px}
+details.lehrer{background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:12px 16px;font-size:16px}
+details.lehrer summary{cursor:pointer;font-family:var(--sans);font-size:15px;color:var(--blau);font-weight:bold}
+details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
+
+/* Startseite: Regeln und Level */
+.regeln{display:grid;gap:8px;font-family:var(--sans);font-size:15px}
+.regel{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:10px 12px}
+.regel .e{font-size:26px;text-align:center;line-height:1}
+.regel b{color:var(--blau)}
+.level{display:grid;gap:12px}
+.lv{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center;background:var(--tile);border:2px solid var(--blau-hell);border-radius:16px;padding:12px;text-align:left;cursor:pointer;width:100%;font-family:var(--serif)}
+.lv img{width:96px;height:96px;object-fit:cover;border-radius:12px;display:block;background:var(--creme-tief)}
+.lv .nr{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--honig-tief);font-weight:bold}
+.lv .nm{font-size:23px;color:var(--blau);display:block;line-height:1.2}
+.lv .mo{font-size:15px;color:var(--ink-soft);display:block;line-height:1.35;margin-top:2px}
+.lv .st{font-family:var(--sans);font-size:14px;color:var(--ink);display:block;margin-top:6px}
+.lv:not(:disabled):hover{border-color:var(--blau);box-shadow:0 4px 14px rgba(35,61,92,.14)}
+.lv:disabled{cursor:default;opacity:.6;border-style:dashed}
+.lv:disabled img{filter:grayscale(1)}
+.stern-leer{opacity:.22;filter:grayscale(1)}
+
+/* Spiel: Kopfzeile mit Anzeigen und Jahresweg */
+.spielkopf{position:sticky;top:0;z-index:6;background:var(--creme);border-bottom:1px solid var(--linie);
+  padding:calc(env(safe-area-inset-top,0px) + 8px) max(12px,env(safe-area-inset-right,0px)) 8px max(12px,env(safe-area-inset-left,0px))}
+.spielkopf .innen{max-width:720px;margin:0 auto;display:grid;gap:8px}
+.sk-zeile{display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:var(--sans);font-size:14px}
+.sk-zeile a{color:var(--blau);text-decoration:none;padding:4px 2px}
+.sk-zeile b{color:var(--blau)}
+.anzeigen{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:center;font-family:var(--sans);font-size:12px;color:var(--ink-soft)}
+.anz{display:grid;gap:3px}
+.anz .lab{display:flex;justify-content:space-between;gap:6px;white-space:nowrap}
+.anz .lab b{color:var(--ink);font-variant-numeric:tabular-nums}
+.balken{height:10px;border-radius:999px;background:var(--creme-tief);overflow:hidden;border:1px solid var(--linie)}
+.balken i{display:block;height:100%;border-radius:999px;transition:width .5s ease,background-color .3s}
+.balken.e i{background:var(--honig)} .balken.s i{background:var(--blau-mittel)}
+.balken.knapp i{background:var(--bad)}
+.anz.junge{text-align:center;background:var(--tile);border:1px solid var(--linie);border-radius:10px;padding:4px 10px;min-width:74px;font-size:11px;line-height:1.25}
+.anz.junge b{display:block;font-size:17px;color:var(--ink)}
+.weg{display:grid;grid-template-columns:repeat(12,1fr);gap:3px}
+.weg span{height:24px;border-radius:7px;display:grid;place-items:center;font-family:var(--sans);font-size:11px;font-weight:bold;color:#fff;opacity:.38}
+.weg .fruehling{background:var(--fruehling)} .weg .sommer{background:var(--sommer)} .weg .herbst{background:var(--herbst)} .weg .winter{background:var(--winter)}
+.weg .war{opacity:.8}
+.weg .jetzt{opacity:1;outline:3px solid var(--ink);outline-offset:1px;font-size:14px}
+
+/* Ereigniskarte */
+.karte{background:var(--tile);border:1px solid var(--linie);border-radius:18px;overflow:hidden;animation:rein .35s ease-out}
+@keyframes rein{from{transform:translateY(14px);opacity:0}to{transform:none;opacity:1}}
+.szene{position:relative;min-height:120px;display:grid;place-items:center;color:#fff;overflow:hidden}
+.szene.fruehling{background:linear-gradient(180deg,#bfe0f0 0%,#bfe0f0 46%,#9cc76f 46%,#7fae5a 100%)}
+.szene.sommer{background:linear-gradient(180deg,#8fc7ee 0%,#bfe3f5 50%,#e8c95f 50%,#d9ac3c 100%)}
+.szene.herbst{background:linear-gradient(180deg,#d9d2c0 0%,#e6dcc6 48%,#c98a46 48%,#a9652a 100%)}
+.szene.winter{background:linear-gradient(180deg,#9fb6cf 0%,#c9d8e6 50%,#f2f5f8 50%,#dfe7ee 100%)}
+.szene .zeichen{font-size:clamp(46px,14vw,64px);line-height:1;letter-spacing:8px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25));padding:18px 0}
+.szene img{display:block;width:100%;aspect-ratio:16/8;object-fit:cover}
+.szene .wann{position:absolute;left:10px;top:10px;font-family:var(--sans);font-size:12px;font-weight:bold;letter-spacing:.05em;background:rgba(28,46,66,.82);color:#fff;border-radius:999px;padding:4px 11px}
+.szene .zw{position:absolute;right:10px;top:10px;font-family:var(--sans);font-size:11px;font-weight:bold;letter-spacing:.08em;text-transform:uppercase;background:var(--bad);color:#fff;border-radius:999px;padding:4px 10px}
+.k-text{padding:14px 16px 4px;display:grid;gap:8px}
+.k-text h2{font-size:24px;color:var(--blau)}
+.basis{font-family:var(--sans);font-size:14px;color:var(--ink-soft);background:var(--creme);border-radius:10px;padding:7px 11px}
+.wahl{display:grid;gap:8px;padding:10px 16px 16px}
+.wahl button{text-align:left;background:var(--creme);border:2px solid var(--blau-hell);border-radius:12px;padding:12px 14px;font-family:var(--sans);font-size:16px;line-height:1.35;cursor:pointer;color:var(--ink);touch-action:manipulation}
+.wahl button:not(:disabled):hover{border-color:var(--blau);background:#fff}
+.wahl button:disabled{cursor:default;opacity:.45}
+.wahl button.gewaehlt{opacity:1;border-color:var(--ink);background:#fff;font-weight:bold}
+.folge{margin:0 16px 16px;border-radius:14px;padding:12px 14px;display:grid;gap:8px;font-family:var(--sans);font-size:15px;line-height:1.45;animation:rein .3s ease-out}
+.folge.r2{background:#e3f0e7;border:1px solid #b9d8c4}
+.folge.r1{background:#f6ead2;border:1px solid #e3cf9f}
+.folge.r0{background:#f7e3df;border:1px solid #e6bdb5}
+.folge .urteil{font-weight:bold;font-size:16px}
+.folge.r2 .urteil{color:var(--ok)} .folge.r1 .urteil{color:var(--mittel)} .folge.r0 .urteil{color:var(--bad)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.75);border-radius:999px;padding:3px 10px;font-weight:bold;font-size:14px;font-variant-numeric:tabular-nums}
+.chip.plus{color:var(--ok)} .chip.minus{color:var(--bad)}
+.weiter{display:flex;justify-content:center;padding:0 16px 18px}
+
+/* Zwischenspiel: Fangen */
+.fang-hud{display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:var(--sans);font-size:15px;padding:0 16px}
+.fang-hud b{font-size:20px;color:var(--blau);font-variant-numeric:tabular-nums}
+.fang-zeit{height:8px;background:var(--creme-tief);border-radius:999px;overflow:hidden;margin:8px 16px 0}
+.fang-zeit i{display:block;height:100%;background:var(--ok);width:100%}
+.fang-feld{position:relative;margin:10px 16px 16px;height:min(46vh,340px);border-radius:14px;overflow:hidden;border:1px solid var(--linie);touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.fang-feld.fruehling,.fang-feld.sommer{background:linear-gradient(180deg,#cfe8f5 0%,#e3f1d4 100%)}
+.fang-feld.winter{background:linear-gradient(180deg,#dfe8f0 0%,#f5f7f9 100%)}
+.fang-feld.herbst{background:linear-gradient(180deg,#eadfc8 0%,#e3c9a0 100%)}
+.ding{position:absolute;width:56px;height:56px;margin:-28px 0 0 -28px;border:0;background:rgba(255,255,255,.55);border-radius:50%;font-size:32px;line-height:1;display:grid;place-items:center;cursor:pointer;padding:0;animation:auf .18s ease-out;touch-action:manipulation}
+@keyframes auf{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}
+.ding.flug{animation:auf .18s ease-out, flug var(--dauer,1.3s) linear forwards}
+@keyframes flug{to{translate:var(--dx,60px) var(--dy,-20px)}}
+.ding.treffer{background:#bfe3c9;transform:scale(1.25);opacity:0;transition:all .25s}
+.ding.falsch{background:#f1b9b0;transform:scale(.8);opacity:0;transition:all .3s}
+.fang-start{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:16px;gap:10px;align-content:center;font-family:var(--sans);font-size:16px;background:rgba(247,243,232,.9)}
+.fang-leg{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;font-size:15px}
+.fang-leg span{white-space:nowrap}
+
+/* Ende */
+.ende{background:var(--tile);border:1px solid var(--linie);border-radius:18px;overflow:hidden;text-align:center;display:grid;gap:10px;padding-bottom:20px}
+.ende > *{margin-left:16px;margin-right:16px}
+.ende > .szene{margin:0}
+.ende h2{font-size:28px;color:var(--blau)}
+.ende .gross{font-size:44px;letter-spacing:6px;line-height:1}
+.werte{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-family:var(--sans)}
+.werte div{background:var(--creme);border-radius:12px;padding:10px 4px;font-size:12px;color:var(--ink-soft)}
+.werte b{display:block;font-size:22px;color:var(--ink);font-variant-numeric:tabular-nums}
+.merk{display:grid;gap:8px;font-family:var(--sans);font-size:15px}
+.merk div{background:var(--tile);border:1px solid var(--linie);border-left:4px solid var(--honig);border-radius:10px;padding:10px 12px;line-height:1.45}
+.merk b{color:var(--blau)}
+.merk a{display:inline-block;margin-top:4px;font-size:14px}
+.pfade{display:grid;gap:8px}
+.pfade a{display:flex;justify-content:space-between;gap:10px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:11px 14px;text-decoration:none;font-family:var(--sans);font-size:15px;color:var(--blau)}
+.konffeld{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.konf{position:absolute;top:-40px;font-size:22px;animation:fall 3.6s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.2}}
+@media (max-width:420px){body{font-size:17px}.lv{grid-template-columns:76px 1fr}.lv img{width:76px;height:76px}.anzeigen{font-size:11px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<!-- Besucherzählung (GoatCounter, ohne Cookies) -->
+<script>window.goatcounter={path:function(p){return location.host+p}};</script><script data-goatcounter="https://mibaso.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+"use strict";
+/* ============ Daten: Monate, Lernpfade, Tiere, Ereigniskarten ============ */
+// Das Spieljahr beginnt im März (Index 0) und endet im Februar (Index 11).
+const MONATE = ["März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember", "Januar", "Februar"];
+const ZEITEN = [["fruehling", "Frühling", "🌱"], ["sommer", "Sommer", "☀️"], ["herbst", "Herbst", "🍂"], ["winter", "Winter", "❄️"]];
+const zeit = m => ZEITEN[Math.floor(m / 3)];
+// Lernpfade, auf die das Spiel verweist
+const PFADE = {
+  vogel: ["vogelpass.html", "Vogelpass – gebaut zum Fliegen"],
+  zug: ["zugvogelpass.html", "Zugvogel-Pass – auf großer Reise"],
+  winter: ["winterpass.html", "Expedition Winter – Tiere im Winter"],
+  futter: ["futterhauspass.html", "Futterhaus-Pass – Vögel am Futterhaus"],
+  netz: ["nahrungsnetz.html", "Lernpfad „Wer frisst wen?“"],
+  wiese: ["wiese-lebt.html", "Lernpfad „Wie hängt alles zusammen?“"]
+};
+const EMAX = 10, SMAX = 10;
+
+/* Karte: { t: Titel, sz: Szene (Zeichen), bild?: Datei, x: Text, p: Lernpfad,
+            w: [{ l: Antwort, e: Energie, s: Sicherheit, r: 2 gut / 1 geht so / 0 schlecht, k: Erklärung, fx?: st => … }] }
+   Zwischenspiel: { fang: true, … }  */
+const TIERE = {
+/* ------------------------------------------------------------------ Level 1 */
+meise: {
+  name: "Kohlmeise", em: "🐦", bild: "../images/zug/kohlmeise.jpg", level: 1,
+  motto: "Sie bleibt das ganze Jahr hier – und muss durch den Winter.",
+  intro: "Du bist eine Kohlmeise im Ebsdorfergrund. Es ist März. Vor dir liegen zwölf Monate: Junge aufziehen, Feinden entkommen – und den Winter überstehen.",
+  start: { e: 8, s: 8 },
+  basis: [0, 0, 0, 1, 1, 1, -1, -1, -1, -2, -2, -2],
+  basisText: { 1: "Im Sommer ist der Tisch reich gedeckt.", "-1": "Die Tage werden kürzer, das Futter knapper.", "-2": "Kälte und lange Nächte zehren an deinen Kräften." },
+  brut2: 5, sterne: [6, 11],
+  schluss: "Der Winter ist überstanden – und draußen singen schon die ersten Meisen. Ein neues Jahr beginnt.",
+  ueberleben: "In der Natur übersteht nur etwa jede zweite erwachsene Kohlmeise ein ganzes Jahr.",
+  monate: [
+    { t: "Ein Revier muss her", sz: "🎶🌳", p: "vogel",
+      x: "Die Sonne wärmt, überall wird gesungen. Wer brüten will, braucht jetzt ein Revier.",
+      w: [
+        { l: "Laut singen und das Revier abstecken", e: -1, s: 0, r: 2, k: "Mit dem Gesang sagen Vögel: Hier ist besetzt! Das kostet etwas Kraft, erspart aber meist den Kampf." },
+        { l: "Still bleiben und Kraft sparen", e: 1, s: 0, r: 0, k: "Ohne Gesang kein Revier: Die besten Brutplätze schnappen sich jetzt die anderen.", fx: st => { st.nest *= .7; } },
+        { l: "Jeden Rivalen sofort angreifen", e: -3, s: -1, r: 0, k: "Kämpfe kosten viel Kraft und sind gefährlich. Fast immer reicht der Gesang." }
+      ] },
+    { t: "Wohin mit dem Nest?", sz: "🏠🌸", p: "vogel",
+      x: "Es wird Zeit für den Nestbau. Drei Plätze stehen zur Wahl.",
+      w: [
+        { l: "In den Nistkasten am Apfelbaum", e: 0, s: 1, r: 2, k: "Kohlmeisen sind Höhlenbrüter: In der Höhle sind Eier und Junge vor Regen, Elster und Sperber geschützt." },
+        { l: "Offen in eine Astgabel", e: 0, s: -2, r: 0, k: "Offene Nester bauen Amsel und Buchfink. Ein Meisennest wäre dort für Elster und Eichhörnchen leichte Beute.", fx: st => { st.nest *= .5; } },
+        { l: "In den Briefkasten am Gartentor", e: 0, s: -1, r: 1, k: "Das kommt wirklich vor! Aber jedes Mal, wenn die Post kommt, gibt es Aufregung.", fx: st => { st.nest *= .8; } }
+      ] },
+    { t: "Wie viele Eier?", sz: "🥚🥚🥚", p: "vogel",
+      x: "Das Nest ist mit Moos und Haaren gepolstert. Wie viele Eier sollen es werden?",
+      w: [
+        { l: "3 Eier – lieber wenige", e: 0, s: 0, r: 1, k: "Sicher, aber wenig. Kohlmeisen legen meist 6 bis 12 Eier, denn viele Junge überleben ihr erstes Jahr nicht.", fx: st => { st.eier = 3; } },
+        { l: "9 Eier", e: -1, s: 0, r: 2, k: "Das passt: 6 bis 12 Eier sind bei Kohlmeisen normal. Etwa zwei Wochen wird gebrütet.", fx: st => { st.eier = 9; } },
+        { l: "15 Eier – so viele wie möglich", e: -3, s: 0, r: 0, k: "Zu viel des Guten: So viele Schnäbel bekommt kein Meisenpaar satt.", fx: st => { st.eier = 15; } }
+      ] },
+    { fang: true, t: "Hungrige Schnäbel", sz: "🐣🐛", p: "netz", e: 0,
+      x: "Die Jungen sind geschlüpft und sperren die Schnäbel auf. Sie brauchen weiches, eiweißreiches Futter: Raupen, Spinnen und andere Kleintiere. Körner können sie noch nicht verdauen.",
+      auftrag: "Tippe an, was die Jungen fressen können!",
+      gut: ["🐛", "🕷️", "🪰", "🦗"], schlecht: ["🌻", "🍞", "🥜", "🍒"], ziel: 12, dauer: 16,
+      nach: (st, q) => { const n = Math.round(Math.min(st.eier, 12) * st.nest * q * (st.eier > 12 ? .6 : 1)); st.jung += n; const von = st.eier; st.eier = 0; return n + " von " + von + " Jungen sind flügge geworden."; },
+      k: "Ein Meisenpaar trägt an einem einzigen Tag mehrere hundert Raupen ans Nest. Ohne Raupen keine jungen Meisen – und ohne Meisen zu viele Raupen." },
+    { t: "Die Jungen fliegen aus", sz: "🐥🌿", p: "vogel",
+      x: "Die erste Brut ist vorbei. Der Sommer ist noch lang – was jetzt?",
+      w: [
+        { l: "Eine zweite Brut wagen", e: -2, s: 0, r: 1, urteil: "Mutig!", k: "Viele Kohlmeisen brüten zweimal im Jahr. Das bringt mehr Junge, kostet aber viel Kraft – die könnte im Winter fehlen.", fx: st => { st.jung += Math.round(5 * st.nest); } },
+        { l: "Ausruhen und sattfressen", e: 2, s: 0, r: 1, urteil: "Vernünftig!", k: "Wer jetzt Kraft tankt, kommt besser durch Mauser und Winter. Dafür gibt es keine weiteren Jungen." },
+        { l: "Die Jungen bis zum Herbst weiterfüttern", e: -2, s: 0, r: 0, k: "Nach zwei bis drei Wochen müssen junge Meisen allein zurechtkommen." }
+      ] },
+    { t: "Neue Federn", sz: "🪶🌾", p: "vogel",
+      x: "Deine Federn sind abgenutzt. Jetzt wachsen neue – solange fliegst du schlechter als sonst.",
+      w: [
+        { l: "Im dichten Gebüsch bleiben", e: 0, s: 1, r: 2, k: "In der Mauser sind Vögel langsamer und verstecken sich. Deshalb ist es im Spätsommer im Garten so still." },
+        { l: "Wie immer offen auf dem Rasen fressen", e: 1, s: -3, r: 0, k: "Mit Lücken im Flügel entkommst du dem Sperber kaum." },
+        { l: "Die alten Federn einfach behalten", e: -2, s: -1, r: 0, k: "Das geht nicht: Abgenutzte Federn tragen und wärmen schlecht. Jeder Vogel muss sein Gefieder wechseln." }
+      ] },
+    { t: "Die Raupen werden knapp", sz: "🍂🌰", p: "zug",
+      x: "Der Herbst kommt. Es gibt immer weniger Insekten.",
+      w: [
+        { l: "Auf Samen, Nüsse und Bucheckern umstellen", e: 2, s: 0, r: 2, k: "Meisen wechseln im Herbst das Futter: von Insekten zu fettreichen Samen. Genau deshalb können sie im Winter hierbleiben." },
+        { l: "Weiter nur nach Raupen suchen", e: -2, s: 0, r: 0, k: "Raupen gibt es jetzt kaum noch. Wer sich nicht umstellt, hungert." },
+        { l: "Nach Afrika fliegen wie die Schwalben", e: -4, s: -2, r: 0, k: "Kohlmeisen sind Standvögel. Sie finden auch im Winter Futter – die weite Reise wäre für sie nur gefährlich." }
+      ] },
+    { t: "Ein bunter Trupp", sz: "🐦🐦🌲", p: "winter",
+      x: "Blaumeisen, Kleiber und andere Kohlmeisen ziehen gemeinsam durch den Garten.",
+      w: [
+        { l: "Dich dem Trupp anschließen", e: 1, s: 2, r: 2, k: "Viele Augen sehen mehr: Im gemischten Trupp entdeckt immer jemand den Sperber – und gemeinsam findet man mehr Futter." },
+        { l: "Beobachten, wo der Kleiber seine Nüsse versteckt", e: 2, s: 0, r: 2, urteil: "Schlau!", k: "Kohlmeisen legen selbst kaum Vorräte an. Aber sie schauen anderen genau zu – und bedienen sich später an deren Verstecken." },
+        { l: "Allein bleiben, dann musst du nicht teilen", e: 0, s: -2, r: 0, k: "Wer allein unterwegs ist, muss selbst ständig aufpassen – und frisst deshalb weniger." }
+      ] },
+    { t: "Wo schläfst du?", sz: "🌙🌳", p: "winter",
+      x: "Die Nächte werden lang und kalt. Du brauchst einen guten Schlafplatz.",
+      w: [
+        { l: "In einer Baumhöhle oder im Nistkasten", e: 1, s: 1, r: 2, k: "Meisen schlafen im Winter in Höhlen: windstill, trocken und ein paar Grad wärmer. Darum Nistkästen im Herbst hängen lassen!" },
+        { l: "Im Gebüsch, dicht am Stamm", e: -1, s: 0, r: 1, k: "Besser als nichts – aber Wind und Nässe kommen trotzdem durch." },
+        { l: "Auf einem freien Ast", e: -2, s: -1, r: 0, k: "Im Wind kühlt ein so kleiner Körper schnell aus – und die Eule sieht dich auch." }
+      ] },
+    { t: "Frostnacht", sz: "🥶⭐", bild: "../images/winter/meise-aufgeplustert.jpg", p: "winter",
+      x: "Minus zehn Grad. Wie kommst du durch die Nacht?",
+      w: [
+        { l: "Aufplustern und den Kopf ins Gefieder stecken", e: 1, s: 0, r: 2, k: "Aufgeplusterte Federn halten eine dicke Luftschicht fest – wie eine Daunenjacke." },
+        { l: "Die ganze Nacht herumfliegen, um warm zu bleiben", e: -3, s: -1, r: 0, k: "Fliegen verbraucht viel mehr Energie, als es Wärme bringt. Schon im Schlaf verliert eine Meise in einer Frostnacht bis zu einem Zehntel ihres Gewichts." },
+        { l: "Winterschlaf halten wie der Igel", e: -2, s: 0, r: 0, k: "Unsere Vögel halten keinen Winterschlaf. Sie müssen jeden Tag fressen." }
+      ] },
+    { fang: true, t: "Am Futterhaus", sz: "🏠🌻", bild: "../images/winter/futterplatz.jpg", p: "futter", e: 0,
+      x: "Schnee liegt, das Futter ist knapp. Zum Glück hängt im Garten ein Futterhaus. Aber nicht alles, was dort liegt, tut dir gut.",
+      auftrag: "Tippe nur an, was einer Meise guttut!",
+      gut: ["🌻", "🥜", "🌰"], schlecht: ["🍞", "🥓", "🍪", "🧀"], ziel: 12, dauer: 14,
+      nach: (st, q) => { const plus = Math.round(q * 3); st.e = Math.min(EMAX, st.e + plus); return plus ? "Das gibt Kraft: +" + plus + " ⚡" : "Das hat kaum Kraft gebracht."; },
+      k: "Sonnenblumenkerne und ungesalzene Nüsse liefern viel Fett. Brot quillt im Magen auf, Salz schadet – auch in Speck, Käse und Keksen." },
+    { t: "Fast geschafft", sz: "🌤️❄️", p: "futter",
+      x: "Die Sonne zeigt sich öfter, aber die Nächte sind noch eisig.",
+      w: [
+        { l: "Morgens als Erstes fressen", e: 2, s: 0, r: 2, k: "Nach der langen Nacht sind die Reserven leer. Darum ist am Futterhaus morgens am meisten los." },
+        { l: "Den ganzen Tag singen – der Frühling kommt!", e: -2, s: 0, r: 1, k: "Kohlmeisen singen schon ab Januar. Aber erst, wenn der Bauch voll ist." },
+        { l: "Nichts tun und auf den Frühling warten", e: -3, s: 0, r: 0, k: "Ein kleiner Vogel hält ohne Futter kaum einen Wintertag durch." }
+      ] }
+  ],
+  zwischen: [
+    { von: 0, bis: 11, t: "Ein Schatten!", sz: "🦅💨", bild: "../images/futterhaus/fp-sperber.jpg", p: "futter",
+      x: "Der Sperber jagt dicht über die Hecke heran.",
+      w: [
+        { l: "Ab in den dichten Busch", e: 0, s: 0, r: 2, k: "In dichten Zweigen kommt der Sperber nicht hinterher. Deshalb brauchen kleine Vögel Hecken und Büsche." },
+        { l: "Übers offene Feld davonfliegen", e: -1, s: -4, r: 0, k: "Im freien Flug ist der Sperber viel schneller als du." },
+        { l: "Auf dem freien Ast sitzen bleiben", e: 0, s: -3, r: 0, k: "Auf dem kahlen Ast bist du für den Sperber kaum zu übersehen." }
+      ] },
+    { von: 0, bis: 8, t: "Da liegt was!", sz: "🐈🌾", p: "futter",
+      x: "Am Boden liegen leckere Körner. Im hohen Gras daneben bewegt sich etwas.",
+      w: [
+        { l: "Lieber oben im Baum weitersuchen", e: 0, s: 0, r: 2, k: "Richtig: Im Gras lauerte eine Katze. Am Boden sind kleine Vögel besonders gefährdet." },
+        { l: "Schnell runter und zugreifen", e: 1, s: -3, r: 0, k: "Im Gras lauerte eine Katze. Gerade noch entwischt!" }
+      ] },
+    { von: 0, bis: 11, t: "Die Scheibe", sz: "🪟🌳", p: "futter",
+      x: "Vor dir ein Haus mit großer Glasfront. Darin spiegeln sich Bäume und Himmel.",
+      w: [
+        { l: "Einen Bogen fliegen", e: 0, s: 0, r: 2, k: "Gut so. Vögel können Glas nicht sehen – Spiegelungen täuschen ihnen Landschaft vor. Muster auf der Scheibe helfen." },
+        { l: "Geradeaus – da geht es doch weiter", e: -1, s: -4, r: 0, k: "Aua! Vögel können Glas nicht sehen – Spiegelungen täuschen ihnen Landschaft vor. Muster auf der Scheibe helfen." }
+      ] },
+    { von: 1, bis: 5, t: "Dauerregen", sz: "🌧️🌧️", p: "netz",
+      x: "Eine ganze Woche Regen. Die Insekten haben sich verkrochen.",
+      w: [
+        { l: "Unter Blättern und in Rindenritzen suchen", e: -1, s: 0, r: 2, k: "Meisen sind Turnkünstler: Sie suchen kopfüber jede Ritze ab und finden auch versteckte Insekten." },
+        { l: "Warten, bis die Sonne wieder scheint", e: -3, s: 0, r: 0, k: "Ein kleiner Vogel hat kaum Reserven. Ein paar Tage ohne Futter sind schon zu viel." }
+      ] },
+    { von: 2, bis: 3, t: "Es klopft am Nistkasten", sz: "🪵🔨", p: "vogel",
+      x: "Ein Buntspecht hämmert am Einflugloch. Er hat es auf Eier und Junge abgesehen.",
+      w: [
+        { l: "Im Kasten bleiben und fauchen", e: -1, s: 0, r: 2, k: "Brütende Meisen zischen wie eine Schlange – das schreckt viele Nesträuber ab. Ein Blech um das Einflugloch hilft zusätzlich." },
+        { l: "Hinausfliegen und das Nest verlassen", e: 0, s: -1, r: 0, k: "Ohne Gegenwehr holt sich der Specht einen Teil der Brut.", fx: st => { st.eier = Math.ceil(st.eier / 2); } }
+      ] },
+    { von: 8, bis: 11, t: "Schmutziges Futterhaus", sz: "🦠🏚️", p: "futter",
+      x: "An einem alten Futterhaus liegt nasses, verschimmeltes Futter. Zwei Vögel sitzen aufgeplustert und matt daneben.",
+      w: [
+        { l: "Wegbleiben und woanders suchen", e: -1, s: 0, r: 2, k: "An schmutzigen Futterstellen stecken sich Vögel gegenseitig an. Futterhäuser müssen sauber und trocken sein." },
+        { l: "Fressen – Futter ist Futter", e: 1, s: -3, r: 0, k: "An schmutzigen Futterstellen stecken sich Vögel gegenseitig an. Futterhäuser müssen sauber und trocken sein." }
+      ] },
+    { von: 0, bis: 11, t: "Alarm im Wald", sz: "📣🌲", p: "winter",
+      x: "Ein Eichelhäher rätscht laut durch die Bäume.",
+      w: [
+        { l: "Sofort Deckung suchen", e: 0, s: 1, r: 2, k: "Der Eichelhäher ist die Alarmanlage des Waldes. Viele Tiere verstehen seinen Warnruf – auch Meisen." },
+        { l: "Weiterfressen, der meint dich nicht", e: 1, s: -2, r: 0, k: "Der Eichelhäher ist die Alarmanlage des Waldes. Wer seinen Warnruf überhört, lebt gefährlich." }
+      ] },
+    { von: 8, bis: 11, t: "Der Knödel im Netz", sz: "🧶🥜", p: "futter",
+      x: "Zwei Meisenknödel hängen im Garten: einer im Plastiknetz, einer in einem Halter aus Draht.",
+      w: [
+        { l: "Zum Knödel im Halter", e: 1, s: 0, r: 2, k: "Im Netz können sich Vögel mit den Füßen verfangen. Knödel ohne Netz im Halter sind sicher." },
+        { l: "Zum Knödel im Netz", e: 1, s: -2, r: 0, k: "Im Netz können sich Vögel mit den Füßen verfangen. Knödel ohne Netz im Halter sind sicher." }
+      ] }
+  ]
+},
+/* ------------------------------------------------------------------ Level 2 */
+schwalbe: {
+  name: "Rauchschwalbe", em: "🕊️", bild: "../images/zug/rauchschwalbe.jpg", level: 2,
+  motto: "Sie lebt von Insekten in der Luft – und muss im Herbst bis nach Afrika.",
+  intro: "Du bist eine Rauchschwalbe. Es ist März, und du bist noch in Afrika. Vor dir liegen der Heimflug, die Brut im Stall – und im Herbst wieder die Reise über Alpen und Sahara.",
+  start: { e: 8, s: 8 },
+  basis: [-1, 0, 0, 1, 1, 0, -1, -1, -1, 0, 0, 0],
+  basisText: { 1: "Über den Wiesen tanzen die Mücken – Futter im Überfluss.", "-1": "Der weite Flug kostet Kraft." },
+  brut2: 4, sterne: [4, 8],
+  schluss: "Du hast es geschafft. Bald geht es wieder nach Norden – zurück in den Stall, in dem du geboren wurdest.",
+  ueberleben: "In der Natur übersteht nicht einmal jede zweite Rauchschwalbe ein ganzes Jahr.",
+  monate: [
+    { t: "Aufbruch in Afrika", sz: "🌍🧭", p: "zug",
+      x: "Du bist noch im Winterquartier südlich der Sahara. Tausende Kilometer liegen zwischen dir und deinem Stall.",
+      w: [
+        { l: "Jetzt aufbrechen und in Etappen fliegen", e: -1, s: 0, r: 2, k: "Rauchschwalben kommen ab Ende März zurück. Sie fliegen am Tag, fangen unterwegs Insekten und rasten in der Nacht." },
+        { l: "Erst im Mai fliegen, dann ist es wärmer", e: 1, s: 0, r: 0, k: "Wer zu spät kommt, findet die besten Nistplätze besetzt – und hat weniger Zeit für die Brut.", fx: st => { st.nest *= .7; } },
+        { l: "Ohne Pause durchfliegen", e: -4, s: 0, r: 0, k: "Das hält kein Vogel durch. Zugvögel brauchen Rastplätze, um zu fressen und zu schlafen." }
+      ] },
+    { t: "Wohin mit dem Nest?", sz: "🏚️🐄", p: "vogel",
+      x: "Endlich zu Hause! Jetzt brauchst du einen Platz für dein Nest.",
+      w: [
+        { l: "Im Kuhstall auf einen Balken", e: 0, s: 1, r: 2, k: "Rauchschwalben brüten in Ställen und Scheunen: warm, trocken und voller Fliegen." },
+        { l: "Außen unter den Dachvorsprung", e: 0, s: 0, r: 1, k: "Das ist der Platz der Mehlschwalbe. Sie hat einen weißen Bürzel – die Rauchschwalbe eine rostrote Kehle und lange Schwanzspieße.", fx: st => { st.nest *= .7; } },
+        { l: "In eine Baumhöhle", e: 0, s: -1, r: 0, k: "Schwalben sind keine Höhlenbrüter. Sie mauern ihr Nest selbst.", fx: st => { st.nest *= .4; } }
+      ] },
+    { t: "Baustoff gesucht", sz: "🧱💧", p: "vogel",
+      x: "Womit baust du dein Nest?",
+      w: [
+        { l: "Lehmklümpchen aus der Pfütze, mit Halmen vermischt", e: 0, s: 0, r: 2, k: "Über tausend Lehmklümpchen werden zu einer Schale gemauert. Ohne feuchte, offene Erde kein Schwalbennest!", fx: st => { st.eier = 5; } },
+        { l: "Moos und Haare wie die Meise", e: -1, s: 0, r: 0, k: "Moos hält an einem Balken nicht. Schwalben mauern mit Lehm – und polstern innen mit Federn.", fx: st => { st.eier = 5; st.nest *= .6; } },
+        { l: "Dicke Zweige wie die Elster", e: -3, s: 0, r: 0, k: "Zweige sind viel zu schwer für einen so zarten Vogel.", fx: st => { st.eier = 5; st.nest *= .5; } }
+      ] },
+    { fang: true, flug: true, t: "Jagd in der Luft", sz: "🐣🪰", bild: "../images/voegel/schwalben-nestlinge.jpg", p: "netz", e: 0,
+      x: "Fünf Junge sitzen im Nest. Rauchschwalben fangen ihr Futter nur im Flug: Fliegen, Mücken und kleine Käfer. Was auf Blättern sitzt oder am Boden liegt, erreichst du nicht.",
+      auftrag: "Tippe nur an, was durch die Luft fliegt!",
+      gut: ["🪰", "🦟", "🪲"], schlecht: ["🐛", "🌻", "🐌"], ziel: 12, dauer: 16,
+      nach: (st, q) => { const n = Math.round(st.eier * st.nest * q); st.jung += n; const von = st.eier; st.eier = 0; return n + " von " + von + " Jungen sind flügge geworden."; },
+      k: "Ein Schwalbenpaar fängt für eine Brut viele tausend Insekten. Wo es keine Insekten mehr gibt, verschwinden auch die Schwalben." },
+    { t: "Die Jungen fliegen aus", sz: "🐥☀️", p: "vogel",
+      x: "Die erste Brut ist flügge. Der Sommer ist noch lang.",
+      w: [
+        { l: "Eine zweite Brut wagen", e: -2, s: 0, r: 1, urteil: "Mutig!", k: "Rauchschwalben brüten meist zweimal. Mehr Junge – aber die Kraft brauchst du auch für die Reise im Herbst.", fx: st => { st.jung += Math.round(4 * st.nest); } },
+        { l: "Kraft sammeln für die Reise", e: 2, s: 0, r: 1, urteil: "Vernünftig!", k: "Wer jetzt Kraft tankt, hat im Herbst mehr Reserven für den weiten Flug." }
+      ] },
+    { t: "Das Wetter schlägt um", sz: "🌧️🌾", p: "wiese",
+      x: "Es ist kühl und regnerisch. Hoch am Himmel ist kein Insekt mehr zu finden.",
+      w: [
+        { l: "Tief über Wiese und Teich jagen", e: 2, s: 0, r: 2, k: "Bei schlechtem Wetter fliegen Insekten tief – und die Schwalben hinterher. Daher die Bauernregel: Fliegen die Schwalben tief, wird das Wetter schlecht." },
+        { l: "Hoch am Himmel weiterjagen", e: -2, s: 0, r: 0, k: "Dort oben ist es jetzt zu kalt und zu windig für Insekten." },
+        { l: "Körner vom Futterhaus holen", e: -3, s: 0, r: 0, k: "Schwalben können nur Insekten im Flug fangen. Genau deshalb müssen sie im Herbst fort." }
+      ] },
+    { t: "Sammeln auf dem Draht", sz: "🐦🐦🐦", p: "zug",
+      x: "Auf den Leitungen sitzen Hunderte Schwalben dicht an dicht. Die Tage werden kürzer.",
+      w: [
+        { l: "Mit dem Schwarm abfliegen", e: 1, s: 1, r: 2, k: "Im Schwarm ist die Reise sicherer. Im September ziehen die Rauchschwalben nach Süden." },
+        { l: "Bleiben – noch gibt es ja Fliegen", e: -3, s: 0, r: 0, k: "Mit dem ersten Frost ist Schluss mit Fluginsekten. Wer dann noch hier ist, verhungert." },
+        { l: "Allein vorausfliegen", e: 0, s: -2, r: 1, k: "Allein musst du selbst nach Feinden Ausschau halten – und findest die Rastplätze schwerer." }
+      ] },
+    { t: "Vor den Alpen", sz: "🏔️🌨️", p: "zug",
+      x: "Vor dir türmen sich die Alpen auf. Über den Gipfeln tobt ein Schneesturm.",
+      w: [
+        { l: "Abwarten, dann durch die Täler und über einen niedrigen Pass", e: 0, s: 0, r: 2, k: "Zugvögel warten schlechtes Wetter ab und nutzen niedrige Pässe. Das spart Kraft." },
+        { l: "Trotz Sturm über die höchsten Gipfel", e: -4, s: -2, r: 0, k: "Kälte, Sturm und kein einziges Insekt: Im Hochgebirge kommen bei Wetterstürzen viele Schwalben um." },
+        { l: "Umkehren und zurück nach Hause", e: -3, s: 0, r: 0, k: "Zu Hause gibt es bald keine Insekten mehr. Der Weg führt nach Süden." }
+      ] },
+    { t: "Die Sahara", sz: "🏜️☀️", p: "zug",
+      x: "Vor dir liegen fast 2000 Kilometer Wüste – ohne Wasser und fast ohne Insekten.",
+      w: [
+        { l: "Erst an der Küste sattfressen, dann zügig hinüber", e: -1, s: 0, r: 2, k: "Vor der Wüste fressen sich Zugvögel ein Fettpolster an. Das ist ihr Treibstoff." },
+        { l: "Sofort los – gefressen wird unterwegs", e: -5, s: 0, r: 0, k: "In der Wüste gibt es kaum etwas zu fangen. Ohne Fettpolster wird es lebensgefährlich." },
+        { l: "Gemütlich fliegen und oft im Sand rasten", e: -3, s: -1, r: 0, k: "Im Sand gibt es weder Futter noch Schutz. Durch die Wüste muss es schnell gehen." }
+      ] },
+    { t: "Angekommen", sz: "🌍🐘", p: "zug",
+      x: "Geschafft: Unter dir liegt die Savanne. Hier ist jetzt Regenzeit.",
+      w: [
+        { l: "Über Rinderherden und Sümpfen jagen", e: 3, s: 0, r: 2, k: "Wo Wasser und Weidetiere sind, schwirren Insekten. Hier verbringen unsere Schwalben den Winter." },
+        { l: "Ein Nest bauen und noch einmal brüten", e: -3, s: 0, r: 0, k: "Im Winterquartier wird nicht gebrütet – nur gefressen und das Gefieder gewechselt." },
+        { l: "Im trockenen Buschland bleiben", e: -1, s: 0, r: 1, k: "Im Trockenen gibt es nur wenige Insekten. Schwalben folgen dem Regen." }
+      ] },
+    { t: "Neue Federn", sz: "🪶🌴", p: "vogel",
+      x: "Dein Gefieder ist nach der langen Reise abgenutzt.",
+      w: [
+        { l: "Jetzt die Federn wechseln", e: 0, s: 0, r: 2, k: "Rauchschwalben mausern im Winterquartier, wo es genug Futter gibt. Für den Rückflug brauchen sie tadellose Flügel." },
+        { l: "Damit bis zum Sommer zu Hause warten", e: -2, s: -1, r: 0, k: "Im Sommer müssen Schwalben Junge füttern – da bleibt keine Kraft für neue Federn. Und mit alten Flügeln wird der Rückflug gefährlich." }
+      ] },
+    { t: "Schlafplatz im Schilf", sz: "🌾🌙", p: "zug",
+      x: "Am Abend fallen Tausende Schwalben in ein großes Schilfgebiet ein. Über dem Wasser kreist ein Falke.",
+      w: [
+        { l: "Mitten im Schwarm ins Schilf", e: 1, s: 1, r: 2, k: "Im riesigen Schwarm ist die Gefahr für jede einzelne Schwalbe winzig. Im dichten Schilf über dem Wasser kommen kaum Feinde heran." },
+        { l: "Abseits allein auf einem Busch schlafen", e: 0, s: -3, r: 0, k: "Wer allein schläft, ist leichte Beute." }
+      ] }
+  ],
+  zwischen: [
+    { von: 1, bis: 6, t: "Der Baumfalke", sz: "🦅💨", p: "netz",
+      x: "Ein Baumfalke schießt heran – einer der wenigen Jäger, die Schwalben im Flug fangen können.",
+      w: [
+        { l: "Laut warnen und im Schwarm hochsteigen", e: -1, s: 0, r: 2, k: "Schwalben warnen sich mit lauten Rufen. Im dichten Schwarm kann der Falke kaum eine Einzelne greifen." },
+        { l: "Allein weiterjagen", e: 0, s: -4, r: 0, k: "Eine einzelne Schwalbe ist für den Baumfalken das einfachste Ziel." }
+      ] },
+    { von: 1, bis: 4, t: "Alles zu!", sz: "🚪🪟", p: "vogel",
+      x: "Der alte Stall wurde umgebaut: Fenster und Tore sind jetzt geschlossen.",
+      w: [
+        { l: "Eine offene Scheune oder Garage suchen", e: -1, s: 0, r: 2, k: "Schwalben brauchen einen offenen Einflug. Wer im Frühjahr ein Stallfenster offen lässt, hilft ihnen sehr." },
+        { l: "Immer wieder gegen das Fenster fliegen", e: -1, s: -3, r: 0, k: "Vögel können Glas nicht sehen. Schwalben brauchen einen offenen Einflug." }
+      ] },
+    { von: 1, bis: 3, t: "Alles trocken", sz: "☀️🏜️", p: "vogel",
+      x: "Seit Wochen kein Regen. Alle Pfützen im Dorf sind ausgetrocknet.",
+      w: [
+        { l: "Zum Bachufer fliegen und dort Lehm holen", e: -1, s: 0, r: 2, k: "Ohne feuchten Lehm kein Nest. Eine Lehmpfütze im Garten ist für Schwalben ein Baumarkt." },
+        { l: "Mit trockenem Sand weiterbauen", e: 0, s: 0, r: 0, k: "Trockener Sand klebt nicht – das Nest bröckelt vom Balken.", fx: st => { st.nest *= .6; } }
+      ] },
+    { von: 2, bis: 5, t: "Die Wiese ist weg", sz: "🚜🌾", p: "wiese",
+      x: "Die große Blumenwiese am Dorfrand wurde gemäht. Dort fliegt kaum noch ein Insekt.",
+      w: [
+        { l: "Zum Teich und zur Kuhweide ausweichen", e: -1, s: 0, r: 2, k: "Wo es Blüten, Wasser und Weidetiere gibt, gibt es Insekten. Bunte Wiesen helfen auch den Schwalben." },
+        { l: "Über dem Acker weitersuchen", e: -3, s: 0, r: 0, k: "Über einem kahlen Acker fliegt fast nichts. Insekten brauchen Blüten, Wasser und Weidetiere." }
+      ] },
+    { von: 1, bis: 2, t: "Kälteeinbruch", sz: "🥶🌬️", p: "winter",
+      x: "Plötzlich sind es nur noch fünf Grad. Kein Insekt fliegt.",
+      w: [
+        { l: "Mit anderen im Stall zusammenrücken und Kraft sparen", e: -1, s: 0, r: 2, k: "Bei Kälte rücken Schwalben eng zusammen und bewegen sich kaum. So überstehen sie ein paar Hungertage." },
+        { l: "Den ganzen Tag draußen suchen", e: -3, s: 0, r: 0, k: "Suchen kostet mehr Kraft, als es einbringt, wenn nichts fliegt." }
+      ] },
+    { von: 6, bis: 8, t: "Nachtquartier", sz: "🌾🌙", p: "zug",
+      x: "Es wird Abend. Wo verbringst du die Nacht auf der Reise?",
+      w: [
+        { l: "Im Schilf, zusammen mit Tausenden anderen", e: 1, s: 1, r: 2, k: "Auf dem Zug übernachten Schwalben in großen Schilfgebieten – dicht gedrängt und gut geschützt." },
+        { l: "Durchfliegen ohne Schlaf", e: -3, s: 0, r: 0, k: "Schwalben ziehen am Tag und brauchen die Nacht zum Ausruhen." },
+        { l: "Allein auf einem Zaunpfahl", e: 0, s: -2, r: 0, k: "Allein und frei sichtbar – das merkt auch die Eule." }
+      ] },
+    { von: 7, bis: 8, t: "Sturm über dem Meer", sz: "🌊⛈️", p: "zug",
+      x: "Über dem Mittelmeer zieht ein Gewitter auf.",
+      w: [
+        { l: "An der Küste abwarten", e: -1, s: 0, r: 2, k: "Über dem Meer gibt es keinen Landeplatz. Zugvögel warten deshalb gutes Wetter ab." },
+        { l: "Mitten hindurch", e: -3, s: -2, r: 0, k: "Über dem Meer gibt es keinen Landeplatz. Bei Sturm ist das lebensgefährlich." }
+      ] },
+    { von: 2, bis: 5, t: "Die Hofkatze", sz: "🐈🏚️", p: "futter",
+      x: "Unter dem Nest sitzt die Hofkatze und schaut nach oben. Am Stallboden krabbeln Fliegen.",
+      w: [
+        { l: "Hoch anfliegen und nie am Boden landen", e: 0, s: 0, r: 2, k: "Schwalben landen fast nur am Boden, um Lehm zu holen. Ihr Nest kleben sie hoch unter die Decke." },
+        { l: "Die Fliegen am Boden einsammeln", e: 1, s: -3, r: 0, k: "Am Boden sind Schwalben unbeholfen – ihre Beine sind kurz und schwach." }
+      ] }
+  ]
+}
+};
+
+/* ============ Spielregeln (ohne Anzeige) ============ */
+const mische = (a, rnd) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+// Jahresplan: je Monat die Hauptkarte, dazu vier zufällige Zwischenfälle in passenden Monaten
+function jahresplan(tid, rnd) {
+  const T = TIERE[tid], plan = T.monate.map(k => [k]);
+  let n = 0;
+  mische(T.zwischen, rnd).forEach(z => {
+    if (n >= 4) return;
+    const frei = []; for (let m = z.von; m <= z.bis; m++) if (plan[m].length === 1) frei.push(m);
+    if (!frei.length) return;
+    const m = frei[Math.floor(rnd() * frei.length)];
+    if (rnd() < .5) plan[m].unshift(z); else plan[m].push(z);
+    n++;
+  });
+  return plan;
+}
+const neuerStand = tid => ({ tid, e: TIERE[tid].start.e, s: TIERE[tid].start.s, eier: 0, nest: 1, jung: 0, fehler: [], gut: 0 });
+const begrenze = st => { st.e = Math.min(EMAX, st.e); st.s = Math.min(SMAX, st.s); };
+const tot = st => st.e <= 0 ? "kraft" : st.s <= 0 ? "feind" : "";
+function waehle(st, karte, w, m) {
+  st.e += w.e; st.s += w.s; if (w.fx) w.fx(st); begrenze(st);
+  if (w.r === 0) st.fehler.push({ m, t: karte.t, k: w.k, p: karte.p }); else if (w.r === 2) st.gut++;
+}
+function sterne(st) { const T = TIERE[st.tid]; return tot(st) ? 0 : 1 + (st.jung >= T.sterne[0] ? 1 : 0) + (st.jung >= T.sterne[1] ? 1 : 0); }
+if (typeof module !== "undefined") module.exports = { TIERE, jahresplan, neuerStand, waehle, tot, sterne, begrenze, EMAX };
+
+/* ============ Helfer und Speicher (nur auf diesem Gerät) ============ */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+const esc = t => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+const KEY = "mibaso.fauna.durchsjahr";
+function laden() { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { return {}; } }
+let S = laden();
+function speichern() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+const app = $("#app");
+const sterneHTML = n => `<span aria-label="${n} von 3 Sternen">${[0, 1, 2].map(k => `<span class="${k < n ? "" : "stern-leer"}">⭐</span>`).join("")}</span>`;
+const fuss = () => `<footer class="fuss">
+  <div>Dein Spielstand wird nur auf diesem Gerät gespeichert. Keine Anmeldung, keine Datensammlung.</div>
+  <div><a href="../../index.html">⌂ Bio Mibaso</a> · <a href="../../ueber/">Über mich</a> · <a href="../../impressum/">Impressum &amp; Datenschutz</a></div>
+  <div>© 2026 Michael Baur · Durchs Jahr!</div></footer>`;
+function konfetti() {
+  if (reduce) return;
+  const f = document.createElement("div"); f.className = "konffeld";
+  const z = ["🪶", "⭐", "🌱", "🐣", "✨", "🌻"];
+  for (let n = 0; n < 44; n++) { const k = document.createElement("span"); k.className = "konf"; k.textContent = z[n % z.length]; k.style.cssText = `left:${Math.random() * 100}%;animation-delay:${(Math.random() * .8).toFixed(2)}s`; f.appendChild(k); }
+  document.body.appendChild(f); setTimeout(() => f.remove(), 4800);
+}
+let laufend = null; // räumt Zeitgeber des Zwischenspiels ab, wenn die Seite gewechselt wird
+
+/* ============ Startseite ============ */
+function seiteStart() {
+  const offen2 = !!(S.frei || (S.meise && S.meise.ueberlebt));
+  const lv = tid => { const T = TIERE[tid], d = S[tid], zu = tid === "schwalbe" && !offen2;
+    return `<button type="button" class="lv" data-t="${tid}" ${zu ? "disabled" : ""}>
+      <img src="${T.bild}" alt="">
+      <span><span class="nr">Level ${T.level}${zu ? " · 🔒" : ""}</span><span class="nm">${T.name}</span><span class="mo">${zu ? "Öffnet sich, wenn deine Kohlmeise das Jahr überstanden hat." : T.motto}</span>
+      ${d && d.n ? `<span class="st">${sterneHTML(d.sterne || 0)} · Rekord: ${d.jung || 0} Junge · ${d.n}× gespielt</span>` : zu ? "" : `<span class="st">▶ Spielen</span>`}</span></button>`; };
+  app.innerHTML = `<header class="app-head">
+    <a class="zurueck-kopf" href="../index.html">‹ Fauna</a>
+    <div class="logo">🌱☀️🍂❄️</div><h1>Durchs Jahr!</h1><div class="untertitel">Das Überlebensspiel – zwölf Monate als Vogel</div></header>
+  <div class="huelle">
+    <section>
+      <p class="lead">Schlüpf in die Federn eines Vogels und bring ihn durch ein ganzes Jahr. Jeden Monat passiert etwas – und du entscheidest, was dein Vogel tut. Was du in den Forscherpässen gelernt hast, hilft dir jetzt beim Überleben.</p>
+      <div class="regeln">
+        <div class="regel"><span class="e">⚡</span><span><b>Kraft:</b> Fressen füllt sie auf, Kälte, Fliegen und Brüten verbrauchen sie. Ist sie leer, ist das Jahr vorbei.</span></div>
+        <div class="regel"><span class="e">🛡️</span><span><b>Sicherheit:</b> Sperber, Katze und Glasscheiben lauern überall. Wer leichtsinnig ist, wird erwischt.</span></div>
+        <div class="regel"><span class="e">🐣</span><span><b>Junge:</b> Wie viele bekommst du groß? Für viele Junge gibt es mehr Sterne.</span></div>
+      </div>
+    </section>
+    <section>
+      <h2 class="h-blau">Wähle deinen Vogel</h2>
+      <div class="level">${lv("meise")}${lv("schwalbe")}</div>
+      <p class="klein">Ein Jahr dauert etwa zehn Minuten. Jedes Jahr verläuft anders – die Zwischenfälle werden neu gemischt.</p>
+    </section>
+    <section>
+      <details class="lehrer"><summary>Für Lehrkräfte: Einsatz in Klasse 5/6</summary><div class="grid">
+        <p>„Durchs Jahr!“ ist ein Entscheidungsspiel zum Wiederholen und Vernetzen. Es greift Inhalte aus mehreren Lernpfaden auf: Körperbau, Nest und Brut (Vogelpass), Vogelzug (Zugvogel-Pass), Überwinterung (Expedition Winter), Fütterung und Gefahren am Haus (Futterhaus-Pass) sowie Nahrungsbeziehungen und Insektenreichtum (Lernpfade zur Wiese).</p>
+        <ul class="clean">
+          <li><b>Ablauf:</b> Zwölf Monate von März bis Februar. Jeden Monat eine Ereigniskarte mit zwei bis drei Entscheidungen, dazu vier zufällige Zwischenfälle und kurze Zwischenspiele (Futter für die Jungen, Futterhaus). Nach jeder Entscheidung folgt eine kurze fachliche Begründung.</li>
+          <li><b>Level 1 – Kohlmeise (Standvogel):</b> Höhlenbrüter, Raupen als Nestlingsnahrung, Mauser, Nahrungsumstellung im Herbst, Meisentrupps, Winternächte.</li>
+          <li><b>Level 2 – Rauchschwalbe (Zugvogel):</b> Brut im Stall, Lehmnest, Luftjagd auf Insekten, Zug über Alpen und Sahara, Winterquartier. Deutlich anspruchsvoller.</li>
+          <li><b>Auswertung:</b> Am Ende zeigt das Spiel die riskanten Entscheidungen mit Begründung und verweist auf den passenden Lernpfad – gut geeignet für ein kurzes Auswertungsgespräch („Woran ist deine Meise gescheitert?“).</li>
+          <li><b>Hinweis:</b> Im Spiel kann der Vogel sterben. Das ist bewusst sachlich gehalten und zeigt, wie hart ein Vogeljahr ist.</li>
+          <li><b>Zeit:</b> etwa 10 Minuten pro Jahr; ohne Ton, ohne Anmeldung, läuft auf Tablet, Handy und am Beamer.</li>
+        </ul>
+        <div class="knopfreihe">${offen2 ? "" : `<button type="button" class="knopf" id="frei">🔓 Level 2 sofort freischalten</button>`}<button type="button" class="knopf" id="reset">Spielstand löschen</button></div>
+      </div></details>
+    </section>
+    ${fuss()}
+  </div>`;
+  $$(".lv", app).forEach(b => b.onclick = () => { location.hash = b.dataset.t; });
+  const f = $("#frei"); if (f) f.onclick = () => { S.frei = true; speichern(); seiteStart(); };
+  $("#reset").onclick = () => { S = {}; speichern(); seiteStart(); };
+}
+
+/* ============ Ein Spieljahr ============ */
+function seiteSpiel(tid) {
+  const T = TIERE[tid];
+  if (!T || (tid === "schwalbe" && !(S.frei || (S.meise && S.meise.ueberlebt)))) { location.hash = ""; return; }
+  const plan = jahresplan(tid, Math.random), st = neuerStand(tid);
+  let m = -1, schritt = 0, grund = "";
+  app.innerHTML = `<div class="spielkopf"><div class="innen">
+      <div class="sk-zeile"><a href="#">‹ Beenden</a><span><b>${T.name}</b> · Level ${T.level}</span></div>
+      <div class="anzeigen">
+        <div class="anz"><span class="lab"><span>⚡ Kraft</span><b id="eZahl"></b></span><div class="balken e" id="eBalken"><i></i></div></div>
+        <div class="anz"><span class="lab"><span>🛡️ Sicherheit</span><b id="sZahl"></b></span><div class="balken s" id="sBalken"><i></i></div></div>
+        <div class="anz junge" id="junge"></div>
+      </div>
+      <div class="weg" id="weg" aria-hidden="true">${MONATE.map((n, k) => `<span class="${zeit(k)[0]}" data-m="${k}">${n[0]}</span>`).join("")}</div>
+    </div></div>
+    <div class="huelle"><section id="buehne"></section>${fuss()}</div>`;
+  const buehne = $("#buehne");
+  function anzeigen() {
+    const e = Math.max(0, st.e), s = Math.max(0, st.s);
+    $("#eZahl").textContent = e + " / " + EMAX; $("#sZahl").textContent = s + " / " + SMAX;
+    $("#eBalken i").style.width = (e / EMAX * 100) + "%"; $("#sBalken i").style.width = (s / SMAX * 100) + "%";
+    $("#eBalken").classList.toggle("knapp", e <= 2); $("#sBalken").classList.toggle("knapp", s <= 2);
+    $("#junge").innerHTML = st.eier ? `🥚 im Nest<b>${st.eier}</b>` : `🐣 flügge<b>${st.jung}</b>`;
+    $$("#weg span").forEach(el => { const k = +el.dataset.m; el.className = zeit(k)[0] + (k < m ? " war" : k === m ? " jetzt" : ""); el.textContent = k === m ? T.em : MONATE[k][0]; });
+  }
+  const chips = (de, ds, extra) => `<div class="chips">${de ? `<span class="chip ${de > 0 ? "plus" : "minus"}">${de > 0 ? "+" : "−"}${Math.abs(de)} ⚡</span>` : ""}${ds ? `<span class="chip ${ds > 0 ? "plus" : "minus"}">${ds > 0 ? "+" : "−"}${Math.abs(ds)} 🛡️</span>` : ""}${extra || ""}</div>`;
+  const szene = (k, zw) => `<div class="szene ${zeit(m)[0]}">${k.bild ? `<img src="${k.bild}" alt="">` : `<div class="zeichen" aria-hidden="true">${k.sz}</div>`}
+      <span class="wann">${zeit(m)[2]} ${MONATE[m]}</span>${zw ? `<span class="zw">Zwischenfall</span>` : ""}</div>`;
+
+  function monat() {
+    m++; schritt = 0;
+    if (m > 11) return ende();
+    const b = T.basis[m]; st.e += b; begrenze(st);
+    basisHinweis = b ? `<div class="basis">${T.basisText[b] || ""} <b>${b > 0 ? "+" : "−"}${Math.abs(b)} ⚡</b></div>` : "";
+    anzeigen();
+    if (tot(st)) { grund = "Die Kraft hat nicht bis zum " + MONATE[m] + " gereicht."; return ende(); }
+    karte();
+  }
+  let basisHinweis = "";
+  function weiter() { schritt++; if (schritt < plan[m].length) karte(); else monat(); }
+  function pruefe(text) { anzeigen(); if (tot(st)) { grund = text; return true; } return false; }
+
+  function karte() {
+    const k = plan[m][schritt], zw = T.zwischen.includes(k);
+    window.scrollTo(0, 0);
+    if (k.fang) return fang(k);
+    buehne.innerHTML = `<div class="karte">${szene(k, zw)}
+      <div class="k-text">${schritt === 0 ? basisHinweis : ""}<h2>${k.t}</h2><p>${k.x}</p></div>
+      <div class="wahl">${k.w.map((w, i) => `<button type="button" data-i="${i}">${w.l}</button>`).join("")}</div>
+      <div id="folge"></div></div>`;
+    $$(".wahl button", buehne).forEach(b => b.onclick = () => {
+      const w = k.w[+b.dataset.i], jungVor = st.jung, eierVor = st.eier;
+      waehle(st, k, w, m);
+      $$(".wahl button", buehne).forEach(x => { x.disabled = true; x.classList.toggle("gewaehlt", x === b); });
+      const extra = (st.eier !== eierVor ? `<span class="chip">🥚 ${st.eier} im Nest</span>` : "") + (st.jung > jungVor ? `<span class="chip plus">+${st.jung - jungVor} 🐣</span>` : "");
+      const aus = pruefe(st.e <= 0 ? "Deine Kraft war aufgebraucht." : "Ein Feind hat dich erwischt.");
+      $("#folge").innerHTML = `<div class="folge r${w.r}" role="status">
+          <span class="urteil">${w.urteil || ["Das war riskant.", "Geht so.", "Gute Entscheidung!"][w.r]}</span>
+          ${chips(w.e, w.s, extra)}<span>${w.k}</span></div>
+        <div class="weiter"><button type="button" class="knopf prim" id="weiter">${aus ? "Weiter" : m === 11 && schritt === plan[m].length - 1 ? "Das Jahr ist um ›" : "Weiter ›"}</button></div>`;
+      $("#weiter").onclick = aus ? ende : weiter;
+      $("#weiter").scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" });
+    });
+  }
+
+  /* Zwischenspiel: Antippen, was passt */
+  function fang(k) {
+    let treffer = 0, fehler = 0, t0 = 0, raf = 0, spawn = 0, aktiv = false;
+    buehne.innerHTML = `<div class="karte">${szene(k, false)}
+      <div class="k-text">${schritt === 0 ? basisHinweis : ""}<h2>${k.t}</h2><p>${k.x}</p></div>
+      <div class="fang-hud"><span>${k.auftrag}</span><span>✔ <b id="fTreffer">0</b></span></div>
+      <div class="fang-zeit"><i id="fZeit"></i></div>
+      <div class="fang-feld ${zeit(m)[0]}" id="feld"><div class="fang-start">
+        <div class="fang-leg"><span>✔ ${k.gut.join(" ")}</span><span>✖ ${k.schlecht.join(" ")}</span></div>
+        <button type="button" class="knopf prim" id="fLos">▶ Los!</button></div></div>
+      <div id="folge"></div></div>`;
+    const feld = $("#feld");
+    const stopp = () => { aktiv = false; cancelAnimationFrame(raf); clearInterval(spawn); laufend = null; };
+    function neu() {
+      if (!aktiv) return;
+      const gut = Math.random() < .62, liste = gut ? k.gut : k.schlecht;
+      const d = document.createElement("button"); d.type = "button"; d.className = "ding" + (k.flug && !reduce ? " flug" : "");
+      d.textContent = liste[Math.floor(Math.random() * liste.length)]; d.dataset.gut = gut ? "1" : "";
+      d.setAttribute("aria-label", gut ? "passt" : "passt nicht");
+      const x = 12 + Math.random() * 76, y = 14 + Math.random() * 72, leben = k.flug ? 1500 : 1350;
+      d.style.cssText = `left:${x}%;top:${y}%;--dx:${(Math.random() < .5 ? -1 : 1) * (40 + Math.random() * 50)}px;--dy:${-30 + Math.random() * 60}px;--dauer:${leben}ms`;
+      d.addEventListener("pointerdown", ev => {
+        ev.preventDefault(); if (!aktiv || d.dataset.weg) return; d.dataset.weg = "1";
+        if (d.dataset.gut) { treffer++; d.classList.add("treffer"); } else { fehler++; d.classList.add("falsch"); }
+        $("#fTreffer").textContent = Math.max(0, treffer - fehler);
+        setTimeout(() => d.remove(), 300);
+      });
+      feld.appendChild(d); setTimeout(() => { if (!d.dataset.weg) d.remove(); }, leben);
+    }
+    function tick() {
+      if (!aktiv) return;
+      const rest = 1 - (performance.now() - t0) / (k.dauer * 1000);
+      $("#fZeit").style.width = Math.max(0, rest * 100) + "%";
+      if (rest <= 0) return fertig();
+      raf = requestAnimationFrame(tick);
+    }
+    function fertig() {
+      stopp(); $$(".ding", feld).forEach(d => d.remove());
+      const netto = Math.max(0, treffer - fehler), q = Math.min(1, netto / k.ziel);
+      st.e += k.e; const ergebnis = k.nach(st, q); begrenze(st);
+      const r = q >= .75 ? 2 : q >= .4 ? 1 : 0;
+      if (r === 0) st.fehler.push({ m, t: k.t, k: k.k, p: k.p }); else if (r === 2) st.gut++;
+      feld.innerHTML = `<div class="fang-start"><div style="font-size:40px">${r === 2 ? "🎉" : r === 1 ? "👍" : "😕"}</div><div><b>${treffer}</b> richtig${fehler ? `, <b>${fehler}</b> daneben` : ""}</div></div>`;
+      const aus = pruefe("Deine Kraft war aufgebraucht.");
+      $("#folge").innerHTML = `<div class="folge r${r}" role="status"><span class="urteil">${ergebnis}</span>${chips(k.e, 0, "")}<span>${k.k}</span></div>
+        <div class="weiter"><button type="button" class="knopf prim" id="weiter">Weiter ›</button></div>`;
+      $("#weiter").onclick = aus ? ende : weiter;
+      $("#weiter").scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" });
+    }
+    $("#fLos").onclick = () => {
+      $(".fang-start", feld).remove(); aktiv = true; t0 = performance.now(); laufend = stopp;
+      neu(); spawn = setInterval(neu, 430); raf = requestAnimationFrame(tick);
+      feld.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+    };
+  }
+
+  function ende() {
+    const lebt = !tot(st), n = sterne(st), alt = S[tid] || {};
+    S[tid] = { n: (alt.n || 0) + 1, ueberlebt: !!(alt.ueberlebt || lebt), sterne: Math.max(alt.sterne || 0, n), jung: Math.max(alt.jung || 0, lebt ? st.jung : 0) };
+    speichern();
+    const neuOffen = tid === "meise" && lebt && !alt.ueberlebt && !S.frei;
+    const pf = [...new Set(st.fehler.map(f => f.p))];
+    if (m > 11) m = 11;
+    window.scrollTo(0, 0); anzeigen();
+    buehne.innerHTML = `<div class="ende">
+        <div class="szene ${lebt ? "fruehling" : zeit(m)[0]}"><div class="zeichen" aria-hidden="true">${lebt ? T.em + "🌱" : "🍃"}</div></div>
+        <span class="eyebrow">${T.name} · Level ${T.level}</span>
+        <h2>${lebt ? "Geschafft – ein ganzes Jahr!" : "Diesmal hat es nicht gereicht"}</h2>
+        ${lebt ? `<div class="gross">${sterneHTML(n)}</div><p>${T.schluss}</p>` : `<p><b>${grund}</b> Dein Jahr endete im ${MONATE[m]}.</p>`}
+        <p class="klein">${T.ueberleben}</p>
+        <div class="werte"><div><b>${lebt ? 12 : m}</b>Monate überstanden</div><div><b>${st.jung}</b>Junge flügge</div><div><b>${st.gut}</b>gute Entscheidungen</div></div>
+        ${lebt && n < 3 ? `<p class="klein">Für ${n + 1} Sterne brauchst du mindestens ${T.sterne[n - 1]} flügge Junge.</p>` : ""}
+        ${neuOffen ? `<p><b>🔓 Level 2 ist jetzt offen:</b> die Rauchschwalbe.</p>` : ""}
+        <div class="knopfreihe"><button type="button" class="knopf prim" id="noch">🔁 Noch ein Jahr</button>${tid === "meise" && (S.frei || S.meise.ueberlebt) ? `<a class="knopf honig" href="#schwalbe">Level 2: Rauchschwalbe ›</a>` : ""}<a class="knopf" href="#">Zur Übersicht</a></div>
+      </div>
+      ${st.fehler.length ? `<h3 class="h-honig">Das war riskant – merk es dir fürs nächste Jahr</h3>
+        <div class="merk">${st.fehler.slice(0, 5).map(f => `<div><b>${MONATE[f.m]} – ${esc(f.t)}:</b> ${f.k}</div>`).join("")}</div>` : lebt ? `<p class="lead" style="text-align:center">Keine einzige riskante Entscheidung – stark!</p>` : ""}
+      ${pf.length ? `<h3 class="h-honig">Hier kannst du nachlesen</h3><div class="pfade">${pf.map(p => `<a href="${PFADE[p][0]}"><span>${PFADE[p][1]}</span><span>›</span></a>`).join("")}</div>` : ""}`;
+    $("#noch").onclick = () => seiteSpiel(tid);
+    if (lebt) konfetti();
+  }
+
+  buehne.innerHTML = `<div class="karte"><div class="szene fruehling"><img src="${T.bild}" alt="${T.name}" style="aspect-ratio:16/9;object-position:50% 25%"></div>
+    <div class="k-text"><span class="eyebrow">Level ${T.level}</span><h2>Ein Jahr als ${T.name}</h2><p>${T.intro}</p>
+    <p class="klein">Achte auf deine Kraft ⚡ und deine Sicherheit 🛡️ – beide dürfen nie auf null fallen.</p></div>
+    <div class="weiter" style="padding-top:12px"><button type="button" class="knopf prim" id="los">▶ Das Jahr beginnt</button></div></div>`;
+  $$("#weg span").forEach(el => el.className = zeit(+el.dataset.m)[0]);
+  $("#eZahl").textContent = st.e + " / " + EMAX; $("#sZahl").textContent = st.s + " / " + SMAX;
+  $("#eBalken i").style.width = (st.e / EMAX * 100) + "%"; $("#sBalken i").style.width = (st.s / SMAX * 100) + "%";
+  $("#junge").innerHTML = `🐣 flügge<b>0</b>`;
+  $("#los").onclick = monat;
+}
+
+/* ============ Navigation ============ */
+function route() {
+  if (laufend) laufend();
+  $$(".konffeld").forEach(k => k.remove());
+  const h = location.hash.slice(1);
+  if (TIERE[h]) seiteSpiel(h); else seiteStart();
+  window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
