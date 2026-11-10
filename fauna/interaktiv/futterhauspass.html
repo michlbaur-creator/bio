@@ -428,7 +428,7 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
 .ga-balken i{display:block;height:100%;background:var(--honig);border-radius:999px}
 .ga-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .ga{position:relative;display:grid;align-content:start;background:var(--tile);border:1px solid var(--linie);border-radius:12px;overflow:hidden;padding:0 0 8px;text-align:left;font-family:var(--sans);color:var(--ink)}
-button.ga{cursor:pointer}
+button.ga{cursor:pointer;font:inherit;font-family:var(--sans)}
 .ga-bild{position:relative;display:block;aspect-ratio:3/2;background:#dfe6ec;overflow:hidden}
 .ga-bild img{display:block;width:100%;height:100%;object-fit:cover;object-position:32% 50%}
 .ga.zu .ga-bild img{filter:grayscale(1) blur(7px) brightness(.75);transform:scale(1.2)}
@@ -1378,6 +1378,7 @@ function seitePass(eid, neu) {
   $$("[data-m]", app).forEach(b => b.onclick = () => { S.modus = b.dataset.m; speichern(); route(true); });
   const ub = $("#urkBtn"); if (ub) ub.onclick = () => urkunde(eid);
   $$("[data-ga]", app).forEach(b => b.onclick = () => tafel(b.dataset.ga));
+  $$("[data-gz]", app).forEach(b => b.onclick = () => albumWeg(eid, b.dataset.gz));
   $("#resetBtn").onclick = () => {
     $("#resetBox").innerHTML = `<p><b>Wirklich alles löschen?</b> Kerne, Abzeichen und Name auf diesem Gerät sind dann weg.</p>
       <div class="knopfreihe"><button type="button" class="knopf prim" id="jaReset">Ja, zurücksetzen</button><button type="button" class="knopf" id="neinReset">Abbrechen</button></div>`;
@@ -1754,17 +1755,17 @@ function seiteSpiel(eid) {
 // Häufige Gäste kommen mit jedem Kern, seltene nur für besondere Leistungen.
 // [slug, Seltenheit, „Kommt …“, Bedingung(Kennzahlen)]
 const ALBUM = ["kohlmeise", "blaumeise", "haussperling", "amsel", "buchfink", "rotkehlchen", "gruenfink", "feldsperling", "kleiber", "ringeltaube", "tannenmeise", "sumpfmeise"]
-  .map((s, k) => [s, "haeufig", `Kommt bei ${k + 1} ${k ? "Kernen" : "Kern"} 🌻`, h => h.summe >= k + 1])
+  .map((s, k) => [s, "haeufig", `Kommt bei ${k + 1} ${k ? "Kernen" : "Kern"} 🌻`, h => h.summe >= k + 1, "station"])
   .concat([
-    ["bergfink", "selten", "Kommt, wenn du deinen ersten Rätselvogel löst", h => !!h.d.raetsel && h.d.raetsel.n >= 1],
-    ["stieglitz", "selten", "Kommt bei einer Fünfer-Serie im Ansturm", h => !!h.d.spiel && h.d.spiel.serie >= 5],
-    ["gimpel", "selten", "Kommt bei 100 Punkten im Ansturm", h => !!h.d.spiel && h.d.spiel.best >= 100],
-    ["buntspecht", "selten", "Kommt, wenn du in Station 4 alle drei Kerne holst", h => !!h.d.s4 && h.d.s4.knochen >= 3],
-    ["kernbeisser", "sehr", "Kommt bei 250 Punkten im Ansturm", h => !!h.d.spiel && h.d.spiel.best >= 250],
-    ["eichelhaeher", "sehr", "Kommt bei einer Zehner-Serie im Ansturm", h => !!h.d.spiel && h.d.spiel.serie >= 10],
-    ["heckenbraunelle", "sehr", "Kommt, wenn du einen Rätselvogel mit höchstens zwei Hinweisen errätst", h => !!h.d.raetsel && h.d.raetsel.min <= 2],
-    ["erlenzeisig", "sehr", "Kommt, wenn du an drei Tagen den Rätselvogel löst", h => !!h.d.raetsel && h.d.raetsel.n >= 3],
-    ["sperber", "sehr", "Kommt erst, wenn dein Futterhaus mit allen 15 Kernen gefüllt ist", h => h.summe >= 15]
+    ["bergfink", "selten", "Kommt, wenn du deinen ersten Rätselvogel löst", h => !!h.d.raetsel && h.d.raetsel.n >= 1, "raetsel"],
+    ["stieglitz", "selten", "Kommt bei einer Fünfer-Serie im Ansturm", h => !!h.d.spiel && h.d.spiel.serie >= 5, "spiel"],
+    ["gimpel", "selten", "Kommt bei 100 Punkten im Ansturm", h => !!h.d.spiel && h.d.spiel.best >= 100, "spiel"],
+    ["buntspecht", "selten", "Kommt, wenn du in Station 4 alle drei Kerne holst", h => !!h.d.s4 && h.d.s4.knochen >= 3, "s4"],
+    ["kernbeisser", "sehr", "Kommt bei 250 Punkten im Ansturm", h => !!h.d.spiel && h.d.spiel.best >= 250, "spiel"],
+    ["eichelhaeher", "sehr", "Kommt bei einer Zehner-Serie im Ansturm", h => !!h.d.spiel && h.d.spiel.serie >= 10, "spiel"],
+    ["heckenbraunelle", "sehr", "Kommt, wenn du einen Rätselvogel mit höchstens zwei Hinweisen errätst", h => !!h.d.raetsel && h.d.raetsel.min <= 2, "raetsel"],
+    ["erlenzeisig", "sehr", "Kommt, wenn du an drei Tagen den Rätselvogel löst", h => !!h.d.raetsel && h.d.raetsel.n >= 3, "raetsel"],
+    ["sperber", "sehr", "Kommt erst, wenn dein Futterhaus mit allen 15 Kernen gefüllt ist", h => h.summe >= 15, "station"]
   ]);
 const ALBUM_ART = { haeufig: "häufig", selten: "selten", sehr: "sehr selten" };
 const albumOffen = h => ALBUM.filter(a => a[3](h)).map(a => a[0]);
@@ -1772,18 +1773,48 @@ const albumOffen = h => ALBUM.filter(a => a[3](h)).map(a => a[0]);
 const albumNeu = (eid, vorher) => albumOffen(kennzahlen(eid)).filter(s => !vorher.includes(s));
 const albumMeldung = neu => neu.length ? `<p class="klein">🐦 Neu im Gäste-Album: ${neu.map(s => `<b>${GAST[s][1]}</b>`).join(" · ")}</p>` : "";
 
+// Gast noch nicht da: zeigen, wie man ihn anlockt – mit Knopf zum passenden Ziel
+function albumWeg(eid, slug) {
+  const a = ALBUM.find(x => x[0] === slug), X = EXPS[eid], h = kennzahlen(eid), frei = S.modus === "frei";
+  const fertig = id => !!(h.d[id] && h.d[id].done);
+  let ziel, knopf, sperre = "";
+  if (a[4] === "spiel") { ziel = "spiel"; knopf = "⚡ Zum Ansturm"; if (!frei && !fertig("s2")) sperre = "Der Ansturm öffnet sich, sobald du Station 2 geschafft hast."; }
+  else if (a[4] === "raetsel") { ziel = "raetsel"; knopf = "🔍 Zum Rätselvogel"; if (!frei && !fertig("s3")) sperre = "Der Rätselvogel öffnet sich, sobald du Station 3 geschafft hast."; }
+  else {
+    const k = a[4] === "station" ? X.stationen.findIndex(s => !fertig(s.id)) : X.stationen.findIndex(s => s.id === a[4]);
+    const kk = k >= 0 ? k : X.stationen.findIndex(s => (h.d[s.id].knochen || 0) < 3), s = X.stationen[Math.max(kk, 0)];
+    ziel = s.id; knopf = `${s.em} Zu Station ${Math.max(kk, 0) + 1}`;
+    if (!frei && kk > 0 && !fertig(s.id) && !fertig(X.stationen[kk - 1].id)) sperre = `Station ${kk + 1} öffnet sich, sobald du die Stationen davor geschafft hast.`;
+    else if (a[4] === "station" && k < 0) sperre = "";
+  }
+  const extra = a[4] === "station" ? (X.stationen.every(s => fertig(s.id)) ? "Kerne bekommst du in den Stationen – wiederhole eine Station, in der dir noch Kerne fehlen." : "Kerne bekommst du in den Stationen: bis zu drei pro Station.") : "";
+  const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true"); o.setAttribute("aria-label", "Gast noch nicht da");
+  o.innerHTML = `<div class="tafelkarte">
+    <div class="tk-kopf"><h3>Dieser Gast ist noch nicht da</h3><button type="button" class="knopf" data-zu aria-label="Schließen">✕</button></div>
+    <p><span class="marke inline" style="margin-left:0">${ALBUM_ART[a[1]]}</span></p>
+    <p><b>${a[2]}${a[2].endsWith("🌻") ? "" : "."}</b> ${extra}</p>
+    ${sperre ? `<p class="klein">🔒 ${sperre}</p>` : ""}
+    <div class="knopfreihe">${sperre ? "" : `<a class="knopf prim" href="#${eid}-${ziel}">${knopf} ›</a>`}<button type="button" class="knopf" data-zu>Schließen</button></div></div>`;
+  document.body.appendChild(o);
+  const zu = () => { o.remove(); document.removeEventListener("keydown", esc_); };
+  const esc_ = e => { if (e.key === "Escape") zu(); };
+  document.addEventListener("keydown", esc_);
+  $$("[data-zu]", o).forEach(b => b.onclick = zu);
+  o.onclick = e => { if (e.target === o) zu(); };
+}
+
 function albumHTML(eid, h) {
   const offen = albumOffen(h), gesehen = (h.d.album || []), neu = offen.filter(s => !gesehen.includes(s));
   if (neu.length) { S[eid] = S[eid] || {}; S[eid].album = offen; speichern(); setTimeout(() => toast(neu.length > 3 ? `🐦 ${neu.length} neue Gäste im Album!` : "🐦 Neu im Gäste-Album: " + neu.map(s => GAST[s][1]).join(", ")), 400); }
   return `<section>
       <div class="ga-kopf"><h2 class="h-honig">Gäste-Album</h2><span class="ga-zahl"><b>${offen.length}</b> / ${ALBUM.length} Gäste</span></div>
       <div class="ga-balken"><i style="width:${offen.length / ALBUM.length * 100}%"></i></div>
-      <p class="klein">${offen.length === ALBUM.length ? "Volles Haus – alle Gäste sind da! 👑" : "Mit jedem Kern landet ein neuer Gast. Die seltenen kommen nur für besondere Leistungen. Tippe einen Gast an – dann siehst du seine Lehrtafel."}</p>
+      <p class="klein">${offen.length === ALBUM.length ? "Volles Haus – alle Gäste sind da! 👑" : "Graue Karten sind Gäste, die noch nicht da sind. Mit jedem Kern 🌻 aus den Stationen landet ein neuer Gast, die seltenen kommen nur für besondere Leistungen. Tippe eine Karte an: Bei grauen erfährst du, wie du den Gast anlockst – bei bunten siehst du die Lehrtafel."}</p>
       <div class="ga-grid">${ALBUM.map(a => { const auf = offen.includes(a[0]), n = neu.includes(a[0]);
         const art = `<span class="ga-art ${a[1]}">${ALBUM_ART[a[1]]}</span>`, img = `<span class="ga-bild"><img src="../images/futterhaus/fp-${a[0]}.jpg" alt="" loading="lazy"></span>`;
         return auf
           ? `<button type="button" class="ga auf ${a[1]} ${n ? "neu" : ""}" data-ga="${a[0]}">${art}${n ? '<span class="ga-neu">NEU</span>' : ""}${img}<span class="ga-name">${GAST[a[0]][1]}</span></button>`
-          : `<div class="ga zu ${a[1]}">${art}${img}<span class="ga-name">???</span><span class="ga-wie">${a[2]}</span></div>`; }).join("")}</div>
+          : `<button type="button" class="ga zu ${a[1]}" data-gz="${a[0]}">${art}${img}<span class="ga-name">???</span><span class="ga-wie">${a[2]}</span></button>`; }).join("")}</div>
     </section>`;
 }
 
