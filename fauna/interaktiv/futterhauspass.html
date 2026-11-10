@@ -420,6 +420,53 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
 .an-merk{font-family:var(--sans);font-size:15px;display:grid;gap:8px}
 .an-merk div{background:var(--tile);border:1px solid var(--linie);border-left:4px solid var(--honig);border-radius:10px;padding:9px 12px}
 @media (min-width:600px){.an-tasten{grid-template-columns:repeat(4,1fr)}}
+/* ---------- Gäste-Sammelalbum ---------- */
+.ga-kopf{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ga-zahl{font-family:var(--sans);font-size:15px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.ga-zahl b{font-size:22px;color:var(--blau)}
+.ga-balken{height:8px;background:var(--creme-tief);border-radius:999px;overflow:hidden}
+.ga-balken i{display:block;height:100%;background:var(--honig);border-radius:999px}
+.ga-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ga{position:relative;display:grid;align-content:start;background:var(--tile);border:1px solid var(--linie);border-radius:12px;overflow:hidden;padding:0 0 8px;text-align:left;font-family:var(--sans);color:var(--ink)}
+button.ga{cursor:pointer}
+.ga-bild{position:relative;display:block;aspect-ratio:3/2;background:#dfe6ec;overflow:hidden}
+.ga-bild img{display:block;width:100%;height:100%;object-fit:cover;object-position:32% 50%}
+.ga.zu .ga-bild img{filter:grayscale(1) blur(7px) brightness(.75);transform:scale(1.2)}
+.ga.zu .ga-bild::after{content:"?";position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-size:38px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.ga-name{font-size:14px;font-weight:bold;color:var(--blau);padding:7px 8px 0;line-height:1.2;overflow-wrap:anywhere}
+.ga.zu .ga-name{color:var(--ink-soft)}
+.ga-wie{font-size:12px;line-height:1.3;color:var(--ink-soft);padding:3px 8px 0}
+.ga-art{position:absolute;left:6px;top:6px;z-index:1;font-size:10px;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:2px 7px;background:rgba(255,255,255,.9);color:var(--ink-soft)}
+.ga-art.selten{background:var(--blau);color:#fff}
+.ga-art.sehr{background:var(--honig);color:#fff}
+.ga.auf.selten{border-color:var(--blau-mittel)}
+.ga.auf.sehr{border-color:var(--honig);box-shadow:0 0 0 2px #ecd9b4}
+.ga-neu{position:absolute;right:6px;top:6px;z-index:1;font-size:10px;font-weight:bold;letter-spacing:.06em;border-radius:999px;padding:2px 7px;background:var(--bad);color:#fff}
+.ga.neu{animation:gaNeu .7s ease-out}
+@keyframes gaNeu{from{transform:scale(.8);opacity:0}60%{transform:scale(1.06)}to{transform:none;opacity:1}}
+@media (min-width:600px){.ga-grid{grid-template-columns:repeat(4,1fr)}}
+
+/* ---------- Rätselvogel des Tages ---------- */
+.rv-sterne{font-size:26px;letter-spacing:3px;line-height:1}
+.rv-sterne .weg{opacity:.2;filter:grayscale(1)}
+.rv-stand{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--sans);font-size:14px;color:var(--ink-soft)}
+.rv-hinweise{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:rv}
+.rv-hinweise li{counter-increment:rv;display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:10px 12px;font-size:17px;line-height:1.4}
+.rv-hinweise li::before{content:counter(rv);width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--blau);color:#fff;font-family:var(--sans);font-weight:bold;font-size:15px}
+.rv-hinweise li.zu{background:transparent;border-style:dashed;color:var(--ink-soft);font-family:var(--sans);font-size:14px}
+.rv-hinweise li.zu::before{background:var(--creme-tief);color:var(--ink-soft)}
+.rv-hinweise li.frisch{animation:gaNeu .5s ease-out;border-color:var(--honig)}
+.rv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rv-wahl{display:grid;align-content:start;background:var(--tile);border:1px solid var(--linie);border-radius:12px;overflow:hidden;padding:0 0 7px;font-family:var(--sans);font-size:13px;font-weight:bold;color:var(--blau);cursor:pointer;text-align:center;line-height:1.2;touch-action:manipulation}
+.rv-wahl img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;object-position:32% 50%;margin-bottom:6px}
+.rv-wahl span{padding:0 3px;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+.rv-wahl:disabled{opacity:.3;cursor:default;text-decoration:line-through}
+.rv-wahl:not(:disabled):hover{border-color:var(--blau);box-shadow:0 2px 10px rgba(35,61,92,.15)}
+.rv-ende{text-align:center;display:grid;gap:10px;background:var(--tile);border:1px solid var(--linie);border-radius:16px;overflow:hidden;padding:0 0 18px}
+.rv-ende > *{margin-left:16px;margin-right:16px}
+.rv-ende > img{margin:0;width:100%;aspect-ratio:473/196;object-fit:cover;display:block}
+.rv-ende h3{font-size:26px;color:var(--blau)}
+@media (min-width:600px){.rv-grid{grid-template-columns:repeat(7,1fr)}.rv-wahl{font-size:11.5px}}
 </style>
 <!-- Besucherzählung (GoatCounter, ohne Cookies) -->
 <script>window.goatcounter={path:function(p){return location.host+p}};</script><script data-goatcounter="https://mibaso.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -700,7 +747,10 @@ f1: {
     { em: "🏆", name: "Bilder-Profi", ok: h => h.d.s5 && h.d.s5.knochen >= 3 },
     { em: "🏅", name: "Futterhaus-Profi", ok: h => h.fertige >= 5 },
     { em: "⚡", name: "Blitzwirt", ok: h => h.d.spiel && h.d.spiel.best >= 250 },
-    { em: "🔥", name: "Zehner-Serie", ok: h => h.d.spiel && h.d.spiel.serie >= 10 }
+    { em: "🔥", name: "Zehner-Serie", ok: h => h.d.spiel && h.d.spiel.serie >= 10 },
+    { em: "🔍", name: "Spürnase", ok: h => h.d.raetsel && h.d.raetsel.min <= 2 },
+    { em: "📖", name: "Gästebuch", ok: h => albumOffen(h).length >= 10 },
+    { em: "👑", name: "Volles Haus", ok: h => albumOffen(h).length >= ALBUM.length }
   ],
   checks: {
     s1: [
@@ -1255,7 +1305,8 @@ function seiteStart() {
           <li><b>Zum Weiterarbeiten:</b> ein Futtersilo auf dem Schulhof aufhängen und mit der Zählkarte beobachten; Anfang Januar bei der Stunde der Wintervögel mitzählen; im <a href="vogelpass.html">Vogelpass</a> die Gäste mit dem Bestimmungsschlüssel bestimmen.</li>
           <li><b>Zum Nachschlagen:</b> Alle Vögel haben eine eigene Artseite mit Tafel auf <a href="https://fauna.mibaso.de/interaktiv/stammbaum.html?ziel=Aves" target="_blank" rel="noopener">fauna.mibaso.de im Stammbaum</a>.</li>
           <li><b>Zählkarte zum Ausdrucken:</b> <a href="../material/zaehlkarte-wintervoegel.html">16 Wintergäste mit Bild auf einer A4-Seite</a> – für den Schulhof oder die Stunde der Wintervögel im Januar.</li>
-          <li><b>Bonus-Spiel „Ansturm am Futterhaus“:</b> ein Reaktionsspiel zum Festigen (Wer bekommt welches Futter? Was gehört nicht ans Futterhaus?). Es öffnet sich nach Station 2, zählt nicht für Kerne und Urkunde und eignet sich für alle, die früher fertig sind.</li>
+<li><b>Bonus-Spiele:</b> „Ansturm am Futterhaus“ ist ein Reaktionsspiel zum Festigen (Wer bekommt welches Futter? Was gehört nicht ans Futterhaus?) und öffnet sich nach Station 2. Beim „Rätselvogel des Tages“ (nach Station 3) wird ein Vogel mit höchstens fünf Hinweisen erraten – jeden Tag ein anderer, auf allen Geräten derselbe. Beides zählt nicht für Kerne und Urkunde und eignet sich für alle, die früher fertig sind.</li>
+          <li><b>Gäste-Album:</b> Mit jedem Kern landet einer der 21 Gäste im Album; die seltenen kommen nur für besondere Leistungen in den Stationen und Bonus-Spielen.</li>
           <li><b>Urkunde:</b> Am Ende tragen die Kinder ihren Namen ein und drucken die Urkunde oder speichern sie als PDF.</li>
           <li><b>Geteilte Geräte:</b> Im Futterhaus-Pass ganz unten „Pass zurücksetzen“.</li>
         </ul></div></details>
@@ -1299,11 +1350,14 @@ function seitePass(eid, neu) {
       ${h.fertige === n && anderer ? `<p class="klein">Weiter geht’s mit <a href="#${anderer}">Teil ${IDS.indexOf(anderer) + 1}: ${EXPS[anderer].titel}</a>.</p>` : ""}
     </section>
     <section>
-      <h2 class="h-blau">Bonus-Spiel</h2>
-      ${(() => { const sp = h.d.spiel, frei = S.modus === "frei" || !!(h.d.s2 && h.d.s2.done);
-        const inner = `<span class="nr">⚡</span><span><span class="st">Ansturm am Futterhaus</span><span class="sk">${frei ? "Wie viele Gäste schaffst du? Schnell sein, Serien sammeln, Bestwert knacken" : "Öffnet sich nach Station 2"}</span></span><span class="stand">${!frei ? "🔒" : sp && sp.n ? `🏆 ${sp.best}` : "Spielen ›"}</span>`;
-        return frei ? `<a class="station bonus" href="#${eid}-spiel">${inner}</a>` : `<div class="station gesperrt" aria-disabled="true">${inner}</div>`; })()}
+      <h2 class="h-blau">Bonus-Spiele</h2>
+      <div class="stationen">${(() => { const sp = h.d.spiel, rv = rvStand(eid), heuteFertig = !!(rv.heute && rv.heute.tag === rvTag() && rv.heute.fertig);
+        const karte = (frei, em, titel, text, zu, stand, ziel) => { const inner = `<span class="nr">${em}</span><span><span class="st">${titel}</span><span class="sk">${frei ? text : zu}</span></span><span class="stand">${frei ? stand : "🔒"}</span>`;
+          return frei ? `<a class="station bonus" href="#${eid}-${ziel}">${inner}</a>` : `<div class="station gesperrt" aria-disabled="true">${inner}</div>`; };
+        return karte(S.modus === "frei" || !!(h.d.s2 && h.d.s2.done), "⚡", "Ansturm am Futterhaus", "Wie viele Gäste schaffst du? Schnell sein, Serien sammeln, Bestwert knacken", "Öffnet sich nach Station 2", sp && sp.n ? `🏆 ${sp.best}` : "Spielen ›", "spiel")
+          + karte(S.modus === "frei" || !!(h.d.s3 && h.d.s3.done), "🔍", "Rätselvogel des Tages", heuteFertig ? "Heute schon gelöst – morgen kommt ein neuer. Bis dahin: Übungsrätsel" : "Fünf Hinweise, ein Vogel: Je früher du ihn errätst, desto mehr Sterne", "Öffnet sich nach Station 3", heuteFertig ? `⭐ ${rv.heute.sterne} heute` : "Neu ›", "raetsel"); })()}</div>
     </section>
+    ${albumHTML(eid, h)}
     <section>
       <h2 class="h-blau">Urkunde</h2>
       ${h.fertige ? `<p>${h.fertige === n ? "Geschafft! Trag deinen Namen ein und hol dir deine Urkunde." : `Du hast ${h.fertige} von ${n} Stationen geschafft. Die Urkunde zeigt deinen Zwischenstand.`}</p>
@@ -1323,6 +1377,7 @@ function seitePass(eid, neu) {
   requestAnimationFrame(() => requestAnimationFrame(() => { const b = $("#fbar"); if (b) b.style.width = (h.summe / MAX * 100) + "%"; }));
   $$("[data-m]", app).forEach(b => b.onclick = () => { S.modus = b.dataset.m; speichern(); route(true); });
   const ub = $("#urkBtn"); if (ub) ub.onclick = () => urkunde(eid);
+  $$("[data-ga]", app).forEach(b => b.onclick = () => tafel(b.dataset.ga));
   $("#resetBtn").onclick = () => {
     $("#resetBox").innerHTML = `<p><b>Wirklich alles löschen?</b> Kerne, Abzeichen und Name auf diesem Gerät sind dann weg.</p>
       <div class="knopfreihe"><button type="button" class="knopf prim" id="jaReset">Ja, zurücksetzen</button><button type="button" class="knopf" id="neinReset">Abbrechen</button></div>`;
@@ -1663,7 +1718,7 @@ function seiteSpiel(eid) {
     }
     function schluss() {
       stopp(); spielStop = stopp;
-      const vorher = kennzahlen(eid), abzVorher = X.abzeichen.map(z => z.ok(vorher)), alt = stand();
+      const vorher = kennzahlen(eid), abzVorher = X.abzeichen.map(z => z.ok(vorher)), albVorher = albumOffen(vorher), alt = stand();
       const rekord = punkte > alt.best;
       S[eid] = S[eid] || {};
       S[eid].spiel = { best: Math.max(alt.best, punkte), serie: Math.max(alt.serie, maxSerie), n: alt.n + 1 };
@@ -1679,6 +1734,7 @@ function seiteSpiel(eid) {
           ${rekord && alt.n ? `<span class="rekord">🎉 Neuer Bestwert!</span>` : ""}
           <div class="an-werte"><div><b>${richtig}</b>Gäste richtig bedient</div><div><b>${maxSerie}</b>längste Serie</div><div><b>${S[eid].spiel.best}</b>Bestwert</div></div>
           ${neueAbz.length ? `<p class="klein">Neues Abzeichen: ${neueAbz.map(z => `${z.em} <b>${z.name}</b>`).join(" · ")}</p>` : ""}
+          ${albumMeldung(albumNeu(eid, albVorher))}
           <div class="knopfreihe"><button type="button" class="knopf prim" id="anNoch">🔁 Nochmal spielen</button><a class="knopf" href="#${eid}">Zum Futterhaus-Pass</a></div>
         </div>
         ${fehler.length ? `<h3 class="h-honig" style="font-size:20px">Merk dir fürs nächste Mal</h3>
@@ -1694,6 +1750,153 @@ function seiteSpiel(eid) {
   anleitung();
 }
 
+/* ============ Gäste-Sammelalbum ============ */
+// Häufige Gäste kommen mit jedem Kern, seltene nur für besondere Leistungen.
+// [slug, Seltenheit, „Kommt …“, Bedingung(Kennzahlen)]
+const ALBUM = ["kohlmeise", "blaumeise", "haussperling", "amsel", "buchfink", "rotkehlchen", "gruenfink", "feldsperling", "kleiber", "ringeltaube", "tannenmeise", "sumpfmeise"]
+  .map((s, k) => [s, "haeufig", `Kommt bei ${k + 1} ${k ? "Kernen" : "Kern"} 🌻`, h => h.summe >= k + 1])
+  .concat([
+    ["bergfink", "selten", "Kommt, wenn du deinen ersten Rätselvogel löst", h => !!h.d.raetsel && h.d.raetsel.n >= 1],
+    ["stieglitz", "selten", "Kommt bei einer Fünfer-Serie im Ansturm", h => !!h.d.spiel && h.d.spiel.serie >= 5],
+    ["gimpel", "selten", "Kommt bei 100 Punkten im Ansturm", h => !!h.d.spiel && h.d.spiel.best >= 100],
+    ["buntspecht", "selten", "Kommt, wenn du in Station 4 alle drei Kerne holst", h => !!h.d.s4 && h.d.s4.knochen >= 3],
+    ["kernbeisser", "sehr", "Kommt bei 250 Punkten im Ansturm", h => !!h.d.spiel && h.d.spiel.best >= 250],
+    ["eichelhaeher", "sehr", "Kommt bei einer Zehner-Serie im Ansturm", h => !!h.d.spiel && h.d.spiel.serie >= 10],
+    ["heckenbraunelle", "sehr", "Kommt, wenn du einen Rätselvogel mit höchstens zwei Hinweisen errätst", h => !!h.d.raetsel && h.d.raetsel.min <= 2],
+    ["erlenzeisig", "sehr", "Kommt, wenn du an drei Tagen den Rätselvogel löst", h => !!h.d.raetsel && h.d.raetsel.n >= 3],
+    ["sperber", "sehr", "Kommt erst, wenn dein Futterhaus mit allen 15 Kernen gefüllt ist", h => h.summe >= 15]
+  ]);
+const ALBUM_ART = { haeufig: "häufig", selten: "selten", sehr: "sehr selten" };
+const albumOffen = h => ALBUM.filter(a => a[3](h)).map(a => a[0]);
+// Welche Gäste sind seit „vorher“ dazugekommen? → Text für Meldungen
+const albumNeu = (eid, vorher) => albumOffen(kennzahlen(eid)).filter(s => !vorher.includes(s));
+const albumMeldung = neu => neu.length ? `<p class="klein">🐦 Neu im Gäste-Album: ${neu.map(s => `<b>${GAST[s][1]}</b>`).join(" · ")}</p>` : "";
+
+function albumHTML(eid, h) {
+  const offen = albumOffen(h), gesehen = (h.d.album || []), neu = offen.filter(s => !gesehen.includes(s));
+  if (neu.length) { S[eid] = S[eid] || {}; S[eid].album = offen; speichern(); setTimeout(() => toast(neu.length > 3 ? `🐦 ${neu.length} neue Gäste im Album!` : "🐦 Neu im Gäste-Album: " + neu.map(s => GAST[s][1]).join(", ")), 400); }
+  return `<section>
+      <div class="ga-kopf"><h2 class="h-honig">Gäste-Album</h2><span class="ga-zahl"><b>${offen.length}</b> / ${ALBUM.length} Gäste</span></div>
+      <div class="ga-balken"><i style="width:${offen.length / ALBUM.length * 100}%"></i></div>
+      <p class="klein">${offen.length === ALBUM.length ? "Volles Haus – alle Gäste sind da! 👑" : "Mit jedem Kern landet ein neuer Gast. Die seltenen kommen nur für besondere Leistungen. Tippe einen Gast an – dann siehst du seine Lehrtafel."}</p>
+      <div class="ga-grid">${ALBUM.map(a => { const auf = offen.includes(a[0]), n = neu.includes(a[0]);
+        const art = `<span class="ga-art ${a[1]}">${ALBUM_ART[a[1]]}</span>`, img = `<span class="ga-bild"><img src="../images/futterhaus/fp-${a[0]}.jpg" alt="" loading="lazy"></span>`;
+        return auf
+          ? `<button type="button" class="ga auf ${a[1]} ${n ? "neu" : ""}" data-ga="${a[0]}">${art}${n ? '<span class="ga-neu">NEU</span>' : ""}${img}<span class="ga-name">${GAST[a[0]][1]}</span></button>`
+          : `<div class="ga zu ${a[1]}">${art}${img}<span class="ga-name">???</span><span class="ga-wie">${a[2]}</span></div>`; }).join("")}</div>
+    </section>`;
+}
+
+/* ============ Rätselvogel des Tages ============ */
+// Fünf Hinweise je Vogel – von schwer nach leicht
+const RAETSEL = {
+  kohlmeise: ["Im Frühling rufe ich laut „zi-zi-bäh“ von den Bäumen.", "Ich schnappe mir einen Kern, fliege in den Busch und hacke ihn dort auf.", "Ich bin die Größte in meiner Familie.", "Mein Kopf ist schwarz mit weißen Wangen.", "Über meinen gelben Bauch läuft ein schwarzer Streifen wie ein Schlips."],
+  blaumeise: ["Ich wiege nur etwa 11 Gramm – weniger als ein Brief.", "Ich brüte gern in Nistkästen.", "Am Meisenknödel turne ich kopfüber wie im Zirkus.", "Durch mein weißes Gesicht zieht sich ein dunkler Streif.", "Ich trage ein blaues Käppchen und habe einen gelben Bauch."],
+  tannenmeise: ["Am liebsten lebe ich in Nadelbäumen.", "Ich verstecke Kerne als Vorrat für schlechte Tage.", "Ich bin die Kleinste in meiner Familie.", "Gelb suchst du bei mir vergeblich.", "Ich habe einen schwarzen Kopf mit weißen Wangen – und einen weißen Fleck im Nacken."],
+  sumpfmeise: ["Mein Name führt in die Irre: Dort, wo er mich vermuten lässt, wohne ich gar nicht.", "Ich lebe im Laubwald und in Gärten.", "Am Futterhaus hole ich Kern um Kern und verstecke viele davon.", "Ich bin schlicht graubraun – ohne Gelb und ohne Blau.", "Ich trage eine glänzend schwarze Kappe und einen kleinen schwarzen Kinnfleck."],
+  kleiber: ["Den Eingang meiner Bruthöhle mauere ich mit Lehm enger.", "Nüsse klemme ich in Rindenritzen und hacke sie auf.", "Durch mein Auge zieht sich ein langer schwarzer Streif – wie eine Räubermaske.", "Mein Rücken ist blaugrau, mein Bauch rostorange.", "Ich bin der Einzige, der kopfüber den Baumstamm hinunterläuft."],
+  buntspecht: ["Für Nüsse und Zapfen habe ich eine eigene Werkstatt: eine Spalte, in der ich sie festklemme.", "Im Frühling trommle ich auf trockenen Ästen.", "Mit meinem steifen Schwanz stütze ich mich am Stamm ab.", "Mein Gefieder ist schwarz und weiß.", "Unter meinem Schwanz leuchtet es rot – und ich hämmere mit dem Schnabel."],
+  buchfink: ["Ich gehöre zu den häufigsten Vögeln in Deutschland.", "Am Futterhaus picke ich gern am Boden auf, was die anderen fallen lassen.", "Auf meinen Flügeln leuchten zwei weiße Binden.", "Mein Gesang endet mit einem kräftigen Schnörkel.", "Als Männchen habe ich eine rostrote Brust und einen blaugrauen Kopf."],
+  bergfink: ["Ich brüte weit im Norden, in den Wäldern Skandinaviens.", "Am liebsten fresse ich Bucheckern.", "Manchmal reise ich in riesigen Schwärmen.", "Zu euch komme ich nur im Winter – von Oktober bis April.", "Meine Brust und meine Schultern sind orange, mein Bauch ist weiß."],
+  gruenfink: ["Ich bin etwa so groß wie ein Spatz.", "Am Futterhaus bin ich ein Raufbold und vertreibe gern die Kleineren.", "Mit meinem kräftigen, hellen Schnabel knacke ich Kern um Kern.", "An Flügel und Schwanz habe ich leuchtend gelbe Streifen.", "Meine Farbe steckt schon in meinem Namen."],
+  gimpel: ["Ich fresse gern Knospen und Samen.", "Ich bin rundlich und eher gemütlich – Hektik liegt mir nicht.", "Männchen und Weibchen tragen beide eine schwarze Kappe.", "Man nennt mich auch Dompfaff.", "Als Männchen habe ich eine leuchtend rote Brust."],
+  kernbeisser: ["Meist sitze ich hoch oben in den Baumkronen.", "Am Futterhaus bin ich oft der Boss.", "Ich bin größer und kräftiger als ein Spatz.", "Mein Schnabel ist riesig und dick.", "Ich knacke sogar Kirschkerne – das verrät auch mein Name."],
+  stieglitz: ["Mit meinem spitzen Schnabel ziehe ich Samen aus stacheligen Pflanzen.", "Man nennt mich auch Distelfink.", "Ich bin einer der buntesten Gäste am Futterhaus.", "Auf meinen schwarzen Flügeln leuchtet eine gelbe Binde.", "Mein Gesicht ist knallrot."],
+  erlenzeisig: ["Im Winter kommen viele von uns aus dem Norden zu euch.", "Ich bin kleiner als ein Spatz und meist im Trupp unterwegs.", "Ich turne kopfüber an dünnen Zweigen und hole Samen aus kleinen Zäpfchen.", "Ich bin gelbgrün und dunkel gestrichelt.", "Mein Lieblingsbaum steckt in meinem Namen."],
+  haussperling: ["Ich lebe fast nur dort, wo Menschen wohnen.", "Ich bade gern im Staub.", "Ich komme selten allein – meist bringe ich die ganze Bande mit.", "Als Männchen habe ich einen grauen Scheitel und einen schwarzen Latz.", "Die meisten nennen mich einfach Spatz."],
+  feldsperling: ["Ich brüte gern in Baumhöhlen und Nistkästen am Dorfrand.", "Bei mir sehen Männchen und Weibchen gleich aus.", "Ich bin der kleine Vetter eines sehr bekannten Vogels.", "Mein Scheitel ist schokoladenbraun.", "Ich bin ein Spatz mit einem schwarzen Fleck auf der weißen Wange."],
+  amsel: ["Früher lebte ich nur im Wald – heute in fast jedem Garten.", "Ich singe früh am Morgen und abends vom Dachfirst.", "Am Futterhaus mag ich Äpfel, Rosinen und Haferflocken – am liebsten am Boden.", "Als Weibchen bin ich dunkelbraun.", "Als Männchen bin ich schwarz mit einem gelben Schnabel."],
+  rotkehlchen: ["Ich singe sogar im Winter – manchmal nachts unter der Straßenlaterne.", "Wer im Garten umgräbt, bekommt oft Besuch von mir: Ich warte auf Würmer.", "Ich sehe niedlich aus, bin aber ein Raufbold und verteidige mein Revier das ganze Jahr.", "Ich habe große, dunkle Kulleraugen.", "Mein Gesicht und meine Brust sind orangerot."],
+  heckenbraunelle: ["Ich husche wie eine Maus am Boden unter den Büschen umher.", "Viele verwechseln mich mit einem Spatz.", "Mein Schnabel ist dünn und spitz – zum Kerneknacken taugt er nicht.", "Mein Kopf und meine Brust sind bleigrau.", "Mein Name verrät, wo ich wohne: in der Hecke."],
+  eichelhaeher: ["Ich kann andere Vögel nachmachen – sogar den Ruf des Mäusebussards.", "Mit lautem Rätschen warne ich den ganzen Wald.", "Im Herbst verstecke ich Tausende Vorräte im Boden.", "An meinem Flügel leuchten blau-schwarz gestreifte Federn.", "Was ich am liebsten vergrabe, steckt in meinem Namen."],
+  ringeltaube: ["Meine Jungen füttere ich mit einer Art Milch aus meinem Kropf.", "Wenn ich losfliege, klatschen meine Flügel laut.", "Ich bin der schwerste Gast am Futterhaus.", "An meinem Hals sitzt ein weißer Fleck.", "Ich rufe dumpf „gu-guuh-gu“ – ich bin eine Taube."],
+  sperber: ["Wenn ich auftauche, ist das Futterhaus plötzlich leer.", "Bei mir ist das Weibchen deutlich größer als das Männchen.", "Ich fliege schnell und wendig dicht über Hecken und Zäune.", "Ich habe gelbe Augen und einen Hakenschnabel.", "Ich komme nicht wegen der Körner, sondern wegen der kleinen Vögel."]
+};
+// Feste Reihenfolge: Jeden Tag ist ein anderer Gast dran – auf allen Geräten derselbe.
+const RAETSEL_FOLGE = ["rotkehlchen", "kernbeisser", "tannenmeise", "amsel", "stieglitz", "sperber", "blaumeise", "feldsperling", "eichelhaeher", "gruenfink", "kleiber", "bergfink", "kohlmeise", "heckenbraunelle", "gimpel", "ringeltaube", "sumpfmeise", "buntspecht", "haussperling", "erlenzeisig", "buchfink"];
+const rvTag = () => { const d = new Date(), z = n => String(n).padStart(2, "0"); return `${d.getFullYear()}-${z(d.getMonth() + 1)}-${z(d.getDate())}`; };
+const rvHeute = () => { const d = new Date(); return RAETSEL_FOLGE[Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5) % RAETSEL_FOLGE.length]; };
+const rvStand = eid => Object.assign({ n: 0, sterne: 0, min: 9 }, S[eid] && S[eid].raetsel);
+const rvSterne = n => `<span class="rv-sterne" aria-label="${n} von 5 Sternen">${[0, 1, 2, 3, 4].map(k => `<span class="${k < n ? "" : "weg"}">⭐</span>`).join("")}</span>`;
+
+function seiteRaetsel(eid) {
+  const X = EXPS[eid], h0 = kennzahlen(eid);
+  if (!(S.modus === "frei" || (h0.d.s3 && h0.d.s3.done))) { location.hash = eid; return; }
+  app.innerHTML = `
+  <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Futterhaus-Pass</a><span class="tchip" id="rvChip"></span></div></div>
+  <div class="huelle"><section id="rvBox"></section>${fuss()}</div>`;
+  const box = $("#rvBox");
+  const chip = () => { const r = rvStand(eid); $("#rvChip").textContent = `⭐ ${r.sterne} · ${r.n} gelöst`; };
+  const datum = new Date().toLocaleDateString("de-DE", { day: "numeric", month: "long" });
+  const liste = GAESTE.map(g => [g[0], g[1]]).sort((a, b) => a[1].localeCompare(b[1], "de"));
+
+  function spiele(slug, uebung, st) {
+    const tipps = RAETSEL[slug];
+    const merke = () => { if (!uebung) { S[eid] = S[eid] || {}; S[eid].raetsel = Object.assign(rvStand(eid), { heute: st }); speichern(); } };
+    function zeichne(frisch) {
+      const rest = 6 - st.k;
+      box.innerHTML = `
+        <span class="eyebrow">${uebung ? "Übungsrätsel" : "Rätselvogel des Tages · " + datum}</span>
+        <h2 class="h-blau">Wer bin ich?</h2>
+        <div class="rv-stand">${rvSterne(rest)}<span>${uebung ? "Zum Üben – ohne Sterne" : `Jetzt lösen bringt <b>${rest} ${rest === 1 ? "Stern" : "Sterne"}</b>`}</span></div>
+        <ol class="rv-hinweise">${tipps.map((t, k) => k < st.k ? `<li class="${frisch && k === st.k - 1 ? "frisch" : ""}">${t}</li>` : `<li class="zu">Noch verdeckt</li>`).join("")}</ol>
+        <div class="knopfreihe"><button type="button" class="knopf" id="rvMehr" ${st.k >= 5 ? "disabled" : ""}>💡 Nächster Hinweis${uebung ? "" : " (kostet 1 Stern)"}</button></div>
+        <h3 class="h-honig" style="font-size:20px">Tippe den Vogel an</h3>
+        <div class="rv-grid">${liste.map(g => `<button type="button" class="rv-wahl" data-s="${g[0]}" ${st.falsch.includes(g[0]) ? "disabled" : ""}><img src="../images/futterhaus/fp-${g[0]}.jpg" alt="" loading="lazy"><span>${g[1]}</span></button>`).join("")}</div>`;
+      $("#rvMehr").onclick = () => { st.k++; merke(); zeichne(true); };
+      $$(".rv-wahl", box).forEach(b => b.onclick = () => {
+        if (b.dataset.s === slug) return fertig(6 - st.k);
+        st.falsch.push(b.dataset.s);
+        if (st.k >= 5) return fertig(0);
+        st.k++; merke(); zeichne(true);
+        toast(`${GAST[b.dataset.s][1]}? Leider nein – hier kommt Hinweis ${st.k}.`);
+        window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+      });
+    }
+    function fertig(sterne) {
+      const vorher = kennzahlen(eid), abzVorher = X.abzeichen.map(z => z.ok(vorher)), albVorher = albumOffen(vorher);
+      if (!uebung) {
+        const r = rvStand(eid);
+        st.fertig = true; st.sterne = sterne;
+        S[eid] = S[eid] || {};
+        S[eid].raetsel = { n: r.n + (sterne ? 1 : 0), sterne: r.sterne + sterne, min: sterne ? Math.min(r.min, st.k) : r.min, heute: st };
+        speichern();
+      }
+      const nach = kennzahlen(eid), neueAbz = X.abzeichen.filter((z, k) => !abzVorher[k] && z.ok(nach));
+      ergebnis(slug, uebung, st, sterne, neueAbz, albumNeu(eid, albVorher));
+      if (sterne >= 4 && !uebung) konfetti();
+    }
+    zeichne(false);
+  }
+
+  function ergebnis(slug, uebung, st, sterne, neueAbz, neuAlbum) {
+    chip();
+    const g = GAST[slug], r = rvStand(eid);
+    box.innerHTML = `
+      <div class="rv-ende">
+        <img src="../images/futterhaus/fp-${slug}.jpg" alt="${esc(g[1])}">
+        <span class="eyebrow">${uebung ? "Übungsrätsel" : "Rätselvogel des Tages · " + datum}</span>
+        <h3>${sterne ? "Richtig:" : "Es war:"} ${g[1]}</h3>
+        ${uebung ? "" : rvSterne(sterne)}
+        <p>${sterne ? `Gelöst mit ${st.k === 1 ? "nur einem Hinweis – stark!" : st.k + " Hinweisen."}` : "Diesmal nicht erraten – morgen klappt es bestimmt."}</p>
+        <p class="klein">${g[3]}</p>
+        ${neueAbz && neueAbz.length ? `<p class="klein">Neues Abzeichen: ${neueAbz.map(z => `${z.em} <b>${z.name}</b>`).join(" · ")}</p>` : ""}
+        ${albumMeldung(neuAlbum || [])}
+        <div class="knopfreihe"><button type="button" class="knopf" id="rvTafel">🖼️ Lehrtafel ansehen</button><button type="button" class="knopf prim" id="rvUeben">🔁 Übungsrätsel</button><a class="knopf" href="#${eid}">Zum Futterhaus-Pass</a></div>
+      </div>
+      <p class="klein" style="text-align:center">${uebung ? "Übungsrätsel zählen nicht für Sterne und Album." : "Morgen wartet ein neuer Rätselvogel auf dich."} Bisher: ⭐ ${r.sterne} ${r.sterne === 1 ? "Stern" : "Sterne"} · ${r.n} ${r.n === 1 ? "Rätselvogel" : "Rätselvögel"} gelöst.</p>`;
+    $("#rvTafel").onclick = () => tafel(slug);
+    $("#rvUeben").onclick = () => { const andere = RAETSEL_FOLGE.filter(s => s !== slug && s !== rvHeute()); spiele(andere[Math.floor(Math.random() * andere.length)], true, { k: 1, falsch: [] }); window.scrollTo(0, 0); };
+    window.scrollTo(0, 0);
+  }
+
+  chip();
+  const heute = rvHeute(), r = rvStand(eid), tag = rvTag();
+  const st = r.heute && r.heute.tag === tag ? r.heute : { tag, k: 1, falsch: [], fertig: false };
+  if (st.fertig) ergebnis(heute, false, st, st.sterne || 0);
+  else spiele(heute, false, st);
+}
+
 /* ============ Navigation ============ */
 let letzteSumme = {};
 function route(behalteScroll) {
@@ -1702,6 +1905,7 @@ function route(behalteScroll) {
   const h = location.hash.slice(1), m = h.match(/^(f1)-(s[1-5])$/);
   if (EXPS[h]) { const s = kennzahlen(h).summe; seitePass(h, letzteSumme[h] !== undefined && s > letzteSumme[h]); letzteSumme[h] = s; }
   else if (h === "f1-spiel") seiteSpiel("f1");
+  else if (h === "f1-raetsel") seiteRaetsel("f1");
   else if (m) { if (letzteSumme[m[1]] === undefined) letzteSumme[m[1]] = kennzahlen(m[1]).summe; seiteStation(m[1], m[2]); }
   else seiteStart();
   if (behalteScroll !== true) window.scrollTo(0, 0);
