@@ -381,7 +381,7 @@ meise: {
 },
 /* ------------------------------------------------------------------ Level 2 */
 schwalbe: {
-  name: "Rauchschwalbe", em: "🕊️", bild: "../images/zug/rauchschwalbe.jpg", level: 2,
+  name: "Rauchschwalbe", em: "🕊️", bild: "../images/durchsjahr/47.jpg", level: 2,
   motto: "Sie lebt von Insekten in der Luft – und muss im Herbst bis nach Afrika.",
   intro: "Du bist eine Rauchschwalbe. Es ist März, und du bist noch in Afrika. Vor dir liegen der Heimflug, die Brut im Stall – und im Herbst wieder die Reise über Alpen und Sahara. Vieles, was für die Meise richtig war, ist für dich falsch.",
   start: { e: 8, s: 8 },
@@ -545,7 +545,7 @@ schwalbe: {
 };
 
 // Gezeichnete Kopfbilder: images/durchsjahr/01.jpg … – erst die zwölf Monate, dann die Zwischenfälle (Reihenfolge wie oben)
-const SZENEN = { meise: 1 };
+const SZENEN = { meise: 1, schwalbe: 25 };
 Object.keys(SZENEN).forEach(tid => { const T = TIERE[tid]; T.monate.concat(T.zwischen).forEach((k, i) => { k.bild = "../images/durchsjahr/" + String(SZENEN[tid] + i).padStart(2, "0") + ".jpg"; }); });
 // Winter-Fassungen (Dezember bis Februar) für Zwischenfälle, die das ganze Jahr vorkommen
 [["Ein Schatten!", "13w"], ["Kerne am Boden", "14w"]].forEach(([t, nr]) => { TIERE.meise.zwischen.find(k => k.t === t).bildWinter = "../images/durchsjahr/" + nr + ".jpg"; });
