@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Durchs Jahr! – Das Überlebensspiel · Bio Mibaso</title>
-<meta name="description" content="Ein Lernspiel für Klasse 5/6: Als Kohlmeise oder Rauchschwalbe zwölf Monate überstehen – Revier, Nest und Junge, Feinde, Vogelzug und Winter. Mit Ereigniskarten, Zwischenspielen und zwei Leveln. Ohne Anmeldung.">
+<meta name="description" content="Ein Lernspiel für Klasse 5/6: Als Kohlmeise, Rauchschwalbe oder Igel zwölf Monate überstehen – Revier, Nest und Junge, Feinde, Vogelzug und Winterschlaf. Mit Ereigniskarten, Zwischenspielen und drei Leveln. Ohne Anmeldung.">
 <meta name="theme-color" content="#233D5C">
 <link rel="icon" href="../assets/icon.svg">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
@@ -174,6 +174,48 @@ details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
 .r-wahl .r-rast{border-left-color:var(--ok)}
 @media (min-width:600px){.r-oben{grid-template-columns:minmax(0,40%) 1fr;gap:18px}.r-lage{font-size:16px}}
 
+/* Level 3: Nachtrunde und Winterschlaf */
+.n-oben{display:grid;gap:12px;padding:4px 16px 16px}
+.n-karte{border-radius:14px;overflow:hidden;line-height:0;max-width:440px;width:100%;margin:0 auto;box-shadow:0 2px 10px rgba(20,35,58,.25)}
+.n-svg{display:block;width:100%;height:auto;touch-action:manipulation}
+.n-weg{stroke:#dce8f3;stroke-opacity:.16;stroke-width:2;stroke-dasharray:3 5}
+.n-weg.an{stroke:#f2c56b;stroke-opacity:.95;stroke-width:3}
+.n-platz circle{fill:#2b4160;stroke:#7f95ad;stroke-width:1.5}
+.n-platz.gut circle{fill:#27503a;stroke:#8fd0a3}
+.n-platz.leer circle{fill:#2a3a35;stroke:#6f8a7a}
+.n-platz.gefahr circle{fill:#5a2a26;stroke:#f09a8c}
+.n-platz.hier circle{fill:#F7F3E8;stroke:#f2c56b;stroke-width:4}
+.n-platz.nah{cursor:pointer}
+.n-platz.nah circle{stroke-width:3}
+.n-em{font-size:19px;text-anchor:middle}
+.n-platz.hier .n-em{font-size:24px}
+.n-name{font-family:var(--sans);font-size:10.5px;fill:#dce8f3;text-anchor:middle;paint-order:stroke;stroke:#14233a;stroke-width:2.5px;stroke-linejoin:round}
+.n-seite{display:grid;gap:10px;align-content:start}
+.n-seite .folge{margin:0}
+.n-hud{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--sans);font-size:14.5px;background:var(--creme);border-radius:10px;padding:8px 11px}
+.n-hud b{color:var(--blau)}
+.n-mond{display:inline-flex;gap:3px;vertical-align:-1px;margin-right:4px}
+.n-mond i{width:11px;height:11px;border-radius:50%;background:#f2c56b;border:1px solid #c79a3d}
+.n-mond i.um{background:transparent;border-color:var(--linie)}
+.n-wahl{padding:0!important}
+.n-wahl button{--f:var(--blau-hell)}
+.n-wahl .gut{--f:#5fae78} .n-wahl .gefahr{--f:var(--bad)} .n-wahl .leer{--f:var(--linie)} .n-wahl .unklar{--f:var(--honig)}
+.n-wahl .gefahr .r-sub{color:var(--bad);font-weight:bold}
+.n-wahl .n-witter{border-left-color:var(--blau-mittel);background:#eef3f8}
+.nachtrunde > .folge{margin-top:4px}
+@media (min-width:640px){.n-oben{grid-template-columns:minmax(0,46%) 1fr;gap:18px;align-items:start}.n-karte{margin:0}}
+.w-leiste{display:grid;grid-template-columns:repeat(13,1fr);gap:3px;padding:12px 16px 0}
+.w-leiste span{height:22px;border-radius:6px;display:grid;place-items:center;font-family:var(--sans);font-size:11px;font-weight:bold;color:#fff;background:var(--winter);opacity:.35}
+.w-leiste .war{opacity:.85} .w-leiste .jetzt{opacity:1;outline:3px solid var(--ink);outline-offset:1px}
+.w-werte{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:10px 16px 0;font-family:var(--sans)}
+.w-werte div{background:var(--creme);border-radius:12px;padding:9px 6px;font-size:12px;color:var(--ink-soft);text-align:center;line-height:1.3}
+.w-werte b{display:block;font-size:21px;color:var(--ink);font-variant-numeric:tabular-nums}
+.w-werte small{display:block;font-size:11px}
+.w-zzz{position:absolute;right:14px;bottom:10px;font-size:34px;animation:zzz 2.4s ease-in-out infinite}
+@keyframes zzz{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(-8px);opacity:1}}
+.schlaf .szene img{aspect-ratio:5/2}
+@media (min-width:600px){.w-werte{grid-template-columns:repeat(4,1fr)}}
+
 /* Ende */
 .ende{background:var(--tile);border:1px solid var(--linie);border-radius:18px;overflow:hidden;text-align:center;display:grid;gap:10px;padding-bottom:20px}
 .ende > *{margin-left:16px;margin-right:16px}
@@ -217,7 +259,8 @@ const PFADE = {
   winter: ["winterpass.html", "Expedition Winter – Tiere im Winter"],
   futter: ["futterhauspass.html", "Futterhaus-Pass – Vögel am Futterhaus"],
   netz: ["nahrungsnetz.html", "Lernpfad „Wer frisst wen?“"],
-  wiese: ["wiese-lebt.html", "Lernpfad „Wie hängt alles zusammen?“"]
+  wiese: ["wiese-lebt.html", "Lernpfad „Wie hängt alles zusammen?“"],
+  boden: ["bodenleben.html", "Lernpfad „Was wir nicht sehen“"]
 };
 const EMAX = 10, SMAX = 10;
 
@@ -227,7 +270,7 @@ const EMAX = 10, SMAX = 10;
 const TIERE = {
 /* ------------------------------------------------------------------ Level 1 */
 meise: {
-  name: "Kohlmeise", em: "🐦", bild: "../images/durchsjahr/46.jpg?v=5", level: 1,
+  name: "Kohlmeise", em: "🐦", bild: "../images/durchsjahr/46.jpg?v=5", level: 1, dein: "deine Kohlmeise", mit: "die Kohlmeise",
   motto: "Sie bleibt das ganze Jahr hier – und muss durch den Winter.",
   intro: "Du bist eine Kohlmeise. Es ist März. Vor dir liegen zwölf Monate: Junge aufziehen, Feinden entkommen – und den Winter überstehen. Vorsicht: Nicht alles, was vernünftig klingt, ist für eine Meise klug.",
   start: { e: 8, s: 8 },
@@ -411,7 +454,7 @@ meise: {
 },
 /* ------------------------------------------------------------------ Level 2 */
 schwalbe: {
-  name: "Rauchschwalbe", em: "🕊️", bild: "../images/durchsjahr/47.jpg?v=5", level: 2,
+  name: "Rauchschwalbe", em: "🕊️", bild: "../images/durchsjahr/47.jpg?v=5", level: 2, dein: "deine Rauchschwalbe", mit: "die Rauchschwalbe",
   motto: "Sie lebt von Insekten in der Luft – und muss im Herbst bis nach Afrika.",
   intro: "Du bist eine Rauchschwalbe. Es ist März, und du bist noch in Afrika. Vor dir liegen der Heimflug, die Brut im Stall – und im Herbst die große Reise über Alpen, Mittelmeer und Sahara. Vieles, was für die Meise richtig war, ist für dich falsch.",
   start: { e: 8, s: 8 },
@@ -560,6 +603,144 @@ schwalbe: {
         { l: "Die Katze im Sturzflug angreifen, bis sie geht", e: -1, s: -1, r: 1, urteil: "Mutig!", k: "Das tun Schwalben wirklich: Sie fliegen laut schimpfend Scheinangriffe. Oft hilft es – aber es kostet Kraft und ist nicht ungefährlich." }
       ] }
   ]
+},
+/* ------------------------------------------------------------------ Level 3 */
+igel: {
+  name: "Igel", em: "🦔", bild: "../images/winter/igel-winterschlaf.jpg", level: 3, dein: "dein Igel", mit: "der Igel",
+  gramm: true, emin: 400, emax: 1300, nestEm: "🦔", jungEm: "🦔", jungKurz: "groß", jungAdj: "großgezogene", jungEnde: "Junge großgezogen",
+  motto: "Er frisst sich ein Fettpolster an – und verschläft den Winter.",
+  intro: "Du bist eine Igelin. Es ist März, und du liegst noch im Winterschlaf. Vor dir liegen zwölf Monate: Junge großziehen, Autos und Maschinen entgehen – und dir bis zum Herbst genug Winterspeck anfressen. Vieles, was für die Vögel richtig war, ist für dich falsch.",
+  achte: "Statt der Kraft zählt jetzt dein Gewicht ⚖️: Es darf nie unter 400 Gramm fallen. Und deine Sicherheit 🛡️ darf nie auf null sinken.",
+  todE: "Du bist zu stark abgemagert – unter 400 Gramm ist ein erwachsener Igel zu schwach zum Überleben.",
+  todS: "Das war eine Gefahr zu viel.",
+  start: { e: 650, s: 8 },
+  basis: [0, 0, 30, 30, -30, 30, 40, 0, -20, 0, 0, 0],
+  basisText: { 30: "Warme Nächte, viele Käfer: Du nimmst zu.", 40: "Der Herbst deckt den Tisch: Käfer, Würmer, Larven.", "-30": "Fünf Junge zu säugen zehrt an dir.", "-20": "Die Nächte werden frostig, das Futter wird knapp." },
+  sterne: [3, 5],
+  schluss: "Der Winter ist fast vorbei, und dein Winterspeck hat gereicht. Im April wachst du auf – dünn, durstig und sehr hungrig.",
+  ueberleben: "In der Natur überstehen viele Igel den Winter nicht – vor allem die, die zu leicht in den Winterschlaf gehen.",
+  monate: [
+    { t: "Der erste warme Tag", sz: "🌤️🍂", p: "winter",
+      x: "Anfang März. Die Sonne scheint, mittags sind es zwölf Grad. Du liegst seit November im Winterschlaf und hast seitdem ein Viertel deines Gewichts verloren. Was tust du?",
+      w: [
+        { l: "Weiterschlafen, bis auch die Nächte mild sind", e: -20, s: 0, r: 2, k: "Ein warmer Mittag macht noch keinen Frühling. Erst wenn auch die Nächte mild bleiben, sind Käfer und Würmer unterwegs. Igelinnen stehen meist erst im April auf." },
+        { l: "Aufstehen – wer früh dran ist, bekommt das beste Revier", e: -90, s: 0, r: 0, k: "Für Meise und Schwalbe stimmt das. Für dich nicht: Im März findest du kaum Futter, und das Aufwachen selbst verbrennt viel Fett. Ein Revier verteidigen Igel ohnehin nicht." },
+        { l: "Kurz aufstehen, etwas trinken und dann wieder hinlegen", e: -50, s: 0, r: 1, k: "Das kommt vor: Igel wachen im Winter ab und zu kurz auf. Aber jedes Aufwärmen kostet so viel Fett wie viele Tage Schlaf." }
+      ] },
+    { t: "Aufgewacht!", sz: "🦔💧", p: "netz",
+      x: "April. Du bist wach, dünn und sehr durstig. Auf der Terrasse steht eine Schale Milch, im Beet kriechen Nacktschnecken, unter der Hecke liegt altes Laub neben einer Pfütze. Wohin zuerst?",
+      w: [
+        { l: "Zur Pfütze – und danach im Laub nach Käfern und Würmern wühlen", e: 50, s: 0, r: 2, k: "Erst Wasser, dann Eiweiß: Igel sind Insektenfresser. Laufkäfer, Regenwürmer, Raupen und Ohrwürmer stehen ganz oben auf dem Speiseplan." },
+        { l: "Zur Milchschale – Flüssigkeit und Fett in einem", e: -70, s: 0, r: 0, k: "Gut gemeint von den Menschen, aber gefährlich: Igel vertragen den Milchzucker nicht und bekommen Durchfall. Eine Schale Wasser hilft ihnen viel mehr." },
+        { l: "Zu den Nacktschnecken – die können nicht weglaufen", e: 10, s: -1, r: 1, urteil: "Na ja …", k: "Igel fressen Schnecken, aber nicht besonders gern – und sie fangen sich dabei Lungenwürmer ein. Käfer und Würmer sind die bessere Wahl." }
+      ] },
+    { t: "Das Igelkarussell", sz: "🦔💫🦔", p: "netz",
+      x: "Mai. Seit einer Stunde läuft ein Igelmännchen laut schnaufend im Kreis um dich herum. Was tust du?",
+      w: [
+        { l: "Fauchen und ihm immer wieder die Stacheln entgegendrehen – soll er sich anstrengen", e: -10, s: 0, r: 2, urteil: "Typisch Igel!", k: "So geht das „Igelkarussell“: Das Männchen umkreist das Weibchen oft stundenlang, sie faucht und stößt ihn weg. Das Schnaufen hört man nachts durch den halben Garten." },
+        { l: "Mit ihm zusammen ein Nest bauen – zu zweit zieht man Junge leichter groß", e: -50, s: 0, r: 0, k: "Bei Meise und Schwalbe helfen beide Eltern. Igel sind Einzelgänger: Nach der Paarung geht das Männchen seiner Wege, die Mutter zieht die Jungen allein auf." },
+        { l: "Einrollen und warten, bis er aufgibt", e: -20, s: 0, r: 1, k: "Er gibt so schnell nicht auf – das kann die halbe Nacht dauern. In der Zeit hättest du fressen können." }
+      ] },
+    { t: "Die Kinderstube", sz: "🍂🌿", p: "winter",
+      x: "Juni. In wenigen Tagen kommen deine Jungen zur Welt – nackt, blind und mit weichen weißen Stacheln. Wo baust du das Nest?",
+      w: [
+        { l: "Unter dem Reisighaufen in der wilden Gartenecke, dick mit Laub und Gras gepolstert", e: 0, s: 1, r: 2, k: "Trocken, versteckt und ungestört: So muss eine Kinderstube sein. Wird die Mutter in den ersten Tagen gestört, kann sie die Jungen sogar aufgeben.", fx: st => { st.eier = 5; } },
+        { l: "Im hohen Gras mitten auf der Wiese – weich und gut versteckt", e: 0, s: -2, r: 0, k: "Versteckt, bis gemäht wird: Mähwerk, Freischneider und Mähroboter verletzen jedes Jahr sehr viele Igel. Hohe Wiesen sind zum Jagen gut, nicht zum Wohnen.", fx: st => { st.eier = 5; st.nest *= .6; } },
+        { l: "Im trockenen Gartenhaus zwischen den Blumentöpfen", e: 0, s: 0, r: 0, k: "Trocken ist es. Aber sobald jemand die Tür schließt, bist du eingesperrt – oder ausgesperrt, und die Jungen warten vergeblich.", fx: st => { st.eier = 5; st.nest *= .5; } }
+      ] },
+    { fang: true, t: "Milch für fünf", sz: "🦔🦔🦔", p: "netz", e: 0,
+      x: "Juli. Deine Jungen trinken bei dir Milch – Igel sind Säugetiere. Damit die Milch reicht, musst du jede Nacht doppelt so viel fressen wie sonst.",
+      auftrag: "Tippe nur an, was ein Igel frisst!",
+      gut: [["🪲", "Laufkäfer"], ["🪱", "Regenwurm"], ["🐛", "Raupe"], ["🦗", "Heuschrecke"]],
+      schlecht: [["🍎", "Apfel"], ["🥛", "Milch"], ["🍞", "Brot"], ["🥕", "Möhre"]], ziel: 8, dauer: 30,
+      nach: (st, q) => { const n = Math.round(st.eier * st.nest * q); st.jung += n; const von = st.eier; st.eier = 0; return n + " von " + von + " Jungen sind groß geworden."; },
+      k: "Eine Igelmutter säugt ihre Jungen etwa sechs Wochen lang. Äpfel, Möhren und Brot machen sie nicht satt – und Kuhmilch vertragen Igel nicht." },
+    { t: "Sechs Wochen später", sz: "🦔🌙", p: "winter",
+      x: "August. Deine Jungen fressen jetzt selbst Käfer und folgen dir nachts durch den Garten. Wie geht es weiter?",
+      w: [
+        { l: "Die Jungen ziehen lassen – jedes geht ab jetzt seinen eigenen Weg", e: 30, s: 0, r: 2, k: "Igel sind Einzelgänger. Mit etwa sechs Wochen gehen die Jungen eigene Wege – und du kannst endlich wieder für dich selbst fressen." },
+        { l: "Zusammenbleiben und im Winter gemeinsam in einem Nest schlafen – das wärmt", e: -50, s: 0, r: 0, k: "Kuscheln ist etwas für Schwanzmeisen. Igel bauen jeder ein eigenes Winternest – und im gemeinsamen Garten würdet ihr euch nur das Futter wegfressen." },
+        { l: "Gleich noch einmal Junge bekommen – der Sommer ist noch lang", e: -110, s: 0, r: 1, urteil: "Mutig!", k: "Späte Würfe gibt es. Aber die Jungen kommen dann erst im September zur Welt und schaffen ihr Wintergewicht oft nicht mehr. Und dir fehlt die Zeit für den eigenen Winterspeck.", fx: st => { st.jung += Math.round(2 * st.nest); } }
+      ] },
+    { t: "Unter dem Apfelbaum", sz: "🍎🍂", p: "netz",
+      x: "September. Unter dem Apfelbaum liegt haufenweise Fallobst, manches schon braun und matschig. Was tust du?",
+      w: [
+        { l: "In den faulen Äpfeln nach Maden, Würmern und Käfern suchen", e: 50, s: 0, r: 2, k: "Darum sitzen Igel unter Obstbäumen: Im Fallobst wimmelt es von Larven, Würmern und Schnecken. Das Obst selbst lassen sie fast ganz liegen." },
+        { l: "Die Äpfel fressen – süß und saftig, das gibt Winterspeck", e: -30, s: 0, r: 0, k: "Igel sind Insektenfresser. Obst können sie kaum verwerten – davon wird kein Igel fett." },
+        { l: "Einen Apfel auf die Stacheln spießen und als Vorrat ins Nest tragen", e: -20, s: 0, r: 0, urteil: "Ein altes Märchen!", k: "So steht es seit zweitausend Jahren in Büchern – beobachtet hat es noch niemand. Igel legen keine Vorräte an. Ihr einziger Vorrat ist das Fett unter der Haut." }
+      ] },
+    // Oktober: die Nachtrunde (Regeln stehen weiter unten bei „Die Nachtrunde“)
+    { nacht: true, t: "Die Nachtrunde", sz: "🌙🦔", p: "winter" },
+    { t: "Das Winternest", sz: "🍂❄️", p: "winter",
+      x: "November. Die Nächte sind frostig, Käfer und Würmer verschwinden. Du brauchst ein Winternest. Wo baust du es?",
+      w: [
+        { l: "Im großen Laubhaufen unter der Hecke: Laub hineintragen, festdrehen, Eingang verschließen", e: 0, s: 1, r: 2, k: "Ein gutes Winternest ist eine dicht gepackte Laubkugel. Sie hält die Kälte ab, aber nicht ganz: Bei etwa fünf Grad schläft ein Igel am sparsamsten.", fx: st => { st.wnest = 1; } },
+        { l: "In der offenen Garage hinter den Winterreifen – trocken und frostfrei", e: 0, s: -1, r: 0, k: "Frostfrei klingt gut, ist aber zu warm: Dein Körper fährt nicht richtig herunter, du wachst immer wieder auf und verbrennst dein Fett. Und irgendwann geht das Tor zu.", fx: st => { st.wnest = 1.6; } },
+        { l: "Im frisch aufgeschichteten Reisighaufen am Feldrand – riesig, luftig und trocken", e: 0, s: -2, r: 0, k: "Luftig heißt zugig – und solche Haufen werden oft für ein Feuer aufgeschichtet. Deshalb soll man sie kurz vor dem Anzünden noch einmal umsetzen.", fx: st => { st.wnest = 1.35; } }
+      ] },
+    // Dezember bis Februar: der Winterschlaf (Regeln stehen weiter unten bei „Der Winterschlaf“)
+    { schlaf: true, t: "Winterschlaf", sz: "🦔💤", bild: "../images/winter/igel-winterschlaf.jpg", p: "winter" },
+    { leer: true },
+    { leer: true }
+  ],
+  zwischen: [
+    { von: 1, bis: 6, t: "Scheinwerfer!", sz: "🚗💡", p: "winter",
+      x: "Du überquerst nachts die Straße. Zwei Lichter rasen auf dich zu. Was tust du?",
+      w: [
+        { l: "Weiterrennen, so schnell die Beine tragen", e: 0, s: 0, r: 2, k: "Igel können erstaunlich schnell laufen. Wer rennt, hat eine Chance. Leider tun die meisten Igel etwas anderes: Sie rollen sich ein." },
+        { l: "Einrollen und die Stacheln aufstellen – das hilft gegen jeden Feind", e: 0, s: -5, r: 0, k: "Gegen Fuchs und Hund hilft die Stachelkugel. Gegen Autoreifen nicht. Dieser uralte Reflex kostet jedes Jahr sehr viele Igel das Leben." },
+        { l: "Stehen bleiben und abwarten, bis es vorbei ist", e: 0, s: -3, r: 0, k: "Mitten auf der Fahrbahn ist der schlechteste Platz zum Warten. Runter von der Straße – und zwar schnell." }
+      ] },
+    { von: 2, bis: 5, t: "Blaue Körner", sz: "🥬🔵", p: "netz",
+      x: "Im Salatbeet liegen kleine blaue Körner. Sie riechen nach Getreide. Rundherum kriechen Schnecken. Was tust du?",
+      w: [
+        { l: "Einen Bogen um das ganze Beet machen", e: 0, s: 0, r: 2, k: "Die blauen Körner sind Schneckenkorn – ein Gift. Auch Schnecken, die davon gefressen haben, können dir schaden." },
+        { l: "Die Körner liegen lassen und nur die Schnecken fressen", e: 10, s: -3, r: 0, k: "Die Körner sind Schneckenkorn, und die Schnecken haben davon gefressen. Mit jeder vergifteten Schnecke nimmst du das Gift mit auf." },
+        { l: "Die Körner probieren – Getreide macht satt", e: -30, s: -3, r: 0, k: "Das ist Schneckenkorn, ein Gift. Und Getreide macht einen Insektenfresser ohnehin nicht satt." }
+      ] },
+    { von: 3, bis: 6, t: "Das Netz", sz: "🥅🍓", p: "winter",
+      x: "Über dem Erdbeerbeet hängt ein feines Netz bis auf den Boden. Dahinter krabbeln dicke Käfer. Wie kommst du hin?",
+      w: [
+        { l: "Gar nicht – du suchst woanders", e: 0, s: 0, r: 2, k: "Netze, die bis auf den Boden hängen, sind für Igel Fallen: Die Stacheln verhaken sich wie Widerhaken. Netze gehören straff gespannt und ein Stück über den Boden." },
+        { l: "Unten durchzwängen und die Stacheln dabei flach anlegen", e: -40, s: -3, r: 0, k: "Hinein geht es – heraus nicht mehr: Die Stacheln verhaken sich in den Maschen wie Widerhaken. Viele Igel verheddern sich so in Netzen und Zäunen." },
+        { l: "Ein Loch hineinbeißen", e: -30, s: -1, r: 0, k: "Mit den kleinen spitzen Zähnen eines Insektenfressers beißt man kein Netz durch. Du verhedderst dich nur mit Schnauze und Stacheln." }
+      ] },
+    { von: 1, bis: 6, t: "Der Fuchs", sz: "🦊🌙", p: "netz",
+      x: "Ein Fuchs hat dich entdeckt und schnüffelt neugierig an dir. Was tust du?",
+      w: [
+        { l: "Einrollen, Stacheln aufstellen und abwarten", e: 0, s: 1, r: 2, k: "Mehrere tausend Stacheln machen dich zur Kugel ohne Angriffspunkt, ein Ringmuskel hält sie zu – notfalls stundenlang. Die meisten Füchse geben auf. Nur Uhu und Dachs knacken die Kugel." },
+        { l: "Wegrennen, so schnell es geht", e: -20, s: -3, r: 0, k: "Ein Fuchs ist viel schneller als du. Gegen Raubtiere ist die Stachelkugel dein bester Schutz – nur gegen Autos und Maschinen hilft sie nicht." },
+        { l: "Fauchen und nach ihm schnappen", e: 0, s: -2, r: 1, urteil: "Riskant!", k: "Fauchen und Hochschnellen gehört dazu. Aber ausgestreckt bist du verwundbar: Bauch und Gesicht haben keine Stacheln." }
+      ] },
+    { von: 2, bis: 6, t: "Der alte Schuh", sz: "👞✨", p: "netz",
+      x: "Hinter dem Schuppen liegt ein alter Lederschuh. Er riecht so aufregend wie nichts, was du kennst. Was tust du?",
+      w: [
+        { l: "Darauf herumkauen und dir den Schaum auf die Stacheln spucken", e: 0, s: 0, r: 2, urteil: "Seltsam – aber echt Igel!", k: "Das machen Igel wirklich: Bei fremden, starken Gerüchen kauen sie, bis sich Schaum bildet, und verteilen ihn mit der Zunge auf den Stacheln. Warum, weiß bis heute niemand genau." },
+        { l: "Auffressen – was so gut riecht, macht sicher satt", e: -40, s: 0, r: 0, k: "Leder macht nicht satt und liegt schwer im Magen. Echte Igel kauen auf so einem Fund nur herum und spucken sich den Schaum auf die Stacheln." },
+        { l: "Hineinkriechen und darin schlafen", e: 0, s: 0, r: 1, urteil: "Gemütlich!", k: "Ein bisschen eng. Echte Igel kauen auf so einem Fund herum und verteilen den Schaum auf ihren Stacheln – ein Rätsel der Igelforschung." }
+      ] },
+    { von: 3, bis: 5, t: "Wochenlang kein Regen", sz: "☀️🥵", p: "boden",
+      x: "Der Boden ist hart wie Stein. Die Regenwürmer haben sich tief in die Erde zurückgezogen, alle Pfützen sind verschwunden. Was tust du?",
+      w: [
+        { l: "Zur flachen Vogeltränke am Boden laufen und abends am Kompost jagen", e: 10, s: 0, r: 2, k: "Im trockenen Sommer hilft Igeln nichts so sehr wie eine flache Schale Wasser. Und im feuchten Kompost bleiben Würmer und Larven in Reichweite." },
+        { l: "Aus der Regentonne trinken – da ist immer Wasser drin", e: 0, s: -3, r: 0, k: "Hinein kommt man leicht, heraus nicht: An glatten, steilen Wänden ertrinken Igel. Regentonnen brauchen einen Deckel, Teiche ein flaches Ufer." },
+        { l: "Am Tag suchen, wenn die Menschen den Garten gießen", e: -30, s: -1, r: 0, k: "Igel sind Nachttiere. Wer am Tag unterwegs ist, trocknet in der Hitze noch schneller aus und wird von Hunden und Krähen entdeckt." }
+      ] },
+    { von: 6, bis: 8, nicht: [7], t: "Der große Gartenputz", sz: "🍂💨", p: "winter",
+      x: "Mit lautem Dröhnen saugt ein Gerät das ganze Laub vom Rasen und aus den Beeten. Am Abend ist der Garten blitzsauber. Was tust du?",
+      w: [
+        { l: "In den verwilderten Nachbargarten umziehen", e: -10, s: 0, r: 2, k: "Wo kein Laub liegt, gibt es weder Käfer noch Baustoff fürs Nest. Igel brauchen unordentliche Ecken – ein Laubhaufen ist Speisekammer und Schlafzimmer zugleich." },
+        { l: "Bleiben – auf dem sauberen Boden sind die Käfer leichter zu sehen", e: -50, s: 0, r: 0, k: "Du siehst ohnehin schlecht und suchst mit der Nase. Vor allem aber: Ohne Laub gibt es kaum noch Käfer, die man finden könnte." },
+        { l: "Bleiben und das Nest eben aus Gras und Zweigen bauen", e: -30, s: 0, r: 1, k: "Zur Not geht das. Aber nur Laub lässt sich zu einer dichten, warmen Kugel drehen – und Futter gibt es im sauberen Garten auch kaum." }
+      ] },
+    { von: 2, bis: 5, t: "Wo schläfst du am Tag?", sz: "😴🌿", p: "winter",
+      x: "Die Sommernacht war lang, der Morgen dämmert. Wo verschläfst du den Tag?",
+      w: [
+        { l: "Im dichten Brombeergestrüpp am Zaun", e: 0, s: 1, r: 2, k: "Dornen und dichtes Gestrüpp halten Hunde, Menschen und Maschinen fern. Im Sommer wechseln Igel ihr Tagesversteck alle paar Tage." },
+        { l: "Im hohen Gras unter der Hecke – kühl und weich", e: 0, s: -3, r: 0, k: "Genau dort wird mit dem Freischneider gemäht. Und weil Igel nicht flüchten, sondern sich einrollen, werden sie dabei oft schwer verletzt." },
+        { l: "Unter dem geparkten Auto – trocken und schattig", e: 0, s: -2, r: 0, k: "Bis es losfährt. Auch offene Garagen und Schuppen sind beliebte, aber gefährliche Verstecke." }
+      ] }
+  ]
 }
 };
 
@@ -587,8 +768,9 @@ function jahresplan(tid, rnd) {
   return plan;
 }
 const neuerStand = tid => ({ tid, e: TIERE[tid].start.e, s: TIERE[tid].start.s, eier: 0, nest: 1, jung: 0, fehler: [], gut: 0 });
-const begrenze = st => { st.e = Math.min(EMAX, st.e); st.s = Math.min(SMAX, st.s); };
-const tot = st => st.e <= 0 ? "kraft" : st.s <= 0 ? "feind" : "";
+// Beim Igel (gramm: true) ist „e“ das Gewicht in Gramm: höchstens emax, unter emin ist das Jahr vorbei
+const begrenze = st => { st.e = Math.min(TIERE[st.tid].emax || EMAX, st.e); st.s = Math.min(SMAX, st.s); };
+const tot = st => st.e <= (TIERE[st.tid].emin || 0) ? "kraft" : st.s <= 0 ? "feind" : "";
 function waehle(st, karte, w, m) {
   st.e += w.e; st.s += w.s; if (w.fx) w.fx(st); begrenze(st);
   if (w.r === 0) st.fehler.push({ m, t: karte.t, k: w.k, p: karte.p }); else if (w.r === 2) st.gut++;
@@ -616,9 +798,9 @@ const RASTPLATZ = {
     info: "Lagunen und Schilf an der Küste: die letzte gute Tankstelle vor dem Meer. Abends fallen hier Tausende Schwalben zum Schlafen ein." },
   nordafrika: { n: "Nordafrika", xy: [222, 259], rast: 2, frost: 99, bild: 33, m: 8,
     info: "Vor dir liegt die Sahara: fast 2000 Kilometer ohne Wasser und fast ohne Insekten. Zugvögel fressen sich hier ein Fettpolster an – ihren Treibstoff." },
-  oase: { n: "Oase", xy: [233, 338], rast: 1, frost: 99, bild: 33, m: 8,
+  oase: { n: "Oase", xy: [233, 338], rast: 1, frost: 99, bild: 48, m: 8,
     info: "Ein grüner Fleck mitten in der Wüste: etwas Wasser, ein paar Mücken – viel gibt es hier nicht zu holen." },
-  sahel: { n: "Sahel", xy: [246, 405], rast: 2, frost: 99, bild: 35, m: 8,
+  sahel: { n: "Sahel", xy: [246, 405], rast: 2, frost: 99, bild: 49, m: 8,
     info: "Am Südrand der Sahara wird es wieder grün. Das Schwerste ist geschafft." },
   savanne: { n: "Savanne", xy: [268, 458], rast: 3, frost: 99, bild: 34, m: 8, info: "" }
 };
@@ -719,6 +901,161 @@ function reiseAnkunft(st, R) {
 }
 if (typeof module !== "undefined") Object.assign(module.exports, { WETTER, RASTPLATZ, STRECKEN, reiseStart, reiseRast, reiseFlug, reiseAnkunft, streckenLage, frostDa });
 
+/* ============ Die Nachtrunde: Winterspeck anfressen (Level 3, Oktober – Regeln ohne Anzeige) ============
+   Drei Nächte im Garten, jede Nacht sechs Schritte. Der Igel sieht schlecht und riecht gut: Von den Plätzen nebenan
+   kennt er nur den Geruch. Zwei Beete, zwei Teiche, die Hauswand: Was dort ist, bleibt das ganze Spiel gleich.
+   Rasen (Mähroboter) und Terrasse (Futterschale) wechseln jede Nacht. Bei Sonnenaufgang muss er in einem Versteck sein. */
+const GARTEN = {
+  obst: { n: "Obstwiese", xy: [170, 34], em: "🍎", fund: "obst", duft: "riecht nach gärendem Obst" },
+  strasse: { n: "Straße", xy: [170, 96], em: "🛣️", fund: "strasse", duft: "riecht nach Teer" },
+  rasenA: { n: "Großer Rasen", kurz: "Rasen", xy: [50, 166], em: "🌱", art: "rasen", duft: "riecht nach Gras" },
+  hecke: { n: "Hecke", xy: [130, 166], em: "🌳", fund: "hecke", versteck: true, duft: "es raschelt im Laub" },
+  beetA: { n: "Salatbeet", kurz: "Beet", xy: [210, 166], em: "🥬", art: "beet", duft: "riecht nach feuchter Erde" },
+  teichA: { n: "Alter Teich", kurz: "Teich", xy: [290, 166], em: "💧", art: "teich", duft: "riecht nach Wasser" },
+  terrasse: { n: "Terrasse", xy: [50, 246], em: "🍽️", art: "napf", duft: "riecht nach Futter" },
+  kompost: { n: "Kompost", xy: [130, 246], em: "🪱", fund: "kompost", duft: "riecht nach warmer Erde" },
+  rasenB: { n: "Kleiner Rasen", kurz: "Rasen", xy: [210, 246], em: "🌱", art: "rasen", duft: "riecht nach Gras" },
+  holz: { n: "Holzstapel", xy: [290, 246], em: "🪵", fund: "holz", versteck: true, duft: "es raschelt im Holz" },
+  haus: { n: "Hauswand", xy: [50, 326], em: "🧱", art: "haus", duft: "kühle Luft zieht von unten" },
+  teichB: { n: "Neuer Teich", kurz: "Teich", xy: [130, 326], em: "💧", art: "teich", duft: "riecht nach Wasser" },
+  beetB: { n: "Kürbisbeet", kurz: "Beet", xy: [210, 326], em: "🎃", art: "beet", duft: "riecht nach feuchter Erde" },
+  nest: { n: "Dein Nest", kurz: "Nest", xy: [290, 326], em: "🍂", fund: "nest", versteck: true, duft: "riecht nach dir" }
+};
+const WEGE = [["obst", "strasse"], ["strasse", "hecke"], ["strasse", "beetA"], ["rasenA", "hecke"], ["hecke", "beetA"], ["beetA", "teichA"],
+  ["terrasse", "kompost"], ["kompost", "rasenB"], ["rasenB", "holz"], ["haus", "teichB"], ["teichB", "beetB"], ["beetB", "nest"],
+  ["rasenA", "terrasse"], ["hecke", "kompost"], ["beetA", "rasenB"], ["teichA", "holz"], ["terrasse", "haus"], ["kompost", "teichB"], ["rasenB", "beetB"], ["holz", "nest"]];
+const nachbarn = id => WEGE.filter(w => w.includes(id)).map(w => w[0] === id ? w[1] : w[0]);
+// Was man an einem Platz finden kann: em/kurz = Anzeige, de = Gramm, ds = Sicherheit, art = 2 gut / 1 geht so / 0 schlecht
+const FUND = {
+  wurm: { em: "🪱", kurz: "Regenwürmer", de: 30, ds: 0, art: 2, t: "Regenwürmer!", k: "In lockerer, feuchter Erde kommen sie nachts an die Oberfläche – für dich das beste Futter." },
+  korn: { em: "☠️", kurz: "Schneckenkorn", de: -20, ds: -2, art: 0, bad: true, t: "Blaue Körner zwischen den Pflanzen!", k: "Das ist Schneckenkorn. Du hast eine vergiftete Schnecke erwischt, dir wird übel. Dieses Beet solltest du dir merken." },
+  larven: { em: "🐛", kurz: "Käferlarven", de: 25, ds: 0, art: 2, t: "Fette Larven unter dem Gras!", k: "Du hörst und riechst sie durch die Erde und gräbst sie mit der Schnauze aus." },
+  robo: { em: "🤖", kurz: "Mähroboter!", de: 0, ds: -3, art: 0, bad: true, t: "Es surrt – ein Mähroboter!", k: "Du rollst dich ein. Gegen Messer hilft das nicht: Der Roboter erwischt dich an der Seite. Mähroboter sollten nur am Tag fahren." },
+  flach: { em: "💧", kurz: "flaches Ufer", de: 15, ds: 0, art: 2, t: "Ein flaches Ufer.", k: "Du trinkst dich satt und erwischst am Rand noch ein paar Mückenlarven." },
+  steil: { em: "🌊", kurz: "steiler Rand!", de: -40, ds: -1, art: 0, bad: true, t: "Platsch! Der Rand ist steil und glatt.", k: "Igel schwimmen gut – aber du findest keinen Ausstieg und paddelst stundenlang. Diese Nacht ist vorbei. Ein Brett als Rampe rettet Igeln das Leben." },
+  futter: { em: "🐟", kurz: "Katzenfutter", de: 40, ds: 0, art: 2, t: "Eine Schale Katzenfutter!", k: "Fleisch ist für einen Insektenfresser in Ordnung – und macht ordentlich satt." },
+  milch: { em: "🥛", kurz: "Milch!", de: -40, ds: 0, art: 0, bad: true, t: "Eine Schale Milch.", k: "Du schleckst sie leer – und bekommst Bauchweh und Durchfall. Igel vertragen keine Milch." },
+  leer: { em: "🍽️", kurz: "Schale leer", de: 0, ds: 0, art: 1, t: "Die Schale ist leer.", k: "Die Katze war heute schneller." },
+  schacht: { em: "🕳️", kurz: "offener Schacht!", de: -60, ds: -1, art: 0, bad: true, t: "Plumps! Ein offener Kellerschacht.", k: "Die Wände sind glatt, du kommst nicht mehr heraus. Diese Nacht ist vorbei – und die nächste auch. Kellerschächte brauchen ein feines Gitter." },
+  mauer: { em: "🕷️", kurz: "Asseln und Spinnen", de: 20, ds: 0, art: 2, t: "Der Kellerschacht ist abgedeckt.", k: "An der warmen Hauswand findest du Asseln und Spinnen." },
+  kompost: { em: "🪱", kurz: "Würmer und Larven", de: 30, ds: 0, art: 2, t: "Im Kompost wimmelt es.", k: "Würmer, Larven, Asseln: Ein Komposthaufen ist für Igel ein gedeckter Tisch." },
+  hecke: { em: "🪲", kurz: "Käfer · Versteck", de: 20, ds: 0, art: 2, t: "Im Laub unter der Hecke raschelt es.", k: "Laufkäfer und Ohrwürmer. Und unter der Hecke kannst du auch den Tag verschlafen." },
+  holz: { em: "🪲", kurz: "Käfer · Versteck", de: 20, ds: 0, art: 2, t: "Unter dem Holzstapel krabbelt es.", k: "Asseln und Käfer. Und zwischen den Scheiten kannst du auch den Tag verschlafen." },
+  nest: { em: "🍂", kurz: "Versteck", de: 0, ds: 0, art: 1, t: "Dein Nest im Laubhaufen.", k: "Hier bist du sicher – zu fressen gibt es hier aber nichts." },
+  strasse: { em: "🛣️", kurz: "Autos!", de: 0, ds: 0, art: 1, bad: true, t: "Kein Auto in Sicht – du trippelst hinüber.", k: "Glück gehabt. Jede Überquerung ist ein neues Wagnis." },
+  obst: { em: "🍎", kurz: "Festessen", de: 90, ds: 0, art: 2, t: "Fallobst, so weit die Nase reicht!", k: "Darin: Maden, Würmer, Käfer und Schnecken. Ein Festessen – aber zurück musst du wieder über die Straße." }
+};
+const NACHT = { naechte: 3, schritte: 6, ziel: 1000, knapp: 850, auto: .22 };
+function nachtNeu(N, rnd) {
+  const r = rnd();
+  N.heute = { robo: rnd() < .65 ? (rnd() < .5 ? "rasenA" : "rasenB") : null, napf: r < .5 ? "futter" : r < .8 ? "milch" : "leer", leer: {}, klar: {} };
+  N.schritt = 0;
+}
+function nachtStart(rnd) {
+  const N = { ort: "nest", nacht: 1, fix: { korn: rnd() < .5 ? "beetA" : "beetB", steil: rnd() < .5 ? "teichA" : "teichB", schacht: rnd() < .6 }, fest: {}, fehl: {}, start: 0, fertig: false };
+  nachtNeu(N, rnd); return N;
+}
+function inhalt(N, id) {
+  const O = GARTEN[id];
+  return O.art === "beet" ? (N.fix.korn === id ? "korn" : "wurm") : O.art === "rasen" ? (N.heute.robo === id ? "robo" : "larven")
+    : O.art === "teich" ? (N.fix.steil === id ? "steil" : "flach") : O.art === "napf" ? N.heute.napf : O.art === "haus" ? (N.fix.schacht ? "schacht" : "mauer") : O.fund;
+}
+// Weiß der Igel schon sicher, was an diesem Platz ist?
+const bekannt = (N, id) => { const a = GARTEN[id].art; return !a ? true : a === "rasen" || a === "napf" ? !!N.heute.klar[id] : !!N.fest[id]; };
+const merke = (N, id) => { const a = GARTEN[id].art; if (a === "rasen" || a === "napf") N.heute.klar[id] = true; else if (a) N.fest[id] = true; };
+function versteckNah(id) {
+  let rand = [id]; const war = { [id]: 1 };
+  while (rand.length) { const neu = [];
+    for (const p of rand) { if (GARTEN[p].versteck) return p; nachbarn(p).forEach(q => { if (!war[q] && q !== "strasse") { war[q] = 1; neu.push(q); } }); }
+    rand = neu; }
+  return "nest";
+}
+function nachtFehler(st, N, key, t, k) { if (N.fehl[key]) return; N.fehl[key] = true; st.fehler.push({ m: 7, t, k, p: "winter" }); }
+// Stehen bleiben und wittern: kostet einen Schritt, verrät alle Plätze nebenan
+function nachtWittern(N) { N.schritt++; return nachbarn(N.ort).map(id => { merke(N, id); return id; }); }
+// Einen Platz weiterlaufen
+function nachtZug(st, N, id, rnd) {
+  N.schritt++; N.ort = id; merke(N, id);
+  const key = inhalt(N, id), F = FUND[key];
+  let de = F.de, ds = F.ds, art = F.art, t = F.t, k = F.k, aus = false;
+  if (key === "strasse") {
+    if (rnd() < NACHT.auto) { ds = -4; art = 0; t = "Scheinwerfer! Ein Auto streift dich."; k = "Du rollst in den Straßengraben und rappelst dich mühsam wieder auf. Straßen sind für Igel die größte Gefahr von allen.";
+      nachtFehler(st, N, "strasse", "Über die Straße", "Auf Straßen sterben mehr Igel als durch jeden natürlichen Feind. Im Garten wäre es sicherer gewesen."); }
+  } else if (de > 0 && N.heute.leer[id]) { de = 0; art = 1; t = "Hier hast du heute Nacht schon alles abgesucht."; k = "Morgen Nacht gibt es hier wieder etwas zu holen."; }
+  else if (de > 0) N.heute.leer[id] = true;
+  if (F.bad && key !== "strasse") nachtFehler(st, N, key, GARTEN[id].n + ": " + F.kurz.replace("!", ""), F.k);
+  if (key === "steil") aus = true;
+  if (key === "schacht") { aus = true; N.gefangen = true; }
+  st.e += de; st.s += ds;
+  return { art, t, k, de, ds, aus, key, ort: id };
+}
+// Der Morgen: Wer nicht im Versteck ist, wird vom Tag überrascht
+function nachtMorgen(st, N, rnd) {
+  let ds = 0, de = 0, art = 2, t = "Du rollst dich im Versteck zusammen und verschläfst den Tag.", k = "";
+  const key = inhalt(N, N.ort);
+  if (N.gefangen) { N.gefangen = false; N.nacht++; de = -30; art = 0; t = "Du sitzt im Kellerschacht fest."; k = "Erst am übernächsten Abend entdeckt dich jemand und hebt dich heraus. Zwei Tage ohne Futter – und eine ganze Nacht verloren."; N.ort = "nest"; }
+  else if (key === "steil") { art = 1; t = "Im Morgengrauen findest du endlich eine Stelle zum Herausklettern."; k = "Durchnässt und erschöpft schleppst du dich ins nächste Versteck."; N.ort = versteckNah(N.ort); }
+  else if (!GARTEN[N.ort].versteck) { ds = -2; art = 0; t = "Die Sonne geht auf – und du bist noch unterwegs!"; k = "Am hellen Tag sehen dich Hunde, Krähen und Menschen. Du hastest ins nächste Versteck.";
+    nachtFehler(st, N, "tag", "Vom Morgen überrascht", "Igel sind Nachttiere. Wer bei Sonnenaufgang noch unterwegs ist, hat kein Versteck in der Nähe eingeplant."); N.ort = versteckNah(N.ort); }
+  st.e += de; st.s += ds; N.nacht++;
+  if (N.nacht > NACHT.naechte) N.fertig = true; else nachtNeu(N, rnd);
+  return { art, t, k, de, ds };
+}
+if (typeof module !== "undefined") Object.assign(module.exports, { GARTEN, WEGE, FUND, NACHT, nachbarn, nachtStart, nachtNeu, inhalt, bekannt, merke, versteckNah, nachtWittern, nachtZug, nachtMorgen });
+
+/* ============ Der Winterschlaf (Level 3, Dezember bis Februar – Regeln ohne Anzeige) ============
+   Dreizehn Wochen im Zeitraffer. Jede Woche schmilzt das Fettpolster; ein schlechtes Nest kostet mehr.
+   Drei oder vier Störungen verlangen eine Entscheidung. Wer zu leicht ist, kann vorher noch auf Futtersuche gehen. */
+const SCHLAF = { wochen: 13, proWoche: 17, monat: [9, 9, 9, 9, 10, 10, 10, 10, 10, 11, 11, 11, 11], temp: [3, 1, -2, 0, -4, -8, -3, 2, -6, -1, 3, 5, 7] };
+const SCHLAF_KARTEN = [
+  { t: "Strenger Frost", sz: "🥶❄️", p: "winter", temp: -15,
+    x: "Minus fünfzehn Grad. Die Kälte kriecht durch das Laub, in deinem Nest sinkt die Temperatur unter null. Was tut dein Körper?",
+    w: [
+      { l: "Er heizt von selbst ein wenig nach – gerade so viel, dass nichts gefriert", e: -30, s: 0, r: 2, k: "Winterschlaf ist kein Abschalten: Eine innere Heizung springt an, sobald es zu kalt wird. Das kostet Fett – deshalb ist ein dick gepolstertes Nest so wichtig." },
+      { l: "Er lässt die Temperatur weiter sinken – je kälter, desto sparsamer", e: 0, s: -4, r: 0, k: "Das gilt nur bis etwa fünf Grad. Darunter droht der Körper zu erfrieren – ein Igel fällt nicht in Kältestarre wie Frosch und Eidechse." },
+      { l: "Er wacht ganz auf, und du ziehst in den warmen Heizungskeller um", e: -90, s: 0, r: 0, k: "Im Warmen kannst du nicht weiterschlafen, und Futter gibt es dort auch keines. Dein Fett wäre in wenigen Wochen aufgebraucht." }
+    ] },
+  { t: "Rumms!", sz: "🍂😱", p: "winter", temp: -2,
+    x: "Es rumpelt und wird hell: Jemand räumt mit der Gabel deinen Laubhaufen weg. Dein Nest liegt plötzlich offen im Frost. Was tust du?",
+    w: [
+      { l: "Aufwachen, auch wenn es Stunden dauert, und in der Hecke ein neues Nest bauen", e: -70, s: 0, r: 2, urteil: "Bitter, aber richtig.", k: "Ein offenes Nest schützt nicht mehr. Der Umzug mitten im Winter kostet sehr viel Fett – deshalb: Laub- und Reisighaufen von November bis April in Ruhe lassen!" },
+      { l: "Eingerollt liegen bleiben – die Stacheln schützen dich", e: -40, s: -4, r: 0, k: "Stacheln schützen vor Zähnen, aber nicht vor Kälte. Ohne Laubdecke kühlst du aus, und Krähen und Hunde finden dich." },
+      { l: "Aufwachen und Schutz im nächsten Kellerschacht suchen", e: -90, s: -3, r: 0, k: "Hinein kommst du, heraus nicht mehr. Und warm ist es dort unten auch nicht." }
+    ] },
+  { t: "Besuch am Nest", sz: "🐕👃", p: "winter", temp: 1,
+    x: "Etwas schnüffelt und scharrt an deinem Laubhaufen: ein Hund. Was tust du?",
+    w: [
+      { l: "Eingerollt bleiben und die Stacheln aufstellen", e: -20, s: 0, r: 2, k: "Auch im Tiefschlaf stellen Igel bei einer Störung die Stacheln auf. Ganz wach zu werden dauert mehrere Stunden – bis dahin ist der Hund längst weg." },
+      { l: "Schnell aufwachen und davonlaufen", e: -80, s: -2, r: 0, k: "Schnell geht da gar nichts: Das Aufheizen von 5 auf 35 Grad dauert Stunden und kostet sehr viel Fett. Die Stachelkugel ist jetzt der bessere Schutz." },
+      { l: "Laut fauchen, um ihn zu vertreiben", e: -60, s: 0, r: 0, k: "Fauchen kann nur, wer wach ist – und Aufwachen ist im Winter das Teuerste überhaupt." }
+    ] },
+  { t: "Wasser im Nest", sz: "🌧️💦", p: "winter", temp: 6,
+    x: "Tagelang Regen und Tauwetter. Von unten sickert Wasser in dein Nest, das Laub ist klatschnass. Was tust du?",
+    w: [
+      { l: "Aufwachen und an einer höheren, trockenen Stelle neu bauen", e: -60, s: 0, r: 2, urteil: "Teuer, aber richtig.", k: "Nasses Laub wärmt nicht mehr. Igel bauen ihr Winternest deshalb gern etwas erhöht und regengeschützt – zum Beispiel unter dichten Hecken." },
+      { l: "Weiterschlafen – ein bisschen Nässe macht einem Igel nichts", e: -40, s: -3, r: 0, k: "Im nassen Nest kühlt der Körper aus und muss ständig nachheizen. Das kostet auf Dauer mehr Fett als ein Umzug – und macht krank." },
+      { l: "Aufwachen und trockenes Laub obendrauf packen", e: -70, s: -1, r: 1, k: "Das Wasser kommt von unten – eine dickere Decke hilft da wenig. Besser gleich an eine trockene Stelle umziehen." }
+    ] }
+];
+function schlafStart(st, rnd) {
+  const faktor = st.wnest || 1.2, n = faktor > 1.2 ? 4 : 3;
+  const karten = mische(SCHLAF_KARTEN, rnd).slice(0, n), wochen = mische([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], rnd).slice(0, n).sort((a, b) => a - b);
+  const W = { woche: 0, faktor, plan: {}, suche: 0, start: st.e, wach: 0 };
+  wochen.forEach((w, i) => { W.plan[w] = karten[i]; });
+  return W;
+}
+// Zu leicht für den Winter? Dann noch eine Nacht auf Futtersuche – bei Frost bringt das wenig und ist gefährlich.
+function schlafSuche(st, W, rnd) { const de = rnd() < .6 ? 30 : 10; st.e += de; st.s -= 1; W.suche++; return { de, ds: -1 }; }
+// Eine Woche Schlaf
+function schlafWoche(st, W, rnd) {
+  W.woche++;
+  const de = -Math.round(SCHLAF.proWoche * W.faktor + (rnd() * 4 - 2));
+  st.e += de;
+  const karte = W.plan[W.woche] || null;
+  return { de, karte, temp: karte ? karte.temp : SCHLAF.temp[W.woche - 1] + Math.round(rnd() * 2 - 1), m: SCHLAF.monat[W.woche - 1] };
+}
+if (typeof module !== "undefined") Object.assign(module.exports, { SCHLAF, SCHLAF_KARTEN, schlafStart, schlafSuche, schlafWoche });
+
 /* ============ Helfer und Speicher (nur auf diesem Gerät) ============ */
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -729,6 +1066,10 @@ function laden() { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); }
 let S = laden();
 function speichern() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
 const app = $("#app");
+// Level 1 ist immer offen; jedes weitere öffnet sich, wenn das Tier davor ein Jahr überstanden hat
+const davor = tid => Object.keys(TIERE).find(t => TIERE[t].level === TIERE[tid].level - 1);
+const offen = tid => !!TIERE[tid] && (TIERE[tid].level === 1 || !!S.frei || !!(S[davor(tid)] && S[davor(tid)].ueberlebt));
+const danach = tid => Object.keys(TIERE).find(t => TIERE[t].level === TIERE[tid].level + 1);
 const sterneHTML = n => `<span aria-label="${n} von 3 Sternen">${[0, 1, 2].map(k => `<span class="${k < n ? "" : "stern-leer"}">⭐</span>`).join("")}</span>`;
 const fuss = () => `<footer class="fuss">
   <div>Dein Spielstand wird nur auf diesem Gerät gespeichert. Keine Anmeldung, keine Datensammlung.</div>
@@ -737,7 +1078,7 @@ const fuss = () => `<footer class="fuss">
 function konfetti() {
   if (reduce) return;
   const f = document.createElement("div"); f.className = "konffeld";
-  const z = ["🪶", "⭐", "🌱", "🐣", "✨", "🌻"];
+  const z = ["🪶", "⭐", "🌱", "🐣", "✨", "🦔"];
   for (let n = 0; n < 44; n++) { const k = document.createElement("span"); k.className = "konf"; k.textContent = z[n % z.length]; k.style.cssText = `left:${Math.random() * 100}%;animation-delay:${(Math.random() * .8).toFixed(2)}s`; f.appendChild(k); }
   document.body.appendChild(f); setTimeout(() => f.remove(), 4800);
 }
@@ -745,41 +1086,42 @@ let laufend = null; // räumt Zeitgeber des Zwischenspiels ab, wenn die Seite ge
 
 /* ============ Startseite ============ */
 function seiteStart() {
-  const offen2 = !!(S.frei || (S.meise && S.meise.ueberlebt));
-  const lv = tid => { const T = TIERE[tid], d = S[tid], zu = tid === "schwalbe" && !offen2;
+  const alleOffen = Object.keys(TIERE).every(offen);
+  const lv = tid => { const T = TIERE[tid], d = S[tid], zu = !offen(tid);
     return `<button type="button" class="lv" data-t="${tid}" ${zu ? "disabled" : ""}>
       <img src="${T.bild}" alt="">
-      <span><span class="nr">Level ${T.level}${zu ? " · 🔒" : ""}</span><span class="nm">${T.name}</span><span class="mo">${zu ? "Öffnet sich, wenn deine Kohlmeise das Jahr überstanden hat." : T.motto}</span>
+      <span><span class="nr">Level ${T.level}${zu ? " · 🔒" : ""}</span><span class="nm">${T.name}</span><span class="mo">${zu ? "Öffnet sich, wenn " + TIERE[davor(tid)].dein + " das Jahr überstanden hat." : T.motto}</span>
       ${d && d.n ? `<span class="st">${sterneHTML(d.sterne || 0)} · Rekord: ${d.jung || 0} Junge · ${d.n}× gespielt</span>` : zu ? "" : `<span class="st">▶ Spielen</span>`}</span></button>`; };
   app.innerHTML = `<header class="app-head">
     <a class="zurueck-kopf" href="../index.html">‹ Fauna</a>
-    <div class="logo">🌱☀️🍂❄️</div><h1>Durchs Jahr!</h1><div class="untertitel">Das Überlebensspiel – zwölf Monate als Vogel</div></header>
+    <div class="logo">🌱☀️🍂❄️</div><h1>Durchs Jahr!</h1><div class="untertitel">Das Überlebensspiel – zwölf Monate als Wildtier</div></header>
   <div class="huelle">
     <section>
-      <p class="lead">Schlüpf in die Federn eines Vogels und bring ihn durch ein ganzes Jahr. Jeden Monat passiert etwas – und du entscheidest, was dein Vogel tut. Was du in den Forscherpässen gelernt hast, hilft dir jetzt beim Überleben.</p>
+      <p class="lead">Schlüpf in die Federn einer Kohlmeise oder Rauchschwalbe – oder ins Stachelkleid eines Igels – und bring dein Tier durch ein ganzes Jahr. Jeden Monat passiert etwas, und du entscheidest, was es tut. Was du in den Forscherpässen gelernt hast, hilft dir jetzt beim Überleben.</p>
       <div class="regeln">
-        <div class="regel"><span class="e">⚡</span><span><b>Kraft:</b> Fressen füllt sie auf, Kälte, Fliegen und Brüten verbrauchen sie. Ist sie leer, ist das Jahr vorbei.</span></div>
-        <div class="regel"><span class="e">🛡️</span><span><b>Sicherheit:</b> Sperber, Katze und Glasscheiben lauern überall. Wer leichtsinnig ist, wird erwischt.</span></div>
+        <div class="regel"><span class="e">⚡</span><span><b>Kraft:</b> Fressen füllt sie auf, Kälte, Fliegen und Brüten verbrauchen sie. Ist sie leer, ist das Jahr vorbei. Beim Igel zählt stattdessen das Gewicht ⚖️.</span></div>
+        <div class="regel"><span class="e">🛡️</span><span><b>Sicherheit:</b> Sperber, Katze, Autos und Mähroboter lauern überall. Wer leichtsinnig ist, wird erwischt.</span></div>
         <div class="regel"><span class="e">🐣</span><span><b>Junge:</b> Wie viele bekommst du groß? Für viele Junge gibt es mehr Sterne.</span></div>
       </div>
     </section>
     <section>
-      <h2 class="h-blau">Wähle deinen Vogel</h2>
-      <div class="level">${lv("meise")}${lv("schwalbe")}</div>
-      <p class="klein">Ein Jahr dauert etwa zehn Minuten. Jedes Jahr verläuft anders – die Zwischenfälle werden neu gemischt.</p>
+      <h2 class="h-blau">Wähle dein Tier</h2>
+      <div class="level">${lv("meise")}${lv("schwalbe")}${lv("igel")}</div>
+      <p class="klein">Ein Jahr dauert zehn bis fünfzehn Minuten. Jedes Jahr verläuft anders – die Zwischenfälle werden neu gemischt.</p>
     </section>
     <section>
       <details class="lehrer"><summary>Für Lehrkräfte: Einsatz in Klasse 5/6</summary><div class="grid">
-        <p>„Durchs Jahr!“ ist ein Entscheidungsspiel zum Wiederholen und Vernetzen. Es greift Inhalte aus mehreren Lernpfaden auf: Körperbau, Nest und Brut (Vogelpass), Vogelzug (Zugvogel-Pass), Überwinterung (Expedition Winter), Fütterung und Gefahren am Haus (Futterhaus-Pass) sowie Nahrungsbeziehungen und Insektenreichtum (Lernpfade zur Wiese).</p>
+        <p>„Durchs Jahr!“ ist ein Entscheidungsspiel zum Wiederholen und Vernetzen. Es greift Inhalte aus mehreren Lernpfaden auf: Körperbau, Nest und Brut (Vogelpass), Vogelzug (Zugvogel-Pass), Überwinterung und Winterschlaf (Expedition Winter), Fütterung und Gefahren am Haus (Futterhaus-Pass) sowie Nahrungsbeziehungen und Insektenreichtum (Lernpfade zur Wiese).</p>
         <ul class="clean">
-          <li><b>Ablauf:</b> Zwölf Monate von März bis Februar. Jeden Monat eine Ereigniskarte mit zwei bis drei Entscheidungen, dazu vier zufällige Zwischenfälle und kurze Zwischenspiele (Futter für die Jungen, Futterhaus). Nach jeder Entscheidung folgt eine kurze fachliche Begründung.</li>
+          <li><b>Ablauf:</b> Zwölf Monate von März bis Februar. Jeden Monat eine Ereigniskarte mit drei Entscheidungen, dazu vier zufällige Zwischenfälle und kurze Zwischenspiele (Futter für die Jungen, Futterhaus). Nach jeder Entscheidung folgt eine kurze fachliche Begründung.</li>
           <li><b>Level 1 – Kohlmeise (Standvogel):</b> Höhlenbrüter, Raupen als Nestlingsnahrung, Mauser, Nahrungsumstellung im Herbst, Meisentrupps, Winternächte.</li>
           <li><b>Level 2 – Rauchschwalbe (Zugvogel):</b> Brut im Stall, Lehmnest, Luftjagd auf Insekten, Winterquartier. Der Herbstzug ist ein eigener Spielteil: Auf einer Karte geht es von Hessen in die Savanne – mit wechselndem Wetter, Rastplätzen zum Auftanken, nachrückendem Frost und dreimal der Wahl zwischen riskanter Abkürzung (Alpenpass, Mittelmeer, Sahara ohne Halt) und sicherem Umweg. Ein misslungener Alpenübergang führt zum Rastplatz zurück. Deutlich anspruchsvoller.</li>
+          <li><b>Level 3 – Igel (Säugetier, Winterschläfer):</b> Statt der Kraft zählt das Gewicht in Gramm. Insektenfresser, Einzelgänger, Aufzucht der Jungen, Gefahren im Garten (Straße, Mähroboter, Schneckenkorn, Netze, steile Teichränder, Kellerschächte, Milch). Zwei eigene Spielteile: In der <i>Nachtrunde</i> im Oktober frisst sich der Igel in drei Nächten auf einem Gartenplan den Winterspeck an – er kennt von den Nachbarplätzen nur den Geruch, kann wittern (kostet Zeit) und muss bei Sonnenaufgang in einem Versteck sein. Im <i>Winterschlaf</i> schmilzt das Gewicht Woche für Woche; Störungen verlangen Entscheidungen, jedes Aufwachen kostet viel Fett. Wer im Herbst zu leicht bleibt, übersteht den Winter nicht.</li>
           <li><b>Auswertung:</b> Am Ende zeigt das Spiel die riskanten Entscheidungen mit Begründung und verweist auf den passenden Lernpfad – gut geeignet für ein kurzes Auswertungsgespräch („Woran ist deine Meise gescheitert?“).</li>
-          <li><b>Hinweis:</b> Im Spiel kann der Vogel sterben. Das ist bewusst sachlich gehalten und zeigt, wie hart ein Vogeljahr ist.</li>
-          <li><b>Zeit:</b> etwa 10 Minuten pro Jahr; ohne Ton, ohne Anmeldung, läuft auf Tablet, Handy und am Beamer.</li>
+          <li><b>Hinweis:</b> Im Spiel kann das Tier sterben. Das ist bewusst sachlich gehalten und zeigt, wie hart ein Jahr in der Natur ist.</li>
+          <li><b>Zeit:</b> 10 bis 15 Minuten pro Jahr; ohne Ton, ohne Anmeldung, läuft auf Tablet, Handy und am Beamer.</li>
         </ul>
-        <div class="knopfreihe">${offen2 ? "" : `<button type="button" class="knopf" id="frei">🔓 Level 2 sofort freischalten</button>`}<button type="button" class="knopf" id="reset">Spielstand löschen</button></div>
+        <div class="knopfreihe">${alleOffen ? "" : `<button type="button" class="knopf" id="frei">🔓 Alle Level sofort freischalten</button>`}<button type="button" class="knopf" id="reset">Spielstand löschen</button></div>
       </div></details>
     </section>
     ${fuss()}
@@ -792,13 +1134,14 @@ function seiteStart() {
 /* ============ Ein Spieljahr ============ */
 function seiteSpiel(tid) {
   const T = TIERE[tid];
-  if (!T || (tid === "schwalbe" && !(S.frei || (S.meise && S.meise.ueberlebt)))) { location.hash = ""; return; }
+  if (!T || !offen(tid)) { location.hash = ""; return; }
   const plan = jahresplan(tid, Math.random), st = neuerStand(tid);
+  const G = !!T.gramm, E_MAX = T.emax || EMAX, E_MIN = T.emin || 0, EH = G ? " g" : " ⚡";   // Igel: Gewicht in Gramm statt Kraft
   let m = -1, schritt = 0, grund = "";
   app.innerHTML = `<div class="spielkopf"><div class="innen">
       <div class="sk-zeile"><a href="#">‹ Beenden</a><span><b>${T.name}</b> · Level ${T.level}</span></div>
       <div class="anzeigen">
-        <div class="anz"><span class="lab"><span>⚡ Kraft</span><b id="eZahl"></b></span><div class="balken e" id="eBalken"><i></i></div></div>
+        <div class="anz"><span class="lab"><span>${G ? "⚖️ Gewicht" : "⚡ Kraft"}</span><b id="eZahl"></b></span><div class="balken e" id="eBalken"><i></i></div></div>
         <div class="anz"><span class="lab"><span>🛡️ Sicherheit</span><b id="sZahl"></b></span><div class="balken s" id="sBalken"><i></i></div></div>
         <div class="anz junge" id="junge"></div>
       </div>
@@ -808,13 +1151,13 @@ function seiteSpiel(tid) {
   const buehne = $("#buehne");
   function anzeigen() {
     const e = Math.max(0, st.e), s = Math.max(0, st.s);
-    $("#eZahl").textContent = e + " / " + EMAX; $("#sZahl").textContent = s + " / " + SMAX;
-    $("#eBalken i").style.width = (e / EMAX * 100) + "%"; $("#sBalken i").style.width = (s / SMAX * 100) + "%";
-    $("#eBalken").classList.toggle("knapp", e <= 2); $("#sBalken").classList.toggle("knapp", s <= 2);
-    $("#junge").innerHTML = st.eier ? `🥚 im Nest<b>${st.eier}</b>` : `🐣 flügge<b>${st.jung}</b>`;
+    $("#eZahl").textContent = G ? Math.round(e) + " g" : e + " / " + EMAX; $("#sZahl").textContent = s + " / " + SMAX;
+    $("#eBalken i").style.width = Math.max(0, Math.min(100, (e - E_MIN) / (E_MAX - E_MIN) * 100)) + "%"; $("#sBalken i").style.width = (s / SMAX * 100) + "%";
+    $("#eBalken").classList.toggle("knapp", G ? e <= E_MIN + 120 : e <= 2); $("#sBalken").classList.toggle("knapp", s <= 2);
+    $("#junge").innerHTML = st.eier ? `${T.nestEm || "🥚"} im Nest<b>${st.eier}</b>` : `${T.jungEm || "🐣"} ${T.jungKurz || "flügge"}<b>${st.jung}</b>`;
     $$("#weg span").forEach(el => { const k = +el.dataset.m; el.className = zeit(k)[0] + (k < m ? " war" : k === m ? " jetzt" : ""); el.textContent = k === m ? T.em : MONATE[k][0]; });
   }
-  const chips = (de, ds, extra) => `<div class="chips">${de ? `<span class="chip ${de > 0 ? "plus" : "minus"}">${de > 0 ? "+" : "−"}${Math.abs(de)} ⚡</span>` : ""}${ds ? `<span class="chip ${ds > 0 ? "plus" : "minus"}">${ds > 0 ? "+" : "−"}${Math.abs(ds)} 🛡️</span>` : ""}${extra || ""}</div>`;
+  const chips = (de, ds, extra) => `<div class="chips">${de ? `<span class="chip ${de > 0 ? "plus" : "minus"}">${de > 0 ? "+" : "−"}${Math.abs(Math.round(de))}${EH}</span>` : ""}${ds ? `<span class="chip ${ds > 0 ? "plus" : "minus"}">${ds > 0 ? "+" : "−"}${Math.abs(ds)} 🛡️</span>` : ""}${extra || ""}</div>`;
   const szene = (k, zw) => `<div class="szene ${zeit(m)[0]}">${k.bild ? `<img src="${(m >= 9 && k.bildWinter) || (m >= 6 && m <= 8 && k.bildHerbst) || k.bild}" alt="">` : `<div class="zeichen" aria-hidden="true">${k.sz}</div>`}
       <span class="wann">${zeit(m)[2]} ${MONATE[m]}</span>${zw ? `<span class="zw">Zwischenfall</span>` : ""}</div>`;
 
@@ -822,9 +1165,9 @@ function seiteSpiel(tid) {
     m++; schritt = 0;
     if (m > 11) return ende();
     const b = T.basis[m]; st.e += b; begrenze(st);
-    basisHinweis = b ? `<div class="basis">${T.basisText[b] || ""} <b>${b > 0 ? "+" : "−"}${Math.abs(b)} ⚡</b></div>` : "";
+    basisHinweis = b ? `<div class="basis">${T.basisText[b] || ""} <b>${b > 0 ? "+" : "−"}${Math.abs(b)}${EH}</b></div>` : "";
     anzeigen();
-    if (tot(st)) { grund = "Die Kraft hat nicht bis zum " + MONATE[m] + " gereicht."; return ende(); }
+    if (tot(st)) { grund = G ? T.todE : "Die Kraft hat nicht bis zum " + MONATE[m] + " gereicht."; return ende(); }
     if (!plan[m].length) return monat();   // Monat ohne eigene Karte (gehört zur großen Reise)
     karte();
   }
@@ -837,6 +1180,8 @@ function seiteSpiel(tid) {
     window.scrollTo(0, 0);
     if (k.fang) return fang(k);
     if (k.reise) return reise(k);
+    if (k.nacht) return nacht(k);
+    if (k.schlaf) return schlaf(k);
     buehne.innerHTML = `<div class="karte">${szene(k, zw)}
       <div class="k-text">${schritt === 0 ? basisHinweis : ""}<h2>${k.t}</h2><p>${k.x}</p></div>
       <div class="wahl">${mische(k.w.map((w, i) => i), Math.random).map(i => `<button type="button" data-i="${i}">${k.w[i].l}</button>`).join("")}</div>
@@ -845,8 +1190,8 @@ function seiteSpiel(tid) {
       const w = k.w[+b.dataset.i], jungVor = st.jung, eierVor = st.eier;
       waehle(st, k, w, m);
       $$(".wahl button", buehne).forEach(x => { x.disabled = true; x.classList.toggle("gewaehlt", x === b); });
-      const extra = (st.eier !== eierVor ? `<span class="chip">🥚 ${st.eier} im Nest</span>` : "") + (st.jung > jungVor ? `<span class="chip plus">+${st.jung - jungVor} 🐣</span>` : "");
-      const aus = pruefe(st.e <= 0 ? "Deine Kraft war aufgebraucht." : "Ein Feind hat dich erwischt.");
+      const extra = (st.eier !== eierVor ? `<span class="chip">${T.nestEm || "🥚"} ${st.eier} im Nest</span>` : "") + (st.jung > jungVor ? `<span class="chip plus">+${st.jung - jungVor} ${T.jungEm || "🐣"}</span>` : "");
+      const aus = pruefe(tot(st) === "kraft" ? (T.todE || "Deine Kraft war aufgebraucht.") : (T.todS || "Ein Feind hat dich erwischt."));
       $("#folge").innerHTML = `<div class="folge r${w.r}" role="status">
           <span class="urteil">${w.urteil || ["Das war riskant.", "Geht so.", "Gute Entscheidung!"][w.r]}</span>
           ${chips(w.e, w.s, extra)}<span>${w.k}</span></div>
@@ -903,7 +1248,7 @@ function seiteSpiel(tid) {
       const r = q >= .75 ? 2 : q >= .4 ? 1 : 0;
       if (r === 0) st.fehler.push({ m, t: k.t, k: k.k, p: k.p }); else if (r === 2) st.gut++;
       feld.innerHTML = `<div class="fang-start"><div style="font-size:40px">${r === 2 ? "🎉" : r === 1 ? "👍" : "😕"}</div><div><b>${treffer}</b> richtig${fehler ? `, <b>${fehler}</b> daneben` : ""}</div></div>`;
-      const aus = pruefe("Deine Kraft war aufgebraucht.");
+      const aus = pruefe(T.todE || "Deine Kraft war aufgebraucht.");
       $("#folge").innerHTML = `<div class="folge r${r}" role="status"><span class="urteil">${ergebnis}</span>${chips(k.e, 0, "")}<span>${k.k}</span></div>
         <div class="weiter"><button type="button" class="knopf prim" id="weiter">Weiter ›</button></div>`;
       $("#weiter").onclick = aus ? ende : weiter;
@@ -1010,11 +1355,206 @@ function seiteSpiel(tid) {
     zeige();
   }
 
+  /* Die Nachtrunde: drei Nächte im Garten – der Igel riecht mehr, als er sieht */
+  function nacht(k) {
+    const N = nachtStart(Math.random); N.start = st.e;
+    let meldung = null, erst = true;
+    const kurz = id => GARTEN[id].kurz || GARTEN[id].n;
+    // Zustand eines Platzes für die Anzeige: sicher bekannt? gefährlich?
+    function lage(id) {
+      const key = inhalt(N, id), F = FUND[key], weiss = bekannt(N, id);
+      if (!weiss) return { weiss, em: GARTEN[id].em, text: GARTEN[id].duft, cls: "unklar" };
+      if (key === "strasse") return { weiss, em: F.em, text: "riecht nach Teer – Autos!", cls: "gefahr" };
+      const leer = F.de > 0 && N.heute.leer[id];
+      return { weiss, em: F.bad ? F.em : GARTEN[id].em, text: leer ? "heute schon abgesucht" : F.kurz + (F.de > 0 ? " · +" + F.de + " g" : ""), cls: F.bad ? "gefahr" : leer ? "leer" : "gut" };
+    }
+    function gartenSVG() {
+      const nb = nachbarn(N.ort);
+      const wege = WEGE.map(([a, b]) => { const A = GARTEN[a].xy, B = GARTEN[b].xy, an = (a === N.ort && nb.includes(b)) || (b === N.ort && nb.includes(a));
+        return `<line x1="${A[0]}" y1="${A[1]}" x2="${B[0]}" y2="${B[1]}" class="n-weg${an ? " an" : ""}"/>`; }).join("");
+      const plaetze = Object.keys(GARTEN).map(id => { const O = GARTEN[id], L = lage(id), hier = id === N.ort, nah = nb.includes(id);
+        return `<g class="n-platz ${L.cls}${hier ? " hier" : ""}${nah ? " nah" : ""}" data-id="${id}">
+          <circle cx="${O.xy[0]}" cy="${O.xy[1]}" r="21"/>
+          <text x="${O.xy[0]}" y="${O.xy[1] + 7}" class="n-em">${hier ? "🦔" : L.em}</text>
+          <text x="${O.xy[0]}" y="${O.xy[1] + 36}" class="n-name">${kurz(id)}</text></g>`; }).join("");
+      return `<svg viewBox="0 0 340 372" class="n-svg" role="img" aria-label="Plan des Gartens bei Nacht">
+        <rect width="340" height="372" fill="#14233a"/>
+        <circle cx="300" cy="30" r="13" fill="#f4edc9"/><circle cx="294" cy="26" r="11" fill="#14233a"/>
+        <g fill="#f4edc9">${[[28, 22], [70, 44], [112, 16], [232, 20], [252, 50], [326, 62], [18, 60]].map(p => `<circle cx="${p[0]}" cy="${p[1]}" r="1.2"/>`).join("")}</g>
+        <rect x="0" y="76" width="340" height="40" fill="#39414d"/><line x1="0" y1="96" x2="340" y2="96" stroke="#cfd5dc" stroke-width="1.6" stroke-dasharray="12 12" opacity=".6"/>
+        <rect x="8" y="128" width="324" height="238" rx="16" fill="#1d3a2c"/>
+        <rect x="8" y="284" width="84" height="82" rx="6" fill="#4a4f5c"/><rect x="20" y="344" width="16" height="14" fill="#f2d58a" opacity=".85"/>
+        <rect x="14" y="218" width="72" height="56" rx="6" fill="#55504a" opacity=".7"/>
+        ${wege}${plaetze}</svg>`;
+    }
+    const mondHTML = () => `<span class="n-mond" aria-hidden="true">${Array.from({ length: NACHT.schritte }, (_, i) => `<i class="${i < N.schritt ? "um" : ""}"></i>`).join("")}</span>`;
+    function zeige() {
+      anzeigen(); window.scrollTo(0, 0);
+      const rest = NACHT.schritte - N.schritt, hier = GARTEN[N.ort];
+      buehne.innerHTML = `<div class="karte nachtrunde">
+        <div class="k-text"><span class="eyebrow">${zeit(m)[2]} ${MONATE[m]} · Nacht ${N.nacht} von ${NACHT.naechte}</span><h2>${k.t}</h2>
+          ${erst ? `<p>Jetzt zählt jedes Gramm: Für den Winterschlaf brauchst du mindestens <b>${NACHT.ziel} g</b>. Du hast drei Nächte, jede hat sechs Schritte.</p>
+          <p class="klein">Du siehst schlecht, aber du riechst gut: Von den Plätzen nebenan kennst du nur den Geruch – und nicht jeder Geruch hält, was er verspricht. Wenn die Sonne aufgeht, musst du in einem Versteck sein: im Nest, unter der Hecke oder im Holzstapel.</p>` : ""}</div>
+        <div class="n-oben">
+          <div class="n-karte">${gartenSVG()}</div>
+          <div class="n-seite">
+            <div class="n-hud"><span>${mondHTML()} <b>${rest}</b> ${rest === 1 ? "Schritt" : "Schritte"} bis zum Morgen</span><span>Ziel: <b>${NACHT.ziel} g</b></span></div>
+            ${meldung ? `<div class="folge r${meldung.art}" role="status"><span class="urteil">${meldung.t}</span>${chips(meldung.de, meldung.ds, "")}<span>${meldung.k}</span></div>` : ""}
+            <div class="wahl r-wahl n-wahl">
+              ${nachbarn(N.ort).map(id => { const L = lage(id);
+                return `<button type="button" class="n-opt ${L.cls}" data-id="${id}"><b>${L.em} ${GARTEN[id].n}</b><span class="r-sub">${L.weiss ? L.text : "🐽 " + L.text}</span></button>`; }).join("")}
+              ${nachbarn(N.ort).some(id => !bekannt(N, id)) ? `<button type="button" id="nWitter" class="n-witter"><b>👃 Stehen bleiben und wittern</b><span class="r-sub">kostet einen Schritt – dafür weißt du genau, was nebenan ist</span></button>` : ""}
+              ${hier.versteck ? `<button type="button" id="nBleib" class="r-rast"><b>😴 Hier bleiben und den Tag verschlafen</b><span class="r-sub">${hier.n} ist ein sicheres Versteck</span></button>` : ""}
+            </div>
+          </div>
+        </div></div>`;
+      erst = false;
+      const geh = id => { meldung = nachtZug(st, N, id, Math.random); begrenze(st); nach(meldung.aus); };
+      $$(".n-opt", buehne).forEach(b => b.onclick = () => geh(b.dataset.id));
+      $$(".n-platz.nah", buehne).forEach(g => g.addEventListener("click", () => geh(g.dataset.id)));
+      const wi = $("#nWitter"); if (wi) wi.onclick = () => { const ids = nachtWittern(N), arg = ids.filter(id => FUND[inhalt(N, id)].bad && id !== "strasse");
+        meldung = { art: 1, de: 0, ds: 0, t: "Du hebst die Nase und schnupperst.", k: arg.length ? "Vorsicht: " + arg.map(id => GARTEN[id].n + " – " + FUND[inhalt(N, id)].kurz).join("; ") + "." : "Nebenan droht heute Nacht keine Gefahr." };
+        nach(false); };
+      const bl = $("#nBleib"); if (bl) bl.onclick = () => { meldung = null; morgen(); };
+    }
+    function nach(aus) {
+      if (pruefe(tot(st) === "kraft" ? T.todE : "Das war eine Gefahr zu viel in dieser Nacht.")) return schluss(true);
+      if (aus || N.schritt >= NACHT.schritte) return morgen();
+      zeige();
+    }
+    function morgen() {
+      const nr = N.nacht, M = nachtMorgen(st, N, Math.random); begrenze(st);
+      if (pruefe(tot(st) === "kraft" ? T.todE : "Am hellen Tag hat dich ein Feind erwischt.")) { meldung = M; return schluss(true); }
+      anzeigen(); window.scrollTo(0, 0);
+      const plus = st.e - N.start;
+      buehne.innerHTML = `<div class="karte nachtrunde">
+        <div class="szene herbst"><div class="zeichen" aria-hidden="true">🌅🦔</div><span class="wann">${zeit(m)[2]} ${MONATE[m]} · nach Nacht ${nr}</span></div>
+        <div class="k-text"><h2>Der Morgen dämmert</h2></div>
+        ${meldung ? `<div class="folge r${meldung.art}" role="status"><span class="urteil">${meldung.t}</span>${chips(meldung.de, meldung.ds, "")}<span>${meldung.k}</span></div>` : ""}
+        <div class="folge r${M.art}" role="status"><span class="urteil">${M.t}</span>${chips(M.de, M.ds, "")}${M.k ? `<span>${M.k}</span>` : ""}</div>
+        <div class="k-text"><p>Du wiegst jetzt <b>${Math.round(st.e)} g</b> (${plus >= 0 ? "+" : "−"}${Math.abs(Math.round(plus))} g seit Beginn der Nachtrunde).${N.fertig ? "" : ` Es ${NACHT.naechte - N.nacht + 1 === 1 ? "bleibt noch eine Nacht" : "bleiben noch " + (NACHT.naechte - N.nacht + 1) + " Nächte"}.`}</p></div>
+        <div class="weiter"><button type="button" class="knopf prim" id="weiter">${N.fertig ? "Weiter ›" : "Die nächste Nacht ›"}</button></div></div>`;
+      meldung = null;
+      $("#weiter").onclick = () => N.fertig ? schluss(false) : zeige();
+    }
+    function schluss(aus) {
+      anzeigen(); window.scrollTo(0, 0);
+      if (aus) {
+        buehne.innerHTML = `<div class="karte nachtrunde"><div class="n-oben"><div class="n-karte">${gartenSVG()}</div><div class="n-seite">
+          <div class="folge r0" role="status"><span class="urteil">${grund}</span>${meldung ? chips(meldung.de, meldung.ds, "") + `<span>${meldung.t} ${meldung.k}</span>` : ""}</div></div></div>
+          <div class="weiter"><button type="button" class="knopf prim" id="weiter">Weiter</button></div></div>`;
+        $("#weiter").onclick = ende; return;
+      }
+      const plus = Math.round(st.e - N.start), g = Math.round(st.e), r = g >= NACHT.ziel ? 2 : g >= NACHT.knapp ? 1 : 0;
+      if (r === 2) st.gut += 2; else if (r === 0) st.fehler.push({ m: 7, t: "Zu wenig Winterspeck", k: "Im Winterschlaf verliert ein Igel bis zu einem Drittel seines Gewichts. Wer im Herbst zu leicht ist, wacht im Frühling nicht mehr auf.", p: "winter" });
+      buehne.innerHTML = `<div class="karte nachtrunde">
+        <div class="szene herbst"><div class="zeichen" aria-hidden="true">⚖️🦔</div><span class="wann">${zeit(m)[2]} ${MONATE[m]}</span></div>
+        <div class="k-text"><h2>Auf die Waage!</h2><p>Drei Nächte sind um. Du wiegst <b>${g} g</b> – ${plus >= 0 ? plus + " g mehr" : Math.abs(plus) + " g weniger"} als vorher.</p></div>
+        <div class="folge r${r}" role="status"><span class="urteil">${r === 2 ? "Dick und rund – so soll es sein!" : r === 1 ? "Das kann reichen – aber es wird knapp." : "Das ist zu wenig für einen langen Winter."}</span>
+          <span>Im Winterschlaf verliert ein Igel ein Viertel bis ein Drittel seines Gewichts. Was jetzt nicht auf den Rippen ist, fehlt im Februar.</span></div>
+        <div class="weiter"><button type="button" class="knopf prim" id="weiter">Weiter ›</button></div></div>`;
+      $("#weiter").onclick = weiter;
+    }
+    zeige();
+  }
+
+  /* Der Winterschlaf: dreizehn Wochen im Zeitraffer */
+  function schlaf(k) {
+    const W = schlafStart(st, Math.random);
+    let takt = 0, letzte = { temp: 2, de: 0 };
+    const stopp = () => { clearInterval(takt); takt = 0; laufend = null; };
+    const leiste = () => `<div class="w-leiste" aria-hidden="true">${SCHLAF.monat.map((mo, i) => `<span class="${i < W.woche ? "war" : ""}${i === W.woche - 1 ? " jetzt" : ""}">${MONATE[mo][0]}</span>`).join("")}</div>`;
+    const werte = () => `<div class="w-werte">
+        <div><b>${letzte.temp > 0 ? "+" : letzte.temp < 0 ? "−" : ""}${Math.abs(letzte.temp)} °C</b>draußen</div>
+        <div><b>5 °C</b>Körper <small>statt 35 °C</small></div>
+        <div><b>8</b>Herzschläge je Minute <small>statt 180</small></div>
+        <div><b>${Math.round(st.e)} g</b>Gewicht <small>${W.woche ? "−" + Math.round(W.start - st.e) + " g seit Dezember" : "beim Einschlafen"}</small></div></div>`;
+    const kopf = (zusatz) => `<div class="szene winter">${k.bild ? `<img src="${k.bild}" alt="">` : `<div class="zeichen" aria-hidden="true">${k.sz}</div>`}<span class="wann">${zeit(m)[2]} ${MONATE[m]}${W.woche ? " · Woche " + W.woche + " von " + SCHLAF.wochen : ""}</span>${zusatz || ""}</div>`;
+    // Zu leicht? Dann darf der Igel noch einmal los.
+    function vorher(mel) {
+      anzeigen(); window.scrollTo(0, 0);
+      const g = Math.round(st.e), knapp = g < NACHT.knapp;
+      buehne.innerHTML = `<div class="karte schlaf">${kopf()}
+        <div class="k-text"><h2>${knapp ? "Zu leicht für den Winter?" : "Zeit zum Einschlafen"}</h2>
+          <p>${knapp ? `Dezember. Du wiegst nur <b>${g} g</b> – wenig für dreizehn Wochen ohne Futter. Draußen friert es schon, und es krabbelt kaum noch etwas. Was tust du?`
+            : `Dezember. Du wiegst <b>${g} g</b>. Du rollst dich in deinem Nest zusammen. Dein Herz schlägt immer langsamer, dein Körper kühlt ab – bis zum Frühling lebst du nur noch von deinem Fett.`}</p></div>
+        ${mel ? `<div class="folge r${mel.de >= 30 ? 1 : 0}" role="status"><span class="urteil">${mel.de >= 30 ? "Ein paar späte Käfer und Würmer gefunden." : "Fast nichts gefunden – der Boden ist gefroren."}</span>${chips(mel.de, mel.ds, "")}
+          <span>Untergewichtige Igel sind oft noch im Dezember unterwegs, manchmal sogar am Tag. Das ist gefährlich – solche Igel brauchen Hilfe von einer Igelstation.</span></div>` : ""}
+        <div class="wahl r-wahl">
+          ${knapp && W.suche < 4 ? `<button type="button" id="wSuch"><b>🌙 Noch eine Nacht auf Futtersuche gehen</b><span class="r-sub">bei Frost bringt das wenig und ist gefährlich</span><span class="r-werte"><span>+10 bis +30 g</span><span class="ris hoch">−1 🛡️</span></span></button>` : ""}
+          <button type="button" id="wEin" class="r-rast"><b>😴 Einrollen und einschlafen</b>${knapp ? `<span class="r-sub">mit ${g} g in den Winter</span>` : ""}</button>
+        </div></div>`;
+      const su = $("#wSuch"); if (su) su.onclick = () => { const r = schlafSuche(st, W, Math.random); begrenze(st);
+        if (pruefe("Bei Frost am hellen Tag unterwegs – das war eine Gefahr zu viel.")) return aus(); vorher(r); };
+      $("#wEin").onclick = () => { if (knapp) st.fehler.push({ m: 9, t: "Zu leicht eingeschlafen", k: "Wer zu wenig Winterspeck hat, dem geht mitten im Winter der Brennstoff aus. Deshalb ist der Herbst für Igel die wichtigste Zeit des Jahres.", p: "winter" });
+        W.start = st.e; bett(); };
+    }
+    function bett(text) {
+      anzeigen(); window.scrollTo(0, 0);
+      buehne.innerHTML = `<div class="karte schlaf">${kopf(`<span class="w-zzz" aria-hidden="true">💤</span>`)}
+        ${leiste()}${werte()}
+        <div class="k-text"><h2>${k.t}</h2><p id="wText">${text || "Du schläfst tief. Nur alle paar Sekunden ein Herzschlag, nur wenige Atemzüge in der Minute. Woche für Woche schmilzt dein Fettpolster."}</p></div>
+        <div class="weiter"><button type="button" class="knopf prim" id="wWeiter">😴 Weiterschlafen</button></div></div>`;
+      $("#wWeiter").onclick = lauf;
+    }
+    function lauf() {
+      const b = $("#wWeiter"); if (b) { b.disabled = true; b.textContent = "💤 …"; }
+      laufend = stopp;
+      const schritt = () => {
+        letzte = schlafWoche(st, W, Math.random); m = letzte.m;
+        if (pruefe("Dein Fettpolster hat nicht bis zum Frühling gereicht.")) { stopp(); return aus(); }
+        if (letzte.karte) { stopp(); return stoerung(letzte.karte); }
+        if (W.woche >= SCHLAF.wochen) { stopp(); return wach(); }
+        const l = $(".w-leiste", buehne), w = $(".w-werte", buehne), wann = $(".szene .wann", buehne);
+        if (l) l.outerHTML = leiste(); if (w) w.outerHTML = werte(); if (wann) wann.textContent = `${zeit(m)[2]} ${MONATE[m]} · Woche ${W.woche} von ${SCHLAF.wochen}`;
+      };
+      schritt(); if (laufend) takt = setInterval(schritt, reduce ? 350 : 850);
+    }
+    function stoerung(kk) {
+      anzeigen(); window.scrollTo(0, 0);
+      buehne.innerHTML = `<div class="karte schlaf"><div class="szene winter"><div class="zeichen" aria-hidden="true">${kk.sz}</div><span class="wann">${zeit(m)[2]} ${MONATE[m]} · Woche ${W.woche} von ${SCHLAF.wochen}</span><span class="zw">Störung</span></div>
+        ${leiste()}${werte()}
+        <div class="k-text"><h2>${kk.t}</h2><p>${kk.x}</p></div>
+        <div class="wahl">${mische(kk.w.map((w, i) => i), Math.random).map(i => `<button type="button" data-i="${i}">${kk.w[i].l}</button>`).join("")}</div>
+        <div id="folge"></div></div>`;
+      $$(".wahl button", buehne).forEach(b => b.onclick = () => {
+        const w = kk.w[+b.dataset.i]; waehle(st, kk, w, m); if (w.e <= -60) W.wach++;
+        $$(".wahl button", buehne).forEach(x => { x.disabled = true; x.classList.toggle("gewaehlt", x === b); });
+        const tod = pruefe(tot(st) === "kraft" ? "Dein Fettpolster hat nicht bis zum Frühling gereicht." : "Kälte und Feinde waren zu viel für dich.");
+        const w2 = $(".w-werte", buehne); if (w2) w2.outerHTML = werte();
+        $("#folge").innerHTML = `<div class="folge r${w.r}" role="status"><span class="urteil">${w.urteil || ["Das war riskant.", "Geht so.", "Gute Entscheidung!"][w.r]}</span>${chips(w.e, w.s, "")}<span>${w.k}</span></div>
+          <div class="weiter"><button type="button" class="knopf prim" id="weiter">${tod ? "Weiter" : W.woche >= SCHLAF.wochen ? "Weiter ›" : "😴 Wieder einschlafen"}</button></div>`;
+        $("#weiter").onclick = tod ? ende : W.woche >= SCHLAF.wochen ? wach : () => bett(w.e <= -60 ? "Du bist wieder eingeschlafen. Das Aufwachen hat ein großes Stück Winterspeck gekostet." : "Du schläfst wieder tief und fest.");
+        $("#weiter").scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" });
+      });
+    }
+    function aus() {
+      anzeigen(); window.scrollTo(0, 0);
+      buehne.innerHTML = `<div class="karte schlaf">${kopf()}${W.woche ? leiste() + werte() : ""}
+        <div class="folge r0" role="status" style="margin-top:14px"><span class="urteil">${grund}</span>
+          <span>${W.woche ? `Du bist mit ${Math.round(W.start)} g eingeschlafen. Für dreizehn Wochen ohne Futter war das zu wenig – oder das Aufwachen zwischendurch zu teuer.` : "Wer im Dezember noch draußen suchen muss, hat im Herbst zu wenig gefressen."}</span></div>
+        <div class="weiter"><button type="button" class="knopf prim" id="weiter">Weiter</button></div></div>`;
+      $("#weiter").onclick = ende;
+    }
+    function wach() {
+      m = 11; anzeigen(); window.scrollTo(0, 0);
+      const weg = Math.round(W.start - st.e), anteil = Math.round(weg / W.start * 100);
+      st.gut++;
+      buehne.innerHTML = `<div class="karte schlaf">${kopf()}${leiste()}${werte()}
+        <div class="k-text"><h2>Ende Februar</h2><p>Du schläfst noch – aber das Schwerste liegt hinter dir.</p></div>
+        <div class="folge r2" role="status"><span class="urteil">Dreizehn Wochen ohne einen Bissen!</span>${chips(-weg, 0, "")}
+          <span>Du hast im Winterschlaf ${weg} g verloren – ${anteil} % deines Gewichts${W.wach ? `, und du musstest ${W.wach === 1 ? "einmal" : W.wach + "-mal"} ganz aufwachen` : ""}. Echte Igel verlieren im Winter ein Viertel bis ein Drittel.</span></div>
+        <div class="weiter"><button type="button" class="knopf prim" id="weiter">Das Jahr ist um ›</button></div></div>`;
+      $("#weiter").onclick = weiter;
+    }
+    vorher(null);
+  }
+
   function ende() {
     const lebt = !tot(st), n = sterne(st), alt = S[tid] || {};
     S[tid] = { n: (alt.n || 0) + 1, ueberlebt: !!(alt.ueberlebt || lebt), sterne: Math.max(alt.sterne || 0, n), jung: Math.max(alt.jung || 0, lebt ? st.jung : 0) };
     speichern();
-    const neuOffen = tid === "meise" && lebt && !alt.ueberlebt && !S.frei;
+    const next = danach(tid), neuOffen = next && lebt && !alt.ueberlebt && !S.frei;
     const pf = [...new Set(st.fehler.map(f => f.p))];
     if (m > 11) m = 11;
     window.scrollTo(0, 0); anzeigen();
@@ -1024,10 +1564,10 @@ function seiteSpiel(tid) {
         <h2>${lebt ? "Geschafft – ein ganzes Jahr!" : "Diesmal hat es nicht gereicht"}</h2>
         ${lebt ? `<div class="gross">${sterneHTML(n)}</div><p>${T.schluss}</p>` : `<p><b>${grund}</b> Dein Jahr endete im ${MONATE[m]}.</p>`}
         <p class="klein">${T.ueberleben}</p>
-        <div class="werte"><div><b>${lebt ? 12 : m}</b>Monate überstanden</div><div><b>${st.jung}</b>Junge flügge</div><div><b>${st.gut}</b>gute Entscheidungen</div></div>
-        ${lebt && n < 3 ? `<p class="klein">Für ${n + 1} Sterne brauchst du mindestens ${T.sterne[n - 1]} flügge Junge.</p>` : ""}
-        ${neuOffen ? `<p><b>🔓 Level 2 ist jetzt offen:</b> die Rauchschwalbe.</p>` : ""}
-        <div class="knopfreihe"><button type="button" class="knopf prim" id="noch">🔁 Noch ein Jahr</button>${tid === "meise" && (S.frei || S.meise.ueberlebt) ? `<a class="knopf honig" href="#schwalbe">Level 2: Rauchschwalbe ›</a>` : ""}<a class="knopf" href="#">Zur Übersicht</a></div>
+        <div class="werte"><div><b>${lebt ? 12 : m}</b>Monate überstanden</div><div><b>${st.jung}</b>${T.jungEnde || "Junge flügge"}</div><div><b>${st.gut}</b>gute Entscheidungen</div></div>
+        ${lebt && n < 3 ? `<p class="klein">Für ${n + 1} Sterne brauchst du mindestens ${T.sterne[n - 1]} ${T.jungAdj || "flügge"} Junge.</p>` : ""}
+        ${neuOffen ? `<p><b>🔓 Level ${TIERE[next].level} ist jetzt offen:</b> ${TIERE[next].mit}.</p>` : ""}
+        <div class="knopfreihe"><button type="button" class="knopf prim" id="noch">🔁 Noch ein Jahr</button>${next && offen(next) ? `<a class="knopf honig" href="#${next}">Level ${TIERE[next].level}: ${TIERE[next].name} ›</a>` : ""}<a class="knopf" href="#">Zur Übersicht</a></div>
       </div>
       ${st.fehler.length ? `<h3 class="h-honig">Das war riskant – merk es dir fürs nächste Jahr</h3>
         <div class="merk">${st.fehler.slice(0, 5).map(f => `<div><b>${MONATE[f.m]} – ${esc(f.t)}:</b> ${f.k}</div>`).join("")}</div>` : lebt ? `<p class="lead" style="text-align:center">Keine einzige riskante Entscheidung – stark!</p>` : ""}
@@ -1038,12 +1578,9 @@ function seiteSpiel(tid) {
 
   buehne.innerHTML = `<div class="karte"><div class="szene fruehling"><img src="${T.bild}" alt="${T.name}" style="aspect-ratio:3/2;max-height:52vh"></div>
     <div class="k-text"><span class="eyebrow">Level ${T.level}</span><h2>Ein Jahr als ${T.name}</h2><p>${T.intro}</p>
-    <p class="klein">Achte auf deine Kraft ⚡ und deine Sicherheit 🛡️ – beide dürfen nie auf null fallen.</p></div>
+    <p class="klein">${T.achte || "Achte auf deine Kraft ⚡ und deine Sicherheit 🛡️ – beide dürfen nie auf null fallen."}</p></div>
     <div class="weiter" style="padding-top:12px"><button type="button" class="knopf prim" id="los">▶ Das Jahr beginnt</button></div></div>`;
-  $$("#weg span").forEach(el => el.className = zeit(+el.dataset.m)[0]);
-  $("#eZahl").textContent = st.e + " / " + EMAX; $("#sZahl").textContent = st.s + " / " + SMAX;
-  $("#eBalken i").style.width = (st.e / EMAX * 100) + "%"; $("#sBalken i").style.width = (st.s / SMAX * 100) + "%";
-  $("#junge").innerHTML = `🐣 flügge<b>0</b>`;
+  anzeigen();
   $("#los").onclick = monat;
 }
 

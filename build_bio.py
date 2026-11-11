@@ -61,7 +61,7 @@ REPOS = [
                "sub": "Warum Vögel fortziehen, wann sie kommen und wie sie den Weg finden — flieg mit dem Storch bis nach Südafrika."},
      "pass7": {"href": "interaktiv/durchs-jahr.html", "img": "images/durchsjahr/banner.jpg",
                "eyebrow": "Lernspiel · Klasse 5/6", "titel": "Durchs Jahr! – Das Überlebensspiel",
-               "sub": "Als Kohlmeise oder Rauchschwalbe zwölf Monate überstehen — Nest und Junge, Feinde, Vogelzug und Winter."}},
+               "sub": "Als Kohlmeise, Rauchschwalbe oder Igel zwölf Monate überstehen — Nest und Junge, Feinde, Vogelzug und Winterschlaf."}},
 ]
 
 # Thematische Gruppen je Repo: (Überschrift, Farbe, [Dateien]). Seit dem Fauna-Stil-
