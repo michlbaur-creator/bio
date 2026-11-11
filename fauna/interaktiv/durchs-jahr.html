@@ -227,7 +227,7 @@ const EMAX = 10, SMAX = 10;
 const TIERE = {
 /* ------------------------------------------------------------------ Level 1 */
 meise: {
-  name: "Kohlmeise", em: "🐦", bild: "../images/durchsjahr/46.jpg?v=4", level: 1,
+  name: "Kohlmeise", em: "🐦", bild: "../images/durchsjahr/46.jpg?v=5", level: 1,
   motto: "Sie bleibt das ganze Jahr hier – und muss durch den Winter.",
   intro: "Du bist eine Kohlmeise. Es ist März. Vor dir liegen zwölf Monate: Junge aufziehen, Feinden entkommen – und den Winter überstehen. Vorsicht: Nicht alles, was vernünftig klingt, ist für eine Meise klug.",
   start: { e: 8, s: 8 },
@@ -411,7 +411,7 @@ meise: {
 },
 /* ------------------------------------------------------------------ Level 2 */
 schwalbe: {
-  name: "Rauchschwalbe", em: "🕊️", bild: "../images/durchsjahr/47.jpg?v=4", level: 2,
+  name: "Rauchschwalbe", em: "🕊️", bild: "../images/durchsjahr/47.jpg?v=5", level: 2,
   motto: "Sie lebt von Insekten in der Luft – und muss im Herbst bis nach Afrika.",
   intro: "Du bist eine Rauchschwalbe. Es ist März, und du bist noch in Afrika. Vor dir liegen der Heimflug, die Brut im Stall – und im Herbst die große Reise über Alpen, Mittelmeer und Sahara. Vieles, was für die Meise richtig war, ist für dich falsch.",
   start: { e: 8, s: 8 },
@@ -565,10 +565,10 @@ schwalbe: {
 
 // Gezeichnete Kopfbilder: images/durchsjahr/01.jpg … – erst die zwölf Monate, dann die Zwischenfälle (Reihenfolge wie oben)
 const SZENEN = { meise: 1, schwalbe: 25 };
-Object.keys(SZENEN).forEach(tid => { const T = TIERE[tid]; T.monate.concat(T.zwischen).forEach((k, i) => { k.bild = "../images/durchsjahr/" + String(SZENEN[tid] + i).padStart(2, "0") + ".jpg?v=4"; }); });
+Object.keys(SZENEN).forEach(tid => { const T = TIERE[tid]; T.monate.concat(T.zwischen).forEach((k, i) => { k.bild = "../images/durchsjahr/" + String(SZENEN[tid] + i).padStart(2, "0") + ".jpg?v=5"; }); });
 // Herbst- (September–November) und Winter-Fassungen (Dezember–Februar) für Zwischenfälle, die das ganze Jahr vorkommen
 [["Ein Schatten!", "13"], ["Kerne am Boden", "14"]].forEach(([t, nr]) => { const k = TIERE.meise.zwischen.find(k => k.t === t);
-  k.bildHerbst = "../images/durchsjahr/" + nr + "h.jpg?v=4"; k.bildWinter = "../images/durchsjahr/" + nr + "w.jpg?v=4"; });
+  k.bildHerbst = "../images/durchsjahr/" + nr + "h.jpg?v=5"; k.bildWinter = "../images/durchsjahr/" + nr + "w.jpg?v=5"; });
 
 /* ============ Spielregeln (ohne Anzeige) ============ */
 const mische = (a, rnd) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
@@ -950,7 +950,7 @@ function seiteSpiel(tid) {
       if (R.ort === "savanne") return angekommen();
       const opts = STRECKEN[R.ort], frost = frostDa(R), W = WETTER[R.w], V = WETTER[R.vor];
       buehne.innerHTML = `<div class="karte reise">
-        <div class="szene ${zeit(m)[0]} r-bild"><img src="../images/durchsjahr/${O.bild}.jpg?v=4" alt=""><span class="wann">${zeit(m)[2]} ${MONATE[m]} · Reisetag ${R.tag}</span></div>
+        <div class="szene ${zeit(m)[0]} r-bild"><img src="../images/durchsjahr/${O.bild}.jpg?v=5" alt=""><span class="wann">${zeit(m)[2]} ${MONATE[m]} · Reisetag ${R.tag}</span></div>
         <div class="r-oben">
           <div class="r-karte">${karteSVG()}</div>
           <div class="r-lage">
@@ -993,7 +993,7 @@ function seiteSpiel(tid) {
       const A = reiseAnkunft(st, R), ab = R.route.filter(a => a === "pass" || a === "meer" || a === "wueste").length;
       anzeigen();
       buehne.innerHTML = `<div class="karte reise">
-        <div class="szene herbst r-bild"><img src="../images/durchsjahr/34.jpg?v=4" alt=""><span class="wann">${zeit(m)[2]} ${MONATE[m]} · Reisetag ${R.tag}</span></div>
+        <div class="szene herbst r-bild"><img src="../images/durchsjahr/34.jpg?v=5" alt=""><span class="wann">${zeit(m)[2]} ${MONATE[m]} · Reisetag ${R.tag}</span></div>
         <div class="r-oben"><div class="r-karte">${karteSVG()}</div>
           <div class="r-lage"><div><span class="eyebrow">Am Ziel</span><b class="r-ort">Savanne</b></div>
             <div class="r-wetter"><span class="eyebrow">Unterwegs</span><b>${R.tag - 1} Spieltage</b></div>
