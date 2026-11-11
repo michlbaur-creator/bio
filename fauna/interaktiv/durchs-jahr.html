@@ -102,7 +102,7 @@ details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
 .szene.herbst{background:linear-gradient(180deg,#d9d2c0 0%,#e6dcc6 48%,#c98a46 48%,#a9652a 100%)}
 .szene.winter{background:linear-gradient(180deg,#9fb6cf 0%,#c9d8e6 50%,#f2f5f8 50%,#dfe7ee 100%)}
 .szene .zeichen{font-size:clamp(46px,14vw,64px);line-height:1;letter-spacing:8px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.25));padding:18px 0}
-.szene img{display:block;width:100%;aspect-ratio:16/8;object-fit:cover}
+.szene img{display:block;width:100%;aspect-ratio:2/1;object-fit:cover}
 .szene .wann{position:absolute;left:10px;top:10px;font-family:var(--sans);font-size:12px;font-weight:bold;letter-spacing:.05em;background:rgba(28,46,66,.82);color:#fff;border-radius:999px;padding:4px 11px}
 .szene .zw{position:absolute;right:10px;top:10px;font-family:var(--sans);font-size:11px;font-weight:bold;letter-spacing:.08em;text-transform:uppercase;background:var(--bad);color:#fff;border-radius:999px;padding:4px 10px}
 .k-text{padding:14px 16px 4px;display:grid;gap:8px}
@@ -293,14 +293,14 @@ meise: {
       ] }
   ],
   zwischen: [
-    { von: 0, bis: 11, t: "Ein Schatten!", sz: "🦅💨", bild: "../images/futterhaus/fp-sperber.jpg", p: "futter",
+    { von: 0, bis: 6, t: "Ein Schatten!", sz: "🦅💨", bild: "../images/futterhaus/fp-sperber.jpg", p: "futter",
       x: "Du sitzt am Futterhaus. Über die Hecke jagt ein Sperber heran. Wohin?",
       w: [
         { l: "Ab in den dichten Dornbusch", e: 0, s: 0, r: 2, k: "In dichten Zweigen kommt der Sperber nicht hinterher. Deshalb brauchen kleine Vögel Hecken und Büsche in der Nähe des Futterhauses." },
         { l: "Steil nach oben in den Himmel – so hoch kommt er nicht", e: -1, s: -4, r: 0, k: "Im freien Luftraum ist der Sperber viel schneller und wendiger als du. Genau dort jagt er am liebsten." },
         { l: "Erstarren und keine Feder bewegen", e: 0, s: -2, r: 1, k: "Erstarren hilft, wenn du schon in Deckung sitzt. Frei am Futterhaus bist du so aber leichte Beute." }
       ] },
-    { von: 0, bis: 11, t: "Kerne am Boden", sz: "🌻🌳", p: "futter",
+    { von: 0, bis: 6, t: "Kerne am Boden", sz: "🌻🌳", p: "futter",
       x: "Unter dem Futterhaus liegen heruntergefallene Kerne. Gleich daneben steht ein dichter Busch. Wo frisst du?",
       w: [
         { l: "Oben am Futterhaus fressen", e: 0, s: 0, r: 2, k: "Im Busch saß eine Katze! Ein Futterhaus hängt am besten frei und hoch – mit Büschen in der Nähe, aber nicht direkt daneben." },
@@ -349,21 +349,21 @@ meise: {
         { l: "Es ist aus dem Nest gefallen – da ist nichts mehr zu machen", e: 0, s: 0, r: 0, k: "Es ist nicht gefallen, sondern ausgeflogen! Junge Meisen verlassen das Nest, bevor sie richtig fliegen können, und werden draußen weiter gefüttert.", fx: st => { st.jung = Math.max(0, st.jung - 1); } },
         { l: "Es mit Futter zurück in den Nistkasten locken", e: -2, s: 0, r: 1, k: "Zurück will es nicht mehr – und muss es auch nicht. Die Eltern füttern ihre Jungen einfach dort weiter, wo sie sitzen." }
       ] },
-    { von: 8, bis: 11, t: "Der zahme Grünfink", sz: "🐦💤", p: "futter",
+    { von: 9, bis: 11, t: "Der zahme Grünfink", sz: "🐦💤", p: "futter",
       x: "Am Futterhaus sitzt ein Grünfink ganz ruhig neben dem Futter. Er ist dick aufgeplustert und fliegt nicht weg, als du landest. Was tust du?",
       w: [
         { l: "Wegbleiben und woanders fressen", e: -1, s: 0, r: 2, k: "Aufgeplustert und ohne Scheu: Dieser Vogel ist krank. An Futterstellen stecken sich Vögel gegenseitig an – deshalb müssen sie sauber und trocken sein." },
         { l: "Dazusetzen – wenn er so ruhig ist, droht keine Gefahr", e: 1, s: -3, r: 0, k: "Aufgeplustert und ohne Scheu: Dieser Vogel ist krank. Am gemeinsamen Futter steckst du dich leicht an." },
         { l: "Ihn verjagen und dann in Ruhe fressen", e: 1, s: -2, r: 0, k: "Der Fink ist krank – und sein Futterplatz ist es auch. Die Erreger kleben am Futter." }
       ] },
-    { von: 0, bis: 11, t: "Alarm im Wald", sz: "📣🌲", p: "winter",
+    { von: 6, bis: 8, t: "Alarm im Wald", sz: "📣🌲", p: "winter",
       x: "Ein Eichelhäher rätscht laut durch die Bäume. Du bist gerade beim Fressen. Was tust du?",
       w: [
         { l: "Sofort Deckung suchen", e: 0, s: 1, r: 2, k: "Der Eichelhäher ist die Alarmanlage des Waldes. Viele Tiere verstehen seinen Warnruf – auch Meisen." },
         { l: "Weiterfressen – der ist selbst ein Nesträuber und will dich nur verscheuchen", e: 1, s: -2, r: 0, k: "Nesträuber ist er im Frühling tatsächlich. Aber sein Rätschen ist ein echter Warnruf – wer ihn überhört, lebt gefährlich." },
         { l: "Laut zurückschimpfen", e: -1, s: -1, r: 1, urteil: "Na ja …", k: "Meisen schimpfen wirklich laut, wenn sie einen Feind entdeckt haben. Aber erst aus der Deckung – nicht mitten auf dem Präsentierteller." }
       ] },
-    { von: 8, bis: 11, t: "Zwei Meisenknödel", sz: "🧶🥜", p: "futter",
+    { von: 0, bis: 1, t: "Zwei Meisenknödel", sz: "🧶🥜", p: "futter",
       x: "Im Garten hängen zwei Meisenknödel: ein großer im grünen Plastiknetz und ein kleiner in einem Drahthalter. Welchen nimmst du?",
       w: [
         { l: "Zum kleinen im Drahthalter", e: 1, s: 0, r: 2, k: "Im Netz können sich Vögel mit den Füßen verfangen. Knödel ohne Netz im Halter sind sicher." },
@@ -543,6 +543,10 @@ schwalbe: {
   ]
 }
 };
+
+// Gezeichnete Kopfbilder: images/durchsjahr/01.jpg … – erst die zwölf Monate, dann die Zwischenfälle (Reihenfolge wie oben)
+const SZENEN = { meise: 1 };
+Object.keys(SZENEN).forEach(tid => { const T = TIERE[tid]; T.monate.concat(T.zwischen).forEach((k, i) => { k.bild = "../images/durchsjahr/" + String(SZENEN[tid] + i).padStart(2, "0") + ".jpg"; }); });
 
 /* ============ Spielregeln (ohne Anzeige) ============ */
 const mische = (a, rnd) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
