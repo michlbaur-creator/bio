@@ -1327,6 +1327,30 @@ function route(behalteScroll) {
 }
 window.addEventListener("hashchange", () => route());
 route();
+
+/* ============ Automatische Aktualisierung ============
+   Prüft beim Zurückkehren zur Seite (und alle 15 Minuten), ob es eine neuere Fassung gibt.
+   Neu geladen wird nur auf der Start- und Pass-Seite – nie mitten in einer Station, einem Spiel oder einem offenen Fenster. */
+(() => {
+  let stand = null, neu = false;
+  const ruhig = () => !location.hash.slice(1).includes("-")
+    && !document.querySelector(".overlay, .du-buehne, #urkunde.an, #feier.an")
+    && !/^(INPUT|TEXTAREA)$/.test((document.activeElement || {}).tagName || "");
+  async function pruefen() {
+    try {
+      const r = await fetch(location.pathname, { method: "HEAD", cache: "no-store" });
+      const s = r.ok && (r.headers.get("etag") || r.headers.get("last-modified"));
+      if (!s) return;
+      if (stand === null) stand = s; else if (s !== stand) neu = true;
+      if (neu && ruhig()) location.reload();
+    } catch (e) {}
+  }
+  pruefen();
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) pruefen(); });
+  window.addEventListener("pageshow", e => { if (e.persisted) pruefen(); });
+  window.addEventListener("hashchange", () => { if (neu && ruhig()) setTimeout(() => { if (ruhig()) location.reload(); }, 50); });
+  setInterval(() => { if (!document.hidden) pruefen(); }, 15 * 60 * 1000);
+})();
 </script>
 </body>
 </html>

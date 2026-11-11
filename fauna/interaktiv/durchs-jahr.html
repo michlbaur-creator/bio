@@ -681,12 +681,12 @@ function reiseFlug(st, R, s, rnd) {
     if (rnd() < pFehl) { zurueck = true; de = -2; ds = -1; art = 0;
       text = "Mitten im Gebirge gerätst du in Schnee und Sturm. Du musst umkehren – zurück zum Rastplatz am Alpenrand.";
       st.fehler.push({ m: von.m, t: "Alpenpass bei " + W.n, k: "Im Hochgebirge gibt es bei schlechtem Wetter weder Sicht noch Insekten. Zugvögel warten deshalb am Alpenrand, bis es aufklart.", p: "zug" });
-    } else { if (pFehl) art = 1; text = pFehl ? "Glück gehabt: Trotz des Wetters hast du es über den Pass geschafft." : "Bei klarer Sicht gleitest du über den Pass – in einem Tag bist du über die Alpen."; if (pFehl === 0) st.gut++; }
+    } else { if (pFehl) art = 1; text = pFehl ? "Glück gehabt: Trotz des Wetters hast du es über den Pass geschafft." : "Bei klarer Sicht gleitest du über den Pass – in einem Tag hast du die Alpen überquert."; if (pFehl === 0) st.gut++; }
   } else if (s.art === "meer") {
     if (w === "sturm") { ds = -3; art = 0; text = "Über dem offenen Meer packt dich der Sturm. Landen kannst du nirgends – völlig erschöpft erreichst du die Küste.";
       st.fehler.push({ m: von.m, t: "Übers Meer bei Sturm", k: "Über dem Meer gibt es keinen Landeplatz und kein Zurück. Zugvögel warten an der Küste, bis das Wetter passt.", p: "zug" });
     } else if (w === "gegen") { art = 1; text = "Der Gegenwind macht den Flug über das Meer lang und anstrengend."; }
-    else { text = "Mit dem Wind im Rücken bist du in einem Tag über das Meer."; st.gut++; }
+    else { text = "Mit dem Wind im Rücken hast du es in einem Tag über das Meer geschafft."; st.gut++; }
   } else if (s.art === "wueste") {
     const w2 = R.wMorgen, tag1 = Math.max(1, 2 + W.mod), tag2 = Math.max(1, 2 + WETTER[w2].mod);
     de = -(tag1 + tag2);

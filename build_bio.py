@@ -59,7 +59,7 @@ REPOS = [
      "pass6": {"href": "interaktiv/zugvogelpass.html", "img": "images/voegel/storch-horst.jpg",
                "eyebrow": "Dein Zugvogel-Pass · Klasse 5/6", "titel": "Zugvögel – auf großer Reise",
                "sub": "Warum Vögel fortziehen, wann sie kommen und wie sie den Weg finden — flieg mit dem Storch bis nach Südafrika."},
-     "pass7": {"href": "interaktiv/durchs-jahr.html", "img": "images/zug/kohlmeise.jpg",
+     "pass7": {"href": "interaktiv/durchs-jahr.html", "img": "images/durchsjahr/banner.jpg",
                "eyebrow": "Lernspiel · Klasse 5/6", "titel": "Durchs Jahr! – Das Überlebensspiel",
                "sub": "Als Kohlmeise oder Rauchschwalbe zwölf Monate überstehen — Nest und Junge, Feinde, Vogelzug und Winter."}},
 ]
