@@ -59,8 +59,8 @@ details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
 .regel .e{font-size:26px;text-align:center;line-height:1}
 .regel b{color:var(--blau)}
 .level{display:grid;gap:12px}
-.lv{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center;background:var(--tile);border:2px solid var(--blau-hell);border-radius:16px;padding:12px;text-align:left;cursor:pointer;width:100%;font-family:var(--serif)}
-.lv img{width:96px;height:96px;object-fit:cover;border-radius:12px;display:block;background:var(--creme-tief)}
+.lv{display:grid;grid-template-columns:132px 1fr;gap:14px;align-items:center;background:var(--tile);border:2px solid var(--blau-hell);border-radius:16px;padding:12px;text-align:left;cursor:pointer;width:100%;font-family:var(--serif)}
+.lv img{width:132px;height:88px;object-fit:cover;border-radius:12px;display:block;background:var(--creme-tief)}
 .lv .nr{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--honig-tief);font-weight:bold}
 .lv .nm{font-size:23px;color:var(--blau);display:block;line-height:1.2}
 .lv .mo{font-size:15px;color:var(--ink-soft);display:block;line-height:1.35;margin-top:2px}
@@ -164,7 +164,7 @@ details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
 .konffeld{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
 .konf{position:absolute;top:-40px;font-size:22px;animation:fall 3.6s linear forwards}
 @keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.2}}
-@media (max-width:420px){body{font-size:17px}.lv{grid-template-columns:76px 1fr}.lv img{width:76px;height:76px}.anzeigen{font-size:11px}}
+@media (max-width:420px){body{font-size:17px}.lv{grid-template-columns:108px 1fr}.lv img{width:108px;height:72px}.anzeigen{font-size:11px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <!-- Besucherzählung (GoatCounter, ohne Cookies) -->
@@ -197,7 +197,7 @@ const EMAX = 10, SMAX = 10;
 const TIERE = {
 /* ------------------------------------------------------------------ Level 1 */
 meise: {
-  name: "Kohlmeise", em: "🐦", bild: "../images/durchsjahr/46.jpg", level: 1,
+  name: "Kohlmeise", em: "🐦", bild: "../images/durchsjahr/46.jpg?v=3", level: 1,
   motto: "Sie bleibt das ganze Jahr hier – und muss durch den Winter.",
   intro: "Du bist eine Kohlmeise. Es ist März. Vor dir liegen zwölf Monate: Junge aufziehen, Feinden entkommen – und den Winter überstehen. Vorsicht: Nicht alles, was vernünftig klingt, ist für eine Meise klug.",
   start: { e: 8, s: 8 },
@@ -293,14 +293,14 @@ meise: {
       ] }
   ],
   zwischen: [
-    { von: 0, bis: 11, nicht: [7, 8], t: "Ein Schatten!", sz: "🦅💨", bild: "../images/futterhaus/fp-sperber.jpg", p: "futter",
+    { von: 0, bis: 11, t: "Ein Schatten!", sz: "🦅💨", bild: "../images/futterhaus/fp-sperber.jpg", p: "futter",
       x: "Du sitzt am Futterhaus. Über die Hecke jagt ein Sperber heran. Wohin?",
       w: [
         { l: "Ab in den dichten Dornbusch", e: 0, s: 0, r: 2, k: "In dichten Zweigen kommt der Sperber nicht hinterher. Deshalb brauchen kleine Vögel Hecken und Büsche in der Nähe des Futterhauses." },
         { l: "Steil nach oben in den Himmel – so hoch kommt er nicht", e: -1, s: -4, r: 0, k: "Im freien Luftraum ist der Sperber viel schneller und wendiger als du. Genau dort jagt er am liebsten." },
         { l: "Erstarren und keine Feder bewegen", e: 0, s: -2, r: 1, k: "Erstarren hilft, wenn du schon in Deckung sitzt. Frei am Futterhaus bist du so aber leichte Beute." }
       ] },
-    { von: 0, bis: 11, nicht: [7, 8], t: "Kerne am Boden", sz: "🌻🌳", p: "futter",
+    { von: 0, bis: 11, t: "Kerne am Boden", sz: "🌻🌳", p: "futter",
       x: "Unter dem Futterhaus liegen heruntergefallene Kerne. Gleich daneben steht ein dichter Busch. Wo frisst du?",
       w: [
         { l: "Oben am Futterhaus fressen", e: 0, s: 0, r: 2, k: "Im Busch saß eine Katze! Ein Futterhaus hängt am besten frei und hoch – mit Büschen in der Nähe, aber nicht direkt daneben." },
@@ -381,7 +381,7 @@ meise: {
 },
 /* ------------------------------------------------------------------ Level 2 */
 schwalbe: {
-  name: "Rauchschwalbe", em: "🕊️", bild: "../images/durchsjahr/47.jpg", level: 2,
+  name: "Rauchschwalbe", em: "🕊️", bild: "../images/durchsjahr/47.jpg?v=3", level: 2,
   motto: "Sie lebt von Insekten in der Luft – und muss im Herbst bis nach Afrika.",
   intro: "Du bist eine Rauchschwalbe. Es ist März, und du bist noch in Afrika. Vor dir liegen der Heimflug, die Brut im Stall – und im Herbst wieder die Reise über Alpen und Sahara. Vieles, was für die Meise richtig war, ist für dich falsch.",
   start: { e: 8, s: 8 },
@@ -546,9 +546,10 @@ schwalbe: {
 
 // Gezeichnete Kopfbilder: images/durchsjahr/01.jpg … – erst die zwölf Monate, dann die Zwischenfälle (Reihenfolge wie oben)
 const SZENEN = { meise: 1, schwalbe: 25 };
-Object.keys(SZENEN).forEach(tid => { const T = TIERE[tid]; T.monate.concat(T.zwischen).forEach((k, i) => { k.bild = "../images/durchsjahr/" + String(SZENEN[tid] + i).padStart(2, "0") + ".jpg"; }); });
-// Winter-Fassungen (Dezember bis Februar) für Zwischenfälle, die das ganze Jahr vorkommen
-[["Ein Schatten!", "13w"], ["Kerne am Boden", "14w"]].forEach(([t, nr]) => { TIERE.meise.zwischen.find(k => k.t === t).bildWinter = "../images/durchsjahr/" + nr + ".jpg"; });
+Object.keys(SZENEN).forEach(tid => { const T = TIERE[tid]; T.monate.concat(T.zwischen).forEach((k, i) => { k.bild = "../images/durchsjahr/" + String(SZENEN[tid] + i).padStart(2, "0") + ".jpg?v=3"; }); });
+// Herbst- (September–November) und Winter-Fassungen (Dezember–Februar) für Zwischenfälle, die das ganze Jahr vorkommen
+[["Ein Schatten!", "13"], ["Kerne am Boden", "14"]].forEach(([t, nr]) => { const k = TIERE.meise.zwischen.find(k => k.t === t);
+  k.bildHerbst = "../images/durchsjahr/" + nr + "h.jpg?v=3"; k.bildWinter = "../images/durchsjahr/" + nr + "w.jpg?v=3"; });
 
 /* ============ Spielregeln (ohne Anzeige) ============ */
 const mische = (a, rnd) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
@@ -672,7 +673,7 @@ function seiteSpiel(tid) {
     $$("#weg span").forEach(el => { const k = +el.dataset.m; el.className = zeit(k)[0] + (k < m ? " war" : k === m ? " jetzt" : ""); el.textContent = k === m ? T.em : MONATE[k][0]; });
   }
   const chips = (de, ds, extra) => `<div class="chips">${de ? `<span class="chip ${de > 0 ? "plus" : "minus"}">${de > 0 ? "+" : "−"}${Math.abs(de)} ⚡</span>` : ""}${ds ? `<span class="chip ${ds > 0 ? "plus" : "minus"}">${ds > 0 ? "+" : "−"}${Math.abs(ds)} 🛡️</span>` : ""}${extra || ""}</div>`;
-  const szene = (k, zw) => `<div class="szene ${zeit(m)[0]}">${k.bild ? `<img src="${(m >= 9 && k.bildWinter) || k.bild}" alt="">` : `<div class="zeichen" aria-hidden="true">${k.sz}</div>`}
+  const szene = (k, zw) => `<div class="szene ${zeit(m)[0]}">${k.bild ? `<img src="${(m >= 9 && k.bildWinter) || (m >= 6 && m <= 8 && k.bildHerbst) || k.bild}" alt="">` : `<div class="zeichen" aria-hidden="true">${k.sz}</div>`}
       <span class="wann">${zeit(m)[2]} ${MONATE[m]}</span>${zw ? `<span class="zw">Zwischenfall</span>` : ""}</div>`;
 
   function monat() {
@@ -797,7 +798,7 @@ function seiteSpiel(tid) {
     if (lebt) konfetti();
   }
 
-  buehne.innerHTML = `<div class="karte"><div class="szene fruehling"><img src="${T.bild}" alt="${T.name}" style="aspect-ratio:16/9;object-position:50% 40%"></div>
+  buehne.innerHTML = `<div class="karte"><div class="szene fruehling"><img src="${T.bild}" alt="${T.name}" style="aspect-ratio:3/2;max-height:52vh"></div>
     <div class="k-text"><span class="eyebrow">Level ${T.level}</span><h2>Ein Jahr als ${T.name}</h2><p>${T.intro}</p>
     <p class="klein">Achte auf deine Kraft ⚡ und deine Sicherheit 🛡️ – beide dürfen nie auf null fallen.</p></div>
     <div class="weiter" style="padding-top:12px"><button type="button" class="knopf prim" id="los">▶ Das Jahr beginnt</button></div></div>`;
@@ -808,8 +809,27 @@ function seiteSpiel(tid) {
   $("#los").onclick = monat;
 }
 
+/* ============ Automatische Aktualisierung ============
+   Prüft beim Zurückkehren zur Seite (und alle 15 Minuten), ob es eine neuere Fassung gibt.
+   Auf der Übersicht wird sofort neu geladen, mitten im Spiel erst beim Zurückkehren zur Übersicht. */
+let standAlt = null, neuDa = false;
+async function standPruefen() {
+  try {
+    const r = await fetch(location.pathname, { method: "HEAD", cache: "no-store" });
+    const s = r.ok && (r.headers.get("etag") || r.headers.get("last-modified"));
+    if (!s) return;
+    if (standAlt === null) standAlt = s;
+    else if (s !== standAlt) { neuDa = true; if (!location.hash.slice(1)) location.reload(); }
+  } catch (e) {}
+}
+standPruefen();
+document.addEventListener("visibilitychange", () => { if (!document.hidden) standPruefen(); });
+window.addEventListener("pageshow", e => { if (e.persisted) standPruefen(); });
+setInterval(() => { if (!document.hidden) standPruefen(); }, 15 * 60 * 1000);
+
 /* ============ Navigation ============ */
 function route() {
+  if (neuDa && !location.hash.slice(1)) { location.reload(); return; }
   if (laufend) laufend();
   $$(".konffeld").forEach(k => k.remove());
   const h = location.hash.slice(1);
