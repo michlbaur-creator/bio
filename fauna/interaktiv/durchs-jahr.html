@@ -214,6 +214,7 @@ details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
 .w-zzz{position:absolute;right:14px;bottom:10px;font-size:34px;animation:zzz 2.4s ease-in-out infinite}
 @keyframes zzz{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(-8px);opacity:1}}
 .schlaf .szene img{aspect-ratio:5/2}
+.nachtrunde > .szene img{aspect-ratio:5/2}
 @media (min-width:600px){.w-werte{grid-template-columns:repeat(4,1fr)}}
 
 /* Ende */
@@ -606,7 +607,7 @@ schwalbe: {
 },
 /* ------------------------------------------------------------------ Level 3 */
 igel: {
-  name: "Igel", em: "🦔", bild: "../images/winter/igel-winterschlaf.jpg", level: 3, dein: "dein Igel", mit: "der Igel",
+  name: "Igel", em: "🦔", bild: "../images/durchsjahr/70.jpg?v=5", level: 3, dein: "dein Igel", mit: "der Igel",
   gramm: true, emin: 400, emax: 1300, nestEm: "🦔", jungEm: "🦔", jungKurz: "groß", jungAdj: "großgezogene", jungEnde: "Junge großgezogen",
   motto: "Er frisst sich ein Fettpolster an – und verschläft den Winter.",
   intro: "Du bist eine Igelin. Es ist März, und du liegst noch im Winterschlaf. Vor dir liegen zwölf Monate: Junge großziehen, Autos und Maschinen entgehen – und dir bis zum Herbst genug Winterspeck anfressen. Vieles, was für die Vögel richtig war, ist für dich falsch.",
@@ -679,7 +680,7 @@ igel: {
         { l: "Im frisch aufgeschichteten Reisighaufen am Feldrand – riesig, luftig und trocken", e: 0, s: -2, r: 0, k: "Luftig heißt zugig – und solche Haufen werden oft für ein Feuer aufgeschichtet. Deshalb soll man sie kurz vor dem Anzünden noch einmal umsetzen.", fx: st => { st.wnest = 1.35; } }
       ] },
     // Dezember bis Februar: der Winterschlaf (Regeln stehen weiter unten bei „Der Winterschlaf“)
-    { schlaf: true, t: "Winterschlaf", sz: "🦔💤", bild: "../images/winter/igel-winterschlaf.jpg", p: "winter" },
+    { schlaf: true, t: "Winterschlaf", sz: "🦔💤", p: "winter" },
     { leer: true },
     { leer: true }
   ],
@@ -745,7 +746,7 @@ igel: {
 };
 
 // Gezeichnete Kopfbilder: images/durchsjahr/01.jpg … – erst die zwölf Monate, dann die Zwischenfälle (Reihenfolge wie oben)
-const SZENEN = { meise: 1, schwalbe: 25 };
+const SZENEN = { meise: 1, schwalbe: 25, igel: 50 };
 Object.keys(SZENEN).forEach(tid => { const T = TIERE[tid]; T.monate.concat(T.zwischen).forEach((k, i) => { k.bild = "../images/durchsjahr/" + String(SZENEN[tid] + i).padStart(2, "0") + ".jpg?v=5"; }); });
 // Herbst- (September–November) und Winter-Fassungen (Dezember–Februar) für Zwischenfälle, die das ganze Jahr vorkommen
 [["Ein Schatten!", "13"], ["Kerne am Boden", "14"]].forEach(([t, nr]) => { const k = TIERE.meise.zwischen.find(k => k.t === t);
@@ -1008,28 +1009,28 @@ if (typeof module !== "undefined") Object.assign(module.exports, { GARTEN, WEGE,
    Drei oder vier Störungen verlangen eine Entscheidung. Wer zu leicht ist, kann vorher noch auf Futtersuche gehen. */
 const SCHLAF = { wochen: 13, proWoche: 17, monat: [9, 9, 9, 9, 10, 10, 10, 10, 10, 11, 11, 11, 11], temp: [3, 1, -2, 0, -4, -8, -3, 2, -6, -1, 3, 5, 7] };
 const SCHLAF_KARTEN = [
-  { t: "Strenger Frost", sz: "🥶❄️", p: "winter", temp: -15,
+  { t: "Strenger Frost", bild: "../images/durchsjahr/71.jpg?v=5", sz: "🥶❄️", p: "winter", temp: -15,
     x: "Minus fünfzehn Grad. Die Kälte kriecht durch das Laub, in deinem Nest sinkt die Temperatur unter null. Was tut dein Körper?",
     w: [
       { l: "Er heizt von selbst ein wenig nach – gerade so viel, dass nichts gefriert", e: -30, s: 0, r: 2, k: "Winterschlaf ist kein Abschalten: Eine innere Heizung springt an, sobald es zu kalt wird. Das kostet Fett – deshalb ist ein dick gepolstertes Nest so wichtig." },
       { l: "Er lässt die Temperatur weiter sinken – je kälter, desto sparsamer", e: 0, s: -4, r: 0, k: "Das gilt nur bis etwa fünf Grad. Darunter droht der Körper zu erfrieren – ein Igel fällt nicht in Kältestarre wie Frosch und Eidechse." },
       { l: "Er wacht ganz auf, und du ziehst in den warmen Heizungskeller um", e: -90, s: 0, r: 0, k: "Im Warmen kannst du nicht weiterschlafen, und Futter gibt es dort auch keines. Dein Fett wäre in wenigen Wochen aufgebraucht." }
     ] },
-  { t: "Rumms!", sz: "🍂😱", p: "winter", temp: -2,
+  { t: "Rumms!", bild: "../images/durchsjahr/72.jpg?v=5", sz: "🍂😱", p: "winter", temp: -2,
     x: "Es rumpelt und wird hell: Jemand räumt mit der Gabel deinen Laubhaufen weg. Dein Nest liegt plötzlich offen im Frost. Was tust du?",
     w: [
       { l: "Aufwachen, auch wenn es Stunden dauert, und in der Hecke ein neues Nest bauen", e: -70, s: 0, r: 2, urteil: "Bitter, aber richtig.", k: "Ein offenes Nest schützt nicht mehr. Der Umzug mitten im Winter kostet sehr viel Fett – deshalb: Laub- und Reisighaufen von November bis April in Ruhe lassen!" },
       { l: "Eingerollt liegen bleiben – die Stacheln schützen dich", e: -40, s: -4, r: 0, k: "Stacheln schützen vor Zähnen, aber nicht vor Kälte. Ohne Laubdecke kühlst du aus, und Krähen und Hunde finden dich." },
       { l: "Aufwachen und Schutz im nächsten Kellerschacht suchen", e: -90, s: -3, r: 0, k: "Hinein kommst du, heraus nicht mehr. Und warm ist es dort unten auch nicht." }
     ] },
-  { t: "Besuch am Nest", sz: "🐕👃", p: "winter", temp: 1,
+  { t: "Besuch am Nest", bild: "../images/durchsjahr/73.jpg?v=5", sz: "🐕👃", p: "winter", temp: 1,
     x: "Etwas schnüffelt und scharrt an deinem Laubhaufen: ein Hund. Was tust du?",
     w: [
       { l: "Eingerollt bleiben und die Stacheln aufstellen", e: -20, s: 0, r: 2, k: "Auch im Tiefschlaf stellen Igel bei einer Störung die Stacheln auf. Ganz wach zu werden dauert mehrere Stunden – bis dahin ist der Hund längst weg." },
       { l: "Schnell aufwachen und davonlaufen", e: -80, s: -2, r: 0, k: "Schnell geht da gar nichts: Das Aufheizen von 5 auf 35 Grad dauert Stunden und kostet sehr viel Fett. Die Stachelkugel ist jetzt der bessere Schutz." },
       { l: "Laut fauchen, um ihn zu vertreiben", e: -60, s: 0, r: 0, k: "Fauchen kann nur, wer wach ist – und Aufwachen ist im Winter das Teuerste überhaupt." }
     ] },
-  { t: "Wasser im Nest", sz: "🌧️💦", p: "winter", temp: 6,
+  { t: "Wasser im Nest", bild: "../images/durchsjahr/74.jpg?v=5", sz: "🌧️💦", p: "winter", temp: 6,
     x: "Tagelang Regen und Tauwetter. Von unten sickert Wasser in dein Nest, das Laub ist klatschnass. Was tust du?",
     w: [
       { l: "Aufwachen und an einer höheren, trockenen Stelle neu bauen", e: -60, s: 0, r: 2, urteil: "Teuer, aber richtig.", k: "Nasses Laub wärmt nicht mehr. Igel bauen ihr Winternest deshalb gern etwas erhöht und regengeschützt – zum Beispiel unter dichten Hecken." },
@@ -1392,6 +1393,7 @@ function seiteSpiel(tid) {
       anzeigen(); window.scrollTo(0, 0);
       const rest = NACHT.schritte - N.schritt, hier = GARTEN[N.ort];
       buehne.innerHTML = `<div class="karte nachtrunde">
+        ${erst && k.bild ? `<div class="szene herbst"><img src="${k.bild}" alt=""></div>` : ""}
         <div class="k-text"><span class="eyebrow">${zeit(m)[2]} ${MONATE[m]} · Nacht ${N.nacht} von ${NACHT.naechte}</span><h2>${k.t}</h2>
           ${erst ? `<p>Jetzt zählt jedes Gramm: Für den Winterschlaf brauchst du mindestens <b>${NACHT.ziel} g</b>. Du hast drei Nächte, jede hat sechs Schritte.</p>
           <p class="klein">Du siehst schlecht, aber du riechst gut: Von den Plätzen nebenan kennst du nur den Geruch – und nicht jeder Geruch hält, was er verspricht. Wenn die Sonne aufgeht, musst du in einem Versteck sein: im Nest, unter der Hecke oder im Holzstapel.</p>` : ""}</div>
@@ -1512,7 +1514,7 @@ function seiteSpiel(tid) {
     }
     function stoerung(kk) {
       anzeigen(); window.scrollTo(0, 0);
-      buehne.innerHTML = `<div class="karte schlaf"><div class="szene winter"><div class="zeichen" aria-hidden="true">${kk.sz}</div><span class="wann">${zeit(m)[2]} ${MONATE[m]} · Woche ${W.woche} von ${SCHLAF.wochen}</span><span class="zw">Störung</span></div>
+      buehne.innerHTML = `<div class="karte schlaf"><div class="szene winter">${kk.bild ? `<img src="${kk.bild}" alt="">` : `<div class="zeichen" aria-hidden="true">${kk.sz}</div>`}<span class="wann">${zeit(m)[2]} ${MONATE[m]} · Woche ${W.woche} von ${SCHLAF.wochen}</span><span class="zw">Störung</span></div>
         ${leiste()}${werte()}
         <div class="k-text"><h2>${kk.t}</h2><p>${kk.x}</p></div>
         <div class="wahl">${mische(kk.w.map((w, i) => i), Math.random).map(i => `<button type="button" data-i="${i}">${kk.w[i].l}</button>`).join("")}</div>
