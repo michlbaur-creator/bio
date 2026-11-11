@@ -197,7 +197,7 @@ const EMAX = 10, SMAX = 10;
 const TIERE = {
 /* ------------------------------------------------------------------ Level 1 */
 meise: {
-  name: "Kohlmeise", em: "🐦", bild: "../images/zug/kohlmeise.jpg", level: 1,
+  name: "Kohlmeise", em: "🐦", bild: "../images/durchsjahr/46.jpg", level: 1,
   motto: "Sie bleibt das ganze Jahr hier – und muss durch den Winter.",
   intro: "Du bist eine Kohlmeise. Es ist März. Vor dir liegen zwölf Monate: Junge aufziehen, Feinden entkommen – und den Winter überstehen. Vorsicht: Nicht alles, was vernünftig klingt, ist für eine Meise klug.",
   start: { e: 8, s: 8 },
@@ -293,14 +293,14 @@ meise: {
       ] }
   ],
   zwischen: [
-    { von: 0, bis: 6, t: "Ein Schatten!", sz: "🦅💨", bild: "../images/futterhaus/fp-sperber.jpg", p: "futter",
+    { von: 0, bis: 11, nicht: [7, 8], t: "Ein Schatten!", sz: "🦅💨", bild: "../images/futterhaus/fp-sperber.jpg", p: "futter",
       x: "Du sitzt am Futterhaus. Über die Hecke jagt ein Sperber heran. Wohin?",
       w: [
         { l: "Ab in den dichten Dornbusch", e: 0, s: 0, r: 2, k: "In dichten Zweigen kommt der Sperber nicht hinterher. Deshalb brauchen kleine Vögel Hecken und Büsche in der Nähe des Futterhauses." },
         { l: "Steil nach oben in den Himmel – so hoch kommt er nicht", e: -1, s: -4, r: 0, k: "Im freien Luftraum ist der Sperber viel schneller und wendiger als du. Genau dort jagt er am liebsten." },
         { l: "Erstarren und keine Feder bewegen", e: 0, s: -2, r: 1, k: "Erstarren hilft, wenn du schon in Deckung sitzt. Frei am Futterhaus bist du so aber leichte Beute." }
       ] },
-    { von: 0, bis: 6, t: "Kerne am Boden", sz: "🌻🌳", p: "futter",
+    { von: 0, bis: 11, nicht: [7, 8], t: "Kerne am Boden", sz: "🌻🌳", p: "futter",
       x: "Unter dem Futterhaus liegen heruntergefallene Kerne. Gleich daneben steht ein dichter Busch. Wo frisst du?",
       w: [
         { l: "Oben am Futterhaus fressen", e: 0, s: 0, r: 2, k: "Im Busch saß eine Katze! Ein Futterhaus hängt am besten frei und hoch – mit Büschen in der Nähe, aber nicht direkt daneben." },
@@ -363,7 +363,7 @@ meise: {
         { l: "Weiterfressen – der ist selbst ein Nesträuber und will dich nur verscheuchen", e: 1, s: -2, r: 0, k: "Nesträuber ist er im Frühling tatsächlich. Aber sein Rätschen ist ein echter Warnruf – wer ihn überhört, lebt gefährlich." },
         { l: "Laut zurückschimpfen", e: -1, s: -1, r: 1, urteil: "Na ja …", k: "Meisen schimpfen wirklich laut, wenn sie einen Feind entdeckt haben. Aber erst aus der Deckung – nicht mitten auf dem Präsentierteller." }
       ] },
-    { von: 0, bis: 1, t: "Zwei Meisenknödel", sz: "🧶🥜", p: "futter",
+    { von: 8, bis: 11, t: "Zwei Meisenknödel", sz: "🧶🥜", p: "futter",
       x: "Im Garten hängen zwei Meisenknödel: ein großer im grünen Plastiknetz und ein kleiner in einem Drahthalter. Welchen nimmst du?",
       w: [
         { l: "Zum kleinen im Drahthalter", e: 1, s: 0, r: 2, k: "Im Netz können sich Vögel mit den Füßen verfangen. Knödel ohne Netz im Halter sind sicher." },
@@ -547,6 +547,8 @@ schwalbe: {
 // Gezeichnete Kopfbilder: images/durchsjahr/01.jpg … – erst die zwölf Monate, dann die Zwischenfälle (Reihenfolge wie oben)
 const SZENEN = { meise: 1 };
 Object.keys(SZENEN).forEach(tid => { const T = TIERE[tid]; T.monate.concat(T.zwischen).forEach((k, i) => { k.bild = "../images/durchsjahr/" + String(SZENEN[tid] + i).padStart(2, "0") + ".jpg"; }); });
+// Winter-Fassungen (Dezember bis Februar) für Zwischenfälle, die das ganze Jahr vorkommen
+[["Ein Schatten!", "13w"], ["Kerne am Boden", "14w"]].forEach(([t, nr]) => { TIERE.meise.zwischen.find(k => k.t === t).bildWinter = "../images/durchsjahr/" + nr + ".jpg"; });
 
 /* ============ Spielregeln (ohne Anzeige) ============ */
 const mische = (a, rnd) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
@@ -556,7 +558,7 @@ function jahresplan(tid, rnd) {
   let n = 0;
   mische(T.zwischen, rnd).forEach(z => {
     if (n >= 4) return;
-    const frei = []; for (let m = z.von; m <= z.bis; m++) if (plan[m].length === 1) frei.push(m);
+    const frei = []; for (let m = z.von; m <= z.bis; m++) if (plan[m].length === 1 && !(z.nicht && z.nicht.includes(m))) frei.push(m);
     if (!frei.length) return;
     const m = frei[Math.floor(rnd() * frei.length)];
     if (rnd() < .5) plan[m].unshift(z); else plan[m].push(z);
@@ -670,7 +672,7 @@ function seiteSpiel(tid) {
     $$("#weg span").forEach(el => { const k = +el.dataset.m; el.className = zeit(k)[0] + (k < m ? " war" : k === m ? " jetzt" : ""); el.textContent = k === m ? T.em : MONATE[k][0]; });
   }
   const chips = (de, ds, extra) => `<div class="chips">${de ? `<span class="chip ${de > 0 ? "plus" : "minus"}">${de > 0 ? "+" : "−"}${Math.abs(de)} ⚡</span>` : ""}${ds ? `<span class="chip ${ds > 0 ? "plus" : "minus"}">${ds > 0 ? "+" : "−"}${Math.abs(ds)} 🛡️</span>` : ""}${extra || ""}</div>`;
-  const szene = (k, zw) => `<div class="szene ${zeit(m)[0]}">${k.bild ? `<img src="${k.bild}" alt="">` : `<div class="zeichen" aria-hidden="true">${k.sz}</div>`}
+  const szene = (k, zw) => `<div class="szene ${zeit(m)[0]}">${k.bild ? `<img src="${(m >= 9 && k.bildWinter) || k.bild}" alt="">` : `<div class="zeichen" aria-hidden="true">${k.sz}</div>`}
       <span class="wann">${zeit(m)[2]} ${MONATE[m]}</span>${zw ? `<span class="zw">Zwischenfall</span>` : ""}</div>`;
 
   function monat() {
@@ -795,7 +797,7 @@ function seiteSpiel(tid) {
     if (lebt) konfetti();
   }
 
-  buehne.innerHTML = `<div class="karte"><div class="szene fruehling"><img src="${T.bild}" alt="${T.name}" style="aspect-ratio:16/9;object-position:50% 25%"></div>
+  buehne.innerHTML = `<div class="karte"><div class="szene fruehling"><img src="${T.bild}" alt="${T.name}" style="aspect-ratio:16/9;object-position:50% 40%"></div>
     <div class="k-text"><span class="eyebrow">Level ${T.level}</span><h2>Ein Jahr als ${T.name}</h2><p>${T.intro}</p>
     <p class="klein">Achte auf deine Kraft ⚡ und deine Sicherheit 🛡️ – beide dürfen nie auf null fallen.</p></div>
     <div class="weiter" style="padding-top:12px"><button type="button" class="knopf prim" id="los">▶ Das Jahr beginnt</button></div></div>`;
