@@ -380,6 +380,31 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
 .bq-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .bq img{aspect-ratio:4/3!important}
 
+/* Bonus: Rätselzugvogel des Tages */
+.station.bonus{border-color:var(--honig);box-shadow:0 0 0 2px #ecd9b4}
+.station.bonus .nr{background:#f6ead2}
+@keyframes gaNeu{from{transform:scale(.8);opacity:0}60%{transform:scale(1.06)}to{transform:none;opacity:1}}
+.rv-sterne{font-size:26px;letter-spacing:3px;line-height:1}
+.rv-sterne .weg{opacity:.2;filter:grayscale(1)}
+.rv-stand{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--sans);font-size:14px;color:var(--ink-soft)}
+.rv-hinweise{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:rv}
+.rv-hinweise li{counter-increment:rv;display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:10px 12px;font-size:17px;line-height:1.4}
+.rv-hinweise li::before{content:counter(rv);width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--blau);color:#fff;font-family:var(--sans);font-weight:bold;font-size:15px}
+.rv-hinweise li.zu{background:transparent;border-style:dashed;color:var(--ink-soft);font-family:var(--sans);font-size:14px}
+.rv-hinweise li.zu::before{background:var(--creme-tief);color:var(--ink-soft)}
+.rv-hinweise li.frisch{animation:gaNeu .5s ease-out;border-color:var(--honig)}
+.rv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rv-wahl{display:grid;align-content:start;background:var(--tile);border:1px solid var(--linie);border-radius:12px;overflow:hidden;padding:0 0 7px;font-family:var(--sans);font-size:13px;font-weight:bold;color:var(--blau);cursor:pointer;text-align:center;line-height:1.2;touch-action:manipulation}
+.rv-wahl img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;margin-bottom:6px}
+.rv-wahl span{padding:0 3px;hyphens:auto;-webkit-hyphens:auto;overflow-wrap:break-word}
+.rv-wahl:disabled{opacity:.3;cursor:default;text-decoration:line-through}
+.rv-wahl:not(:disabled):hover{border-color:var(--blau);box-shadow:0 2px 10px rgba(35,61,92,.15)}
+.rv-ende{text-align:center;display:grid;gap:10px;background:var(--tile);border:1px solid var(--linie);border-radius:16px;overflow:hidden;padding:0 0 18px}
+.rv-ende > *{margin-left:16px;margin-right:16px}
+.rv-ende > img{margin:0;width:100%;aspect-ratio:473/196;object-fit:cover;display:block}
+.rv-ende h3{font-size:26px;color:var(--blau)}
+@media (min-width:600px){.rv-grid{grid-template-columns:repeat(7,1fr)}.rv-wahl{font-size:11.5px}}
+.rv-ende > img{width:min(340px,calc(100% - 32px));aspect-ratio:4/3;margin:16px auto 0;border-radius:12px;border:1px solid var(--linie)}
 </style>
 <!-- Besucherzählung (GoatCounter, ohne Cookies) -->
 <script>window.goatcounter={path:function(p){return location.host+p}};</script><script data-goatcounter="https://mibaso.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -599,7 +624,7 @@ const BILDERQUIZ = [
 const NAMEN = { mauersegler: "Mauersegler", rauchschwalbe: "Rauchschwalbe", mehlschwalbe: "Mehlschwalbe", weissstorch: "Weißstorch", bergfink: "Bergfink", buchfink: "Buchfink",
   girlitz: "Girlitz", stieglitz: "Stieglitz", kuckuck: "Kuckuck", graugans: "Graugans", hoeckerschwan: "Höckerschwan", haussperling: "Haussperling", kohlmeise: "Kohlmeise",
   nachtigall: "Nachtigall", seidenschwanz: "Seidenschwanz", haubenmeise: "Haubenmeise", eichelhaeher: "Eichelhäher", star: "Star", neuntoeter: "Neuntöter", kleiber: "Kleiber",
-  gimpel: "Gimpel", buntspecht: "Buntspecht", elster: "Elster", rotdrossel: "Rotdrossel", rotkehlchen: "Rotkehlchen", singdrossel: "Singdrossel", amsel: "Amsel", feldlerche: "Feldlerche" };
+  gimpel: "Gimpel", buntspecht: "Buntspecht", elster: "Elster", rotdrossel: "Rotdrossel", rotkehlchen: "Rotkehlchen", singdrossel: "Singdrossel", amsel: "Amsel", feldlerche: "Feldlerche", pirol: "Pirol", gartenrotschwanz: "Gartenrotschwanz", trauerschnaepper: "Trauerschnäpper" };
 
 /* ============ Expedition ============ */
 const EXPS = {
@@ -626,7 +651,9 @@ z1: {
     { em: "🗺️", name: "Kartenleser", ok: h => h.d.s3 && h.d.s3.done },
     { em: "⭐", name: "Dreier-Serie", ok: h => h.dreier >= 3 },
     { em: "🏆", name: "Bilder-Profi", ok: h => h.d.s5 && h.d.s5.knochen >= 3 },
-    { em: "🏁", name: "In Südafrika", ok: h => h.summe >= 15 }
+    { em: "🏁", name: "In Südafrika", ok: h => h.summe >= 15 },
+    { em: "🔍", name: "Spürnase", ok: h => h.d.raetsel && h.d.raetsel.min <= 2 },
+    { em: "🗓️", name: "Rätsel-Stammgast", ok: h => h.d.raetsel && h.d.raetsel.n >= 5 }
   ],
   checks: {
     s1: [
@@ -1001,6 +1028,10 @@ function seitePass(eid, neu) {
         const inner = `<span class="nr">${s.em}</span><span><span class="st">${k + 1}. ${s.titel}</span><span class="sk">${s.kurz}</span></span><span class="stand">${rechts}</span>`;
         return offen ? `<a class="station ${cls}" href="#${eid}-${s.id}">${inner}</a>` : `<div class="station ${cls}" aria-disabled="true">${inner}</div>`;
       }).join("")}</div>
+      <h2 class="h-blau" style="margin-top:10px">Bonus</h2>
+      <div class="stationen">${(() => { const frei = rvOffen(eid), rv = rvStand(eid), heuteFertig = !!(rv.heute && rv.heute.tag === rvTag() && rv.heute.fertig);
+        const inner = `<span class="nr">🔍</span><span><span class="st">Rätselzugvogel des Tages</span><span class="sk">${!frei ? "Öffnet sich nach Station 3" : heuteFertig ? "Heute schon gelöst – morgen kommt ein neuer. Bis dahin: Übungsrätsel" : "Fünf Hinweise, ein Vogel: Je früher du ihn errätst, desto mehr Sterne"}</span></span><span class="stand">${!frei ? "🔒" : heuteFertig ? `⭐ ${rv.heute.sterne} heute` : "Neu ›"}</span>`;
+        return frei ? `<a class="station bonus" href="#${eid}-raetsel">${inner}</a>` : `<div class="station gesperrt" aria-disabled="true">${inner}</div>`; })()}</div>
       ${h.fertige === n && anderer ? `<p class="klein">Weiter geht’s mit <a href="#${anderer}">Teil ${IDS.indexOf(anderer) + 1}: ${EXPS[anderer].titel}</a>.</p>` : ""}
     </section>
     <section>
@@ -1078,6 +1109,116 @@ function seiteStation(eid, sid) {
   };
   const starte = () => finale ? bilderquiz(box, BILDERQUIZ, weiter) : quiz(box, X.checks[sid], false, weiter);
   starte();
+}
+
+/* ============ Rätselzugvogel des Tages ============
+   Fünf Hinweise je Vogel, von schwer nach leicht, in Ich-Form. Jeden Tag ein anderer Vogel (auf allen Geräten derselbe).
+   RV = [Kennung, Auflösungssatz, Hinweis 1 … 5]; Namen stehen in NAMEN, Bilder in images/zug. */
+const RV = [
+  ["mauersegler", "Sommergast für nur gut drei Monate, Langstreckenzieher bis ins südliche Afrika.", "Ich bin nur gut drei Monate im Jahr bei euch – so kurz wie kaum ein anderer Vogel.", "Den Winter verbringe ich im südlichen Afrika.", "Mein Nest liegt hoch oben in Mauerspalten und unter Dächern.", "Meine Beine sind so kurz, dass ich vom flachen Boden kaum starten kann.", "Ich schlafe sogar im Fliegen und sause an Sommerabenden schrill rufend um die Häuser."],
+  ["rauchschwalbe", "Sommergast von Ende März bis September, Langstreckenzieher bis südlich der Sahara.", "Ich ziehe am hellen Tag und fange mein Futter unterwegs im Flug.", "Mein Winterquartier liegt in Afrika südlich der Sahara.", "Mein Nest ist eine offene Schale aus Lehm und Halmen.", "Ich brüte im Inneren von Ställen und Scheunen.", "Ich habe eine rostrote Kehle und zwei lange Schwanzspieße."],
+  ["mehlschwalbe", "Sommergast von April bis September, Langstreckenzieher nach Afrika.", "Ich überwintere in Afrika südlich der Sahara – wo genau, wissen selbst Forscher nur ungefähr.", "Ich brüte gern in Kolonien, Nest an Nest.", "Mein Nest ist eine fast geschlossene Lehmkugel mit kleinem Einflugloch.", "Ich klebe es außen an Hauswände, dicht unter den Dachvorsprung.", "Mein Bauch und mein Bürzel sind reinweiß, mein Schwanz ist nur kurz gegabelt."],
+  ["weissstorch", "Sommergast, Segelflieger: zieht über Gibraltar oder den Bosporus nach Afrika.", "Über das offene Meer fliege ich nicht gern – dort fehlt mir der Aufwind.", "Manche von uns ziehen über Gibraltar, andere über den Bosporus.", "Ich lasse mich von warmer Luft nach oben tragen und gleite dann weit – das spart Kraft.", "Zur Begrüßung klappere ich laut mit dem Schnabel.", "Ich bin groß und schwarz-weiß, habe rote Beine und brüte auf Dächern und Masten."],
+  ["kuckuck", "Sommergast von April bis August, Langstreckenzieher ins tropische Afrika.", "Meine Jungen fliegen im Herbst ganz allein nach Afrika – ihre Eltern haben sie nie gesehen.", "Ich komme im April zurück – genau dann, wenn die kleinen Singvögel mit dem Brüten beginnen.", "Ich fresse haarige Raupen, die andere Vögel verschmähen.", "Ich baue kein Nest und brüte nie selbst.", "Ich rufe meinen eigenen Namen."],
+  ["nachtigall", "Sommergast von April bis September, Langstreckenzieher nach Afrika südlich der Sahara.", "Ich ziehe nachts und allein bis nach Afrika südlich der Sahara.", "Ich bin unscheinbar braun, nur mein Schwanz ist rostrot.", "Mein Nest baue ich dicht am Boden im dichten Gebüsch.", "Ich komme im April und singe im Mai am eifrigsten.", "Mein lauter, schluchzender Gesang ist berühmt – man hört ihn sogar mitten in der Nacht."],
+  ["neuntoeter", "Sommergast von Mai bis August, Langstreckenzieher bis ins südliche Afrika.", "Ich fliege eine große Schleife: im Herbst über Griechenland nach Afrika, im Frühling weiter östlich über Arabien zurück.", "Ich komme erst im Mai und bin schon im August wieder unterwegs.", "Ich brüte in Dornenhecken.", "Das Männchen trägt eine schwarze Augenmaske wie ein Räuber.", "Meine Beute – Käfer, Hummeln, sogar Mäuse – spieße ich als Vorrat auf Dornen."],
+  ["pirol", "Sommergast von Mai bis August, Langstreckenzieher ins tropische Afrika.", "Ich überwintere im tropischen Afrika und komme als einer der Letzten zurück – erst im Mai.", "Ich lebe hoch oben in den Baumkronen und zeige mich selten.", "Mein Nest hängt wie ein Körbchen in einer Astgabel.", "Mein Ruf ist ein lautes, volles Flöten.", "Das Männchen ist leuchtend gelb mit schwarzen Flügeln."],
+  ["gartenrotschwanz", "Sommergast von April bis September, Langstreckenzieher in die Savannen südlich der Sahara.", "Ich überwintere südlich der Sahara – mein nächster Verwandter fliegt nur bis ans Mittelmeer.", "Ich brüte in Höhlen: in alten Obstbäumen und Nistkästen.", "Ich komme im April und ziehe im September fort.", "Mein Schwanz ist rostrot und zittert ständig.", "Das Männchen hat eine weiße Stirn, ein schwarzes Gesicht und eine orangerote Brust."],
+  ["trauerschnaepper", "Sommergast von Ende April bis August, Langstreckenzieher nach Westafrika.", "Wenn ich aus Westafrika eintreffe, sind viele Nistkästen schon von Meisen besetzt.", "Weil der Frühling immer früher beginnt, verpassen meine Jungen manchmal die Raupenzeit.", "Ich starte von einem Ast, schnappe ein Insekt aus der Luft und lande wieder.", "Ich brüte in Baumhöhlen und sehr gern in Nistkästen.", "Das Männchen ist oben schwarz und unten weiß, mit einem weißen Fleck im Flügel."],
+  ["feldlerche", "Kurzstreckenzieher: überwintert in Südwesteuropa und ist schon im Februar zurück.", "Ich bin ein Kurzstreckenzieher: Den Winter verbringe ich in Südwesteuropa.", "Ich bin schon im Februar zurück – als einer der ersten Frühlingsboten.", "Ich brüte am Boden, mitten auf Äckern und Wiesen.", "Ich bin braun gestreift und trage eine kleine Haube.", "Ich steige singend hoch in den Himmel und trillere minutenlang, ohne zu landen."],
+  ["singdrossel", "Kurzstreckenzieher: überwintert in Südwesteuropa und am Mittelmeer, zurück im März.", "Ich ziehe nachts nach Südwesteuropa und ans Mittelmeer.", "Ich komme im März zurück.", "Mein Nest streiche ich innen glatt aus – mit einem Brei aus morschem Holz und Speichel.", "Meine helle Brust ist mit dunklen Tupfen übersät.", "Ich schlage Schneckenhäuser auf einem Stein auf und wiederhole beim Singen jedes Motiv mehrmals."],
+  ["star", "Teilzieher: Viele ziehen ans Mittelmeer und nach Westeuropa, manche bleiben.", "Manche von uns ziehen ans Mittelmeer, andere bleiben den Winter über einfach hier.", "Im Herbst sammeln wir uns zu riesigen Schwärmen, die am Abendhimmel wie Wolken tanzen.", "Ich brüte in Baumhöhlen und Nistkästen.", "Ich ahme andere Vögel nach – und manchmal sogar ein Handy.", "Mein schwarzes Gefieder schillert grün und violett und ist im Winter weiß getupft."],
+  ["girlitz", "Kurzstreckenzieher: überwintert im Mittelmeerraum, zurück im März und April.", "Früher lebte ich nur am Mittelmeer – erst in den letzten zweihundert Jahren habe ich mich nach Norden ausgebreitet.", "Im Winter ziehe ich zurück in den Mittelmeerraum.", "Ich bin der kleinste Fink bei euch.", "Mein Gesang klingt wie klirrendes Glas.", "Ich bin gelb-grün gestreift, habe einen winzigen Stummelschnabel und singe gern von Antennen und Baumspitzen."],
+  ["graugans", "Teilzieher: Früher zogen fast alle nach Südwesteuropa, heute bleiben viele.", "Ich ziehe mit meiner Familie – die Jungen lernen den Weg von den Eltern.", "Immer mehr von uns bleiben im Winter einfach hier.", "Wir fliegen oft in einer Keilformation, wie ein großes V.", "Von mir stammt die Hausgans ab.", "Ich bin groß und grau, habe einen orangefarbenen Schnabel und rufe laut „ga-ga-ga“."],
+  ["bergfink", "Wintergast aus Nordeuropa, von Oktober bis März bei uns.", "Für mich ist Deutschland der warme Süden: Ich komme nur im Winter.", "Ich brüte in den Wäldern Nordeuropas.", "In Jahren mit vielen Bucheckern kommen wir in riesigen Schwärmen.", "Am Futterhaus mische ich mich unter die Buchfinken.", "Meine Brust und Schultern sind orange, mein Bürzel ist weiß."],
+  ["rotdrossel", "Wintergast und Durchzügler aus Nordeuropa, vor allem im Oktober und November zu sehen.", "Ich komme aus Nordeuropa und bin bei euch nur Durchzügler und Wintergast.", "In klaren Oktobernächten hört man meinen feinen, hohen Zugruf über den Dächern.", "Im Winter fresse ich Beeren, am liebsten im Trupp mit anderen Drosseln.", "Ich sehe aus wie eine kleine Singdrossel mit einem hellen Streifen über dem Auge.", "Meine Flanken und die Unterseite meiner Flügel sind rostrot."],
+  ["seidenschwanz", "Invasionsvogel: kommt nur in manchen Wintern aus dem hohen Norden.", "Ich komme nicht jeden Winter – nur wenn im hohen Norden die Beeren knapp werden.", "Dann aber tauchen wir plötzlich in ganzen Trupps auf.", "Ich fresse Beeren von Eberesche und Mistel – manchmal hunderte am Tag.", "An meinen Flügeln sitzen kleine rote Plättchen, die aussehen wie Siegellack.", "Ich trage eine spitze Federhaube und einen gelben Rand am Schwanz."],
+  ["rotkehlchen", "Teilzieher: Manche ziehen ans Mittelmeer, andere bleiben; im Winter kommen Gäste aus dem Norden.", "Ich bin ein Teilzieher: Manche von uns fliegen ans Mittelmeer, andere bleiben.", "Die Vögel meiner Art, die ihr im Winter seht, kommen oft aus Nordeuropa.", "Ich verteidige auch im Winter ein Revier und singe dafür sogar im Dezember.", "Ich schaue Gärtnern gern beim Umgraben zu.", "Meine Stirn, Kehle und Brust sind orangerot, meine Augen groß und schwarz."],
+  ["buchfink", "Teilzieher: Vor allem Weibchen und Jungvögel ziehen nach Südwesteuropa.", "Bei uns ziehen vor allem die Weibchen fort – viele Männchen bleiben im Winter hier.", "Im Winter bekomme ich oft Besuch von einem orange gefärbten Verwandten aus dem Norden.", "Ich bin einer der häufigsten Vögel überhaupt.", "Mein Gesang endet mit einem schmetternden Schnörkel.", "Das Männchen hat einen blaugrauen Kopf, eine rötliche Brust und zwei weiße Flügelbinden."]
+];
+const RV_MAP = Object.fromEntries(RV.map(r => [r[0], r]));
+const RV_FOLGE = ["kuckuck", "bergfink", "mauersegler", "star", "neuntoeter", "feldlerche", "weissstorch", "seidenschwanz", "nachtigall", "girlitz", "mehlschwalbe", "rotkehlchen", "pirol", "singdrossel", "graugans", "trauerschnaepper", "rotdrossel", "rauchschwalbe", "buchfink", "gartenrotschwanz"];
+const rvTag = () => { const d = new Date(), z = n => String(n).padStart(2, "0"); return `${d.getFullYear()}-${z(d.getMonth() + 1)}-${z(d.getDate())}`; };
+const rvHeute = () => { const d = new Date(); return RV_FOLGE[Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5) % RV_FOLGE.length]; };
+const rvStand = eid => Object.assign({ n: 0, sterne: 0, min: 9 }, S[eid] && S[eid].raetsel);
+const rvSterne = n => `<span class="rv-sterne" aria-label="${n} von 5 Sternen">${[0, 1, 2, 3, 4].map(k => `<span class="${k < n ? "" : "weg"}">⭐</span>`).join("")}</span>`;
+const rvOffen = eid => { const d = S[eid] || {}; return S.modus === "frei" || !!(d.s3 && d.s3.done); };
+
+function seiteRaetsel(eid) {
+  const X = EXPS[eid];
+  if (!rvOffen(eid)) { location.hash = eid; return; }
+  app.innerHTML = `
+  <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Zugvogel-Pass</a><span class="tchip" id="rvChip"></span></div></div>
+  <div class="huelle"><section id="rvBox"></section>${fuss()}</div>`;
+  const box = $("#rvBox");
+  const chip = () => { const r = rvStand(eid); $("#rvChip").textContent = `⭐ ${r.sterne} · ${r.n} gelöst`; };
+  const datum = new Date().toLocaleDateString("de-DE", { day: "numeric", month: "long" });
+  const liste = RV.map(r => [r[0], NAMEN[r[0]]]).sort((a, b) => a[1].localeCompare(b[1], "de"));
+
+  function spiele(slug, uebung, st) {
+    const tipps = RV_MAP[slug].slice(2);
+    const merke = () => { if (!uebung) { S[eid] = S[eid] || {}; S[eid].raetsel = Object.assign(rvStand(eid), { heute: st }); speichern(); } };
+    function zeichne(frisch) {
+      const rest = 6 - st.k;
+      box.innerHTML = `
+        <span class="eyebrow">${uebung ? "Übungsrätsel" : "Rätselzugvogel des Tages · " + datum}</span>
+        <h2 class="h-blau">Wer bin ich?</h2>
+        <div class="rv-stand">${rvSterne(rest)}<span>${uebung ? "Zum Üben – ohne Sterne" : `Jetzt lösen bringt <b>${rest} ${rest === 1 ? "Stern" : "Sterne"}</b>`}</span></div>
+        <ol class="rv-hinweise">${tipps.map((t, k) => k < st.k ? `<li class="${frisch && k === st.k - 1 ? "frisch" : ""}">${t}</li>` : `<li class="zu">Noch verdeckt</li>`).join("")}</ol>
+        <div class="knopfreihe"><button type="button" class="knopf" id="rvMehr" ${st.k >= 5 ? "disabled" : ""}>💡 Nächster Hinweis${uebung ? "" : " (kostet 1 Stern)"}</button></div>
+        <h3 class="h-honig" style="font-size:20px">Tippe den Vogel an</h3>
+        <div class="rv-grid">${liste.map(g => `<button type="button" class="rv-wahl" data-s="${g[0]}" ${st.falsch.includes(g[0]) ? "disabled" : ""}><img src="${ZUGBILD(g[0])}" alt="" loading="lazy"><span>${g[1]}</span></button>`).join("")}</div>`;
+      $("#rvMehr").onclick = () => { st.k++; merke(); zeichne(true); };
+      $$(".rv-wahl", box).forEach(b => b.onclick = () => {
+        if (b.dataset.s === slug) return fertig(6 - st.k);
+        st.falsch.push(b.dataset.s);
+        if (st.k >= 5) return fertig(0);
+        st.k++; merke(); zeichne(true);
+        toast(`${NAMEN[b.dataset.s]}? Leider nein – hier kommt Hinweis ${st.k}.`);
+        window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+      });
+    }
+    function fertig(sterne) {
+      const vorher = kennzahlen(eid), abzVorher = X.abzeichen.map(z => !!z.ok(vorher));
+      if (!uebung) {
+        const r = rvStand(eid);
+        st.fertig = true; st.sterne = sterne;
+        S[eid] = S[eid] || {};
+        S[eid].raetsel = { n: r.n + (sterne ? 1 : 0), sterne: r.sterne + sterne, min: sterne ? Math.min(r.min, st.k) : r.min, heute: st };
+        speichern();
+      }
+      const nach = kennzahlen(eid), neueAbz = X.abzeichen.filter((z, k) => !abzVorher[k] && z.ok(nach));
+      ergebnis(slug, uebung, st, sterne, neueAbz);
+      if (sterne >= 4 && !uebung) konfetti();
+    }
+    zeichne(false);
+  }
+
+  function ergebnis(slug, uebung, st, sterne, neueAbz) {
+    chip();
+    const r = rvStand(eid), name = NAMEN[slug];
+    box.innerHTML = `
+      <div class="rv-ende">
+        <img src="${ZUGBILD(slug)}" alt="${esc(name)}">
+        <span class="eyebrow">${uebung ? "Übungsrätsel" : "Rätselzugvogel des Tages · " + datum}</span>
+        <h3>${sterne ? "Richtig:" : "Es war:"} ${name}</h3>
+        ${uebung ? "" : rvSterne(sterne)}
+        <p>${sterne ? `Gelöst mit ${st.k === 1 ? "nur einem Hinweis – stark!" : st.k + " Hinweisen."}` : "Diesmal nicht erraten – morgen klappt es bestimmt."}</p>
+        <p class="klein"><b>${name}:</b> ${RV_MAP[slug][1]}</p>
+        ${neueAbz && neueAbz.length ? `<p class="klein">Neues Abzeichen: ${neueAbz.map(z => `${z.em} <b>${z.name}</b>`).join(" · ")}</p>` : ""}
+        <div class="knopfreihe"><button type="button" class="knopf prim" id="rvUeben">🔁 Übungsrätsel</button><a class="knopf" href="#${eid}">Zum Zugvogel-Pass</a></div>
+      </div>
+      <ol class="rv-hinweise">${RV_MAP[slug].slice(2).map(t => `<li>${t}</li>`).join("")}</ol>
+      <p class="klein" style="text-align:center">${uebung ? "Übungsrätsel zählen nicht für Sterne und Abzeichen." : "Morgen wartet ein neuer Rätselzugvogel auf dich."} Bisher: ⭐ ${r.sterne} ${r.sterne === 1 ? "Stern" : "Sterne"} · ${r.n} ${r.n === 1 ? "Rätselvogel" : "Rätselvögel"} gelöst.</p>`;
+    $("#rvUeben").onclick = () => { const andere = RV_FOLGE.filter(s => s !== slug && s !== rvHeute()); spiele(andere[Math.floor(Math.random() * andere.length)], true, { k: 1, falsch: [] }); window.scrollTo(0, 0); };
+    window.scrollTo(0, 0);
+  }
+
+  chip();
+  const heute = rvHeute(), r = rvStand(eid), tag = rvTag();
+  const st = r.heute && r.heute.tag === tag ? r.heute : { tag, k: 1, falsch: [], fertig: false };
+  if (st.fertig) ergebnis(heute, false, st, st.sterne || 0);
+  else spiele(heute, false, st);
 }
 
 /* ============ Feier & Urkunde ============ */
@@ -1207,6 +1348,7 @@ function route(behalteScroll) {
   $$(".overlay").forEach(o => o.remove());
   const h = location.hash.slice(1), m = h.match(/^(z1)-(s[1-5])$/);
   if (EXPS[h]) { const s = kennzahlen(h).summe; seitePass(h, letzteSumme[h]); letzteSumme[h] = s; }
+  else if (h === "z1-raetsel") seiteRaetsel("z1");
   else if (m) { if (letzteSumme[m[1]] === undefined) letzteSumme[m[1]] = kennzahlen(m[1]).summe; seiteStation(m[1], m[2]); }
   else seiteStart();
   if (behalteScroll !== true) window.scrollTo(0, 0);
