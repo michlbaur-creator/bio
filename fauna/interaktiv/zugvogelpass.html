@@ -456,6 +456,31 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
 @media (min-width:521px){.du-buehne.neben .du-wahl{grid-template-columns:repeat(3,1fr)}}
 .du-buehne .du-wahl button{padding-left:4px;padding-right:4px}
 .du-buehne .du-text{font-size:clamp(28px,6vw,46px);color:var(--blau)}
+/* Bonus: Reise-Album */
+.ga-kopf{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ga-zahl{font-family:var(--sans);font-size:15px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.ga-zahl b{font-size:22px;color:var(--blau)}
+.ga-balken{height:8px;background:var(--creme-tief);border-radius:999px;overflow:hidden}
+.ga-balken i{display:block;height:100%;background:var(--honig);border-radius:999px}
+.ga-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ga{position:relative;display:grid;align-content:start;background:var(--tile);border:1px solid var(--linie);border-radius:12px;overflow:hidden;padding:0 0 8px;text-align:left;font-family:var(--sans);color:var(--ink)}
+.ga-bild{position:relative;display:block;aspect-ratio:3/2;background:#dfe6ec;overflow:hidden}
+.ga-bild img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.ga.zu .ga-bild img{filter:grayscale(1) blur(7px) brightness(.75);transform:scale(1.2)}
+.ga.zu .ga-bild::after{content:"?";position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-size:38px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.ga-name{font-size:14px;font-weight:bold;color:var(--blau);padding:7px 8px 0;line-height:1.2;overflow-wrap:anywhere}
+.ga.zu .ga-name{color:var(--ink-soft)}
+.ga-wie{font-size:12px;line-height:1.3;color:var(--ink-soft);padding:3px 8px 0}
+.ga-art{position:absolute;left:6px;top:6px;z-index:1;font-size:10px;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:2px 7px;background:rgba(255,255,255,.9);color:var(--ink-soft)}
+.ga-art.selten{background:var(--blau);color:#fff}
+.ga-art.sehr{background:var(--honig);color:#fff}
+.ga.auf.selten{border-color:var(--blau-mittel)}
+.ga.auf.sehr{border-color:var(--honig);box-shadow:0 0 0 2px #ecd9b4}
+.ga-neu{position:absolute;right:6px;top:6px;z-index:1;font-size:10px;font-weight:bold;letter-spacing:.06em;border-radius:999px;padding:2px 7px;background:var(--bad);color:#fff}
+.ga.neu{animation:gaNeu .7s ease-out}
+@media (min-width:600px){.ga-grid{grid-template-columns:repeat(4,1fr)}}
+.ga-gross{display:block;width:min(320px,100%);aspect-ratio:4/3;object-fit:cover;border-radius:12px;margin:0 auto;border:1px solid var(--linie)}
+.ga-karte{max-height:calc(100vh - 32px);overflow:auto}
 </style>
 <!-- Besucherzählung (GoatCounter, ohne Cookies) -->
 <script>window.goatcounter={path:function(p){return location.host+p}};</script><script data-goatcounter="https://mibaso.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -705,7 +730,9 @@ z1: {
     { em: "🏁", name: "In Südafrika", ok: h => h.summe >= 15 },
     { em: "🔍", name: "Spürnase", ok: h => h.d.raetsel && h.d.raetsel.min <= 2 },
     { em: "🗓️", name: "Rätsel-Stammgast", ok: h => h.d.raetsel && h.d.raetsel.n >= 5 },
-    { em: "🤝", name: "Wettflug", ok: h => h.d.duell && h.d.duell.n >= 1 }
+    { em: "🤝", name: "Wettflug", ok: h => h.d.duell && h.d.duell.n >= 1 },
+    { em: "📖", name: "Halbes Album", ok: h => albumOffen(h).length >= 10 },
+    { em: "👑", name: "Volles Album", ok: h => albumOffen(h).length >= 20 }
   ],
   checks: {
     s1: [
@@ -1088,6 +1115,7 @@ function seitePass(eid, neu) {
           + (frei ? `<a class="station bonus" href="#${eid}-duell">${inner2}</a>` : `<div class="station gesperrt" aria-disabled="true">${inner2}</div>`); })()}</div>
       ${h.fertige === n && anderer ? `<p class="klein">Weiter geht’s mit <a href="#${anderer}">Teil ${IDS.indexOf(anderer) + 1}: ${EXPS[anderer].titel}</a>.</p>` : ""}
     </section>
+    ${albumHTML(eid, h)}
     <section>
       <h2 class="h-blau">Urkunde</h2>
       ${h.fertige ? `<p>${h.fertige === n ? "Geschafft! Trag deinen Namen ein und hol dir deine Urkunde." : `Du hast ${h.fertige} von ${n} Stationen geschafft. Die Urkunde zeigt deinen Zwischenstand.`}</p>
@@ -1108,6 +1136,8 @@ function seitePass(eid, neu) {
     setzePassvogel(h.summe / MAX, neu !== undefined && neu < h.summe ? neu / MAX : undefined); }));
   $$("[data-m]", app).forEach(b => b.onclick = () => { S.modus = b.dataset.m; speichern(); route(true); });
   const ub = $("#urkBtn"); if (ub) ub.onclick = () => urkunde(eid);
+  $$("[data-ga]", app).forEach(b => b.onclick = () => albumFenster(eid, b.dataset.ga, true));
+  $$("[data-gz]", app).forEach(b => b.onclick = () => albumFenster(eid, b.dataset.gz, false));
   $("#resetBtn").onclick = () => {
     $("#resetBox").innerHTML = `<p><b>Wirklich alles löschen?</b> Etappen, Abzeichen und Name auf diesem Gerät sind dann weg.</p>
       <div class="knopfreihe"><button type="button" class="knopf prim" id="jaReset">Ja, zurücksetzen</button><button type="button" class="knopf" id="neinReset">Abbrechen</button></div>`;
@@ -1190,8 +1220,9 @@ const RV = [
   ["rotkehlchen", "Teilzieher: Manche ziehen ans Mittelmeer, andere bleiben; im Winter kommen Gäste aus dem Norden.", "Ich bin ein Teilzieher: Manche von uns fliegen ans Mittelmeer, andere bleiben.", "Die Vögel meiner Art, die ihr im Winter seht, kommen oft aus Nordeuropa.", "Ich verteidige auch im Winter ein Revier und singe dafür sogar im Dezember.", "Ich schaue Gärtnern gern beim Umgraben zu.", "Meine Stirn, Kehle und Brust sind orangerot, meine Augen groß und schwarz."],
   ["buchfink", "Teilzieher: Vor allem Weibchen und Jungvögel ziehen nach Südwesteuropa.", "Bei uns ziehen vor allem die Weibchen fort – viele Männchen bleiben im Winter hier.", "Im Winter bekomme ich oft Besuch von einem orange gefärbten Verwandten aus dem Norden.", "Ich bin einer der häufigsten Vögel überhaupt.", "Mein Gesang endet mit einem schmetternden Schnörkel.", "Das Männchen hat einen blaugrauen Kopf, eine rötliche Brust und zwei weiße Flügelbinden."]
 ];
-// Michas eigene Fotos (aus fauna/images/fotos, auf 4:3 geschnitten) haben Vorrang vor den gezeichneten Vorschaubildern
-const ZUGFOTO = new Set(["rauchschwalbe", "weissstorch", "star", "graugans", "bergfink", "rotkehlchen", "buchfink", "blaumeise", "buntspecht", "eichelhaeher", "amsel"]);
+// Michas eigene Fotos (aus fauna/images/fotos, auf 4:3 geschnitten) haben Vorrang vor den gezeichneten Vorschaubildern.
+// Ausnahme Rauchschwalbe: Das Foto zeigt einen Jungvogel ohne rote Kehle – dort bleibt auf Michas Wunsch die Zeichnung.
+const ZUGFOTO = new Set(["weissstorch", "star", "graugans", "bergfink", "rotkehlchen", "buchfink", "blaumeise", "buntspecht", "eichelhaeher", "amsel"]);
 const RVBILD = s => ZUGFOTO.has(s) ? `../images/zug/foto-${s}.jpg` : ZUGBILD(s);
 const RV_MAP = Object.fromEntries(RV.map(r => [r[0], r]));
 const RV_FOLGE = ["kuckuck", "bergfink", "mauersegler", "star", "neuntoeter", "feldlerche", "weissstorch", "seidenschwanz", "nachtigall", "girlitz", "mehlschwalbe", "rotkehlchen", "pirol", "singdrossel", "graugans", "trauerschnaepper", "rotdrossel", "rauchschwalbe", "buchfink", "gartenrotschwanz"];
@@ -1407,6 +1438,77 @@ function seiteDuell(eid) {
     runde();
   }
   anleitung();
+}
+
+/* ============ Reise-Album: Zugvögel sammeln ============
+   Häufige Arten kommen mit jeder Etappe, seltene nur für besondere Leistungen.
+   [Kennung, Seltenheit, „Kommt …“, Bedingung(Kennzahlen), Ziel] */
+const ALBUM = ["rauchschwalbe", "star", "mehlschwalbe", "rotkehlchen", "buchfink", "mauersegler", "weissstorch", "singdrossel", "feldlerche", "graugans", "kuckuck", "girlitz"]
+  .map((s, k) => [s, "haeufig", `Kommt bei ${k + 1} ${k ? "Etappen" : "Etappe"} 📍`, h => h.summe >= k + 1, "station"])
+  .concat([
+    ["bergfink", "selten", "Kommt, wenn du deinen ersten Rätselzugvogel löst", h => !!h.d.raetsel && h.d.raetsel.n >= 1, "raetsel"],
+    ["gartenrotschwanz", "selten", "Kommt nach deinem ersten Wettflug", h => !!h.d.duell && h.d.duell.n >= 1, "duell"],
+    ["nachtigall", "selten", "Kommt, wenn du in Station 3 alle drei Etappen holst", h => !!h.d.s3 && h.d.s3.knochen >= 3, "s3"],
+    ["trauerschnaepper", "selten", "Kommt, wenn du im Bilderquiz alle drei Etappen holst", h => !!h.d.s5 && h.d.s5.knochen >= 3, "s5"],
+    ["neuntoeter", "sehr", "Kommt, wenn du einen Rätselzugvogel mit höchstens zwei Hinweisen errätst", h => !!h.d.raetsel && h.d.raetsel.min <= 2, "raetsel"],
+    ["rotdrossel", "sehr", "Kommt, wenn du an drei Tagen den Rätselzugvogel löst", h => !!h.d.raetsel && h.d.raetsel.n >= 3, "raetsel"],
+    ["pirol", "sehr", "Kommt nach drei Wettflügen", h => !!h.d.duell && h.d.duell.n >= 3, "duell"],
+    ["seidenschwanz", "sehr", "Kommt erst, wenn dein Storch mit allen 15 Etappen in Südafrika ist", h => h.summe >= 15, "station"]
+  ]);
+const ALBUM_ART = { haeufig: "häufig", selten: "selten", sehr: "sehr selten" };
+const albumOffen = h => ALBUM.filter(a => a[3](h)).map(a => a[0]);
+
+function albumFenster(eid, slug, auf) {
+  const a = ALBUM.find(x => x[0] === slug), X = EXPS[eid], h = kennzahlen(eid), frei = S.modus === "frei";
+  const fertig = id => !!(h.d[id] && h.d[id].done);
+  let inhalt;
+  if (auf) {
+    inhalt = `<div class="tk-kopf"><h3>${NAMEN[slug]}</h3><button type="button" class="knopf" data-zu aria-label="Schließen">✕</button></div>
+      <img class="ga-gross" src="${RVBILD(slug)}" alt="${esc(NAMEN[slug])}">
+      <p><span class="marke inline" style="margin-left:0">${ALBUM_ART[a[1]]}</span> ${RV_MAP[slug][1]}</p>
+      <ol class="rv-hinweise">${RV_MAP[slug].slice(2).map(t => `<li>${t}</li>`).join("")}</ol>
+      <div class="knopfreihe"><button type="button" class="knopf" data-zu>Schließen</button></div>`;
+  } else {
+    let ziel, knopf, sperre = "";
+    const bonusZu = !frei && !fertig("s3") ? "Die Bonus-Spiele öffnen sich, sobald du Station 3 geschafft hast." : "";
+    if (a[4] === "raetsel") { ziel = "raetsel"; knopf = "🔍 Zum Rätselzugvogel"; sperre = bonusZu; }
+    else if (a[4] === "duell") { ziel = "duell"; knopf = "🤝 Zum Wettflug"; sperre = bonusZu; }
+    else {
+      let k = a[4] === "station" ? X.stationen.findIndex(s => !fertig(s.id)) : X.stationen.findIndex(s => s.id === a[4]);
+      if (k < 0) k = Math.max(0, X.stationen.findIndex(s => ((h.d[s.id] || {}).knochen || 0) < 3));
+      const s = X.stationen[k]; ziel = s.id; knopf = `${s.em} Zu Station ${k + 1}`;
+      if (!frei && k > 0 && !fertig(s.id) && !fertig(X.stationen[k - 1].id)) sperre = `Station ${k + 1} öffnet sich, sobald du die Stationen davor geschafft hast.`;
+    }
+    const extra = a[4] === "station" ? "Etappen bekommst du in den Stationen: bis zu drei pro Station." : "";
+    inhalt = `<div class="tk-kopf"><h3>Dieser Vogel fehlt noch</h3><button type="button" class="knopf" data-zu aria-label="Schließen">✕</button></div>
+      <p><span class="marke inline" style="margin-left:0">${ALBUM_ART[a[1]]}</span></p>
+      <p><b>${a[2]}${a[2].endsWith("📍") ? "" : "."}</b> ${extra}</p>
+      ${sperre ? `<p class="klein">🔒 ${sperre}</p>` : ""}
+      <div class="knopfreihe">${sperre ? "" : `<a class="knopf prim" href="#${eid}-${ziel}">${knopf} ›</a>`}<button type="button" class="knopf" data-zu>Schließen</button></div>`;
+  }
+  const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true"); o.setAttribute("aria-label", auf ? NAMEN[slug] : "Vogel fehlt noch");
+  o.innerHTML = `<div class="tafelkarte ga-karte">${inhalt}</div>`;
+  document.body.appendChild(o);
+  const zu = () => { o.remove(); document.removeEventListener("keydown", esc_); };
+  const esc_ = e => { if (e.key === "Escape") zu(); };
+  document.addEventListener("keydown", esc_);
+  $$("[data-zu]", o).forEach(b => b.onclick = zu);
+  o.onclick = e => { if (e.target === o) zu(); };
+}
+
+function albumHTML(eid, h) {
+  const offen = albumOffen(h), gesehen = (h.d.album || []), neu = offen.filter(s => !gesehen.includes(s));
+  if (neu.length) { S[eid] = S[eid] || {}; S[eid].album = offen; speichern(); setTimeout(() => toast(neu.length > 3 ? `🐦 ${neu.length} neue Vögel im Reise-Album!` : "🐦 Neu im Reise-Album: " + neu.map(s => NAMEN[s]).join(", ")), 400); }
+  return `<section>
+      <div class="ga-kopf"><h2 class="h-honig">Reise-Album</h2><span class="ga-zahl"><b>${offen.length}</b> / ${ALBUM.length} Zugvögel</span></div>
+      <div class="ga-balken"><i style="width:${offen.length / ALBUM.length * 100}%"></i></div>
+      <p class="klein">${offen.length === ALBUM.length ? "Alle Zugvögel gesammelt – was für eine Reise! 👑" : "Graue Karten sind Vögel, die dir noch fehlen. Mit jeder Etappe 📍 kommt einer dazu, die seltenen gibt es nur für besondere Leistungen. Tippe eine Karte an: Bei grauen erfährst du, wie du den Vogel bekommst – bei bunten liest du seinen Steckbrief."}</p>
+      <div class="ga-grid">${ALBUM.map(a => { const auf = offen.includes(a[0]), n = neu.includes(a[0]);
+        const art = `<span class="ga-art ${a[1]}">${ALBUM_ART[a[1]]}</span>`, img = `<span class="ga-bild"><img src="${RVBILD(a[0])}" alt="" loading="lazy"></span>`;
+        return auf
+          ? `<button type="button" class="ga auf ${a[1]} ${n ? "neu" : ""}" data-ga="${a[0]}">${art}${n ? '<span class="ga-neu">NEU</span>' : ""}${img}<span class="ga-name">${NAMEN[a[0]]}</span></button>`
+          : `<button type="button" class="ga zu ${a[1]}" data-gz="${a[0]}">${art}${img}<span class="ga-name">???</span><span class="ga-wie">${a[2]}</span></button>`; }).join("")}</div>
+    </section>`;
 }
 
 /* ============ Feier & Urkunde ============ */
