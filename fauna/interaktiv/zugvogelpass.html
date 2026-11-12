@@ -405,6 +405,57 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
 .rv-ende h3{font-size:26px;color:var(--blau)}
 @media (min-width:600px){.rv-grid{grid-template-columns:repeat(7,1fr)}.rv-wahl{font-size:11.5px}}
 .rv-ende > img{width:min(340px,calc(100% - 32px));aspect-ratio:4/3;margin:16px auto 0;border-radius:12px;border:1px solid var(--linie)}
+/* Bonus: Wettflug (Duell) */
+.du-sitz{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.du-sitz button{background:var(--tile);border:2px solid var(--linie);border-radius:14px;padding:12px 10px;font-family:var(--sans);font-size:14px;color:var(--ink-soft);cursor:pointer;display:grid;gap:4px;justify-items:center;text-align:center}
+.du-sitz button b{font-size:16px;color:var(--blau)}
+.du-sitz button .e{font-size:28px;line-height:1}
+.du-sitz button.an{border-color:var(--blau);box-shadow:0 0 0 2px var(--blau-hell)}
+.du-buehne{position:fixed;inset:0;z-index:40;background:var(--blau-tief);display:grid;grid-template-rows:minmax(0,1fr) auto minmax(0,1fr);font-family:var(--sans);
+  padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px);user-select:none;-webkit-user-select:none;touch-action:manipulation;overscroll-behavior:none}
+.du-buehne.neben{grid-template-rows:auto auto minmax(0,1fr);grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.du-buehne .du-gem{display:none}
+.du-buehne.neben .du-gem .du-text{font-size:clamp(19px,4.2vh,34px)}
+.du-buehne.neben .du-gem{display:grid;grid-column:1 / -1;grid-row:2;flex:none;aspect-ratio:473/196;max-height:46vh;width:100%;border-radius:0;border:0;border-bottom:2px solid var(--blau-tief)}
+.du-buehne.neben .du-gem .du-warte{color:var(--blau)}
+.du-buehne.neben:not(.fertig) .du-haelfte .du-frage{display:none}
+.du-buehne.neben.fertig .du-gem{display:none}
+.du-buehne.neben .du-haelfte{grid-row:3}
+.du-buehne.neben .du-mitte{grid-column:1 / -1;grid-row:1}
+.du-buehne.gegen .du-haelfte[data-p="0"]{transform:rotate(180deg)}
+.du-haelfte{min-height:0;min-width:0;display:flex;flex-direction:column;gap:8px;padding:10px 12px}
+.du-haelfte.blau{background:#e3edf6;--team:#2c5f8f}
+.du-haelfte.rot{background:#fbe9e0;--team:#c2542f}
+.du-buehne.neben .du-haelfte.blau{border-right:2px solid var(--blau-tief)}
+.du-kopf{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--team);font-weight:bold;font-size:16px}
+.du-pkt{display:flex;gap:4px}
+.du-pkt i{width:13px;height:13px;border-radius:50%;border:2px solid var(--team);display:block}
+.du-pkt i.voll{background:var(--team)}
+.du-frage{flex:1;min-height:0;border-radius:14px;overflow:hidden;background:#fff;display:grid;place-items:center;position:relative;border:2px solid var(--team)}
+.du-frage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:32% 50%}
+.du-frage .du-text{padding:10px 16px;font-family:var(--serif);font-size:clamp(17px,2.6vh + 4px,24px);line-height:1.35;text-align:center;color:var(--ink)}
+.du-frage .du-warte{font-size:clamp(20px,4vh,30px);color:var(--team);font-weight:bold;text-align:center;padding:8px}
+.du-frage .du-gross{font-size:clamp(44px,9vh,80px);line-height:1}
+.du-status{min-height:1.5em;text-align:center;font-size:15px;font-weight:bold;color:var(--ink-soft)}
+.du-status.gut{color:var(--ok)}
+.du-status.schlecht{color:var(--bad)}
+.du-wahl{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.du-wahl button{min-height:50px;border-radius:12px;border:2px solid var(--team);background:#fff;color:var(--ink);font:inherit;font-weight:bold;font-size:16px;padding:6px 6px;cursor:pointer;touch-action:manipulation;hyphens:auto;-webkit-hyphens:auto}
+.du-wahl button:disabled{cursor:default}
+.du-wahl button.blass{opacity:.35}
+.du-wahl button.richtig{background:var(--ok);border-color:var(--ok);color:#fff;opacity:1}
+.du-wahl button.falsch{background:var(--bad);border-color:var(--bad);color:#fff;opacity:1}
+.du-mitte{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 12px;color:#dce8f3;font-size:14px;background:var(--blau-tief)}
+.du-mitte button,.du-mitte a{border:1px solid #6f8aa6;background:transparent;color:#fff;border-radius:999px;padding:6px 14px;font:inherit;font-size:14px;cursor:pointer;text-decoration:none}
+.du-mitte .haupt{background:var(--honig);border-color:var(--honig);font-weight:bold}
+.du-mitte .gruppe{display:flex;gap:8px}
+@media (min-width:700px){.du-buehne.gegen .du-wahl{grid-template-columns:repeat(4,1fr)}.du-wahl button{font-size:17px;min-height:58px}}
+@media (max-width:520px){.du-buehne.neben .du-wahl{grid-template-columns:1fr}.du-buehne.neben .du-wahl button{min-height:44px;font-size:15px}.du-buehne.neben .du-kopf{font-size:13px}.du-buehne.neben .du-pkt i{width:9px;height:9px}}
+.du-buehne .du-frage img{object-fit:contain;object-position:50% 50%;background:#fff}
+.du-buehne.gegen .du-wahl{grid-template-columns:repeat(3,1fr)}
+@media (min-width:521px){.du-buehne.neben .du-wahl{grid-template-columns:repeat(3,1fr)}}
+.du-buehne .du-wahl button{padding-left:4px;padding-right:4px}
+.du-buehne .du-text{font-size:clamp(28px,6vw,46px);color:var(--blau)}
 </style>
 <!-- Besucherzählung (GoatCounter, ohne Cookies) -->
 <script>window.goatcounter={path:function(p){return location.host+p}};</script><script data-goatcounter="https://mibaso.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -624,7 +675,7 @@ const BILDERQUIZ = [
 const NAMEN = { mauersegler: "Mauersegler", rauchschwalbe: "Rauchschwalbe", mehlschwalbe: "Mehlschwalbe", weissstorch: "Weißstorch", bergfink: "Bergfink", buchfink: "Buchfink",
   girlitz: "Girlitz", stieglitz: "Stieglitz", kuckuck: "Kuckuck", graugans: "Graugans", hoeckerschwan: "Höckerschwan", haussperling: "Haussperling", kohlmeise: "Kohlmeise",
   nachtigall: "Nachtigall", seidenschwanz: "Seidenschwanz", haubenmeise: "Haubenmeise", eichelhaeher: "Eichelhäher", star: "Star", neuntoeter: "Neuntöter", kleiber: "Kleiber",
-  gimpel: "Gimpel", buntspecht: "Buntspecht", elster: "Elster", rotdrossel: "Rotdrossel", rotkehlchen: "Rotkehlchen", singdrossel: "Singdrossel", amsel: "Amsel", feldlerche: "Feldlerche", pirol: "Pirol", gartenrotschwanz: "Gartenrotschwanz", trauerschnaepper: "Trauerschnäpper" };
+  gimpel: "Gimpel", buntspecht: "Buntspecht", elster: "Elster", rotdrossel: "Rotdrossel", rotkehlchen: "Rotkehlchen", singdrossel: "Singdrossel", amsel: "Amsel", feldlerche: "Feldlerche", pirol: "Pirol", gartenrotschwanz: "Gartenrotschwanz", trauerschnaepper: "Trauerschnäpper", blaumeise: "Blaumeise", zaunkoenig: "Zaunkönig" };
 
 /* ============ Expedition ============ */
 const EXPS = {
@@ -653,7 +704,8 @@ z1: {
     { em: "🏆", name: "Bilder-Profi", ok: h => h.d.s5 && h.d.s5.knochen >= 3 },
     { em: "🏁", name: "In Südafrika", ok: h => h.summe >= 15 },
     { em: "🔍", name: "Spürnase", ok: h => h.d.raetsel && h.d.raetsel.min <= 2 },
-    { em: "🗓️", name: "Rätsel-Stammgast", ok: h => h.d.raetsel && h.d.raetsel.n >= 5 }
+    { em: "🗓️", name: "Rätsel-Stammgast", ok: h => h.d.raetsel && h.d.raetsel.n >= 5 },
+    { em: "🤝", name: "Wettflug", ok: h => h.d.duell && h.d.duell.n >= 1 }
   ],
   checks: {
     s1: [
@@ -1031,7 +1083,9 @@ function seitePass(eid, neu) {
       <h2 class="h-blau" style="margin-top:10px">Bonus</h2>
       <div class="stationen">${(() => { const frei = rvOffen(eid), rv = rvStand(eid), heuteFertig = !!(rv.heute && rv.heute.tag === rvTag() && rv.heute.fertig);
         const inner = `<span class="nr">🔍</span><span><span class="st">Rätselzugvogel des Tages</span><span class="sk">${!frei ? "Öffnet sich nach Station 3" : heuteFertig ? "Heute schon gelöst – morgen kommt ein neuer. Bis dahin: Übungsrätsel" : "Fünf Hinweise, ein Vogel: Je früher du ihn errätst, desto mehr Sterne"}</span></span><span class="stand">${!frei ? "🔒" : heuteFertig ? `⭐ ${rv.heute.sterne} heute` : "Neu ›"}</span>`;
-        return frei ? `<a class="station bonus" href="#${eid}-raetsel">${inner}</a>` : `<div class="station gesperrt" aria-disabled="true">${inner}</div>`; })()}</div>
+        const du = S[eid] && S[eid].duell, inner2 = `<span class="nr">🤝</span><span><span class="st">Wettflug</span><span class="sk">${frei ? "Zu zweit an einem Gerät: Sommergast, Wintergast oder immer da – wer tippt schneller?" : "Öffnet sich nach Station 3"}</span></span><span class="stand">${!frei ? "🔒" : du && du.n ? du.n + "× gespielt" : "Spielen ›"}</span>`;
+        return (frei ? `<a class="station bonus" href="#${eid}-raetsel">${inner}</a>` : `<div class="station gesperrt" aria-disabled="true">${inner}</div>`)
+          + (frei ? `<a class="station bonus" href="#${eid}-duell">${inner2}</a>` : `<div class="station gesperrt" aria-disabled="true">${inner2}</div>`); })()}</div>
       ${h.fertige === n && anderer ? `<p class="klein">Weiter geht’s mit <a href="#${anderer}">Teil ${IDS.indexOf(anderer) + 1}: ${EXPS[anderer].titel}</a>.</p>` : ""}
     </section>
     <section>
@@ -1221,6 +1275,137 @@ function seiteRaetsel(eid) {
   else spiele(heute, false, st);
 }
 
+/* ============ Wettflug: zwei Teams an einem Gerät ============
+   Beide Teams sehen denselben Vogel und tippen, wann er bei uns ist: Sommergast, Wintergast oder ganzjährig da.
+   Wer zuerst richtig tippt, bekommt den Punkt; wer daneben tippt, setzt für diesen Vogel aus. Teilzieher kommen nicht vor. */
+const DU_ZIEL = 7, DU_ZEIT = 10000;
+const DU_TEAMS = [["blau", "Team Storch"], ["rot", "Team Schwalbe"]];
+const DU_ART = { s: "☀️ Sommergast", w: "❄️ Wintergast", j: "🏡 Ganzjährig da" };
+const DU_VOEGEL = {
+  s: ["mauersegler", "rauchschwalbe", "mehlschwalbe", "weissstorch", "kuckuck", "nachtigall", "neuntoeter", "pirol", "gartenrotschwanz", "trauerschnaepper", "feldlerche", "singdrossel", "girlitz"],
+  w: ["bergfink", "rotdrossel", "seidenschwanz"],
+  j: ["kohlmeise", "blaumeise", "haubenmeise", "kleiber", "buntspecht", "elster", "eichelhaeher", "haussperling", "gimpel", "zaunkoenig"]
+};
+const DU_TYP = {}; Object.keys(DU_VOEGEL).forEach(t => DU_VOEGEL[t].forEach(v => { DU_TYP[v] = t; }));
+let spielStop = null;
+
+function seiteDuell(eid) {
+  const X = EXPS[eid];
+  if (!rvOffen(eid)) { location.hash = eid; return; }
+  let sitz = "gegen", buehne = null, t1 = 0, t2 = 0, aktiv = false;
+  const stopp = () => { aktiv = false; clearTimeout(t1); clearTimeout(t2); if (buehne) { buehne.remove(); buehne = null; } };
+  spielStop = stopp;
+
+  function anleitung() {
+    stopp(); spielStop = stopp;
+    app.innerHTML = `
+    <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Zugvogel-Pass</a><span class="tchip">🤝 für 2 Teams</span></div></div>
+    <div class="huelle"><section>
+      <span class="eyebrow">Bonus-Spiel für zwei</span>
+      <h2 class="h-blau">Wettflug</h2>
+      <p class="lead">Zwei Teams, ein Gerät: Beide sehen denselben Vogel. Wann ist er bei uns – nur im Sommer, nur im Winter oder das ganze Jahr? Wer zuerst richtig tippt, holt den Punkt. Wer zuerst ${DU_ZIEL} Punkte hat, gewinnt.</p>
+      <ul class="clean">
+        <li><b>Erst schauen, dann tippen:</b> Wer daneben tippt, setzt für diesen Vogel aus – das andere Team darf in Ruhe antworten.</li>
+        <li><b>Zwei Arten von Runden:</b> Meist seht ihr ein Bild mit Namen. In jeder dritten Runde steht dort nur der Name.</li>
+        <li><b>Fair bleiben:</b> Finger weg vom Bildschirm, bis der Vogel erscheint!</li>
+      </ul>
+      <h3 class="h-honig" style="font-size:20px">Wie sitzt ihr?</h3>
+      <div class="du-sitz">
+        <button type="button" data-sitz="gegen" class="an"><span class="e">🔄</span><b>Gegenüber</b>Das Gerät liegt flach zwischen euch</button>
+        <button type="button" data-sitz="neben"><span class="e">↔️</span><b>Nebeneinander</b>Ihr schaut gemeinsam auf den Bildschirm</button>
+      </div>
+      <div class="knopfreihe"><button type="button" class="knopf prim" id="duLos">▶ Wettflug starten</button></div>
+    </section>${fuss()}</div>`;
+    $$("[data-sitz]", app).forEach(b => b.onclick = () => { sitz = b.dataset.sitz; $$("[data-sitz]", app).forEach(x => x.classList.toggle("an", x === b)); });
+    $("#duLos").onclick = start;
+  }
+
+  function start() {
+    stopp(); spielStop = stopp; aktiv = true;
+    Object.keys(DU_TYP).forEach(v => { const i = new Image(); i.src = ZUGBILD(v); });
+    buehne = document.createElement("div"); buehne.className = "du-buehne " + sitz;
+    buehne.innerHTML = `<div class="du-haelfte ${DU_TEAMS[0][0]}" data-p="0"></div>
+      <div class="du-mitte"><span id="duInfo"></span><span class="gruppe" id="duKnoepfe"><button type="button" id="duEnde">✕ Beenden</button></span></div>
+      <div class="du-frage du-gem"></div>
+      <div class="du-haelfte ${DU_TEAMS[1][0]}" data-p="1"></div>`;
+    document.body.appendChild(buehne);
+    const H = [0, 1].map(p => $(`.du-haelfte[data-p="${p}"]`, buehne));
+    H.forEach((el, p) => el.innerHTML = `<div class="du-kopf"><span>${DU_TEAMS[p][1]}</span><span class="du-pkt"></span></div><div class="du-frage"></div><div class="du-status"></div><div class="du-wahl"></div>`);
+    $("#duEnde", buehne).onclick = () => { location.hash = eid; };
+    const punkte = [0, 0]; let aus = [false, false], offen = false, ziel = null, nr = 0, sack = [];
+    const punkteHTML = p => { let s = ""; for (let k = 0; k < DU_ZIEL; k++) s += `<i class="${k < punkte[p] ? "voll" : ""}"></i>`; return s; };
+    const kopf = () => { H.forEach((el, p) => { const e = $(".du-pkt", el); e.innerHTML = punkteHTML(p); e.setAttribute("aria-label", punkte[p] + " Punkte"); }); $("#duInfo", buehne).textContent = `Runde ${nr} · ${punkte[0]} : ${punkte[1]} · bis ${DU_ZIEL}`; };
+    const frage = html => { H.forEach(el => $(".du-frage", el).innerHTML = html); $(".du-gem", buehne).innerHTML = html; };
+    const status = (p, text, cls) => { const e = $(".du-status", H[p]); e.textContent = text; e.className = "du-status " + (cls || ""); };
+
+    function runde() {
+      if (!aktiv) return;
+      nr++; aus = [false, false]; offen = false;
+      if (!sack.length) sack = shuffle(DU_VOEGEL.s.concat(DU_VOEGEL.j, DU_VOEGEL.w, DU_VOEGEL.w));   // Wintergäste doppelt, sonst kommen sie zu selten
+      ziel = sack.pop();
+      const nurName = nr % 3 === 0;
+      kopf();
+      frage(`<div class="du-warte">Runde ${nr}<br>Achtung …</div>`);
+      H.forEach((el, p) => {
+        $(".du-wahl", el).innerHTML = ["s", "w", "j"].map(t => `<button type="button" data-s="${t}" disabled class="blass">${DU_ART[t]}</button>`).join("");
+        status(p, nurName ? "Gleich kommt ein Name" : "Gleich kommt ein Vogel");
+        $$(".du-wahl button", el).forEach(b => b.addEventListener("pointerdown", e => { e.preventDefault(); tipp(p, b); }));
+      });
+      t1 = setTimeout(() => {
+        if (!aktiv) return;
+        frage(nurName ? `<div class="du-text">${NAMEN[ziel]}</div>` : `<img src="${ZUGBILD(ziel)}" alt="${NAMEN[ziel]}">`);
+        H.forEach((el, p) => {
+          $$(".du-wahl button", el).forEach(b => { b.disabled = false; b.classList.remove("blass"); });
+          status(p, `${NAMEN[ziel]} – wann ist er bei uns?`);
+        });
+        offen = true;
+        t2 = setTimeout(() => aufloesen(-1), DU_ZEIT);
+      }, 1100 + Math.random() * 1100);
+    }
+    function tipp(p, b) {
+      if (!aktiv || !offen || aus[p] || b.disabled) return;
+      if (b.dataset.s === DU_TYP[ziel]) { punkte[p]++; return aufloesen(p); }
+      aus[p] = true; b.classList.add("falsch");
+      $$(".du-wahl button", H[p]).forEach(x => { x.disabled = true; if (x !== b) x.classList.add("blass"); });
+      status(p, "Daneben! Ihr setzt aus.", "schlecht");
+      if (aus[0] && aus[1]) aufloesen(-1);
+      else status(1 - p, "Die anderen lagen daneben – eure Chance!");
+    }
+    function aufloesen(sieger) {
+      if (!aktiv || !offen) return;
+      offen = false; clearTimeout(t2); kopf();
+      const loesung = `${NAMEN[ziel]}: ${DU_ART[DU_TYP[ziel]].replace(/^\S+ /, "")}`;
+      H.forEach((el, p) => {
+        $$(".du-wahl button", el).forEach(x => { x.disabled = true; if (x.dataset.s === DU_TYP[ziel]) { x.classList.remove("blass"); x.classList.add("richtig"); } else if (!x.classList.contains("falsch")) x.classList.add("blass"); });
+        if (sieger === p) status(p, "✔ Punkt für euch!", "gut");
+        else if (sieger < 0) status(p, `Kein Punkt – ${loesung}`, "schlecht");
+        else if (!aus[p]) status(p, `Zu langsam – ${loesung}`);
+      });
+      t1 = setTimeout(() => { if (sieger >= 0 && punkte[sieger] >= DU_ZIEL) ende(sieger); else runde(); }, 1900);
+    }
+    function ende(sieger) {
+      aktiv = false; buehne.classList.add("fertig");
+      const vorher = kennzahlen(eid), abzVorher = X.abzeichen.map(z => !!z.ok(vorher));
+      S[eid] = S[eid] || {}; S[eid].duell = { n: ((S[eid].duell && S[eid].duell.n) || 0) + 1 }; speichern();
+      const nach = kennzahlen(eid), neueAbz = X.abzeichen.filter((z, k) => !abzVorher[k] && z.ok(nach));
+      H.forEach((el, p) => {
+        $(".du-frage", el).innerHTML = `<div class="du-warte"><div class="du-gross">${p === sieger ? "🏆" : "👏"}</div>${p === sieger ? "Gewonnen!" : "Gut gekämpft!"}<br>${punkte[p]} : ${punkte[1 - p]}</div>`;
+        $(".du-wahl", el).innerHTML = "";
+        status(p, p === sieger ? "Ihr wart zuerst im Ziel." : "Revanche?", p === sieger ? "gut" : "");
+      });
+      $(".du-gem", buehne).innerHTML = `<div class="du-warte"><div class="du-gross">🏆</div>${DU_TEAMS[sieger][1]} gewinnt!</div>`;
+      $("#duInfo", buehne).textContent = `${DU_TEAMS[sieger][1]} gewinnt ${punkte[sieger]} : ${punkte[1 - sieger]}`;
+      $("#duKnoepfe", buehne).innerHTML = `<button type="button" class="haupt" id="duNoch">🔁 Revanche</button><button type="button" id="duEnde">Zum Pass</button>`;
+      $("#duNoch", buehne).onclick = start;
+      $("#duEnde", buehne).onclick = () => { location.hash = eid; };
+      konfetti();
+      if (neueAbz.length) setTimeout(() => toast("Neues Abzeichen: " + neueAbz.map(z => z.em + " " + z.name).join(", ")), 600);
+    }
+    runde();
+  }
+  anleitung();
+}
+
 /* ============ Feier & Urkunde ============ */
 function feier(eid) {
   konfetti(); fanfare(true);
@@ -1346,9 +1531,11 @@ function urkundeTeilen(o, em, dateiname) {
 let letzteSumme = {};
 function route(behalteScroll) {
   $$(".overlay").forEach(o => o.remove());
+  if (spielStop) { spielStop(); spielStop = null; }
   const h = location.hash.slice(1), m = h.match(/^(z1)-(s[1-5])$/);
   if (EXPS[h]) { const s = kennzahlen(h).summe; seitePass(h, letzteSumme[h]); letzteSumme[h] = s; }
   else if (h === "z1-raetsel") seiteRaetsel("z1");
+  else if (h === "z1-duell") seiteDuell("z1");
   else if (m) { if (letzteSumme[m[1]] === undefined) letzteSumme[m[1]] = kennzahlen(m[1]).summe; seiteStation(m[1], m[2]); }
   else seiteStart();
   if (behalteScroll !== true) window.scrollTo(0, 0);
