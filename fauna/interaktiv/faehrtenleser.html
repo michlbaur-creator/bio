@@ -81,26 +81,28 @@ details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
 .karte{background:var(--tile);border:1px solid var(--linie);border-radius:18px;overflow:hidden;animation:rein .35s ease-out}
 @keyframes rein{from{transform:translateY(14px);opacity:0}to{transform:none;opacity:1}}
 .land{display:block;width:100%;height:auto}
-.k-text{padding:14px 16px 4px;display:grid;gap:8px}
+.ende > .land{max-width:460px;margin:0 auto;border-radius:0 0 14px 14px}
+@media (min-width:600px){.oben{display:grid;grid-template-columns:300px 1fr;align-items:center}.oben .land{border-radius:0 0 14px 0}.oben .k-text{padding-top:10px;padding-bottom:10px}}
+.k-text{padding:12px 16px 4px;display:grid;gap:6px}
 .k-text h2{font-size:24px;color:var(--blau)}
-.wahl{display:grid;gap:8px;padding:10px 16px 16px}
+.wahl{display:grid;gap:8px;padding:8px 16px 12px}
 .wahl button{text-align:left;background:var(--creme);border:2px solid var(--blau-hell);border-radius:12px;padding:12px 14px;font-family:var(--sans);font-size:16px;line-height:1.35;cursor:pointer;color:var(--ink);touch-action:manipulation}
 @media (hover:hover){.wahl button:not(:disabled):hover{border-color:var(--blau);background:#fff}}
 .wahl button:disabled{cursor:default;opacity:.45}
 .wahl button.gewaehlt{opacity:1;border-color:var(--ink);background:#fff;font-weight:bold}
-.wahl.spuren{grid-template-columns:repeat(3,1fr)}
+.wahl.spuren{grid-template-columns:repeat(3,1fr);max-width:400px;width:100%;margin:0 auto}
 .wahl.spuren button{padding:0;overflow:hidden;text-align:center;display:grid}
 .wahl.spuren svg{display:block;width:100%;height:auto;background:#fbfdff}
 .wahl.spuren .bst{font-weight:bold;font-size:15px;padding:5px 0 6px;color:var(--blau);border-top:1px solid var(--linie)}
-.richtung{font-family:var(--sans);font-size:13px;color:var(--ink-soft);text-align:center;padding:0 16px}
-.folge{margin:0 16px 16px;border-radius:14px;padding:12px 14px;display:grid;gap:8px;font-family:var(--sans);font-size:15px;line-height:1.45;animation:rein .3s ease-out}
+.richtung{font-family:var(--sans);font-size:13px;color:var(--ink-soft);text-align:center;padding:4px 16px 0}
+.folge{margin:0 16px 12px;border-radius:14px;padding:12px 14px;display:grid;gap:8px;font-family:var(--sans);font-size:15px;line-height:1.45;animation:rein .3s ease-out}
 .folge.r2{background:#e3f0e7;border:1px solid #b9d8c4}
 .folge.r0{background:#f7e3df;border:1px solid #e6bdb5}
 .folge.schnee{background:#e6eef6;border:1px solid #bcd0e2}
 .folge .urteil{font-weight:bold;font-size:16px}
 .folge.r2 .urteil{color:var(--ok)} .folge.r0 .urteil{color:var(--bad)} .folge.schnee .urteil{color:var(--blau)}
 .folge .gross{font-size:38px;line-height:1}
-.chip{display:inline-block;background:rgba(255,255,255,.75);border-radius:999px;padding:3px 10px;font-weight:bold;font-size:14px;color:var(--bad);width:max-content}
+.chip{display:inline-block;margin-left:6px;background:rgba(255,255,255,.75);border-radius:999px;padding:3px 10px;font-weight:bold;font-size:14px;color:var(--bad);width:max-content}
 .weiter{display:flex;justify-content:center;padding:0 16px 18px}
 .ende{background:var(--tile);border:1px solid var(--linie);border-radius:18px;overflow:hidden;text-align:center;display:grid;gap:10px;padding-bottom:20px}
 .ende > *{margin-left:16px;margin-right:16px}
@@ -163,7 +165,7 @@ const SPUR = {
   hundGross: () => g(50, 90, 3.7, SIEGEL.hund),
   katzeGross: () => g(50, 88, 4.6, SIEGEL.katze)
 };
-const spurSVG = art => `<svg viewBox="0 0 100 170" role="img" aria-label="Spur im Schnee"><rect width="100" height="170" fill="#fbfdff"/><g fill="#8fa3b6" stroke="#8fa3b6" stroke-width="0">${SPUR[art]()}</g></svg>`;
+const spurSVG = art => `<svg viewBox="0 6 100 158" role="img" aria-label="Spur im Schnee"><rect width="100" height="170" fill="#fbfdff"/><g fill="#8fa3b6" stroke="#8fa3b6" stroke-width="0">${SPUR[art]()}</g></svg>`;
 
 /* ============ Die Fälle ============
    Jede Gabelung: x = Lage und Frage, k = Merksatz (kommt ins Notizbuch),
@@ -286,7 +288,7 @@ function regen(klasse, zeichen, n, dauer) {
 /* ============ Landschaft: Die Fährte im Schnee, die Sonne zeigt das Tageslicht ============ */
 function landSVG(F, st, abweg) {
   const t = Math.max(0, Math.min(1, 1 - st.licht / STUNDEN)), P = F.weg;
-  const sx = 30 + t * 280, sy = 62 - Math.sin(Math.PI * (0.18 + t * 0.82)) * 44;      // die Sonne wandert und sinkt
+  const sx = 30 + t * 280, sy = 92 - Math.sin(Math.PI * (0.18 + t * 0.82)) * 24;      // die Sonne wandert und sinkt
   const himmel = t < .5 ? "#cfe3f2" : t < .75 ? "#e6d3c0" : t < .95 ? "#d99a7a" : "#3b4a66";
   const tritte = (a, b, farbe) => { const n = 6; let s = "";
     for (let i = 1; i <= n; i++) { const x = a[0] + (b[0] - a[0]) * i / (n + 1), y = a[1] + (b[1] - a[1]) * i / (n + 1); s += `<ellipse cx="${x.toFixed(1)}" cy="${(y + (i % 2 ? 2.5 : -2.5)).toFixed(1)}" rx="2.6" ry="1.7" fill="${farbe}"/>`; } return s; };
@@ -294,7 +296,7 @@ function landSVG(F, st, abweg) {
   const hier = P[Math.min(st.pos, P.length - 1)], ziel = st.pos >= F.schritte.length;
   const ab = abweg ? (() => { const z = [hier[0] + 26, hier[1] - 40]; return tritte(hier, z, "#c98f86") + `<text x="${z[0]}" y="${z[1] + 2}" font-size="20" text-anchor="middle">${abweg}</text>`; })() : "";
   const baum = (x, y, s) => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-2" y="0" width="4" height="9" fill="#6b5a48"/><path d="M0 -30 L11 -8 H5 L14 4 H-14 L-5 -8 H-11 Z" fill="#48705a"/><path d="M0 -30 L6 -19 H-6 Z M-9 -8 H9 L5 -13 H-5 Z" fill="#fff" opacity=".85"/></g>`;
-  return `<svg viewBox="0 0 340 190" class="land" role="img" aria-label="Verschneite Landschaft mit der Fährte">
+  return `<svg viewBox="0 54 340 122" class="land" role="img" aria-label="Verschneite Landschaft mit der Fährte">
     <rect width="340" height="190" fill="${himmel}"/>
     <circle cx="${sx.toFixed(0)}" cy="${sy.toFixed(0)}" r="13" fill="${t > .7 ? "#f08a4b" : "#f6d365"}" opacity="${t >= 1 ? 0 : 1}"/>
     <path d="M0 96 Q60 70 130 88 T260 74 T340 86 V190 H0 Z" fill="#e8eff6"/>
@@ -372,8 +374,8 @@ function seiteFall(id) {
     if (st.pos >= F.schritte.length) return ende(true);
     if (st.licht <= 0) return ende(false);
     const G = F.schritte[st.pos], w = mische(G.w), spuren = !!G.w[0].spur;
-    buehne.innerHTML = `<div class="karte">${landSVG(F, st)}
-      <div class="k-text"><span class="eyebrow">Gabelung ${st.pos + 1} von ${F.schritte.length}</span><p>${G.x}</p></div>
+    buehne.innerHTML = `<div class="karte"><div class="oben">${landSVG(F, st)}
+      <div class="k-text"><span class="eyebrow">Gabelung ${st.pos + 1} von ${F.schritte.length}</span><p>${G.x}</p></div></div>
       ${spuren ? `<div class="richtung">Laufrichtung jeweils nach oben ↑</div>` : ""}
       <div class="wahl${spuren ? " spuren" : ""}">${w.map((o, i) => spuren
         ? `<button type="button" data-i="${i}" aria-label="Spur ${"ABC"[i]}">${spurSVG(o.spur)}<span class="bst">Spur ${"ABC"[i]}</span></button>`
@@ -388,7 +390,7 @@ function seiteFall(id) {
       if (R.art === "schnee") regen("flocke", ["❄", "❅", "•"], 46, 3800);
       $("#folge").innerHTML = R.art === "ok"
         ? `<div class="folge r2" role="status"><span class="urteil">Richtige Fährte!</span><span>${G.k}</span></div>`
-        : `<div class="folge r0" role="status"><span class="gross" aria-hidden="true">${o.em}</span><span class="urteil">Falsche Fährte!</span><span class="chip">−2 Stunden ☀️</span><span>${o.f}</span></div>
+        : `<div class="folge r0" role="status"><span class="urteil"><span aria-hidden="true">${o.em}</span> Falsche Fährte! <span class="chip">−2 Stunden ☀️</span></span><span>${o.f}</span></div>
            ${R.art === "schnee" && !dunkel ? `<div class="folge schnee" role="status"><span class="urteil">🌨️ Es fängt an zu schneien!</span><span>Bis du zurück bist, hat der Neuschnee die Fährte zugedeckt. Du musst sie noch einmal von vorn aufnehmen.</span></div>` : ""}`;
       const knopf = dunkel ? "Weiter" : R.art === "ok" ? (st.pos >= F.schritte.length ? "Geschafft ›" : "Der Spur nach ›") : R.art === "schnee" ? "Zurück zum Anfang der Fährte" : "Zurück zur Gabelung";
       $("#folge").insertAdjacentHTML("beforeend", `<div class="weiter" style="padding-top:4px"><button type="button" class="knopf prim" id="weiter">${knopf}</button></div>`);
