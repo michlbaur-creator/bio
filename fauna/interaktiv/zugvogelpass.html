@@ -1190,6 +1190,9 @@ const RV = [
   ["rotkehlchen", "Teilzieher: Manche ziehen ans Mittelmeer, andere bleiben; im Winter kommen Gäste aus dem Norden.", "Ich bin ein Teilzieher: Manche von uns fliegen ans Mittelmeer, andere bleiben.", "Die Vögel meiner Art, die ihr im Winter seht, kommen oft aus Nordeuropa.", "Ich verteidige auch im Winter ein Revier und singe dafür sogar im Dezember.", "Ich schaue Gärtnern gern beim Umgraben zu.", "Meine Stirn, Kehle und Brust sind orangerot, meine Augen groß und schwarz."],
   ["buchfink", "Teilzieher: Vor allem Weibchen und Jungvögel ziehen nach Südwesteuropa.", "Bei uns ziehen vor allem die Weibchen fort – viele Männchen bleiben im Winter hier.", "Im Winter bekomme ich oft Besuch von einem orange gefärbten Verwandten aus dem Norden.", "Ich bin einer der häufigsten Vögel überhaupt.", "Mein Gesang endet mit einem schmetternden Schnörkel.", "Das Männchen hat einen blaugrauen Kopf, eine rötliche Brust und zwei weiße Flügelbinden."]
 ];
+// Michas eigene Fotos (aus fauna/images/fotos, auf 4:3 geschnitten) haben Vorrang vor den gezeichneten Vorschaubildern
+const ZUGFOTO = new Set(["rauchschwalbe", "weissstorch", "star", "graugans", "bergfink", "rotkehlchen", "buchfink", "blaumeise", "buntspecht", "eichelhaeher", "amsel"]);
+const RVBILD = s => ZUGFOTO.has(s) ? `../images/zug/foto-${s}.jpg` : ZUGBILD(s);
 const RV_MAP = Object.fromEntries(RV.map(r => [r[0], r]));
 const RV_FOLGE = ["kuckuck", "bergfink", "mauersegler", "star", "neuntoeter", "feldlerche", "weissstorch", "seidenschwanz", "nachtigall", "girlitz", "mehlschwalbe", "rotkehlchen", "pirol", "singdrossel", "graugans", "trauerschnaepper", "rotdrossel", "rauchschwalbe", "buchfink", "gartenrotschwanz"];
 const rvTag = () => { const d = new Date(), z = n => String(n).padStart(2, "0"); return `${d.getFullYear()}-${z(d.getMonth() + 1)}-${z(d.getDate())}`; };
@@ -1221,7 +1224,7 @@ function seiteRaetsel(eid) {
         <ol class="rv-hinweise">${tipps.map((t, k) => k < st.k ? `<li class="${frisch && k === st.k - 1 ? "frisch" : ""}">${t}</li>` : `<li class="zu">Noch verdeckt</li>`).join("")}</ol>
         <div class="knopfreihe"><button type="button" class="knopf" id="rvMehr" ${st.k >= 5 ? "disabled" : ""}>💡 Nächster Hinweis${uebung ? "" : " (kostet 1 Stern)"}</button></div>
         <h3 class="h-honig" style="font-size:20px">Tippe den Vogel an</h3>
-        <div class="rv-grid">${liste.map(g => `<button type="button" class="rv-wahl" data-s="${g[0]}" ${st.falsch.includes(g[0]) ? "disabled" : ""}><img src="${ZUGBILD(g[0])}" alt="" loading="lazy"><span>${g[1]}</span></button>`).join("")}</div>`;
+        <div class="rv-grid">${liste.map(g => `<button type="button" class="rv-wahl" data-s="${g[0]}" ${st.falsch.includes(g[0]) ? "disabled" : ""}><img src="${RVBILD(g[0])}" alt="" loading="lazy"><span>${g[1]}</span></button>`).join("")}</div>`;
       $("#rvMehr").onclick = () => { st.k++; merke(); zeichne(true); };
       $$(".rv-wahl", box).forEach(b => b.onclick = () => {
         if (b.dataset.s === slug) return fertig(6 - st.k);
@@ -1253,7 +1256,7 @@ function seiteRaetsel(eid) {
     const r = rvStand(eid), name = NAMEN[slug];
     box.innerHTML = `
       <div class="rv-ende">
-        <img src="${ZUGBILD(slug)}" alt="${esc(name)}">
+        <img src="${RVBILD(slug)}" alt="${esc(name)}">
         <span class="eyebrow">${uebung ? "Übungsrätsel" : "Rätselzugvogel des Tages · " + datum}</span>
         <h3>${sterne ? "Richtig:" : "Es war:"} ${name}</h3>
         ${uebung ? "" : rvSterne(sterne)}
@@ -1284,7 +1287,7 @@ const DU_ART = { s: "☀️ Sommergast", w: "❄️ Wintergast", j: "🏡 Ganzj�
 const DU_VOEGEL = {
   s: ["mauersegler", "rauchschwalbe", "mehlschwalbe", "weissstorch", "kuckuck", "nachtigall", "neuntoeter", "pirol", "gartenrotschwanz", "trauerschnaepper", "feldlerche", "singdrossel", "girlitz"],
   w: ["bergfink", "rotdrossel", "seidenschwanz"],
-  j: ["kohlmeise", "blaumeise", "haubenmeise", "kleiber", "buntspecht", "elster", "eichelhaeher", "haussperling", "gimpel", "zaunkoenig"]
+  j: ["kohlmeise", "blaumeise", "haubenmeise", "kleiber", "buntspecht", "elster", "eichelhaeher", "haussperling", "gimpel", "zaunkoenig", "rotkehlchen", "buchfink", "amsel"]   // Rotkehlchen, Buchfink, Amsel: auf Michas Wunsch als ganzjährig
 };
 const DU_TYP = {}; Object.keys(DU_VOEGEL).forEach(t => DU_VOEGEL[t].forEach(v => { DU_TYP[v] = t; }));
 let spielStop = null;
@@ -1322,7 +1325,7 @@ function seiteDuell(eid) {
 
   function start() {
     stopp(); spielStop = stopp; aktiv = true;
-    Object.keys(DU_TYP).forEach(v => { const i = new Image(); i.src = ZUGBILD(v); });
+    Object.keys(DU_TYP).forEach(v => { const i = new Image(); i.src = RVBILD(v); });
     buehne = document.createElement("div"); buehne.className = "du-buehne " + sitz;
     buehne.innerHTML = `<div class="du-haelfte ${DU_TEAMS[0][0]}" data-p="0"></div>
       <div class="du-mitte"><span id="duInfo"></span><span class="gruppe" id="duKnoepfe"><button type="button" id="duEnde">✕ Beenden</button></span></div>
@@ -1353,7 +1356,7 @@ function seiteDuell(eid) {
       });
       t1 = setTimeout(() => {
         if (!aktiv) return;
-        frage(nurName ? `<div class="du-text">${NAMEN[ziel]}</div>` : `<img src="${ZUGBILD(ziel)}" alt="${NAMEN[ziel]}">`);
+        frage(nurName ? `<div class="du-text">${NAMEN[ziel]}</div>` : `<img src="${RVBILD(ziel)}" alt="${NAMEN[ziel]}">`);
         H.forEach((el, p) => {
           $$(".du-wahl button", el).forEach(b => { b.disabled = false; b.classList.remove("blass"); });
           status(p, `${NAMEN[ziel]} – wann ist er bei uns?`);
