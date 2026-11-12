@@ -354,7 +354,7 @@ function seiteSpiel() {
         <div class="gross">${sterneHTML(n)}</div>
         <p>${st.versuch === 1 ? "Gleich beim ersten Versuch vom Ei zum Falter – das schaffen in der Natur nur ganz wenige." : "Geschafft als Ei Nummer " + st.versuch + ". Deine Vorgänger hatten weniger Glück: " + [...new Set(st.opfer)].join(", ") + "."}</p>
         <p class="klein">Aus einem Gelege mit über hundert Eiern werden meist nur eine Handvoll Falter. Alle anderen werden gefressen, von Schlupfwespen befallen, gemäht oder verhungern. Darum legt ein Weibchen so viele Eier.</p>
-        <div class="knopfreihe"><button type="button" class="knopf prim" id="noch">🔁 Noch einmal</button><a class="knopf" href="verwandlung.html">Zum Lernpfad</a><a class="knopf honig" href="durchs-jahr.html">Seitenwechsel: Spiel die Kohlmeise ›</a></div>
+        <div class="knopfreihe"><button type="button" class="knopf prim" id="noch">🔁 Noch einmal</button><a class="knopf" href="libellenspiel.html">Gegenstück: die Libelle</a><a class="knopf" href="verwandlung.html">Zum Lernpfad</a><a class="knopf honig" href="durchs-jahr.html">Seitenwechsel: Spiel die Kohlmeise ›</a></div>
       </div>`;
     $("#noch").onclick = seiteSpiel; konfetti();
   }
