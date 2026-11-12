@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Vom Ei zum Falter – Das Leiterspiel · Bio Mibaso</title>
+<meta name="description" content="Ein Leiterspiel für Klasse 5/6: Als Tagpfauenauge vom Ei über Raupe und Puppe zum Falter – vorbei an Kohlmeise, Schlupfwespe und Rasenmäher. Ohne Anmeldung.">
+<meta name="theme-color" content="#233D5C">
+<link rel="icon" href="../assets/icon.svg">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<style>
+/* Vom Ei zum Falter – Farben und Schrift wie die Forscherpässe von Fauna Mibaso */
+:root{
+  --blau:#233D5C; --blau-tief:#1a2f47; --blau-mittel:#33587c; --blau-hell:#bcd0e2;
+  --creme:#F7F3E8; --creme-tief:#EEE7D5; --tile:#FFFFFF;
+  --honig:#C28A3A; --honig-tief:#a9762c;
+  --ink:#1c2e42; --ink-soft:#5d6b78; --linie:#d9d2c1;
+  --ok:#2f6a45; --bad:#B23B2E;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--blau-tief);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--creme);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.55;min-height:100vh}
+a{color:var(--blau)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--honig);outline-offset:2px}
+h1,h2,h3{font-weight:normal;margin:0;text-wrap:balance;line-height:1.2}
+p{margin:0}
+.huelle{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:40px}
+section{padding-top:24px;display:grid;gap:14px}
+.app-head{background:linear-gradient(180deg,var(--blau-tief) 0%,var(--blau-mittel) 100%);color:var(--creme);text-align:center;
+  padding:calc(env(safe-area-inset-top,0px) + 22px) max(20px,env(safe-area-inset-right,0px)) 24px;border-bottom:4px double var(--blau-hell);position:relative}
+.app-head .zurueck-kopf{position:absolute;left:12px;top:calc(env(safe-area-inset-top,0px) + 10px);color:#dce8f3;font-family:var(--sans);font-size:14px;text-decoration:none;padding:6px}
+.app-head .logo{font-size:40px;line-height:1;margin:14px 0 6px;letter-spacing:6px}
+.app-head h1{font-size:clamp(30px,9vw,44px);letter-spacing:.02em}
+.app-head .untertitel{font-style:italic;color:#dce8f3;margin-top:8px;font-size:clamp(14px,3.8vw,17px)}
+.eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.lead{font-size:19px}
+.klein{font-size:15px;color:var(--ink-soft)}
+.h-blau{color:var(--blau);font-size:26px} .h-honig{color:var(--honig-tief);font-size:22px}
+ul.clean{margin:0;padding-left:1.2em;display:grid;gap:5px}
+.knopf{display:inline-block;border:1px solid var(--blau);background:var(--tile);color:var(--blau);border-radius:12px;padding:11px 18px;font-family:var(--sans);font-size:16px;cursor:pointer;text-decoration:none;text-align:center}
+.knopf.prim{background:var(--blau);color:#fff;box-shadow:0 2px 0 var(--blau-tief)}
+.knopf.honig{background:var(--honig);border-color:var(--honig);color:#fff;box-shadow:0 2px 0 #8a5a17}
+.knopfreihe{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.fuss{margin-top:34px;padding-top:16px;border-top:1px solid var(--linie);font-family:var(--sans);font-size:13px;color:var(--ink-soft);text-align:center;display:grid;gap:6px}
+details.lehrer{background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:12px 16px;font-size:16px}
+details.lehrer summary{cursor:pointer;font-family:var(--sans);font-size:15px;color:var(--blau);font-weight:bold}
+details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
+.regeln{display:grid;gap:8px;font-family:var(--sans);font-size:15px}
+.regel{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:10px 12px}
+.regel .e{font-size:26px;text-align:center;line-height:1}
+.regel b{color:var(--blau)}
+.level{display:grid;gap:12px}
+.lv{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:center;background:var(--tile);border:2px solid var(--blau-hell);border-radius:16px;padding:12px;text-align:left;cursor:pointer;width:100%;font-family:var(--serif)}
+.lv .em{font-size:44px;text-align:center;line-height:1}
+.lv .nr{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--honig-tief);font-weight:bold}
+.lv .nm{font-size:23px;color:var(--blau);display:block;line-height:1.2}
+.lv .mo{font-size:15px;color:var(--ink-soft);display:block;line-height:1.35;margin-top:2px}
+.lv .st{font-family:var(--sans);font-size:14px;color:var(--ink);display:block;margin-top:6px}
+@media (hover:hover){.lv:not(:disabled):hover{border-color:var(--blau);box-shadow:0 4px 14px rgba(35,61,92,.14)}}
+.lv:disabled{cursor:default;opacity:.6;border-style:dashed}
+.lv:disabled .em{filter:grayscale(1)}
+.stern-leer{opacity:.22;filter:grayscale(1)}
+
+/* Spiel */
+.spielkopf{position:sticky;top:0;z-index:6;background:var(--creme);border-bottom:1px solid var(--linie);
+  padding:calc(env(safe-area-inset-top,0px) + 8px) max(12px,env(safe-area-inset-right,0px)) 8px max(12px,env(safe-area-inset-left,0px))}
+.spielkopf .innen{max-width:860px;margin:0 auto}
+.sk-zeile{display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:var(--sans);font-size:14px}
+.sk-zeile a{color:var(--blau);text-decoration:none;padding:4px 2px}
+.sk-zeile b{color:var(--blau)}
+.huelle.breit{max-width:860px}
+.karte{background:var(--tile);border:1px solid var(--linie);border-radius:18px;overflow:hidden}
+.tisch{display:grid;gap:12px;padding:12px}
+@media (min-width:640px){.tisch{grid-template-columns:minmax(0,52%) 1fr;gap:18px;align-items:start;padding:16px}}
+.brett{display:block;width:100%;height:auto}
+.feld circle{stroke:#fff;stroke-width:2}
+.feld.tor circle{stroke:#233D5C;stroke-width:3}
+.feld.war circle{opacity:.55}
+.fn{font-family:var(--sans);font-size:12px;font-weight:bold;fill:#4f5d4a;text-anchor:middle}
+.fe{font-size:17px;text-anchor:middle}
+.ff{font-size:18px;text-anchor:middle}
+#figur{transition:transform .22s ease-in-out}
+.legende{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:center;font-family:var(--sans);font-size:12px;color:var(--ink-soft);padding-top:6px}
+.legende i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.tafel{display:grid;gap:10px;align-content:start;min-height:230px}
+.tafel p{font-size:17px;line-height:1.45}
+.tk{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center}
+.tk h2{font-size:22px;color:var(--blau)}
+.tb{width:72px;height:72px;object-fit:contain;border-radius:12px;background:#fff;border:1px solid var(--linie)}
+.tb.rund{object-fit:cover;border-radius:50%;border:3px solid var(--bad)}
+.wahl{display:grid;gap:8px}
+.wahl button{text-align:left;background:var(--creme);border:2px solid var(--blau-hell);border-radius:12px;padding:11px 13px;font-family:var(--sans);font-size:16px;line-height:1.35;cursor:pointer;color:var(--ink);touch-action:manipulation}
+@media (hover:hover){.wahl button:not(:disabled):hover{border-color:var(--blau);background:#fff}}
+.wahl button:disabled{cursor:default;opacity:.45}
+.wahl button.gewaehlt{opacity:1;border-color:var(--ink);background:#fff;font-weight:bold}
+.folge{border-radius:14px;padding:11px 14px;display:grid;gap:6px;font-family:var(--sans);font-size:15px;line-height:1.45;animation:rein .3s ease-out}
+@keyframes rein{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+.folge.r2{background:#e3f0e7;border:1px solid #b9d8c4}
+.folge.r1{background:#fbf3e2;border:1px solid #ead9b5}
+.folge.r0{background:#f7e3df;border:1px solid #e6bdb5}
+.folge .urteil{font-weight:bold;font-size:16px}
+.folge.r2 .urteil{color:var(--ok)} .folge.r1 .urteil{color:var(--honig-tief)} .folge.r0 .urteil{color:var(--bad)}
+.chip{display:inline-block;margin-left:6px;background:rgba(255,255,255,.8);border-radius:999px;padding:2px 10px;font-size:14px;color:var(--bad)}
+.chip.gut{color:var(--ok)}
+.weiter{display:flex;justify-content:center}
+.gross-knopf{font-size:18px;padding:13px 26px}
+.wuerfel{display:grid;justify-items:center;gap:8px;padding:26px 0;font-family:var(--sans);color:var(--ink-soft)}
+.wuerfel .auge{width:78px;height:78px;border-radius:18px;background:#fff;border:3px solid var(--blau);display:grid;place-items:center;font-size:42px;font-weight:bold;color:var(--blau);animation:wurf .35s ease-out}
+@keyframes wurf{from{transform:rotate(-200deg) scale(.4);opacity:0}to{transform:none;opacity:1}}
+.vier{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.vier figure{margin:0;background:#fff;border:1px solid var(--linie);border-radius:12px;padding:4px 4px 6px;text-align:center;font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+.vier img{display:block;width:100%;height:auto}
+.ende{background:var(--tile);border:1px solid var(--linie);border-radius:18px;text-align:center;display:grid;gap:10px;padding:16px 16px 20px}
+.ende h2{font-size:30px;color:var(--blau)}
+.ende .gross{font-size:42px;letter-spacing:6px;line-height:1}
+.falter{width:min(260px,70%);height:auto;margin:0 auto}
+.konffeld{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.konf{position:absolute;top:-40px;font-size:22px;animation:fall 3.6s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.2}}
+@media (max-width:420px){body{font-size:17px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<!-- Besucherzählung (GoatCounter, ohne Cookies) -->
+<script>window.goatcounter={path:function(p){return location.host+p}};</script><script data-goatcounter="https://mibaso.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+"use strict";
+
+/* ============ Das Spielfeld: 24 Felder vom Ei zum Falter (Tagpfauenauge) ============
+   art: fakt (nur lesen) · leiter/rutsche (d Felder vor/zurück) · frage (w = Antworten)
+   Antwort: ok = richtig (plus = Bonusfelder) · sonst d = Felder zurück, ei = zurück zum Ei, parasit = Schlupfwespe hat ein Ei gelegt (Folge erst bei der Verpuppung)
+   tor: An diesen Feldern hält man immer an (Häutung, Verpuppung, Schlüpfen, Eiablage). */
+const TORE = [8, 16, 20, 24];
+const STADIEN = [
+  { bis: 2, n: "Ei", em: "🥚", bild: "voll-1-ei.png", farbe: "#e9d98a" },
+  { bis: 15, n: "Raupe", em: "🐛", bild: "voll-2-raupe.png", farbe: "#9cc57f" },
+  { bis: 19, n: "Puppe", em: "🛡️", bild: "voll-3-puppe.png", farbe: "#c9b48c" },
+  { bis: 24, n: "Falter", em: "🦋", bild: "voll-4-falter.png", farbe: "#e59a8c" }
+];
+const stadium = pos => STADIEN.find(s => pos <= s.bis);
+const FELD = {
+  1: { art: "fakt", em: "🥚", t: "Ein Ei unter hundert", x: "Du bist ein winziges grünes Ei an der Unterseite eines Brennnesselblatts – eines von über hundert in deinem Gelege. Nur ganz wenige von euch werden einmal fliegen. Würfle los!" },
+  2: { art: "fakt", em: "🐣", t: "Geschlüpft!", x: "Nach ein bis zwei Wochen nagst du dich aus dem Ei. Du bist jetzt eine Raupe – und hast vor allem eines: Hunger." },
+  3: { art: "frage", em: "👥", tod: "von einer Spinne gefangen", t: "Hundert Geschwister", x: "Rings um dich schlüpfen deine Geschwister. Was tust du?",
+    w: [{ l: "Bei den anderen bleiben und gemeinsam ein Gespinst spinnen", ok: true, plus: 1, k: "Die Raupen des Tagpfauenauges leben wochenlang dicht gedrängt in einem Gespinst. In der Gruppe ist jede Einzelne sicherer." },
+      { l: "Allein losziehen – dann gehört jedes Blatt mir", ei: true, k: "Allein bist du leichte Beute: Eine Spinne hat dich erwischt." }] },
+  4: { art: "fakt", em: "🌿", t: "Fressen, fressen, fressen", x: "Du frisst fast ununterbrochen. Raupe sein heißt wachsen – sonst nichts." },
+  5: { art: "frage", em: "🥬", t: "Die Brennnessel ist kahl", x: "Ihr habt eure Pflanze leer gefressen. Was nun?",
+    w: [{ l: "Zur nächsten Brennnessel kriechen, auch wenn sie weiter weg steht", ok: true, k: "Die Raupen des Tagpfauenauges fressen nur Brennnesseln. Ohne Brennnesseln gibt es keine Tagpfauenaugen." },
+      { l: "Den saftigen Salat gleich nebenan fressen", d: -2, k: "Salat rührst du nicht an – du würdest davor verhungern. Du verlierst Zeit und Kraft." },
+      { l: "Löwenzahn fressen – der wächst überall", d: -2, k: "Löwenzahn ist nichts für dich: Du frisst nur Brennnesseln. Du verlierst Zeit und Kraft." }] },
+  6: { art: "frage", em: "🐦", meise: true, tod: "als Raupe von der Kohlmeise gefressen", t: "Die Kohlmeise!", x: "Eine Kohlmeise landet auf eurer Brennnessel. Ihre Jungen brauchen jeden Tag hunderte Raupen. Was tust du?",
+    w: [{ l: "Gleichzeitig mit allen Geschwistern ruckartig zucken", ok: true, k: "Ein Knäuel schwarzer, dorniger Raupen, das plötzlich wie ein einziges Tier zuckt – das schreckt viele Vögel ab." },
+      { l: "So schnell wie möglich davonkriechen", ei: true, k: "Eine Raupe ist langsam, eine Meise nicht. Sie trägt dich zu ihren Jungen in den Nistkasten." },
+      { l: "Stillhalten und auf die Tarnung vertrauen", ei: true, k: "Schwarz auf Grün ist keine Tarnung. Die Meise hat dich längst gesehen." }] },
+  7: { art: "fakt", em: "😣", t: "Es zwickt", x: "Du bist gewachsen – aber deine Haut nicht. Sie spannt überall." },
+  8: { art: "fakt", em: "🧥", tor: true, t: "Häutung!", x: "Deine alte Haut platzt am Rücken auf, und du kriechst in einer neuen, größeren heraus. Als Raupe passiert dir das viermal." },
+  9: { art: "frage", em: "🐝", t: "Eine Schlupfwespe", x: "Eine zierliche Wespe mit langem Stachel landet neben dir und betastet dich mit den Fühlern. Was tust du?",
+    w: [{ l: "Wild mit dem Vorderkörper um dich schlagen, bis sie abdreht", ok: true, k: "Richtig gewehrt! Schlupfwespen wollen nicht fressen, sondern ein Ei in dich legen. Wer zappelt, ist schwer zu treffen." },
+      { l: "Ruhig weiterfressen – sie ist viel zu klein, um dich zu fressen", parasit: true, k: "Sie sticht einmal kurz zu und fliegt davon. Es tut kaum weh. Nichts passiert … scheinbar." },
+      { l: "Stillhalten und die Dornen aufstellen", parasit: true, k: "Deine Dornen halten Vögel ab, aber keine Schlupfwespe. Sie sticht einmal kurz zu und fliegt davon. Nichts passiert … scheinbar." }] },
+  10: { art: "leiter", em: "☀️", d: 2, t: "Frische Triebe in der Sonne", x: "Warm, saftig, voller Nährstoffe: Du wächst wie von selbst." },
+  11: { art: "frage", em: "🧭", tod: "vom Rasenmäher erwischt", t: "Umzug", x: "Die Gruppe sucht eine neue Futterstelle. Wohin?",
+    w: [{ l: "In die verwilderte Brennnesselecke hinter dem Kompost", ok: true, plus: 1, k: "Dort stört euch niemand. Eine wilde Ecke mit Brennnesseln ist das Beste, was ein Garten für Schmetterlinge tun kann." },
+      { l: "Zu den jungen, zarten Brennnesseln am Rasenrand", ei: true, k: "Am Samstag kommt der Rasenmäher – und mäht den Rand gleich mit." }] },
+  12: { art: "fakt", em: "📏", t: "Ausgewachsen", x: "Gut vier Zentimeter lang, schwarz mit weißen Pünktchen und Dornen: So sieht eine erwachsene Raupe des Tagpfauenauges aus." },
+  13: { art: "rutsche", em: "🌧️", d: -2, t: "Eine kalte Regenwoche", x: "Bei Kälte und Nässe frisst du kaum und wächst nicht." },
+  14: { art: "frage", em: "🤔", t: "Satt!", x: "Du hast plötzlich keinen Hunger mehr. Was tust du?",
+    w: [{ l: "Die Brennnessel verlassen und einen geschützten Platz zum Aufhängen suchen", ok: true, k: "Zum Verpuppen wandern die Raupen fort – an Halme, Zäune oder Mauern. Dort fallen sie weniger auf." },
+      { l: "Trotzdem weiterfressen – ein dicker Falter fliegt besser", d: -2, k: "Dein Körper stellt sich schon um, fressen kannst du nicht mehr. Du vertrödelst kostbare Zeit." },
+      { l: "Dich in die Erde eingraben", d: -2, k: "Das machen andere Arten, zum Beispiel viele Nachtfalter. Du verpuppst dich hängend." }] },
+  15: { art: "fakt", em: "🙃", t: "Kopfüber", x: "Du spinnst ein kleines Polster aus Seide, hakst dich mit dem Hinterende ein und lässt dich fallen. Jetzt hängst du da wie ein J." },
+  16: { art: "fakt", em: "🛡️", tor: true, t: "Verpuppung!", x: "Die Raupenhaut platzt ein letztes Mal. Darunter kommt die Puppe zum Vorschein – ohne Beine, ohne Mund. Sie hängt kopfüber am Halm." },
+  17: { art: "frage", em: "🔬", t: "Scheinbare Ruhe", x: "Von außen sieht man nichts. Was geschieht in der Puppe?",
+    w: [{ l: "Der Raupenkörper wird fast ganz aufgelöst und neu zusammengebaut", ok: true, plus: 1, k: "Aus dem Baumaterial der Raupe entstehen Flügel, lange Beine, Fühler und ein Saugrüssel. Nach etwa zwei Wochen ist der Falter fertig." },
+      { l: "Die Raupe ruht sich aus, und am Rücken wachsen ihr Flügel", d: -1, k: "So einfach ist es nicht: Fast der ganze Körper wird umgebaut, nicht nur etwas angebaut." },
+      { l: "Die Raupe schläft, bis es wieder wärmer wird", d: -1, k: "Die Puppe ist kein Schlafsack. In ihr wird in zwei Wochen ein völlig anderes Tier gebaut." }] },
+  18: { art: "frage", em: "🐦", meise: true, tod: "als Puppe von der Kohlmeise abgezupft", t: "Etwas stupst dich an", x: "Ein Schnabel tippt gegen deine Puppenhülle. Was tust du?",
+    w: [{ l: "Heftig hin- und herschlagen", ok: true, k: "Eine Puppe kann nicht weglaufen, aber zappeln: Sie schlägt mit dem Hinterleib. Das erschreckt manchen Angreifer." },
+      { l: "Nichts – eine Puppe kann sich nicht bewegen", ei: true, k: "Doch, das kann sie! Wer nur still hängt, wird abgezupft." }] },
+  19: { art: "fakt", em: "👀", t: "Es schimmert", x: "Durch die dünne Puppenhülle schimmern schon die Flügel mit ihren Augenflecken." },
+  20: { art: "frage", em: "✨", tor: true, schlupf: true, tod: "mit weichen Flügeln abgestürzt", t: "Geschlüpft!", x: "Die Hülle reißt auf, du ziehst dich heraus. Deine Flügel sind klein, weich und zerknittert. Was tust du?",
+    w: [{ l: "Hängen bleiben und die Flügel aufpumpen, bis sie fest sind", ok: true, k: "Du pumpst Körperflüssigkeit in die Flügeladern. Erst nach ein bis zwei Stunden sind die Flügel hart genug zum Fliegen." },
+      { l: "Sofort losfliegen, bevor ein Vogel kommt", ei: true, k: "Weiche Flügel tragen nicht. Du stürzt ab, und die Flügel härten zerknittert aus – du wirst nie fliegen." }] },
+  21: { art: "frage", em: "🌸", t: "Hunger!", x: "Zum ersten Mal seit Wochen hast du wieder Hunger. Was frisst du?",
+    w: [{ l: "Nektar aus Blüten – mit dem langen Saugrüssel", ok: true, plus: 1, k: "Disteln, Wasserdost, Sommerflieder: Als Falter trinkst du nur noch. Kauen kannst du nicht mehr." },
+      { l: "Brennnesselblätter wie früher", d: -1, k: "Dir fehlen die Kauwerkzeuge der Raupe. Du hast jetzt einen Saugrüssel – und brauchst Blüten." }] },
+  22: { art: "frage", em: "🐦", meise: true, tod: "als Falter von der Kohlmeise gefangen", t: "Schon wieder die Kohlmeise!", x: "Du sitzt mit geschlossenen Flügeln auf einem Ast. Die Meise hat dich trotzdem entdeckt und hüpft heran. Was tust du?",
+    w: [{ l: "Die Flügel aufreißen: Vier große Augen starren sie an", ok: true, k: "Die Augenflecken wirken wie das Gesicht eines viel größeren Tiers. Dazu erzeugen die Flügel ein zischendes Geräusch. Die Meise weicht zurück." },
+      { l: "Davonflattern", ei: true, k: "Meisen sind wendige Flieger. Aus der Nähe holt sie dich ein." },
+      { l: "Die Flügel geschlossen halten – die dunkle Unterseite tarnt dich", ei: true, k: "Die Tarnung als welkes Blatt hilft nur, solange dich niemand entdeckt hat. Jetzt ist es dafür zu spät." }] },
+  23: { art: "fakt", em: "💞", t: "Zu zweit", x: "Auf einer sonnigen Lichtung findest du einen Partner. Bald wirst du Eier legen." },
+  24: { art: "frage", em: "🏁", tor: true, t: "Der Kreis schließt sich", x: "Du trägst über hundert Eier. Wohin damit?",
+    w: [{ l: "Als Gelege an die Unterseite eines Brennnesselblatts in der Sonne", ok: true, k: "Genau dort hat alles angefangen. Deine Raupen finden beim Schlüpfen sofort das richtige Futter." },
+      { l: "Auf die Blüten des Sommerflieders – dort gibt es reichlich Nektar", d: -2, k: "Nektar ist Falterfutter. Deine Raupen würden auf dem Sommerflieder verhungern." },
+      { l: "Einzeln verteilt auf viele verschiedene Pflanzen – sicher ist sicher", d: -2, k: "Deine Raupen fressen nur Brennnesseln. Und sie brauchen ihre Geschwister." }] }
+};
+const PARASIT = { t: "Aus der Puppe schlüpft kein Falter", k: "Erinnerst du dich an den kleinen Stich? Die Schlupfwespe hat ein Ei in dich gelegt. Ihre Larve hat dich von innen aufgefressen. Aus deiner Puppe schlüpft nun eine neue Schlupfwespe." };
+
+/* ============ Spielregeln (ohne Anzeige) ============ */
+const mische = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const neuerStand = () => ({ pos: 1, versuch: 1, parasit: false, opfer: [] });
+// Würfeln: ein bis drei Felder, aber nie über das nächste Tor hinaus
+function ziehe(st, rnd) { const w = 1 + Math.floor(rnd() * 3), tor = TORE.find(t => t > st.pos) || 24; return { w, ziel: Math.min(st.pos + w, tor) }; }
+function zumEi(st, grund) { st.opfer.push(grund); st.pos = 1; st.parasit = false; st.versuch++; }
+const sterne = st => st.versuch === 1 ? 3 : st.versuch <= 3 ? 2 : 1;
+if (typeof module !== "undefined") module.exports = { FELD, TORE, neuerStand, ziehe, zumEi, sterne };
+
+/* ============ Helfer und Speicher (nur auf diesem Gerät) ============ */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+const KEY = "mibaso.fauna.falterspiel", BILD = "../assets/verwandlung/";
+function laden() { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { return {}; } }
+let S = laden();
+function speichern() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+const app = $("#app");
+const sterneHTML = n => `<span aria-label="${n} von 3 Sternen">${[0, 1, 2].map(k => `<span class="${k < n ? "" : "stern-leer"}">⭐</span>`).join("")}</span>`;
+const fuss = () => `<footer class="fuss">
+  <div>Dein Spielstand wird nur auf diesem Gerät gespeichert. Keine Anmeldung, keine Datensammlung.</div>
+  <div><a href="../../index.html">⌂ Bio Mibaso</a> · <a href="../../ueber/">Über mich</a> · <a href="../../impressum/">Impressum &amp; Datenschutz</a></div>
+  <div>© 2026 Michael Baur · Vom Ei zum Falter</div></footer>`;
+function konfetti() {
+  if (reduce) return;
+  const f = document.createElement("div"); f.className = "konffeld"; const z = ["🦋", "⭐", "🌸", "✨", "🌿"];
+  for (let k = 0; k < 40; k++) { const e = document.createElement("span"); e.className = "konf"; e.textContent = z[k % z.length]; e.style.cssText = `left:${Math.random() * 100}%;animation-delay:${(Math.random() * .9).toFixed(2)}s`; f.appendChild(e); }
+  document.body.appendChild(f); setTimeout(() => f.remove(), 4800);
+}
+
+/* ============ Spielbrett: vier Reihen, von unten nach oben ============ */
+const xy = n => { const r = Math.floor((n - 1) / 6), c = (n - 1) % 6, x = 32 + (r % 2 ? 5 - c : c) * 55.2; return [x, 232 - r * 64]; };
+function brettSVG(st, gesehen) {
+  let weg = ""; for (let n = 1; n < 24; n++) { const a = xy(n), b = xy(n + 1); weg += `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}"/>`; }
+  const felder = Array.from({ length: 24 }, (_, i) => { const n = i + 1, p = xy(n), F = FELD[n], S2 = stadium(n), zeig = F.tor || gesehen[n] || n === 1;
+    return `<g class="feld${F.tor ? " tor" : ""}${n < st.pos ? " war" : ""}"><circle cx="${p[0]}" cy="${p[1]}" r="${F.tor ? 21 : 18}" fill="${S2.farbe}"/>
+      <text x="${p[0]}" y="${p[1] + (zeig ? 6 : 4.5)}" class="${zeig ? "fe" : "fn"}">${zeig ? F.em : n}</text></g>`; }).join("");
+  const p = xy(st.pos);
+  return `<svg viewBox="0 0 340 264" class="brett" role="img" aria-label="Spielbrett mit 24 Feldern: vom Ei unten links bis zum Falter oben">
+    <rect width="340" height="264" rx="14" fill="#eef4e6"/>
+    <g stroke="#b9c9a6" stroke-width="7" stroke-linecap="round">${weg}</g>${felder}
+    <g id="figur" style="transform:translate(${p[0]}px,${p[1]}px)"><circle r="15" fill="#fff" stroke="#233D5C" stroke-width="3"/><text y="6.5" class="ff">${stadium(st.pos).em}</text></g>
+  </svg>`;
+}
+const legende = () => `<div class="legende">${STADIEN.map(s => `<span><i style="background:${s.farbe}"></i>${s.n}</span>`).join("")}</div>`;
+
+/* ============ Startseite ============ */
+function seiteStart() {
+  const d = S.spiel;
+  app.innerHTML = `<header class="app-head">
+    <a class="zurueck-kopf" href="verwandlung.html">‹ Wie wird man Insekt?</a>
+    <div class="logo">🥚🐛🛡️🦋</div><h1>Vom Ei zum Falter</h1><div class="untertitel">Das Leiterspiel mit harten Rückschlägen</div></header>
+  <div class="huelle">
+    <section>
+      <div class="vier">${STADIEN.map(s => `<figure><img src="${BILD}${s.bild}" alt=""><figcaption>${s.n}</figcaption></figure>`).join("")}</div>
+      <p class="lead">Du bist ein Tagpfauenauge – noch nicht ganz: Du bist ein Ei. Schaffst du es bis zum Schmetterling? Unterwegs lauern die Kohlmeise, die Schlupfwespe und der Rasenmäher.</p>
+      <div class="regeln">
+        <div class="regel"><span class="e">🎲</span><span><b>Würfeln:</b> Du rückst ein bis drei Felder vor. An Häutung, Verpuppung und Schlüpfen kommt niemand vorbei – dort hältst du immer an.</span></div>
+        <div class="regel"><span class="e">❓</span><span><b>Entscheiden:</b> Auf vielen Feldern musst du wählen. Wer richtig liegt, kommt oft schneller voran.</span></div>
+        <div class="regel"><span class="e">💥</span><span><b>Erwischt:</b> Wer gefressen oder gemäht wird, fängt als neues Ei wieder ganz unten an.</span></div>
+      </div>
+      <div class="knopfreihe"><button type="button" class="knopf prim gross-knopf" id="los">▶ Los geht’s</button></div>
+      ${d && d.n ? `<p class="klein" style="text-align:center">${d.sterne ? sterneHTML(d.sterne) + " · " : ""}${d.n}× gespielt${d.best ? " · bestes Ergebnis: geschafft als Raupe Nr. " + d.best : ""}</p>` : `<p class="klein" style="text-align:center">Ein Durchgang dauert drei bis fünf Minuten.</p>`}
+    </section>
+    <section>
+      <details class="lehrer"><summary>Für Lehrkräfte: Einsatz in Klasse 5/6</summary><div class="grid">
+        <p>Das Leiterspiel gehört zum Lernpfad „Wie wird man Insekt?“ und wiederholt die vollständige Verwandlung am Beispiel des Tagpfauenauges: Ei, Raupe mit Häutungen, Puppe, Falter – und zurück zur Eiablage.</p>
+        <ul class="clean">
+          <li><b>Inhalte:</b> Bindung an die Futterpflanze Brennnessel, Leben in der Gruppe, Häutung, Stürzpuppe, Umbau in der Puppe, Aufpumpen der Flügel, Saugrüssel statt Kauwerkzeuge, Augenflecken als Abwehr.</li>
+          <li><b>Feinde:</b> Kohlmeise (Raupe, Puppe, Falter), Schlupfwespe (die Folge zeigt sich erst bei der Verpuppung), Rasenmäher, Spinne.</li>
+          <li><b>Rückschläge:</b> Wer erwischt wird, beginnt wieder als Ei. Das ist gewollt und zeigt, dass aus einem Gelege nur ganz wenige Falter werden.</li>
+          <li><b>Querverbindung:</b> Im Spiel „Durchs Jahr!“ ist man selbst die Kohlmeise und sucht Raupen für die Jungen – ein guter Anlass für ein Gespräch über Nahrungsbeziehungen.</li>
+          <li><b>Zeit:</b> drei bis fünf Minuten je Durchgang; ohne Ton, ohne Anmeldung.</li>
+        </ul>
+        <div class="knopfreihe"><button type="button" class="knopf" id="reset">Spielstand löschen</button></div>
+      </div></details>
+    </section>
+    ${fuss()}
+  </div>`;
+  $("#los").onclick = () => { location.hash = "spiel"; };
+  $("#reset").onclick = () => { S = {}; speichern(); seiteStart(); };
+}
+
+/* ============ Das Spiel ============ */
+function seiteSpiel() {
+  const st = neuerStand(), gesehen = {}; let laeuft = false, timer = 0;
+  app.innerHTML = `<div class="spielkopf"><div class="innen"><div class="sk-zeile"><a href="#">‹ Beenden</a><span id="status"></span></div></div></div>
+    <div class="huelle breit"><section><div class="karte"><div class="tisch"><div class="links"><div id="brett"></div>${legende()}</div><div id="tafel" class="tafel"></div></div></div></section>${fuss()}</div>`;
+  const brett = $("#brett"), tafel = $("#tafel");
+  const kopf = () => { $("#status").innerHTML = `<b>${st.versuch === 1 ? "Erster Versuch" : "Versuch " + st.versuch}</b> · ${stadium(st.pos).n} · Feld ${st.pos} von 24`; };
+  const zeichne = () => { brett.innerHTML = brettSVG(st, gesehen); kopf(); };
+  const wuerfelKnopf = text => `<div class="weiter"><button type="button" class="knopf prim gross-knopf" id="wurf">🎲 ${text || "Würfeln"}</button></div>`;
+  const kopfBild = (F, pos) => F.meise ? `<img class="tb rund" src="../images/durchsjahr/46.jpg?v=5" alt="Kohlmeise">` : `<img class="tb" src="${BILD}${F.schlupf ? "voll-5-schluepft.png" : stadium(pos).bild}" alt="${stadium(pos).n}">`;
+  // Figur Feld für Feld ziehen lassen, dann weiter
+  function laufe(von, nach, dann) {
+    const schritt = nach > von ? 1 : -1; let p = von; laeuft = true;
+    const tick = () => { p += schritt; const f = $("#figur"), q = xy(p); if (f) f.style.transform = `translate(${q[0]}px,${q[1]}px)`;
+      if (p === nach) { timer = setTimeout(() => { laeuft = false; st.pos = nach; zeichne(); dann(); }, reduce ? 0 : 260); } else timer = setTimeout(tick, reduce ? 0 : Math.abs(nach - von) > 6 ? 70 : 240); };
+    if (von === nach) { laeuft = false; dann(); } else tick();
+  }
+  function wuerfeln() {
+    if (laeuft) return;
+    const z = ziehe(st, Math.random);
+    tafel.innerHTML = `<div class="wuerfel" aria-live="polite"><span class="auge">${z.w}</span><span>${z.w === 1 ? "ein Feld" : z.w + " Felder"} vor${z.ziel - st.pos < z.w ? " – bis zum nächsten Halt" : ""}</span></div>`;
+    laufe(st.pos, z.ziel, () => lande());
+  }
+  function zurueckZumEi(grund, knopf) {
+    tafel.insertAdjacentHTML("beforeend", `<div class="weiter"><button type="button" class="knopf honig gross-knopf" id="neu">🥚 ${knopf || "Als neues Ei beginnen"}</button></div>`);
+    $("#neu").onclick = () => { if (laeuft) return; $("#neu").disabled = true; const von = st.pos; zumEi(st, grund); st.pos = von; kopf();
+      laufe(von, 1, () => { tafel.innerHTML = `<div class="tk">${kopfBild(FELD[1], 1)}<div><span class="eyebrow">Versuch ${st.versuch}</span><h2>Ein neues Ei</h2></div></div>
+        <p>Zum Glück warst du nicht das einzige Ei. Jetzt bist du Nummer ${st.versuch} aus dem Gelege – und weißt schon ein bisschen mehr.</p>${wuerfelKnopf()}`; $("#wurf").onclick = wuerfeln; }); };
+  }
+  function lande() {
+    const pos = st.pos, F = FELD[pos]; gesehen[pos] = true; zeichne();
+    const titel = `<div class="tk">${kopfBild(F, pos)}<div><span class="eyebrow">Feld ${pos} · ${stadium(pos).n}</span><h2>${F.em} ${F.t}</h2></div></div>`;
+    // Die Schlupfwespe: Die Folge zeigt sich erst bei der Verpuppung
+    if (pos === 16 && st.parasit) {
+      tafel.innerHTML = `${titel}<p>${F.x}</p><div class="folge r0" role="status"><span class="urteil">🐝 ${PARASIT.t}</span><span>${PARASIT.k}</span></div>`;
+      return zurueckZumEi("von der Schlupfwespe befallen");
+    }
+    if (F.art === "fakt") { tafel.innerHTML = `${titel}<p>${F.x}</p>${wuerfelKnopf()}`; $("#wurf").onclick = wuerfeln; return; }
+    if (F.art === "leiter" || F.art === "rutsche") {
+      tafel.innerHTML = `${titel}<p>${F.x}</p><div class="folge ${F.d > 0 ? "r2" : "r0"}" role="status"><span class="urteil">${F.d > 0 ? "🪜 " + F.d + " Felder vor!" : "↩ " + (-F.d) + " Felder zurück!"}</span></div>`;
+      return laufe(pos, pos + F.d, () => { tafel.insertAdjacentHTML("beforeend", wuerfelKnopf()); $("#wurf").onclick = wuerfeln; });
+    }
+    const w = mische(F.w);
+    tafel.innerHTML = `${titel}<p>${F.x}</p><div class="wahl">${w.map((o, i) => `<button type="button" data-i="${i}">${o.l}</button>`).join("")}</div><div id="folge"></div>`;
+    $$(".wahl button", tafel).forEach(b => b.onclick = () => {
+      const o = w[+b.dataset.i];
+      $$(".wahl button", tafel).forEach(x => { x.disabled = true; x.classList.toggle("gewaehlt", x === b); });
+      if (o.parasit) st.parasit = true;
+      const zusatz = o.ok ? (o.plus ? `<span class="chip gut">🪜 ${o.plus === 1 ? "ein Feld" : o.plus + " Felder"} vor</span>` : "") : o.d ? `<span class="chip">↩ ${-o.d === 1 ? "ein Feld" : (-o.d) + " Felder"} zurück</span>` : o.ei ? `<span class="chip">💥 zurück zum Ei</span>` : "";
+      $("#folge").innerHTML = `<div class="folge ${o.ok ? "r2" : o.parasit ? "r1" : "r0"}" role="status"><span class="urteil">${o.ok ? "Richtig!" : o.parasit ? "Hm …" : o.ei ? "Erwischt!" : "Falsch gedacht."} ${zusatz}</span><span>${o.k}</span></div>`;
+      if (o.ei) return zurueckZumEi(F.tod);
+      if (o.ok && pos === 24) { tafel.insertAdjacentHTML("beforeend", `<div class="weiter"><button type="button" class="knopf prim gross-knopf" id="fertig">Geschafft ›</button></div>`); $("#fertig").onclick = ende; return; }
+      const nach = pos + (o.ok ? (o.plus || 0) : (o.d || 0));
+      laufe(pos, nach, () => { const zielTor = pos === 24 && !o.ok;
+        tafel.insertAdjacentHTML("beforeend", wuerfelKnopf(zielTor ? "Noch einmal würfeln" : "")); $("#wurf").onclick = wuerfeln; $("#wurf").scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" }); });
+    });
+  }
+  function ende() {
+    const n = sterne(st), alt = S.spiel || {};
+    S.spiel = { n: (alt.n || 0) + 1, sterne: Math.max(alt.sterne || 0, n), best: Math.min(alt.best || 99, st.versuch) }; speichern();
+    window.scrollTo(0, 0);
+    $(".huelle section").innerHTML = `<div class="ende">
+        <img class="falter" src="${BILD}voll-4-falter.png" alt="Tagpfauenauge">
+        <span class="eyebrow">Vom Ei zum Falter</span><h2>Du fliegst!</h2>
+        <div class="gross">${sterneHTML(n)}</div>
+        <p>${st.versuch === 1 ? "Gleich beim ersten Versuch vom Ei zum Falter – das schaffen in der Natur nur ganz wenige." : "Geschafft als Ei Nummer " + st.versuch + ". Deine Vorgänger hatten weniger Glück: " + [...new Set(st.opfer)].join(", ") + "."}</p>
+        <p class="klein">Aus einem Gelege mit über hundert Eiern werden meist nur eine Handvoll Falter. Alle anderen werden gefressen, von Schlupfwespen befallen, gemäht oder verhungern. Darum legt ein Weibchen so viele Eier.</p>
+        <div class="knopfreihe"><button type="button" class="knopf prim" id="noch">🔁 Noch einmal</button><a class="knopf" href="verwandlung.html">Zum Lernpfad</a><a class="knopf honig" href="durchs-jahr.html">Seitenwechsel: Spiel die Kohlmeise ›</a></div>
+      </div>`;
+    $("#noch").onclick = seiteSpiel; konfetti();
+  }
+  zeichne();
+  tafel.innerHTML = `<div class="tk">${kopfBild(FELD[1], 1)}<div><span class="eyebrow">Feld 1 · Ei</span><h2>${FELD[1].em} ${FELD[1].t}</h2></div></div><p>${FELD[1].x}</p>${wuerfelKnopf()}`;
+  $("#wurf").onclick = wuerfeln;
+  window.falterStop = () => clearTimeout(timer);
+}
+
+/* ============ Automatische Aktualisierung ============
+   Prüft beim Zurückkehren zur Seite (und alle 15 Minuten), ob es eine neuere Fassung gibt.
+   Auf der Übersicht wird sofort neu geladen, mitten im Spiel erst beim Zurückkehren zur Übersicht. */
+let standAlt = null, neuDa = false;
+async function standPruefen() {
+  try {
+    const r = await fetch(location.pathname, { method: "HEAD", cache: "no-store" });
+    const s = r.ok && (r.headers.get("etag") || r.headers.get("last-modified"));
+    if (!s) return;
+    if (standAlt === null) standAlt = s;
+    else if (s !== standAlt) { neuDa = true; if (!location.hash.slice(1)) location.reload(); }
+  } catch (e) {}
+}
+standPruefen();
+document.addEventListener("visibilitychange", () => { if (!document.hidden) standPruefen(); });
+window.addEventListener("pageshow", e => { if (e.persisted) standPruefen(); });
+setInterval(() => { if (!document.hidden) standPruefen(); }, 15 * 60 * 1000);
+
+/* ============ Navigation ============ */
+function route() {
+  if (neuDa && !location.hash.slice(1)) { location.reload(); return; }
+  if (window.falterStop) window.falterStop();
+  $$(".konffeld").forEach(k => k.remove());
+  if (location.hash.slice(1) === "spiel") seiteSpiel(); else seiteStart();
+  window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
