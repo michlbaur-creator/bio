@@ -107,6 +107,9 @@ details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
 .ende{background:var(--tile);border:1px solid var(--linie);border-radius:18px;overflow:hidden;text-align:center;display:grid;gap:10px;padding-bottom:20px}
 .ende > *{margin-left:16px;margin-right:16px}
 .ende > .land{margin:0}
+.fundbild,.titelbild{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:cover}
+.ende > .fundbild{margin:0}
+.titelbild{border-radius:16px;border:1px solid var(--linie)}
 .ende h2{font-size:28px;color:var(--blau)}
 .ende .gross{font-size:44px;letter-spacing:6px;line-height:1}
 .merk{display:grid;gap:8px;font-family:var(--sans);font-size:15px;text-align:left}
@@ -172,7 +175,7 @@ const spurSVG = art => `<svg viewBox="0 6 100 158" role="img" aria-label="Spur i
    w = Antworten: { spur | l, ok } – falsche Antworten haben em + f (wohin die falsche Fährte führt). */
 const STUNDEN = 10;
 const FAELLE = [
-  { id: "eich", em: "🐿️", titel: "Der Nussknacker", motto: "Unter dem Futterhaus liegen aufgeknackte Nüsse.", tier: "ein Eichhörnchen",
+  { id: "eich", em: "🐿️", bild: "../images/faehrte/eich.jpg", titel: "Der Nussknacker", motto: "Unter dem Futterhaus liegen aufgeknackte Nüsse.", tier: "ein Eichhörnchen",
     fund: "Oben in der Astgabel sitzt es vor seinem Kugelnest, dem Kobel – und schimpft auf dich herunter.",
     weg: [[56, 152], [104, 134], [158, 142], [226, 118], [292, 88]],
     schritte: [
@@ -197,8 +200,8 @@ const FAELLE = [
           { l: "Es hält Winterschlaf wie der Igel – etwas muss es aufgeweckt haben", em: "📓", f: "Falsch notiert. Im echten Winterschlaf sinkt die Körpertemperatur auf wenige Grad – das tut der Igel, das Eichhörnchen nicht." },
           { l: "Es ist jeden Tag so munter wie im Sommer – der buschige Schwanz hält es warm", em: "📓", f: "Falsch notiert. Bei Frost und Sturm bleibt es oft tagelang im Kobel. Der Schwanz dient dabei tatsächlich als Decke." }] }
     ] },
-  { id: "fuchs", em: "🦊", titel: "Der Hühnerdieb", motto: "Am Waldrand liegen Hühnerfedern im Schnee.", tier: "ein Fuchs",
-    fund: "Vor dem Bau liegt er zusammengerollt in der Wintersonne, die Nase unter dem buschigen Schwanz.",
+  { id: "fuchs", em: "🦊", bild: "../images/faehrte/fuchs.jpg", titel: "Der Hühnerdieb", motto: "Am Waldrand liegen Hühnerfedern im Schnee.", tier: "ein Fuchs",
+    fund: "Im Eingang seines Baus liegt er zusammengerollt in der Wintersonne und blinzelt dich aus einem Auge an.",
     weg: [[56, 150], [100, 160], [150, 128], [214, 140], [286, 104]],
     schritte: [
       { x: "Am Waldrand liegen Hühnerfedern im Schnee. Drei Tiere sind hier vorbeigekommen. Der Dieb ist ein Wildtier, das im Winter mit jedem Schritt Kraft sparen muss. Welche Spur?",
@@ -216,13 +219,13 @@ const FAELLE = [
         w: [{ l: "Links – wo es unordentlich ist und streng riecht", ok: true },
           { l: "Rechts – ein so schlaues Tier hält seinen Bau sauber", em: "🦡", f: "Breite Abdrücke mit fünf Zehen und langen Krallen: Hier wohnt der Dachs. Er hält Winterruhe und ist viel reinlicher als der Fuchs." },
           { l: "Rechts – die Unordnung links stammt sicher von einem Hund", em: "🦡", f: "Im rechten Bau wohnt der Dachs. Und ein Hund trägt keine Hühner in einen Erdbau." }] },
-      { x: "Gefunden! Der Fuchs liegt vor seinem Bau. Wie kommt er durch den Winter?",
+      { x: "Gefunden! Der Fuchs liegt im Eingang seines Baus. Wie kommt er durch den Winter?",
         k: "Füchse bleiben den ganzen Winter aktiv. Sie hören Mäuse unter der Schneedecke und fangen sie mit einem hohen Sprung. Im Januar und Februar ist sogar Paarungszeit.",
         w: [{ l: "Er bleibt aktiv, trägt ein dichtes Winterfell und jagt Mäuse sogar unter dem Schnee", ok: true },
           { l: "Er hält Winterruhe und verschläft die kältesten Wochen im Bau – wie sein Nachbar", em: "📓", f: "Falsch notiert. Das tut der Dachs. Der Fuchs ist auch bei strengem Frost jede Nacht unterwegs." },
           { l: "Er lebt von den Vorräten, die er im Herbst vergraben hat", em: "📓", f: "Falsch notiert. Füchse vergraben zwar manchmal Beute, aber davon kommt keiner durch den Winter. Sie müssen jagen." }] }
     ] },
-  { id: "hase", em: "🐇", titel: "Der Knospendieb", motto: "An den jungen Apfelbäumen fehlen die Triebspitzen.", tier: "ein Feldhase",
+  { id: "hase", em: "🐇", bild: "../images/faehrte/hase.jpg", titel: "Der Knospendieb", motto: "An den jungen Apfelbäumen fehlen die Triebspitzen.", tier: "ein Feldhase",
     fund: "Mitten auf dem Acker duckt er sich in eine flache Mulde – die Ohren angelegt, halb eingeschneit. Erst im letzten Moment springt er auf.",
     weg: [[56, 148], [102, 162], [160, 134], [222, 152], [290, 126]],
     schritte: [
@@ -318,6 +321,7 @@ function seiteStart() {
     <div class="logo">🐾❄️🔍</div><h1>Fährtenleser</h1><div class="untertitel">Wer war das im Schnee?</div></header>
   <div class="huelle">
     <section>
+      <img class="titelbild" src="../images/faehrte/titel.jpg" alt="Eine Tierspur führt durch den frischen Schnee zum Waldrand">
       <p class="lead">Über Nacht hat es geschneit – und jemand war unterwegs. Folge der Fährte, bevor es dunkel wird! An jeder Gabelung musst du genau hinschauen: Nur eine Spur führt zum Ziel.</p>
       <div class="regeln">
         <div class="regel"><span class="e">☀️</span><span><b>Tageslicht:</b> Du hast zehn Stunden. Jede Gabelung kostet eine Stunde, eine falsche Fährte zwei.</span></div>
@@ -403,7 +407,7 @@ function seiteFall(id) {
     S[F.id] = { n: (alt.n || 0) + 1, sterne: Math.max(alt.sterne || 0, n) }; speichern();
     const next = FAELLE[nr + 1], neuOffen = gefunden && next && !alt.sterne && !S.frei;
     anzeigen(); window.scrollTo(0, 0);
-    buehne.innerHTML = `<div class="ende">${landSVG(F, st)}
+    buehne.innerHTML = `<div class="ende">${gefunden && F.bild ? `<img class="fundbild" src="${F.bild}" alt="${F.tier}">` : landSVG(F, st)}
         <span class="eyebrow">Fall ${nr + 1} · ${F.titel}</span>
         <h2>${gefunden ? "Gefunden: " + F.tier + "!" : "Es ist dunkel geworden"}</h2>
         ${gefunden ? `<div class="gross">${sterneHTML(n)}</div><p>${F.fund}</p>
