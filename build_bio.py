@@ -168,7 +168,7 @@ def _icon(fn):
 # Kopiert, aber nicht auf der Startseite gelistet (z.B. der Pass als Footer-Ziel)
 # kopiert, aber nicht als eigene Kachel gelistet (bestaeubung-animiert wird als iframe
 # in „Bestäubung" eingebunden – Datei muss vorhanden sein, Kachel entfällt).
-SKIP_LISTING = {"tafel.html", "wiesenpass.html", "winterpass.html", "haustierpass.html", "vogelpass.html", "futterhauspass.html", "zugvogelpass.html", "durchs-jahr.html", "faehrtenleser.html", "sammelpass.html", "bestaeubung-animiert.html"}
+SKIP_LISTING = {"tafel.html", "wiesenpass.html", "winterpass.html", "haustierpass.html", "vogelpass.html", "futterhauspass.html", "zugvogelpass.html", "durchs-jahr.html", "faehrtenleser.html", "zuchtspiel.html", "sammelpass.html", "bestaeubung-animiert.html"}
 # Ganz aus bio ausschließen (nicht kopieren, nicht listen): Staunen-Häppchen,
 # Quizze/Tests und Ordnen-/Zuordnungs-Spiele — bio zeigt nur die echten Lernpfade.
 # Einträge ohne Repo-Präfix gelten für beide; mit Präfix nur für ein Repo.
@@ -216,7 +216,7 @@ NATIVE_LIST = {
 # beim Kopieren zu überspringen: die Expeditions-Pfade + der Forscherpass selbst
 NATIVE_SKIP = {
     "flora": set(NATIVE_LIST["flora"]),
-    "fauna": set(NATIVE_LIST["fauna"]) | {"wiesenpass.html", "winterpass.html", "haustierpass.html", "vogelpass.html", "futterhauspass.html", "zugvogelpass.html", "durchs-jahr.html", "faehrtenleser.html"},
+    "fauna": set(NATIVE_LIST["fauna"]) | {"wiesenpass.html", "winterpass.html", "haustierpass.html", "vogelpass.html", "futterhauspass.html", "zugvogelpass.html", "durchs-jahr.html", "faehrtenleser.html", "zuchtspiel.html"},
 }
 
 # Stimmige Reihenfolge je Repo (nicht gelistete kommen alphabetisch danach).
