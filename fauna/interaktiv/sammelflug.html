@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sammelflug – Ein Tag als Wildbiene · Bio Mibaso</title>
+<meta name="description" content="Ein Wiesenspiel für Klasse 5/6: Als Wildbiene Nektar und Pollen sammeln. Nicht jede Blüte passt zum Rüssel, das Wetter schlägt um, und mittendrin wird gemäht. Ohne Anmeldung.">
+<meta name="theme-color" content="#233D5C">
+<link rel="icon" href="../assets/icon.svg">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<style>
+/* Sammelflug – Farben und Schrift wie die Forscherpässe von Fauna Mibaso */
+:root{
+  --blau:#233D5C; --blau-tief:#1a2f47; --blau-mittel:#33587c; --blau-hell:#bcd0e2;
+  --creme:#F7F3E8; --creme-tief:#EEE7D5; --tile:#FFFFFF;
+  --honig:#C28A3A; --honig-tief:#a9762c;
+  --ink:#1c2e42; --ink-soft:#5d6b78; --linie:#d9d2c1;
+  --ok:#2f6a45; --bad:#B23B2E;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--blau-tief);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--creme);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.55;min-height:100vh}
+a{color:var(--blau)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--honig);outline-offset:2px}
+h1,h2,h3{font-weight:normal;margin:0;text-wrap:balance;line-height:1.2}
+p{margin:0}
+.huelle{max-width:720px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-bottom:40px}
+section{padding-top:24px;display:grid;gap:14px}
+.app-head{background:linear-gradient(180deg,var(--blau-tief) 0%,var(--blau-mittel) 100%);color:var(--creme);text-align:center;
+  padding:calc(env(safe-area-inset-top,0px) + 22px) max(20px,env(safe-area-inset-right,0px)) 24px;border-bottom:4px double var(--blau-hell);position:relative}
+.app-head .zurueck-kopf{position:absolute;left:12px;top:calc(env(safe-area-inset-top,0px) + 10px);color:#dce8f3;font-family:var(--sans);font-size:14px;text-decoration:none;padding:6px}
+.app-head .logo{font-size:40px;line-height:1;margin:14px 0 6px;letter-spacing:6px}
+.app-head h1{font-size:clamp(30px,9vw,44px);letter-spacing:.02em}
+.app-head .untertitel{font-style:italic;color:#dce8f3;margin-top:8px;font-size:clamp(14px,3.8vw,17px)}
+.eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.lead{font-size:19px}
+.klein{font-size:15px;color:var(--ink-soft)}
+.h-blau{color:var(--blau);font-size:26px} .h-honig{color:var(--honig-tief);font-size:22px}
+ul.clean{margin:0;padding-left:1.2em;display:grid;gap:5px}
+.knopf{display:inline-block;border:1px solid var(--blau);background:var(--tile);color:var(--blau);border-radius:12px;padding:11px 18px;font-family:var(--sans);font-size:16px;cursor:pointer;text-decoration:none;text-align:center}
+.knopf.prim{background:var(--blau);color:#fff;box-shadow:0 2px 0 var(--blau-tief)}
+.knopf.honig{background:var(--honig);border-color:var(--honig);color:#fff;box-shadow:0 2px 0 #8a5a17}
+.knopfreihe{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.fuss{margin-top:34px;padding-top:16px;border-top:1px solid var(--linie);font-family:var(--sans);font-size:13px;color:var(--ink-soft);text-align:center;display:grid;gap:6px}
+details.lehrer{background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:12px 16px;font-size:16px}
+details.lehrer summary{cursor:pointer;font-family:var(--sans);font-size:15px;color:var(--blau);font-weight:bold}
+details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
+.regeln{display:grid;gap:8px;font-family:var(--sans);font-size:15px}
+.regel{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:10px 12px}
+.regel .e{font-size:26px;text-align:center;line-height:1}
+.regel b{color:var(--blau)}
+.level{display:grid;gap:12px}
+.lv{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:center;background:var(--tile);border:2px solid var(--blau-hell);border-radius:16px;padding:12px;text-align:left;cursor:pointer;width:100%;font-family:var(--serif)}
+.lv .em{font-size:44px;text-align:center;line-height:1}
+.lv .nr{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--honig-tief);font-weight:bold}
+.lv .nm{font-size:23px;color:var(--blau);display:block;line-height:1.2}
+.lv .mo{font-size:15px;color:var(--ink-soft);display:block;line-height:1.35;margin-top:2px}
+.lv .st{font-family:var(--sans);font-size:14px;color:var(--ink);display:block;margin-top:6px}
+@media (hover:hover){.lv:not(:disabled):hover{border-color:var(--blau);box-shadow:0 4px 14px rgba(35,61,92,.14)}}
+.lv:disabled{cursor:default;opacity:.6;border-style:dashed}
+.lv:disabled .em{filter:grayscale(1)}
+.stern-leer{opacity:.22;filter:grayscale(1)}
+
+/* Spiel */
+.spielkopf{position:sticky;top:0;z-index:6;background:var(--creme);border-bottom:1px solid var(--linie);
+  padding:calc(env(safe-area-inset-top,0px) + 8px) max(12px,env(safe-area-inset-right,0px)) 8px max(12px,env(safe-area-inset-left,0px))}
+.spielkopf .innen{max-width:720px;margin:0 auto;display:grid;gap:8px}
+.sk-zeile{display:flex;align-items:center;justify-content:space-between;gap:10px;font-family:var(--sans);font-size:14px}
+.sk-zeile a{color:var(--blau);text-decoration:none;padding:4px 2px}
+.sk-zeile b{color:var(--blau)}
+.licht{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font-family:var(--sans);font-size:13px;color:var(--ink-soft)}
+.licht b{color:var(--ink);font-variant-numeric:tabular-nums}
+.stunden{display:grid;grid-template-columns:repeat(10,1fr);gap:3px}
+.stunden i{height:12px;border-radius:999px;background:#f2c56b;border:1px solid #c79a3d;transition:background-color .4s}
+.stunden i.um{background:#33475f;border-color:#33475f}
+.stunden.knapp i:not(.um){background:#e58a5b;border-color:#b85f33}
+.karte{background:var(--tile);border:1px solid var(--linie);border-radius:18px;overflow:hidden;animation:rein .35s ease-out}
+@keyframes rein{from{transform:translateY(14px);opacity:0}to{transform:none;opacity:1}}
+.land{display:block;width:100%;height:auto}
+.ende > .land{max-width:460px;margin:0 auto;border-radius:0 0 14px 14px}
+@media (min-width:600px){.oben{display:grid;grid-template-columns:300px 1fr;align-items:center}.oben .land{border-radius:0 0 14px 0}.oben .k-text{padding-top:10px;padding-bottom:10px}}
+.k-text{padding:12px 16px 4px;display:grid;gap:6px}
+.k-text h2{font-size:24px;color:var(--blau)}
+.wahl{display:grid;gap:8px;padding:8px 16px 12px}
+.wahl button{text-align:left;background:var(--creme);border:2px solid var(--blau-hell);border-radius:12px;padding:12px 14px;font-family:var(--sans);font-size:16px;line-height:1.35;cursor:pointer;color:var(--ink);touch-action:manipulation}
+@media (hover:hover){.wahl button:not(:disabled):hover{border-color:var(--blau);background:#fff}}
+.wahl button:disabled{cursor:default;opacity:.45}
+.wahl button.gewaehlt{opacity:1;border-color:var(--ink);background:#fff;font-weight:bold}
+.wahl.spuren{grid-template-columns:repeat(3,1fr);max-width:400px;width:100%;margin:0 auto}
+.wahl.spuren button{padding:0;overflow:hidden;text-align:center;display:grid}
+.wahl.spuren svg{display:block;width:100%;height:auto;background:#fbfdff}
+.wahl.spuren .bst{font-weight:bold;font-size:15px;padding:5px 0 6px;color:var(--blau);border-top:1px solid var(--linie)}
+.richtung{font-family:var(--sans);font-size:13px;color:var(--ink-soft);text-align:center;padding:4px 16px 0}
+.folge{margin:0 16px 12px;border-radius:14px;padding:12px 14px;display:grid;gap:8px;font-family:var(--sans);font-size:15px;line-height:1.45;animation:rein .3s ease-out}
+.folge.r2{background:#e3f0e7;border:1px solid #b9d8c4}
+.folge.r0{background:#f7e3df;border:1px solid #e6bdb5}
+.folge.schnee{background:#e6eef6;border:1px solid #bcd0e2}
+.folge .urteil{font-weight:bold;font-size:16px}
+.folge.r2 .urteil{color:var(--ok)} .folge.r0 .urteil{color:var(--bad)} .folge.schnee .urteil{color:var(--blau)}
+.folge .gross{font-size:38px;line-height:1}
+.chip{display:inline-block;margin-left:6px;background:rgba(255,255,255,.75);border-radius:999px;padding:3px 10px;font-weight:bold;font-size:14px;color:var(--bad);width:max-content}
+.weiter{display:flex;justify-content:center;padding:0 16px 18px}
+.ende{background:var(--tile);border:1px solid var(--linie);border-radius:18px;overflow:hidden;text-align:center;display:grid;gap:10px;padding-bottom:20px}
+.ende > *{margin-left:16px;margin-right:16px}
+.ende > .land{margin:0}
+.fundbild,.titelbild{display:block;width:100%;height:auto;aspect-ratio:2/1;object-fit:cover}
+.ende > .fundbild{margin:0}
+.titelbild{border-radius:16px;border:1px solid var(--linie)}
+.ende h2{font-size:28px;color:var(--blau)}
+.ende .gross{font-size:44px;letter-spacing:6px;line-height:1}
+.merk{display:grid;gap:8px;font-family:var(--sans);font-size:15px;text-align:left}
+.merk div{background:var(--tile);border:1px solid var(--linie);border-left:4px solid var(--honig);border-radius:10px;padding:10px 12px;line-height:1.45}
+.konffeld{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.konf{position:absolute;top:-40px;font-size:22px;animation:fall 3.6s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.2}}
+.flocken{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
+.flocke{position:absolute;top:-30px;color:#fff;text-shadow:0 0 3px #7f95ad;animation:fall 2.6s linear forwards}
+@media (max-width:420px){body{font-size:17px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Sammelflug */
+.lv .em svg{display:block;margin:0 auto}
+.buch{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.be{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:6px 10px;font-family:var(--sans);font-size:13.5px;line-height:1.35}
+.be svg{display:block;background:#a3cc73;border-radius:10px}
+.be.zu{color:var(--ink-soft);border-style:dashed;background:transparent}
+.be.zu span:first-child{font-size:26px;width:52px;text-align:center}
+.be b{color:var(--blau)}
+.spielkopf .innen{max-width:1010px}
+.spiel{max-width:1010px;margin:0 auto;padding:10px max(10px,env(safe-area-inset-right,0px)) 30px max(10px,env(safe-area-inset-left,0px));display:grid;gap:10px}
+.planrahmen{border-radius:16px;overflow:hidden;border:2px solid var(--blau);background:#9bc66b;line-height:0;box-shadow:0 4px 14px rgba(35,61,92,.16)}
+#plan{display:block;width:100%;height:auto;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.feld{cursor:pointer}
+.feld:focus{outline:none}
+.feld:focus-visible .treffer{stroke:var(--honig);stroke-width:5}
+.feld.hier .treffer{stroke:#fff;stroke-width:3;stroke-dasharray:6 6}
+@media (hover:hover){.feld:not(.fern):hover .treffer{fill:rgba(255,255,255,.22)}}
+.feld .leer{opacity:.28;filter:grayscale(.8)}
+.plantext{font-family:var(--sans);font-size:15px;font-weight:bold;fill:#3f6b2a;letter-spacing:.06em}
+.plantext.rot{fill:var(--bad)}
+.biene{transition:transform .42s cubic-bezier(.4,.1,.3,1);pointer-events:none;filter:drop-shadow(0 4px 3px rgba(0,0,0,.35))}
+.biene .hoeschen{opacity:0;transition:opacity .3s}
+.biene.beladen .hoeschen{opacity:1}
+.biene .fluegel{animation:schwirr .16s linear infinite alternate;transform-origin:0 -4px}
+@keyframes schwirr{from{transform:scaleX(1)}to{transform:scaleX(.82)}}
+.schweb{font-family:var(--sans);font-size:26px;font-weight:bold;paint-order:stroke;stroke:#fff;stroke-width:5px;animation:hoch 1.35s ease-out forwards;pointer-events:none}
+.schweb.blau{fill:#1f5fa8}.schweb.gelb{fill:#a86f00}.schweb.gruen{fill:var(--ok)}
+@keyframes hoch{from{transform:translateY(0);opacity:1}70%{opacity:1}to{transform:translateY(-46px);opacity:0}}
+.tropfen{animation:tropf .5s linear infinite}
+@keyframes tropf{from{transform:translate(8px,-26px)}to{transform:translate(-8px,26px)}}
+.ruck{animation:ruck .5s}
+@keyframes ruck{0%,100%{transform:none}20%{transform:translateX(-9px) rotate(-.6deg)}40%{transform:translateX(8px) rotate(.5deg)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+.pult{display:grid;gap:8px;align-content:start;font-family:var(--sans)}
+.anz{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 10px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:8px 12px;font-size:14px}
+.anz .lab{color:var(--ink);white-space:nowrap}
+.pips{display:flex;gap:4px}
+.pips i{width:15px;height:20px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;border:2px solid #9db7d3;background:transparent;transform:rotate(180deg)}
+.pips i.an{background:#3f86d6;border-color:#2a68b0}
+.pips.knapp i.an{background:#e0623f;border-color:#b8452a}
+.pips i.pol{width:18px;height:18px;border-radius:50%;border-color:#d9c47a;transform:none}
+.pips i.pol.an{background:#f6b90d;border-color:#c98f00}
+.nestanz{display:grid;grid-template-columns:1fr;gap:6px}
+.nestbalken{position:relative;height:14px;border-radius:999px;background:var(--creme-tief);border:1px solid var(--linie);margin:2px 12px 16px 2px}
+.nestbalken i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:linear-gradient(90deg,#f6b90d,#e59a00);transition:width .5s}
+.nestbalken span{position:absolute;top:13px;transform:translateX(-50%);font-size:13px}
+#meld{display:grid;gap:6px;min-height:92px;align-content:start}
+#meld .folge{margin:0;padding:9px 12px;gap:3px;font-size:14.5px}
+#meld .folge .urteil{font-size:15.5px}
+.m-gut{background:#e3f0e7;border:1px solid #b9d8c4}.m-gut .urteil{color:var(--ok)}
+.m-mies{background:#f4ede0;border:1px solid #e0d3b8}.m-mies .urteil{color:#8a5a17}
+.m-pech{background:#f7e3df;border:2px solid #d9958a}.m-pech .urteil{color:var(--bad)}
+.m-regen{background:#e6eef6;border:1px solid #bcd0e2}.m-regen .urteil{color:var(--blau)}
+.m-mahd{background:#fbefd2;border:1px solid #e6c98a}.m-mahd .urteil{color:#8a5a17}
+.m-buch{background:#fff;border:1px dashed var(--honig)}.m-buch .urteil{color:var(--honig-tief)}
+.m-info{background:var(--tile);border:1px solid var(--linie)}.m-info .urteil{color:var(--blau)}
+details.kunde{background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:8px 12px;font-size:14px}
+details.kunde summary{cursor:pointer;color:var(--blau);font-weight:bold}
+#kunde{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;padding-top:8px}
+#kunde .be{padding:4px 8px;font-size:12.5px;gap:8px}
+.ende .held{display:flex;justify-content:center;padding-top:14px}
+.ende .held svg{background:#a3cc73;border-radius:50%;border:3px solid var(--blau-hell)}
+@media (min-width:600px) and (max-width:899px){.pult{grid-template-columns:1fr 1fr}.pult #meld,.pult .kunde,.pult .nestanz{grid-column:1/-1}}
+@media (min-width:900px){.spiel{grid-template-columns:minmax(0,1fr) 290px;align-items:start}}
+@media (min-width:900px) and (max-height:820px){.spiel{grid-template-columns:minmax(0,calc((100vh - 76px) * 1.228)) 1fr}}
+</style>
+<!-- Besucherzählung (GoatCounter, ohne Cookies) -->
+<script>window.goatcounter={path:function(p){return location.host+p}};</script><script data-goatcounter="https://mibaso.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+"use strict";
+/* ============ Spielregeln (ohne Anzeige) ============
+   Wiesenplan mit 7 × 5 Feldern. Ein Flug kostet so viel Nektar, wie er Felder weit ist. Jede Blüte hat eine Tiefe (1 offen, 2 Glocke, 3 lange Röhre):
+   Die Biene erreicht nur Nektar, der nicht tiefer liegt, als ihr Rüssel lang ist. Pollen wird im Nest abgeliefert – nur das zählt. */
+const BREIT = 7, HOCH = 5, NACHWUCHS = 8, STREIFEN = 5;   // Spalten 5 und 6 sind der Wegrand: Dort wird nicht gemäht
+const BLUETEN = {
+  loewe:      { n: "Löwenzahn",        tiefe: 1, nektar: 3, pollen: 2, wo: "liegt offen zwischen den vielen kleinen Einzelblüten" },
+  gaense:     { n: "Gänseblümchen",    tiefe: 1, nektar: 1, pollen: 1, wo: "liegt offen – aber es ist nur ein winziger Tropfen" },
+  hahn:       { n: "Hahnenfuß",        tiefe: 1, nektar: 1, pollen: 2, wo: "liegt offen am Grund der Blütenblätter; dazu gibt es viel Pollen" },
+  taub:       { n: "Taubnessel",       tiefe: 3, nektar: 3, pollen: 1, wo: "sitzt tief unten in der langen Blütenröhre" },
+  schluessel: { n: "Schlüsselblume",   tiefe: 3, nektar: 3, pollen: 1, wo: "sitzt ganz unten in der engen, langen Röhre" },
+  glocke:     { n: "Glockenblume",     tiefe: 2, nektar: 2, pollen: 1, wo: "sitzt am Grund der Glocke – und die Glocke ist ein Regendach" },
+  marg:       { n: "Margerite",        tiefe: 1, nektar: 2, pollen: 1, wo: "liegt offen im gelben Körbchen" },
+  storch:     { n: "Storchschnabel",   tiefe: 1, nektar: 2, pollen: 1, wo: "liegt offen in der flachen Schale" },
+  rotklee:    { n: "Rotklee",          tiefe: 3, nektar: 4, pollen: 1, wo: "sitzt tief in den langen, engen Röhren" },
+  salbei:     { n: "Wiesensalbei",     tiefe: 3, nektar: 3, pollen: 1, wo: "sitzt tief in der Lippenblüte, hinter einer Schranke" },
+  flocke:     { n: "Flockenblume",     tiefe: 2, nektar: 3, pollen: 1, wo: "sitzt in mittellangen Röhren" },
+  moehre:     { n: "Wilde Möhre",      tiefe: 1, nektar: 1, pollen: 1, wo: "liegt ganz offen auf der Dolde – für alle erreichbar" },
+  mohn:       { n: "Klatschmohn",      tiefe: 1, nektar: 0, pollen: 3, wo: "fehlt hier ganz! Der Mohn bietet nur Pollen" }
+};
+const LEVEL = [
+  { id: "sand", em: "🐝", titel: "Die Sandbiene", kurz: "Sandbiene", zeit: "Ein Apriltag", was: "kurzer Rüssel",
+    motto: "Kurzer Rüssel, Frühlingswiese – und am Himmel braut sich etwas zusammen.",
+    intro: "Du bist eine Sandbiene. Dein Rüssel ist kurz! Sammle Pollen für deine Brut und bring ihn ins Nest am Wegrand. Tippe auf ein Feld, um hinzufliegen.", ruessel: 1, kap: 4, emax: 8, zuege: 26, regen: [9, 15], ziel: [10, 15, 21],
+    feld: { loewe: 5, gaense: 6, hahn: 5, taub: 4, schluessel: 4 } },
+  { id: "schere", em: "🔔", titel: "Die Scherenbiene", kurz: "Glockenblumen-Scherenbiene", zeit: "Ein Junitag", was: "mittellanger Rüssel · Pollen nur von Glockenblumen",
+    motto: "Eine Spezialistin: Ihre Brut frisst nur Pollen von Glockenblumen. Und heute wird gemäht …",
+    intro: "Du bist eine Glockenblumen-Scherenbiene. Nektar trinkst du an vielen Blüten – aber deine Brut braucht Pollen von Glockenblumen, sonst nichts!", ruessel: 2, kap: 4, emax: 8, zuege: 28, nurPollen: "glocke", mahd: [12, 16], ziel: [6, 9, 12],
+    feld: { glocke: 7, marg: 5, storch: 4, rotklee: 4, salbei: 4 }, imStreifen: { glocke: 2 } },
+  { id: "hummel", em: "🌺", titel: "Die Gartenhummel", kurz: "Gartenhummel", zeit: "Ein Julitag", was: "langer Rüssel",
+    motto: "Langer Rüssel, großer Hunger: Regen, Mahd und eine lauernde Spinne an einem einzigen Tag.",
+    intro: "Du bist eine Gartenhummel mit langem Rüssel. Dein ganzes Volk wartet auf Pollen! Die offenen Blüten haben andere meist schon leer getrunken.", ruessel: 3, kap: 6, emax: 10, zuege: 32, regen: [6, 10], mahd: [16, 20], spinnen: 2, flachKarg: true, ziel: [12, 18, 25],
+    feld: { rotklee: 5, salbei: 4, glocke: 3, flocke: 4, marg: 4, moehre: 3, mohn: 3 } }
+];
+const spalte = i => i % BREIT, zeile = i => Math.floor(i / BREIT);
+const weite = (a, b) => Math.max(Math.abs(spalte(a) - spalte(b)), Math.abs(zeile(a) - zeile(b)));
+const NEST = 2 * BREIT + 6;
+function mischen(a, rnd) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function neuesSpiel(L, rnd) {
+  const feld = Array.from({ length: BREIT * HOCH }, () => ({ t: "gras", leer: 0, weg: false, spinne: false }));
+  feld[NEST].t = "nest";
+  const frei = mischen(feld.map((f, i) => i).filter(i => i !== NEST), rnd), sorten = [];
+  for (const [t, n] of Object.entries(L.feld)) for (let k = 0; k < n; k++) sorten.push(t);
+  // Was unbedingt am Wegrand stehen soll, zuerst dorthin
+  for (const [t, n] of Object.entries(L.imStreifen || {})) for (let k = 0; k < n; k++) {
+    const p = frei.findIndex(i => spalte(i) >= STREIFEN); feld[frei.splice(p, 1)[0]].t = t; sorten.splice(sorten.indexOf(t), 1); }
+  mischen(sorten, rnd).forEach(t => { feld[frei.pop()].t = t; });
+  if (L.spinnen) mischen(feld.map((f, i) => i).filter(i => feld[i].t === "marg" || feld[i].t === "moehre"), rnd).slice(0, L.spinnen).forEach(i => { feld[i].spinne = true; });
+  const zw = (a, rnd) => a[0] + Math.floor(rnd() * (a[1] - a[0] + 1));
+  return { L, feld, pos: NEST, energie: 6, last: 0, nest: 0, zug: 0, regenAb: L.regen ? zw(L.regen, rnd) : -9, mahdAb: L.mahd ? zw(L.mahd, rnd) : -9,
+    stat: { zutief: 0, regen: 0, mahd: 0, spinne: 0, platt: 0 }, neu: [] };
+}
+const vorbei = st => st.zug >= st.L.zuege;
+// Welche Spalte mäht der Traktor nach dem nächsten Zug? (−1: keine)
+const mahdSpalte = (st, zug) => { const s = zug - st.mahdAb; return st.mahdAb > 0 && s >= 0 && s < STREIFEN ? s : -1; };
+const regenNaht = st => st.regenAb > 0 && st.zug >= st.regenAb - 3 && st.zug < st.regenAb ? st.regenAb - st.zug : 0;
+const mahdNaht = st => st.mahdAb > 0 && st.zug >= st.mahdAb - 2 && st.zug < st.mahdAb;
+const nektarVon = (L, b) => L.flachKarg && b.tiefe === 1 && b.nektar > 1 ? 1 : b.nektar;
+// Ein Zug: Flug zum Feld i. Gibt die Meldungen zurück (art: gut, mies, pech, info, regen, mahd).
+function schritt(st, i) {
+  const L = st.L, d = weite(st.pos, i), M = [];
+  if (vorbei(st) || d > st.energie) return null;
+  st.energie -= d; st.pos = i; st.zug++; let pause = 0;
+  const f = st.feld[i], b = BLUETEN[f.t];
+  if (f.t === "nest") {
+    if (st.last) { st.nest += st.last; M.push({ art: "gut", t: "Abgeliefert!", k: "Du streifst " + st.last + " Portionen Pollen in die Brutzelle." }); st.last = 0; }
+    else M.push({ art: "info", t: "Im Nest", k: d ? "Du hast keinen Pollen dabei." : "Du wartest ab." });
+    if (st.energie < 3) { st.energie = 3; M.push({ art: "info", t: "Ein Schluck aus dem Vorrat", k: "Im Nest tankst du etwas Nektar für den nächsten Flug." }); }
+  } else if (f.weg) M.push({ art: "mies", t: "Nur Stoppeln", k: "Hier ist gemäht. Es blüht nichts mehr." });
+  else if (!b) M.push({ art: "mies", t: "Nur Gras", k: "Gräser lassen ihren Pollen vom Wind verwehen. Nektar für Bienen haben sie nicht." });
+  else if (f.spinne) { st.last = 0; pause += 2; st.stat.spinne++; M.push({ art: "pech", t: "Eine Krabbenspinne!", k: "Sie saß gut getarnt auf der Blüte und packt zu. Du reißt dich los – aber der Pollen ist weg, und du verlierst zwei Züge." }); }
+  else if (f.leer) M.push({ art: "mies", t: "Schon leer", k: "Diese Blüte hast du gerade erst besucht. Sie braucht Zeit, bis wieder Nektar da ist." });
+  else if (b.tiefe > L.ruessel) { st.stat.zutief++; M.push({ art: "mies", t: "Dein Rüssel ist zu kurz!", k: b.n + ": Der Nektar " + b.wo + ". Da kommst du nicht heran." }); merke(st, f.t); }
+  else {
+    const nek = nektarVon(L, b), pol = L.nurPollen && L.nurPollen !== f.t ? 0 : Math.min(b.pollen, L.kap - st.last);
+    st.energie = Math.min(L.emax, st.energie + nek); st.last += pol; f.leer = NACHWUCHS; merke(st, f.t);
+    M.push({ art: nek || pol ? "gut" : "mies", t: b.n, k: (nek ? "+" + nek + " Nektar" : "Kein Nektar") + (pol ? ", +" + pol + " Pollen" : L.nurPollen && L.nurPollen !== f.t ? ". Diesen Pollen kannst du nicht brauchen" : st.last >= L.kap ? ". Für Pollen ist kein Platz mehr – ab ins Nest" : "") + "." });
+  }
+  if (st.energie === 0 && f.t !== "nest") { pause += 3; st.energie = 2; st.stat.platt++; M.push({ art: "pech", t: "Völlig erschöpft!", k: "Dein Nektar ist aufgebraucht. Du musst lange am Boden ausruhen: drei Züge verloren." }); }
+  pause += lauf(st, M);
+  while (pause > 0 && !vorbei(st)) { pause--; st.zug++; pause += lauf(st, M); }
+  return M;
+}
+// Was auf der Wiese nach jedem Zug geschieht: Nektar bildet sich nach, Regen zieht auf, der Traktor mäht.
+function lauf(st, M) {
+  let pause = 0; const f = st.feld[st.pos];
+  st.feld.forEach(x => { if (x.leer) x.leer--; });
+  if (st.zug === st.regenAb - 3) M.push({ art: "regen", t: "Dunkle Wolken ziehen auf!", k: "In drei Zügen regnet es. Dann musst du im Nest sein – nasse Bienen können nicht fliegen." });
+  if (st.zug === st.regenAb) {
+    const dach = f.t === "nest" || (f.t === "glocke" && !f.weg);
+    if (dach) { pause += 2; M.push({ art: "regen", t: "Es regnet.", k: (f.t === "nest" ? "Du sitzt trocken im Nest" : "Du bist in eine Glockenblume gekrochen – ein prima Regendach") + ". Der Schauer kostet zwei Züge." }); }
+    else { pause += 4; st.last = 0; st.energie = Math.max(1, st.energie - 2); st.stat.regen++; M.push({ art: "pech", t: "Vom Regen erwischt!", k: "Die Tropfen spülen deinen Pollen fort. Klatschnass hängst du unter einem Blatt und musst erst trocknen: vier Züge verloren." }); }
+  }
+  if (st.zug === st.mahdAb - 2) M.push({ art: "mahd", t: "Du hörst einen Traktor!", k: "Gleich wird gemäht: von links nach rechts, bei jedem Zug eine Spalte. Nur der Wegrand bleibt stehen." });
+  const s = mahdSpalte(st, st.zug);
+  if (s >= 0) {
+    st.feld.forEach((x, i) => { if (spalte(i) === s) { x.weg = true; x.spinne = false; } });
+    if (spalte(st.pos) === s) { pause += 2; st.last = 0; st.energie = Math.min(st.energie, 2); st.stat.mahd++; M.push({ art: "pech", t: "Das Mähwerk!", k: "Im letzten Augenblick wirst du zur Seite geschleudert. Der Pollen ist weg, du bist benommen: zwei Züge verloren." }); }
+    else if (s === 0) M.push({ art: "mahd", t: "Jetzt wird gemäht!", k: "Bleib vor dem Traktor – oder hol dir schnell noch, was dort blüht." });
+    if (s === STREIFEN - 1) M.push({ art: "mahd", t: "Die Wiese ist gemäht.", k: "Auf einen Schlag sind fast alle Blüten fort. Nur am Wegrand blüht es noch." });
+  }
+  return pause;
+}
+function merke(st, t) { if (!st.neu.includes(t)) st.neu.push(t); }
+const sterneFuer = (L, n) => n >= L.ziel[2] ? 3 : n >= L.ziel[1] ? 2 : n >= L.ziel[0] ? 1 : 0;
+if (typeof module !== "undefined") module.exports = { BREIT, HOCH, STREIFEN, NEST, BLUETEN, LEVEL, neuesSpiel, schritt, vorbei, weite, spalte, mahdSpalte, nektarVon, sterneFuer };
+
+/* ============ Texte je Level ============ */
+const MERK = {
+  sand: ["<b>Rüssel und Blüte müssen zusammenpassen.</b> Sandbienen haben einen kurzen Rüssel. Sie brauchen offene Blüten wie Löwenzahn, Gänseblümchen und Hahnenfuß.",
+    "<b>Tiefe Röhren sind für andere gedeckt.</b> An Taubnessel und Schlüsselblume trinken Hummeln und Falter mit langem Rüssel.",
+    "<b>Bei Regen fliegt keine Biene.</b> Ein verregneter Frühling bedeutet deshalb weniger Nachwuchs.",
+    "<b>Die meisten Wildbienen leben allein.</b> Jedes Weibchen versorgt sein eigenes Nest. Die Sandbiene gräbt es in den Boden."],
+  schere: ["<b>Manche Wildbienen sind Spezialisten.</b> Die Glockenblumen-Scherenbiene füttert ihre Larven nur mit Pollen von Glockenblumen.",
+    "<b>Ohne Glockenblume keine Scherenbiene.</b> Verschwindet die Pflanze, verschwindet die Biene mit.",
+    "<b>Mähen räumt den Tisch ab.</b> Wird die ganze Wiese an einem Tag gemäht, finden Wildbienen von jetzt auf gleich nichts mehr. Ein Streifen, der stehen bleibt, rettet sie.",
+    "<b>Die Glocke ist auch ein Dach.</b> In Glockenblumen sitzen Wildbienen bei Regen – und manche schlafen sogar darin."],
+  hummel: ["<b>Hummeln sind auch Wildbienen.</b> Die Gartenhummel hat einen besonders langen Rüssel. Sie erreicht den Nektar von Rotklee und Wiesensalbei.",
+    "<b>Offene Blüten sind für alle da.</b> Fliegen, Käfer und Bienen mit kurzem Rüssel trinken dort mit – deshalb sind sie oft schon leer. Tiefe Blüten sind eine Vorratskammer für Langrüssler.",
+    "<b>Nicht jede Blüte hat Nektar.</b> Der Klatschmohn lockt nur mit Pollen, davon aber reichlich.",
+    "<b>Auf Blüten wird auch gejagt.</b> Krabbenspinnen lauern dort auf Besucher. Manche können sich weiß oder gelb färben, passend zur Blüte."]
+};
+const TIEFE = ["", "offen – für jeden Rüssel", "mitteltief – kurzer Rüssel reicht nicht", "tief – nur für lange Rüssel"];
+
+/* ============ Helfer und Speicher (nur auf diesem Gerät) ============ */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+const KEY = "mibaso.fauna.sammelflug";
+function laden() { try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { return {}; } }
+let S = laden();
+function speichern() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+const app = $("#app");
+const buch = () => S.buch || (S.buch = []);
+const offen = i => i === 0 || !!S.frei || !!(S[LEVEL[i - 1].id] && S[LEVEL[i - 1].id].sterne);
+const sterneHTML = n => `<span aria-label="${n} von 3 Sternen">${[0, 1, 2].map(k => `<span class="${k < n ? "" : "stern-leer"}">⭐</span>`).join("")}</span>`;
+const fuss = () => `<footer class="fuss">
+  <div>Dein Spielstand wird nur auf diesem Gerät gespeichert. Keine Anmeldung, keine Datensammlung.</div>
+  <div><a href="../../index.html">⌂ Bio Mibaso</a> · <a href="../../ueber/">Über mich</a> · <a href="../../impressum/">Impressum &amp; Datenschutz</a></div>
+  <div>© 2026 Michael Baur · Sammelflug</div></footer>`;
+function konfetti(zeichen) {
+  if (reduce) return;
+  const f = document.createElement("div"); f.className = "konffeld";
+  for (let k = 0; k < 40; k++) { const e = document.createElement("span"); e.className = "konf"; e.textContent = zeichen[k % zeichen.length]; e.style.cssText = `left:${Math.random() * 100}%;font-size:${14 + Math.random() * 14}px;animation-delay:${(Math.random() * .9).toFixed(2)}s`; f.appendChild(e); }
+  document.body.appendChild(f); setTimeout(() => f.remove(), 4800);
+}
+
+/* ============ Zeichnungen: Blüten von oben oder von der Seite, in einem Feld von 100 × 100 ============ */
+const kranz = (cx, cy, n, rx, ry, ab, farbe, extra = "", dreh = 0) => Array.from({ length: n }, (x, k) =>
+  `<ellipse cx="${cx}" cy="${cy - ab}" rx="${rx}" ry="${ry}" fill="${farbe}" ${extra} transform="rotate(${(dreh + k * 360 / n).toFixed(1)} ${cx} ${cy})"/>`).join("");
+const stiel = d => `<path d="${d}" fill="none" stroke="#4d8a3a" stroke-width="3.2" stroke-linecap="round"/>`;
+const lippe = (x, y, r, farbe) => `<path d="M${x} ${y} q${14 * r} -13 ${21 * r} -3 q${-6 * r} 2 ${-9 * r} 7 q${7 * r} 1 ${9 * r} 7 q${-11 * r} 5 ${-21 * r} -5 z" fill="${farbe}"/>`;
+const BILD = {
+  loewe: () => kranz(50, 52, 20, 3.4, 13, 15, "#f2ac00") + kranz(50, 52, 14, 3, 9, 9, "#ffcf33", "", 12) + `<circle cx="50" cy="52" r="6.5" fill="#e59a00"/>`,
+  gaense: () => [[35, 38], [66, 64]].map(([x, y]) => kranz(x, y, 13, 2.6, 8, 10, "#fff", `stroke="#d9d7cc" stroke-width=".6"`) + `<circle cx="${x}" cy="${y}" r="5" fill="#f4b90a"/>`).join(""),
+  marg: () => kranz(50, 52, 17, 4.2, 14, 19, "#fff", `stroke="#d4d2c6" stroke-width=".7"`) + `<circle cx="50" cy="52" r="10" fill="#f4b90a"/><circle cx="50" cy="52" r="5" fill="#e3a200"/>`,
+  hahn: () => kranz(50, 52, 5, 11, 12, 12, "#ffd60a", `stroke="#e0b400" stroke-width=".8"`) + `<circle cx="50" cy="52" r="6" fill="#c2cf4f"/><circle cx="50" cy="52" r="2.5" fill="#8ea02c"/>`,
+  storch: () => kranz(50, 52, 5, 11, 13, 13, "#8a79e6", `stroke="#6a58c9" stroke-width=".8"`) + kranz(50, 52, 5, .7, 9, 11, "#5a47b8") + `<circle cx="50" cy="52" r="4.5" fill="#f2f0ff"/>`,
+  moehre: () => [[0, 0]].concat(Array.from({ length: 6 }, (x, k) => [12, k * 60]), Array.from({ length: 12 }, (x, k) => [23, k * 30 + 15])).map(([r, w]) =>
+    `<circle cx="${(50 + r * Math.cos(w * Math.PI / 180)).toFixed(1)}" cy="${(52 + r * Math.sin(w * Math.PI / 180)).toFixed(1)}" r="5.4" fill="#fff" stroke="#c9d2bb" stroke-width=".8"/>`).join("") + `<circle cx="50" cy="52" r="2.6" fill="#5b1f4a"/>`,
+  mohn: () => kranz(50, 52, 4, 15, 15, 12, "#e2312c", `stroke="#b91f1b" stroke-width=".8"`, 45) + `<circle cx="50" cy="52" r="9.5" fill="none" stroke="#2a2a2a" stroke-width="2.4" stroke-dasharray="1.6 2.2"/><circle cx="50" cy="52" r="5.5" fill="#3c4a2a"/>`,
+  flocke: () => kranz(50, 52, 16, 2.4, 13, 17, "#b545b0") + kranz(50, 52, 12, 2.2, 9, 10, "#cf74cb", "", 15) + `<circle cx="50" cy="52" r="7.5" fill="#8c3489"/><circle cx="50" cy="52" r="9" fill="none" stroke="#7a5a3a" stroke-width="1.6" stroke-dasharray="2 2"/>`,
+  rotklee: () => stiel("M50 62 L50 94") + `<path d="M50 84 q-16 -12 -22 2 q10 8 22 -2 z M50 84 q16 -12 22 2 q-10 8 -22 -2 z" fill="#5d9a45"/><path d="M34 82 q6 -3 10 2 M66 82 q-6 -3 -10 2" stroke="#d5ecc4" stroke-width="1.6" fill="none"/>`
+    + kranz(50, 44, 12, 4.4, 9, 13, "#d2559b") + kranz(50, 44, 8, 4, 7, 6, "#e98fc2", "", 20) + `<ellipse cx="50" cy="44" rx="4" ry="5" fill="#f2b3d6"/>`,
+  glocke: () => stiel("M30 94 Q22 20 46 16 Q58 15 56 28") + `<path d="M40 44 Q38 27 56 27 Q74 27 72 44 L77 72 L68 65 L62 75 L56 66 L50 75 L44 65 L35 72 Z" fill="#7186e0" stroke="#4c5fbe" stroke-width="1.4" stroke-linejoin="round"/><path d="M50 34 L48 62 M62 34 L64 62" stroke="#5a6dcb" stroke-width="1" fill="none"/><path d="M56 66 L56 78" stroke="#f1e9a8" stroke-width="2.4" stroke-linecap="round"/>`,
+  salbei: () => stiel("M50 96 L50 12") + `<ellipse cx="38" cy="90" rx="13" ry="5" fill="#5d9a45" transform="rotate(-18 38 90)"/><ellipse cx="62" cy="90" rx="13" ry="5" fill="#5d9a45" transform="rotate(18 62 90)"/>`
+    + [22, 40, 58].map((y, k) => lippe(50, y + 4, 1, "#4a3fb5") + `<g transform="translate(100 0) scale(-1 1)">${lippe(50, y + 4, 1, "#5b4fc6")}</g>`).join("") + `<ellipse cx="50" cy="12" rx="4" ry="6" fill="#4a3fb5"/>`,
+  taub: () => stiel("M50 96 L50 16") + [38, 64].map(y => `<path d="M50 ${y} q-20 -10 -26 4 q14 10 26 -4 z M50 ${y} q20 -10 26 4 q-14 10 -26 -4 z" fill="#5d9a45" stroke="#487c36" stroke-width=".8"/>`).join("")
+    + [20, 46].map(y => lippe(50, y + 4, .72, "#b84aa3") + `<g transform="translate(100 0) scale(-1 1)">${lippe(50, y + 4, .72, "#c964b5")}</g>`).join("") + `<path d="M50 14 q-8 -6 -10 2 q5 5 10 -2 z M50 14 q8 -6 10 2 q-5 5 -10 -2 z" fill="#7aa85d"/>`,
+  schluessel: () => stiel("M50 96 L50 34") + `<ellipse cx="34" cy="92" rx="15" ry="6" fill="#6aa350" transform="rotate(-12 34 92)"/><ellipse cx="66" cy="92" rx="15" ry="6" fill="#6aa350" transform="rotate(12 66 92)"/>`
+    + [-66, -33, 0, 33, 66].map(w => `<g transform="rotate(${w} 50 34)"><path d="M50 34 L50 18" stroke="#b9d38a" stroke-width="6.5" stroke-linecap="round"/><circle cx="50" cy="12" r="6.5" fill="#f7d235" stroke="#dcae12" stroke-width=".9"/><circle cx="50" cy="12" r="2" fill="#e08a00"/></g>`).join(""),
+  gras: i => [[22, 70, -12], [34, 78, 6], [60, 66, -4], [72, 80, 14], [48, 86, -8]].filter((x, k) => (i + k) % 3 !== 0).map(([x, y, w]) => `<path d="M${x} ${y} q${w / 2} -18 ${w} -30 M${x + 4} ${y} q${-w / 2 + 3} -14 ${-w + 4} -24" stroke="#6f9f4b" stroke-width="2.2" fill="none" stroke-linecap="round"/>`).join(""),
+  nest: () => `<ellipse cx="50" cy="62" rx="38" ry="28" fill="#e6cf9a" stroke="#c9ad6e" stroke-width="1.5"/><ellipse cx="42" cy="58" rx="12" ry="9" fill="#4a3826"/><ellipse cx="42" cy="61" rx="8" ry="5" fill="#2a1f14"/><text x="50" y="22" text-anchor="middle" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="13" font-weight="bold" fill="#6b5330">Nest</text>`,
+  stoppel: i => Array.from({ length: 7 }, (x, k) => `<path d="M${10 + k * 13 + (i % 3) * 2} ${30 + ((k * 37 + i * 11) % 50)} l3 -9 m3 9 l2 -7" stroke="#b3a25c" stroke-width="2" fill="none" stroke-linecap="round"/>`).join(""),
+  spinne: () => `<g transform="translate(60 45)"><path d="M-3 -2 L-12 -8 M-3 0 L-13 -1 M-3 2 L-11 6 M3 -2 L12 -8 M3 0 L13 -1 M3 2 L11 6" stroke="#b9aa55" stroke-width="1.5" fill="none" stroke-linecap="round"/><ellipse cx="0" cy="2" rx="5.5" ry="6" fill="#fffbd6" stroke="#b9aa55" stroke-width="1"/><circle cx="0" cy="-4.5" r="3" fill="#fff6bd" stroke="#b9aa55" stroke-width="1"/></g>`
+};
+const bluetenBild = (t, gr = 44) => `<svg viewBox="0 0 100 100" width="${gr}" height="${gr}" aria-hidden="true">${BILD[t](0)}</svg>`;
+// Die Biene von oben (Mitte bei 0,0)
+function bieneSVG(id) {
+  const F = { sand: { r: 1, brust: "#b4621e", leib: "#2b2118", band: "#d9c9a8" }, schere: { r: .85, brust: "#3a3a3a", leib: "#1e1e1e", band: "#e6e0cf" }, hummel: { r: 1.3, brust: "#f2c21a", leib: "#22201c", band: "#f2c21a" } }[id];
+  return `<g transform="scale(${F.r})"><g class="fluegel"><ellipse cx="-13" cy="-4" rx="15" ry="7" fill="#fff" opacity=".72" stroke="#9aa7b5" stroke-width=".8" transform="rotate(24 -13 -4)"/><ellipse cx="13" cy="-4" rx="15" ry="7" fill="#fff" opacity=".72" stroke="#9aa7b5" stroke-width=".8" transform="rotate(-24 13 -4)"/></g>
+    <ellipse cx="0" cy="9" rx="${id === "hummel" ? 10.5 : 8}" ry="13" fill="${F.leib}"/><path d="M-7.5 5 H7.5 M-8 11 H8" stroke="${F.band}" stroke-width="${id === "hummel" ? 4.5 : 2}" />${id === "hummel" ? `<ellipse cx="0" cy="19" rx="6.5" ry="4" fill="#f4f1e6"/>` : ""}
+    <circle cx="0" cy="-6" r="${id === "hummel" ? 9 : 7.5}" fill="${F.brust}"/>${id === "hummel" ? `<path d="M-8 -3 H8" stroke="#22201c" stroke-width="5"/>` : ""}<circle cx="0" cy="-15" r="5" fill="#1c1712"/>
+    <path d="M-2 -19 q-5 -6 -8 -5 M2 -19 q5 -6 8 -5" stroke="#1c1712" stroke-width="1.3" fill="none" stroke-linecap="round"/><g class="hoeschen"><ellipse cx="-10" cy="12" rx="4" ry="5.5" fill="#f6b90d"/><ellipse cx="10" cy="12" rx="4" ry="5.5" fill="#f6b90d"/></g></g>`;
+}
+
+/* ============ Übersicht ============ */
+function seiteStart() {
+  const alle = LEVEL.every((L, i) => offen(i)), B = Object.keys(BLUETEN), kenn = buch();
+  app.innerHTML = `<header class="app-head">
+    <a class="zurueck-kopf" href="wiesenpass.html">‹ Wiesenpass</a>
+    <div class="logo">🌼🐝🌦️</div><h1>Sammelflug</h1><div class="untertitel">Ein Tag als Wildbiene auf der Wiese</div></header>
+  <div class="huelle">
+    <section>
+      <p class="lead">Du bist eine Wildbiene – und deine Brut hat Hunger. Flieg über die Wiese, trink Nektar und trag so viel Pollen ins Nest, wie du schaffst, bevor die Sonne untergeht!</p>
+      <div class="regeln">
+        <div class="regel"><span class="e">💧</span><span><b>Nektar ist dein Treibstoff:</b> Jedes Feld, das du fliegst, kostet einen Tropfen. Nachtanken kannst du nur an Blüten, die zu deinem Rüssel passen.</span></div>
+        <div class="regel"><span class="e">🟡</span><span><b>Pollen zählt erst im Nest:</b> Was du unterwegs verlierst, ist weg.</span></div>
+        <div class="regel"><span class="e">⛈️</span><span><b>Augen auf:</b> Das Wetter schlägt um, der Traktor kommt – und nicht auf jeder Blüte sitzt du allein.</span></div>
+      </div>
+    </section>
+    <section>
+      <h2 class="h-blau">Drei Bienen, drei Tage</h2>
+      <div class="level">${LEVEL.map((L, i) => { const d = S[L.id], zu = !offen(i);
+        return `<button type="button" class="lv" data-i="${i}" ${zu ? "disabled" : ""}><span class="em">${zu ? "🔒" : `<svg viewBox="-30 -30 60 60" width="60" height="60" aria-hidden="true">${bieneSVG(L.id)}</svg>`}</span>
+          <span><span class="nr">${L.zeit}</span><span class="nm">${L.titel}</span><span class="mo">${zu ? "Öffnet sich, wenn du als " + LEVEL[i - 1].kurz + " einen Stern geholt hast." : L.motto}</span>
+          ${d && d.n ? `<span class="st">${sterneHTML(d.sterne || 0)} · Rekord: ${d.best || 0} Pollen · ${d.n}× geflogen</span>` : zu ? "" : `<span class="st">▶ Losfliegen</span>`}</span></button>`; }).join("")}</div>
+      <p class="klein">Ein Flugtag dauert etwa drei Minuten.</p>
+    </section>
+    <section>
+      <h2 class="h-blau">📖 Dein Blütenbuch <span class="klein">${kenn.length} von ${B.length}</span></h2>
+      <p class="klein">Jede Blüte, die du besuchst, wird hier eingetragen – mit dem Geheimnis, wo ihr Nektar steckt.</p>
+      <div class="buch">${B.map(t => kenn.includes(t) ? `<div class="be"><span>${bluetenBild(t, 52)}</span><span><b>${BLUETEN[t].n}</b><br>Der Nektar ${BLUETEN[t].wo}.</span></div>` : `<div class="be zu"><span>❓</span><span>Noch nicht besucht</span></div>`).join("")}</div>
+    </section>
+    <section>
+      <details class="lehrer"><summary>Für Lehrkräfte: Einsatz in Klasse 5/6</summary><div class="grid">
+        <p>„Sammelflug“ ist ein Bonus-Spiel zum Wiesenpass. Die Kinder erleben aus der Sicht einer Wildbiene, was eine Wiese wert ist: Blüten und Bestäuber passen zusammen (Rüssellänge und Nektartiefe), Sammeln kostet Energie, und Wetter, Mahd und Fressfeinde entscheiden über den Bruterfolg.</p>
+        <ul class="clean">
+          <li><b>Sandbiene (April):</b> kurzer Rüssel, nur offene Blüten; Regenschauer.</li>
+          <li><b>Glockenblumen-Scherenbiene (Juni):</b> Pollenspezialistin; die Wiese wird gemäht, nur der Wegrand bleibt.</li>
+          <li><b>Gartenhummel (Juli):</b> langer Rüssel; offene Blüten sind karg, der Mohn hat keinen Nektar; Regen, Mahd und Krabbenspinnen.</li>
+          <li><b>Regeln:</b> Ein Flug kostet je Feld einen Tropfen Nektar. Besuchte Blüten sind einige Züge lang leer. Gewertet wird der Pollen im Nest. Im Blütenbuch sammeln sich die Entdeckungen.</li>
+          <li><b>Vereinfachung:</b> Wie viele Blüten eine Biene für eine Brutzelle anfliegt (oft mehrere hundert), ist stark verkürzt; die Nektartiefen sind in drei Stufen eingeteilt.</li>
+          <li><b>Gesprächsanlässe:</b> Warum hilft ein ungemähter Streifen? Was bedeutet es für eine Spezialistin, wenn ihre Pflanze fehlt? Welche Blüten im Schulgarten passen zu welchen Besuchern?</li>
+        </ul>
+        <div class="knopfreihe">${alle ? "" : `<button type="button" class="knopf" id="frei">🔓 Alle Bienen sofort öffnen</button>`}<button type="button" class="knopf" id="reset">Spielstand löschen</button></div>
+      </div></details>
+    </section>
+    ${fuss()}
+  </div>`;
+  $$(".lv", app).forEach(b => b.onclick = () => { location.hash = LEVEL[+b.dataset.i].id; });
+  const f = $("#frei"); if (f) f.onclick = () => { S.frei = true; speichern(); seiteStart(); };
+  $("#reset").onclick = () => { S = {}; speichern(); seiteStart(); };
+}
+
+/* ============ Ein Flugtag ============ */
+let timer = [];
+const spaeter = (f, ms) => { timer.push(setTimeout(f, reduce ? Math.min(ms, 60) : ms)); };
+function seiteSpiel(id) {
+  const nr = LEVEL.findIndex(L => L.id === id), L = LEVEL[nr];
+  const st = neuesSpiel(L, Math.random);
+  let sperre = false, meld = [{ art: "info", t: L.kurz + " · " + L.was, k: L.intro }], regenZeigen = false;
+  const X = i => spalte(i) * 100, Y = i => 70 + zeile(i) * 100;
+  app.innerHTML = `<div class="spielkopf"><div class="innen"><div class="sk-zeile"><a href="#">‹ Beenden</a><span><b>${L.kurz}</b> · ${L.zeit}</span><span id="rest"></span></div></div></div>
+    <div class="spiel"><div class="planrahmen" id="rahmen">
+      <svg id="plan" viewBox="0 0 700 570" role="group" aria-label="Wiesenplan mit ${BREIT * HOCH} Feldern">
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd0f2"/><stop offset="1" stop-color="#dff0fb"/></linearGradient>
+          <pattern id="gefahr" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="14" fill="rgba(178,59,46,.30)"/></pattern></defs>
+        <g id="himmel"></g><g id="felder"></g><g id="biene" class="biene">${bieneSVG(L.id)}</g><g id="fx"></g><g id="wetter"></g>
+      </svg></div>
+      <aside class="pult">
+        <div class="anz"><span class="lab">💧 Nektar</span><div class="pips" id="pE"></div></div>
+        <div class="anz"><span class="lab">🟡 Pollen an Bord</span><div class="pips" id="pL"></div></div>
+        <div class="anz nestanz"><span class="lab">🏠 Im Nest: <b id="nZahl">0</b></span><div class="nestbalken"><i id="nBalk"></i>${L.ziel.map(z => `<span style="left:${z / L.ziel[2] * 100}%">⭐</span>`).join("")}</div></div>
+        <div id="meld" role="status" aria-live="polite"></div>
+        <details class="kunde"><summary>📖 Blüten auf dieser Wiese</summary><div id="kunde"></div></details>
+      </aside></div>`;
+  const biene = $("#biene"), fx = $("#fx");
+  function himmel() {
+    const p = Math.min(1, st.zug / L.zuege), sx = 40 + 620 * p, sy = 56 - 36 * Math.sin(Math.PI * p), rn = regenNaht(st), abend = Math.max(0, (p - .75) * 4);
+    const ms = mahdNaht(st) ? -1 : mahdSpalte(st, st.zug + 1);
+    $("#himmel").innerHTML = `<rect width="700" height="70" fill="url(#hg)"/><rect width="700" height="70" fill="#f08a3c" opacity="${(abend * .55).toFixed(2)}"/>${rn || regenZeigen ? `<rect width="700" height="70" fill="#56657a" opacity="${regenZeigen ? .6 : .14 * (4 - rn)}"/>` : ""}
+      <circle cx="${sx.toFixed(0)}" cy="${sy.toFixed(0)}" r="15" fill="#ffd23f" stroke="#f4a800" stroke-width="2.5"/>
+      ${rn || regenZeigen ? `<g transform="translate(${(sx + (regenZeigen ? 0 : rn * 46)).toFixed(0)} ${(sy + 4).toFixed(0)})"><ellipse cx="0" cy="6" rx="34" ry="13" fill="#5b6675"/><circle cx="-14" cy="-2" r="13" fill="#6a7686"/><circle cx="8" cy="-7" r="16" fill="#5b6675"/><circle cx="24" cy="2" r="10" fill="#6a7686"/></g>` : ""}
+      <text x="600" y="64" text-anchor="middle" class="plantext">Wegrand</text>
+      ${mahdNaht(st) ? `<text x="8" y="62" font-size="34">🚜</text><text x="56" y="56" class="plantext rot">kommt gleich!</text>` : ms >= 0 ? `<text x="${ms * 100 + 50}" y="62" font-size="36" text-anchor="middle">🚜</text>` : ""}`;
+  }
+  function felder() {
+    const ms = mahdNaht(st) ? -1 : mahdSpalte(st, st.zug + 1);
+    $("#felder").innerHTML = st.feld.map((f, i) => { const b = BLUETEN[f.t], d = weite(st.pos, i), fern = d > st.energie, rand = spalte(i) >= STREIFEN;
+      const name = f.weg ? "Gemäht" : f.t === "nest" ? "Nest" : b ? b.n + (f.leer ? ", leer" : "") : "Gras";
+      return `<g class="feld${fern ? " fern" : ""}${i === st.pos ? " hier" : ""}" data-i="${i}" transform="translate(${X(i)} ${Y(i)})" tabindex="0" role="button" aria-label="${name}, ${d} Felder entfernt${fern ? ", zu weit" : ""}">
+        <rect width="100" height="100" fill="${f.weg ? ((spalte(i) + zeile(i)) % 2 ? "#ddd396" : "#d6cb8a") : rand ? ((spalte(i) + zeile(i)) % 2 ? "#86b65c" : "#7fb055") : ((spalte(i) + zeile(i)) % 2 ? "#a3cc73" : "#9bc66b")}"/>
+        ${f.weg ? BILD.stoppel(i) : f.t === "nest" ? BILD.nest() : b ? `<g class="${f.leer ? "leer" : ""}">${BILD[f.t](i)}</g>${f.spinne ? BILD.spinne() : ""}` : BILD.gras(i)}
+        ${fern ? `<rect width="100" height="100" fill="#22301c" opacity=".42"/>` : ""}<rect class="treffer" width="100" height="100" fill="transparent"/></g>`; }).join("")
+      + `<path d="M500 70 V570" stroke="#5b8a3c" stroke-width="3" stroke-dasharray="3 9" stroke-linecap="round"/>`
+      + (ms >= 0 ? `<rect x="${ms * 100}" y="70" width="100" height="500" fill="url(#gefahr)" stroke="#B23B2E" stroke-width="4" stroke-dasharray="12 8" pointer-events="none"/>` : "");
+  }
+  function pult() {
+    $("#rest").textContent = vorbei(st) ? "Sonnenuntergang" : "noch " + (L.zuege - st.zug) + (L.zuege - st.zug === 1 ? " Zug" : " Züge");
+    $("#pE").innerHTML = Array.from({ length: L.emax }, (x, k) => `<i class="${k < st.energie ? "an" : ""}"></i>`).join(""); $("#pE").classList.toggle("knapp", st.energie <= 2);
+    $("#pL").innerHTML = Array.from({ length: L.kap }, (x, k) => `<i class="pol ${k < st.last ? "an" : ""}"></i>`).join("");
+    $("#nZahl").textContent = st.nest + " Pollen" + (sterneFuer(L, st.nest) ? " · " + "⭐".repeat(sterneFuer(L, st.nest)) : ""); $("#nBalk").style.width = Math.min(100, st.nest / L.ziel[2] * 100) + "%";
+    const rang = { pech: 0, regen: 1, mahd: 1, buch: 3, gut: 2, mies: 2, info: 4 };
+    $("#meld").innerHTML = meld.slice().sort((a, b) => rang[a.art] - rang[b.art]).slice(0, 3).map(m => `<div class="folge m-${m.art}"><span class="urteil">${m.t}</span><span>${m.k}</span></div>`).join("");
+    const kenn = buch();
+    $("#kunde").innerHTML = Object.keys(L.feld).map(t => `<div class="be"><span>${bluetenBild(t, 40)}</span><span>${kenn.includes(t) ? `<b>${BLUETEN[t].n}</b><br>${TIEFE[BLUETEN[t].tiefe]}` : "<b>?</b><br>noch nicht besucht"}</span></div>`).join("");
+    biene.classList.toggle("beladen", st.last > 0);
+  }
+  const setzeBiene = () => biene.setAttribute("style", `transform:translate(${X(st.pos) + 68}px,${Y(st.pos) + 66}px)`);
+  function zeichne() { himmel(); felder(); pult(); setzeBiene(); }
+  function schwebe(i, text, klasse) { const e = document.createElementNS("http://www.w3.org/2000/svg", "text"); e.setAttribute("x", X(i) + 50); e.setAttribute("y", Y(i) + 30); e.setAttribute("class", "schweb " + klasse); e.setAttribute("text-anchor", "middle"); e.textContent = text; fx.appendChild(e); setTimeout(() => e.remove(), 1400); }
+  function regenBild() { $("#wetter").innerHTML = Array.from({ length: 46 }, (x, k) => `<path class="tropfen" style="animation-delay:${(k % 9) * .08}s" d="M${(k * 97) % 700} ${70 + (k * 53) % 480} l-8 26" stroke="#3f6ea8" stroke-width="2.6" stroke-linecap="round" opacity=".7"/>`).join("") + `<rect y="70" width="700" height="500" fill="#3c5878" opacity=".22"/>`; }
+  function flug(i) {
+    if (sperre || vorbei(st)) return;
+    if (weite(st.pos, i) > st.energie) { meld = [{ art: "mies", t: "Zu weit!", k: "Für diesen Flug reicht dein Nektar nicht. Die dunklen Felder erreichst du gerade nicht." }]; pult(); return; }
+    const vor = { e: st.energie - weite(st.pos, i), l: st.last, n: st.nest, gesehen: st.neu.length }, alt = buch().slice();
+    const M = schritt(st, i); if (!M) return;
+    sperre = true; setzeBiene();
+    st.neu.forEach(t => { if (!alt.includes(t)) { buch().push(t); M.push({ art: "buch", t: "📖 Neu im Blütenbuch: " + BLUETEN[t].n, k: "Der Nektar " + BLUETEN[t].wo + "." }); } }); speichern();
+    const pech = M.some(m => m.art === "pech"), nass = M.some(m => m.t === "Es regnet." || m.t === "Vom Regen erwischt!");
+    spaeter(() => {
+      meld = M; regenZeigen = nass; zeichne();
+      if (st.energie > vor.e && !pech) schwebe(i, "+" + (st.energie - vor.e) + " 💧", "blau");
+      if (st.last > vor.l) spaeter(() => schwebe(i, "+" + (st.last - vor.l) + " 🟡", "gelb"), 250);
+      if (st.nest > vor.n) schwebe(i, "+" + (st.nest - vor.n) + " im Nest!", "gruen");
+      if (nass) { regenBild(); spaeter(() => { $("#wetter") && ($("#wetter").innerHTML = ""); regenZeigen = false; himmel(); }, 1700); }
+      if (pech) { const r = $("#rahmen"); r.classList.remove("ruck"); void r.offsetWidth; r.classList.add("ruck"); }
+      spaeter(() => { sperre = false; if (vorbei(st)) ende(); }, vorbei(st) ? 1900 : pech || nass ? 1100 : 120);
+    }, 430);
+  }
+  $("#plan").addEventListener("click", e => { const g = e.target.closest("[data-i]"); if (g) flug(+g.dataset.i); });
+  $("#plan").addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { const g = e.target.closest("[data-i]"); if (g) { e.preventDefault(); flug(+g.dataset.i); } } });
+  zeichne();
+
+  function ende() {
+    const n = sterneFuer(L, st.nest), alt = S[L.id] || {}, rekord = st.nest > (alt.best || 0) && alt.n;
+    S[L.id] = { n: (alt.n || 0) + 1, sterne: Math.max(alt.sterne || 0, n), best: Math.max(alt.best || 0, st.nest) }; speichern();
+    const next = LEVEL[nr + 1], neuOffen = n > 0 && next && !alt.sterne && !S.frei, s = st.stat;
+    const pannen = [s.regen && "vom Regen erwischt", s.mahd && "unters Mähwerk geraten", s.spinne && (s.spinne > 1 ? s.spinne + "-mal" : "einmal") + " der Krabbenspinne begegnet", s.platt && "vor Erschöpfung liegen geblieben"].filter(Boolean);
+    const titel = n === 3 ? "Ein volles Nest!" : n === 2 ? "Ein guter Sammeltag" : n === 1 ? "Es reicht für ein paar Larven" : "Das war zu wenig";
+    window.scrollTo(0, 0);
+    app.innerHTML = `<div class="spielkopf"><div class="innen"><div class="sk-zeile"><a href="#">‹ Übersicht</a><span><b>${L.kurz}</b> · ${L.zeit}</span><span>Sonnenuntergang</span></div></div></div>
+      <div class="huelle"><section><div class="ende">
+        <div class="held"><svg viewBox="-36 -36 72 72" width="110" height="110" aria-hidden="true">${bieneSVG(L.id)}</svg></div>
+        <span class="eyebrow">${L.zeit} geht zu Ende</span><h2>${titel}</h2>
+        <div class="gross">${sterneHTML(n)}</div>
+        <p><b>${st.nest} Portionen Pollen</b> liegen im Nest.${st.last ? " " + st.last + " hattest du noch an Bord – die zählen leider nicht." : ""}${rekord ? " Das ist dein neuer Rekord!" : ""}</p>
+        <p class="klein">${n < 3 ? "Für " + (n + 1) + (n ? " Sterne" : " Stern") + " brauchst du " + L.ziel[n] + " Portionen. " : ""}${pannen.length ? "Heute bist du " + pannen.join(", ").replace(/, ([^,]*)$/, " und $1") + "." : "Kein Regen, kein Mähwerk, keine Spinne hat dich erwischt – stark!"}${s.zutief ? " " + (s.zutief === 1 ? "Einmal war" : s.zutief + "-mal war") + " dein Rüssel zu kurz." : ""}</p>
+        ${neuOffen ? `<p><b>🔓 Neu:</b> ${next.titel} wartet auf dich.</p>` : ""}
+        <div class="knopfreihe"><button type="button" class="knopf${n ? "" : " prim"}" id="noch">🔁 Noch einmal</button>${n && next ? `<a class="knopf honig" href="#${next.id}">${next.titel} ›</a>` : ""}<a class="knopf" href="#">Zur Übersicht</a><a class="knopf" href="wiesenpass.html">Zum Wiesenpass</a></div>
+      </div></section>
+      <section><h3 class="h-honig">Was dir die Wiese heute gezeigt hat</h3><div class="merk">${MERK[L.id].map(k => `<div>${k}</div>`).join("")}</div></section>${fuss()}</div>`;
+    $("#noch").onclick = () => seiteSpiel(id);
+    if (n === 3) konfetti(["🌼", "⭐", "🐝", "✨", "🌸"]);
+  }
+}
+
+/* ============ Automatische Aktualisierung ============
+   Prüft beim Zurückkehren zur Seite (und alle 15 Minuten), ob es eine neuere Fassung gibt.
+   Auf der Übersicht wird sofort neu geladen, mitten im Spiel erst beim Zurückkehren zur Übersicht. */
+let standAlt = null, neuDa = false;
+async function standPruefen() {
+  try {
+    const r = await fetch(location.pathname, { method: "HEAD", cache: "no-store" });
+    const s = r.ok && (r.headers.get("etag") || r.headers.get("last-modified"));
+    if (!s) return;
+    if (standAlt === null) standAlt = s;
+    else if (s !== standAlt) { neuDa = true; if (!location.hash.slice(1)) location.reload(); }
+  } catch (e) {}
+}
+standPruefen();
+document.addEventListener("visibilitychange", () => { if (!document.hidden) standPruefen(); });
+window.addEventListener("pageshow", e => { if (e.persisted) standPruefen(); });
+setInterval(() => { if (!document.hidden) standPruefen(); }, 15 * 60 * 1000);
+
+/* ============ Navigation ============ */
+function route() {
+  if (neuDa && !location.hash.slice(1)) { location.reload(); return; }
+  timer.forEach(clearTimeout); timer = [];
+  $$(".konffeld").forEach(k => k.remove());
+  const h = location.hash.slice(1);
+  if (LEVEL.some(L => L.id === h && offen(LEVEL.indexOf(L)))) seiteSpiel(h); else seiteStart();
+  window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
