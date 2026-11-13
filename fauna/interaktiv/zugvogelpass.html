@@ -1222,7 +1222,7 @@ const RV = [
 ];
 // Michas eigene Fotos (aus fauna/images/fotos, auf 4:3 geschnitten) haben Vorrang vor den gezeichneten Vorschaubildern.
 // Ausnahme Rauchschwalbe: Das Foto zeigt einen Jungvogel ohne rote Kehle – dort bleibt auf Michas Wunsch die Zeichnung.
-const ZUGFOTO = new Set(["weissstorch", "star", "graugans", "bergfink", "rotkehlchen", "buchfink", "blaumeise", "buntspecht", "eichelhaeher", "amsel"]);
+const ZUGFOTO = new Set(["weissstorch", "star", "graugans", "bergfink", "rotkehlchen", "blaumeise", "buntspecht", "eichelhaeher"]);
 const RVBILD = s => ZUGFOTO.has(s) ? `../images/zug/foto-${s}.jpg` : ZUGBILD(s);
 const RV_MAP = Object.fromEntries(RV.map(r => [r[0], r]));
 const RV_FOLGE = ["kuckuck", "bergfink", "mauersegler", "star", "neuntoeter", "feldlerche", "weissstorch", "seidenschwanz", "nachtigall", "girlitz", "mehlschwalbe", "rotkehlchen", "pirol", "singdrossel", "graugans", "trauerschnaepper", "rotdrossel", "rauchschwalbe", "buchfink", "gartenrotschwanz"];

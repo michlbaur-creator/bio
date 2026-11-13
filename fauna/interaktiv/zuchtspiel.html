@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Vom Wolf zum Hütehund – Das Zuchtspiel · Bio Mibaso</title>
-<meta name="description" content="Ein Zuchtspiel für Klasse 5/6: In zehn Würfen aus Wölfen einen Hütehund züchten. Auslese, Vererbung mit Zufall, Inzucht und frisches Blut. Ohne Anmeldung.">
+<meta name="description" content="Ein Zuchtspiel für Klasse 5/6: In sechs Würfen aus Wölfen einen Hütehund züchten. Auslese, Vererbung mit Zufall, Inzucht und frisches Blut. Ohne Anmeldung.">
 <meta name="theme-color" content="#233D5C">
 <link rel="icon" href="../assets/icon.svg">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
@@ -73,7 +73,7 @@ details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
 .sk-zeile a{color:var(--blau);text-decoration:none;padding:4px 2px}
 .sk-zeile b{color:var(--blau)}
 .leisten{display:grid;grid-template-columns:auto 1fr auto auto;gap:8px;align-items:center;font-family:var(--sans);font-size:12px;color:var(--ink-soft)}
-.wuerfe{display:grid;grid-template-columns:repeat(10,1fr);gap:3px}
+.wuerfe{display:grid;grid-template-columns:repeat(6,1fr);gap:3px}
 .wuerfe i{height:10px;border-radius:999px;background:var(--creme-tief);border:1px solid var(--linie)}
 .wuerfe i.war{background:var(--blau-mittel);border-color:var(--blau-mittel)}
 .wuerfe i.jetzt{background:var(--honig);border-color:var(--honig-tief)}
@@ -98,7 +98,8 @@ details.auftrag summary{cursor:pointer;font-weight:bold;color:var(--honig-tief)}
 details.auftrag ul{margin-top:6px}
 details.auftrag .klein{font-size:13px;margin-top:6px}
 .wurf{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:8px 16px 12px}
-@media (min-width:600px){.wurf{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:600px){.wurf{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:900px){.huelle:has(#buehne),.spielkopf .innen{max-width:990px}.huelle:has(#buehne) .wurf{grid-template-columns:repeat(6,1fr)}}
 .welpe{background:var(--creme);border:2px solid var(--blau-hell);border-radius:14px;padding:5px 8px 6px;cursor:pointer;display:grid;gap:2px;text-align:left;touch-action:manipulation;position:relative}
 @media (hover:hover){.welpe:hover{border-color:var(--blau);background:#fff}}
 .welpe.gewaehlt{border-color:var(--ok);background:#e9f4ec;box-shadow:0 0 0 2px var(--ok) inset}
@@ -150,8 +151,8 @@ details.auftrag .klein{font-size:13px;margin-top:6px}
    Jedes Tier hat fünf Merkmale von 0 bis 10 (z Zutrauen, g Gehorsam, a Ausdauer, j Jagdtrieb, s Größe) und eine Fellzahl f (nur Aussehen).
    Ein Welpe liegt bei jedem Merkmal in der Mitte zwischen den Eltern – plus Zufall (STREUUNG). Gezeigt werden Stufen von 0 bis 5. */
 const MERK = [{ k: "z", n: "Zutrauen" }, { k: "g", n: "Gehorsam" }, { k: "a", n: "Ausdauer" }, { k: "j", n: "Jagdtrieb" }, { k: "s", n: "Größe" }];
-const GENERATIONEN = 10, STREUUNG = 2.2, KOPPLUNG = 2.1;
-const WOLF = { z: 2.4, g: 2.4, a: 9, j: 9, s: 8, f: 0 };
+const GENERATIONEN = 6, STREUUNG = 2.4, KOPPLUNG = 2.4;
+const WOLF = { z: 3.8, g: 3.8, a: 9, j: 8.2, s: 7.6, f: 0 };
 const stufe = v => Math.max(0, Math.min(5, Math.round(v / 2)));
 const passt = (h, k, ziel) => { const p = stufe(h[k]); return p >= ziel[k][0] && p <= ziel[k][1]; };
 const treffer = (h, ziel) => MERK.filter(m => passt(h, m.k, ziel)).length;
@@ -166,9 +167,9 @@ function welpe(v, m, rnd, schwach) {
   return w;
 }
 // Wurfgröße sinkt mit der Verwandtschaft der Eltern (inz = Generationen Geschwisterpaarung in Folge)
-const wurfzahl = inz => inz <= 3 ? 6 : inz === 4 ? 5 : inz === 5 ? 3 : 2;
+const wurfzahl = inz => inz <= 3 ? 5 : inz === 4 ? 3 : 2;
 function wurf(v, m, inz, rnd) {
-  const n = wurfzahl(inz), w = Array.from({ length: n }, () => welpe(v, m, rnd, inz >= 6));
+  const n = wurfzahl(inz), w = Array.from({ length: n }, () => welpe(v, m, rnd, inz >= 5));
   if (w.every(x => x.sex === w[0].sex)) w[n - 1].sex = w[0].sex === "m" ? "w" : "m";   // immer beide Geschlechter
   return w;
 }
@@ -178,13 +179,13 @@ function fremder(sex, rnd) {
   for (const k of ["z", "g", "a", "j", "s"]) h[k] = klemme(B[k] + gauss(rnd) * .7);
   h.f = B.f; return h;
 }
-// Läuft ein zu scheues Tier weg? (erst ab dem dritten Wurf, Stufe 0 oder 1 bei Zutrauen)
-const laeuftWeg = (h, gen, rnd) => gen >= 3 && !h.fremd && stufe(h.z) <= 1 && rnd() < .6;
+// Läuft ein zu scheues Tier weg? (erst ab dem zweiten Wurf, Stufe 0 oder 1 bei Zutrauen)
+const laeuftWeg = (h, gen, rnd) => gen >= 2 && !h.fremd && stufe(h.z) <= 1 && rnd() < .5;
 if (typeof module !== "undefined") module.exports = { MERK, GENERATIONEN, WOLF, stufe, passt, treffer, wurf, wurfzahl, fremder, laeuftWeg, welpe };
 
 /* ============ Der Auftrag ============ */
 const AUFTRAG = {
-  id: "hueten", em: "🐑", titel: "Der Hütehund", kurz: "Züchte in zehn Würfen aus Wölfen einen Hund, der Schafe hüten kann.",
+  id: "hueten", em: "🐑", titel: "Der Hütehund", kurz: "Züchte in sechs Würfen aus Wölfen einen Hund, der Schafe hüten kann.",
   ziel: { z: [4, 5], g: [4, 5], a: [4, 5], j: [2, 3], s: [2, 3] },
   wunsch: ["vertraut seinem Menschen", "hört aufs Wort", "läuft den ganzen Tag, ohne müde zu werden", "umkreist und treibt die Schafe – beißt aber nie zu", "ist flink und wendig"],
   gut: { z: "Vertraut dem Schäfer und weicht ihm nicht von der Seite.", g: "Hört auf jeden Pfiff.", a: "Läuft den ganzen Tag mit der Herde.", j: "Umkreist die Schafe und treibt sie zusammen – ohne zuzubeißen.", s: "Flink und wendig, und die Schafe nehmen ihn ernst." },
@@ -248,10 +249,10 @@ function seiteStart() {
   const d = S[AUFTRAG.id];
   app.innerHTML = `<header class="app-head">
     <a class="zurueck-kopf" href="haustierpass.html">‹ Wild &amp; zahm</a>
-    <div class="logo">🐺➜🐕</div><h1>Vom Wolf zum Hütehund</h1><div class="untertitel">Das Zuchtspiel – zehn Würfe, ein Ziel</div></header>
+    <div class="logo">🐺➜🐕</div><h1>Vom Wolf zum Hütehund</h1><div class="untertitel">Das Zuchtspiel – sechs Würfe, ein Ziel</div></header>
   <div class="huelle">
     <section>
-      <p class="lead">Dein Dorf hält Schafe – und braucht dringend Hilfe beim Hüten. Am Dorfrand leben zwei Wölfe, die sich an Menschen gewöhnt haben. Kannst du aus ihren Nachkommen einen Hütehund züchten? Du hast zehn Würfe Zeit.</p>
+      <p class="lead">Dein Dorf hält Schafe – und braucht dringend Hilfe beim Hüten. Am Dorfrand leben zwei Wölfe, die sich an Menschen gewöhnt haben. Kannst du aus ihren Nachkommen einen Hütehund züchten? Du hast sechs Würfe Zeit.</p>
       <div class="regeln">
         <div class="regel"><span class="e">🐾</span><span><b>Auslese:</b> Aus jedem Wurf wählst du einen Rüden ♂ und eine Hündin ♀ als Eltern für den nächsten. Die Welpen kommen nach ihren Eltern – aber nie genau.</span></div>
         <div class="regel"><span class="e">📜</span><span><b>Der Auftrag:</b> Nicht der schönste oder größte Welpe ist der richtige, sondern der, der zur Aufgabe passt.</span></div>
@@ -262,17 +263,17 @@ function seiteStart() {
       <div class="level"><button type="button" class="lv" id="los"><span class="em">${AUFTRAG.em}</span>
         <span><span class="nr">Auftrag</span><span class="nm">${AUFTRAG.titel}</span><span class="mo">${AUFTRAG.kurz}</span>
         <span class="st">${d && d.n ? sterneHTML(d.sterne || 0) + " · " + d.n + "× gezüchtet" : "▶ Zucht beginnen"}</span></span></button></div>
-      <p class="klein">Eine Zucht dauert etwa zehn Minuten. Drei Sterne gibt es nur, wenn am Ende alle fünf Eigenschaften passen.</p>
+      <p class="klein">Eine Zucht dauert etwa fünf Minuten. Drei Sterne gibt es nur, wenn am Ende alle fünf Eigenschaften passen.</p>
     </section>
     <section>
       <details class="lehrer"><summary>Für Lehrkräfte: Einsatz in Klasse 5/6</summary><div class="grid">
         <p>Das Zuchtspiel ist ein Bonus-Spiel zum Forscherpass „Wild &amp; zahm“ (Teil 1 „Vom Wolf zum Hund“). Die Kinder erleben Züchtung als das, was sie ist: Auslese über viele Generationen. Der Mensch wählt aus, die Unterschiede zwischen den Geschwistern liefert die Natur.</p>
         <ul class="clean">
-          <li><b>Ablauf:</b> Zehn Würfe. Aus jedem Wurf werden ein Rüde und eine Hündin gewählt; ihre Welpen liegen bei jedem Merkmal zwischen den Eltern, mit zufälliger Abweichung. Gezeigt werden fünf Merkmale in fünf Stufen.</li>
+          <li><b>Ablauf:</b> Sechs Würfe. Aus jedem Wurf werden ein Rüde und eine Hündin gewählt; ihre Welpen liegen bei jedem Merkmal zwischen den Eltern, mit zufälliger Abweichung. Gezeigt werden fünf Merkmale in fünf Stufen.</li>
           <li><b>Was zu entdecken ist:</b> Mehrere Merkmale zugleich im Blick behalten; Hüten ist gebremstes Jagdverhalten (Jagdtrieb darf nicht verschwinden); Aussehen ist kein Zuchtziel; mit der Zahmheit kommen ungefragt Schlappohren, Ringelschwanz und Scheckung (Fuchs-Versuch von Beljajew); Inzucht schwächt, frisches Blut hilft; zu scheue Tiere laufen fort.</li>
-          <li><b>Probe an der Herde:</b> Nach dem dritten, sechsten und neunten Wurf zeigt eine Probe, woran es noch fehlt.</li>
+          <li><b>Probe an der Herde:</b> Nach dem zweiten und vierten Wurf zeigt eine Probe, woran es noch fehlt.</li>
           <li><b>Vereinfachung:</b> In Wirklichkeit dauerte der Weg vom Wolf zum Hütehund viele tausend Jahre und hunderte Generationen, und die meisten Eigenschaften hängen von sehr vielen Erbanlagen und von der Erziehung ab. Das bitte im Gespräch aufgreifen.</li>
-          <li><b>Zeit:</b> etwa 10 Minuten; ohne Ton, ohne Anmeldung. Gut zu zweit an einem Gerät: Jede Auswahl muss begründet werden.</li>
+          <li><b>Zeit:</b> etwa 5 Minuten; ohne Ton, ohne Anmeldung. Gut zu zweit an einem Gerät: Jede Auswahl muss begründet werden.</li>
         </ul>
         <div class="knopfreihe"><button type="button" class="knopf" id="reset">Spielstand löschen</button></div>
       </div></details>
@@ -293,7 +294,7 @@ function seiteZucht() {
   app.innerHTML = `<div class="spielkopf"><div class="innen">
       <div class="sk-zeile"><a href="#">‹ Beenden</a><span><b id="genText"></b></span></div>
       <div class="leisten"><span>Würfe</span><div class="wuerfe" id="wuerfe">${"<i></i>".repeat(GENERATIONEN)}</div>
-        <span>Verwandtschaft</span><div class="kette" id="kette">${"<i></i>".repeat(6)}</div></div>
+        <span>Verwandtschaft</span><div class="kette" id="kette">${"<i></i>".repeat(5)}</div></div>
     </div></div>
     <div class="huelle"><section id="buehne"></section>${fuss()}</div>`;
   const buehne = $("#buehne");
@@ -348,10 +349,10 @@ function seiteZucht() {
     const istFremd = rue.fremd || hue.fremd, altInz = inz;
     inz = istFremd ? 0 : inz + 1; if (istFremd) fremdN++;
     vater = rue; mutter = hue; ahnen.push(rue.fremd ? hue : rue);
-    const probe = [3, 6, 9].includes(gen);
+    const probe = [2, 4].includes(gen);
     gen++; welpen = wurf(vater, mutter, inz, Math.random); gast = fremder(gen % 2 ? "m" : "w", Math.random);
     // Hinweis für den nächsten Wurf
-    if (welpen.length < 6 && inz >= 4) hinweis = { art: "r0", t: "Nur " + ["", "ein Welpe", "zwei Welpen", "drei Welpen", "vier Welpen", "fünf Welpen"][welpen.length] + (inz >= 6 ? " – und sie sind schwächlich" : "") + "!", k: "Deine Hunde sind zu eng miteinander verwandt. Bei solcher Inzucht werden die Würfe kleiner und die Welpen anfälliger. Ein Tier aus dem Nachbardorf bringt frisches Blut." };
+    if (welpen.length < 5 && inz >= 4) hinweis = { art: "r0", t: "Nur " + ["", "ein Welpe", "zwei Welpen", "drei Welpen", "vier Welpen", "fünf Welpen"][welpen.length] + (inz >= 5 ? " – und sie sind schwächlich" : "") + "!", k: "Deine Hunde sind zu eng miteinander verwandt. Bei solcher Inzucht werden die Würfe kleiner und die Welpen anfälliger. Ein Tier aus dem Nachbardorf bringt frisches Blut." };
     else if (istFremd && altInz >= 2) hinweis = { art: "schnee", t: "Frisches Blut!", k: "Der Hund aus dem Nachbardorf ist kein Spezialist – die Welpen sind ein Stück vom Ziel abgerückt. Dafür ist der Wurf wieder groß und gesund." };
     else if (!ohrGesehen && (vater.z >= 5.2 || mutter.z >= 5.2) && welpen.some(h => h.z > 5)) { ohrGesehen = true; hinweis = { art: "schnee", t: "Nanu – weiße Flecken und geknickte Ohren?", k: "Danach hast du gar nicht ausgewählt! Das hat auch ein berühmter Versuch mit Füchsen gezeigt: Wer immer nur die zutraulichsten Tiere weiterzüchtet, bekommt nach einigen Generationen Schlappohren, Ringelschwänze und geschecktes Fell gleich mit dazu." }; }
     probe ? zeigeProbe() : zeigeWurf();
