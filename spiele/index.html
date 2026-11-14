@@ -105,10 +105,11 @@ ul.clean{margin:0;padding-left:1.2em;display:grid;gap:5px}
   body > *:not(.ov){display:none!important}
   .ov{position:static;display:block!important;background:none;padding:0;overflow:visible}
   .ov .innen{max-width:none;margin:0}
-  .ov .eingabe,.ov .knopfreihe{display:none!important}
+  .ov .eingabe,.ov .knopfreihe,.ov .tipp{display:none!important}
   .urkunde{box-shadow:none;border-radius:0;width:297mm;height:210mm;aspect-ratio:auto}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.ov .tipp{font-family:var(--sans);font-size:13.5px;color:#f3efe2;text-align:center;margin:0}
 /* Übersicht (A4 hoch) */
 .bogen{display:none;background:#fffdf6;border-radius:6px;aspect-ratio:1/1.414;width:100%;max-width:560px;margin:0 auto;container-type:inline-size;box-shadow:0 8px 30px rgba(0,0,0,.3);
   padding:5.5cqw 6cqw 5cqw;color:#2b2925;font-family:var(--sans);position:relative;overflow:hidden}
@@ -162,7 +163,8 @@ ul.clean{margin:0;padding-left:1.2em;display:grid;gap:5px}
     <div class="eingabe"><label for="nameIn"><b id="nameLab">Dein Name für das Diplom</b></label><input id="nameIn" type="text" maxlength="40" autocomplete="off" placeholder="Vorname Nachname"></div>
     <div class="urkunde" id="urkunde"></div>
     <div class="bogen" id="bogen"></div>
-    <div class="knopfreihe"><button type="button" class="knopf honig" id="druck">🖨️ Drucken oder als PDF sichern</button><button type="button" class="knopf" id="zu">Schließen</button></div>
+    <div class="knopfreihe"><button type="button" class="knopf honig" id="teilen">📤 Teilen oder drucken</button><button type="button" class="knopf" id="druck">🖨️ Drucken (Computer)</button><button type="button" class="knopf" id="zu">Schließen</button></div>
+    <p class="tipp">Am iPhone oder iPad: „Teilen oder drucken“ tippen und im Menü <b>„Drucken“</b> wählen – oder das Bild in Fotos sichern.</p>
   </div>
 </div>
 
@@ -286,14 +288,105 @@ function oeffne(m) {
   $("#ov").setAttribute("aria-label", m === "bogen" ? "Meine Forscher-Übersicht" : "Naturforscher-Diplom");
   $("#nameLab").textContent = m === "bogen" ? "Dein Name für die Übersicht" : "Dein Name für das Diplom";
   urkunde(); bogen(); $("#ov").classList.add("an"); document.body.style.overflow = "hidden"; $("#ov").scrollTop = 0;
+  bildVorbereiten();
 }
 function schliesse() { $("#ov").classList.remove("an"); document.body.style.overflow = ""; }
-$("#nameIn").addEventListener("input", () => { try { localStorage.setItem(NAME_KEY, $("#nameIn").value.trim()); } catch (e) {} urkunde(); bogen(); });
+$("#nameIn").addEventListener("input", () => { try { localStorage.setItem(NAME_KEY, $("#nameIn").value.trim()); } catch (e) {} urkunde(); bogen(); bildVorbereiten(); });
 $("#zu").onclick = schliesse;
 $("#ov").addEventListener("click", e => { if (e.target.id === "ov") schliesse(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape") schliesse(); });
 // Seitenformat je nach Blatt: Diplom quer, Übersicht hoch
 $("#druck").onclick = () => { $("#seite").textContent = `@page{size:A4 ${modus === "bogen" ? "portrait" : "landscape"};margin:0}`; window.print(); };
+
+/* ============ Als Bild zum Teilen (iPhone/iPad: Teilen → Drucken) ============
+   Das Blatt wird auf ein Canvas gezeichnet (A4 bei 150 dpi) und als PNG über das Teilen-Menü angeboten.
+   Das Bild wird vorab erzeugt, denn iOS erlaubt das Teilen nur direkt nach dem Tippen. */
+const SANS = '-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif', SERIF = 'Georgia,"Times New Roman",serif';
+const GRUEN = "#2F4F3E", HONIG = "#a9762c", GRAU = "#5d6b78";
+function leinwand(W, H) { const c = document.createElement("canvas"); c.width = W; c.height = H; const x = c.getContext("2d"); x.fillStyle = "#fffdf6"; x.fillRect(0, 0, W, H); return [c, x]; }
+function medaille(x, cx, cy, r, em) {
+  const g = x.createRadialGradient(cx - r * .3, cy - r * .35, r * .1, cx, cy, r); g.addColorStop(0, "#ffe7a6"); g.addColorStop(.7, "#d9a441"); g.addColorStop(1, "#a9762c");
+  x.beginPath(); x.arc(cx, cy, r, 0, 7); x.fillStyle = g; x.fill(); x.lineWidth = r * .09; x.strokeStyle = "#fff"; x.stroke();
+  x.font = `${Math.round(r * 1.05)}px ${SANS}`; x.textAlign = "center"; x.textBaseline = "middle"; x.fillStyle = "#000"; x.fillText(em, cx, cy + r * .06); x.textBaseline = "alphabetic"; x.textAlign = "left";
+}
+function malDiplom() {
+  const G = gesamt(), R = RAENGE[G.r], name = $("#nameIn").value.trim(), W = 1754, H = 1240, [c, x] = leinwand(W, H);
+  const datum = new Date().toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+  x.strokeStyle = GRUEN; x.lineWidth = 8; x.strokeRect(40, 40, W - 80, H - 80); x.lineWidth = 2.5; x.strokeRect(56, 56, W - 112, H - 112);
+  x.strokeStyle = "#C28A3A"; x.lineWidth = 2.5; x.strokeRect(70, 70, W - 140, H - 140);
+  x.textAlign = "center";
+  const z = (t, f, farbe, y) => { x.font = f; x.fillStyle = farbe; x.fillText(t, W / 2, y); };
+  z("B I O   M I B A S O   ·   L E R N S P I E L E", `700 28px ${SANS}`, HONIG, 180);
+  z("Naturforscher-Diplom", `108px ${SERIF}`, GRUEN, 310);
+  z("verliehen an", `italic 38px ${SERIF}`, GRAU, 400);
+  z(name || " ", `86px ${SERIF}`, "#26312b", 520);
+  x.strokeStyle = "#C28A3A"; x.lineWidth = 3; x.beginPath(); x.moveTo(W / 2 - 440, 555); x.lineTo(W / 2 + 440, 555); x.stroke();
+  z(`für ${G.summe} von ${G.max} Sternen in ${G.gespielt} ${G.gespielt === 1 ? "Lernspiel" : "Lernspielen"}${G.voll ? ` – davon ${G.voll} mit voller Punktzahl` : ""}.`, `38px ${SERIF}`, "#26312b", 640);
+  medaille(x, W / 2 - 230, 760, 78, R.em);
+  x.font = `62px ${SERIF}`; x.fillStyle = GRUEN; x.fillText(R.n, W / 2 - 130, 760);
+  x.font = `30px ${SANS}`; x.fillStyle = GRAU; x.fillText(R.txt, W / 2 - 128, 808);
+  x.textAlign = "center"; z(SPIELE.filter((s, i) => G.st[i].sterne > 0).map(s => s.em).join("  "), `52px ${SANS}`, "#000", 930);
+  x.strokeStyle = GRAU; x.lineWidth = 2;
+  x.beginPath(); x.moveTo(140, 1060); x.lineTo(520, 1060); x.moveTo(W - 520, 1060); x.lineTo(W - 140, 1060); x.stroke();
+  x.font = `38px ${SERIF}`; x.fillStyle = "#26312b"; x.fillText(datum, 330, 1048); x.fillText("Michael Baur", W - 330, 1048);
+  x.font = `26px ${SANS}`; x.fillStyle = GRAU; x.fillText("Datum", 330, 1100); x.fillText("Bio Mibaso · bio.mibaso.de", W - 330, 1100);
+  return c;
+}
+function malBogen() {
+  const G = gesamt(), R = RAENGE[G.r], N = RAENGE[G.r + 1], name = $("#nameIn").value.trim(), W = 1240, H = 1754, [c, x] = leinwand(W, H), L = 80, Rr = W - 80;
+  const datum = new Date().toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+  x.textAlign = "left";
+  x.font = `700 24px ${SANS}`; x.fillStyle = HONIG; x.fillText("B I O   M I B A S O   ·   S P I E L E C K E", L, 110);
+  x.font = `64px ${SERIF}`; x.fillStyle = GRUEN; x.fillText("Meine Forscher-Übersicht", L, 190);
+  x.font = `44px ${SERIF}`; x.fillStyle = "#26312b"; x.fillText(name || "Name: ______________________", L, 262);
+  medaille(x, Rr - 340, 175, 58, R.em);
+  x.font = `42px ${SERIF}`; x.fillStyle = GRUEN; x.fillText(R.n, Rr - 265, 168);
+  x.font = `27px ${SANS}`; x.fillStyle = GRAU; x.fillText(`⭐ ${G.summe} von ${G.max} Sternen`, Rr - 265, 210);
+  x.fillStyle = GRUEN; x.fillRect(L, 300, Rr - L, 5);
+  x.fillStyle = "#efe7d3"; x.beginPath(); x.roundRect(L, 335, Rr - L, 22, 11); x.fill();
+  if (G.summe) { x.fillStyle = "#e9a40a"; x.beginPath(); x.roundRect(L, 335, Math.max(22, (Rr - L) * G.summe / G.max), 22, 11); x.fill(); }
+  x.font = `27px ${SANS}`; x.fillStyle = GRAU;
+  x.fillText(`${G.gespielt} von ${SPIELE.length} Spielen ausprobiert${G.voll ? ` · ${G.voll} mit voller Punktzahl` : ""} · ${N ? `noch ${N.ab - G.summe} ${N.ab - G.summe === 1 ? "Stern" : "Sterne"} bis „${N.n}“` : "höchster Rang erreicht"}`, L, 400);
+  const S1 = L + 70, S2 = 640, S3 = Rr; let y = 460;
+  x.font = `700 21px ${SANS}`; x.fillStyle = HONIG; x.fillText("S P I E L", L, y); x.fillText("S T U F E N", S2, y); x.textAlign = "right"; x.fillText("S T E R N E", S3, y); x.textAlign = "left";
+  y += 16; x.fillStyle = "#d9d2c1"; x.fillRect(L, y, Rr - L, 2);
+  SPIELE.forEach((s, i) => {
+    const st = G.st[i], hoch = Math.max(2, s.namen.length) * 28 + 16, mitte = y + hoch / 2;
+    x.globalAlpha = st.gespielt ? 1 : .55;
+    x.font = `44px ${SANS}`; x.textAlign = "center"; x.fillStyle = "#000"; x.fillText(s.em, L + 28, mitte + 15);
+    x.textAlign = "left"; x.font = `34px ${SERIF}`; x.fillStyle = "#26312b"; x.fillText(s.t, S1, mitte - 2);
+    x.font = `22px ${SANS}`; x.fillStyle = "#8a8577"; x.fillText(s.pass, S1, mitte + 30);
+    s.namen.forEach((nm, k) => { const yy = y + 12 + (k + 1) * 28 - 4 + (s.namen.length === 1 ? 14 : 0), n = st.je[k];
+      x.font = `23px ${SANS}`; x.fillStyle = n ? "#26312b" : "#a8a294"; x.fillText(nm, S2, yy);
+      const w = x.measureText(nm + " ").width; x.fillStyle = n ? "#d99a00" : "#d0c9b6"; x.fillText("★".repeat(n) + "☆".repeat(3 - n), S2 + w, yy); });
+    x.textAlign = "right"; x.font = `40px ${SERIF}`; x.fillStyle = GRUEN; x.fillText(st.gespielt ? String(st.sterne) : "–", S3 - (st.gespielt ? 44 : 0), mitte + 14);
+    if (st.gespielt) { x.font = `24px ${SANS}`; x.fillStyle = "#8a8577"; x.fillText("/" + st.max, S3, mitte + 14); }
+    x.globalAlpha = 1; x.textAlign = "left";
+    y += hoch; x.fillStyle = "#e8e1cf"; x.fillRect(L, y, Rr - L, 2);
+  });
+  x.fillStyle = "#d9d2c1"; x.fillRect(L, H - 110, Rr - L, 2);
+  x.font = `23px ${SANS}`; x.fillStyle = "#8a8577"; x.fillText("Stand: " + datum, L, H - 72); x.textAlign = "right"; x.fillText("bio.mibaso.de/spiele", Rr, H - 72);
+  return c;
+}
+let bildBlob = null, bildTimer;
+function bildVorbereiten() {
+  bildBlob = null; clearTimeout(bildTimer);
+  bildTimer = setTimeout(() => { (modus === "bogen" ? malBogen() : malDiplom()).toBlob(b => { bildBlob = b; }, "image/png"); }, 200);
+}
+$("#teilen").onclick = () => {
+  const btn = $("#teilen"), melde = t => { const alt = "📤 Teilen oder drucken"; btn.textContent = t; setTimeout(() => btn.textContent = alt, 2600); };
+  if (!bildBlob) { melde("Einen Moment …"); bildVorbereiten(); return; }
+  const nm = $("#nameIn").value.trim();
+  const datei = ((modus === "bogen" ? "Forscher-Uebersicht" : "Naturforscher-Diplom") + (nm ? "-" + nm : "")).replace(/[^\wäöüÄÖÜß-]+/g, "-") + ".png";
+  const file = new File([bildBlob], datei, { type: "image/png" });
+  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+    navigator.share({ files: [file], title: modus === "bogen" ? "Meine Forscher-Übersicht" : "Mein Naturforscher-Diplom" }).catch(e => { if (!e || e.name !== "AbortError") melde("Teilen klappte nicht"); });
+  } else {
+    const url = URL.createObjectURL(bildBlob), a = document.createElement("a");
+    a.href = url; a.download = datei; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 5000); melde("✓ Als Bild gespeichert");
+  }
+};
 // Beim Zurückkommen aus einem Spiel neu zeichnen (Sterne könnten sich geändert haben)
 window.addEventListener("pageshow", zeichne);
 document.addEventListener("visibilitychange", () => { if (!document.hidden) zeichne(); });
