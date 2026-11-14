@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Spielecke &amp; Naturforscher-Diplom · Bio Mibaso</title>
+<meta name="description" content="Alle Lernspiele von Bio Mibaso an einem Ort – mit Sternen, Rängen und dem Naturforscher-Diplom zum Ausdrucken. Ohne Anmeldung.">
+<meta name="theme-color" content="#2F4F3E">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style>
+:root{
+  --gruen:#2F4F3E; --gruen-tief:#243d30; --gruen-mittel:#3A5F4A; --blau:#233D5C;
+  --creme:#F7F3E8; --creme-tief:#EEE7D5; --tile:#FFFFFF;
+  --honig:#C28A3A; --honig-tief:#a9762c;
+  --ink:#26312b; --ink-soft:#5d6b78; --linie:#d9d2c1; --ok:#2f6a45;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--gruen-tief);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--creme);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.55;min-height:100vh}
+a{color:var(--gruen)}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--honig);outline-offset:2px}
+h1,h2,h3{font-weight:normal;margin:0;line-height:1.2;text-wrap:balance}
+p{margin:0}
+.kopf{background:linear-gradient(180deg,var(--gruen-tief) 0%,var(--gruen-mittel) 100%);color:var(--creme);text-align:center;
+  padding:calc(env(safe-area-inset-top,0px) + 22px) 20px 24px;border-bottom:4px double #c3d6c6;position:relative}
+.kopf .zurueck{position:absolute;left:12px;top:calc(env(safe-area-inset-top,0px) + 10px);color:#dfeadf;font-family:var(--sans);font-size:14px;text-decoration:none;padding:6px}
+.kopf .logo{font-size:40px;line-height:1;margin:14px 0 6px;letter-spacing:6px}
+.kopf h1{font-size:clamp(30px,9vw,44px)}
+.kopf .unter{font-style:italic;color:#dfeadf;margin-top:8px;font-size:clamp(14px,3.8vw,17px)}
+.huelle{max-width:760px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left,0px)) 40px}
+section{padding-top:26px;display:grid;gap:12px}
+.lead{font-size:19px}
+.klein{font-size:15px;color:var(--ink-soft)}
+.h-gruen{color:var(--gruen);font-size:26px}
+.gruppe{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--honig-tief);border-bottom:1px solid var(--linie);padding-bottom:6px;margin-top:8px}
+/* Diplom-Box */
+.diplom{background:linear-gradient(160deg,#fffaf0,#f4ead2);border:2px solid #e2c98e;border-radius:20px;padding:18px;display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center;box-shadow:0 4px 18px rgba(169,118,44,.14)}
+.diplom .orden{width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe7a6,#d9a441 70%,#a9762c);display:grid;place-items:center;font-size:44px;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.diplom .rang{font-size:26px;color:var(--gruen);line-height:1.15}
+.diplom .eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--honig-tief);font-weight:700}
+.diplom .zahl{font-family:var(--sans);font-size:15px;margin-top:4px}
+.balken{height:12px;border-radius:999px;background:#fff;border:1px solid #e2c98e;overflow:hidden;margin:8px 0 4px}
+.balken i{display:block;height:100%;background:linear-gradient(90deg,#f6b90d,#e59a00);border-radius:999px;transition:width .6s}
+.naechst{font-family:var(--sans);font-size:13.5px;color:var(--ink-soft)}
+.diplom .knopfreihe{grid-column:1/-1}
+@media (max-width:440px){.diplom{grid-template-columns:72px 1fr}.diplom .orden{width:72px;height:72px;font-size:34px}.diplom .rang{font-size:22px}}
+.raenge{display:flex;flex-wrap:wrap;gap:6px;font-family:var(--sans);font-size:12.5px}
+.raenge span{border:1px solid var(--linie);border-radius:999px;padding:3px 10px;background:#fff;color:var(--ink-soft)}
+.raenge span.auf{background:#2f6a45;border-color:#2f6a45;color:#fff}
+/* Spielkarten */
+.spiele{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.spiel{display:grid;grid-template-columns:52px 1fr;gap:12px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:16px;padding:12px 14px;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s}
+@media (hover:hover){.spiel:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(47,79,62,.14)}}
+.spiel .em{font-size:34px;width:52px;height:52px;display:grid;place-items:center;border-radius:14px;background:var(--creme-tief)}
+.spiel.fauna .em{background:#e3ebf3}
+.spiel.flora .em{background:#e4efe6}
+.spiel .t{display:block;font-size:20px;color:var(--gruen);line-height:1.2}
+.spiel.fauna .t{color:var(--blau)}
+.spiel .s{display:block;font-family:var(--sans);font-size:13.5px;color:var(--ink-soft);line-height:1.4;margin-top:2px}
+.spiel .st{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;font-family:var(--sans);font-size:12.5px;margin-top:6px;color:var(--ink-soft)}
+.spiel .sterne{letter-spacing:1px}
+.spiel .pass{border-radius:999px;padding:1px 8px;background:var(--creme-tief);font-size:11.5px}
+.leer{opacity:.25;filter:grayscale(1)}
+.knopf{display:inline-block;border:1px solid var(--gruen);background:var(--tile);color:var(--gruen);border-radius:12px;padding:11px 18px;font-family:var(--sans);font-size:16px;cursor:pointer;text-decoration:none;text-align:center}
+.knopf.prim{background:var(--gruen);color:#fff;box-shadow:0 2px 0 var(--gruen-tief)}
+.knopf.honig{background:var(--honig);border-color:var(--honig);color:#fff;box-shadow:0 2px 0 #8a5a17}
+.knopfreihe{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+details.lehrer{background:var(--tile);border:1px solid var(--linie);border-radius:14px;padding:12px 16px;font-size:16px}
+details.lehrer summary{cursor:pointer;font-family:var(--sans);font-size:15px;color:var(--gruen);font-weight:bold}
+details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
+ul.clean{margin:0;padding-left:1.2em;display:grid;gap:5px}
+.fuss{margin-top:34px;padding-top:16px;border-top:1px solid var(--linie);font-family:var(--sans);font-size:13px;color:var(--ink-soft);text-align:center;display:grid;gap:6px}
+/* Urkunde */
+.ov{position:fixed;inset:0;background:rgba(20,30,24,.62);z-index:50;display:none;overflow:auto;padding:20px 12px}
+.ov.an{display:block}
+.ov .innen{max-width:760px;margin:0 auto;display:grid;gap:12px}
+.ov .eingabe{background:var(--tile);border-radius:14px;padding:12px 14px;display:grid;gap:8px;font-family:var(--sans);font-size:15px}
+.ov input{border:1px solid var(--linie);border-radius:10px;padding:10px 12px;font-size:17px;width:100%}
+.urkunde{background:#fffdf6;border-radius:6px;aspect-ratio:1.414/1;width:100%;position:relative;overflow:hidden;color:#2b2925;
+  container-type:inline-size;box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.urkunde .rand{position:absolute;inset:2.2cqw;border:.5cqw double #2F4F3E;border-radius:1cqw}
+.urkunde .rand2{position:absolute;inset:3.4cqw;border:.15cqw solid #C28A3A;border-radius:.6cqw}
+.urkunde .inhalt{position:absolute;inset:6cqw;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.1cqw}
+.urkunde .ueber{font-family:var(--sans);font-size:1.7cqw;letter-spacing:.3em;text-transform:uppercase;color:#a9762c;font-weight:700}
+.urkunde h2{font-family:var(--serif);font-size:6.2cqw;color:#2F4F3E;line-height:1}
+.urkunde .fuer{font-size:2.2cqw;font-style:italic;color:#5d6b78;margin-top:1cqw}
+.urkunde .name{font-size:5cqw;border-bottom:.2cqw solid #C28A3A;padding:0 4cqw .4cqw;min-width:50%;min-height:6.5cqw;color:#26312b}
+.urkunde .text{font-size:2.1cqw;max-width:78%;line-height:1.45}
+.urkunde .rangzeile{display:flex;align-items:center;gap:1.6cqw;margin-top:.6cqw}
+.urkunde .medaille{width:9cqw;height:9cqw;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe7a6,#d9a441 70%,#a9762c);display:grid;place-items:center;font-size:4.6cqw;border:.4cqw solid #fff;box-shadow:0 .3cqw .8cqw rgba(0,0,0,.2)}
+.urkunde .rangname{font-size:3.6cqw;color:#2F4F3E;text-align:left;line-height:1.1}
+.urkunde .rangname small{display:block;font-family:var(--sans);font-size:1.6cqw;color:#5d6b78;margin-top:.5cqw}
+.urkunde .icons{font-size:2.8cqw;letter-spacing:.6cqw}
+.urkunde .unten{position:absolute;left:6cqw;right:6cqw;bottom:5.5cqw;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--sans);font-size:1.6cqw;color:#5d6b78}
+.urkunde .unten b{display:block;font-family:var(--serif);font-size:2.2cqw;color:#26312b;font-weight:normal;border-top:.15cqw solid #5d6b78;padding-top:.5cqw;min-width:22cqw;text-align:center}
+@media print{
+  @page{size:A4 landscape;margin:0}
+  html,body{background:#fff}
+  body > *:not(.ov){display:none!important}
+  .ov{position:static;display:block!important;background:none;padding:0;overflow:visible}
+  .ov .innen{max-width:none;margin:0}
+  .ov .eingabe,.ov .knopfreihe{display:none!important}
+  .urkunde{box-shadow:none;border-radius:0;width:297mm;height:210mm;aspect-ratio:auto}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<!-- Besucherzählung (GoatCounter, ohne Cookies) -->
+<script>window.goatcounter={path:function(p){return location.host+p}};</script><script data-goatcounter="https://mibaso.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<header class="kopf">
+  <a class="zurueck" href="../index.html">‹ Bio Mibaso</a>
+  <div class="logo">🎲🐝🌳</div><h1>Spielecke</h1><div class="unter">Alle Lernspiele – und dein Naturforscher-Diplom</div>
+</header>
+<div class="huelle" id="app"></div>
+
+<div class="ov" id="ov" role="dialog" aria-modal="true" aria-label="Naturforscher-Diplom">
+  <div class="innen">
+    <div class="eingabe"><label for="nameIn"><b>Dein Name für das Diplom</b></label><input id="nameIn" type="text" maxlength="40" autocomplete="off" placeholder="Vorname Nachname"></div>
+    <div class="urkunde" id="urkunde"></div>
+    <div class="knopfreihe"><button type="button" class="knopf honig" id="druck">🖨️ Drucken oder als PDF sichern</button><button type="button" class="knopf" id="zu">Schließen</button></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ============ Alle Spiele ============
+   Jedes Spiel speichert seinen Stand auf diesem Gerät (localStorage) unter einem eigenen Schlüssel.
+   Hier wird nur gelesen: Sterne je Stufe (0–3) werden zusammengezählt. */
+const SPIELE = [
+  { gruppe: "Wiese", app: "fauna", em: "🐝", t: "Sammelflug", s: "Ein Tag als Wildbiene: Nektar und Pollen sammeln, bevor Regen und Traktor kommen.", pass: "Expedition Wiese · Tiere", href: "../fauna/interaktiv/sammelflug.html", key: "mibaso.fauna.sammelflug", stufen: ["sand", "schere", "hummel"] },
+  { gruppe: "Wiese", app: "flora", em: "🌼", t: "Pollenpost", s: "Als Hummel und Nachtfalter Pollen tragen – aber nur zur gleichen Art.", pass: "Expedition Wiese · Pflanzen", href: "../flora/interaktiv/pollenpost.html", key: "mibaso.flora.pollenpost", stufen: ["fruehling", "sommer", "nacht"] },
+  { gruppe: "Wiese", app: "fauna", em: "🦋", t: "Vom Ei zum Falter", s: "Das Leiterspiel zur Verwandlung des Schmetterlings.", pass: "Expedition Wiese · Tiere", href: "../fauna/interaktiv/falterspiel.html", key: "mibaso.fauna.falterspiel", stufen: ["spiel"] },
+  { gruppe: "Wiese", app: "fauna", em: "💧", t: "Vom Wasser in die Luft", s: "Das Leiterspiel zur Verwandlung der Libelle.", pass: "Expedition Wiese · Tiere", href: "../fauna/interaktiv/libellenspiel.html", key: "mibaso.fauna.libellenspiel", stufen: ["spiel"] },
+  { gruppe: "Wald", app: "flora", em: "🌰", t: "Hähersaat", s: "Als Eichelhäher Eicheln verstecken – was du vergisst, wird zum Baum.", pass: "Expedition Wald", href: "../flora/interaktiv/haehersaat.html", key: "mibaso.flora.haehersaat", stufen: ["eichen", "buchen", "rand"] },
+  { gruppe: "Wald", app: "flora", em: "🌸", t: "Wettlauf ums Licht", s: "Als Frühblüher Licht sammeln, bevor sich das Blätterdach schließt.", pass: "Expedition Wald", href: "../flora/interaktiv/lichtrennen.html", key: "mibaso.flora.lichtrennen", stufen: ["windroeschen", "scharbock", "baerlauch"] },
+  { gruppe: "Winter", app: "fauna", em: "🐦", t: "Kalte Kost", s: "Ein Wintertag als Kohlmeise: Fett anlegen und rechtzeitig in den Nistkasten.", pass: "Expedition Winter", href: "../fauna/interaktiv/kalte-kost.html", key: "mibaso.fauna.kaltekost", stufen: ["dezember", "januar", "februar"] },
+  { gruppe: "Winter", app: "fauna", em: "🐾", t: "Fährtenleser", s: "Wer war das im Schnee? Folge der Spur, bevor es dunkel wird.", pass: "Expedition Winter", href: "../fauna/interaktiv/faehrtenleser.html", key: "mibaso.fauna.faehrtenleser", stufen: ["eich", "fuchs", "hase"] },
+  { gruppe: "Rund ums Jahr", app: "fauna", em: "📅", t: "Durchs Jahr!", s: "Zwölf Monate als Kohlmeise, Rauchschwalbe oder Igel überstehen.", pass: "Lernspiel", href: "../fauna/interaktiv/durchs-jahr.html", key: "mibaso.fauna.durchsjahr", stufen: ["meise", "schwalbe", "igel"] },
+  { gruppe: "Vögel", app: "fauna", em: "🪺", t: "Nestwerk", s: "Als Amsel, Rauchschwalbe oder Buchfink ein Nest nach Bauplan bauen.", pass: "Vogelpass", href: "../fauna/interaktiv/nestwerk.html", key: "mibaso.fauna.nestbau", stufen: ["amsel", "schwalbe", "buchfink"] },
+  { gruppe: "Haustiere", app: "fauna", em: "🐕", t: "Vom Wolf zum Hütehund", s: "Das Zuchtspiel: In sechs Würfen zum perfekten Hütehund.", pass: "Wild & zahm", href: "../fauna/interaktiv/zuchtspiel.html", key: "mibaso.fauna.zuchtspiel", stufen: ["hueten"] }
+];
+const RAENGE = [
+  { ab: 0,  em: "🌱", n: "Naturneuling",          txt: "Jeder Forscher fängt klein an." },
+  { ab: 5,  em: "🥾", n: "Wiesenläufer",          txt: "Du hast die ersten Spiele gemeistert." },
+  { ab: 15, em: "🔍", n: "Spurenleser",           txt: "Du entdeckst, was andere übersehen." },
+  { ab: 30, em: "🌳", n: "Waldläufer",            txt: "Wiese, Wald und Winter sind dir vertraut." },
+  { ab: 50, em: "🦉", n: "Naturkenner",           txt: "Du weißt, wie die Natur zusammenhängt." },
+  { ab: 70, em: "🏅", n: "Meister-Naturforscher", txt: "Fast alle Sterne – eine echte Meisterleistung!" }
+];
+const $ = (s, el = document) => el.querySelector(s);
+function stand(sp) {
+  let d = {}; try { d = JSON.parse(localStorage.getItem(sp.key) || "{}") || {}; } catch (e) {}
+  const sterne = sp.stufen.map(k => Math.max(0, Math.min(3, (d[k] && d[k].sterne) || 0)));
+  const gespielt = sp.stufen.some(k => d[k] && d[k].n);
+  return { sterne: sterne.reduce((a, b) => a + b, 0), max: sp.stufen.length * 3, gespielt, voll: sterne.every(x => x === 3) };
+}
+function gesamt() {
+  const st = SPIELE.map(stand), summe = st.reduce((a, s) => a + s.sterne, 0), max = st.reduce((a, s) => a + s.max, 0);
+  let r = 0; RAENGE.forEach((R, k) => { if (summe >= R.ab) r = k; });
+  return { st, summe, max, r, gespielt: st.filter(s => s.gespielt).length, voll: st.filter(s => s.voll).length };
+}
+const sterneHTML = (n, max) => Array.from({ length: max }, (x, k) => `<span class="${k < n ? "" : "leer"}">⭐</span>`).join("");
+function zeichne() {
+  const G = gesamt(), R = RAENGE[G.r], N = RAENGE[G.r + 1];
+  const gruppen = [...new Set(SPIELE.map(s => s.gruppe))];
+  $("#app").innerHTML = `
+  <section>
+    <p class="lead">Hier findest du alle Lernspiele von Bio Mibaso. Für jede Stufe gibt es bis zu drei Sterne – und alle Sterne zusammen bringen dich zum <b>Naturforscher-Diplom</b>.</p>
+    <div class="diplom">
+      <div class="orden" aria-hidden="true">${R.em}</div>
+      <div><span class="eyebrow">Dein Rang</span><div class="rang">${R.n}</div>
+        <div class="zahl">⭐ <b>${G.summe}</b> von ${G.max} Sternen · ${G.gespielt} von ${SPIELE.length} Spielen ausprobiert</div>
+        <div class="balken"><i style="width:${(G.summe / G.max * 100).toFixed(1)}%"></i></div>
+        <div class="naechst">${N ? `Noch <b>${N.ab - G.summe}</b> ${N.ab - G.summe === 1 ? "Stern" : "Sterne"} bis „${N.n}“ ${N.em}` : "Höchster Rang erreicht – Glückwunsch!"}</div></div>
+      <div class="knopfreihe"><button type="button" class="knopf honig" id="dipBtn">📜 Mein Diplom ansehen</button></div>
+    </div>
+    <div class="raenge" aria-label="Alle Ränge">${RAENGE.map((x, k) => `<span class="${k <= G.r ? "auf" : ""}">${x.em} ${x.n} · ab ${x.ab}</span>`).join("")}</div>
+  </section>
+  ${gruppen.map(g => `<section><h2 class="gruppe">${g}</h2><div class="spiele">${SPIELE.map((s, i) => s.gruppe !== g ? "" : `
+    <a class="spiel ${s.app}" href="${s.href}"><span class="em" aria-hidden="true">${s.em}</span>
+      <span><span class="t">${s.t}</span><span class="s">${s.s}</span>
+      <span class="st"><span class="sterne" aria-label="${G.st[i].sterne} von ${G.st[i].max} Sternen">${sterneHTML(G.st[i].sterne, G.st[i].max)}</span><span class="pass">${s.pass}</span></span></span></a>`).join("")}</div></section>`).join("")}
+  <section>
+    <details class="lehrer"><summary>Für Lehrkräfte</summary><div class="grid">
+      <p>Die Spielecke sammelt die Sterne aus allen ${SPIELE.length} Lernspielen. Sie sind Bonus-Spiele zu den Forscherpässen und eignen sich zum Festigen, als Belohnung oder für Kinder, die schneller fertig sind.</p>
+      <ul class="clean">
+        <li><b>Ränge:</b> ${RAENGE.map(x => x.n + " (ab " + x.ab + ")").join(" · ")}. Insgesamt sind ${G.max} Sterne möglich.</li>
+        <li><b>Diplom:</b> Die Kinder tragen ihren Namen ein und drucken das Diplom oder sichern es als PDF (Querformat A4).</li>
+        <li><b>Datenschutz:</b> Alle Spielstände bleiben auf dem jeweiligen Gerät. Es gibt keine Anmeldung und keinen Server, der Ergebnisse sammelt. Auf geteilten Tablets setzt man den Stand im jeweiligen Spiel zurück („Spielstand löschen“).</li>
+      </ul>
+    </div></details>
+  </section>
+  <footer class="fuss">
+    <div>Deine Sterne werden nur auf diesem Gerät gespeichert. Keine Anmeldung, keine Datensammlung.</div>
+    <div><a href="../index.html">⌂ Bio Mibaso</a> · <a href="../ueber/">Über mich</a> · <a href="../impressum/">Impressum &amp; Datenschutz</a></div>
+    <div>© 2026 Michael Baur · Spielecke</div>
+  </footer>`;
+  $("#dipBtn").onclick = oeffne;
+}
+/* ============ Diplom ============ */
+const NAME_KEY = "mibaso.bio.diplomname";
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+function urkunde() {
+  const G = gesamt(), R = RAENGE[G.r], name = $("#nameIn").value.trim();
+  const datum = new Date().toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
+  const icons = SPIELE.filter((s, i) => G.st[i].sterne > 0).map(s => s.em).join(" ");
+  $("#urkunde").innerHTML = `<div class="rand"></div><div class="rand2"></div><div class="inhalt">
+    <div class="ueber">Bio Mibaso · Lernspiele</div>
+    <h2>Naturforscher-Diplom</h2>
+    <div class="fuer">verliehen an</div>
+    <div class="name">${esc(name) || "&nbsp;"}</div>
+    <div class="text">für <b>${G.summe} von ${G.max} Sternen</b> in ${G.gespielt} ${G.gespielt === 1 ? "Lernspiel" : "Lernspielen"}${G.voll ? ` – davon ${G.voll} mit voller Punktzahl` : ""}.</div>
+    <div class="rangzeile"><div class="medaille" aria-hidden="true">${R.em}</div><div class="rangname">${R.n}<small>${R.txt}</small></div></div>
+    <div class="icons" aria-hidden="true">${icons}</div>
+  </div>
+  <div class="unten"><div><b>${datum}</b>Datum</div><div style="text-align:right"><b>Michael Baur</b>Bio Mibaso · bio.mibaso.de</div></div>`;
+}
+function oeffne() {
+  try { $("#nameIn").value = localStorage.getItem(NAME_KEY) || ""; } catch (e) {}
+  urkunde(); $("#ov").classList.add("an"); document.body.style.overflow = "hidden";
+}
+function schliesse() { $("#ov").classList.remove("an"); document.body.style.overflow = ""; }
+$("#nameIn").addEventListener("input", () => { try { localStorage.setItem(NAME_KEY, $("#nameIn").value.trim()); } catch (e) {} urkunde(); });
+$("#zu").onclick = schliesse;
+$("#ov").addEventListener("click", e => { if (e.target.id === "ov") schliesse(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") schliesse(); });
+$("#druck").onclick = () => window.print();
+// Beim Zurückkommen aus einem Spiel neu zeichnen (Sterne könnten sich geändert haben)
+window.addEventListener("pageshow", zeichne);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) zeichne(); });
+zeichne();
+</script>
+</body>
+</html>

@@ -664,6 +664,7 @@ CSS = """
   .kachel .kb{font-family:var(--sans);font-size:12.5px;opacity:.92;}
   .k-flora{background:linear-gradient(150deg,#3A5F4A,#2F4F3E);}
   .k-fauna{background:linear-gradient(150deg,#33587c,#233D5C);}
+  .k-spiel{background:linear-gradient(150deg,#c9953f,#a9762c);grid-column:1/-1;}
   @media (max-width:520px){.kacheln{grid-template-columns:1fr;}}
   .subkopf{font-family:var(--sans);margin:2px 0 4px;}
   .zurueck{font-size:13px;font-weight:600;color:var(--akzent);text-decoration:none;}
@@ -779,6 +780,7 @@ def write_hub(listing):
         '<span class="kt">Flora verstehen</span><span class="kb">Forscherpässe Wiese &amp; Wald · Pflanzen bestimmen</span></a>'
         '<a class="kachel k-fauna" href="fauna/"><span class="ke">🦋</span>'
         '<span class="kt">Fauna verstehen</span><span class="kb">Forscherpass Wiese · Bestimmen &amp; Verwandtschaft</span></a>'
+        '<a class="kachel k-spiel" href="spiele/"><span class="ke">🎲</span><span class="kt">Spielecke</span><span class="kb">Elf Lernspiele · Sterne sammeln · Naturforscher-Diplom</span></a>'
         '</div>' + _footer("") +
         '<script>if(window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone)'
         '{var b=document.getElementById("installBtn");if(b)b.style.display="none";}</script>')
