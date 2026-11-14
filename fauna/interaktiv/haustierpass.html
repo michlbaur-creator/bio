@@ -1154,7 +1154,7 @@ function seitePass(eid, neu) {
         const karte = (frei, em, titel, text, zu, stand, ziel) => { const inner = `<span class="nr">${em}</span><span><span class="st">${titel}</span><span class="sk">${frei ? text : zu}</span></span><span class="stand">${frei ? stand : "🔒"}</span>`;
           return frei ? `<a class="station bonus" href="#${eid}-${ziel}">${inner}</a>` : `<div class="station gesperrt" aria-disabled="true">${inner}</div>`; };
         return karte(fertig("s2"), "⚡", "Wer macht den Job?", "Hüten, jagen, ziehen oder begleiten? Ordne die Rassen blitzschnell zu", "Öffnet sich nach Station 2", sp && sp.n ? `🏆 ${sp.best}` : "Spielen ›", "spiel")
-          + karte(fertig("s3"), "🔍", "Rätselhund des Tages", heuteFertig ? "Heute schon gelöst – morgen kommt ein neuer. Bis dahin: Übungsrätsel" : "Fünf Hinweise, ein Hund: Je früher du ihn errätst, desto mehr Sterne", "Öffnet sich nach Station 3", heuteFertig ? `⭐ ${rv.heute.sterne} heute` : "Neu ›", "raetsel")
+          + karte(fertig("s3"), "🔍", "Rätselhund des Tages", heuteFertig ? "Heute schon gelöst – morgen kommt ein neuer. Bis dahin: Übungsrätsel" : "Fünf Hinweise, ein Hund: Je früher du ihn errätst, desto mehr Sterne", "Öffnet sich nach Station 3", heuteFertig ? `⭐ ${rv.heute.sterne} heute` : "Rätseln ›", "raetsel")
           + karte(fertig("s3"), "🤝", "Schnauzen-Duell", "Zu zweit an einem Gerät: Wer erkennt die Rasse schneller?", "Öffnet sich nach Station 3", h.d.duell && h.d.duell.n ? `${h.d.duell.n}× gespielt` : "Spielen ›", "duell"); })()}</div>
     </section>
     ${albumHTML(eid, h)}`}
