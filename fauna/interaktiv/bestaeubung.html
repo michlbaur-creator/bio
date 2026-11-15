@@ -183,12 +183,13 @@
   .pi-los:hover{background:var(--honig-tief,#a9762c);transform:translateY(-1px);}
   @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
 </style>
+<script src="wiese-rahmen.js?v=1" data-station="bestaeubung"></script>
 </head>
 <body>
 <div class="pfad-intro" id="pfadIntro">
   <div class="pi-inner">
     <img class="pi-foto" src="../images/blueten/hummel-beinwell.jpg" alt="" onerror="this.style.display='none'">
-    <div class="pi-eyebrow">🍃 Expedition Wiese · Lernpfad</div>
+    <div class="pi-eyebrow">🍃 Wiesenpass · Station 3 von 7 · ca. 12 Min</div>
     <h1 class="pi-titel">Wer bestäubt wen?</h1>
     <p class="pi-lead">Blüte und Bestäuber passen zusammen wie Schlüssel und Schloss. Finde heraus, welches Insekt zu welcher Blüte gehört – und warum das kein Zufall ist.</p>
     <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
@@ -210,7 +211,7 @@
     <button class="knopf prim" id="weiterBtn">Nächster Schritt ›</button>
   </div>
 
-  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a></footer>
+  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Wiesenpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a></footer>
 </div>
 
 <script>
@@ -280,7 +281,7 @@ function svgAronstab(){
 const SCHRITTE = [
   /* 0 */ {
     chip:"Prinzip", titel:"Schlüssel & Schloss",
-    text:"Eine Blüte und ihr Bestäuber passen zusammen wie Schlüssel und Schloss. Form, Farbe, Duft und die Tiefe des Nektars verraten, wer eine Blüte bestäubt. Forscher nennen diese eingespielten Paare <b>Bestäubungssyndrome</b> – kein Zufall, sondern das Ergebnis von Jahrmillionen gemeinsamer Entwicklung.",
+    text:"Eine Blüte und ihr Bestäuber passen zusammen wie Schlüssel und Schloss. Form, Farbe, Duft und die Tiefe des Nektars verraten, wer eine Blüte bestäubt. Das ist kein Zufall: Blüten und ihre Bestäuber haben sich über Jahrmillionen gemeinsam entwickelt.",
     hint:"Tippe die Punkte in der Blüte an.",
     typ:"konzept", bild:"prinzip-blume.jpg",
     hotspots:[
@@ -385,7 +386,12 @@ const SCHRITTE = [
       {x:52,y:74,n:4,titel:"Der Kesselraum",text:"Hier krabbeln die gefangenen Mücken umher und bestäuben die Blüten. Am nächsten Tag welken die Haare – der Weg nach draußen ist frei."}
     ]
   },
-  /* 8 */ {
+  /* 8 */ { chip:"Merke", titel:"Das Wichtigste auf einen Blick", typ:"merke", weiter:"Alles klar? Dann weiter zum Quiz.",
+    punkte:["Blüte und Bestäuber passen zusammen wie <b>Schlüssel und Schloss</b>: Form, Farbe, Duft und die Tiefe des Nektars entscheiden, wer zu Besuch kommt.",
+      "<b>Bienen und Hummeln</b> erreichen Nektar, der tief versteckt ist. <b>Tagfalter</b> saugen aus engen Röhren, <b>Nachtfalter</b> fliegen helle Blüten an, die abends duften. <b>Fliegen und Käfer</b> brauchen offene, flache Blüten.",
+      "Beide haben etwas davon: Das Insekt bekommt <b>Nektar oder Pollen</b>, die Pflanze wird <b>bestäubt</b> und kann Samen bilden."] },
+
+  {
     chip:"Quiz", kat:"quiz", titel:"Wer passt zusammen?",
     text:"Geschafft! Zum Abschluss der Test: Errätst du, wer welche Blüte bestäubt?",
     typ:"quiz"
@@ -444,6 +450,7 @@ function render(){
   elNav.style.display="flex";
   if(s.typ==="paar") renderPaar(s);
   else if(s.typ==="quiz") renderQuiz(s);
+  else if(s.typ==="merke"){ elB.innerHTML=""; elE.innerHTML=wieseMerke(s); }
   else renderKonzept(s);
   document.getElementById("zurueckBtn").disabled=(i===0);
   const wb=document.getElementById("weiterBtn");
@@ -595,7 +602,8 @@ function renderQuiz(s){
       '<p class="spruch">'+spruch+'</p>'+
       '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">'+
         '<button class="knopf prim" id="nochmal" style="margin:0;">Nochmal</button>'+
-        '<a class="knopf" href="wiesenpass.html">🍃 Forscherpass</a>'+
+        '<a class="knopf" href="wiesenpass.html">🍃 Wiesenpass</a>'+
+        '<a class="knopf" href="sammelflug.html">🐝 Bonus-Spiel: Sammelflug</a>'+
       '</div></div>';
     document.getElementById("nochmal").addEventListener("click",()=>renderQuiz(s));
     if(score===fragen.length){ konfetti(); fanfare(); }

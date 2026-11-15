@@ -203,12 +203,13 @@
   .pi-los:hover{background:var(--honig-tief);transform:translateY(-1px);}
   @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
 </style>
+<script src="wiese-rahmen.js?v=1" data-station="boden"></script>
 </head>
 <body>
 <div class="pfad-intro" id="pfadIntro">
   <div class="pi-inner">
     <img class="pi-foto" src="../images/wiese/wiese-fruehling.png" alt="" onerror="this.onerror=null;this.src='../images/wiese/wiese-sommer.png';">
-    <div class="pi-eyebrow">🍃 Expedition Wiese · Lernpfad</div>
+    <div class="pi-eyebrow">🍃 Wiesenpass · Station 7 von 7 · ca. 10 Min</div>
     <h1 class="pi-titel">Was wir nicht sehen</h1>
     <p class="pi-lead">Die Wiese hört an der Erdoberfläche nicht auf. Direkt unter deinen Schuhen wimmelt es: Regenwürmer, Asseln, Pilzfäden und ein ganzes Bodenhotel. Komm mit nach unten!</p>
     <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
@@ -229,7 +230,7 @@
     <button class="knopf prim" id="weiterBtn">Nächster Schritt ›</button>
   </div>
 
-  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a></footer>
+  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Wiesenpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a></footer>
 </div>
 
 <script>
@@ -332,6 +333,11 @@ const SCHRITTE = [
   },
 
   /* 6 – Abschluss-Quiz ---------------------------------------------------- */
+  { chip:"Merke", titel:"Das Wichtigste auf einen Blick", typ:"merke", weiter:"Alles klar? Dann weiter zum Quiz.",
+    punkte:["Im Boden leben unzählige Tiere, Pilze und Bakterien – viel mehr, als man von oben sieht.",
+      "<b>Zersetzer</b> wie Regenwürmer, Asseln, Pilze und Bakterien machen aus toten Pflanzenresten <b>Humus</b>, also fruchtbare Erde.",
+      "So entsteht ein <b>Kreislauf</b>: Aus dem Humus holen sich die Pflanzen wieder ihre Nährstoffe. Viele Insekten überwintern im Boden."] },
+
   { chip:"Quiz", kat:"quiz", titel:"Abschluss-Quiz",
     text:"Zum Schluss der Test: Zeig, was du über die Welt unter der Wiese weißt.",
     typ:"quiz",
@@ -393,6 +399,7 @@ function render(){
   else if(s.typ==="zuordnen") renderZuordnen(s);
   else if(s.typ==="luecke") renderLuecke(s);
   else if(s.typ==="quiz") renderQuiz(s);
+  else if(s.typ==="merke"){ elB.innerHTML=""; elE.innerHTML=wieseMerke(s); }
   else renderTafel(s);
   $("zurueckBtn").disabled=(i===0);
   $("weiterBtn").textContent=(i===SCHRITTE.length-1)?"↺ Von vorn":"Nächster Schritt ›";
@@ -678,7 +685,7 @@ function renderQuiz(s){
       '<p class="qspruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
       '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">'+
         '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
-        '<a class="knopf" href="wiesenpass.html">🍃 Forscherpass</a></div></div>';
+        '<a class="knopf" href="wiesenpass.html">🍃 Wiesenpass</a></div></div>';
     $("qnochmal").addEventListener("click",()=>renderQuiz(s));
     if(perfekt){ konfetti(); fanfare(); }
     melde();

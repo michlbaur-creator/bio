@@ -100,12 +100,13 @@
   .pi-los:hover{background:var(--honig-tief,#a9762c);transform:translateY(-1px);}
   @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
 </style>
+<script src="wiese-rahmen.js?v=1" data-station="lebensraum"></script>
 </head>
 <body>
 <div class="pfad-intro" id="pfadIntro">
   <div class="pi-inner">
     <img class="pi-foto" src="../images/wiese/wiese-sommer.png" alt="" onerror="this.style.display='none'">
-    <div class="pi-eyebrow">🍃 Expedition Wiese · Lernpfad</div>
+    <div class="pi-eyebrow">🍃 Wiesenpass · Station 4 von 7 · ca. 8 Min</div>
     <h1 class="pi-titel">Wo wohnen Insekten?</h1>
     <p class="pi-lead">Nektar allein reicht nicht. Welcher Lebensraum passt zu welcher Tiergruppe? Vier Bilder pro Frage – und nur eines stimmt.</p>
     <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
@@ -128,7 +129,7 @@
 
   <div id="ende" style="display:none;"></div>
 
-  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a></footer>
+  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Wiesenpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a></footer>
 </div>
 
 <script>
@@ -144,31 +145,31 @@ const DATEN = [
   { chip:"Libellen",
     frage:"Welches Gewässer ist für Libellenlarven am günstigsten?",
     bild:"07-libellen.jpg", richtig:"A",
-    aufloesung:"Libellen brauchen strukturreiches, besonntes Wasser mit Pflanzen und flachen Zonen. Vorsicht beim Fischteich: Fische fressen die Larven leer – ein hübscher Teich kann trotzdem libellenleer sein." },
+    aufloesung:"Libellen brauchen sonniges Wasser mit vielen Pflanzen und flachen Stellen. Vorsicht beim Fischteich: Fische fressen die Larven leer – in einem hübschen Teich können trotzdem alle Libellen fehlen." },
   { chip:"Schmetterlinge",
     frage:"Was braucht ein Schmetterlingsgarten am dringendsten zusätzlich zu Nektar?",
     bild:"02-schmetterlinge.jpg", richtig:"C",
-    aufloesung:"Nektar füttert nur die Falter. Ohne Raupen-Futterpflanzen wie Brennnesseln gibt es keine nächste Generation – und gefüllte Zierblüten liefern oft gar keinen Pollen." },
+    aufloesung:"Nektar füttert nur die Falter. Ohne Futterpflanzen für die Raupen, zum Beispiel Brennnesseln, gibt es keine jungen Falter – und gefüllte Zierblüten liefern oft gar keinen Pollen." },
   { chip:"Heuschrecken",
     frage:"Welche Fläche ist für Heuschrecken am wertvollsten?",
     bild:"04-heuschrecken.jpg", richtig:"B",
-    aufloesung:"Entscheidend sind Wärme und Struktur: ein magerer, sonniger Hang mit Horsten, offenen Bodenstellen für die Eiablage und stehen gelassenem Altgras. Kurzrasen und dichtes Gestrüpp bieten das nicht." },
+    aufloesung:"Heuschrecken mögen es warm und abwechslungsreich: ein sonniger Hang mit Grasbüscheln, offenen Bodenstellen für die Eier und altem Gras, das stehen bleibt. Kurzer Rasen und dichtes Gestrüpp bieten das nicht." },
   { chip:"Käfer",
     frage:"Was ist für viele Käfer im Wald entscheidend?",
     bild:"03-kaefer-totholz.jpg", richtig:"A",
-    aufloesung:"Etwa ein Viertel unserer Käfer entwickelt sich im morschen Holz. Stehendes und liegendes, teils besonntes Totholz ist Gold wert – aufgeräumte Wälder, Mulch und Monokulturen bieten kaum welches." },
+    aufloesung:"Etwa ein Viertel unserer Käfer entwickelt sich im morschen Holz. Totes Holz, das steht oder liegt und Sonne abbekommt, ist Gold wert. In aufgeräumten Wäldern und in Wäldern mit nur einer Baumart gibt es kaum welches." },
   { chip:"Marienkäfer",
     frage:"Wie hilfst du Marienkäfern & Florfliegen am meisten?",
     bild:"05-marienkaefer.jpg", richtig:"C",
-    aufloesung:"Sie überwintern in Laub, hohlen Stängeln und Reisig – ihre Larven brauchen Blattläuse als Futter. Etwas „Unordnung“ stehen lassen und keine Insektizide: So bleibt die gratis Schädlingspolizei." },
+    aufloesung:"Sie überwintern in Laub, hohlen Stängeln und Reisig – ihre Larven brauchen Blattläuse als Futter. Etwas „Unordnung“ stehen lassen und kein Insektengift: So bleibt die Schädlingspolizei, die nichts kostet." },
   { chip:"Hummel-Nest",
     frage:"Wo legt eine Hummelkönigin am liebsten ihr Nest an?",
     bild:"01-hummel-nest.jpg", richtig:"A",
-    aufloesung:"Hummeln sind Hohlraumnister: Die Königin bezieht im Frühjahr am liebsten verlassene Mäusenester oder Erdhöhlen. Bohrloch-„Hotels“ sind für Solitärbienen, frei hängende Waben bauen nur Honigbienen und Wespen." },
+    aufloesung:"Hummeln nisten in Hohlräumen: Die Königin bezieht im Frühjahr am liebsten verlassene Mäusenester oder Erdhöhlen. Bohrloch-„Hotels“ sind für Wildbienen, die allein leben. Frei hängende Waben bauen nur Honigbienen und Wespen." },
   { chip:"Schwebfliegen",
     frage:"Was macht einen Garten für Schwebfliegen wertvoll?",
     bild:"09-schwebfliegen.jpg", richtig:"C",
-    aufloesung:"Die erwachsenen Schwebfliegen brauchen offen zugängliche Blüten (Dolden, Körbchen) – ihr kurzer Rüssel kommt nicht in tiefe Röhren. Und ihre Larven sind Blattlausjäger: ein paar geduldete Läuse statt Gift = Schädlingspolizei." },
+    aufloesung:"Die erwachsenen Schwebfliegen brauchen offene, flache Blüten – ihr kurzer Rüssel kommt nicht in tiefe Röhren. Und ihre Larven sind Blattlausjäger: Wer ein paar Läuse duldet und kein Gift spritzt, bekommt die Schädlingspolizei dazu." },
   { chip:"Glühwürmchen",
     frage:"Was braucht ein Garten, damit Glühwürmchen sich ansiedeln?",
     bild:"08-gluehwuermchen.jpg", richtig:"B",
@@ -246,8 +247,11 @@ function ende(){
     '<p class="gross">'+score+'<small> / '+DATEN.length+'</small></p>'+
     '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
     '<p class="spruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
+    wieseMerke({punkte:["Insekten brauchen <b>mehr als Nektar</b>: Futter für die Larven, einen Platz für die Eier und ein Versteck für den Winter.",
+      "Jede Gruppe hat ihren <b>Lebensraum</b>: Brennnesseln für Raupen, Totholz für Käfer, offener Boden und hohle Stängel für Wildbienen, Wasser mit Pflanzen für Libellen.",
+      "Etwas <b>Unordnung</b> im Garten und kein Gift helfen den meisten Insekten."]})+
     '<div class="knoepfe"><button class="knopf prim" id="nochmal">Nochmal</button>'+
-    '<a class="knopf sek" href="wiesenpass.html">🍃 Forscherpass</a></div></div>';
+    '<a class="knopf sek" href="wiesenpass.html">🍃 Wiesenpass</a></div></div>';
   $("nochmal").addEventListener("click",()=>{ i=0; score=0; $("ende").style.display="none"; $("spiel").style.display="block"; render(); });
   if(perfekt){ konfetti(); fanfare(); }
 }

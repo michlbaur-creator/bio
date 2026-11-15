@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Futterhaus-Pass – Vögel am Futterhaus · Bio Mibaso</title>
-<meta name="description" content="Vögel am Futterhaus: der richtige Platz, gutes und schlechtes Futter, 21 Futterhausgäste mit Lehrtafeln, ein Film, eine Zählkarte und ein Bilderquiz mit 10 Fragen. Eine Expedition für Klasse 5/6 – mit Futterhaus-Pass, Abzeichen und Urkunde.">
+<title>Futterhauspass – Vögel am Futterhaus · Bio Mibaso</title>
+<meta name="description" content="Vögel am Futterhaus: der richtige Platz, gutes und schlechtes Futter, 21 Futterhausgäste mit Lehrtafeln, ein Film, eine Zählkarte und ein Bilderquiz mit 10 Fragen. Eine Expedition für Klasse 5/6 – mit Futterhauspass, Abzeichen und Urkunde.">
 <meta name="theme-color" content="#233D5C">
 <link rel="icon" href="../assets/icon.svg">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <style>
-/* Futterhaus-Pass – Technik wie der Vogelpass, Farben wie Fauna Mibaso */
+/* Futterhauspass – Technik wie der Vogelpass, Farben wie Fauna Mibaso */
 :root{
   --blau:#233D5C; --blau-tief:#1a2f47; --blau-mittel:#33587c; --blau-hell:#bcd0e2;
   --creme:#F7F3E8; --creme-tief:#EEE7D5; --tile:#FFFFFF;
@@ -287,7 +287,7 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
 .sk-ende > div{display:grid;gap:8px;justify-items:start}
 @media (max-width:480px){.sk-ende{grid-template-columns:1fr}.sk-ende img{max-width:260px}}
 
-/* Futterhaus-Pass */
+/* Futterhauspass */
 .tabs.links{justify-content:flex-start}
 .garten{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--linie)}
 .garten svg{display:block;width:100%;height:auto}
@@ -1324,7 +1324,7 @@ const kopf = (titel, unter) => `<header class="app-head">
 const fuss = () => `<footer class="fuss">
   <div>Fortschritt wird nur auf diesem Gerät gespeichert. Keine Anmeldung, keine Datensammlung.</div>
   <div><a href="../../index.html">⌂ Bio Mibaso</a> · <a href="../../ueber/">Über mich</a> · <a href="../../impressum/">Impressum &amp; Datenschutz</a></div>
-  <div>© 2026 Michael Baur · Futterhaus-Pass</div></footer>`;
+  <div>© 2026 Michael Baur · Futterhauspass</div></footer>`;
 
 function seiteStart() {
   const kachel = eid => { const X = EXPS[eid], h = kennzahlen(eid);
@@ -1355,7 +1355,7 @@ function seiteStart() {
 <li><b>Bonus-Spiele:</b> „Ansturm am Futterhaus“ ist ein Reaktionsspiel zum Festigen (Wer bekommt welches Futter? Was gehört nicht ans Futterhaus?) und öffnet sich nach Station 2. Beim „Rätselvogel des Tages“ (nach Station 3) wird ein Vogel mit höchstens fünf Hinweisen erraten – jeden Tag ein anderer, auf allen Geräten derselbe. Im „Schnabel-Duell“ (nach Station 3) treten zwei Teams an einem Gerät gegeneinander an: Wer den Vogel zuerst erkennt, holt den Punkt – das Gerät liegt flach zwischen den Kindern oder beide schauen gemeinsam darauf. Nichts davon zählt für Kerne und Urkunde; die Bonus-Spiele eignen sich für alle, die früher fertig sind, und für Partnerarbeit.</li>
           <li><b>Gäste-Album:</b> Mit jedem Kern landet einer der 21 Gäste im Album; die seltenen kommen nur für besondere Leistungen in den Stationen und Bonus-Spielen.</li>
           <li><b>Urkunde:</b> Am Ende tragen die Kinder ihren Namen ein und drucken die Urkunde oder speichern sie als PDF.</li>
-          <li><b>Geteilte Geräte:</b> Im Futterhaus-Pass ganz unten „Pass zurücksetzen“.</li>
+          <li><b>Geteilte Geräte:</b> Im Futterhauspass ganz unten „Pass zurücksetzen“.</li>
         </ul></div></details>
     </section>
     ${fuss()}
@@ -1369,7 +1369,7 @@ function seitePass(eid, neu) {
   <div class="subkopf"><div class="row"><a class="zurueck" href="#start">‹ Futterhaus</a><span class="tchip">🌻 ${h.summe} / ${MAX}</span></div></div>
   <div class="huelle">
     <section>
-      <span class="eyebrow">Dein Futterhaus-Pass</span>
+      <span class="eyebrow">Dein Futterhauspass</span>
       <h2 class="h-blau">${X.titel}</h2>
       <p class="lead">${X.lead}</p>
       <div class="buehne">
@@ -1430,7 +1430,7 @@ function seitePass(eid, neu) {
   $("#resetBtn").onclick = () => {
     $("#resetBox").innerHTML = `<p><b>Wirklich alles löschen?</b> Kerne, Abzeichen und Name auf diesem Gerät sind dann weg.</p>
       <div class="knopfreihe"><button type="button" class="knopf prim" id="jaReset">Ja, zurücksetzen</button><button type="button" class="knopf" id="neinReset">Abbrechen</button></div>`;
-    $("#jaReset").onclick = () => { S[eid] = {}; S.name = ""; speichern(); toast("Futterhaus-Pass zurückgesetzt."); route(true); };
+    $("#jaReset").onclick = () => { S[eid] = {}; S.name = ""; speichern(); toast("Futterhauspass zurückgesetzt."); route(true); };
     $("#neinReset").onclick = () => route(true);
   };
 }
@@ -1442,7 +1442,7 @@ function seiteStation(eid, sid) {
   if (S.modus === "level" && !vor && !(h.d[sid] && h.d[sid].done)) { location.hash = eid; return; }
   const finale = sid === "s5";
   app.innerHTML = `
-  <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Futterhaus-Pass</a><span class="tchip" id="tchip">🌻 ${h.summe} / ${MAX}</span></div></div>
+  <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Futterhauspass</a><span class="tchip" id="tchip">🌻 ${h.summe} / ${MAX}</span></div></div>
   <div class="huelle">
     <section>
       <span class="eyebrow">Station ${k + 1} von ${X.stationen.length} · ca. ${s.min} Min</span>
@@ -1470,7 +1470,7 @@ function seiteStation(eid, sid) {
       <div class="knopfreihe">
         <button type="button" class="knopf" id="nochmal">Nochmal</button>
         ${naechste ? `<a class="knopf prim" href="#${eid}-${naechste.id}">Weiter: ${naechste.titel} ›</a>` : ""}
-        <a class="knopf ${naechste ? "" : "prim"}" href="#${eid}">🌻 Zum Futterhaus-Pass</a>
+        <a class="knopf ${naechste ? "" : "prim"}" href="#${eid}">🌻 Zum Futterhauspass</a>
       </div></div>`;
     $("#nochmal").onclick = starte;
     if (r.geschafft) feier(eid);
@@ -1505,7 +1505,7 @@ function urkunde(eid) {
   const titel = `„${X.titel}“`;
   const o = document.createElement("div"); o.className = "overlay"; o.id = "urkunde"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
   o.innerHTML = `<div class="urkunde"><div class="rahmen">
-    <div class="urk-eyebrow">Bio Mibaso · Futterhaus-Pass</div>
+    <div class="urk-eyebrow">Bio Mibaso · Futterhauspass</div>
     <div class="urk-med">${rang.med}</div>
     <div class="urk-titel">Urkunde</div>
     <div class="urk-sub">${rang.name}</div>
@@ -1526,7 +1526,7 @@ function urkunde(eid) {
   </div></div>`;
   document.body.appendChild(o);
   const inp = $("#urkName", o);
-  const aktualisiere = urkundeTeilen(o, "🌻", "Urkunde-Futterhaus-Pass");
+  const aktualisiere = urkundeTeilen(o, "🌻", "Urkunde-Futterhauspass");
   inp.oninput = () => { S.name = inp.value.slice(0, 60); speichern(); $("#urkNameDruck", o).textContent = S.name || " "; aktualisiere(); };
   const d = $("#urkDruck", o); if (d) d.onclick = () => window.print();
   $("#urkZu", o).onclick = () => o.remove();
@@ -1654,7 +1654,7 @@ function seiteSpiel(eid) {
   if (!(S.modus === "frei" || (h.d.s2 && h.d.s2.done))) { location.hash = eid; return; }
   const stand = () => (S[eid] && S[eid].spiel) || { best: 0, serie: 0, n: 0 };
   app.innerHTML = `
-  <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Futterhaus-Pass</a><span class="tchip" id="anBest">🏆 Bestwert ${stand().best}</span></div></div>
+  <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Futterhauspass</a><span class="tchip" id="anBest">🏆 Bestwert ${stand().best}</span></div></div>
   <div class="huelle"><section id="anBox"></section>${fuss()}</div>`;
   const box = $("#anBox");
   let raf = 0, warte = 0, aktiv = false;
@@ -1784,7 +1784,7 @@ function seiteSpiel(eid) {
           <div class="an-werte"><div><b>${richtig}</b>Gäste richtig bedient</div><div><b>${maxSerie}</b>längste Serie</div><div><b>${S[eid].spiel.best}</b>Bestwert</div></div>
           ${neueAbz.length ? `<p class="klein">Neues Abzeichen: ${neueAbz.map(z => `${z.em} <b>${z.name}</b>`).join(" · ")}</p>` : ""}
           ${albumMeldung(albumNeu(eid, albVorher))}
-          <div class="knopfreihe"><button type="button" class="knopf prim" id="anNoch">🔁 Nochmal spielen</button><a class="knopf" href="#${eid}">Zum Futterhaus-Pass</a></div>
+          <div class="knopfreihe"><button type="button" class="knopf prim" id="anNoch">🔁 Nochmal spielen</button><a class="knopf" href="#${eid}">Zum Futterhauspass</a></div>
         </div>
         ${fehler.length ? `<h3 class="h-honig" style="font-size:20px">Merk dir fürs nächste Mal</h3>
           <div class="an-merk">${fehler.slice(0, 4).map(f => `<div><b>${esc(f[0])}</b> → ${f[1]}<br>${esc(f[2])}</div>`).join("")}</div>` : ""}`;
@@ -1902,7 +1902,7 @@ function seiteRaetsel(eid) {
   const X = EXPS[eid], h0 = kennzahlen(eid);
   if (!(S.modus === "frei" || (h0.d.s3 && h0.d.s3.done))) { location.hash = eid; return; }
   app.innerHTML = `
-  <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Futterhaus-Pass</a><span class="tchip" id="rvChip"></span></div></div>
+  <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Futterhauspass</a><span class="tchip" id="rvChip"></span></div></div>
   <div class="huelle"><section id="rvBox"></section>${fuss()}</div>`;
   const box = $("#rvBox");
   const chip = () => { const r = rvStand(eid); $("#rvChip").textContent = `⭐ ${r.sterne} · ${r.n} gelöst`; };
@@ -1961,7 +1961,7 @@ function seiteRaetsel(eid) {
         <p class="klein">${g[3]}</p>
         ${neueAbz && neueAbz.length ? `<p class="klein">Neues Abzeichen: ${neueAbz.map(z => `${z.em} <b>${z.name}</b>`).join(" · ")}</p>` : ""}
         ${albumMeldung(neuAlbum || [])}
-        <div class="knopfreihe"><button type="button" class="knopf" id="rvTafel">🖼️ Lehrtafel ansehen</button><button type="button" class="knopf prim" id="rvUeben">🔁 Übungsrätsel</button><a class="knopf" href="#${eid}">Zum Futterhaus-Pass</a></div>
+        <div class="knopfreihe"><button type="button" class="knopf" id="rvTafel">🖼️ Lehrtafel ansehen</button><button type="button" class="knopf prim" id="rvUeben">🔁 Übungsrätsel</button><a class="knopf" href="#${eid}">Zum Futterhauspass</a></div>
       </div>
       <p class="klein" style="text-align:center">${uebung ? "Übungsrätsel zählen nicht für Sterne und Album." : "Morgen wartet ein neuer Rätselvogel auf dich."} Bisher: ⭐ ${r.sterne} ${r.sterne === 1 ? "Stern" : "Sterne"} · ${r.n} ${r.n === 1 ? "Rätselvogel" : "Rätselvögel"} gelöst.</p>`;
     $("#rvTafel").onclick = () => tafel(slug);
@@ -1990,7 +1990,7 @@ function seiteDuell(eid) {
   function anleitung() {
     stopp(); spielStop = stopp;
     app.innerHTML = `
-    <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Futterhaus-Pass</a><span class="tchip">🤝 für 2 Teams</span></div></div>
+    <div class="subkopf"><div class="row"><a class="zurueck" href="#${eid}">‹ Futterhauspass</a><span class="tchip">🤝 für 2 Teams</span></div></div>
     <div class="huelle"><section>
       <span class="eyebrow">Bonus-Spiel für zwei</span>
       <h2 class="h-blau">Schnabel-Duell</h2>

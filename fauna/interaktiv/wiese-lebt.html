@@ -173,6 +173,7 @@
 
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
 </style>
+<script src="wiese-rahmen.js?v=1" data-station="wiese"></script>
 </head>
 <body>
 <div class="huelle">
@@ -201,7 +202,7 @@
     <button class="knopf prim" id="weiterBtn">Weiter ›</button>
   </div>
 
-  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a></footer>
+  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Wiesenpass</a> · © 2026 <a href="../ueber/">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a></footer>
 </div>
 
 <script>
@@ -883,13 +884,16 @@ function renderAuswertung(s){
     '<p class="punkte-gross">Öko-Punkte: <b>'+total+'</b></p>'+
     '<p class="blaetter" style="font-size:28px;letter-spacing:4px;margin:2px 0 8px;">'+
       "🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
-    '<p class="beschrieb">'+erg.text+'</p>';
+    '<p class="beschrieb">'+erg.text+'</p>'+
+    wieseMerke({punkte:["Eine Wiese ist ein <b>Ökosystem</b>: Pflanzen, Tiere und Boden hängen voneinander ab.",
+      "Viele verschiedene <b>Strukturen</b> bieten vielen Arten Nahrung und Verstecke: Blüten, Brennnesseln, alte Stängel, offener Boden und Totholz.",
+      "Helfen heißt oft <b>weniger tun</b>: nur abschnittsweise mähen, kein Gift, nachts kein unnötiges Licht."]});
   // Barometer als Zusammenfassung
   html+='<div class="barometer an" style="display:block;max-width:340px;margin:0 auto 16px;">'+
     '<h2>Deine Wiese im Überblick</h2><div id="baroEnd"></div></div>';
   html+='<div class="knoepfe">'+
     '<button class="knopf prim" id="nochmal" style="margin:0;">Noch einmal spielen</button>'+
-    '<a class="knopf" href="wiesenpass.html">🍃 Zum Forscherpass</a></div></div>';
+    '<a class="knopf" href="wiesenpass.html">🍃 Zum Wiesenpass</a></div></div>';
   elB.innerHTML=html;
 
   // End-Barometer zeichnen

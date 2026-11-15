@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Expedition Wiese — das Spiel · Fauna Mibaso</title>
-<meta name="description" content="Spiel die Lernpfade, lass deine Wiese wachsen, schalte Stationen frei, sammle Abzeichen und werde Wiesen-Meister.">
+<title>Wiesenpass – Expedition Wiese · Bio Mibaso</title>
+<meta name="description" content="Wiesenpass für Klasse 5 bis 8: sieben Stationen zu den Tieren der Wiese. Blätter sammeln, die Wiese wachsen lassen, Abzeichen und Urkunde holen.">
 <meta name="theme-color" content="#233D5C">
 <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
 <style>
@@ -26,8 +26,35 @@
   html{-webkit-text-size-adjust:100%;}
   body{margin:0;background:var(--creme);color:var(--blau);
     font-family:Georgia,"Times New Roman",serif;line-height:1.5;
-    padding-top:calc(env(safe-area-inset-top) + min(2vh,14px));}
-  .huelle{max-width:680px;margin:0 auto;padding:clamp(8px,2.5vw,16px) clamp(12px,3.5vw,26px) 48px;}
+    }
+  html{background:var(--blau-tief);}
+  .huelle{max-width:720px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px));}
+  /* Kopf wie in den anderen Pässen */
+  .app-head{background:linear-gradient(180deg,var(--blau-tief) 0%,var(--blau-mittel) 100%);color:var(--creme);text-align:center;
+    padding:calc(env(safe-area-inset-top,0px) + 22px) max(20px,env(safe-area-inset-right,0px)) 24px;border-bottom:4px double #bcd0e2;position:relative;overflow:hidden;}
+  .app-head .zurueck-kopf{position:absolute;left:12px;top:calc(env(safe-area-inset-top,0px) + 10px);color:#dce8f3;font-family:var(--sans);font-size:14px;text-decoration:none;padding:6px;}
+  .app-head .logo{font-size:44px;line-height:1;margin:14px 0 6px;}
+  .app-head h1{font-size:clamp(28px,8vw,40px);letter-spacing:.02em;margin:0;line-height:1.2;font-weight:normal;}
+  .app-head .untertitel{font-style:italic;color:#dce8f3;margin-top:8px;font-size:clamp(13px,3.6vw,16px);}
+  .lead{font-size:19px;line-height:1.55;color:#1c2e42;margin:26px 0 0;}
+  .kacheln{display:grid;gap:12px;}
+  .kachel{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;background:#fff;border:1px solid #d9d2c1;
+    border-radius:14px;padding:14px 16px;text-decoration:none;color:#1c2e42;box-shadow:0 1px 4px rgba(35,61,92,.07);transition:transform .08s,box-shadow .08s;}
+  a.kachel:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(35,61,92,.14);}
+  .kachel .ke{font-size:30px;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:var(--creme-tief);}
+  .kachel .kt{font-size:18px;color:var(--blau);display:block;font-weight:bold;}
+  .kachel .kb{font-size:14px;color:#5d6b78;font-family:var(--sans);}
+  .kachel .pf{font-size:24px;color:var(--blau-mittel);}
+  details.lehrer{background:#fff;border:1px solid #d9d2c1;border-radius:14px;padding:10px 14px;margin-top:26px;font-size:17px;line-height:1.5;color:#1c2e42;}
+  details.lehrer summary{cursor:pointer;color:var(--blau);font-family:var(--sans);font-size:16px;}
+  details.lehrer[open] summary{margin-bottom:8px;}
+  details.lehrer .grid{display:grid;gap:8px;}
+  details.lehrer p{margin:0;}
+  details.lehrer ul{margin:0;padding-left:1.2em;display:grid;gap:4px;}
+  .ablauf{display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-family:var(--sans);font-size:15px;background:var(--creme);border:1px solid #d9d2c1;border-radius:14px;padding:14px 16px;}
+  .ablauf b{color:var(--blau);}
+  footer.fuss{border-top:1px solid #d9d2c1;margin-top:34px;padding-top:18px;text-align:center;font-family:var(--sans);font-size:13px;color:#5d6b78;display:grid;gap:6px;}
+  footer.fuss a{color:var(--blau);}
 
   .kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:var(--sans);}
   .zurueck{font-size:13px;font-weight:600;color:var(--blau);text-decoration:none;display:inline-flex;gap:5px;align-items:center;}
@@ -65,9 +92,8 @@
   .naechster b{color:var(--honig-tief);}
 
   /* ---- Stationen ---- */
-  h2.abschnitt{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--honig);margin:26px 0 10px;
-    padding-bottom:6px;border-bottom:1px solid #d7cfba;}
+  h2.abschnitt{font-size:25px;font-weight:normal;line-height:1.2;color:var(--blau);margin:30px 0 14px;}
+  h2.abschnitt::after{content:"";display:block;width:46px;height:3px;margin-top:8px;background:currentColor;border-radius:2px;}
   .stationen{display:flex;flex-direction:column;gap:11px;}
   .station{display:flex;align-items:center;gap:13px;text-decoration:none;color:var(--blau);
     background:#fff;border:1px solid var(--linie);border-radius:15px;padding:13px 15px;
@@ -233,12 +259,12 @@
 </style>
 </head>
 <body>
+<header class="app-head">
+  <a class="zurueck-kopf" href="../index.html">‹ Fauna</a>
+  <div class="logo">🦋🌼</div><h1>Expedition Wiese</h1><div class="untertitel">Die Tiere der Wiese</div>
+</header>
 <div class="huelle">
-  <div class="kopf">
-    <a class="zurueck" href="../index.html">‹ Fauna</a>
-  </div>
-  <h1>🍃 Expedition Wiese</h1>
-  <p class="unter">Die Tiere der Wiese – spiel dich zum Wiesen-Meister.</p>
+  <p class="lead">Auf der Wiese krabbelt, summt und frisst es an jeder Ecke. Sieben Stationen zeigen dir, wer hier lebt und wie alles zusammenhängt. Für jede Station gibt es bis zu drei Blätter 🍃. Lass deine Wiese wachsen und hol dir die Urkunde!</p>
 
   <!-- Wachsende Wiese -->
   <div class="buehne">
@@ -261,13 +287,13 @@
   <div class="stationen" id="stationen"></div>
   <div id="meisterbox"></div>
 
-  <!-- Bonus-Spiel -->
-  <h2 class="abschnitt">Bonus-Spiel</h2>
-  <a href="sammelflug.html" style="display:grid;grid-template-columns:56px 1fr auto;gap:14px;align-items:center;background:#fff;border:2px solid #bcd0e2;border-radius:16px;padding:12px 14px;text-decoration:none;color:inherit">
-    <span style="font-size:40px;line-height:1;text-align:center" aria-hidden="true">🐝</span>
-    <span><span style="display:block;font-size:20px;color:#233D5C;line-height:1.2">Sammelflug</span>
-      <span style="display:block;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13.5px;color:#5d6b78;line-height:1.4;margin-top:3px">Ein Tag als Wildbiene: Sammle Nektar und Pollen, bevor Regen und Traktor kommen · drei Bienen · je ca. 3 Min</span></span>
-    <span style="font-size:22px;color:#233D5C" aria-hidden="true">›</span></a>
+  <!-- Bonus-Spiele -->
+  <h2 class="abschnitt">Bonus-Spiele</h2>
+  <div class="kacheln">
+    <a class="kachel" href="sammelflug.html"><span class="ke">🐝</span><span><span class="kt">Sammelflug</span><span class="kb">Ein Tag als Wildbiene: Sammle Nektar und Pollen, bevor Regen und Traktor kommen · drei Bienen · je ca. 3 Min</span></span><span class="pf">›</span></a>
+    <a class="kachel" href="falterspiel.html"><span class="ke">🦋</span><span><span class="kt">Vom Ei zum Falter</span><span class="kb">Das Leiterspiel zur Verwandlung: Würfle dich von der Raupe zum Schmetterling · ca. 10 Min</span></span><span class="pf">›</span></a>
+    <a class="kachel" href="libellenspiel.html"><span class="ke">💧</span><span><span class="kt">Vom Wasser in die Luft</span><span class="kb">Das Leiterspiel der Libelle: von der Larve im Teich zum Flugkünstler · ca. 10 Min</span></span><span class="pf">›</span></a>
+  </div>
 
   <!-- Abzeichen -->
   <h2 class="abschnitt">Abzeichen-Album</h2>
@@ -275,9 +301,28 @@
 
   <p class="hinweis" id="hinweis"></p>
 
-  <footer>
-    Fortschritt wird auf diesem Gerät gespeichert.<br>
-    © 2026 <a href="../ueber/">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a>
+  <details class="lehrer"><summary>Für Lehrkräfte: Einsatz in Klasse 5 bis 8</summary><div class="grid">
+    <div class="ablauf"><b>1</b><span>Wem gehört die Wiese? – Was ist ein Insekt, was nicht? Die großen Insektengruppen (ca. 10 Min)</span>
+      <b>2</b><span>Wie wird man Insekt? – Verwandlung mit und ohne Puppe (ca. 12 Min)</span>
+      <b>3</b><span>Wer bestäubt wen? – Blüte und Bestäuber passen zusammen (ca. 12 Min)</span>
+      <b>4</b><span>Wo wohnen Insekten? – Lebensräume im Bilderquiz (ca. 8 Min)</span>
+      <b>5</b><span>Wer frisst wen? – Nahrungskette, Nahrungsnetz, Nahrungspyramide (ca. 10 Min)</span>
+      <b>6</b><span>Wie hängt alles zusammen? – eine eigene Wiese anlegen und pflegen (ca. 10 Min)</span>
+      <b>7</b><span>Was wir nicht sehen – Leben im Boden, Zersetzer und Kreislauf (ca. 10 Min)</span></div>
+    <p>Alle sieben Stationen zusammen füllen zwei Schulstunden. Jede Station lässt sich auch einzeln einsetzen. Alles läuft im Browser auf Tablet, Handy oder am Beamer – ohne Anmeldung, ohne Datensammlung, ohne Ton (nur bei voller Punktzahl erklingt eine kurze Fanfare).</p>
+    <p><b>Bezug zum hessischen Kerncurriculum Biologie:</b> Wechselwirkungen in Ökosystemen (Nahrungsbeziehungen, Lebensräume, Stoffkreislauf), Fortpflanzung und Entwicklung (Verwandlung der Insekten, Bestäubung).</p>
+    <ul>
+      <li><b>Stufenweise:</b> Jede Station öffnet sich erst, wenn die vorige geschafft ist. Mit „Alle offen“ kann frei gewählt werden.</li>
+      <li><b>Merke-Kasten:</b> Jede Station fasst vor dem Quiz das Wichtigste zusammen – gut zum Abschreiben ins Heft.</li>
+      <li><b>Blätter:</b> Das Quiz am Ende jeder Station bringt ein bis drei Blätter. Es zählt das beste Ergebnis.</li>
+      <li><b>Urkunde:</b> Sind alle Stationen geschafft, tragen die Kinder ihren Namen ein und drucken die Urkunde oder speichern sie als Bild.</li>
+      <li><b>Geteilte Geräte:</b> Im Wiesenpass unter dem Abzeichen-Album „Fortschritt zurücksetzen“.</li>
+    </ul></div></details>
+
+  <footer class="fuss">
+    <div>Fortschritt wird nur auf diesem Gerät gespeichert. Keine Anmeldung, keine Datensammlung.</div>
+    <div><a href="../../index.html">⌂ Bio Mibaso</a> · <a href="../../ueber/">Über mich</a> · <a href="../../impressum/">Impressum &amp; Datenschutz</a></div>
+    <div>© 2026 Michael Baur · Wiesenpass</div>
   </footer>
 </div>
 
@@ -295,7 +340,7 @@
 <div class="urkunde-overlay" id="urkunde">
   <div class="urkunde">
     <div class="rahmen">
-      <div class="urk-eyebrow">Expedition Wiese · Forscherpass</div>
+      <div class="urk-eyebrow">Expedition Wiese · Wiesenpass</div>
       <div class="urk-med" id="urkMed">🏅</div>
       <div class="urk-titel">Urkunde</div>
       <div class="urk-sub" id="urkSub"></div>
@@ -324,13 +369,13 @@ const KEY="mibaso.fauna.expedition";
 const SEEN="mibaso.fauna.pass.seen";   // Merker: was hat der Nutzer zuletzt gesehen?
 
 const PFADE = [
-  { id:"grundlagen",   titel:"Wem gehört die Wiese?", kurz:"Insekten und andere Tiere",         datei:"grundlagen.html",   em:"🔎" },
-  { id:"verwandlung",  titel:"Wie wird man Insekt?",           kurz:"Vom Ei bis zum fertigen Tier",               datei:"verwandlung.html",  em:"🦋" },
-  { id:"bestaeubung",  titel:"Wer bestäubt wen?",     kurz:"Insekt und Blüte – das perfekte Paar", datei:"bestaeubung.html",  em:"🌸" },
-  { id:"lebensraum",   titel:"Wo wohnen Insekten?",kurz:"Jedes Tier braucht seinen Platz",                  datei:"lebensraum.html",   em:"🏡" },
-  { id:"nahrungsnetz", titel:"Wer frisst wen?",       kurz:"Fressen und gefressen werden",                  datei:"nahrungsnetz.html", em:"🕸️" },
-  { id:"wiese",        titel:"Wie hängt alles zusammen?",        kurz:"Bau dein eigenes Mini-Ökosystem",                  datei:"wiese-lebt.html",   em:"🌾" },
-  { id:"boden",        titel:"Was wir nicht sehen",   kurz:"Die verborgene Welt unter der Wiese",      datei:"bodenleben.html",   em:"🪱" }
+  { id:"grundlagen",   titel:"Wem gehört die Wiese?", kurz:"Insekten und andere Tiere",         datei:"grundlagen.html",   min:10, em:"🔎" },
+  { id:"verwandlung",  titel:"Wie wird man Insekt?",           kurz:"Vom Ei bis zum fertigen Tier",               datei:"verwandlung.html",  min:12, em:"🦋" },
+  { id:"bestaeubung",  titel:"Wer bestäubt wen?",     kurz:"Insekt und Blüte – das perfekte Paar", datei:"bestaeubung.html",  min:12, em:"🌸" },
+  { id:"lebensraum",   titel:"Wo wohnen Insekten?",kurz:"Jedes Tier braucht seinen Platz",                  datei:"lebensraum.html",   min:8, em:"🏡" },
+  { id:"nahrungsnetz", titel:"Wer frisst wen?",       kurz:"Fressen und gefressen werden",                  datei:"nahrungsnetz.html", min:10, em:"🕸️" },
+  { id:"wiese",        titel:"Wie hängt alles zusammen?",        kurz:"Bau dein eigenes Mini-Ökosystem",                  datei:"wiese-lebt.html",   min:10, em:"🌾" },
+  { id:"boden",        titel:"Was wir nicht sehen",   kurz:"Die verborgene Welt unter der Wiese",      datei:"bodenleben.html",   min:10, em:"🪱" }
 ];
 const MAX_BL = PFADE.length*3;   // 21 Blätter maximal (7 Stationen × 3)
 
@@ -455,7 +500,7 @@ function render(){
     el.innerHTML=
       '<span class="stnr">'+(offen?p.em:"🔒")+'</span>'+
       '<span class="txt"><span class="stt">'+p.titel+'</span>'+
-        '<span class="stb">'+(offen?p.kurz:"Schließe zuerst die Station davor ab")+'</span></span>'+
+        '<span class="stb">'+(offen?p.kurz+' · ca. '+p.min+' Min':"Schließe zuerst die Station davor ab")+'</span></span>'+
       rechts;
     cont.appendChild(el);
   });
@@ -487,8 +532,8 @@ function render(){
   // Hinweis + Reset + Demo
   const hin=document.getElementById("hinweis");
   hin.innerHTML = alleFertig
-    ? "Alle Pfade geschafft! Verbessere deine Blätter (🍃🍃🍃) für die perfekte Wiese."
-    : "Tipp: In jedem Pfad gibt es bis zu 🍃🍃🍃 – je besser, desto voller wird deine Wiese.";
+    ? "Alle Stationen geschafft! Verbessere deine Blätter (🍃🍃🍃) für die perfekte Wiese."
+    : "Tipp: In jeder Station gibt es bis zu 🍃🍃🍃 – je besser, desto voller wird deine Wiese.";
   hin.innerHTML += '<br><button class="reset" id="resetBtn">Fortschritt zurücksetzen</button>';
   document.getElementById("resetBtn").addEventListener("click",()=>{
     if(confirm("Deinen gesammelten Fortschritt auf diesem Gerät wirklich löschen?")){

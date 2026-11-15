@@ -215,13 +215,14 @@
   @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
 </style>
 <!-- Besucherzählung (GoatCounter, ohne Cookies) -->
-<script>window.goatcounter={path:function(p){return location.host+p}};</script><script data-goatcounter="https://mibaso.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+<script src="wiese-rahmen.js?v=1" data-station="verwandlung"></script>
 </head>
 <body>
 <div class="pfad-intro" id="pfadIntro">
   <div class="pi-inner">
     <img class="pi-foto" src="../images/fotos/kaisermantel.jpg" alt="" onerror="this.style.display='none'">
-    <div class="pi-eyebrow">🍃 Expedition Wiese · Lernpfad</div>
+    <div class="pi-eyebrow">🍃 Wiesenpass · Station 2 von 7 · ca. 12 Min</div>
     <h1 class="pi-titel">Wie wird man Insekt?</h1>
     <p class="pi-lead">Wie wird aus einem Ei ein fertiges Insekt? Manche verwandeln sich vollständig – mit Puppe wie der Schmetterling –, andere häuten sich Schritt für Schritt. Entdecke beide Wege.</p>
     <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
@@ -243,7 +244,7 @@
   </div>
 
   <p style="text-align:center;margin:18px 0 0;"><a class="knopf" href="falterspiel.html" style="text-decoration:none;display:inline-block;">🎲 Spiel: Vom Ei zum Falter</a> <a class="knopf" href="libellenspiel.html" style="text-decoration:none;display:inline-block;">🎲 Spiel: Vom Wasser in die Luft</a></p>
-  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · <a href="falterspiel.html" style="color:inherit;font-weight:600;">🎲 Leiterspiel</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a></footer>
+  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Wiesenpass</a> · <a href="falterspiel.html" style="color:inherit;font-weight:600;">🎲 Leiterspiel</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a></footer>
 </div>
 
 <script>
@@ -266,14 +267,14 @@ const BASIS = "../assets/verwandlung/";
 
 const SCHRITTE = [
   /* 1 */ {
-    chip:"Zwei Wege", titel:"Was heißt Verwandlung? (Metamorphose)",
-    text:"Viele Insekten leben zwei Leben: erst als gefräßige Larve, dann als erwachsenes, geflügeltes Tier (Imago). Dazwischen liegt die Verwandlung – auf zwei Wegen.",
+    chip:"Zwei Wege", titel:"Was heißt Verwandlung?",
+    text:"Viele Insekten leben zwei Leben: erst als gefräßige Larve, dann als erwachsenes Tier mit Flügeln. Dazwischen liegt die Verwandlung – auf zwei Wegen. Das Fachwort dafür heißt Metamorphose.",
     hint:"Tippe die Punkte im Bild an.",
     typ:"tafel",
     bild:{src:"start-zwei-wege.png", label:"Raupe & Falter nebeneinander", glyph:"🐛"},
     hotspots:[
       {x:27,y:62,n:1,titel:"Larve",text:"Das jugendliche Fress-Stadium – Raupe, Engerling oder Made. Sieht oft völlig anders aus als das fertige Tier."},
-      {x:73,y:38,n:2,titel:"Imago",text:"Das erwachsene, geschlechtsreife Insekt – meist geflügelt. Seine Aufgabe: Partner finden und für Nachwuchs sorgen."},
+      {x:73,y:38,n:2,titel:"Erwachsenes Insekt",text:"Das erwachsene Insekt – meist mit Flügeln. Seine Aufgabe: Partner finden und für Nachwuchs sorgen."},
     ]
   },
   /* 2 */ {
@@ -288,7 +289,7 @@ const SCHRITTE = [
        text:"Eine Fressmaschine. Die Raupe häutet sich mehrfach und wird dabei immer größer."},
       {name:"Puppe", bild:{src:"voll-3-puppe.png", label:"Puppe", glyph:"🛡️"},
        text:"Scheinbare Ruhe: Außen reglos, doch im Inneren wird der ganze Körper umgebaut."},
-      {name:"Falter", bild:{src:"voll-4-falter.png", label:"Falter (Imago)", glyph:"🦋"},
+      {name:"Falter", bild:{src:"voll-4-falter.png", label:"Falter", glyph:"🦋"},
        text:"Fertig verwandelt schlüpft der Falter, pumpt die Flügel prall und fliegt davon."},
     ]
   },
@@ -313,9 +314,9 @@ const SCHRITTE = [
     stufen:[
       {name:"Ei", bild:{src:"unvoll-1-ei.png", label:"Eier / Gelege", glyph:"🥚"},
        text:"Auch hier am Anfang das Ei, oft im Boden oder an Pflanzen abgelegt."},
-      {name:"Nymphe", bild:{src:"unvoll-2-nymphe.png", label:"Nymphe (Larvenstadium)", glyph:"🦗"},
-       text:"Die Nymphe sieht dem erwachsenen Tier schon ähnlich, nur kleiner und ohne fertige Flügel. Mit jeder Häutung wächst sie, die Flügelscheiden werden größer."},
-      {name:"Imago", bild:{src:"unvoll-3-imago.png", label:"Imago (erwachsen)", glyph:"🦗"},
+      {name:"Larve", bild:{src:"unvoll-2-nymphe.png", label:"Larve", glyph:"🦗"},
+       text:"Die Larve sieht dem erwachsenen Tier schon ähnlich, nur kleiner und ohne fertige Flügel. Mit jeder Häutung wächst sie, die Flügelansätze werden größer."},
+      {name:"Erwachsen", bild:{src:"unvoll-3-imago.png", label:"erwachsenes Tier", glyph:"🦗"},
        text:"Nach der letzten Häutung ist das Tier erwachsen und voll geflügelt. Eine Puppe gab es nie."},
     ]
   },
@@ -332,16 +333,16 @@ const SCHRITTE = [
       {name:"Larve (klein)", bild:{src:"pl-3-larve-klein.jpg", label:"junge Larve", glyph:"🦗"},
        text:"Aus dem Ei schlüpft eine winzige Larve. Sie lebt und jagt unter Wasser – eine Puppe gibt es nie."},
       {name:"Larve (groß)", bild:{src:"pl-4-larve-gross.jpg", label:"große Larve", glyph:"🦗"},
-       text:"Über viele Häutungen wächst die Larve heran; die Flügelscheiden werden langsam sichtbar."},
+       text:"Über viele Häutungen wächst die Larve heran; die Flügelansätze werden langsam sichtbar."},
       {name:"Frisch geschlüpft", bild:{src:"pl-6-frisch.jpg", label:"frisch geschlüpft", glyph:"✨"},
        text:"Die junge Libelle zwängt sich heraus und pumpt die noch blassen Flügel prall – daneben bleibt die leere Larvenhaut zurück."},
-      {name:"Imago", bild:{src:"pl-7-imago.jpg", label:"erwachsene Pechlibelle", glyph:"💙"},
+      {name:"Erwachsen", bild:{src:"pl-7-imago.jpg", label:"erwachsene Pechlibelle", glyph:"💙"},
        text:"Ausgefärbt und flugfähig: die erwachsene Pechlibelle mit dem leuchtend blauen Hinterleibsende."}
     ]
   },
   /* 6 */ {
     chip:"Vergleich", titel:"Zwei Wege im Vergleich",
-    text:"Der ganze Unterschied steckt in einem Schritt: der Puppe. Mit ihr wird aus der Raupe ein neues Tier – ohne sie wächst die Nymphe Stück für Stück heran.",
+    text:"Der ganze Unterschied steckt in einem Schritt: der Puppe. Mit ihr wird aus der Raupe ein neues Tier – ohne sie wächst die Larve Stück für Stück heran.",
     typ:"vergleich"
   },
   /* 7 */ {
@@ -349,7 +350,12 @@ const SCHRITTE = [
     text:"Übung: Ordne jedes Tier seinem Weg zu – mit Puppe (vollständig) oder ohne Puppe (unvollständig). Dann auf „Prüfen“ tippen.",
     typ:"zuordnen"
   },
-  /* 8 */ {
+  /* 8 */ { chip:"Merke", titel:"Das Wichtigste auf einen Blick", typ:"merke", weiter:"Alles klar? Dann weiter zum Quiz.",
+    punkte:["Viele Insekten sehen als Jungtier ganz anders aus als später. Den Umbau nennt man <b>Verwandlung</b>.",
+      "<b>Vollständige Verwandlung:</b> Ei → Larve → <b>Puppe</b> → erwachsenes Insekt. So machen es Schmetterlinge, Käfer, Bienen und Fliegen.",
+      "<b>Unvollständige Verwandlung:</b> Ei → Larve → erwachsenes Insekt, <b>ohne Puppe</b>. Die Larve häutet sich mehrmals und wächst dabei. So machen es Libellen, Heuschrecken und Wanzen."] },
+
+  {
     chip:"Quiz", kat:"quiz", titel:"Abschluss-Quiz",
     text:"Zum Schluss der Test: Macht dieses Tier eine Verwandlung mit oder ohne Puppe?",
     typ:"quiz"
@@ -421,6 +427,7 @@ function render(){
   else if(s.typ==="vergleich") renderVergleich(s);
   else if(s.typ==="zuordnen") renderZuordnen(s);
   else if(s.typ==="quiz") renderQuiz(s);
+  else if(s.typ==="merke"){ elB.innerHTML=""; elE.innerHTML=wieseMerke(s); }
   else renderTafel(s);
   document.getElementById("zurueckBtn").disabled = (i===0);
   const wb=document.getElementById("weiterBtn");
@@ -523,9 +530,9 @@ function renderVergleich(s){
     '<span class="ar">→</span><span class="st" style="background:#e6efe7;color:#2f6a45;">Puppe</span>'+
     '<span class="ar">→</span><span class="st">Falter</span></div></div>';
   const wegUnvoll='<div class="vweg"><div class="reihe">'+
-    '<span class="st">Ei</span><span class="ar">→</span><span class="st">Nymphe</span>'+
-    '<span class="ar">→</span><span class="st">Nymphe</span><span class="ar">→</span><span class="st">Imago</span></div>'+
-    '<p class="scrubnote">keine Puppe – die Nymphe wächst über mehrere Häutungen heran</p></div>';
+    '<span class="st">Ei</span><span class="ar">→</span><span class="st">Larve</span>'+
+    '<span class="ar">→</span><span class="st">Larve</span><span class="ar">→</span><span class="st">erwachsen</span></div>'+
+    '<p class="scrubnote">keine Puppe – die Larve wächst über mehrere Häutungen heran</p></div>';
 
   let e='<h2>'+s.titel+'</h2><p>'+s.text+'</p>'+
     '<div class="umschalter">'+
@@ -666,7 +673,7 @@ function renderQuiz(s){
       '<p class="qspruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
       '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">'+
         '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
-        '<a class="knopf" href="wiesenpass.html">🍃 Forscherpass</a></div></div>';
+        '<a class="knopf" href="wiesenpass.html">🍃 Wiesenpass</a></div></div>';
     document.getElementById("qnochmal").addEventListener("click",()=>renderQuiz(s));
     if(perfekt){ konfetti(); fanfare(); }
     melde();
@@ -731,5 +738,6 @@ window.addEventListener("load", melde);
 
 render();
 </script>
+<script src="../assets/app.js" defer></script>
 </body>
 </html>

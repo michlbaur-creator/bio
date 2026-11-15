@@ -41,27 +41,33 @@ REPOS = [
                "eyebrow": "Dein Forscherpass", "titel": "Expedition Wald",
                "sub": "Spiel dich vom Zapfen zum Wald-Meister."}},
     {"key": "fauna", "label": "Fauna Mibaso", "emoji": "🦋", "akzent": "#233D5C",
+     # Reihenfolge der Kacheln = Jahreslauf: Wiese → Vögel → Zugvögel → Winter → Futterhaus,
+     # danach Wild & zahm, „Durchs Jahr!“ als Klammer und die Spielecke.
+     "reihenfolge": ["pass", "pass4", "pass6", "pass2", "pass5", "pass3", "pass7", "spiele"],
      "pass": {"href": "interaktiv/wiesenpass.html", "img": "images/banner/wiese.jpg",
-              "eyebrow": "Dein Forscherpass", "titel": "Expedition Wiese",
-              "sub": "Die Tiere der Wiese — spiel dich zum Wiesen-Meister."},
+              "eyebrow": "Dein Wiesenpass · Klasse 5–8", "titel": "Expedition Wiese",
+              "sub": "Die Tiere der Wiese in 7 Stationen, zusammen ca. 70 Min. Sammle Blätter und lass deine Wiese wachsen."},
      "pass2": {"href": "interaktiv/winterpass.html", "img": "images/banner/winter.jpg",
                "eyebrow": "Dein Winterpass · Klasse 5/6", "titel": "Expedition Winter",
-               "sub": "Wie Tiere die kalte Zeit überstehen — sammle Nüsse für deinen Wintervorrat."},
+               "sub": "Wie Tiere die kalte Zeit überstehen. 2 Teile mit 10 Stationen, ca. 90 Min. Sammle Nüsse für deinen Wintervorrat."},
      "pass3": {"href": "interaktiv/haustierpass.html", "img": "images/banner/haustier.jpg",
                "eyebrow": "Dein Haustierpass · Klasse 5/6", "titel": "Wild & zahm",
-               "sub": "Vom Wolf zum Hund, vom Wildschwein zum Hausschwein — sammle Knochen für deinen Napf."},
+               "sub": "Vom Wolf zum Hund, vom Wildschwein zum Hausschwein. 2 Teile mit 10 Stationen, ca. 90 Min. Sammle Knochen für deinen Napf."},
      "pass4": {"href": "interaktiv/vogelpass.html", "img": "images/banner/vogel.jpg",
                "eyebrow": "Dein Vogelpass · Klasse 5/6", "titel": "Vögel – gebaut zum Fliegen",
-               "sub": "Federn, Schnäbel, Ei und Nest — und ein Schlüssel für 20 Gartenvögel. Sammle Federn für dein Nest."},
+               "sub": "Federn, Schnäbel, Ei und Nest und ein Schlüssel für 20 Gartenvögel. 2 Teile mit 10 Stationen, ca. 90 Min. Sammle Federn für dein Nest."},
      "pass5": {"href": "interaktiv/futterhauspass.html", "img": "images/futterhaus/fp-gimpel.jpg",
-               "eyebrow": "Dein Futterhaus-Pass · Klasse 5/6", "titel": "Vögel am Futterhaus",
-               "sub": "Aufstellen, füttern, beobachten — 21 Gäste, ein Film und ein Bilderquiz. Sammle Kerne für dein Futterhaus."},
+               "eyebrow": "Dein Futterhauspass · Klasse 5/6", "titel": "Vögel am Futterhaus",
+               "sub": "Aufstellen, füttern, beobachten: 21 Gäste, ein Film und ein Bilderquiz. 5 Stationen, ca. 50 Min. Sammle Kerne für dein Futterhaus."},
      "pass6": {"href": "interaktiv/zugvogelpass.html", "img": "images/voegel/storch-horst.jpg",
-               "eyebrow": "Dein Zugvogel-Pass · Klasse 5/6", "titel": "Zugvögel – auf großer Reise",
-               "sub": "Warum Vögel fortziehen, wann sie kommen und wie sie den Weg finden — flieg mit dem Storch bis nach Südafrika."},
+               "eyebrow": "Dein Zugvogelpass · Klasse 5/6", "titel": "Zugvögel – auf großer Reise",
+               "sub": "Warum Vögel fortziehen, wann sie kommen und wie sie den Weg finden. 5 Stationen, ca. 45 Min. Flieg mit dem Storch bis nach Südafrika."},
      "pass7": {"href": "interaktiv/durchs-jahr.html", "img": "images/durchsjahr/banner.jpg",
                "eyebrow": "Lernspiel · Klasse 5/6", "titel": "Durchs Jahr! – Das Überlebensspiel",
-               "sub": "Als Kohlmeise, Rauchschwalbe oder Igel zwölf Monate überstehen — Nest und Junge, Feinde, Vogelzug und Winterschlaf."}},
+               "sub": "Als Kohlmeise, Rauchschwalbe oder Igel zwölf Monate überstehen — Nest und Junge, Feinde, Vogelzug und Winterschlaf."},
+     "spiele": {"href": "../spiele/", "emoji": "🎲",
+                "eyebrow": "Spielecke · Klasse 5/6", "titel": "Alle Lernspiele und dein Diplom",
+                "sub": "Elf Lernspiele auf einen Blick: Sterne sammeln, Rang verbessern und das Naturforscher-Diplom holen."}},
 ]
 
 # Thematische Gruppen je Repo: (Überschrift, Farbe, [Dateien]). Seit dem Fauna-Stil-
@@ -694,6 +700,7 @@ CSS = """
     padding:12px 14px;color:var(--akzent);box-shadow:0 2px 10px rgba(0,0,0,.06);transition:transform .12s,border-color .15s;}
   .aktion-banner:hover{transform:translateY(-2px);border-color:#cdbf9e;}
   .aktion-banner img{flex:0 0 auto;width:56px;height:76px;object-fit:cover;border-radius:8px;border:1px solid var(--linie);background:var(--creme-tief);}
+  .aktion-banner .ab-em{flex:0 0 auto;width:56px;height:76px;display:flex;align-items:center;justify-content:center;font-size:30px;border-radius:8px;border:1px solid var(--linie);background:var(--creme-tief);}
   .aktion-banner .ab-tx{flex:1;min-width:0;}
   .ab-eyebrow{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--honig);font-weight:700;}
   .aktion-banner strong{display:block;font-size:1.1rem;font-weight:normal;margin:2px 0;line-height:1.15;}
@@ -807,8 +814,10 @@ def _extra_pfad(basis, fn, icon, titel, sub, col, badge="Flora-App"):
             f'<span class="badge badge-ext">{html.escape(badge)}&nbsp;↗</span></a>')
 
 def _pass_banner(p):
-    return (f'<a class="aktion-banner" href="{p["href"]}">'
-            f'<img src="{p["img"]}" alt="" aria-hidden="true" onerror="this.style.display=\'none\'">'
+    # Bild oder – ohne Bild – ein großes Emoji (z. B. Spielecke)
+    bild = (f'<img src="{p["img"]}" alt="" aria-hidden="true" onerror="this.style.display=\'none\'">' if p.get("img")
+            else f'<span class="ab-em" aria-hidden="true">{p.get("emoji", "")}</span>')
+    return (f'<a class="aktion-banner" href="{p["href"]}">' + bild +
             f'<span class="ab-tx"><span class="ab-eyebrow">{html.escape(p["eyebrow"])}</span>'
             f'<strong>{html.escape(p["titel"])}</strong>'
             f'<span class="ab-sub">{html.escape(p["sub"])}</span></span>'
@@ -850,13 +859,9 @@ def write_sub(r, items):
                 if ex.get("hinweis") else "")
         sections.append(f'<h2 class="gt">{html.escape(ex["titel"])}</h2>{hint}'
                         f'<div class="liste">{rows}</div>')
-    banner = _pass_banner(r["pass"]) if r.get("pass") else ""
-    if r.get("pass2"): banner += _pass_banner(r["pass2"])
-    if r.get("pass3"): banner += _pass_banner(r["pass3"])
-    if r.get("pass4"): banner += _pass_banner(r["pass4"])
-    if r.get("pass5"): banner += _pass_banner(r["pass5"])
-    if r.get("pass6"): banner += _pass_banner(r["pass6"])
-    if r.get("pass7"): banner += _pass_banner(r["pass7"])
+    # Kacheln in der Reihenfolge aus REPOS („reihenfolge“), sonst pass, pass2 … pass7
+    _folge = r.get("reihenfolge") or ["pass", "pass2", "pass3", "pass4", "pass5", "pass6", "pass7"]
+    banner = "".join(_pass_banner(r[k]) for k in _folge if r.get(k))
     # Zeitreise direkt unter dem Forscherpass (nur bei Fauna — dort passt sie thematisch)
     if key == "fauna": banner += _zeitreise_banner()
     body = ('<div class="subkopf"><a class="zurueck" href="../index.html">‹ Bio Mibaso</a></div>'

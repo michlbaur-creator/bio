@@ -162,6 +162,7 @@
   @keyframes konffall{0%{transform:translateY(-14px);opacity:1;}100%{transform:translateY(106vh) rotate(540deg);opacity:.9;}}
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
 </style>
+<script src="wiese-rahmen.js?v=1" data-station="nahrungsnetz"></script>
 </head>
 <body>
 <div class="huelle">
@@ -180,7 +181,7 @@
   </div>
 
   <footer>
-    <a class="passlink" href="wiesenpass.html">🍃 Forscherpass</a><br>
+    <a class="passlink" href="wiesenpass.html">🍃 Wiesenpass</a><br>
     © 2026 <a href="../ueber/">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a>
   </footer>
 </div>
@@ -356,6 +357,13 @@ const SCREENS = [
           "Nur die Produzenten ganz unten sind unersetzlich." },
 
   /* 6 – Quiz */
+  { id:"merke", type:"merke", titel:"Das Wichtigste auf einen Blick", weiter:"Alles klar? Dann weiter zum Test.",
+    punkte:["<b>Pflanzen</b> stellen ihre Nahrung mit Sonnenlicht selbst her. Sie heißen <b>Produzenten</b> und sind die Grundlage für alle anderen.",
+      "Tiere sind <b>Konsumenten</b>: Pflanzenfresser fressen Pflanzen, Räuber fressen andere Tiere. Viele Nahrungsketten zusammen bilden ein <b>Nahrungsnetz</b>.",
+      "Von Stufe zu Stufe wird nur ein kleiner Teil der Energie weitergegeben. Darum gibt es viele Pflanzen, aber nur wenige Räuber.",
+      "<b>Zersetzer</b> machen aus Totem wieder Nährstoffe und schließen den Kreislauf."] },
+
+  /* 7 – Quiz */
   { id:"quiz", type:"quiz", titel:"Kleiner Test" }
 ];
 
@@ -445,6 +453,7 @@ function render(){
   else if(s.type==="pyramide")   renderPyramide(s);
   else if(s.type==="konzept")    renderKonzept(s);
   else if(s.type==="stoerung")   renderStoerung(s);
+  else if(s.type==="merke")      elB.innerHTML='<div class="stufe">'+wieseMerke(s)+'</div>';
   else if(s.type==="quiz")       renderQuiz(s);
   rahmen(); melde();
 }
@@ -673,7 +682,7 @@ function renderQuiz(s){
       '<p class="qspruch spruch">'+spruch+'</p>'+
       '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">'+
         '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
-        '<a class="knopf" href="wiesenpass.html">🍃 Zum Forscherpass</a></div></div>';
+        '<a class="knopf" href="wiesenpass.html">🍃 Zum Wiesenpass</a></div></div>';
     $("qnochmal").addEventListener("click",()=>renderQuiz(s));
     if(perfekt){ konfetti(); fanfare(); }
     $("balken").style.width="100%";
