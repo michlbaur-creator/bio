@@ -213,7 +213,7 @@
 </div>
 <div class="huelle">
   <div class="kopf">
-    <a class="zurueck" href="../index.html">‹ Startseite</a>
+    <a class="zurueck" href="wiesenpass.html">‹ Expedition Wiese</a>
     <span class="zaehler" id="zaehler"></span>
   </div>
   <div class="chips" id="chips"></div>
@@ -226,12 +226,12 @@
     <button class="knopf prim" id="weiterBtn">Nächster Schritt ›</button>
   </div>
 
-  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso</footer>
+  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a></footer>
 </div>
 
 <script>
 /* ===========================================================================
-   Lernpfad „Wer gehört zur Wiese? — Grundlagen & Mini-Systematik"
+   Lernpfad „Wer gehört zur Wiese? – Grundlagen & Mini-Systematik"
    ►► MASSGEBLICHE FASSUNG – native in bio.
    Interaktionstypen:
      "tafel"    : Insekten-Körperbau beschriften (Hotspots)
@@ -247,7 +247,7 @@ const BASIS="../images/grundlagen/";
 /* Die wichtigsten Insektengruppen (Farbe = Erkennungspunkt in Karten & Baum) */
 const GRUPPEN = [
   {id:"kaefer",       name:"Käfer",          farbe:"#B5482F", foto:"../images/gruppen/kaefer.jpg",       fotonam:"Gartenlaubkäfer", merk:"Harte Deckflügel wie ein Panzer, darunter die zarten Flughäute. Die artenreichste Tiergruppe der Welt.", bsp:"z. B. Marienkäfer, Laufkäfer"},
-  {id:"schmetter",    name:"Schmetterlinge", farbe:"#C28A3A", foto:"../images/gruppen/schmetter.jpg",    fotonam:"Tagpfauenauge", merk:"Zwei große, bunt beschuppte Flügel und ein Saugrüssel. Aus dem Ei wird erst eine Raupe.", bsp:"z. B. Tagpfauenauge, Kohlweißling"},
+  {id:"schmetter",    name:"Schmetterlinge", farbe:"#C28A3A", foto:"../images/gruppen/schmetter.jpg",    fotonam:"Tagpfauenauge", merk:"Vier große, bunt beschuppte Flügel (zwei Paar) und ein Saugrüssel. Aus dem Ei wird erst eine Raupe.", bsp:"z. B. Tagpfauenauge, Kohlweißling"},
   {id:"hautfluegler", name:"Hautflügler",    farbe:"#E0A81E", foto:"../images/gruppen/hautfluegler.jpg", fotonam:"Ackerhummel", merk:"Bienen, Wespen und Ameisen. Dünne „Wespentaille“, zwei Paar hauchdünne Flügel. Viele leben in Staaten.", bsp:"z. B. Honigbiene, Hummel"},
   {id:"zweifluegler", name:"Zweiflügler",    farbe:"#5A6B7A", foto:"../images/gruppen/zweifluegler.jpg", fotonam:"Goldfliege", merk:"Fliegen und Mücken. Nur EIN Paar Flügel – das hintere ist zu winzigen Schwingkölbchen geschrumpft.", bsp:"z. B. Schwebfliege, Stubenfliege"},
   {id:"libellen",     name:"Libellen",       farbe:"#2C7A6A", foto:"../images/gruppen/libellen.jpg",     fotonam:"Plattbauch", merk:"Zwei Paar lange, glasklare Flügel, riesige Augen, blitzschnelle Jäger. Ihre Larven leben im Wasser.", bsp:"z. B. Pechlibelle, Plattbauch"},
@@ -257,21 +257,21 @@ const GRUPPEN = [
 function gruppe(id){ return GRUPPEN.find(g=>g.id===id); }
 
 const SCHRITTE = [
-  /* 1 — Kleiner Stammbaum -------------------------------------------------- */
+  /* 1 – Kleiner Stammbaum -------------------------------------------------- */
   { chip:"Stammbaum", titel:"Die Darsteller im Stammbaum",
-    text:"Auf der Wiese tummeln sich viele Tiere. Tippe die Äste an und lerne die Darsteller kennen — die grüne Verzweigung sind unsere Stars: die Insekten.",
+    text:"Auf der Wiese tummeln sich viele Tiere. Tippe die Äste an und lerne die Darsteller kennen – die grüne Verzweigung sind unsere Stars: die Insekten.",
     hint:"Tippe die Äste an.",
     typ:"baum"
   },
 
-  /* 2 — Gruppen als aufklappbare Karten ----------------------------------- */
+  /* 2 – Gruppen als aufklappbare Karten ----------------------------------- */
   { chip:"Die Gruppen", titel:"Hauptdarsteller: die Insekten",
     text:"Insekten teilt man in große Gruppen ein. Tippe jede Karte an und lies die zwei, drei Erkennungsmerkmale.",
     hint:"Tippe eine Karte an, um sie aufzuklappen.",
     typ:"gruppen"
   },
 
-  /* 3 — Beschriften: Insekten-Körperbau ----------------------------------- */
+  /* 3 – Beschriften: Insekten-Körperbau ----------------------------------- */
   { chip:"Was ist ein Insekt?", titel:"Woran erkennst du ein Insekt?",
     text:"Ein Insekt erkennst du an vier Dingen: <b>6 Beine</b>, <b>3 Körperabschnitte</b> (Kopf, Brust, Hinterleib), meist <b>Flügel</b> und ein Paar <b>Fühler</b>. Tippe die Punkte an.",
     hint:"Tippe die Zahlen im Bild an.",
@@ -288,7 +288,7 @@ const SCHRITTE = [
     ]
   },
 
-  /* 4 — Zuordnen: Insekt oder nicht? -------------------------------------- */
+  /* 4 – Zuordnen: Insekt oder nicht? -------------------------------------- */
   { chip:"Insekt oder nicht?", kat:"uebung", titel:"Insekt – oder kein Insekt?",
     text:"Jetzt kommt der Aha-Test: Zähl die Beine! Ordne jedes Tier zu – Insekt (6 Beine) oder kein Insekt. Dann auf „Prüfen“ tippen.",
     typ:"zuordnen",
@@ -306,7 +306,7 @@ const SCHRITTE = [
     ]
   },
 
-  /* 5 — Abschluss-Quiz + Brücke ------------------------------------------- */
+  /* 5 – Abschluss-Quiz + Brücke ------------------------------------------- */
   { chip:"Quiz", kat:"quiz", titel:"Abschluss-Quiz",
     text:"Zeig, was du gelernt hast – danach wirst du zum Forscher.",
     typ:"quiz",

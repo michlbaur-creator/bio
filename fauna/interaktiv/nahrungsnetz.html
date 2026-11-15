@@ -166,7 +166,7 @@
 <body>
 <div class="huelle">
   <div class="kopf">
-    <a class="zurueck" href="../index.html">‹ Startseite</a>
+    <a class="zurueck" href="wiesenpass.html">‹ Expedition Wiese</a>
     <span class="zaehler" id="zaehler"></span>
   </div>
   <h1>Wer frisst wen?</h1>
@@ -181,13 +181,13 @@
 
   <footer>
     <a class="passlink" href="wiesenpass.html">🍃 Forscherpass</a><br>
-    © 2026 <a href="../ueber/">Michael Baur</a> · Fauna Mibaso
+    © 2026 <a href="../ueber/">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a>
   </footer>
 </div>
 
 <script>
 /* ===========================================================================
-   „Wer frisst wen?“ — Nahrungsnetz & Nahrungspyramide
+   „Wer frisst wen?“ – Nahrungsnetz & Nahrungspyramide
    Screens: intro · Kette→Netz · Pyramide bauen · Energie-Regel · Zersetzer ·
             Störung im Netz · Quiz
    Tierfotos: ../images/wiese/tiere/ (fehlt eines → Emoji-Fallback).
@@ -236,23 +236,23 @@ const ORG = {
 
 const SCREENS = [
 
-  /* 0 — Einstieg */
+  /* 0 – Einstieg */
   { id:"intro", type:"intro",
     titel:"Wer frisst wen?",
     szene:"wiese-sommer.png", szeneLabel:"Strukturreiche Sommerwiese voller Leben",
-    lead:"Auf einer Wiese frisst und wird gefressen — den ganzen Tag. Aber es ist keine "+
+    lead:"Auf einer Wiese frisst und wird gefressen – den ganzen Tag. Aber es ist keine "+
          "einfache Reihe, sondern ein dichtes Netz aus vielen Fäden. In diesem Pfad "+
          "spannst du dieses Netz, baust die Nahrungspyramide und erlebst, was passiert, "+
          "wenn plötzlich ein Glied fehlt.",
     startText:"Netz erkunden" },
 
-  /* 1 — Von der Kette zum Netz */
+  /* 1 – Von der Kette zum Netz */
   { id:"kettenetz", type:"kettenetz",
     titel:"Von der Kette zum Netz",
     intro:"Im Schulbuch steht oft eine einfache Kette: Gras → Heuschrecke → Vogel. "+
           "In Wirklichkeit hängt viel mehr zusammen. Schalte um und sieh selbst.",
     umschalter:["Einfache Kette","Das ganze Netz"],
-    hint:"Tippe „Das ganze Netz“ — plötzlich tauchen viele weitere Fäden auf.",
+    hint:"Tippe „Das ganze Netz“ – plötzlich tauchen viele weitere Fäden auf.",
     knoten:[
       {id:"gras",        org:"gras",        x:50, y:88},
       {id:"blattlaus",   org:"blattlaus",   x:20, y:62},
@@ -270,14 +270,14 @@ const SCREENS = [
       ["raupe","spinne"], ["raupe","vogel"],
       ["heuschrecke","spinne"], ["spinne","vogel"]
     ],
-    text:"Eine Kette reißt, wenn ein Glied fehlt. Ein Netz fängt den Verlust auf — "+
+    text:"Eine Kette reißt, wenn ein Glied fehlt. Ein Netz fängt den Verlust auf – "+
          "es gibt fast immer einen anderen Weg. Deshalb ist ein artenreiches Netz stabiler." },
 
-  /* 2 — Pyramide bauen */
+  /* 2 – Pyramide bauen */
   { id:"pyramide", type:"pyramide",
     titel:"Baue die Nahrungspyramide",
     intro:"Jedes Tier hat seine Stufe. Tippe ein Lebewesen an, dann die passende Stufe "+
-          "der Pyramide — von den Pflanzen unten bis zum Spitzenräuber oben.",
+          "der Pyramide – von den Pflanzen unten bis zum Spitzenräuber oben.",
     stufen:[ /* oben → unten */
       {id:"spitze",         label:"Spitzenräuber",                breite:"b-spitze"},
       {id:"raeuber",        label:"Räuber (Konsumenten)",         breite:"b-raeuber"},
@@ -285,56 +285,56 @@ const SCREENS = [
       {id:"produzenten",    label:"Pflanzen (Produzenten)",       breite:"b-produzenten"}
     ],
     organismen:[
-      {org:"bluete",       stufe:"produzenten",     feedback:"Pflanzen sind die Produzenten: Sie bauen aus Licht Nahrung — die Basis von allem."},
-      {org:"raupe",        stufe:"pflanzenfresser",  feedback:"Die Raupe frisst Blätter — ein klassischer Pflanzenfresser."},
+      {org:"bluete",       stufe:"produzenten",     feedback:"Pflanzen sind die Produzenten: Sie bauen aus Licht Nahrung – die Basis von allem."},
+      {org:"raupe",        stufe:"pflanzenfresser",  feedback:"Die Raupe frisst Blätter – ein klassischer Pflanzenfresser."},
       {org:"heuschrecke",  stufe:"pflanzenfresser",  feedback:"Auch die Heuschrecke lebt von Pflanzen."},
-      {org:"marienkaefer", stufe:"raeuber",          feedback:"Der Marienkäfer jagt Blattläuse — ein Räuber."},
+      {org:"marienkaefer", stufe:"raeuber",          feedback:"Der Marienkäfer jagt Blattläuse – ein Räuber."},
       {org:"spinne",       stufe:"raeuber",          feedback:"Die Spinne fängt Insekten: ebenfalls ein Räuber."},
-      {org:"vogel",        stufe:"spitze",           feedback:"Der Vogel steht ganz oben — er frisst die Räuber und Pflanzenfresser."}
+      {org:"vogel",        stufe:"spitze",           feedback:"Der Vogel steht ganz oben – er frisst die Räuber und Pflanzenfresser."}
     ] },
 
-  /* 3 — Energie-Regel (Konzept mit Hotspots) */
+  /* 3 – Energie-Regel (Konzept mit Hotspots) */
   { id:"energie", type:"konzept",
     titel:"Warum eine Pyramide?",
     text:"Warum sitzen oben nur wenige Räuber? Weil bei jeder Stufe fast alle Energie "+
-         "verloren geht — für Bewegung und Wärme. Nur etwa ein Zehntel wird weitergereicht. "+
+         "verloren geht – für Bewegung und Wärme. Nur etwa ein Zehntel wird weitergereicht. "+
          "Darum kann eine Wiese viele Pflanzen tragen, aber nur wenige Greifvögel.",
     hint:"Tippe die Zahlen an der Pyramide an.",
     svg:"energiePyramide",
     hotspots:[
-      {x:50,y:84,n:1,titel:"Produzenten — 10.000",text:"Ganz unten steht die größte Menge: unzählige Pflanzen fangen Sonnenenergie ein."},
-      {x:50,y:60,n:2,titel:"Pflanzenfresser — 1.000",text:"Nur ein Zehntel der Pflanzen-Energie landet in den Pflanzenfressern. Der Rest geht verloren."},
-      {x:50,y:38,n:3,titel:"Räuber — 100",text:"Wieder bleibt nur ein Zehntel übrig. Räuber sind deshalb schon deutlich seltener."},
-      {x:50,y:17,n:4,titel:"Spitzenräuber — 10",text:"Ganz oben reicht die Energie nur für sehr wenige Tiere. Darum gibt es kaum Greifvögel."}
+      {x:50,y:84,n:1,titel:"Produzenten – 10.000",text:"Ganz unten steht die größte Menge: unzählige Pflanzen fangen Sonnenenergie ein."},
+      {x:50,y:60,n:2,titel:"Pflanzenfresser – 1.000",text:"Nur ein Zehntel der Pflanzen-Energie landet in den Pflanzenfressern. Der Rest geht verloren."},
+      {x:50,y:38,n:3,titel:"Räuber – 100",text:"Wieder bleibt nur ein Zehntel übrig. Räuber sind deshalb schon deutlich seltener."},
+      {x:50,y:17,n:4,titel:"Spitzenräuber – 10",text:"Ganz oben reicht die Energie nur für sehr wenige Tiere. Darum gibt es kaum Greifvögel."}
     ] },
 
-  /* 4 — Zersetzer (Konzept mit Hotspots) */
+  /* 4 – Zersetzer (Konzept mit Hotspots) */
   { id:"zersetzer", type:"konzept",
     titel:"Die heimlichen Aufräumer",
     text:"Die Pyramide hat eine unsichtbare Grundlage: die Zersetzer (Destruenten). Sie "+
-         "verwandeln totes Laub, Kot und gestorbene Tiere wieder in Erde und Nährstoffe — und "+
+         "verwandeln totes Laub, Kot und gestorbene Tiere wieder in Erde und Nährstoffe – und "+
          "schließen so den Kreislauf. Ohne sie würde die Wiese unter ihren eigenen Resten ersticken.",
     hint:"Tippe die Aufräumer an.",
     svg:"kreislauf",
     hotspots:[
       {x:26,y:70,n:1,titel:"Regenwurm",text:"Zieht Laub in den Boden und macht daraus fruchtbaren Humus."},
-      {x:74,y:70,n:2,titel:"Assel",text:"Zerkleinert totes Pflanzenmaterial — die erste Stufe der Zersetzung."},
+      {x:74,y:70,n:2,titel:"Assel",text:"Zerkleinert totes Pflanzenmaterial – die erste Stufe der Zersetzung."},
       {x:50,y:26,n:3,titel:"Pilze & Bakterien",text:"Sie zersetzen den Rest bis auf die Nährstoffe, die die Pflanzen wieder aufnehmen."}
     ] },
 
-  /* 5 — Störung im Netz */
+  /* 5 – Störung im Netz */
   { id:"stoerung", type:"stoerung",
-    titel:"Ein Glied fehlt — was nun?",
+    titel:"Ein Glied fehlt – was nun?",
     intro:"Jetzt der Test fürs Netz: Entferne ein Lebewesen und sieh, was geschieht. "+
           "Probiere ruhig alle drei aus.",
     faelle:[
       { label:"Entferne die Marienkäfer & Spinnen", em:"🐞", entfernt:["marienkaefer","spinne"],
         boom:["blattlaus","raupe","heuschrecke"],
-        text:"Ohne ihre Jäger vermehren sich Blattläuse und Raupen explosionsartig — "+
+        text:"Ohne ihre Jäger vermehren sich Blattläuse und Raupen explosionsartig – "+
              "die Pflanzen leiden. Zum Glück fressen jetzt die Vögel mehr davon: das Netz federt ab." },
       { label:"Entferne die Vögel", em:"🐦", entfernt:["vogel"],
         boom:["spinne","marienkaefer"],
-        text:"Ohne die Spitzenräuber nehmen Spinnen und Räuberinsekten zu — die halten dafür "+
+        text:"Ohne die Spitzenräuber nehmen Spinnen und Räuberinsekten zu – die halten dafür "+
              "die Pflanzenfresser stärker in Schach. Verschoben, aber nicht zusammengebrochen." },
       { label:"Entferne die Pflanzen", em:"🌱", entfernt:["gras","bluete","blattlaus","raupe","heuschrecke","marienkaefer","spinne","vogel"],
         boom:[],
@@ -352,10 +352,10 @@ const SCREENS = [
       ["blattlaus","marienkaefer"],["marienkaefer","vogel"],
       ["raupe","spinne"],["raupe","vogel"],["heuschrecke","spinne"],["spinne","vogel"]
     ],
-    fazit:"Merke: In einem Netz gibt es Umwege — fällt ein Glied aus, tragen andere weiter. "+
+    fazit:"Merke: In einem Netz gibt es Umwege – fällt ein Glied aus, tragen andere weiter. "+
           "Nur die Produzenten ganz unten sind unersetzlich." },
 
-  /* 6 — Quiz */
+  /* 6 – Quiz */
   { id:"quiz", type:"quiz", titel:"Kleiner Test" }
 ];
 
@@ -366,12 +366,12 @@ const QUIZ = [
   { f:"Warum gibt es viel weniger Greifvögel als Pflanzen?",
     opt:["Sie legen zu wenige Eier","Bei jeder Stufe geht fast alle Energie verloren","Sie fressen einander","Pflanzen sind giftig"], richtig:1 },
   { f:"Was macht ein Nahrungsnetz stabiler als eine einzelne Kette?",
-    opt:["Es ist kürzer","Es gibt mehrere Wege — fällt einer weg, bleiben andere","Es hat keine Räuber","Alle fressen dasselbe"], richtig:1 },
+    opt:["Es ist kürzer","Es gibt mehrere Wege – fällt einer weg, bleiben andere","Es hat keine Räuber","Alle fressen dasselbe"], richtig:1 },
   { f:"Welche Rolle haben Regenwurm, Assel und Pilze?",
     opt:["Sie sind Spitzenräuber","Sie bestäuben Blüten","Sie zersetzen Totes und schließen den Kreislauf","Sie fressen Vögel"], richtig:2 },
   { f:"Der Marienkäfer frisst Blattläuse. Auf welcher Stufe steht er?",
     opt:["Produzent","Pflanzenfresser","Räuber","Zersetzer"], richtig:2 },
-  { f:"Welche Gruppe ist wirklich unersetzlich — ohne sie bricht alles zusammen?",
+  { f:"Welche Gruppe ist wirklich unersetzlich – ohne sie bricht alles zusammen?",
     opt:["Die Spitzenräuber","Die Produzenten","Die Räuberinsekten","Die Vögel"], richtig:1 }
 ];
 
@@ -429,7 +429,7 @@ function rahmen(){
   const s=SCREENS[i];
   if(s.type==="intro") $("zaehler").textContent="";
   else if(s.type==="quiz") $("zaehler").textContent="Test";
-  else $("zaehler").innerHTML="Station "+i+" / "+(SCREENS.length-2);
+  else $("zaehler").innerHTML="Schritt "+i+" / "+(SCREENS.length-2);
   $("balken").style.width=(i/(SCREENS.length-1)*100)+"%";
 }
 
@@ -535,7 +535,7 @@ function renderPyramide(s){
   setzeWeiter(true,"Weiter ›");
   const gesamt=s.organismen.length;
   if(s._platziert.size===gesamt){ erledigt[s.id]=true;
-    zeigeInfo("ok","Pyramide steht","Unten viele Pflanzen, oben wenige Räuber — so trägt sich das Leben."); }
+    zeigeInfo("ok","Pyramide steht","Unten viele Pflanzen, oben wenige Räuber – so trägt sich das Leben."); }
 
   let aktiv=null;
   elB.querySelectorAll("#vorrat .org").forEach(b=>{
@@ -554,10 +554,10 @@ function renderPyramide(s){
         zeigeInfo("ok","Richtig",o.feedback);
         aktiv=null;
         if(s._platziert.size===gesamt){ erledigt[s.id]=true;
-          zeigeInfo("ok","Pyramide steht","Unten die Produzenten (Pflanzen), in der Mitte die Konsumenten (Pflanzen- und Fleischfresser), oben die wenigen Spitzenräuber — so trägt sich das Leben."); }
+          zeigeInfo("ok","Pyramide steht","Unten die Produzenten (Pflanzen), in der Mitte die Konsumenten (Pflanzen- und Fleischfresser), oben die wenigen Spitzenräuber – so trägt sich das Leben."); }
       } else {
         band.classList.add("ziel"); setTimeout(()=>band.classList.remove("ziel"),500);
-        zeigeInfo("no","Nicht diese Stufe","Überleg: Frisst dieses Lebewesen Pflanzen, andere Tiere — oder ist es selbst die Pflanze?");
+        zeigeInfo("no","Nicht diese Stufe","Überleg: Frisst dieses Lebewesen Pflanzen, andere Tiere – oder ist es selbst die Pflanze?");
       }
     });
   });
@@ -666,7 +666,7 @@ function renderQuiz(s){
     meldeExpedition(EXP_ID, blaetter);          // Ergebnis an den Forscherpass melden
     const perfekt=score===fragen.length;
     const spruch = perfekt ? "Volltreffer! Du hast das Netz durchschaut. 🕸️"
-      : anteil>=0.6 ? "Stark! Der Kreislauf sitzt fast." : "Schau ruhig nochmal durch die Stationen.";
+      : anteil>=0.6 ? "Stark! Der Kreislauf sitzt fast." : "Schau ruhig nochmal durch die Schritte.";
     elB.innerHTML='<div class="stufe qende"><p class="qlabel">Ergebnis</p>'+
       '<p class="gross">'+score+'<small> / '+fragen.length+'</small></p>'+
       '<p class="blaetter">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+

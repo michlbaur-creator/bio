@@ -216,7 +216,7 @@
 </div>
 <div class="huelle">
   <div class="kopf">
-    <a class="zurueck" href="../index.html">‹ Startseite</a>
+    <a class="zurueck" href="wiesenpass.html">‹ Expedition Wiese</a>
     <span class="zaehler" id="zaehler"></span>
   </div>
   <div class="chips" id="chips"></div>
@@ -229,12 +229,12 @@
     <button class="knopf prim" id="weiterBtn">Nächster Schritt ›</button>
   </div>
 
-  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso</footer>
+  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a></footer>
 </div>
 
 <script>
 /* ===========================================================================
-   Lernpfad „Unter unseren Füßen — die Welt unter der Wiese"
+   Lernpfad „Unter unseren Füßen – die Welt unter der Wiese"
    ►► MASSGEBLICHE FASSUNG – wird direkt hier in bio gepflegt (native).
    Mehrere Interaktionstypen wie in den Schwester-Pfaden:
      typ "tafel"       : Bild + antippbare Hotspots (Beschriften)
@@ -250,7 +250,7 @@
 const BASIS="../images/boden/";
 
 const SCHRITTE = [
-  /* 1 — Beschriften -------------------------------------------------------- */
+  /* 1 – Beschriften -------------------------------------------------------- */
   { chip:"Wer wohnt hier?", titel:"Wer wohnt hier unten?",
     text:"Heb die Wiese hoch wie einen Teppich – darunter wimmelt es. In einer Handvoll Erde leben mehr Lebewesen als Menschen auf der Erde.",
     hint:"Tippe die Punkte im Bild an.",
@@ -266,7 +266,7 @@ const SCHRITTE = [
     ]
   },
 
-  /* 2 — Sequenz: Abbau eines Blattes -------------------------------------- */
+  /* 2 – Sequenz: Abbau eines Blattes -------------------------------------- */
   { chip:"Der Weg eines Blattes", titel:"Was aus einem toten Blatt wird",
     text:"Im Herbst fällt Laub auf die Wiese – und ist im Frühjahr fast verschwunden. Die Zersetzer haben ganze Arbeit geleistet. Schau Schritt für Schritt zu.",
     hint:"▶ abspielen oder mit ‹ › weiterklicken.",
@@ -285,7 +285,7 @@ const SCHRITTE = [
     ]
   },
 
-  /* 3 — Reihenfolge (Drag & Drop) ----------------------------------------- */
+  /* 3 – Reihenfolge (Drag & Drop) ----------------------------------------- */
   { chip:"In die richtige Reihenfolge", kat:"uebung", titel:"Bring den Abbau in die richtige Reihenfolge",
     text:"Ziehe die Karten mit dem Griff ⠿ oder schiebe sie mit ▲▼, bis der Weg vom Blatt zur neuen Pflanze stimmt. Dann auf „Prüfen“ tippen.",
     typ:"reihenfolge",
@@ -298,7 +298,7 @@ const SCHRITTE = [
     ]
   },
 
-  /* 4 — Zuordnen: Berufe -------------------------------------------------- */
+  /* 4 – Zuordnen: Berufe -------------------------------------------------- */
   { chip:"Wer hat welchen Job?", kat:"uebung", titel:"Jeder hat seine Aufgabe",
     text:"Im Boden hat jeder einen „Beruf“. Ordne jedem Lebewesen seine Hauptaufgabe zu – dann auf „Prüfen“ tippen.",
     typ:"zuordnen",
@@ -317,7 +317,7 @@ const SCHRITTE = [
     ]
   },
 
-  /* 5 — Lückentext -------------------------------------------------------- */
+  /* 5 – Lückentext -------------------------------------------------------- */
   { chip:"Lückentext", kat:"uebung", titel:"Fülle die Lücken",
     text:"Tippe eine Lücke an und dann das passende Wort aus der Wortbank. Zum Schluss „Prüfen“.",
     typ:"luecke",
@@ -331,7 +331,7 @@ const SCHRITTE = [
     ]
   },
 
-  /* 6 — Abschluss-Quiz ---------------------------------------------------- */
+  /* 6 – Abschluss-Quiz ---------------------------------------------------- */
   { chip:"Quiz", kat:"quiz", titel:"Abschluss-Quiz",
     text:"Zum Schluss der Test: Zeig, was du über die Welt unter der Wiese weißt.",
     typ:"quiz",

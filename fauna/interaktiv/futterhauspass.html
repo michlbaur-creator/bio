@@ -747,7 +747,7 @@ const WER_BIN_ICH = {
   feldsperling: "Ich sehe aus wie ein Spatz, habe aber einen braunen Scheitel und einen schwarzen Fleck auf der weißen Wange.",
   star: "Mein Gefieder schillert grün und lila – im Winter bin ich mit hellen Pünktchen übersät.",
   elster: "Ich bin schwarz-weiß, habe einen sehr langen Schwanz – und im Film habe ich den Knödel stibitzt.",
-  buchfink: "Das Männchen hat eine rosarote Brust und einen blaugrauen Kopf. Auf den Flügeln trage ich weiße Streifen.",
+  buchfink: "Das Männchen hat eine rostrote Brust und einen blaugrauen Kopf. Auf den Flügeln trage ich weiße Streifen.",
   rotkehlchen: "Brust und Gesicht sind orangerot, dazu große, dunkle Kulleraugen. Mein Revier verteidige ich auch im Winter.",
   buntspecht: "Ich bin schwarz-weiß, unter dem Schwanz knallrot und klettere am Stamm. Das Männchen hat einen roten Fleck im Nacken.",
   mittelspecht: "Ich bin auch ein Specht – aber meine ganze Kopfplatte ist rot, und unter dem Schwanz bin ich nur zartrosa.",
@@ -1490,7 +1490,7 @@ function feier(eid) {
   const X = EXPS[eid], h = kennzahlen(eid), rang = X.raenge[rangIndex(eid, h.summe)];
   const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
   o.innerHTML = `<div class="feierkarte"><div class="fmed">${rang.med}</div><h3>Geschafft!</h3>
-    <p>Du hast alle Stationen von „${X.titel}“ gemeistert und ${h.summe} von ${MAXN(eid)} Kerne gesammelt. Dein Rang: <b>${rang.name}</b>.</p>
+    <p>Du hast alle Stationen von „${X.titel}“ gemeistert und ${h.summe} von ${MAXN(eid)} Kernen gesammelt. Dein Rang: <b>${rang.name}</b>.</p>
     <div class="knopfreihe"><button type="button" class="knopf honig" id="fUrk">📜 Zur Urkunde</button><button type="button" class="knopf" id="fZu">Weiter</button></div></div>`;
   document.body.appendChild(o);
   $("#fUrk", o).onclick = () => { o.remove(); urkunde(eid); };

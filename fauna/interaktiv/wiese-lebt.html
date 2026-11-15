@@ -177,7 +177,7 @@
 <body>
 <div class="huelle">
   <div class="kopf">
-    <a class="zurueck" href="../index.html">‹ Startseite</a>
+    <a class="zurueck" href="wiesenpass.html">‹ Expedition Wiese</a>
     <span class="zaehler" id="zaehler"></span>
   </div>
   <h1>Wie hängt alles zusammen?</h1>
@@ -201,12 +201,12 @@
     <button class="knopf prim" id="weiterBtn">Weiter ›</button>
   </div>
 
-  <footer>© 2026 <a href="../ueber/">Michael Baur</a> · Fauna Mibaso</footer>
+  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a></footer>
 </div>
 
 <script>
 /* ===========================================================================
-   „Die Wiese lebt“ — Spiel-Logik
+   „Die Wiese lebt“ – Spiel-Logik
    ---------------------------------------------------------------------------
    Aufbau: ein linearer Lernpfad aus 8 Screens. Der Nutzer trifft
    Entscheidungen, die sechs ökologische Werte verändern. Ein Öko-Barometer
@@ -214,7 +214,7 @@
 
    Bilder: Szenen liegen in ../images/wiese/ , Tier-/Objekt-PNGs (transparent)
    in ../images/wiese/tiere/ . Fehlt ein Bild, erscheint ein Platzhalter mit
-   dem erwarteten Dateinamen — später einfach die PNG/JPG dort ablegen.
+   dem erwarteten Dateinamen – später einfach die PNG/JPG dort ablegen.
 
    Vereinfachung fürs Handy: „Drag & Drop“ ist als „antippen → Ziel antippen“
    umgesetzt. Auf Touchgeräten deutlich zuverlässiger, gleiche Didaktik.
@@ -268,24 +268,24 @@ function gesamt(){
 /* type: intro | bausteine | entscheidung | zuordnen | netz | auswertung */
 const SCREENS = [
 
-  /* 0 — Einstieg -------------------------------------------------------- */
+  /* 0 – Einstieg -------------------------------------------------------- */
   {
     id:"einstieg", type:"intro",
     titel:"Die Wiese lebt",
     szene:"wiese-fruehling.png", szeneLabel:"Wiese im Frühling, noch wenig belebt",
     lead:"Eine Wiese ist mehr als Gras. Sie ist ein kleines Ökosystem aus Blüten, "+
          "Kräutern, Boden, Totholz und tausend Tieren. In diesem Lernpfad baust und "+
-         "pflegst du deine eigene Wiese — jede Entscheidung verändert, wie viel Leben "+
+         "pflegst du deine eigene Wiese – jede Entscheidung verändert, wie viel Leben "+
          "hier Platz findet. Am Ende siehst du: Wie lebendig ist deine Wiese geworden?",
     startText:"Wiese erkunden"
   },
 
-  /* 1 — Lebensraum-Bausteine (Mehrfachauswahl) -------------------------- */
+  /* 1 – Lebensraum-Bausteine (Mehrfachauswahl) -------------------------- */
   {
     id:"bausteine", type:"bausteine",
     titel:"Mehr als nur Gras",
     szene:"wiese-sommer.png", szeneLabel:"Strukturreiche Sommerwiese",
-    intro:"Welche Strukturen machen deine Wiese für Tiere wertvoll? Wähle mit Bedacht — "+
+    intro:"Welche Strukturen machen deine Wiese für Tiere wertvoll? Wähle mit Bedacht – "+
           "nicht alles, was grün und hübsch aussieht, ist auch wertvoll. Dann bestätige.",
     optionen:[
       { label:"Blühende Wildkräuter", em:"🌼", gut:true, krabbler:"🌼",
@@ -307,7 +307,7 @@ const SCREENS = [
       { label:"Gefüllte Zierblüten", em:"🌹", gut:false,
         effekte:{},
         feedback:"Sieht üppig aus, ist aber eine Sackgasse: Gefüllte Zuchtblüten haben "+
-                 "kaum Nektar und keinen Pollen — für Insekten wertlos." },
+                 "kaum Nektar und keinen Pollen – für Insekten wertlos." },
       { label:"Mähroboter fürs ordentliche Grün", em:"🤖", gut:false,
         effekte:{verstecke:-2},
         feedback:"Eine echte Gefahr: Der Roboter hält alles kurz, zerhäckselt Kleintiere "+
@@ -317,10 +317,10 @@ const SCREENS = [
         feedback:"Immergrün und beliebt, aber ökologisch tot: Heimische Insekten können "+
                  "mit dem exotischen Kirschlorbeer nichts anfangen." }
     ],
-    hinweis:"Merke: „Unordnung“ ist kein Makel — aber „grün und gepflegt“ ist noch kein Lebensraum."
+    hinweis:"Merke: „Unordnung“ ist kein Makel – aber „grün und gepflegt“ ist noch kein Lebensraum."
   },
 
-  /* 2 — Blattlaus-Alarm (Entscheidung) ---------------------------------- */
+  /* 2 – Blattlaus-Alarm (Entscheidung) ---------------------------------- */
   {
     id:"blattlaus", type:"entscheidung",
     titel:"Blattlaus-Alarm",
@@ -328,22 +328,22 @@ const SCREENS = [
     intro:"An deinen Pflanzen sitzen plötzlich viele Blattläuse. Was tust du?",
     optionen:[
       { label:"Mit Gift bekämpfen", em:"🧴", klasse:"schlecht", effekte:{},
-        feedback:"Das Gift trifft auch Marienkäfer, Schwebfliegen und ihre Larven — "+
+        feedback:"Das Gift trifft auch Marienkäfer, Schwebfliegen und ihre Larven – "+
                  "genau die Tiere, die Blattläuse fressen. Die Wiese verliert ihr Gleichgewicht." },
       { label:"Alle absammeln", em:"✋", klasse:"mittel", effekte:{},
         feedback:"Gut gemeint, aber du nimmst der Wiese eine wichtige Futterquelle. "+
                  "Ohne Blattläuse verhungern ihre Jäger." },
       { label:"Marienkäfer aus dem Handel aussetzen", em:"🛒", klasse:"schlecht", effekte:{},
-        feedback:"Die Falle: Im Handel sind meist Asiatische Marienkäfer — eine invasive Art, "+
+        feedback:"Die Falle: Im Handel sind meist Asiatische Marienkäfer – eine invasive Art, "+
                  "die unsere heimischen verdrängt. Deine Wiese hat ihre Jäger längst selbst." },
       { label:"Beobachten und dulden", em:"👀", klasse:"gut", effekte:{nahrungsnetz:2}, richtig:true,
-        feedback:"Richtig! Blattläuse sind nicht nur „Schädlinge“ — sie sind Futter für "+
+        feedback:"Richtig! Blattläuse sind nicht nur „Schädlinge“ – sie sind Futter für "+
                  "Marienkäferlarven, Schwebfliegenlarven, Florfliegen und Vögel. "+
                  "Meist regelt sich die Zahl von selbst. So knüpft sich ein Nahrungsnetz." }
     ]
   },
 
-  /* 3 — Wer lebt wo? (Zuordnung) ---------------------------------------- */
+  /* 3 – Wer lebt wo? (Zuordnung) ---------------------------------------- */
   {
     id:"werlebtwo", type:"zuordnen",
     titel:"Wer lebt wo?",
@@ -358,11 +358,11 @@ const SCREENS = [
     ],
     tiere:[
       { label:"Regenwurm",        em:"🪱", img:"tier-regenwurm.png", zone:"boden",
-        feedback:"Der Regenwurm lockert und düngt den Boden — die unsichtbare Gärtnerei der Wiese." },
+        feedback:"Der Regenwurm lockert und düngt den Boden – die unsichtbare Gärtnerei der Wiese." },
       { label:"Assel",            em:"🪳", img:"tier-assel.png", zone:"laub",
         feedback:"Asseln zersetzen Laub und Totholz zu Humus. Ohne sie stapelt sich das tote Material." },
       { label:"Marienkäferlarve", em:"🐞", img:"tier-marienkaeferlarve.png", zone:"blueten",
-        feedback:"Die gefräßige Larve jagt Blattläuse an Kräutern und Blüten — nicht im Boden." },
+        feedback:"Die gefräßige Larve jagt Blattläuse an Kräutern und Blüten – nicht im Boden." },
       { label:"Wildbiene",        em:"🐝", img:"tier-wildbiene.png", zone:"staengel",
         feedback:"Die Falle: Wildbienen besuchen Blüten, aber sie NISTEN in hohlen, stehen gelassenen Stängeln." },
       { label:"Florfliegenlarve", em:"🦟", img:"tier-florfliegenlarve.png", zone:"blueten",
@@ -373,12 +373,12 @@ const SCREENS = [
     proRichtig:{verstecke:1}
   },
 
-  /* 4 — Nahrungsnetz bauen (Verbindungen) ------------------------------- */
+  /* 4 – Nahrungsnetz bauen (Verbindungen) ------------------------------- */
   {
     id:"nahrungsnetz", type:"netz",
     titel:"Baue ein Nahrungsnetz",
     szene:"wiese-sommer.png", szeneLabel:"Strukturreiche Sommerwiese voller Leben",
-    intro:"Ein Nahrungsnetz ist mehr als eine Kette — viele Wege kreuzen sich. "+
+    intro:"Ein Nahrungsnetz ist mehr als eine Kette – viele Wege kreuzen sich. "+
           "Tippe eine Beute an, dann einen Jäger, der sie frisst. Finde alle Verbindungen.",
     beute:[
       { id:"blattlaus", label:"Blattlaus", em:"🐜", img:"tier-blattlaus.png" },
@@ -401,7 +401,7 @@ const SCREENS = [
     proVerbindung:{nahrungsnetz:1}
   },
 
-  /* 5 — Du pflegst die Wiese: Mähen (Entscheidung) ---------------------- */
+  /* 5 – Du pflegst die Wiese: Mähen (Entscheidung) ---------------------- */
   {
     id:"maehen", type:"entscheidung",
     titel:"Du pflegst die Wiese",
@@ -409,45 +409,45 @@ const SCREENS = [
     intro:"Der Sommer ist vorbei, die Wiese wird hoch. Wie mähst du?",
     optionen:[
       { label:"Alles auf einmal kurz mähen", em:"🚜", klasse:"schlecht", effekte:{},
-        feedback:"Über Nacht verschwinden Nahrung, Verstecke und Winterquartiere — "+
+        feedback:"Über Nacht verschwinden Nahrung, Verstecke und Winterquartiere – "+
                  "Insekten, Larven und Eier werden mitgemäht. Die Wiese fällt in Schockstarre." },
       { label:"Abschnittsweise, Ecken stehen lassen", em:"🌾", klasse:"gut",
         effekte:{verstecke:2, ueberwinterung:2}, richtig:true,
         feedback:"Genau so! Wer nur Teile mäht und wilde Ecken lässt, gibt Tieren immer "+
                  "einen Rückzugsort. In Altgras und Stängeln überwintern unzählige Insekten." },
       { label:"Gar nicht mähen", em:"🌳", klasse:"mittel", effekte:{ueberwinterung:1},
-        feedback:"Kurzfristig okay, doch ohne jede Mahd verbuscht die Wiese mit den Jahren — "+
+        feedback:"Kurzfristig okay, doch ohne jede Mahd verbuscht die Wiese mit den Jahren – "+
                  "und die lichtliebenden Blütenpflanzen verschwinden." },
       { label:"Mulchen: Schnittgut liegen lassen", em:"🌱", klasse:"schlecht", effekte:{},
         feedback:"Die Falle: Klingt naturnah, ist aber das Gegenteil. Das liegende Schnittgut "+
-                 "überdüngt den Boden — wenige Gräser wuchern, die zarten Blüten verschwinden." }
+                 "überdüngt den Boden – wenige Gräser wuchern, die zarten Blüten verschwinden." }
     ]
   },
 
-  /* 6 — Nacht auf der Wiese: Lichtverschmutzung (Entscheidung) ---------- */
+  /* 6 – Nacht auf der Wiese: Lichtverschmutzung (Entscheidung) ---------- */
   {
     id:"nacht", type:"entscheidung", nacht:true,
     titel:"Nacht auf der Wiese",
     szene:"wiese-nacht.png", szeneLabel:"Wiese bei Nacht",
-    intro:"Es wird dunkel — jetzt beginnt die zweite Schicht: Nachtfalter und "+
+    intro:"Es wird dunkel – jetzt beginnt die zweite Schicht: Nachtfalter und "+
           "Glühwürmchen. Am Rand steht eine helle Gartenlampe. Was tust du?",
     optionen:[
       { label:"Lampe hell leuchten lassen", em:"💡", klasse:"schlecht", effekte:{},
         feedback:"Nachtfalter umkreisen die Lampe bis zur Erschöpfung, statt Blüten zu bestäuben. "+
-                 "Und Glühwürmchen-Weibchen gehen im hellen Licht unter — die Männchen finden sie nicht mehr." },
+                 "Und Glühwürmchen-Weibchen gehen im hellen Licht unter – die Männchen finden sie nicht mehr." },
       { label:"Lampe dimmen, warmweiß", em:"🔅", klasse:"mittel", effekte:{nachtlebensraum:1},
         feedback:"Besser: Warmes, gedämpftes Licht zieht weniger Insekten an. "+
                  "Ganz dunkel wäre für die Nachttiere aber noch wertvoller." },
       { label:"Solar-Bewegungsmelder anbringen", em:"🔦", klasse:"schlecht", effekte:{},
         feedback:"Die Falle: „Solar“ klingt öko, doch das Licht springt genau dann an, "+
-                 "wenn sich nachts etwas bewegt — also immer dann, wenn die Nachttiere aktiv sind." },
+                 "wenn sich nachts etwas bewegt – also immer dann, wenn die Nachttiere aktiv sind." },
       { label:"Lampe ausschalten", em:"🌙", klasse:"gut", effekte:{nachtlebensraum:3}, richtig:true,
         feedback:"Richtig! Dunkelheit ist ein Lebensraum. Ohne Lichtverschmutzung "+
                  "bestäuben Nachtfalter ungestört, und Glühwürmchen finden zueinander." }
     ]
   },
 
-  /* 7 — Auswertung ------------------------------------------------------ */
+  /* 7 – Auswertung ------------------------------------------------------ */
   { id:"auswertung", type:"auswertung", titel:"Deine Wiese" }
 ];
 
@@ -455,7 +455,7 @@ const SCREENS = [
 function ergebnisStufe(total){
   if(total<=4)  return {
     name:"Öko-Wüste", medaille:"🏜️", szene:"ergebnis-wueste.png",
-    text:"Diese Wiese ist ordentlich — aber leer. Es fehlen Blüten, Verstecke und "+
+    text:"Diese Wiese ist ordentlich – aber leer. Es fehlen Blüten, Verstecke und "+
          "Winterquartiere, also auch die Tiere, die davon leben. Artenvielfalt entsteht "+
          "nicht durch maximale Ordnung, sondern durch passende Strukturen." };
   if(total<=9)  return {
@@ -555,7 +555,7 @@ function rahmen(){
   const s=SCREENS[i];
   if(s.type==="intro"){ $("zaehler").textContent=""; }
   else if(s.type==="auswertung"){ $("zaehler").textContent="Auswertung"; }
-  else { $("zaehler").innerHTML="Station "+i+" / "+(SCREENS.length-2); }
+  else { $("zaehler").innerHTML="Schritt "+i+" / "+(SCREENS.length-2); }
   $("balken").style.width=(i/(SCREENS.length-1)*100)+"%";
   // Barometer ab Screen 1 zeigen
   if(i>=1 && s.type!=="auswertung"){ elBaro.classList.add("an"); zeichneBarometer(); }
@@ -739,7 +739,7 @@ function renderZuordnen(s){
   setzeWeiter(true,"Weiter ›");        // überspringbar
   if(s._geloest.size===gesamtT){
     erledigt[s.id]=true;
-    zeigeInfo("ok","Alles zugeordnet","Jedes Tier hat seinen Platz — und jede Struktur ihre Bewohner.");
+    zeigeInfo("ok","Alles zugeordnet","Jedes Tier hat seinen Platz – und jede Struktur ihre Bewohner.");
   }
 
   let aktivT=null;
@@ -771,7 +771,7 @@ function renderZuordnen(s){
       } else {
         tb.classList.remove("gewaehlt"); tb.classList.add("falsch");
         setTimeout(()=>tb.classList.remove("falsch"),600);
-        zeigeInfo("no","Nicht ganz","Dieses Tier lebt woanders — probier einen anderen Lebensraum.");
+        zeigeInfo("no","Nicht ganz","Dieses Tier lebt woanders – probier einen anderen Lebensraum.");
         aktivT=null;
       }
     });
@@ -860,7 +860,7 @@ function renderNetz(s){
     } else if(s._gefunden.has(key)){
       zeigeInfo("tipp","Schon verbunden","Diese Verbindung hast du bereits gefunden.");
     } else {
-      zeigeInfo("no","Kein direkter Weg","Diese beiden hängen nicht direkt zusammen — wer frisst hier wen?");
+      zeigeInfo("no","Kein direkter Weg","Diese beiden hängen nicht direkt zusammen – wer frisst hier wen?");
     }
     beuteBtns.forEach(x=>x.classList.remove("aktiv")); aktivB=null;
   }));

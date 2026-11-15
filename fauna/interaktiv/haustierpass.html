@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Expedition Haustier – Vom Wildtier zum Haustier · Bio Mibaso</title>
+<title>Wild &amp; zahm – Vom Wildtier zum Haustier · Bio Mibaso</title>
 <meta name="description" content="Vom Wolf zum Hund, vom Wildschwein zum Hausschwein: zwei Expeditionen für eine Doppelstunde in Klasse 5/6 – mit Haustierpass, Knochen-Napf, Abzeichen und Urkunde.">
 <meta name="theme-color" content="#233D5C">
 <link rel="icon" href="../assets/icon.svg">
@@ -525,7 +525,7 @@ const SORT_SETS = {
   ]},
   vorfahren: { bins: [["rind", "🐄 Hausrind"], ["schaf", "🐑 Hausschaf"], ["huhn", "🐓 Haushuhn"], ["katze", "🐈 Hauskatze"], ["pferd", "🐎 Hauspferd"], ["kaninchen", "🐇 Hauskaninchen"]], items: [
     ["Auerochse", "rind", "Der Auerochse war ein riesiges Wildrind. Er ist ausgestorben – das letzte Tier starb 1627 in Polen. Nicht verwechseln mit dem Wisent: Den gibt es noch, ein Haustier wurde er nie."],
-    ["Mufflon (Wildschaf)", "schaf", "Wildschafe wie der Mufflon haben ein kurzes, braunes Haarkleid. Die dicke Wolle gibt es erst durch Züchtung."],
+    ["Mufflon (Wildschaf)", "schaf", "Das Hausschaf stammt vom Wildschaf Vorderasiens ab, dem Armenischen Mufflon. Wildschafe haben ein kurzes, braunes Haarkleid. Die dicke Wolle gibt es erst durch Züchtung."],
     ["Bankivahuhn", "huhn", "Das Bankivahuhn lebt in den Wäldern Südostasiens und legt nur wenige Eier im Jahr. Ein Legehuhn heute legt fast jeden Tag eins."],
     ["Falbkatze", "katze", "Die Falbkatze ist eine Wildkatze aus Afrika und Vorderasien. Sie kam zu den ersten Bauern, weil es in den Kornspeichern Mäuse gab."],
     ["Wildpferd", "pferd", "Wildpferde lebten in den weiten Steppen Osteuropas und Asiens. Dort wurden sie vor etwa 4.000 bis 5.000 Jahren gezähmt."],
@@ -1076,7 +1076,7 @@ const kopf = (titel, unter) => `<header class="app-head">
 const fuss = () => `<footer class="fuss">
   <div>Fortschritt wird nur auf diesem Gerät gespeichert. Keine Anmeldung, keine Datensammlung.</div>
   <div><a href="../../index.html">⌂ Bio Mibaso</a> · <a href="../../ueber/">Über mich</a> · <a href="../../impressum/">Impressum &amp; Datenschutz</a></div>
-  <div>© 2026 Michael Baur · Expedition Haustier</div></footer>`;
+  <div>© 2026 Michael Baur · Wild &amp; zahm</div></footer>`;
 
 function seiteStart() {
   const kachel = eid => { const X = EXPS[eid], h = kennzahlen(eid);

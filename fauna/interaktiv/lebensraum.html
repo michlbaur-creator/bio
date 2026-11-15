@@ -107,13 +107,13 @@
     <img class="pi-foto" src="../images/wiese/wiese-sommer.png" alt="" onerror="this.style.display='none'">
     <div class="pi-eyebrow">🍃 Expedition Wiese · Lernpfad</div>
     <h1 class="pi-titel">Wo wohnen Insekten?</h1>
-    <p class="pi-lead">Nektar allein reicht nicht. Welcher Lebensraum passt zu welcher Tiergruppe? Vier Bilder pro Frage — und nur eines stimmt.</p>
+    <p class="pi-lead">Nektar allein reicht nicht. Welcher Lebensraum passt zu welcher Tiergruppe? Vier Bilder pro Frage – und nur eines stimmt.</p>
     <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
   </div>
 </div>
 <div class="huelle">
   <div class="kopf">
-    <a class="zurueck" href="../index.html">‹ Startseite</a>
+    <a class="zurueck" href="wiesenpass.html">‹ Expedition Wiese</a>
     <span class="zaehler" id="zaehler"></span>
   </div>
   <h1>Was brauchen Insekten wirklich?</h1>
@@ -128,7 +128,7 @@
 
   <div id="ende" style="display:none;"></div>
 
-  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso</footer>
+  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a></footer>
 </div>
 
 <script>
@@ -186,7 +186,7 @@ let i=0, score=0, beantwortet=false;
 function render(){
   beantwortet=false;
   const s=DATEN[i];
-  $("zaehler").innerHTML="Station "+(i+1)+" / "+DATEN.length+" · ✓ <b>"+score+"</b>";
+  $("zaehler").innerHTML="Frage "+(i+1)+" / "+DATEN.length+" · ✓ <b>"+score+"</b>";
   $("balken").style.width=(i/DATEN.length*100)+"%";
   $("frage").textContent=s.frage;
   let html='<img src="'+BASIS+s.bild+'" alt="Vier Situationen zur Auswahl" '+
@@ -215,7 +215,7 @@ function waehle(btn,s){
   });
   if(!korrekt){ btn.classList.add("falsch"); btn.querySelector(".badge").textContent="✗"; }
   if(korrekt) score++;
-  $("zaehler").innerHTML="Station "+(i+1)+" / "+DATEN.length+" · ✓ <b>"+score+"</b>";
+  $("zaehler").innerHTML="Frage "+(i+1)+" / "+DATEN.length+" · ✓ <b>"+score+"</b>";
   const info=$("info");
   info.className="infokarte an "+(korrekt?"ok":"no");
   info.innerHTML='<p class="it">'+(korrekt?"✓ Richtig":"✗ Richtig wäre "+s.richtig)+'</p><p>'+s.aufloesung+'</p>';

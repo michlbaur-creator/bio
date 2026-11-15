@@ -1044,7 +1044,7 @@ const fuss = () => `<footer class="fuss">
 
 function seiteStart() {
   const kachel = eid => { const X = EXPS[eid], h = kennzahlen(eid);
-    return `<a class="kachel" href="#${eid}"><span class="ke">${X.em}</span><span><span class="kt">${X.titel}</span><span class="kb">${X.motto} · ${X.stationen.length} Stationen · ca. ${X.stationen.reduce((a, s) => a + s.min, 0)} Min · 🌻 ${h.summe}/${MAXN(eid)}</span></span><span class="pf">›</span></a>`; };
+    return `<a class="kachel" href="#${eid}"><span class="ke">${X.em}</span><span><span class="kt">${X.titel}</span><span class="kb">${X.motto} · ${X.stationen.length} Stationen · ca. ${X.stationen.reduce((a, s) => a + s.min, 0)} Min · 📍 ${h.summe}/${MAXN(eid)}</span></span><span class="pf">›</span></a>`; };
   app.innerHTML = `${kopf("Zugvögel", "Auf großer Reise")}
   <div class="huelle">
     <section>

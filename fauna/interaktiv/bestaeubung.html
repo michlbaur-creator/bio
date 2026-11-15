@@ -190,14 +190,14 @@
     <img class="pi-foto" src="../images/blueten/hummel-beinwell.jpg" alt="" onerror="this.style.display='none'">
     <div class="pi-eyebrow">🍃 Expedition Wiese · Lernpfad</div>
     <h1 class="pi-titel">Wer bestäubt wen?</h1>
-    <p class="pi-lead">Blüte und Bestäuber passen zusammen wie Schlüssel und Schloss. Finde heraus, welches Insekt zu welcher Blüte gehört — und warum das kein Zufall ist.</p>
+    <p class="pi-lead">Blüte und Bestäuber passen zusammen wie Schlüssel und Schloss. Finde heraus, welches Insekt zu welcher Blüte gehört – und warum das kein Zufall ist.</p>
     <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
   </div>
 </div>
 <div class="huelle">
   <div class="kopf">
-    <a class="zurueck" href="../index.html">‹ Startseite</a>
-    <span class="zaehler" id="zaehler">Station 1 / 9</span>
+    <a class="zurueck" href="wiesenpass.html">‹ Expedition Wiese</a>
+    <span class="zaehler" id="zaehler">Schritt 1 / 9</span>
   </div>
   <h1>Wer bestäubt was?</h1>
   <div class="chips" id="chips"></div>
@@ -207,10 +207,10 @@
 
   <div class="nav" id="nav">
     <button class="knopf" id="zurueckBtn">‹ Zurück</button>
-    <button class="knopf prim" id="weiterBtn">Nächste Station ›</button>
+    <button class="knopf prim" id="weiterBtn">Nächster Schritt ›</button>
   </div>
 
-  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso</footer>
+  <footer><a href="wiesenpass.html" style="color:inherit;font-weight:600;">🍃 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a></footer>
 </div>
 
 <script>
@@ -379,7 +379,7 @@ const SCHRITTE = [
     hint:"Tippe die Punkte an.",
     typ:"konzept", bild:"aronstab.jpg",
     hotspots:[
-      {x:53,y:24,n:1,titel:"Der Kolben",text:"Er heizt sich auf und verströmt einen Aas- oder Kot-Geruch. Das lockt Aasmücken an, die hier eigentlich ihre Eier ablegen wollen."},
+      {x:53,y:24,n:1,titel:"Der Kolben",text:"Er heizt sich auf und verströmt einen Aas- oder Kot-Geruch. Das lockt winzige Schmetterlingsmücken an, die hier eigentlich ihre Eier ablegen wollen."},
       {x:66,y:42,n:2,titel:"Die Gleitzone",text:"Die Wände sind glatt wie eine Rutsche – die Mücken verlieren den Halt und fallen hinunter in die Kammer."},
       {x:42,y:57,n:3,titel:"Die Blüten & Reusenhaare",text:"Im Kessel sitzen die kleinen Blüten, darüber steife Haare wie eine Reuse. Hinein geht es leicht, hinaus zunächst nicht."},
       {x:52,y:74,n:4,titel:"Der Kesselraum",text:"Hier krabbeln die gefangenen Mücken umher und bestäuben die Blüten. Am nächsten Tag welken die Haare – der Weg nach draußen ist frei."}
@@ -436,7 +436,7 @@ function chips(){
     c.addEventListener("click",()=>geheZu(k));
     elChips.appendChild(c);
   });
-  elZaehler.textContent="Station "+(i+1)+" / "+SCHRITTE.length;
+  elZaehler.textContent="Schritt "+(i+1)+" / "+SCHRITTE.length;
 }
 
 function render(){
@@ -447,7 +447,7 @@ function render(){
   else renderKonzept(s);
   document.getElementById("zurueckBtn").disabled=(i===0);
   const wb=document.getElementById("weiterBtn");
-  wb.textContent=(i===SCHRITTE.length-1)?"↺ Von vorn":"Nächste Station ›";
+  wb.textContent=(i===SCHRITTE.length-1)?"↺ Von vorn":"Nächster Schritt ›";
   chips(); melde();
 }
 
@@ -585,7 +585,7 @@ function renderQuiz(s){
       if(!_d.bestaeubung || blaetter>_d.bestaeubung.blaetter){ _d.bestaeubung={blaetter:blaetter,done:true,ts:Date.now()}; localStorage.setItem(_K,JSON.stringify(_d)); } }catch(e){}
     const perfekt=["Volltreffer! Du bist ein wahrer Bestäubungs-Profi. 🐝","Alles richtig – die Blüten hätten dich gern als Stammgast!"];
     const gut=["Stark! Du hast den Dreh raus.","Gut gemacht – Schlüssel passt fast immer ins Schloss."];
-    const ok=["Schau ruhig nochmal durch die Stationen – dann sitzt es.","Ein guter Anfang! Noch eine Runde?"];
+    const ok=["Schau ruhig nochmal durch die Schritte – dann sitzt es.","Ein guter Anfang! Noch eine Runde?"];
     let spruch = score===fragen.length ? perfekt[Math.floor(Math.random()*perfekt.length)]
       : score>=Math.ceil(fragen.length*0.6) ? gut[Math.floor(Math.random()*gut.length)]
       : ok[Math.floor(Math.random()*ok.length)];

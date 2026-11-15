@@ -235,10 +235,10 @@
 <body>
 <div class="huelle">
   <div class="kopf">
-    <a class="zurueck" href="../index.html">‹ Startseite</a>
+    <a class="zurueck" href="../index.html">‹ Fauna</a>
   </div>
   <h1>🍃 Expedition Wiese</h1>
-  <p class="unter">Die Tiere der Wiese — spiel dich zum Wiesen-Meister.</p>
+  <p class="unter">Die Tiere der Wiese – spiel dich zum Wiesen-Meister.</p>
 
   <!-- Wachsende Wiese -->
   <div class="buehne">
@@ -277,7 +277,7 @@
 
   <footer>
     Fortschritt wird auf diesem Gerät gespeichert.<br>
-    © 2026 <a href="../ueber/">Michael Baur</a> · Fauna Mibaso
+    © 2026 <a href="../ueber/">Michael Baur</a> · Fauna Mibaso · <a href="../../impressum/" style="color:inherit;">Impressum &amp; Datenschutz</a>
   </footer>
 </div>
 
@@ -326,13 +326,13 @@ const SEEN="mibaso.fauna.pass.seen";   // Merker: was hat der Nutzer zuletzt ges
 const PFADE = [
   { id:"grundlagen",   titel:"Wem gehört die Wiese?", kurz:"Insekten und andere Tiere",         datei:"grundlagen.html",   em:"🔎" },
   { id:"verwandlung",  titel:"Wie wird man Insekt?",           kurz:"Vom Ei bis zum fertigen Tier",               datei:"verwandlung.html",  em:"🦋" },
-  { id:"bestaeubung",  titel:"Wer bestäubt wen?",     kurz:"Insekt und Blüte — das perfekte Paar", datei:"bestaeubung.html",  em:"🌸" },
+  { id:"bestaeubung",  titel:"Wer bestäubt wen?",     kurz:"Insekt und Blüte – das perfekte Paar", datei:"bestaeubung.html",  em:"🌸" },
   { id:"lebensraum",   titel:"Wo wohnen Insekten?",kurz:"Jedes Tier braucht seinen Platz",                  datei:"lebensraum.html",   em:"🏡" },
   { id:"nahrungsnetz", titel:"Wer frisst wen?",       kurz:"Fressen und gefressen werden",                  datei:"nahrungsnetz.html", em:"🕸️" },
   { id:"wiese",        titel:"Wie hängt alles zusammen?",        kurz:"Bau dein eigenes Mini-Ökosystem",                  datei:"wiese-lebt.html",   em:"🌾" },
   { id:"boden",        titel:"Was wir nicht sehen",   kurz:"Die verborgene Welt unter der Wiese",      datei:"bodenleben.html",   em:"🪱" }
 ];
-const MAX_BL = PFADE.length*3;   // 15 Blätter maximal
+const MAX_BL = PFADE.length*3;   // 21 Blätter maximal (7 Stationen × 3)
 
 const RAENGE = [
   { ab:0,  name:"Frisch gestartet", med:"🌱" },
@@ -421,7 +421,7 @@ function render(){
   const fehlt = naechst?(naechst.ab-h.summe):0;
   document.getElementById("naechster").innerHTML = naechst
     ? 'Noch <b>'+fehlt+(fehlt===1?' Blatt':' Blätter')+'</b> bis zum Rang „'+naechst.name+'“'
-    : 'Höchster Rang erreicht — Wiesen-Meister! 🎉';
+    : 'Höchster Rang erreicht – Wiesen-Meister! 🎉';
 
   // Stationen mit Freischaltung (Level)
   const cont=document.getElementById("stationen");
@@ -465,7 +465,7 @@ function render(){
   const mb=document.getElementById("meisterbox");
   mb.innerHTML = alleFertig
     ? '<div class="meister"><span class="mi">🏅</span><span class="mt"><b>Meister-Urkunde</b>'
-      +'<span>Alle Stationen geschafft — hol dir deine Urkunde!</span></span>'
+      +'<span>Alle Stationen geschafft – hol dir deine Urkunde!</span></span>'
       +'<button id="urkundeBtn">Öffnen</button></div>'
     : '<div class="meister gesperrt"><span class="mi">🔒</span><span class="mt"><b>Meister-Urkunde</b>'
       +'<span>Schließe alle '+PFADE.length+' Stationen ab, um sie freizuschalten ('+h.fertige+'/'+PFADE.length+').</span></span></div>';
@@ -488,7 +488,7 @@ function render(){
   const hin=document.getElementById("hinweis");
   hin.innerHTML = alleFertig
     ? "Alle Pfade geschafft! Verbessere deine Blätter (🍃🍃🍃) für die perfekte Wiese."
-    : "Tipp: In jedem Pfad gibt es bis zu 🍃🍃🍃 — je besser, desto voller wird deine Wiese.";
+    : "Tipp: In jedem Pfad gibt es bis zu 🍃🍃🍃 – je besser, desto voller wird deine Wiese.";
   hin.innerHTML += '<br><button class="reset" id="resetBtn">Fortschritt zurücksetzen</button>';
   document.getElementById("resetBtn").addEventListener("click",()=>{
     if(confirm("Deinen gesammelten Fortschritt auf diesem Gerät wirklich löschen?")){
@@ -511,7 +511,7 @@ function belohnungenPruefen(daten,h){
   if(seen && rangNun>rangVor){
     blaetterRegen(28);
     zeigeFeier(RAENGE[rangNun].med, "Neuer Rang: "+RAENGE[rangNun].name+"!",
-      "Weiter so — deine Wiese blüht auf.");
+      "Weiter so – deine Wiese blüht auf.");
   } else if(gewonnen>0){
     blaetterRegen(16);
     toast("+"+gewonnen+" 🍃 gesammelt!");
