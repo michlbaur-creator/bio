@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mein Naturgarten – Entwurf · Bio Mibaso</title>
+<meta name="description" content="Entwurf: Ein eigener Naturgarten, der mit jedem Forscherpass lebendiger wird.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#233D5C">
+<link rel="icon" href="../assets/icon.svg">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<style>
+/* ============ Mein Naturgarten – ENTWURF mit Platzhalter-Zeichnungen ============
+   Idee: ein Garten, der über alle Fauna-Pässe hinweg wächst. Jeder Pass bringt einen
+   Bewohner; richtig zu Hause fühlt er sich erst nach einem Auftrag draußen.
+   Die Seite liest nur die vorhandenen Spielstände (localStorage) und speichert selbst
+   nur die erledigten Draußen-Aufträge unter „mibaso.fauna.garten“.
+   Später: die Platzhalter in BEWOHNER[].bild durch gezeichnete Bilder ersetzen. */
+:root{--blau:#233D5C;--blau-tief:#1a2e45;--blau-mittel:#33587c;--creme:#F7F3E8;--creme-tief:#efe8d6;--linie:#d9d2c1;
+  --honig:#C28A3A;--text:#1c2e42;--grau:#5d6b78;--gruen:#2f7d4f;
+  --serif:Georgia,"Times New Roman",serif;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+*{box-sizing:border-box;}
+html{background:var(--blau-tief);-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--creme);color:var(--text);font-family:var(--serif);line-height:1.5;}
+a{color:var(--blau);}
+.app-head{background:linear-gradient(180deg,var(--blau-tief) 0%,var(--blau-mittel) 100%);color:var(--creme);text-align:center;
+  padding:calc(env(safe-area-inset-top,0px) + 22px) max(20px,env(safe-area-inset-right,0px)) 24px;border-bottom:4px double #bcd0e2;position:relative;}
+.app-head .zurueck-kopf{position:absolute;left:12px;top:calc(env(safe-area-inset-top,0px) + 10px);color:#dce8f3;font-family:var(--sans);font-size:14px;text-decoration:none;padding:6px;}
+.app-head .logo{font-size:44px;line-height:1;margin:14px 0 6px;}
+.app-head h1{font-size:clamp(28px,8vw,40px);letter-spacing:.02em;margin:0;line-height:1.2;font-weight:normal;}
+.app-head .untertitel{font-style:italic;color:#dce8f3;margin-top:8px;font-size:clamp(13px,3.6vw,16px);}
+.huelle{max-width:760px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px));}
+.entwurf{margin:16px 0 0;background:#fff7e6;border:1px dashed var(--honig);border-radius:12px;padding:10px 14px;font-family:var(--sans);font-size:14px;color:#6b4d16;}
+.lead{font-size:19px;line-height:1.55;margin:22px 0 0;}
+h2{font-size:25px;font-weight:normal;line-height:1.2;color:var(--blau);margin:30px 0 14px;}
+h2::after{content:"";display:block;width:46px;height:3px;margin-top:8px;background:currentColor;border-radius:2px;}
+
+/* ---- Die Szene ---- */
+.szene{position:relative;margin:18px 0 0;border-radius:16px;overflow:hidden;border:1px solid var(--linie);box-shadow:0 6px 22px -10px rgba(35,61,92,.45);aspect-ratio:8/5;background:#dcebf5;}
+.szene>svg{position:absolute;inset:0;width:100%;height:100%;display:block;}
+.slot{position:absolute;transform:translate(-50%,-50%);border:0;background:none;padding:0;margin:0;cursor:pointer;line-height:1;font-family:inherit;
+  display:grid;place-items:center;-webkit-tap-highlight-color:transparent;}
+.slot .em{font-size:clamp(20px,6.4vw,46px);display:block;}
+.slot svg{display:block;width:100%;height:auto;}
+.slot.leer .frage{width:clamp(26px,7vw,48px);height:clamp(26px,7vw,48px);border-radius:50%;border:2px dashed rgba(35,61,92,.55);background:rgba(255,255,255,.55);
+  display:grid;place-items:center;font-family:var(--sans);font-weight:700;color:var(--blau);font-size:clamp(13px,3.4vw,20px);}
+.slot.scheu .bild{opacity:.55;filter:grayscale(1);}
+.slot.scheu::after{content:"";position:absolute;inset:-6%;border:2px dashed rgba(35,61,92,.5);border-radius:50%;}
+.slot.neu .bild{animation:plopp .9s cubic-bezier(.2,1.6,.4,1) both;}
+@keyframes plopp{0%{transform:scale(0);}100%{transform:scale(1);}}
+.slot.daheim .wackel{animation:wackel 3.2s ease-in-out infinite;transform-origin:50% 90%;}
+@keyframes wackel{0%,100%{transform:rotate(-4deg);}50%{transform:rotate(4deg);}}
+.flatter{position:absolute;font-size:clamp(14px,4vw,28px);transform:translate(-50%,-50%);pointer-events:none;animation:flatter 6s ease-in-out infinite;}
+@keyframes flatter{0%,100%{transform:translate(-50%,-50%) translate(0,0);}25%{transform:translate(-50%,-50%) translate(14px,-10px);}50%{transform:translate(-50%,-50%) translate(26px,4px);}75%{transform:translate(-50%,-50%) translate(8px,10px);}}
+.blume{position:absolute;font-size:clamp(11px,3.2vw,22px);transform:translate(-50%,-100%);pointer-events:none;}
+.stand-chip{position:absolute;left:10px;top:10px;background:rgba(26,46,69,.84);color:var(--creme);font-family:var(--sans);font-size:13px;border-radius:999px;padding:6px 12px;}
+.stand-chip b{color:#ffd98a;}
+.unter{font-family:var(--sans);font-size:15px;color:var(--grau);text-align:center;margin:10px 0 0;}
+.unter b{color:var(--blau);}
+@media (prefers-reduced-motion:reduce){.slot .wackel,.flatter,.slot.neu .bild{animation:none!important;}}
+
+/* ---- Vorschau-Schalter (nur im Entwurf) ---- */
+.vorschau{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;margin:12px 0 0;font-family:var(--sans);font-size:13px;color:var(--grau);}
+.vorschau button{font:inherit;border:1px solid var(--linie);background:#fff;color:var(--blau);border-radius:999px;padding:6px 12px;cursor:pointer;}
+.vorschau button.an{background:var(--blau);color:#fff;border-color:var(--blau);}
+
+/* ---- Karten der Bewohner ---- */
+.karten{display:grid;gap:12px;}
+.karte{background:#fff;border:1px solid var(--linie);border-radius:14px;padding:14px 16px;display:grid;gap:10px;box-shadow:0 1px 4px rgba(35,61,92,.07);scroll-margin-top:14px;}
+.karte.blitz{animation:blitz 1.2s ease-out;}
+@keyframes blitz{0%{box-shadow:0 0 0 4px rgba(194,138,58,.75);}100%{box-shadow:0 1px 4px rgba(35,61,92,.07);}}
+.karte .oben{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;}
+.karte .ke{font-size:30px;width:48px;height:48px;display:grid;place-items:center;border-radius:12px;background:var(--creme-tief);}
+.karte.s0 .ke,.karte.s1 .ke{filter:grayscale(1);opacity:.6;}
+.karte .kt{font-size:19px;color:var(--blau);font-weight:bold;display:block;line-height:1.25;}
+.karte .ks{font-family:var(--sans);font-size:14px;color:var(--grau);}
+.balken{height:8px;border-radius:99px;background:var(--creme-tief);overflow:hidden;}
+.balken i{display:block;height:100%;background:linear-gradient(90deg,#7fb069,var(--gruen));border-radius:99px;}
+.auftrag{border-radius:12px;padding:12px 14px;font-size:16px;line-height:1.45;display:grid;gap:8px;}
+.auftrag .eb{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;}
+.auftrag.zu{background:var(--creme);border:1px dashed var(--linie);color:var(--grau);font-family:var(--sans);font-size:14px;}
+.auftrag.offen{background:#f3f9f1;border:1.5px dashed var(--gruen);}
+.auftrag.offen .eb{color:var(--gruen);}
+.auftrag.fertig{background:#eef6ea;border:1px solid #b9d6b0;font-family:var(--sans);font-size:15px;color:#24583a;}
+.btn{font-family:var(--sans);font-size:15px;font-weight:600;border-radius:12px;padding:11px 16px;border:1px solid var(--blau);background:var(--blau);color:#fff;cursor:pointer;text-decoration:none;display:inline-block;text-align:center;}
+.btn.hell{background:#fff;color:var(--blau);}
+.btn.gruen{background:var(--gruen);border-color:var(--gruen);}
+.zeile{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.klein{font-family:var(--sans);font-size:13px;color:var(--grau);}
+.link-btn{background:none;border:0;padding:0;font:inherit;color:var(--grau);text-decoration:underline;cursor:pointer;}
+details.lehrer{background:#fff;border:1px solid var(--linie);border-radius:14px;padding:10px 14px;margin-top:26px;font-size:17px;}
+details.lehrer summary{cursor:pointer;color:var(--blau);font-family:var(--sans);font-size:16px;}
+details.lehrer[open] summary{margin-bottom:8px;}
+details.lehrer p{margin:0 0 8px;}
+footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;text-align:center;font-family:var(--sans);font-size:13px;color:var(--grau);display:grid;gap:6px;}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);transform:translate(-50%,30px);background:var(--blau);color:#fff;font-family:var(--sans);font-size:15px;font-weight:600;
+  padding:11px 20px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:20;max-width:92vw;text-align:center;}
+.toast.an{opacity:1;transform:translate(-50%,0);}
+</style>
+</head>
+<body>
+<header class="app-head">
+  <a class="zurueck-kopf" href="../index.html">‹ Fauna</a>
+  <div class="logo">🏡🌳</div><h1>Mein Naturgarten</h1><div class="untertitel">Mit jedem Pass zieht jemand ein</div>
+</header>
+<div class="huelle">
+  <p class="entwurf"><b>Entwurf.</b> Die Zeichnungen sind Platzhalter. Diese Seite ist noch nirgends verlinkt.</p>
+  <p class="lead">Noch ist dein Garten ziemlich leer. Jeder Forscherpass bringt einen neuen Bewohner. Richtig zu Hause fühlt er sich aber erst, wenn du draußen einen kleinen Auftrag erledigt hast.</p>
+
+  <div class="szene" id="szene"></div>
+  <p class="unter" id="unter"></p>
+  <div class="vorschau" id="vorschau"></div>
+
+  <h2>Deine Bewohner</h2>
+  <div class="karten" id="karten"></div>
+
+  <h2>Extras aus der Spielecke</h2>
+  <div class="karten" id="extras"></div>
+
+  <details class="lehrer"><summary>Für Lehrkräfte: Was der Garten soll</summary>
+    <p>Der Garten fasst alle Fauna-Pässe zusammen. Er zeigt auf einen Blick, welche Pässe ein Kind geschafft hat, und macht Lust auf den nächsten.</p>
+    <p>Zu jedem Pass gehört ein <b>Draußen-Auftrag</b>: eine kurze Beobachtung im Freien, die das Kind selbst abhakt. Geprüft wird das nicht – es ist Ehrensache. Die Aufträge eignen sich als Hausaufgabe oder für einen Unterrichtsgang.</p>
+    <p>Gespeichert wird nur auf diesem Gerät. Keine Anmeldung, keine Datensammlung.</p>
+  </details>
+
+  <footer class="fuss">
+    <div>Fortschritt wird nur auf diesem Gerät gespeichert. Keine Anmeldung, keine Datensammlung.</div>
+    <div><a href="../../index.html">⌂ Bio Mibaso</a> · <a href="../../ueber/">Über mich</a> · <a href="../../impressum/">Impressum &amp; Datenschutz</a></div>
+    <div>© 2026 Michael Baur · Mein Naturgarten (Entwurf)</div>
+  </footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ============ Daten ============ */
+const GKEY = "mibaso.fauna.garten";
+const lies = k => { try { return JSON.parse(localStorage.getItem(k) || "{}") || {}; } catch (e) { return {}; } };
+const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+/* Platzhalter-Zeichnungen (später durch Bilder ersetzen) */
+const Z = {
+  nest: (voll) => `<svg viewBox="0 0 100 70"><path d="M8 34 Q50 78 92 34 Q50 46 8 34Z" fill="#8a6a43"/><path d="M10 34 Q50 20 90 34" fill="none" stroke="#6b4f2e" stroke-width="5" stroke-linecap="round"/>${voll
+    ? `<circle cx="34" cy="26" r="11" fill="#f2d16b"/><circle cx="52" cy="22" r="12" fill="#f5da7e"/><circle cx="69" cy="27" r="11" fill="#f2d16b"/><path d="M30 24l6 3-6 3z M49 20l7 3-7 3z M66 25l6 3-6 3z" fill="#e0862f"/><circle cx="31" cy="23" r="1.6"/><circle cx="50" cy="19" r="1.6"/><circle cx="67" cy="24" r="1.6"/>`
+    : `<ellipse cx="38" cy="30" rx="8" ry="10" fill="#dfeaf0"/><ellipse cx="54" cy="29" rx="8" ry="10" fill="#e9f1f5"/><ellipse cx="68" cy="31" rx="7" ry="9" fill="#dfeaf0"/>`}</svg>`,
+  zweige: `<svg viewBox="0 0 100 70"><path d="M12 40 Q50 56 88 40" fill="none" stroke="#8a6a43" stroke-width="5" stroke-linecap="round"/><path d="M20 46l22-8 M48 50l26-9 M30 52l18-3" stroke="#6b4f2e" stroke-width="3" stroke-linecap="round"/></svg>`,
+  horst: `<svg viewBox="0 0 120 60"><ellipse cx="60" cy="42" rx="46" ry="12" fill="#7a5c38"/><path d="M16 40l22-9 M40 46l30-13 M66 44l34-11 M22 48l40-5" stroke="#5d4426" stroke-width="3" stroke-linecap="round"/></svg>`,
+  storch: `<svg viewBox="0 0 120 130"><ellipse cx="60" cy="112" rx="46" ry="12" fill="#7a5c38"/><path d="M16 110l22-9 M40 116l30-13 M66 114l34-11" stroke="#5d4426" stroke-width="3" stroke-linecap="round"/>
+    <path d="M52 104V78 M66 104V78" stroke="#d2452f" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="58" cy="62" rx="24" ry="17" fill="#fff" stroke="#c9c9c9"/><path d="M40 66 Q62 86 84 60 Q64 70 40 66Z" fill="#1d1d1d"/>
+    <path d="M72 52 Q80 30 76 18" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/><circle cx="76" cy="15" r="8" fill="#fff" stroke="#c9c9c9"/><path d="M82 14l30 7-30 3z" fill="#d2452f"/><circle cx="78" cy="13" r="1.8"/></svg>`,
+  pfahl: `<svg viewBox="0 0 100 130"><rect x="46" y="40" width="8" height="90" fill="#8a6a43"/><rect x="30" y="36" width="40" height="6" rx="2" fill="#6b4f2e"/></svg>`,
+  futterhaus: (voegel) => `<svg viewBox="0 0 100 130"><rect x="46" y="52" width="8" height="78" fill="#8a6a43"/><rect x="18" y="46" width="64" height="8" rx="2" fill="#6b4f2e"/><rect x="26" y="26" width="6" height="22" fill="#8a6a43"/><rect x="68" y="26" width="6" height="22" fill="#8a6a43"/>
+    <path d="M10 28 L50 6 L90 28 Z" fill="#b5533c"/><ellipse cx="50" cy="45" rx="20" ry="3" fill="#e8c96a"/>${voegel ? `<text x="20" y="46" font-size="20">🐦</text><text x="60" y="24" font-size="16">🐦</text>` : ""}</svg>`,
+  napf: `<svg viewBox="0 0 100 50"><path d="M14 22h72l-8 22H22z" fill="#c0503a"/><ellipse cx="50" cy="22" rx="36" ry="7" fill="#8f3526"/></svg>`,
+  libelle: `<svg viewBox="0 0 60 40" style="width:1.5em;display:block"><path d="M6 20h44" stroke="#2b6f9c" stroke-width="4" stroke-linecap="round"/><circle cx="52" cy="20" r="5" fill="#2b6f9c"/><ellipse cx="36" cy="10" rx="13" ry="5" fill="#cfe9f7" stroke="#6aa3c4"/><ellipse cx="36" cy="30" rx="13" ry="5" fill="#cfe9f7" stroke="#6aa3c4"/></svg>`,
+  laub: `<svg viewBox="0 0 120 60"><ellipse cx="60" cy="42" rx="52" ry="18" fill="#a9713a"/><ellipse cx="40" cy="34" rx="26" ry="14" fill="#c08a45"/><ellipse cx="78" cy="32" rx="28" ry="15" fill="#b57b3d"/><path d="M30 30l10 6 M70 26l12 6 M52 40l10-4" stroke="#7b5226" stroke-width="2" stroke-linecap="round"/></svg>`
+};
+
+/* Jeder Bewohner: woher der Fortschritt kommt, wo er im Bild sitzt (x/y in Prozent), Draußen-Auftrag */
+const BEWOHNER = [
+  { id: "wiese", em: "🦋", titel: "Die Wiese blüht", wer: "Falter und Bienen", pass: "Wiesenpass", href: "wiesenpass.html",
+    x: 30, y: 84, b: 0, typ: "wiese", key: "mibaso.fauna.expedition", teile: ["grundlagen", "verwandlung", "bestaeubung", "lebensraum", "nahrungsnetz", "wiese", "boden"],
+    da: "Die Wiese ist bunt, die ersten Falter sind da.", heim: "Auf deiner Wiese summt und flattert es.",
+    auftrag: "Setz dich zehn Minuten an eine Wiese oder ein Blumenbeet. Zähle, wie viele verschiedene Tiere eine Blüte besuchen." },
+  { id: "vogel", em: "🪺", titel: "Ein Nest im Baum", wer: "die Vogelfamilie", pass: "Vogelpass", href: "vogelpass.html",
+    x: 20, y: 36, b: 15, typ: "pass", key: "mibaso.fauna.vogelpass", teile: { v1: ["s1", "s2", "s3", "s4", "s5"], v2: ["s1", "s2", "s3", "s4", "s5"] },
+    da: "Im Baum liegt ein Nest mit Eiern.", heim: "Im Nest sperren drei Junge die Schnäbel auf.",
+    auftrag: "Beobachte draußen einen Vogel beim Fressen. Welche Schnabelform hat er – und was frisst er damit?" },
+  { id: "zug", em: "🧭", titel: "Der Storch auf dem Dach", wer: "der Storch", pass: "Zugvogelpass", href: "zugvogelpass.html",
+    x: 79, y: 26, b: 17, typ: "pass", key: "mibaso.fauna.zugvogelpass", teile: { z1: ["s1", "s2", "s3", "s4", "s5"] },
+    da: "Der Storch ist gelandet, aber noch misstrauisch.", heim: "Der Storch klappert auf seinem Horst.",
+    auftrag: "Schau zehn Minuten in den Himmel und auf die Leitungen. Entdeckst du Vögel, die im Trupp ziehen oder sich sammeln? Oder finde heraus, wo in deiner Nähe ein Storchennest ist." },
+  { id: "winter", em: "🦔", titel: "Der Igel im Laubhaufen", wer: "der Igel", pass: "Winterpass", href: "winterpass.html",
+    x: 41, y: 68, b: 15, typ: "pass", key: "mibaso.fauna.winterpass", teile: { w1: ["s1", "s2", "s3", "s4", "s5"], w2: ["s1", "s2", "s3", "s4", "s5"] },
+    da: "Ein Igel schnuppert am Laubhaufen.", heim: "Der Igel hat sein Winterquartier bezogen.",
+    auftrag: "Finde draußen eine Tierspur – im Schnee, im Matsch oder im Sand. Lege einen Stift daneben und fotografiere sie." },
+  { id: "futter", em: "🏠", titel: "Das Futterhaus", wer: "die Meisen", pass: "Futterhauspass", href: "futterhauspass.html",
+    x: 56, y: 59, b: 13, typ: "pass", key: "mibaso.fauna.futterhauspass", teile: { f1: ["s1", "s2", "s3", "s4", "s5"] },
+    da: "Das Futterhaus steht – noch traut sich keiner hin.", heim: "Am Futterhaus herrscht Betrieb.",
+    auftrag: "Zähle zehn Minuten lang die Vögel an einem Futterhaus, im Garten oder im Park. Schreib auf, wen du erkannt hast." },
+  { id: "haustier", em: "🐕", titel: "Der Hund vor der Tür", wer: "der Hund", pass: "Haustierpass", href: "haustierpass.html",
+    x: 72, y: 80, b: 12, typ: "pass", key: "mibaso.fauna.haustierpass", teile: { h1: ["s1", "s2", "s3", "s6", "s4", "s5"], h2: ["s1", "s2", "s4", "s5"] },
+    da: "Ein Hund schaut vorsichtig um die Ecke.", heim: "Der Hund wedelt dir entgegen.",
+    auftrag: "Beobachte einen Hund – mit Abstand! Was verraten Ohren, Schwanz und Körper über seine Stimmung?" }
+];
+const SPIELE = [["mibaso.fauna.sammelflug", ["sand", "schere", "hummel"]], ["mibaso.flora.pollenpost", ["fruehling", "sommer", "nacht"]], ["mibaso.fauna.falterspiel", ["spiel"]],
+  ["mibaso.fauna.libellenspiel", ["spiel"]], ["mibaso.flora.haehersaat", ["eichen", "buchen", "rand"]], ["mibaso.flora.lichtrennen", ["windroeschen", "scharbock", "baerlauch"]],
+  ["mibaso.fauna.kaltekost", ["dezember", "januar", "februar"]], ["mibaso.fauna.faehrtenleser", ["eich", "fuchs", "hase"]], ["mibaso.fauna.durchsjahr", ["meise", "schwalbe", "igel"]],
+  ["mibaso.fauna.nestbau", ["amsel", "schwalbe", "buchfink"]], ["mibaso.fauna.zuchtspiel", ["hueten"]]];
+const EXTRAS = [
+  { ab: 10, em: "💧", titel: "Ein Teich", txt: "Wasser zieht Leben an." },
+  { ab: 25, em: "🪽", titel: "Libellen am Teich", txt: "Sie jagen über dem Wasser." },
+  { ab: 50, em: "🌈", titel: "Ein Regenbogen", txt: "Für echte Spielecken-Profis." }
+];
+const BLUMEN = [[6, 96, "🌼"], [14, 90, "🌸"], [22, 98, "🌼"], [31, 93, "🌺"], [38, 99, "🌼"], [66, 98, "🌸"], [10, 82, "🌼"], [78, 96, "🌼"], [26, 86, "🌸"], [3, 88, "🌺"], [88, 97, "🌼"], [94, 90, "🌸"], [18, 79, "🌼"], [83, 91, "🌼"]];
+
+/* ============ Stand auslesen ============ */
+let vorschau = null;   // nur im Entwurf: null = echter Stand, sonst Zahl 0…3 für alle
+function fortschritt(b) {
+  const d = lies(b.key); let fertig = 0, gesamt = 0;
+  if (b.typ === "wiese") b.teile.forEach(t => { gesamt++; if (d[t] && d[t].done) fertig++; });
+  else Object.keys(b.teile).forEach(e => b.teile[e].forEach(s => { gesamt++; if (d[e] && d[e][s] && d[e][s].done) fertig++; }));
+  return { fertig, gesamt };
+}
+function sterneGesamt() {
+  return SPIELE.reduce((sum, [k, st]) => { const d = lies(k); return sum + st.reduce((a, s) => a + Math.max(0, Math.min(3, (d[s] && d[s].sterne) || 0)), 0); }, 0);
+}
+/* Stufe: 0 leer · 1 unterwegs · 2 eingezogen (Pass geschafft) · 3 zu Hause (Draußen-Auftrag erledigt) */
+function stand() {
+  const G = lies(GKEY), m = G.missionen || {};
+  const liste = BEWOHNER.map((b, i) => {
+    let f = fortschritt(b), stufe = f.fertig === 0 ? 0 : f.fertig < f.gesamt ? 1 : (m[b.id] ? 3 : 2);
+    if (vorschau !== null) {
+      stufe = vorschau === "halb" ? [3, 2, 1, 0, 2, 1][i] : vorschau === "fast" ? [3, 3, 2, 3, 2, 3][i] : vorschau;
+      f = { gesamt: f.gesamt, fertig: stufe === 0 ? 0 : stufe === 1 ? Math.ceil(f.gesamt / 2) : f.gesamt };
+    }
+    return { b, f, stufe };
+  });
+  let sterne = sterneGesamt();
+  if (vorschau !== null) sterne = vorschau === 0 ? 0 : vorschau === "halb" ? 14 : vorschau === "fast" ? 32 : vorschau === 3 ? 60 : 0;
+  return { liste, sterne };
+}
+
+/* ============ Die Szene ============ */
+function landschaft(gruen, bogen) {
+  // gruen 0…1: wie saftig die Wiese ist
+  const mix = (a, b) => Math.round(a + (b - a) * gruen);
+  const wiese = `rgb(${mix(176, 124)},${mix(170, 182)},${mix(128, 96)})`, wiese2 = `rgb(${mix(160, 98)},${mix(154, 160)},${mix(112, 80)})`;
+  return `<svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs><linearGradient id="hi" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe0f4"/><stop offset="1" stop-color="#eef7fc"/></linearGradient></defs>
+    <rect width="800" height="500" fill="url(#hi)"/>
+    <circle cx="690" cy="70" r="34" fill="#ffe28a"/>
+    ${bogen ? `<g fill="none" stroke-width="9" opacity=".6"><path d="M250 300 A200 200 0 0 1 650 300" stroke="#e8674f"/><path d="M260 300 A190 190 0 0 1 640 300" stroke="#f0b64a"/><path d="M270 300 A180 180 0 0 1 630 300" stroke="#f3e06a"/><path d="M280 300 A170 170 0 0 1 620 300" stroke="#7fc27a"/><path d="M290 300 A160 160 0 0 1 610 300" stroke="#6aa9dd"/></g>` : ""}
+    <path d="M0 300 Q160 230 330 290 T640 270 T800 290 V500 H0Z" fill="#c9dcc0"/>
+    <path d="M0 330 Q200 290 420 330 T800 320 V500 H0Z" fill="${wiese2}"/>
+    <path d="M0 380 Q220 350 430 378 T800 372 V500 H0Z" fill="${wiese}"/>
+    <!-- Zaun -->
+    <g stroke="#b9a27c" stroke-width="5" stroke-linecap="round"><path d="M250 352 H520 M250 372 H520"/><path d="M262 340V384 M300 340V384 M338 340V384 M376 340V384 M414 340V384 M452 340V384 M490 340V384"/></g>
+    <!-- Baum -->
+    <rect x="146" y="230" width="28" height="170" rx="6" fill="#7b5a36"/>
+    <path d="M160 300 Q130 270 110 262 M160 280 Q190 250 214 246" stroke="#7b5a36" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <g fill="#6aa35a"><circle cx="110" cy="190" r="62"/><circle cx="190" cy="170" r="70"/><circle cx="160" cy="120" r="64"/><circle cx="230" cy="220" r="48"/><circle cx="90" cy="240" r="40"/></g>
+    <g fill="#7bb56a"><circle cx="150" cy="150" r="40"/><circle cx="205" cy="190" r="34"/></g>
+    <!-- Haus -->
+    <rect x="556" y="232" width="172" height="150" fill="#f4ead2" stroke="#d6c7a3" stroke-width="2"/>
+    <path d="M538 236 L642 150 L746 236 Z" fill="#b5533c"/>
+    <rect x="620" y="300" width="44" height="82" rx="3" fill="#7b5a36"/><circle cx="656" cy="344" r="3" fill="#e8c96a"/>
+    <rect x="574" y="262" width="34" height="34" fill="#cfe6f5" stroke="#8aa7bd" stroke-width="2"/><rect x="676" y="262" width="34" height="34" fill="#cfe6f5" stroke="#8aa7bd" stroke-width="2"/>
+  </svg>`;
+}
+function bildFuer(b, stufe) {
+  switch (b.id) {
+    case "vogel": return stufe === 1 ? Z.zweige : Z.nest(stufe === 3);
+    case "zug": return stufe === 1 ? Z.horst : Z.storch;
+    case "winter": return stufe === 1 ? Z.laub : `<span style="position:relative;display:block">${Z.laub}<span class="em wackel" style="position:absolute;left:50%;top:-18%;transform:translateX(-50%)">🦔</span></span>`;
+    case "futter": return stufe === 1 ? Z.pfahl : Z.futterhaus(stufe === 3);
+    case "haustier": return stufe === 1 ? Z.napf : `<span class="em wackel">🐕</span>`;
+    default: return "";
+  }
+}
+function zeichne() {
+  const { liste, sterne } = stand(), sz = document.getElementById("szene");
+  const G = lies(GKEY), gesehen = G.gesehen || {};
+  const w = liste[0];
+  let h = landschaft(w.f.gesamt ? w.f.fertig / w.f.gesamt : 0, sterne >= EXTRAS[2].ab);
+  // Extras aus der Spielecke
+  if (sterne >= EXTRAS[0].ab) h += `<svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><ellipse cx="455" cy="452" rx="92" ry="26" fill="#8fc3e0" stroke="#6aa3c4" stroke-width="3"/><path d="M400 448 q16 -8 32 0 M462 458 q18 -8 36 0" stroke="#fff" stroke-width="2.5" fill="none" opacity=".8"/><path d="M372 446 v-30 M380 448 v-22 M536 450 v-28" stroke="#4f8a4a" stroke-width="4" stroke-linecap="round"/></svg>`;
+  // Blumen wachsen mit dem Wiesenpass
+  const nBl = w.stufe >= 2 ? BLUMEN.length : Math.round(BLUMEN.length * (w.f.gesamt ? w.f.fertig / w.f.gesamt : 0));
+  BLUMEN.slice(0, nBl).forEach(([x, y, e]) => { h += `<span class="blume" style="left:${x}%;top:${y}%">${e}</span>`; });
+  if (w.stufe >= 2) {
+    const tiere = w.stufe === 3 ? [[16, 70, "🦋", 0], [34, 76, "🐝", 1.5], [50, 82, "🦋", 3], [8, 78, "🐝", 2.2]] : [[16, 70, "🦋", 0], [34, 76, "🐝", 1.5]];
+    tiere.forEach(([x, y, e, d]) => { h += `<span class="flatter" style="left:${x}%;top:${y}%;animation-delay:-${d}s;${w.stufe === 2 ? "opacity:.55;filter:grayscale(1);" : ""}">${e}</span>`; });
+  }
+  if (sterne >= EXTRAS[1].ab) h += `<span class="flatter" style="left:58%;top:84%;animation-duration:4s">${Z.libelle}</span>`;
+  // Bewohner
+  liste.forEach(({ b, stufe }) => {
+    const neu = vorschau === null && (gesehen[b.id] || 0) < stufe && stufe >= 2;
+    if (b.id === "wiese") {
+      h += `<button class="slot ${stufe === 0 ? "leer" : ""}" data-id="${b.id}" style="left:${b.x}%;top:${b.y}%;width:${stufe === 0 ? "auto" : "30%"};height:${stufe === 0 ? "auto" : "22%"}" aria-label="${b.titel}">${stufe === 0 ? '<span class="frage">?</span>' : ""}</button>`;
+      return;
+    }
+    const kl = stufe === 0 ? "leer" : stufe === 1 ? "unterwegs" : stufe === 2 ? "scheu" : "daheim";
+    h += `<button class="slot ${kl}${neu ? " neu" : ""}" data-id="${b.id}" style="left:${b.x}%;top:${b.y}%;width:${stufe === 0 ? "auto" : b.b + "%"}" aria-label="${b.titel}">${stufe === 0 ? '<span class="frage">?</span>' : `<span class="bild" style="display:block;width:100%">${bildFuer(b, stufe)}</span>`}</button>`;
+  });
+  const da = liste.filter(x => x.stufe >= 2).length, heim = liste.filter(x => x.stufe === 3).length;
+  h += `<span class="stand-chip"><b>${da}</b> von ${liste.length} eingezogen</span>`;
+  sz.innerHTML = h;
+  sz.querySelectorAll(".slot").forEach(el => el.onclick = () => {
+    const k = document.getElementById("k-" + el.dataset.id); if (!k) return;
+    k.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" }); k.classList.remove("blitz"); void k.offsetWidth; k.classList.add("blitz");
+  });
+  const fehlt = liste.find(x => x.stufe < 2), offen = liste.find(x => x.stufe === 2);
+  document.getElementById("unter").innerHTML = da === 0 ? "Noch wohnt hier niemand. Fang mit einem Pass an – die Fragezeichen zeigen, wer fehlt."
+    : heim === liste.length ? "<b>Alle sind zu Hause.</b> Dein Garten ist ein kleines Naturparadies! 🎉"
+    : `<b>${heim}</b> von ${liste.length} fühlen sich schon zu Hause.` + (offen ? ` Als Nächstes: der Draußen-Auftrag für ${offen.b.wer}.` : fehlt ? ` Als Nächstes: ${fehlt.b.pass}.` : "");
+
+  /* Karten */
+  document.getElementById("karten").innerHTML = liste.map(({ b, f, stufe }) => {
+    const status = stufe === 0 ? "Noch nicht da" : stufe === 1 ? `Unterwegs · ${f.fertig} von ${f.gesamt} Stationen` : stufe === 2 ? b.da : b.heim;
+    const auftrag = stufe < 2 ? `<div class="auftrag zu">🔒 Der Draußen-Auftrag kommt, sobald du den ${b.pass} geschafft hast.</div>`
+      : stufe === 2 ? `<div class="auftrag offen"><span class="eb">Draußen-Auftrag</span><span>${b.auftrag}</span><span class="zeile"><button class="btn gruen" data-ok="${b.id}">✔ Habe ich gemacht</button><span class="klein">Ehrensache!</span></span></div>`
+      : `<div class="auftrag fertig">✔ Draußen-Auftrag erledigt. <button class="link-btn" data-zurueck="${b.id}">zurücknehmen</button></div>`;
+    return `<div class="karte s${stufe}" id="k-${b.id}"><div class="oben"><span class="ke">${b.em}</span><span><span class="kt">${b.titel}</span><span class="ks">${status}</span></span></div>
+      <div class="balken"><i style="width:${f.gesamt ? f.fertig / f.gesamt * 100 : 0}%"></i></div>
+      ${auftrag}
+      ${stufe < 2 ? `<a class="btn" href="${b.href}">${stufe === 0 ? "Los geht’s:" : "Weiter im"} ${b.pass} ›</a>` : `<a class="btn hell" href="${b.href}">Zum ${b.pass} ›</a>`}</div>`;
+  }).join("");
+  document.getElementById("extras").innerHTML = EXTRAS.map(x => {
+    const hat = sterne >= x.ab;
+    return `<div class="karte s${hat ? 3 : 0}"><div class="oben"><span class="ke">${x.em}</span><span><span class="kt">${x.titel}</span><span class="ks">${hat ? x.txt : `Ab ${x.ab} Sternen – du hast ${sterne}.`}</span></span></div>
+      <div class="balken"><i style="width:${Math.min(100, sterne / x.ab * 100)}%"></i></div></div>`;
+  }).join("") + `<a class="btn hell" href="../../spiele/">Zur Spielecke ›</a>`;
+  document.querySelectorAll("[data-ok]").forEach(el => el.onclick = () => auftragSetzen(el.dataset.ok, true));
+  document.querySelectorAll("[data-zurueck]").forEach(el => el.onclick = () => auftragSetzen(el.dataset.zurueck, false));
+
+  /* Neuankömmlinge feiern, dann als gesehen merken */
+  if (vorschau === null) {
+    const neue = liste.filter(x => x.stufe >= 2 && (gesehen[x.b.id] || 0) < x.stufe);
+    if (neue.length) toast(neue[0].stufe === 3 ? `🎉 Zu Hause: ${neue[0].b.wer}!` : `🎉 Neu im Garten: ${neue[0].b.wer}!`);
+    const g = lies(GKEY); g.gesehen = Object.fromEntries(liste.map(x => [x.b.id, x.stufe]));
+    try { localStorage.setItem(GKEY, JSON.stringify(g)); } catch (e) {}
+  }
+}
+function auftragSetzen(id, wert) {
+  if (vorschau !== null) { toast("In der Vorschau wird nichts gespeichert."); return; }
+  const g = lies(GKEY); g.missionen = g.missionen || {}; if (wert) g.missionen[id] = true; else delete g.missionen[id];
+  try { localStorage.setItem(GKEY, JSON.stringify(g)); } catch (e) {}
+  zeichne();
+}
+let toastT = 0;
+function toast(t) { const el = document.getElementById("toast"); el.textContent = t; el.classList.add("an"); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove("an"), 3200); }
+
+/* ============ Vorschau (nur im Entwurf) ============ */
+function vorschauLeiste() {
+  const opt = [[null, "Mein Stand"], [0, "leer"], ["halb", "halb"], ["fast", "fast fertig"], [3, "alle zu Hause"]];
+  const el = document.getElementById("vorschau");
+  el.innerHTML = "<span>Vorschau:</span>" + opt.map(([v, t], i) => `<button data-i="${i}" class="${vorschau === v ? "an" : ""}">${t}</button>`).join("");
+  el.querySelectorAll("button").forEach(b => b.onclick = () => { vorschau = opt[+b.dataset.i][0]; vorschauLeiste(); zeichne(); });
+}
+vorschauLeiste(); zeichne();
+addEventListener("pageshow", e => { if (e.persisted) zeichne(); });
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") zeichne(); });
+</script>
+</body>
+</html>
