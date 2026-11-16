@@ -444,6 +444,10 @@
   }
 
 </style>
+<script>window.FLORA_MERKE = ["Eine Blütenpflanze besteht aus <b>Wurzel</b>, <b>Stängel</b>, <b>Blättern</b> und <b>Blüte</b>.",
+      "Die Wurzel verankert die Pflanze und nimmt Wasser und Mineralstoffe auf. Der Stängel trägt und leitet. In den Blättern entsteht mit Licht der Zucker.",
+      "Die Blüte dient der <b>Fortpflanzung</b>: Die Staubblätter bilden den Pollen, im Fruchtknoten liegen die Samenanlagen."];</script>
+<script src="flora-rahmen.js?v=1" data-pass="pflanze" data-station="aufbau"></script>
 </head>
 <body>
 <style>
@@ -462,7 +466,7 @@
   box-shadow:0 3px 12px rgba(194,138,58,.35);}
 .pi-los:hover{background:#a9762c;}
 @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
-</style><div class="pfad-intro" id="pfadIntro"><div class="pi-inner"><img class="pi-foto" src="../images/fotos/polygonatum-odoratum-1.jpg" alt="" onerror="this.style.display='none'"><div class="pi-eyebrow">🌼 Flora Mibaso · Lernpfad</div><h1 class="pi-titel">Der Bauplan</h1><p class="pi-lead">Die Bauteile einer Pflanze und ihre Aufgaben — Schritt für Schritt erklärt.</p><button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button></div></div>
+</style><div class="pfad-intro" id="pfadIntro"><div class="pi-inner"><img class="pi-foto" src="../images/fotos/polygonatum-odoratum-1.jpg" alt="" onerror="this.style.display='none'"><div class="pi-eyebrow">🍃 Pflanzenpass · Station 1 von 6 · ca. 10 Min</div><h1 class="pi-titel">Der Bauplan</h1><p class="pi-lead">Die Bauteile einer Pflanze und ihre Aufgaben – Schritt für Schritt erklärt.</p><button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button></div></div>
 <a class="back" href="../pflanzenpass.html" style="display:inline-block;margin:12px 14px 0;color:#6b5340;text-decoration:none;font-size:.95rem;">‹ Zurück zur Übersicht</a>
 <style>body.embed a.back{display:none!important;}</style>
 <script>if(window.self!==window.top){document.body.classList.add('embed');}</script>
@@ -808,7 +812,7 @@
     const n = placedCount();
     fb.className = '';
     fb.textContent = n === total
-      ? `Alle ${total} Felder belegt — jetzt prüfen!`
+      ? `Alle ${total} Felder belegt – jetzt prüfen!`
       : `${n} von ${total} Feldern belegt`;
     sendHeight();
   }
@@ -830,10 +834,10 @@
       fb.className = 'good';
       feiern();
     } else if (placedCount() < total) {
-      fb.textContent = `${right} von ${placedCount()} richtig — noch nicht alle Felder belegt.`;
+      fb.textContent = `${right} von ${placedCount()} richtig – noch nicht alle Felder belegt.`;
       fb.className = 'bad';
     } else {
-      fb.textContent = `${right} von ${total} richtig — die roten Felder nochmal probieren.`;
+      fb.textContent = `${right} von ${total} richtig – die roten Felder nochmal probieren.`;
       fb.className = 'bad';
     }
     sendHeight();
@@ -902,7 +906,7 @@
     { titel: "Aufbau und Aufgabe", saetze: [
       ["Die ", "Wurzel", " verankert die Pflanze im Boden und nimmt Wasser und Mineralien auf."],
       ["Der ", "Stängel", " hält die Pflanze aufrecht und transportiert Wasser und Nährstoffe."],
-      ["Im ", "Blatt", " entsteht durch Photosynthese aus Licht, Wasser und CO₂ der Zucker."],
+      ["Im ", "Blatt", " entsteht durch Fotosynthese aus Licht, Wasser und CO₂ der Zucker."],
       ["Die ", "Blüte", " lockt mit Farbe und Duft Bestäuber an – sie dient der Fortpflanzung."]
     ]},
     { titel: "Genauer hingeschaut", saetze: [
@@ -1021,7 +1025,7 @@
         'Wunderbar! Du bist eine wandelnde Flora.',
         'Hat alles geklappt – ein echtes Blütenwunder! 🌸',
         'Sauber! Die Wurzel hängt vor Staunen aus dem Boden.',
-        'Volle Punktzahl – jetzt darf Photosynthese-Pause sein.'
+        'Volle Punktzahl – jetzt darf Fotosynthese-Pause sein.'
       ];
       ergebnis.className = 'lt-ergebnis lt-super';
       ergebnis.textContent = rewards[Math.floor(Math.random() * rewards.length)];

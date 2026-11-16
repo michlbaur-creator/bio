@@ -137,6 +137,10 @@
     *{ animation:none !important; transition:none !important; }
   }
 </style>
+<script>window.FLORA_MERKE = ["Im <b>Frühling</b> fällt viel Licht auf den Waldboden – die Frühblüher blühen.",
+      "Im <b>Sommer</b> schließt sich das Blätterdach. Am Boden wachsen jetzt Schattenpflanzen.",
+      "Im <b>Herbst</b> reifen die Früchte, das Laub fällt und wird zu Humus. Im <b>Winter</b> ruht der Laubwald."];</script>
+<script src="flora-rahmen.js?v=1" data-pass="wald" data-station="jahreslauf"></script>
 </head>
 <body>
 <style>
@@ -155,13 +159,13 @@
   box-shadow:0 3px 12px rgba(194,138,58,.35);}
 .pi-los:hover{background:#a9762c;}
 @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
-</style><div class="pfad-intro" id="pfadIntro"><div class="pi-inner"><img class="pi-foto" src="../images/wald/jahreslauf-intro.jpg" alt="" onerror="this.style.display='none'"><div class="pi-eyebrow">🌼 Flora Mibaso · Lernpfad</div><h1 class="pi-titel">Der Wald im Jahreslauf</h1><p class="pi-lead">Frühling, Sommer, Herbst, Winter — ein ganzes Jahr im Wald. Zieh den Schieberegler und erlebe, wie sich der Wald verwandelt.</p><button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button></div></div>
+</style><div class="pfad-intro" id="pfadIntro"><div class="pi-inner"><img class="pi-foto" src="../images/wald/jahreslauf-intro.jpg" alt="" onerror="this.style.display='none'"><div class="pi-eyebrow">🍃 Waldpass · Station 2 von 8 · ca. 8 Min</div><h1 class="pi-titel">Der Wald im Jahreslauf</h1><p class="pi-lead">Frühling, Sommer, Herbst, Winter – ein ganzes Jahr im Wald. Zieh den Schieberegler und erlebe, wie sich der Wald verwandelt.</p><button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button></div></div>
 <a class="back" href="../waldpass.html" style="display:inline-block;margin:12px 14px 0;color:#6b5340;text-decoration:none;font-size:.95rem;">‹ Expedition Wald</a>
 
 <main>
   <div class="karte">
     <div class="buehne" id="buehne" role="img"
-         aria-label="Ein Wald im Lauf des Jahres — mit dem Schieberegler von Winter über Frühling und Sommer bis zum Herbst.">
+         aria-label="Ein Wald im Lauf des Jahres – mit dem Schieberegler von Winter über Frühling und Sommer bis zum Herbst.">
       <img src="../images/wald/jahr-winter.jpg"    alt="Winterwald, kahl" style="opacity:1"  onerror="this.style.display='none'">
       <img src="../images/wald/jahr-fruehling.jpg" alt="Frühlingswald mit Frühblühern" style="opacity:0" onerror="this.style.display='none'">
       <img src="../images/wald/jahr-sommer.jpg"    alt="Dichter grüner Sommerwald" style="opacity:0" onerror="this.style.display='none'">
@@ -242,18 +246,18 @@
   var phasen = [
     { bis:10,  titel:"Winterruhe",
       text:"Der Laubwald ruht. Die Bäume sind kahl, viele Pflanzen haben sich in Zwiebeln und Wurzeln zurückgezogen. Unter dem Laub und an den Zweigen wartet schon alles auf den Frühling." },
-    { bis:24,  titel:"Vorfrühling — das Rennen ums Licht",
+    { bis:24,  titel:"Vorfrühling – das Rennen ums Licht",
       text:"Noch sind die Baumkronen kahl, jetzt fällt viel Licht bis zum Boden. Die ersten Frühblüher wie Buschwindröschen und Bärlauch nutzen die Gelegenheit und blühen los." },
     { bis:42,  titel:"Frühling",
       text:"Die Bäume treiben aus, zartes Grün überzieht den Wald. Der Frühblüher-Teppich blüht in voller Pracht, und die ersten Insekten summen zur Bestäubung umher." },
     { bis:58,  titel:"Kronenschluss",
-      text:"Das Blätterdach schließt sich. Am Boden wird es schattig — die Frühblüher ziehen sich zurück, und Schattenpflanzen wie Farne und Waldmeister übernehmen." },
+      text:"Das Blätterdach schließt sich. Am Boden wird es schattig – die Frühblüher ziehen sich zurück, und Schattenpflanzen wie Farne und Waldmeister übernehmen." },
     { bis:76,  titel:"Sommer und Reife",
       text:"Dichtes, sattes Grün. Die Blätter arbeiten mit Sonnenlicht auf Hochtouren. Im Halbschatten reifen die ersten Beeren, zum Beispiel Heidelbeeren." },
-    { bis:93,  titel:"Herbst — bunt und reif",
-      text:"Die Blätter färben sich bunt und fallen. Pilze schießen aus dem Boden, Eicheln und Bucheckern sind reif — wichtiger Vorrat für viele Waldtiere." },
+    { bis:93,  titel:"Herbst – bunt und reif",
+      text:"Die Blätter färben sich bunt und fallen. Pilze schießen aus dem Boden, Eicheln und Bucheckern sind reif – wichtiger Vorrat für viele Waldtiere." },
     { bis:100, titel:"Zurück zur Ruhe",
-      text:"Kahl steht der Wald im ersten Schnee. Das gefallene Laub wird langsam zu Humus, nur Immergrüne wie Efeu und Moos bleiben grün — und der Kreislauf beginnt von vorn." }
+      text:"Kahl steht der Wald im ersten Schnee. Das gefallene Laub wird langsam zu Humus, nur Immergrüne wie Efeu und Moos bleiben grün – und der Kreislauf beginnt von vorn." }
   ];
   var monate = ["Januar","Februar","März","April","Mai","Juni",
                 "Juli","August","September","Oktober","November","Dezember"];
@@ -385,7 +389,7 @@
         '<p class="jzq-blaetter">'+voll+leer+'</p>'+
         '<p class="jzq-spruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
         '<div><button class="jzq-btn" id="jzqNochmal" type="button">Nochmal</button>'+
-        '<a class="jzq-btn" href="../waldpass.html">🌳 Expedition Wald</a></div></div>';
+        '<a class="jzq-btn" href="../waldpass.html">🍃 Waldpass</a></div></div>';
       document.getElementById("jzqNochmal").addEventListener("click",starte);
     }
     zeige();

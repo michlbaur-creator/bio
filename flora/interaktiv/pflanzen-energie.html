@@ -311,6 +311,10 @@
   /* Eingebettet (z. B. im Flora-Energie-Pfad): kein Startbildschirm, sonst verdeckt er den Schritt */
   body.eingebettet .pfad-intro { display: none !important; }
 </style>
+<script>window.FLORA_MERKE = ["<b>Fotosynthese:</b> Aus Wasser, Kohlenstoffdioxid und Licht baut die Pflanze Zucker. Dabei wird Sauerstoff frei.",
+      "<b>Atmung:</b> Wie wir gewinnen Pflanzen Energie aus Zucker und Sauerstoff – Tag und Nacht.",
+      "Tagsüber überwiegt die Fotosynthese, nachts bleibt nur die Atmung."];</script>
+<script src="flora-rahmen.js?v=1" data-pass="pflanze" data-station="energie"></script>
 </head>
 <body>
 <style>
@@ -329,20 +333,20 @@
   box-shadow:0 3px 12px rgba(194,138,58,.35);}
 .pi-los:hover{background:#a9762c;}
 @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
-</style><div class="pfad-intro" id="pfadIntro"><div class="pi-inner"><img class="pi-foto" src="../images/fotos/epilobium-hirsutum-1.jpg" alt="" onerror="this.style.display='none'"><div class="pi-eyebrow">🌼 Flora Mibaso · Lernpfad</div><h1 class="pi-titel">Pflanzen &amp; Energie</h1><p class="pi-lead">Wie Pflanzen aus Licht Nahrung machen — und dabei atmen wie wir.</p><button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button></div></div>
+</style><div class="pfad-intro" id="pfadIntro"><div class="pi-inner"><img class="pi-foto" src="../images/fotos/epilobium-hirsutum-1.jpg" alt="" onerror="this.style.display='none'"><div class="pi-eyebrow">🍃 Pflanzenpass · Station 6 von 6 · ca. 12 Min</div><h1 class="pi-titel">Pflanzen &amp; Energie</h1><p class="pi-lead">Wie Pflanzen aus Licht Nahrung machen – und dabei atmen wie wir.</p><button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button></div></div>
 <a class="back" href="../pflanzenpass.html" style="display:inline-block;margin:12px 14px 0;color:#6b5340;text-decoration:none;font-size:.95rem;">‹ Zurück zur Übersicht</a>
 <style>body.embed a.back{display:none!important;}</style>
 <script>if(window.self!==window.top){document.body.classList.add('embed');}</script>
 
 <div id="pe-app">
 
-  <!-- 1) Photosynthese – anklickbar -->
+  <!-- 1) Fotosynthese – anklickbar -->
   <section class="karte" data-teil="photo">
-    <h2 class="leitsatz">Pflanzen sind die Solarköche der Erde — sie verwandeln Licht in Leben.</h2>
+    <h2 class="leitsatz">Pflanzen sind die Solarköche der Erde – sie verwandeln Licht in Leben.</h2>
 
     <div class="pe-interactive" data-steps="photo">
       <div class="pe-diagram-wrap">
-        <img src="../images/photosynthese_leer.jpg" width="880" height="1320" decoding="async" fetchpriority="high" alt="Photosynthese: Pflanze baut aus Licht, Wasser und Kohlendioxid Zucker und gibt Sauerstoff ab.">
+        <img src="../images/photosynthese_leer.jpg" width="880" height="1320" decoding="async" fetchpriority="high" alt="Fotosynthese: Pflanze baut aus Licht, Wasser und Kohlendioxid Zucker und gibt Sauerstoff ab.">
         <button class="num-btn" data-num="1" style="left:26%; top:19%;">1</button>
         <button class="num-btn" data-num="2" style="left:66%; top:21%;">2</button>
         <button class="num-btn" data-num="3" style="left:21%; top:62%;">3</button>
@@ -376,7 +380,7 @@
 
   <!-- 2) Atmung – anklickbar -->
   <section class="karte" data-teil="atmung">
-    <h2 class="leitsatz">Tagsüber Solar-Küche, nachts Kraftwerk — Pflanzen sind echte Multitalente.</h2>
+    <h2 class="leitsatz">Tagsüber Solar-Küche, nachts Kraftwerk – Pflanzen sind echte Multitalente.</h2>
 
     <div class="pe-interactive" data-steps="atmung">
       <div class="pe-diagram-wrap">
@@ -436,7 +440,7 @@
 (function () {
   const STEPS = {
     photo: [
-      { num: 1, title: "Sonnenlicht",            body: "Die Sonne liefert die <strong>Energie</strong> für die Photosynthese." },
+      { num: 1, title: "Sonnenlicht",            body: "Die Sonne liefert die <strong>Energie</strong> für die Fotosynthese." },
       { num: 2, title: "Kohlenstoffdioxid (CO₂)", body: "<strong>CO₂</strong> aus der Luft tritt durch die Spaltöffnungen der Blätter in die Pflanze ein." },
       { num: 3, title: "Wasser (H₂O)",           body: "<strong>Wasser</strong> wird über die Wurzeln aus dem Boden aufgenommen und durch die Leitungsbahnen in die Blätter transportiert." },
       { num: 4, title: "Zucker (Glukose)",       body: "In den Blättern wird aus CO₂ und Wasser mithilfe von Sonnenenergie <strong>Zucker (Glukose)</strong> hergestellt. Dieser liefert der Pflanze Energie und Baustoffe." },
@@ -444,7 +448,7 @@
     ],
     atmung: [
       { num: 1, title: "Sauerstoff rein",   body: "<strong>O₂</strong> aus der Luft kommt durch die Spaltöffnungen (bei Pflanzen) oder durch Lungen und Kiemen (bei Tieren) in die Zellen." },
-      { num: 2, title: "Zucker rein",       body: "<strong>Zucker (Glukose)</strong> aus der Nahrung oder aus der Photosynthese wird in die Zellen gebracht." },
+      { num: 2, title: "Zucker rein",       body: "<strong>Zucker (Glukose)</strong> aus der Nahrung oder aus der Fotosynthese wird in die Zellen gebracht." },
       { num: 3, title: "Kraftwerk starten", body: "In den <strong>Mitochondrien</strong>, dem „Kraftwerk“ der Zelle, wird Zucker mit Sauerstoff zusammengebracht." },
       { num: 4, title: "Energie raus",      body: "Es entsteht <strong>Energie (ATP)</strong>. Die Zelle nutzt sie für alles, was sie tun muss." },
       { num: 5, title: "Abfall raus",       body: "Es entstehen <strong>Kohlenstoffdioxid (CO₂)</strong> und <strong>Wasser (H₂O)</strong>. Beide werden wieder abgegeben." }
@@ -455,7 +459,7 @@
   let active = null;
 
   // Einbett-Modus: Über ?teil=photo|atmung|lueckentext nur den gewünschten
-  // Baustein zeigen — so kann der Energie-Lernpfad die Teile einzeln einbetten.
+  // Baustein zeigen – so kann der Energie-Lernpfad die Teile einzeln einbetten.
   (function einbetten(){
     const params = new URLSearchParams(location.search);
     const teil = params.get('teil');
@@ -551,10 +555,10 @@
 </script>
 
 <script>
-/* Lückentext-Quiz: Photosynthese + Atmung */
+/* Lückentext-Quiz: Fotosynthese + Atmung */
 (function () {
   const groups = [
-    { titel: "Photosynthese", saetze: [
+    { titel: "Fotosynthese", saetze: [
       ["Aus Wasser, ", "Kohlendioxid", " und Licht baut die Pflanze Zucker."],
       ["Die Energie dafür liefert das ", "Sonnenlicht", "."],
       ["Dabei wird ", "Sauerstoff", " frei – den wir zum Atmen brauchen."]
@@ -674,7 +678,7 @@
         'Wunderbar! Du bist eine wandelnde Flora.',
         'Hat alles geklappt – ein echtes Blütenwunder! 🌸',
         'Sauber! Die Wurzel hängt vor Staunen aus dem Boden.',
-        'Volle Punktzahl – jetzt darf Photosynthese-Pause sein.'
+        'Volle Punktzahl – jetzt darf Fotosynthese-Pause sein.'
       ];
       ergebnis.className = 'lt-ergebnis lt-super';
       ergebnis.textContent = rewards[Math.floor(Math.random() * rewards.length)];

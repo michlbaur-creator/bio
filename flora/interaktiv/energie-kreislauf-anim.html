@@ -9,8 +9,8 @@
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Flora Mibaso">
-<title>Der Gas-Kreislauf — Photosynthese & Atmung · Flora Mibaso</title>
-<meta name="description" content="Animierter Kreislauf: Wie Sauerstoff und Kohlendioxid zwischen Photosynthese und Atmung wandern — bei Tag und bei Nacht.">
+<title>Der Gas-Kreislauf — Fotosynthese & Atmung · Flora Mibaso</title>
+<meta name="description" content="Animierter Kreislauf: Wie Sauerstoff und Kohlendioxid zwischen Fotosynthese und Atmung wandern – bei Tag und bei Nacht.">
 <style>
   :root{
     --gruen:#2F4F3E;
@@ -101,7 +101,7 @@
   .ek-svg.ist-nacht .nacht-only{ opacity:1; }
   .ek-svg.ist-nacht .tag-only{ opacity:0; }
 
-  /* Photosynthese-Gruppe ruht nachts — sichtbar gedämpft, aber lesbar */
+  /* Fotosynthese-Gruppe ruht nachts – sichtbar gedämpft, aber lesbar */
   .ek-svg .photo-fluss{ transition:opacity .6s; }
   .ek-svg.ist-nacht .photo-fluss{ opacity:.4; }
 
@@ -122,13 +122,13 @@
 
   <div class="ek-kopf">
     <h1>🔄 Der Stoff-Kreislauf</h1>
-    <p>Wasser, Zucker, Sauerstoff und Kohlendioxid wandern im Kreis — Teamwork der Natur.</p>
+    <p>Wasser, Zucker, Sauerstoff und Kohlendioxid wandern im Kreis – Teamwork der Natur.</p>
   </div>
 
   <div class="ek-buehne">
     <div class="ek-svg-wrap">
       <svg class="ek-svg ist-tag" viewBox="0 0 720 430" xmlns="http://www.w3.org/2000/svg" role="img"
-           aria-label="Kreislauf von Wasser, Zucker, Sauerstoff und Kohlendioxid zwischen Photosynthese und Atmung">
+           aria-label="Kreislauf von Wasser, Zucker, Sauerstoff und Kohlendioxid zwischen Fotosynthese und Atmung">
 
         <!-- Himmel -->
         <defs>
@@ -172,7 +172,7 @@
         <rect x="0" y="392" width="720" height="38" fill="#7a5638"/>
         <rect x="0" y="392" width="720" height="8" fill="#8a6342"/>
 
-        <!-- ================= O₂-Bogen (Photosynthese gibt ab) ================= -->
+        <!-- ================= O₂-Bogen (Fotosynthese gibt ab) ================= -->
         <!-- Pfad von der Pflanze (links) hinauf und zur Zelle (rechts) -->
         <path id="o2pfad" class="photo-fluss" d="M205,250 C260,120 460,120 515,250"
               fill="none" stroke="#9ccb8e" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>
@@ -191,7 +191,7 @@
           <text x="360" y="372" text-anchor="middle" class="mol-label" fill="#4a5159">← CO₂ – Kohlendioxid</text>
         </g>
 
-        <!-- ================= Linker Knoten: Pflanze / Photosynthese ================= -->
+        <!-- ================= Linker Knoten: Pflanze / Fotosynthese ================= -->
         <g>
           <circle cx="150" cy="275" r="74" fill="#ffffff" stroke="#5a9a4a" stroke-width="2.5"/>
           <!-- kleine Pflanze -->
@@ -200,7 +200,7 @@
           <path d="M150 282 C176 270 184 244 180 230 C154 234 146 260 150 282 Z" fill="#5a9a4a"/>
           <ellipse cx="150" cy="332" rx="40" ry="7" fill="#6ab04c" opacity=".4"/>
           <rect x="83" y="353" width="134" height="26" rx="13" fill="#ffffff" stroke="#5a9a4a" stroke-width="1.5"/>
-          <text x="150" y="371" text-anchor="middle" fill="#2f6b32" font-weight="600" font-size="15">Photosynthese</text>
+          <text x="150" y="371" text-anchor="middle" fill="#2f6b32" font-weight="600" font-size="15">Fotosynthese</text>
           <!-- Status-Pille über dem Kreis: Tag läuft / Nacht ruht -->
           <g class="tag-only">
             <rect x="106" y="160" width="88" height="26" rx="13" fill="#ffffff" stroke="#5a9a4a" stroke-width="1.5"/>
@@ -265,7 +265,7 @@
           <text dy="2.5"><animateMotion dur="4.4s" begin="3s" repeatCount="indefinite" path="M515,300 C460,408 260,408 205,300"/>CO₂</text>
         </g>
 
-        <!-- ================= Wasseraufnahme aus dem Boden (Photosynthese-Input) ================= -->
+        <!-- ================= Wasseraufnahme aus dem Boden (Fotosynthese-Input) ================= -->
         <g class="photo-fluss">
           <!-- Aufnahme-Pfad aus dem Boden in die Pflanze -->
           <path id="h2opfad" d="M58,408 C64,366 74,330 100,298" fill="none"
@@ -306,12 +306,12 @@
   const INHALT = {
     tag: {
       titel: '☀️ Am Tag: Beides zugleich',
-      text: 'Im Licht betreibt die grüne Pflanze <strong>Photosynthese</strong>: Sie nimmt CO₂ aus der Luft und <strong>Wasser</strong> über die Wurzeln auf und baut daraus <strong>Zucker</strong> — den Treibstoff für die Zelle. Als Nebenprodukt gibt sie <strong>O₂</strong> ab. Gleichzeitig läuft in allen Zellen die <strong>Atmung</strong>, die genau diesen Zucker und Sauerstoff wieder verbraucht.',
-      formel: 'Photosynthese:  CO₂ + Wasser + Licht  →  Zucker + O₂'
+      text: 'Im Licht betreibt die grüne Pflanze <strong>Fotosynthese</strong>: Sie nimmt CO₂ aus der Luft und <strong>Wasser</strong> über die Wurzeln auf und baut daraus <strong>Zucker</strong> – den Treibstoff für die Zelle. Als Nebenprodukt gibt sie <strong>O₂</strong> ab. Gleichzeitig läuft in allen Zellen die <strong>Atmung</strong>, die genau diesen Zucker und Sauerstoff wieder verbraucht.',
+      formel: 'Fotosynthese:  CO₂ + Wasser + Licht  →  Zucker + O₂'
     },
     nacht: {
       titel: '🌙 In der Nacht: Nur Atmung',
-      text: 'Ohne Licht <strong>ruht die Photosynthese</strong>. Jetzt atmen Pflanzen und Tiere nur noch: Sie nehmen <strong>O₂</strong> auf und geben <strong>CO₂</strong> ab. Den Sauerstoff von heute liefern die Pflanzen — den verbrauchen nachts alle gemeinsam.',
+      text: 'Ohne Licht <strong>ruht die Fotosynthese</strong>. Jetzt atmen Pflanzen und Tiere nur noch: Sie nehmen <strong>O₂</strong> auf und geben <strong>CO₂</strong> ab. Den Sauerstoff von heute liefern die Pflanzen – den verbrauchen nachts alle gemeinsam.',
       formel: 'Atmung:  Zucker + O₂  →  Energie (ATP) + CO₂ + Wasser'
     }
   };

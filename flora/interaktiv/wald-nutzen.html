@@ -228,12 +228,13 @@
   .pi-los:hover{background:var(--honig-tief);transform:translateY(-1px);}
   @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
 </style>
+<script src="flora-rahmen.js?v=1" data-pass="wald" data-station="nutzen"></script>
 </head>
 <body>
 <div class="pfad-intro" id="pfadIntro">
   <div class="pi-inner">
     <img class="pi-foto" src="../images/wald/nutzen-intro.jpg" alt="" onerror="this.style.display='none'">
-    <div class="pi-eyebrow">🌳 Bio Mibaso · Lernpfad</div>
+    <div class="pi-eyebrow">🍃 Waldpass · Station 8 von 8 · ca. 10 Min</div>
     <h1 class="pi-titel">Warum der Wald so wichtig ist</h1>
     <p class="pi-lead">Der Wald ist viel mehr als nur Bäume: Er macht Sauerstoff, filtert unser Trinkwasser, hält den Boden fest, kühlt an heißen Tagen und ist ein Ort zum Erholen. Entdecke, warum wir den Wald wirklich brauchen.</p>
     <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
@@ -254,12 +255,12 @@
     <button class="knopf prim" id="weiterBtn">Nächster Schritt ›</button>
   </div>
 
-  <footer><a href="../waldpass.html" style="color:inherit;font-weight:600;">🌳 Expedition Wald</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Bio Mibaso</footer>
+  <footer><a href="../waldpass.html" style="color:inherit;font-weight:600;">🍃 Waldpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Bio Mibaso</footer>
 </div>
 
 <script>
 /* ===========================================================================
-   Lernpfad „Auf großer Reise — wie Pflanzensamen die Welt erobern"
+   Lernpfad „Auf großer Reise – wie Pflanzensamen die Welt erobern"
    ►► MASSGEBLICHE FASSUNG – wird direkt hier in bio gepflegt (native, Flora).
    Mehrere Interaktionstypen wie in den Schwester-Pfaden:
      typ "tafel"       : Bild + antippbare Hotspots (Beschriften) – Löwenzahn-Flieger
@@ -294,14 +295,14 @@ const ARTEN = [
 ];
 
 const SCHRITTE = [
-  /* 1 — Gruppen: die Leistungen des Waldes ----------------------------- */
+  /* 1 – Gruppen: die Leistungen des Waldes ----------------------------- */
   { chip:"Was der Wald leistet", titel:"Fünf Aufgaben des Waldes",
     text:"Der Wald arbeitet für uns alle – oft, ohne dass wir es merken. Tippe die Karten an und entdecke seine wichtigsten Leistungen.",
     hint:"Tippe eine Karte an, um sie aufzuklappen.",
     typ:"gruppen"
   },
 
-  /* 2 — Zuordnen: welche Leistung passt? ------------------------------- */
+  /* 2 – Zuordnen: welche Leistung passt? ------------------------------- */
   { chip:"Welche Leistung?", kat:"uebung", titel:"Welche Leistung des Waldes ist gemeint?",
     text:"Ordne jede Beobachtung der passenden Leistung des Waldes zu – dann auf „Prüfen“ tippen.",
     typ:"zuordnen",
@@ -321,7 +322,7 @@ const SCHRITTE = [
     ]
   },
 
-  /* 3 — Lückentext ----------------------------------------------------- */
+  /* 3 – Lückentext ----------------------------------------------------- */
   { chip:"Lückentext", kat:"uebung", titel:"Fülle die Lücken",
     text:"Tippe eine Lücke an und dann das passende Wort aus der Wortbank. Zum Schluss „Prüfen“.",
     typ:"luecke",
@@ -337,7 +338,12 @@ const SCHRITTE = [
     ]
   },
 
-  /* 4 — Abschluss-Quiz ------------------------------------------------- */
+  /* 4 – Abschluss-Quiz ------------------------------------------------- */
+  { chip:"Merke", titel:"Das Wichtigste auf einen Blick", typ:"merke", weiter:"Alles klar? Dann weiter zum Quiz.",
+    punkte:["Der Wald liefert <b>Sauerstoff</b> und nimmt Kohlenstoffdioxid auf.",
+      "Sein Boden <b>speichert und filtert Wasser</b>. Die Wurzeln schützen den Boden vor dem Wegschwemmen.",
+      "Der Wald <b>kühlt</b> an heißen Tagen und ist ein Ort der <b>Erholung</b>."] },
+
   { chip:"Quiz", kat:"quiz", titel:"Abschluss-Quiz",
     text:"Zum Schluss der Test: Zeig, was du über die Bedeutung des Waldes weißt.",
     typ:"quiz",
@@ -365,7 +371,7 @@ const SCHRITTE = [
        fb:"Der Wald erfüllt viele lebenswichtige Aufgaben für uns alle."},
       {f:"Ein großer Baum versorgt viele Menschen vor allem mit …",
        a:["Sauerstoff","Kohlendioxid","Salz"], r:0,
-       fb:"Über die Photosynthese liefern Bäume den Sauerstoff zum Atmen."}
+       fb:"Über die Fotosynthese liefern Bäume den Sauerstoff zum Atmen."}
     ]
   }
 ];
@@ -405,6 +411,7 @@ function render(){
   else if(s.typ==="reihenfolge") renderReihenfolge(s);
   else if(s.typ==="luecke") renderLuecke(s);
   else if(s.typ==="quiz") renderQuiz(s);
+  else if(s.typ==="merke"){ elB.innerHTML=""; elE.innerHTML=wieseMerke(s); }
   else renderTafel(s);
   $("zurueckBtn").disabled=(i===0);
   $("weiterBtn").textContent=(i===SCHRITTE.length-1)?"↺ Von vorn":"Nächster Schritt ›";
@@ -681,8 +688,8 @@ function renderQuiz(s){
       '<p class="qscore">'+score+'<small> / '+fragen.length+'</small></p>'+
       '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
       '<p class="qspruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
-      '<div class="bruecke"><p>Geschafft! Du weißt jetzt, warum wir den Wald brauchen – und im Forscherpass wächst dein Wald ein Stück weiter.</p>'+
-        '<a class="passbtn" href="../waldpass.html">🌳 Zur Expedition Wald</a></div>'+
+      '<div class="bruecke"><p>Geschafft! Du weißt jetzt, warum wir den Wald brauchen – und im Waldpass wächst dein Wald ein Stück weiter.</p>'+
+        '<a class="passbtn" href="../waldpass.html">🍃 Zum Waldpass</a></div>'+
       '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;">'+
         '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
         '<a class="knopf" href="../waldpass.html">Alle Stationen</a></div></div>';

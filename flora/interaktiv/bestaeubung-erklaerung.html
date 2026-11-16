@@ -457,6 +457,10 @@
   }
 
 </style>
+<script>window.FLORA_MERKE = ["<b>Bestäubung:</b> Pollen gelangt von den Staubblättern auf die Narbe – durch Insekten oder durch den Wind.",
+      "<b>Befruchtung:</b> Aus dem Pollenkorn wächst ein Pollenschlauch zur Samenanlage. Dort verschmelzen männliche und weibliche Keimzelle.",
+      "Aus der Samenanlage wird der <b>Samen</b>, aus dem Fruchtknoten die <b>Frucht</b>."];</script>
+<script src="flora-rahmen.js?v=1" data-pass="pflanze" data-station="bestaeubung"></script>
 </head>
 <body>
 <style>
@@ -475,14 +479,14 @@
   box-shadow:0 3px 12px rgba(194,138,58,.35);}
 .pi-los:hover{background:#a9762c;}
 @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
-</style><div class="pfad-intro" id="pfadIntro"><div class="pi-inner"><img class="pi-foto" src="../images/fotos/bestaeubung-intro.jpg" alt="" onerror="this.style.display='none'"><div class="pi-eyebrow">🌼 Flora Mibaso · Übersicht</div><h1 class="pi-titel">Von der Blüte zum Samen</h1><p class="pi-lead">Der Trick mit dem Pollen: Wer bestäubt wie — und warum das kein Zufall ist.</p><button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button></div></div>
+</style><div class="pfad-intro" id="pfadIntro"><div class="pi-inner"><img class="pi-foto" src="../images/fotos/bestaeubung-intro.jpg" alt="" onerror="this.style.display='none'"><div class="pi-eyebrow">🍃 Pflanzenpass · Station 2 von 6 · ca. 10 Min</div><h1 class="pi-titel">Von der Blüte zum Samen</h1><p class="pi-lead">Der Trick mit dem Pollen: Wer bestäubt wie – und warum das kein Zufall ist.</p><button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button></div></div>
 <a class="back" href="../pflanzenpass.html" style="display:inline-block;margin:12px 14px 0;color:#6b5340;text-decoration:none;font-size:.95rem;">‹ Zurück zur Übersicht</a>
 
 <!-- Erste Station: „Bestäubung Schritt für Schritt" – Animation (eingebettet, ganz oben) -->
 <div id="bst-embed" style="max-width:560px;margin:10px auto 0;padding:0 14px;">
   <h2 style="font-family:Georgia,serif;font-weight:normal;color:#2F4F3E;font-size:1.2rem;margin:0 0 4px;">Bestäubung Schritt für Schritt</h2>
-  <p style="margin:0 0 8px;font-size:.95rem;color:#5a6b57;">Verfolge die Reise eines Pollenkorns — von der Blüte bis zur Frucht.</p>
-  <iframe id="bst-frame" src="bestaeubung-animiert.html?embed=1" title="Bestäubung Schritt für Schritt — Animation"
+  <p style="margin:0 0 8px;font-size:.95rem;color:#5a6b57;">Verfolge die Reise eines Pollenkorns – von der Blüte bis zur Frucht.</p>
+  <iframe id="bst-frame" src="bestaeubung-animiert.html?embed=1" title="Bestäubung Schritt für Schritt – Animation"
     scrolling="no" loading="lazy"
     style="width:100%;border:0;display:block;border-radius:14px;background:transparent;height:560px;"></iframe>
 </div>
@@ -850,7 +854,7 @@
       fb.className = 'good';
       feiern();
     } else {
-      fb.textContent = right + ' von ' + total + ' an der richtigen Stelle — die roten Karten noch verschieben.';
+      fb.textContent = right + ' von ' + total + ' an der richtigen Stelle – die roten Karten noch verschieben.';
       fb.className = 'bad';
     }
     sendHeight();

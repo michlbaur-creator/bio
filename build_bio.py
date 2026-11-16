@@ -39,11 +39,11 @@ REPOS = [
                 "eyebrow": "Dein Garten · für alle Pässe", "titel": "Mein Naturgarten",
                 "sub": "Mit jedem Pass kommt neues Leben in deinen Garten. Schau nach, was schon wächst und wer noch fehlt."},
      "pass": {"href": "pflanzenpass.html", "img": "images/wiese-banner.jpg",
-              "eyebrow": "Dein Forscherpass", "titel": "Expedition Wiese",
-              "sub": "Die Pflanzen der Wiese — spiel dich zum Wiesen-Meister."},
+              "eyebrow": "Dein Pflanzenpass · Klasse 5–8", "titel": "Expedition Wiese",
+              "sub": "Sechs Stationen zu den Pflanzen der Wiese. Spiel dich zum Wiesen-Meister."},
      "pass2": {"href": "waldpass.html", "img": "images/wald/wald-banner-hell.jpg",
-               "eyebrow": "Dein Forscherpass", "titel": "Expedition Wald",
-               "sub": "Spiel dich vom Zapfen zum Wald-Meister."}},
+               "eyebrow": "Dein Waldpass · Klasse 5–10", "titel": "Expedition Wald",
+               "sub": "Acht Stationen vom Kronendach bis in den Boden. Spiel dich zum Wald-Meister."}},
     {"key": "fauna", "label": "Fauna Mibaso", "emoji": "🦋", "akzent": "#233D5C",
      # Reihenfolge der Kacheln = Jahreslauf: Wiese → Vögel → Zugvögel → Winter → Futterhaus,
      # danach Wild & zahm, „Durchs Jahr!“ als Klammer und die Spielecke. Ganz oben der Naturgarten.
@@ -185,7 +185,8 @@ SKIP_LISTING = {"tafel.html", "garten.html", "wiesenpass.html", "winterpass.html
 # Ganz aus bio ausschließen (nicht kopieren, nicht listen): Staunen-Häppchen,
 # Quizze/Tests und Ordnen-/Zuordnungs-Spiele — bio zeigt nur die echten Lernpfade.
 # Einträge ohne Repo-Präfix gelten für beide; mit Präfix nur für ein Repo.
-EXCLUDE = {"tierquiz.html", "gesamttest.html", "pflanze-zuordnung.html", "verwandte-finden.html",
+EXCLUDE = {"zugvoegel.html",   # Zugvogel-Kalender: lebt nur auf fauna.mibaso.de, der Zugvogelpass verlinkt dorthin
+           "tierquiz.html", "gesamttest.html", "pflanze-zuordnung.html", "verwandte-finden.html",
            "flora/systematik.html",
            # Bestimmen-Werkzeuge laufen ausschließlich in der Fauna-App (nur verlinkt)
            "fauna/schluessel.html", "fauna/systematik.html", "fauna/stammbaum.html",
@@ -792,9 +793,9 @@ def write_hub(listing):
         'Fülle deinen Forschungspass mit Leben!</p></div>'
         '<div class="kacheln">'
         '<a class="kachel k-flora" href="flora/"><span class="ke">🌼</span>'
-        '<span class="kt">Flora verstehen</span><span class="kb">Forscherpässe Wiese &amp; Wald · Pflanzen bestimmen</span></a>'
+        '<span class="kt">Flora verstehen</span><span class="kb">Pflanzenpass und Waldpass · Pflanzen bestimmen</span></a>'
         '<a class="kachel k-fauna" href="fauna/"><span class="ke">🦋</span>'
-        '<span class="kt">Fauna verstehen</span><span class="kb">Forscherpass Wiese · Bestimmen &amp; Verwandtschaft</span></a>'
+        '<span class="kt">Fauna verstehen</span><span class="kb">Sechs Pässe von der Wiese bis zum Winter · Bestimmen &amp; Verwandtschaft</span></a>'
         '<a class="kachel k-garten" href="fauna/interaktiv/garten.html"><span class="ke">🏡</span><span class="kt">Mein Naturgarten</span><span class="kb">Wächst mit jedem der acht Forscherpässe · Tiere ziehen ein, Blumen und Bäume wachsen</span></a>'
         '<a class="kachel k-spiel" href="spiele/"><span class="ke">🎲</span><span class="kt">Spielecke</span><span class="kb">Elf Lernspiele · Sterne sammeln · Naturforscher-Diplom</span></a>'
         '</div>' + _footer("") +

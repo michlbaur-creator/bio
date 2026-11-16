@@ -133,6 +133,10 @@
   .meister button{font-family:var(--sans);font-size:13px;font-weight:600;color:#fff;
     background:var(--honig);border:none;border-radius:999px;padding:9px 15px;cursor:pointer;}
   .meister.gesperrt .mt span{color:#a49a86;}
+  a.garten-ziel{text-decoration:none;border-color:#b9d6b0;background:#f3f9f1;}
+  a.garten-ziel .mt b{color:#24583a;}
+  a.garten-ziel .gz{font-family:var(--sans);font-size:13px;font-weight:600;color:#fff;background:#2f7d4f;border-radius:999px;padding:9px 15px;white-space:nowrap;}
+  .urk-btns a.garten{font-family:var(--sans);font-size:12.5px;font-weight:600;border-radius:999px;padding:8px 15px;text-decoration:none;background:#2f7d4f;color:#fff;}
   .meister.gesperrt .mi{filter:grayscale(1);opacity:.6;}
 
   /* ---- Abzeichen-Album ---- */
@@ -357,6 +361,7 @@
     <div class="urk-btns" style="flex-wrap:wrap">
       <button class="druck" id="urkPdf">🖨️ Drucken / PDF</button>
       <button class="druck" id="urkTeilen">📤 Teilen / Bild</button>
+      <a class="garten" href="garten.html">🏡 Zum Naturgarten</a>
       <button class="zu" id="urkZu">Schließen</button>
     </div>
     <p class="urk-btns" style="font-family:var(--sans);font-size:12px;color:#7a7468;text-align:center;margin:0 12px 12px">Auf iPhone und iPad: „Teilen / Bild“ antippen, dann „Drucken“ oder „Bild sichern“.</p>
@@ -514,6 +519,8 @@ function render(){
     ? '<div class="meister"><span class="mi">🏅</span><span class="mt"><b>Meister-Urkunde</b>'
       +'<span>Alle Stationen geschafft – hol dir deine Urkunde!</span></span>'
       +'<button id="urkundeBtn">Öffnen</button></div>'
+      +'<a class="meister garten-ziel" href="garten.html"><span class="mi">🏡</span><span class="mt"><b>Mein Naturgarten</b>'
+      +'<span>Auf deiner Wiese im Naturgarten blüht es jetzt.</span></span><span class="gz">Ansehen ›</span></a>'
     : '<div class="meister gesperrt"><span class="mi">🔒</span><span class="mt"><b>Meister-Urkunde</b>'
       +'<span>Schließe alle '+PFADE.length+' Stationen ab, um sie freizuschalten ('+h.fertige+'/'+PFADE.length+').</span></span></div>';
   if(alleFertig){

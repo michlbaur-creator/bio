@@ -228,12 +228,13 @@
   .pi-los:hover{background:var(--honig-tief);transform:translateY(-1px);}
   @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
 </style>
+<script src="flora-rahmen.js?v=1" data-pass="wald" data-station="eindringlinge"></script>
 </head>
 <body>
 <div class="pfad-intro" id="pfadIntro">
   <div class="pi-inner">
     <img class="pi-foto" src="../images/wald/invasive-intro.jpg" alt="" onerror="this.style.display='none'">
-    <div class="pi-eyebrow">🌳 Bio Mibaso · Lernpfad</div>
+    <div class="pi-eyebrow">🍃 Waldpass · Station 7 von 8 · ca. 10 Min</div>
     <h1 class="pi-titel">Invasive Arten</h1>
     <p class="pi-lead">Nicht jede Pflanze im Wald gehört von Natur aus hierher. Manche wurden aus fernen Ländern eingeführt – und breiten sich so stark aus, dass sie heimische Pflanzen verdrängen. Lern die bekanntesten „Eindringlinge“ kennen.</p>
     <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
@@ -254,12 +255,12 @@
     <button class="knopf prim" id="weiterBtn">Nächster Schritt ›</button>
   </div>
 
-  <footer><a href="../waldpass.html" style="color:inherit;font-weight:600;">🌳 Expedition Wald</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Bio Mibaso</footer>
+  <footer><a href="../waldpass.html" style="color:inherit;font-weight:600;">🍃 Waldpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Bio Mibaso</footer>
 </div>
 
 <script>
 /* ===========================================================================
-   Lernpfad „Auf großer Reise — wie Pflanzensamen die Welt erobern"
+   Lernpfad „Auf großer Reise – wie Pflanzensamen die Welt erobern"
    ►► MASSGEBLICHE FASSUNG – wird direkt hier in bio gepflegt (native, Flora).
    Mehrere Interaktionstypen wie in den Schwester-Pfaden:
      typ "tafel"       : Bild + antippbare Hotspots (Beschriften) – Löwenzahn-Flieger
@@ -291,14 +292,14 @@ const ARTEN = [
 ];
 
 const SCHRITTE = [
-  /* 1 — Gruppen: bekannte invasive Arten ------------------------------- */
+  /* 1 – Gruppen: bekannte invasive Arten ------------------------------- */
   { chip:"Die Eindringlinge", titel:"Vier bekannte Eindringlinge",
     text:"Diese Pflanzen wurden vom Menschen eingeführt oder eingeschleppt – und breiten sich seither stark aus. Tippe die Karten an.",
     hint:"Tippe eine Karte an, um sie aufzuklappen.",
     typ:"gruppen"
   },
 
-  /* 2 — Reihenfolge: wie sich das Springkraut ausbreitet --------------- */
+  /* 2 – Reihenfolge: wie sich das Springkraut ausbreitet --------------- */
   { chip:"Der Katapult-Trick", kat:"uebung", titel:"So erobert das Springkraut das Ufer",
     text:"Das Drüsige Springkraut hat einen cleveren Trick. Bring seine Ausbreitung in die richtige Reihenfolge – mit dem Griff ⠿ ziehen oder ▲▼ schieben, dann „Prüfen“.",
     typ:"reihenfolge",
@@ -311,7 +312,7 @@ const SCHRITTE = [
     ]
   },
 
-  /* 3 — Zuordnen: heimisch oder invasiv? ------------------------------- */
+  /* 3 – Zuordnen: heimisch oder invasiv? ------------------------------- */
   { chip:"Heimisch oder invasiv?", kat:"uebung", titel:"Heimisch oder invasiv?",
     text:"Manche Pflanzen gehören zu uns, andere sind eingeführte Eindringlinge. Ordne jede zu – dann auf „Prüfen“ tippen.",
     typ:"zuordnen",
@@ -324,12 +325,12 @@ const SCHRITTE = [
       {t:"Drüsiges Springkraut",   em:"💥", w:"invasiv",  fb:"Aus dem Himalaya – invasiv."},
       {t:"Waldmeister",            em:"🌿", w:"heimisch", fb:"Heimische Waldpflanze."},
       {t:"Riesen-Bärenklau",       em:"⚠️", w:"invasiv",  fb:"Eingeführt und invasiv."},
-      {t:"Rotbuche",               em:"🌳", w:"heimisch", fb:"Unser häufigster heimischer Waldbaum."},
+      {t:"Rotbuche",               em:"🌳", w:"heimisch", fb:"Unser häufigster heimischer Laubbaum."},
       {t:"Kanadische Goldrute",    em:"🌼", w:"invasiv",  fb:"Aus Nordamerika – invasiv."}
     ]
   },
 
-  /* 4 — Lückentext ----------------------------------------------------- */
+  /* 4 – Lückentext ----------------------------------------------------- */
   { chip:"Lückentext", kat:"uebung", titel:"Fülle die Lücken",
     text:"Tippe eine Lücke an und dann das passende Wort aus der Wortbank. Zum Schluss „Prüfen“.",
     typ:"luecke",
@@ -345,7 +346,12 @@ const SCHRITTE = [
     ]
   },
 
-  /* 5 — Abschluss-Quiz ------------------------------------------------- */
+  /* 5 – Abschluss-Quiz ------------------------------------------------- */
+  { chip:"Merke", titel:"Das Wichtigste auf einen Blick", typ:"merke", weiter:"Alles klar? Dann weiter zum Quiz.",
+    punkte:["<b>Invasive Arten</b> wurden vom Menschen eingeführt oder eingeschleppt und verdrängen heimische Arten.",
+      "Beispiele: Drüsiges Springkraut, Riesen-Bärenklau, Japanischer Staudenknöterich und Kanadische Goldrute.",
+      "Riesen-Bärenklau <b>nie anfassen</b>. Gartenabfälle gehören nicht in den Wald."] },
+
   { chip:"Quiz", kat:"quiz", titel:"Abschluss-Quiz",
     text:"Zum Schluss der Test: Zeig, was du über invasive Arten weißt.",
     typ:"quiz",
@@ -372,7 +378,7 @@ const SCHRITTE = [
        a:["Aus den Wurzelstücken kann neuer Knöterich wachsen und sich ausbreiten","Der Wald wird dadurch nur gedüngt","Das ist überhaupt kein Problem"], r:0,
        fb:"So werden invasive Arten unabsichtlich weiterverbreitet."},
       {f:"Heimisch oder invasiv? Die Rotbuche ist …",
-       a:["heimisch – unser häufigster Waldbaum","invasiv – aus Amerika eingeführt","invasiv – aus dem Himalaya"], r:0,
+       a:["heimisch – unser häufigster Laubbaum","invasiv – aus Amerika eingeführt","invasiv – aus dem Himalaya"], r:0,
        fb:"Die Rotbuche gehört seit jeher zu unseren Wäldern."}
     ]
   }
@@ -413,6 +419,7 @@ function render(){
   else if(s.typ==="reihenfolge") renderReihenfolge(s);
   else if(s.typ==="luecke") renderLuecke(s);
   else if(s.typ==="quiz") renderQuiz(s);
+  else if(s.typ==="merke"){ elB.innerHTML=""; elE.innerHTML=wieseMerke(s); }
   else renderTafel(s);
   $("zurueckBtn").disabled=(i===0);
   $("weiterBtn").textContent=(i===SCHRITTE.length-1)?"↺ Von vorn":"Nächster Schritt ›";
@@ -689,8 +696,8 @@ function renderQuiz(s){
       '<p class="qscore">'+score+'<small> / '+fragen.length+'</small></p>'+
       '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
       '<p class="qspruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
-      '<div class="bruecke"><p>Geschafft! Du weißt jetzt, was invasive Arten sind – und im Forscherpass wächst dein Wald ein Stück weiter.</p>'+
-        '<a class="passbtn" href="../waldpass.html">🌳 Zur Expedition Wald</a></div>'+
+      '<div class="bruecke"><p>Geschafft! Du weißt jetzt, was invasive Arten sind – und im Waldpass wächst dein Wald ein Stück weiter.</p>'+
+        '<a class="passbtn" href="../waldpass.html">🍃 Zum Waldpass</a></div>'+
       '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;">'+
         '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
         '<a class="knopf" href="../waldpass.html">Alle Stationen</a></div></div>';

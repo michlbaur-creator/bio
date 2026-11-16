@@ -102,6 +102,17 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
 .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);transform:translate(-50%,30px);background:var(--blau);color:#fff;font-family:var(--sans);font-size:15px;font-weight:600;
   padding:11px 20px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:20;max-width:92vw;text-align:center;}
 .toast.an{opacity:1;transform:translate(-50%,0);}
+/* ---- Garten als Bild teilen oder drucken ---- */
+.teilen{justify-content:center;margin:14px 0 0;}
+.szene.still *{animation:none!important;}
+#druck{display:none;}
+@media print{
+  @page{margin:14mm;}
+  html,body{background:#fff!important;}
+  body.drucken>*{display:none!important;}
+  body.drucken>#druck{display:block!important;}
+  #druck img{display:block;width:100%;height:auto;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
 </style>
 </head>
 <body>
@@ -114,6 +125,10 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
 
   <div class="szene" id="szene"></div>
   <p class="unter" id="unter"></p>
+  <div class="zeile teilen">
+    <button class="btn hell" id="teilenBtn" type="button">📤 Garten als Bild teilen</button>
+    <button class="btn hell" id="druckBtn" type="button">🖨️ Drucken</button>
+  </div>
   <div class="vorschau" id="vorschau"></div>
 
   <h2>Wer und was schon da ist</h2>
@@ -125,6 +140,7 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
   <details class="lehrer"><summary>Für Lehrkräfte: Was der Garten soll</summary>
     <p>Der Garten fasst alle acht Forscherpässe von Bio Mibaso zusammen – sechs zu den Tieren, zwei zu den Pflanzen. Er zeigt auf einen Blick, welche Pässe ein Kind geschafft hat, und macht Lust auf den nächsten.</p>
     <p>Zu jedem der sechs Tier-Pässe gehört ein <b>Draußen-Auftrag</b>: eine kurze Beobachtung im Freien, die das Kind selbst abhakt. Geprüft wird das nicht – es ist Ehrensache. Die Aufträge eignen sich als Hausaufgabe oder für einen Unterrichtsgang.</p>
+    <p>Mit „Garten als Bild teilen“ oder „Drucken“ lässt sich der aktuelle Stand festhalten – etwa fürs Heft oder für die Klassenwand. Auf dem Bild steht kein Name.</p>
     <p>Gespeichert wird nur auf diesem Gerät. Keine Anmeldung, keine Datensammlung.</p>
   </details>
 
@@ -135,6 +151,7 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
   </footer>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="druck"><img id="druckbild" alt="Mein Naturgarten"></div>
 <script>window.goatcounter={path:function(p){return location.host+p}};</script><script data-goatcounter="https://mibaso.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
 <script>
@@ -297,6 +314,90 @@ function auftragSetzen(id, wert) {
 }
 let toastT = 0;
 function toast(t) { const el = document.getElementById("toast"); el.textContent = t; el.classList.add("an"); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove("an"), 3200); }
+
+/* ============ Garten als Bild: teilen oder drucken ============
+   Das Bild wird aus der Szene nachgezeichnet (Positionen aus dem Bildschirm abgelesen). Nichts verlässt das Gerät,
+   bis das Kind selbst auf „Teilen“ tippt. Im Bild steht kein Name. */
+async function gartenBild() {
+  const sz = document.getElementById("szene"), W = 1500, H = 1000, FUSS = 120;
+  sz.classList.add("still");
+  try {
+    const bilder = [...sz.querySelectorAll("img")];
+    await Promise.all(bilder.map(i => i.decode ? i.decode().catch(() => {}) : 0));
+    const r = sz.getBoundingClientRect(), f = W / r.width;
+    const c = document.createElement("canvas"); c.width = W; c.height = H + FUSS;
+    const x = c.getContext("2d");
+    x.fillStyle = "#8fc7ee"; x.fillRect(0, 0, W, H);
+    const deckend = (bw, bh) => { const m = Math.max(W / bw, H / bh); return [(W - bw * m) / 2, (H - bh * m) / 2, bw * m, bh * m, m]; };
+    const grau = im => {   // Graustufen von Hand – klappt in jedem Browser
+      const t = document.createElement("canvas"); t.width = im.naturalWidth; t.height = im.naturalHeight;
+      const tx = t.getContext("2d"); tx.drawImage(im, 0, 0);
+      const d = tx.getImageData(0, 0, t.width, t.height), p = d.data;
+      for (let i = 0; i < p.length; i += 4) { const g = p[i] * .3 + p[i + 1] * .59 + p[i + 2] * .11; p[i] = p[i + 1] = p[i + 2] = g; }
+      tx.putImageData(d, 0, 0); return t;
+    };
+    for (const el of sz.children) {
+      if (el.classList.contains("stand-chip")) continue;
+      if (el.tagName === "IMG") { if (el.naturalWidth) { const [a, b, w, h] = deckend(el.naturalWidth, el.naturalHeight); x.drawImage(el, a, b, w, h); } continue; }
+      if (el.classList.contains("karg")) {
+        const o = H * .61, g = x.createLinearGradient(0, o, 0, H);
+        g.addColorStop(0, "rgba(176,160,104,0)"); g.addColorStop(.14, "rgba(176,160,104,1)"); g.addColorStop(1, "rgba(176,160,104,1)");
+        x.save(); x.globalCompositeOperation = "multiply"; x.globalAlpha = parseFloat(el.style.opacity) || 0; x.fillStyle = g; x.fillRect(0, o, W, H - o); x.restore(); continue;
+      }
+      if (el.tagName.toLowerCase() === "svg") {   // Regenbogen
+        const [a, b, , , m] = deckend(1280, 853);
+        x.save(); x.translate(a, b); x.scale(m, m); x.clip(new Path2D("M665 0H1010L900 178 783 343V372H330V345L550 330 560 250 665 240Z"));
+        x.globalAlpha = .55; x.lineWidth = 13;
+        [[196, "#e8674f"], [183, "#f0b64a"], [170, "#f3e06a"], [157, "#7fc27a"], [144, "#6aa9dd"]].forEach(([rad, farbe]) => { x.strokeStyle = farbe; x.beginPath(); x.arc(655, 385, rad, 0, Math.PI * 2); x.stroke(); });
+        x.restore(); continue;
+      }
+      const q = el.getBoundingClientRect(), mx = (q.left + q.width / 2 - r.left) * f, my = (q.top + q.height / 2 - r.top) * f;
+      if (el.classList.contains("leer")) {
+        x.save(); x.beginPath(); x.arc(mx, my, 30, 0, Math.PI * 2); x.fillStyle = "rgba(255,255,255,.55)"; x.fill();
+        x.setLineDash([8, 6]); x.lineWidth = 3; x.strokeStyle = "rgba(35,61,92,.55)"; x.stroke();
+        x.fillStyle = "#233D5C"; x.font = "700 30px sans-serif"; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText("?", mx, my + 2); x.restore(); continue;
+      }
+      const im = el.querySelector("img"); if (!im || !im.naturalWidth) continue;
+      const blass = el.classList.contains("scheu") || /grayscale/.test(el.style.filter);
+      const p = im.getBoundingClientRect();
+      x.save(); x.globalAlpha = el.classList.contains("scheu") ? .55 : parseFloat(el.style.opacity) || 1;
+      x.drawImage(blass ? grau(im) : im, (p.left - r.left) * f, (p.top - r.top) * f, p.width * f, p.height * f); x.restore();
+      if (el.classList.contains("scheu")) {
+        x.save(); x.setLineDash([9, 7]); x.lineWidth = 3; x.strokeStyle = "rgba(255,255,255,.9)";
+        x.beginPath(); x.ellipse(mx, my, q.width * f * .56, q.height * f * .56, 0, 0, Math.PI * 2); x.stroke(); x.restore();
+      }
+    }
+    /* Fußzeile */
+    const { liste } = stand(), da = liste.filter(e => e.stufe >= 2).length, heim = liste.filter(e => e.stufe === 3).length;
+    x.fillStyle = "#F7F3E8"; x.fillRect(0, H, W, FUSS); x.fillStyle = "#C28A3A"; x.fillRect(0, H, W, 5);
+    x.textBaseline = "middle"; x.textAlign = "left"; x.fillStyle = "#233D5C"; x.font = "44px Georgia,serif"; x.fillText("Mein Naturgarten", 36, H + 46);
+    x.font = "26px sans-serif"; x.fillStyle = "#5d6b78";
+    x.fillText(heim === liste.length ? "Alle acht sind zu Hause – ein kleines Naturparadies!" : `${da} von ${liste.length} eingezogen · ${heim} ganz zu Hause`, 36, H + 90);
+    x.textAlign = "right"; x.fillStyle = "#233D5C"; x.fillText("bio.mibaso.de", W - 36, H + 90);
+    return c;
+  } finally { sz.classList.remove("still"); }
+}
+document.getElementById("teilenBtn").onclick = async () => {
+  try {
+    const c = await gartenBild(), blob = await new Promise(r => c.toBlob(r, "image/png"));
+    const datei = new File([blob], "mein-naturgarten.png", { type: "image/png" });
+    if (navigator.canShare && navigator.canShare({ files: [datei] })) {
+      try { await navigator.share({ files: [datei], title: "Mein Naturgarten" }); } catch (e) { if (!e || e.name !== "AbortError") toast("Teilen klappte nicht."); }
+      return;
+    }
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "mein-naturgarten.png";
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    toast("Bild gespeichert: mein-naturgarten.png");
+  } catch (e) { toast("Das Bild konnte nicht erstellt werden."); }
+};
+document.getElementById("druckBtn").onclick = async () => {
+  try {
+    const c = await gartenBild(), b = document.getElementById("druckbild");
+    b.src = c.toDataURL("image/jpeg", .92); if (b.decode) await b.decode().catch(() => {});
+    document.body.classList.add("drucken"); window.print();
+  } catch (e) { toast("Das Bild konnte nicht erstellt werden."); }
+};
+addEventListener("afterprint", () => document.body.classList.remove("drucken"));
 
 /* ============ Vorschau aller Stände: nur mit garten.html?vorschau ============ */
 function vorschauLeiste() {

@@ -228,12 +228,13 @@
   .pi-los:hover{background:var(--honig-tief);transform:translateY(-1px);}
   @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
 </style>
+<script src="flora-rahmen.js?v=1" data-pass="wald" data-station="erkennen"></script>
 </head>
 <body>
 <div class="pfad-intro" id="pfadIntro">
   <div class="pi-inner">
     <img class="pi-foto" src="../images/wald/fruehblueher-maerz.jpg" alt="" onerror="this.style.display='none'">
-    <div class="pi-eyebrow">🌳 Bio Mibaso · Lernpfad</div>
+    <div class="pi-eyebrow">🍃 Waldpass · Station 3 von 8 · ca. 10 Min</div>
     <h1 class="pi-titel">Waldpflanzen entdecken</h1>
     <p class="pi-lead">Wer genau hinschaut, erkennt die Waldblumen an Blüte, Blatt und manchmal sogar am Duft. Lern sechs typische Waldpflanzen kennen – und teste danach dein Auge im Bild-Quiz.</p>
     <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
@@ -254,12 +255,12 @@
     <button class="knopf prim" id="weiterBtn">Nächster Schritt ›</button>
   </div>
 
-  <footer><a href="../waldpass.html" style="color:inherit;font-weight:600;">🌳 Expedition Wald</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Bio Mibaso</footer>
+  <footer><a href="../waldpass.html" style="color:inherit;font-weight:600;">🍃 Waldpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Bio Mibaso</footer>
 </div>
 
 <script>
 /* ===========================================================================
-   Lernpfad „Auf großer Reise — wie Pflanzensamen die Welt erobern"
+   Lernpfad „Auf großer Reise – wie Pflanzensamen die Welt erobern"
    ►► MASSGEBLICHE FASSUNG – wird direkt hier in bio gepflegt (native, Flora).
    Mehrere Interaktionstypen wie in den Schwester-Pfaden:
      typ "tafel"       : Bild + antippbare Hotspots (Beschriften) – Löwenzahn-Flieger
@@ -297,14 +298,14 @@ const ARTEN = [
 ];
 
 const SCHRITTE = [
-  /* 1 — Gruppen: sechs Waldpflanzen ------------------------------------ */
+  /* 1 – Gruppen: sechs Waldpflanzen ------------------------------------ */
   { chip:"Sechs Pflanzen", titel:"Sechs Waldpflanzen kennenlernen",
     text:"Diese sechs Blumen findest du im Frühlingswald besonders oft. Tippe jede Karte an, schau dir das Foto an und lies das Erkennungsmerkmal.",
     hint:"Tippe eine Karte an, um sie aufzuklappen.",
     typ:"gruppen"
   },
 
-  /* 2 — Zuordnen: Blütenfarbe ------------------------------------------ */
+  /* 2 – Zuordnen: Blütenfarbe ------------------------------------------ */
   { chip:"Welche Farbe?", kat:"uebung", titel:"Welche Blütenfarbe hat welche Pflanze?",
     text:"Die Blütenfarbe hilft beim Erkennen. Ordne jede Pflanze ihrer Farbe zu – dann auf „Prüfen“ tippen.",
     typ:"zuordnen",
@@ -323,7 +324,7 @@ const SCHRITTE = [
     ]
   },
 
-  /* 3 — Lückentext ----------------------------------------------------- */
+  /* 3 – Lückentext ----------------------------------------------------- */
   { chip:"Lückentext", kat:"uebung", titel:"Fülle die Lücken",
     text:"Tippe eine Lücke an und dann das passende Wort aus der Wortbank. Zum Schluss „Prüfen“.",
     typ:"luecke",
@@ -339,7 +340,12 @@ const SCHRITTE = [
     ]
   },
 
-  /* 4 — Bild-Quiz: Welche Pflanze ist das? ----------------------------- */
+  /* 4 – Bild-Quiz: Welche Pflanze ist das? ----------------------------- */
+  { chip:"Merke", titel:"Das Wichtigste auf einen Blick", typ:"merke", weiter:"Alles klar? Dann weiter zum Quiz.",
+    punkte:["Waldpflanzen erkennst du an <b>Blüte</b>, <b>Blatt</b> und manchmal am <b>Duft</b>.",
+      "Weiß blühen Buschwindröschen, Waldmeister und Sauerklee. Gelb blühen Scharbockskraut und Goldnessel, lila der Lerchensporn.",
+      "Die meisten blühen im <b>Frühling</b>, solange noch Licht bis zum Boden kommt."] },
+
   { chip:"Bild-Quiz", kat:"quiz", titel:"Erkennst du die Pflanze?",
     text:"Zum Schluss der Test: Welche Waldpflanze siehst du auf dem Foto?",
     typ:"quiz",
@@ -407,6 +413,7 @@ function render(){
   else if(s.typ==="reihenfolge") renderReihenfolge(s);
   else if(s.typ==="luecke") renderLuecke(s);
   else if(s.typ==="quiz") renderQuiz(s);
+  else if(s.typ==="merke"){ elB.innerHTML=""; elE.innerHTML=wieseMerke(s); }
   else renderTafel(s);
   $("zurueckBtn").disabled=(i===0);
   $("weiterBtn").textContent=(i===SCHRITTE.length-1)?"↺ Von vorn":"Nächster Schritt ›";
@@ -683,8 +690,8 @@ function renderQuiz(s){
       '<p class="qscore">'+score+'<small> / '+fragen.length+'</small></p>'+
       '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
       '<p class="qspruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
-      '<div class="bruecke"><p>Geschafft! Du erkennst jetzt sechs Waldpflanzen sicher – und im Forscherpass wächst dein Wald ein Stück weiter.</p>'+
-        '<a class="passbtn" href="../waldpass.html">🌳 Zur Expedition Wald</a></div>'+
+      '<div class="bruecke"><p>Geschafft! Du erkennst jetzt sechs Waldpflanzen sicher – und im Waldpass wächst dein Wald ein Stück weiter.</p>'+
+        '<a class="passbtn" href="../waldpass.html">🍃 Zum Waldpass</a></div>'+
       '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;">'+
         '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
         '<a class="knopf" href="../waldpass.html">Alle Stationen</a></div></div>';

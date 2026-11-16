@@ -235,12 +235,13 @@
   .pi-los:hover{background:var(--honig-tief);transform:translateY(-1px);}
   @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
 </style>
+<script src="flora-rahmen.js?v=1" data-pass="wald" data-station="baeume"></script>
 </head>
 <body>
 <div class="pfad-intro" id="pfadIntro">
   <div class="pi-inner">
     <img class="pi-foto" src="../images/wald/baum-bergahorn.jpg" alt="" onerror="this.style.display='none'">
-    <div class="pi-eyebrow">🌳 Bio Mibaso · Lernpfad</div>
+    <div class="pi-eyebrow">🍃 Waldpass · Station 4 von 8 · ca. 10 Min</div>
     <h1 class="pi-titel">Bäume erkennen</h1>
     <p class="pi-lead">In der Broschüre „Bäume im Ebsdorfergrund“ stecken wunderschöne Blattfotos. Lern sechzehn heimische Bäume an ihren Blättern kennen – und finde dann im Quiz die richtige Tafel.</p>
     <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
@@ -261,12 +262,12 @@
     <button class="knopf prim" id="weiterBtn">Nächster Schritt ›</button>
   </div>
 
-  <footer><a href="../waldpass.html" style="color:inherit;font-weight:600;">🌳 Expedition Wald</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Bio Mibaso</footer>
+  <footer><a href="../waldpass.html" style="color:inherit;font-weight:600;">🍃 Waldpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Bio Mibaso</footer>
 </div>
 
 <script>
 /* ===========================================================================
-   Lernpfad „Auf großer Reise — wie Pflanzensamen die Welt erobern"
+   Lernpfad „Auf großer Reise – wie Pflanzensamen die Welt erobern"
    ►► MASSGEBLICHE FASSUNG – wird direkt hier in bio gepflegt (native, Flora).
    Mehrere Interaktionstypen wie in den Schwester-Pfaden:
      typ "tafel"       : Bild + antippbare Hotspots (Beschriften) – Löwenzahn-Flieger
@@ -297,19 +298,24 @@ const ARTEN = [
   {id:"traubeneiche",sym:"🌰", name:"Traubeneiche",   bild:{src:"baum-traubeneiche.jpg",label:"Traubeneiche"},merk:"Eichenblatt mit gleichmäßigeren Lappen; die Eicheln sitzen fast ohne Stiel.",      bsp:"Quercus petraea"},
   {id:"fichte",      sym:"🌲", name:"Gemeine Fichte", bild:{src:"baum-fichte.jpg",      label:"Gemeine Fichte"},merk:"Immergrün: kurze, spitze Nadeln rundum am Zweig; die Zapfen hängen nach unten.",  bsp:"Picea abies"},
   {id:"waldkiefer",  sym:"🌲", name:"Waldkiefer",     bild:{src:"baum-waldkiefer.jpg",  label:"Waldkiefer"},  merk:"Lange Nadeln, immer paarweise zu zweit; die Rinde ist oben rotbraun.",             bsp:"Pinus sylvestris"},
-  {id:"laerche",     sym:"🌲", name:"Lärche",         bild:{src:"baum-laerche.jpg",     label:"Lärche"},      merk:"Weiche Nadeln in Büscheln – wirft als einziger Nadelbaum im Herbst die Nadeln ab.",bsp:"Larix decidua"},
+  {id:"laerche",     sym:"🌲", name:"Lärche",         bild:{src:"baum-laerche.jpg",     label:"Lärche"},      merk:"Weiche Nadeln in Büscheln – wirft als einziger heimischer Nadelbaum im Herbst die Nadeln ab.",bsp:"Larix decidua"},
   {id:"weisstanne",  sym:"🌲", name:"Weißtanne",      bild:{src:"baum-weisstanne.jpg",  label:"Weißtanne"},   merk:"Flache, weiche Nadeln mit zwei weißen Streifen unten; Zapfen stehen aufrecht.",    bsp:"Abies alba"}
 ];
 
 const SCHRITTE = [
-  /* 1 — Galerie: die Bäume kennenlernen -------------------------------- */
+  /* 1 – Galerie: die Bäume kennenlernen -------------------------------- */
   { chip:"Bäume kennenlernen", titel:"Sechzehn heimische Bäume",
     text:"Jeder Baum hat sein eigenes Blatt. Tippe die Karten an, schau dir das Blatt an und lies den Erkennungstipp.",
     hint:"Tippe eine Karte an, um sie aufzuklappen.",
     typ:"gruppen"
   },
 
-  /* 2 — Bildwahl-Quiz: aus 4 Tafeln die richtige ----------------------- */
+  /* 2 – Bildwahl-Quiz: aus 4 Tafeln die richtige ----------------------- */
+  { chip:"Merke", titel:"Das Wichtigste auf einen Blick", typ:"merke", weiter:"Alles klar? Dann weiter zum Quiz.",
+    punkte:["Laubbäume erkennst du an der <b>Blattform</b>. Achte auf zwei Dinge: Ist das Blatt <b>einfach oder gefiedert</b>? Ist der Rand <b>glatt, gesägt oder gelappt</b>?",
+      "Gelappt sind die Blätter von Ahorn und Eiche, gefiedert die der Esche, herzförmig die der Linde.",
+      "Nadelbäume haben Nadeln. Die <b>Lärche</b> wirft sie im Herbst ab, Fichte, Kiefer und Tanne bleiben grün."] },
+
   { chip:"Kennst du den Baum?", kat:"quiz", titel:"Kennst du den Baum?",
     text:"Welche der vier Tafeln zeigt den gesuchten Baum? Tippe sie an.",
     typ:"bildwahl",
@@ -353,6 +359,7 @@ function render(){
   else if(s.typ==="luecke") renderLuecke(s);
   else if(s.typ==="bildwahl") renderBildwahl(s);
   else if(s.typ==="quiz") renderQuiz(s);
+  else if(s.typ==="merke"){ elB.innerHTML=""; elE.innerHTML=wieseMerke(s); }
   else renderTafel(s);
   $("zurueckBtn").disabled=(i===0);
   $("weiterBtn").textContent=(i===SCHRITTE.length-1)?"↺ Von vorn":"Nächster Schritt ›";
@@ -632,8 +639,8 @@ function renderBildwahl(s){
       '<p class="qscore">'+score+'<small> / '+fragen.length+'</small></p>'+
       '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
       '<p class="qspruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
-      '<div class="bruecke"><p>Geschafft! Du erkennst die Bäume an ihren Blättern – und im Forscherpass wächst dein Wald ein Stück weiter.</p>'+
-        '<a class="passbtn" href="../waldpass.html">🌳 Zur Expedition Wald</a></div>'+
+      '<div class="bruecke"><p>Geschafft! Du erkennst die Bäume an ihren Blättern – und im Waldpass wächst dein Wald ein Stück weiter.</p>'+
+        '<a class="passbtn" href="../waldpass.html">🍃 Zum Waldpass</a></div>'+
       '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;">'+
         '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
         '<a class="knopf" href="../waldpass.html">Alle Stationen</a></div></div>';
@@ -687,8 +694,8 @@ function renderQuiz(s){
       '<p class="qscore">'+score+'<small> / '+fragen.length+'</small></p>'+
       '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
       '<p class="qspruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
-      '<div class="bruecke"><p>Geschafft! Du erkennst jetzt sechs Waldpflanzen sicher – und im Forscherpass wächst dein Wald ein Stück weiter.</p>'+
-        '<a class="passbtn" href="../waldpass.html">🌳 Zur Expedition Wald</a></div>'+
+      '<div class="bruecke"><p>Geschafft! Du erkennst die Bäume an ihren Blättern – und im Waldpass wächst dein Wald ein Stück weiter.</p>'+
+        '<a class="passbtn" href="../waldpass.html">🍃 Zum Waldpass</a></div>'+
       '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;">'+
         '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
         '<a class="knopf" href="../waldpass.html">Alle Stationen</a></div></div>';

@@ -137,6 +137,10 @@
     *{ animation:none !important; transition:none !important; }
   }
 </style>
+<script>window.FLORA_MERKE = ["Ein Laubbaum lebt im <b>Jahreslauf</b>: Knospen im Winter, Blüte im Frühling, Früchte im Sommer, Laubfall im Herbst.",
+      "Aus den bestäubten Blüten werden <b>Früchte</b>. Den Zucker dafür stellen die Blätter mit Sonnenlicht her.",
+      "Vor dem Laubfall holt der Baum Nährstoffe aus den Blättern zurück. Im Winter <b>ruht</b> er und lebt von seinen Vorräten."];</script>
+<script src="flora-rahmen.js?v=1" data-pass="pflanze" data-station="jahr"></script>
 </head>
 <body>
 <style>
@@ -155,13 +159,13 @@
   box-shadow:0 3px 12px rgba(194,138,58,.35);}
 .pi-los:hover{background:#a9762c;}
 @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
-</style><div class="pfad-intro" id="pfadIntro"><div class="pi-inner"><img class="pi-foto" src="../images/fotos/apfelbaum-intro.jpg" alt="" onerror="this.style.display='none'"><div class="pi-eyebrow">🌼 Flora Mibaso · Lernpfad</div><h1 class="pi-titel">Ein Jahr im Apfelbaum</h1><p class="pi-lead">Frühling, Sommer, Herbst, Winter — ein Jahr im Leben eines Apfelbaums.</p><button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button></div></div>
+</style><div class="pfad-intro" id="pfadIntro"><div class="pi-inner"><img class="pi-foto" src="../images/fotos/apfelbaum-intro.jpg" alt="" onerror="this.style.display='none'"><div class="pi-eyebrow">🍃 Pflanzenpass · Station 4 von 6 · ca. 8 Min</div><h1 class="pi-titel">Ein Jahr im Apfelbaum</h1><p class="pi-lead">Frühling, Sommer, Herbst, Winter – ein Jahr im Leben eines Apfelbaums.</p><button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button></div></div>
 <a class="back" href="../pflanzenpass.html" style="display:inline-block;margin:12px 14px 0;color:#6b5340;text-decoration:none;font-size:.95rem;">‹ Zurück zur Übersicht</a>
 
 <main>
   <div class="karte">
     <div class="buehne" id="buehne" role="img"
-         aria-label="Ein Apfelbaum im Lauf des Jahres — mit dem Schieberegler von Winter über Frühling und Sommer bis zum Herbst.">
+         aria-label="Ein Apfelbaum im Lauf des Jahres – mit dem Schieberegler von Winter über Frühling und Sommer bis zum Herbst.">
       <img src="../images/apfelbaum/winter.jpg"    alt="Apfelbaum im Winter, kahl" style="opacity:1"  onerror="this.style.display='none'">
       <img src="../images/apfelbaum/fruehling.jpg" alt="Apfelbaum in der Blüte im Frühling" style="opacity:0" onerror="this.style.display='none'">
       <img src="../images/apfelbaum/sommer.jpg"    alt="Apfelbaum mit Blättern und Äpfeln im Sommer" style="opacity:0" onerror="this.style.display='none'">
@@ -241,19 +245,19 @@
   /* ---------- Texte ---------- */
   var phasen = [
     { bis:10,  titel:"Winterruhe",
-      text:"Der Baum ruht. Kein Blatt, keine Blüte — aber er lebt: In Stamm und Wurzeln sind Vorräte gespeichert, und an den Zweigen sitzen schon die Knospen für das neue Jahr." },
+      text:"Der Baum ruht. Kein Blatt, keine Blüte – aber er lebt: In Stamm und Wurzeln sind Vorräte gespeichert, und an den Zweigen sitzen schon die Knospen für das neue Jahr." },
     { bis:24,  titel:"Die Knospen schwellen",
-      text:"Es wird wärmer, die Tage werden länger. Die rotbraunen Knospen schwellen an — gut verpackt warten darin Blüten und Blätter auf ihren Auftritt." },
+      text:"Es wird wärmer, die Tage werden länger. Die rotbraunen Knospen schwellen an – gut verpackt warten darin Blüten und Blätter auf ihren Auftritt." },
     { bis:42,  titel:"Blütezeit",
-      text:"Die Knospen brechen auf: Der Baum steht in voller Blüte. Jetzt sind Bienen und andere Insekten gefragt — sie tragen den Pollen von Blüte zu Blüte und sorgen für die Bestäubung." },
+      text:"Die Knospen brechen auf: Der Baum steht in voller Blüte. Jetzt sind Bienen und andere Insekten gefragt – sie tragen den Pollen von Blüte zu Blüte und sorgen für die Bestäubung." },
     { bis:58,  titel:"Junge Früchte",
-      text:"Die Blütenblätter sind gefallen, dafür ist die Krone jetzt dicht belaubt. Aus den bestäubten Blüten wachsen kleine grüne Äpfel heran — noch hart und sauer." },
+      text:"Die Blütenblätter sind gefallen, dafür ist die Krone jetzt dicht belaubt. Aus den bestäubten Blüten wachsen kleine grüne Äpfel heran – noch hart und sauer." },
     { bis:76,  titel:"Sommer und Reife",
-      text:"Die Blätter arbeiten auf Hochtouren: Mit Sonnenlicht stellen sie Zucker her, den der Baum in die Früchte schickt. Die Äpfel werden größer, süßer — und langsam rot." },
+      text:"Die Blätter arbeiten auf Hochtouren: Mit Sonnenlicht stellen sie Zucker her, den der Baum in die Früchte schickt. Die Äpfel werden größer, süßer – und langsam rot." },
     { bis:93,  titel:"Ernte und Laubfall",
-      text:"Die reifen Äpfel fallen zu Boden oder werden gepflückt. Der Baum holt die letzten Nährstoffe aus den Blättern zurück — sie färben sich gelb und braun und segeln davon." },
+      text:"Die reifen Äpfel fallen zu Boden oder werden gepflückt. Der Baum holt die letzten Nährstoffe aus den Blättern zurück – sie färben sich gelb und braun und segeln davon." },
     { bis:100, titel:"Zurück zur Ruhe",
-      text:"Kahl steht der Baum im ersten Schnee. Was nach Stillstand aussieht, ist kluges Energiesparen — und an den Zweigen sitzen längst wieder die Knospen fürs nächste Frühjahr." }
+      text:"Kahl steht der Baum im ersten Schnee. Was nach Stillstand aussieht, ist kluges Energiesparen – und an den Zweigen sitzen längst wieder die Knospen fürs nächste Frühjahr." }
   ];
   var monate = ["Januar","Februar","März","April","Mai","Juni",
                 "Juli","August","September","Oktober","November","Dezember"];
@@ -342,8 +346,8 @@
      a:["Die meisten Apfelsorten brauchen Pollen einer ANDEREN Sorte, um Früchte anzusetzen","Ein Baum allein bekommt zu viel Sonne","Bienen fliegen einzeln stehende Bäume nicht an"], r:0,
      fb:"Apfelbäume sind meist auf Fremdbestäubung angewiesen – ohne eine zweite, passende Sorte in der Nähe bleibt der Ertrag klein. Darum pflanzt man oft mehrere Sorten zusammen."},
     {f:"Fangfrage: Was gibt der Apfelbaum in der Nacht überwiegend ab?",
-     a:["Kohlendioxid – nachts ruht die Photosynthese, die Atmung überwiegt","Sauerstoff, genau wie am Tag","In der Nacht gibt er gar kein Gas ab"], r:0,
-     fb:"Ohne Licht keine Photosynthese: Nachts atmet der Baum nur – dabei entsteht Kohlendioxid, kein Sauerstoff."},
+     a:["Kohlendioxid – nachts ruht die Fotosynthese, die Atmung überwiegt","Sauerstoff, genau wie am Tag","In der Nacht gibt er gar kein Gas ab"], r:0,
+     fb:"Ohne Licht keine Fotosynthese: Nachts atmet der Baum nur – dabei entsteht Kohlendioxid, kein Sauerstoff."},
     {f:"Fangfrage: Woraus besteht das saftige Fruchtfleisch eines Apfels hauptsächlich?",
      a:["Aus dem verdickten Blütenboden – der Apfel ist eine „Scheinfrucht“","Nur aus dem Fruchtknoten","Aus den umgewandelten Kronblättern"], r:0,
      fb:"Beim Apfel wächst vor allem der Blütenboden zum Fruchtfleisch heran; das eigentliche Kerngehäuse ist der Fruchtknoten. Darum heißt er Scheinfrucht."}
@@ -388,7 +392,7 @@
         '<p class="jzq-blaetter">'+voll+leer+'</p>'+
         '<p class="jzq-spruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
         '<div><button class="jzq-btn" id="jzqNochmal" type="button">Nochmal</button>'+
-        '<a class="jzq-btn" href="../pflanzenpass.html">🌿 Forscherpass</a></div></div>';
+        '<a class="jzq-btn" href="../pflanzenpass.html">🍃 Pflanzenpass</a></div></div>';
       document.getElementById("jzqNochmal").addEventListener("click",starte);
     }
     zeige();

@@ -228,12 +228,13 @@
   .pi-los:hover{background:var(--honig-tief);transform:translateY(-1px);}
   @media (prefers-reduced-motion:reduce){.pfad-intro{transition:none;}}
 </style>
+<script src="flora-rahmen.js?v=1" data-pass="pflanze" data-station="reise"></script>
 </head>
 <body>
 <div class="pfad-intro" id="pfadIntro">
   <div class="pi-inner">
     <img class="pi-foto" src="../images/samen/reise-intro.jpg" alt="" onerror="this.style.display='none'">
-    <div class="pi-eyebrow">🌼 Flora Mibaso · Lernpfad</div>
+    <div class="pi-eyebrow">🍃 Pflanzenpass · Station 3 von 6 · ca. 12 Min</div>
     <h1 class="pi-titel">Auf großer Reise</h1>
     <p class="pi-lead">Pflanzen können nicht laufen – trotzdem erobern ihre Samen ganze Landschaften. Sie fliegen, trampen, reisen im Vogelbauch oder schießen sich selbst davon. Komm mit auf die Reise der Samen!</p>
     <button class="pi-los" onclick="var e=document.getElementById('pfadIntro');e.classList.add('weg');setTimeout(function(){e.style.display='none';},500);">Los geht’s →</button>
@@ -254,12 +255,12 @@
     <button class="knopf prim" id="weiterBtn">Nächster Schritt ›</button>
   </div>
 
-  <footer><a href="../pflanzenpass.html" style="color:inherit;font-weight:600;">🌿 Forscherpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Flora Mibaso</footer>
+  <footer><a href="../pflanzenpass.html" style="color:inherit;font-weight:600;">🍃 Pflanzenpass</a> · © 2026 <a href="../ueber/" style="color:inherit;">Michael Baur</a> · Flora Mibaso</footer>
 </div>
 
 <script>
 /* ===========================================================================
-   Lernpfad „Auf großer Reise — wie Pflanzensamen die Welt erobern"
+   Lernpfad „Auf großer Reise – wie Pflanzensamen die Welt erobern"
    ►► MASSGEBLICHE FASSUNG – wird direkt hier in bio gepflegt (native, Flora).
    Mehrere Interaktionstypen wie in den Schwester-Pfaden:
      typ "tafel"       : Bild + antippbare Hotspots (Beschriften) – Löwenzahn-Flieger
@@ -277,13 +278,13 @@ const BASIS="../images/samen/";
 /* Die großen Reisearten (Symbol = Wiedererkennung in Karten) */
 const ARTEN = [
   {id:"wind",   sym:"💨", name:"Die Flieger (Wind)", bild:{src:"ahorn-nasenzwicker.jpg", label:"Ahorn-Frucht im Flug"},
-   merk:"Federleichte Samen segeln mit dem Wind davon. Der Löwenzahn spannt einen kleinen Fallschirm aus feinen Haaren (Pappus) auf, der Ahorn dreht sich wie ein Propeller zu Boden.",
+   merk:"Federleichte Samen segeln mit dem Wind davon. Der Löwenzahn spannt einen kleinen Fallschirm aus feinen Haaren auf, der Ahorn dreht sich wie ein Propeller zu Boden.",
    bsp:"z. B. Löwenzahn, Ahorn, Distel, Weidenröschen"},
   {id:"fell",   sym:"🧲", name:"Die Anhalter (im Fell)", bild:{src:"klette.jpg", label:"Klettfrucht mit Widerhaken"},
    merk:"Klettfrüchte hängen sich mit winzigen Widerhaken ins Fell von Tieren – oder an die Hose von Wanderern. Genau das war das Vorbild für die Erfindung des Klettverschlusses!",
    bsp:"z. B. Klette, Kletten-Labkraut, Nelkenwurz"},
   {id:"ameise", sym:"🐜", name:"Die Ameisen-Fracht", bild:{src:"ameise.jpg", label:"Ameise trägt einen Samen"},
-   merk:"Manche Samen tragen ein süßes, nahrhaftes Anhängsel (Elaiosom). Ameisen schleppen sie zum Nest, fressen nur das Anhängsel und lassen den Samen heil liegen – oft am perfekten Keimplatz.",
+   merk:"Manche Samen tragen ein süßes, nahrhaftes Anhängsel, den Ölkörper. Ameisen schleppen sie zum Nest, fressen nur das Anhängsel und lassen den Samen heil liegen – oft am perfekten Keimplatz.",
    bsp:"z. B. Veilchen, Schöllkraut, Lerchensporn"},
   {id:"vogel",  sym:"🐦", name:"Die Express-Post (im Bauch)", bild:{src:"amsel.jpg", label:"Amsel frisst eine Beere"},
    merk:"Vögel und Mäuse fressen saftige Beeren. Die harte Samenschale übersteht den Magen unbeschadet – weit weg wird der Same wieder ausgeschieden, samt einem Klacks Startdünger.",
@@ -294,34 +295,34 @@ const ARTEN = [
   {id:"wasser", sym:"🌊", name:"Die Wasserboten", bild:{src:"sumpfdotterblume.jpg", label:"Sumpfdotterblume am Wasser"},
    merk:"Am Bach- und Grabenrand reisen Samen auf dem Wasser. Luftgefüllte Hohlräume halten sie tagelang über Wasser, ohne unterzugehen.",
    bsp:"z. B. Sumpfdotterblume, Erle, Seerose"},
-  {id:"schwer", sym:"🌰", name:"Die Schwerkraft (Barochorie)",
+  {id:"schwer", sym:"🌰", name:"Die Schwerkraft",
    merk:"Der einfachste Weg: Die schwere, reife Frucht fällt durch ihr eigenes Gewicht schlicht zu Boden. Oft helfen danach Mäuse und Eichhörnchen beim Weitertragen und Vergraben.",
    bsp:"z. B. Haselnuss, Eichel, Kastanie"}
 ];
 
 const SCHRITTE = [
-  /* 1 — Beschriften: Löwenzahn-Flieger ------------------------------------- */
+  /* 1 – Beschriften: Löwenzahn-Flieger ------------------------------------- */
   { chip:"Der Flieger", titel:"Der kleine Fallschirm des Löwenzahns",
     text:"Die Pusteblume ist das berühmteste Reisebüro der Wiese. Jeder Samen hängt an einem winzigen Fallschirm und wartet nur auf den Wind. Tippe die Punkte an.",
     hint:"Tippe die Zahlen im Bild an.",
     typ:"tafel",
     bild:{src:"loewenzahn-schirmchen.jpg", label:"Löwenzahn-Samen mit Fallschirm", glyph:"🌼"},
     hotspots:[
-      {x:49,y:16,n:1,titel:"Haarkrone (Pappus)",text:"Die feinen, strahlenförmigen Haare bilden den Pappus. Er wirkt wie ein Fallschirm und lässt den Samen selbst bei leichtem Wind kilometerweit segeln."},
+      {x:49,y:16,n:1,titel:"Haarkrone",text:"Die feinen, strahlenförmigen Haare bilden die Haarkrone. Sie wirkt wie ein Fallschirm und lässt den Samen selbst bei leichtem Wind kilometerweit segeln."},
       {x:49,y:52,n:2,titel:"Flugstiel",text:"Ein dünner Stiel hält den Fallschirm auf Abstand zum Samen – wie die Schnüre eines echten Fallschirms. So bleibt der Flug schön stabil."},
       {x:49,y:82,n:3,titel:"Same (Frucht)",text:"Ganz unten hängt der eigentliche Same. Er ist winzig und leicht – nur so kann der kleine Schirm ihn tragen."},
       {x:17,y:20,n:4,titel:"Der Wind",text:"Schon ein leichter Hauch reicht: Der Samen löst sich, steigt auf und lässt sich forttragen. Kein Muskel nötig – die Pflanze reist per Luftpost."}
     ]
   },
 
-  /* 2 — Gruppen: die großen Reisearten ------------------------------------ */
+  /* 2 – Gruppen: die großen Reisearten ------------------------------------ */
   { chip:"Die Reisearten", titel:"Die großen Reisearten der Samen",
     text:"Nicht jeder Same fliegt. Pflanzen haben ganz verschiedene Reisetricks erfunden. Tippe jede Karte an und lies die zwei, drei Merkmale.",
     hint:"Tippe eine Karte an, um sie aufzuklappen.",
     typ:"gruppen"
   },
 
-  /* 3 — Zuordnen: Wer reist wie? ------------------------------------------ */
+  /* 3 – Zuordnen: Wer reist wie? ------------------------------------------ */
   { chip:"Wer reist wie?", kat:"uebung", titel:"Wer reist auf welchem Weg?",
     text:"Jede Pflanze hat ihren Lieblings-Reiseweg. Ordne jede zu – dann auf „Prüfen“ tippen.",
     typ:"zuordnen",
@@ -342,7 +343,7 @@ const SCHRITTE = [
     ]
   },
 
-  /* 4 — Reihenfolge: die Reise eines Kirschkerns -------------------------- */
+  /* 4 – Reihenfolge: die Reise eines Kirschkerns -------------------------- */
   { chip:"Die Kirsch-Reise", kat:"uebung", titel:"Die Reise eines Kirschkerns",
     text:"Ein Vogel ist der beste Umzugshelfer. Bring die Reise des Kirschkerns in die richtige Reihenfolge – mit dem Griff ⠿ ziehen oder mit ▲▼ schieben, dann „Prüfen“.",
     typ:"reihenfolge",
@@ -355,17 +356,17 @@ const SCHRITTE = [
     ]
   },
 
-  /* 5 — Lückentext -------------------------------------------------------- */
+  /* 5 – Lückentext -------------------------------------------------------- */
   { chip:"Lückentext", kat:"uebung", titel:"Fülle die Lücken",
     text:"Tippe eine Lücke an und dann das passende Wort aus der Wortbank. Zum Schluss „Prüfen“.",
     typ:"luecke",
-    bank:["Pappus","Wind","Widerhaken","Klettverschluss","Elaiosom","Vögel","Katapult","Wasser"],
+    bank:["Fallschirm","Wind","Widerhaken","Klettverschluss","Ölkörper","Vögel","Katapult","Wasser"],
     teile:[
-      {t:"Der Löwenzahn segelt mit seiner Haarkrone, dem "}, {l:"Pappus"},
+      {t:"Der Löwenzahn segelt mit seiner Haarkrone, dem kleinen "}, {l:"Fallschirm"},
       {t:", durch den "}, {l:"Wind"},
       {t:". Die Klette hängt sich mit winzigen "}, {l:"Widerhaken"},
       {t:" ins Fell – ihr Trick war das Vorbild für den "}, {l:"Klettverschluss"},
-      {t:". Ameisen schleppen Samen mit einem süßen Anhängsel, dem "}, {l:"Elaiosom"},
+      {t:". Ameisen schleppen Samen mit einem süßen Anhängsel, dem "}, {l:"Ölkörper"},
       {t:", davon. "}, {l:"Vögel"},
       {t:" fressen Beeren und verbreiten die Kerne samt Dünger. Das Springkraut schießt seine Samen per "},
       {l:"Katapult"}, {t:" weg. Und am Bachrand reist manch ein Same sogar auf dem "},
@@ -373,20 +374,25 @@ const SCHRITTE = [
     ]
   },
 
-  /* 6 — Abschluss-Quiz ---------------------------------------------------- */
+  /* 6 – Abschluss-Quiz ---------------------------------------------------- */
+  { chip:"Merke", titel:"Das Wichtigste auf einen Blick", typ:"merke", weiter:"Alles klar? Dann weiter zum Quiz.",
+    punkte:["Pflanzen können nicht laufen – ihre <b>Samen</b> schon. So erreichen sie neue Standorte.",
+      "Samen reisen mit dem <b>Wind</b> (Löwenzahn, Ahorn), im <b>Fell</b> von Tieren (Klette), mit <b>Ameisen</b> (Veilchen), im <b>Bauch von Vögeln</b> (Kirsche), per <b>Schleuder</b> (Springkraut) oder auf dem <b>Wasser</b>. Schwere Früchte wie die Eichel fallen einfach zu Boden.",
+      "Der Bau der Frucht passt zur Art der Reise."] },
+
   { chip:"Quiz", kat:"quiz", titel:"Abschluss-Quiz",
     text:"Zum Schluss der Test: Zeig, was du über die Reise der Samen weißt.",
     typ:"quiz",
     fragen:[
-      {f:"Wie heißen die kleinen „Fallschirme“ des Löwenzahns biologisch genau?",
-       a:["Haarkrone (Pappus)","Flugsegel","Windflügel"], r:0,
-       fb:"Die feinen Haare bilden den Pappus – ein Fallschirm, der den Samen kilometerweit trägt."},
+      {f:"Woraus besteht der kleine „Fallschirm“ des Löwenzahns?",
+       a:["Aus einer Krone feiner Haare","Aus dünnen Blättchen","Aus Spinnfäden"], r:0,
+       fb:"Die feinen Haare bilden eine Haarkrone – ein Fallschirm, der den Samen kilometerweit trägt."},
       {f:"Wie bleiben die Früchte der Klette am Fell hängen?",
        a:["Sie sondern klebrigen Saft ab","Sie haben winzige Widerhaken","Sie sind elektrisch geladen"], r:1,
        fb:"Die elastischen Widerhaken waren das Vorbild für den Klettverschluss."},
       {f:"Was tragen Ameisen besonders gern davon?",
-       a:["Ganze Blütenköpfe","Samen mit süßem Anhängsel (Elaiosom)","Vertrocknete Blätter"], r:1,
-       fb:"Die Ameisen fressen nur das nahrhafte Elaiosom und lassen den Samen heil liegen."},
+       a:["Ganze Blütenköpfe","Samen mit süßem Anhängsel (Ölkörper)","Vertrocknete Blätter"], r:1,
+       fb:"Die Ameisen fressen nur den nahrhaften Ölkörper und lassen den Samen heil liegen."},
       {f:"Wodurch wird das Katapult des Springkrauts ausgelöst?",
        a:["Durch die Mittagshitze","Durch Berührung bei hoher Spannung","Durch aufkommenden Wind"], r:1,
        fb:"In der reifen Kapsel steckt viel Spannung – eine sanfte Berührung genügt zum Abschuss."},
@@ -400,8 +406,8 @@ const SCHRITTE = [
        a:["Klebrig bei Nässe – im Schlamm an Pfoten und Schuhen","Von Vögeln im Gefieder getragen","In den Ohren von Mäusen"], r:0,
        fb:"Bei Feuchtigkeit werden die Schalen schleimig und haften am Matsch von Pfoten und Wanderschuhen."},
       {f:"Wie nennt man es, wenn eine schwere Frucht einfach zu Boden fällt (z. B. die Haselnuss)?",
-       a:["Freifall-Auswurf","Selbststreuung (Barochorie)","Zufallslandung"], r:1,
-       fb:"Barochorie: Die reife Frucht fällt durch ihr Eigengewicht – Nager helfen dann beim Weitertragen."}
+       a:["Freifall-Auswurf","Selbststreuung","Zufallslandung"], r:1,
+       fb:"Selbststreuung: Die reife Frucht fällt durch ihr Eigengewicht – Nager helfen dann beim Weitertragen."}
     ]
   }
 ];
@@ -441,6 +447,7 @@ function render(){
   else if(s.typ==="reihenfolge") renderReihenfolge(s);
   else if(s.typ==="luecke") renderLuecke(s);
   else if(s.typ==="quiz") renderQuiz(s);
+  else if(s.typ==="merke"){ elB.innerHTML=""; elE.innerHTML=wieseMerke(s); }
   else renderTafel(s);
   $("zurueckBtn").disabled=(i===0);
   $("weiterBtn").textContent=(i===SCHRITTE.length-1)?"↺ Von vorn":"Nächster Schritt ›";
@@ -717,11 +724,11 @@ function renderQuiz(s){
       '<p class="qscore">'+score+'<small> / '+fragen.length+'</small></p>'+
       '<p style="font-size:26px;letter-spacing:4px;margin:2px 0 6px;">'+"🍃".repeat(blaetter)+'<span style="opacity:.25">'+"🍃".repeat(3-blaetter)+'</span></p>'+
       '<p class="qspruch">'+sprueche[Math.floor(Math.random()*sprueche.length)]+'</p>'+
-      '<div class="bruecke"><p>Geschafft! Der Samen ist gereist und keimt am neuen Ort – und im Forscherpass wächst deine Wiese ein Stück weiter.</p>'+
-        '<a class="passbtn" href="../pflanzenpass.html">🌿 Zum Forscherpass</a></div>'+
+      '<div class="bruecke"><p>Geschafft! Der Samen ist gereist und keimt am neuen Ort – und im Pflanzenpass wächst deine Wiese ein Stück weiter.</p>'+
+        '<a class="passbtn" href="../pflanzenpass.html">🍃 Zum Pflanzenpass</a></div>'+
       '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;">'+
         '<button class="knopf prim" id="qnochmal" style="margin:0;">Nochmal</button>'+
-        '<a class="knopf" href="../index.html">Alle Pfade</a></div></div>';
+        '<a class="knopf" href="../pflanzenpass.html">Alle Stationen</a></div></div>';
     $("qnochmal").addEventListener("click",()=>renderQuiz(s));
     if(perfekt){ konfetti(); fanfare(); }
     melde();
