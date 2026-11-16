@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Mein Naturgarten – Entwurf · Bio Mibaso</title>
-<meta name="description" content="Entwurf: Ein eigener Naturgarten, der mit jedem Forscherpass lebendiger wird.">
-<meta name="robots" content="noindex">
+<title>Mein Naturgarten · Bio Mibaso</title>
+<meta name="description" content="Dein eigener Naturgarten: Mit jedem Forscherpass zieht ein neuer Bewohner ein. Richtig zu Hause fühlt er sich nach einem Auftrag draußen.">
 <meta name="theme-color" content="#233D5C">
 <link rel="icon" href="../assets/icon.svg">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <style>
-/* ============ Mein Naturgarten – ENTWURF mit Platzhalter-Zeichnungen ============
-   Idee: ein Garten, der über alle Fauna-Pässe hinweg wächst. Jeder Pass bringt einen
+/* ============ Mein Naturgarten ============
+   Ein Garten, der über alle Fauna-Pässe hinweg wächst. Jeder Pass bringt einen
    Bewohner; richtig zu Hause fühlt er sich erst nach einem Auftrag draußen.
    Die Seite liest nur die vorhandenen Spielstände (localStorage) und speichert selbst
    nur die erledigten Draußen-Aufträge unter „mibaso.fauna.garten“.
-   Später: die Platzhalter in BEWOHNER[].bild durch gezeichnete Bilder ersetzen. */
+   Die Zeichnungen (Z, landschaft) sind einfache Platzhalter und können später durch
+   gezeichnete Bilder ersetzt werden. Vorschau aller Stände: garten.html?vorschau */
 :root{--blau:#233D5C;--blau-tief:#1a2e45;--blau-mittel:#33587c;--creme:#F7F3E8;--creme-tief:#efe8d6;--linie:#d9d2c1;
   --honig:#C28A3A;--text:#1c2e42;--grau:#5d6b78;--gruen:#2f7d4f;
   --serif:Georgia,"Times New Roman",serif;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
@@ -104,7 +104,6 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
   <div class="logo">🏡🌳</div><h1>Mein Naturgarten</h1><div class="untertitel">Mit jedem Pass zieht jemand ein</div>
 </header>
 <div class="huelle">
-  <p class="entwurf"><b>Entwurf.</b> Die Zeichnungen sind Platzhalter. Diese Seite ist noch nirgends verlinkt.</p>
   <p class="lead">Noch ist dein Garten ziemlich leer. Jeder Forscherpass bringt einen neuen Bewohner. Richtig zu Hause fühlt er sich aber erst, wenn du draußen einen kleinen Auftrag erledigt hast.</p>
 
   <div class="szene" id="szene"></div>
@@ -126,10 +125,11 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
   <footer class="fuss">
     <div>Fortschritt wird nur auf diesem Gerät gespeichert. Keine Anmeldung, keine Datensammlung.</div>
     <div><a href="../../index.html">⌂ Bio Mibaso</a> · <a href="../../ueber/">Über mich</a> · <a href="../../impressum/">Impressum &amp; Datenschutz</a></div>
-    <div>© 2026 Michael Baur · Mein Naturgarten (Entwurf)</div>
+    <div>© 2026 Michael Baur · Mein Naturgarten</div>
   </footer>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>window.goatcounter={path:function(p){return location.host+p}};</script><script data-goatcounter="https://mibaso.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
 <script>
 "use strict";
@@ -195,7 +195,7 @@ const EXTRAS = [
 const BLUMEN = [[6, 96, "🌼"], [14, 90, "🌸"], [22, 98, "🌼"], [31, 93, "🌺"], [38, 99, "🌼"], [66, 98, "🌸"], [10, 82, "🌼"], [78, 96, "🌼"], [26, 86, "🌸"], [3, 88, "🌺"], [88, 97, "🌼"], [94, 90, "🌸"], [18, 79, "🌼"], [83, 91, "🌼"]];
 
 /* ============ Stand auslesen ============ */
-let vorschau = null;   // nur im Entwurf: null = echter Stand, sonst Zahl 0…3 für alle
+let vorschau = null;   // null = echter Stand; sonst Vorschau-Stand (nur mit ?vorschau)
 function fortschritt(b) {
   const d = lies(b.key); let fertig = 0, gesamt = 0;
   if (b.typ === "wiese") b.teile.forEach(t => { gesamt++; if (d[t] && d[t].done) fertig++; });
@@ -331,8 +331,9 @@ function auftragSetzen(id, wert) {
 let toastT = 0;
 function toast(t) { const el = document.getElementById("toast"); el.textContent = t; el.classList.add("an"); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove("an"), 3200); }
 
-/* ============ Vorschau (nur im Entwurf) ============ */
+/* ============ Vorschau aller Stände: nur mit garten.html?vorschau ============ */
 function vorschauLeiste() {
+  if (!/[?&]vorschau/.test(location.search)) return;
   const opt = [[null, "Mein Stand"], [0, "leer"], ["halb", "halb"], ["fast", "fast fertig"], [3, "alle zu Hause"]];
   const el = document.getElementById("vorschau");
   el.innerHTML = "<span>Vorschau:</span>" + opt.map(([v, t], i) => `<button data-i="${i}" class="${vorschau === v ? "an" : ""}">${t}</button>`).join("");
@@ -341,6 +342,24 @@ function vorschauLeiste() {
 vorschauLeiste(); zeichne();
 addEventListener("pageshow", e => { if (e.persisted) zeichne(); });
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") zeichne(); });
+
+/* ============ Automatische Aktualisierung ============
+   Prüft beim Zurückkehren zur Seite (und alle 15 Minuten), ob es eine neuere Fassung gibt. */
+(() => {
+  let stand = null;
+  async function pruefen() {
+    try {
+      const r = await fetch(location.pathname, { method: "HEAD", cache: "no-store" });
+      const s = r.ok && (r.headers.get("etag") || r.headers.get("last-modified"));
+      if (!s) return;
+      if (stand === null) stand = s; else if (s !== stand) location.reload();
+    } catch (e) {}
+  }
+  pruefen();
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) pruefen(); });
+  window.addEventListener("pageshow", e => { if (e.persisted) pruefen(); });
+  setInterval(() => { if (!document.hidden) pruefen(); }, 15 * 60 * 1000);
+})();
 </script>
 </body>
 </html>

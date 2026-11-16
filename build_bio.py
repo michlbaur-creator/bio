@@ -42,8 +42,8 @@ REPOS = [
                "sub": "Spiel dich vom Zapfen zum Wald-Meister."}},
     {"key": "fauna", "label": "Fauna Mibaso", "emoji": "🦋", "akzent": "#233D5C",
      # Reihenfolge der Kacheln = Jahreslauf: Wiese → Vögel → Zugvögel → Winter → Futterhaus,
-     # danach Wild & zahm, „Durchs Jahr!“ als Klammer und die Spielecke.
-     "reihenfolge": ["pass", "pass4", "pass6", "pass2", "pass5", "pass3", "pass7", "spiele"],
+     # danach Wild & zahm, „Durchs Jahr!“ als Klammer und die Spielecke. Ganz oben der Naturgarten.
+     "reihenfolge": ["garten", "pass", "pass4", "pass6", "pass2", "pass5", "pass3", "pass7", "spiele"],
      "pass": {"href": "interaktiv/wiesenpass.html", "img": "images/banner/wiese.jpg",
               "eyebrow": "Dein Wiesenpass · Klasse 5–8", "titel": "Expedition Wiese",
               "sub": "Die Tiere der Wiese in 7 Stationen, zusammen ca. 70 Min. Sammle Blätter und lass deine Wiese wachsen."},
@@ -65,6 +65,9 @@ REPOS = [
      "pass7": {"href": "interaktiv/durchs-jahr.html", "img": "images/durchsjahr/banner.jpg",
                "eyebrow": "Lernspiel · Klasse 5/6", "titel": "Durchs Jahr! – Das Überlebensspiel",
                "sub": "Als Kohlmeise, Rauchschwalbe oder Igel zwölf Monate überstehen — Nest und Junge, Feinde, Vogelzug und Winterschlaf."},
+     "garten": {"href": "interaktiv/garten.html", "emoji": "🏡",
+                "eyebrow": "Dein Garten · für alle Pässe", "titel": "Mein Naturgarten",
+                "sub": "Mit jedem Pass zieht ein neuer Bewohner ein. Schau nach, wer schon da ist und wer noch fehlt."},
      "spiele": {"href": "../spiele/", "emoji": "🎲",
                 "eyebrow": "Spielecke · Klasse 5/6", "titel": "Alle Lernspiele und dein Diplom",
                 "sub": "Elf Lernspiele auf einen Blick: Sterne sammeln, Rang verbessern und das Naturforscher-Diplom holen."}},

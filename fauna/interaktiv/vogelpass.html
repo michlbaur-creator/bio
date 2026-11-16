@@ -1237,6 +1237,7 @@ function seiteStart() {
       <div class="kacheln"><a class="kachel" href="nestwerk.html"><span class="ke">🪺</span><span><span class="kt">Nestwerk</span><span class="kb">Als Amsel, Rauchschwalbe oder Buchfink Material sammeln und ein Nest nach Bauplan bauen · drei Vögel · je ca. 3 Min</span></span><span class="pf">›</span></a></div>
     </section>
     <section>
+      <a class="kachel" href="garten.html" style="margin-top:22px"><span class="ke">🏡</span><span><span class="kt">Mein Naturgarten</span><span class="kb">Mit jedem Pass zieht ein neuer Bewohner ein. Schau nach, wer schon da ist.</span></span><span class="pf">›</span></a>
       <details class="lehrer"><summary>Für Lehrkräfte: Einsatz in Klasse 5/6</summary><div class="grid">
         <div class="ablauf"><b>Teil 1</b><span>Bauplan Vogel – Leichtbau (Knochen, Schnabel, Luftsäcke, Vergleich mit Säugetieren), Aufbau und Typen der Federn, Schnabelformen und Nahrung (Bilderquiz mit Tafel-Ausschnitten), Fußformen und Sitzfuß-Mechanismus (ca. 46 Min)</span>
           <b>Teil 2</b><span>Ei, Nest und Brutpflege – Aufbau des Eis und Entwicklung im Zeitraffer, Nestformen, Nesthocker und Nestflüchter, Bestimmungsschlüssel für 20 Gartenvögel mit Fotobestimmung (ca. 46 Min)</span></div>
@@ -1371,7 +1372,7 @@ function feier(eid) {
   const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
   o.innerHTML = `<div class="feierkarte"><div class="fmed">${rang.med}</div><h3>Teil ${IDS.indexOf(eid) + 1} geschafft!</h3>
     <p>Du hast alle Stationen von „${X.titel}“ gemeistert und ${h.summe} von ${MAXN(eid)} Federn gesammelt. Dein Rang: <b>${rang.name}</b>.</p>
-    <div class="knopfreihe"><button type="button" class="knopf honig" id="fUrk">📜 Zur Urkunde</button><button type="button" class="knopf" id="fZu">Weiter</button></div></div>`;
+    <div class="knopfreihe"><button type="button" class="knopf honig" id="fUrk">📜 Zur Urkunde</button><a class="knopf" href="garten.html">🏡 Zum Naturgarten</a><button type="button" class="knopf" id="fZu">Weiter</button></div></div>`;
   document.body.appendChild(o);
   $("#fUrk", o).onclick = () => { o.remove(); urkunde(eid); };
   $("#fZu", o).onclick = () => o.remove();
