@@ -14,8 +14,9 @@
    Bewohner; richtig zu Hause fühlt er sich erst nach einem Auftrag draußen.
    Die Seite liest nur die vorhandenen Spielstände (localStorage) und speichert selbst
    nur die erledigten Draußen-Aufträge unter „mibaso.fauna.garten“.
-   Die Zeichnungen (Z, landschaft) sind einfache Platzhalter und können später durch
-   gezeichnete Bilder ersetzt werden. Vorschau aller Stände: garten.html?vorschau */
+   Bilder: ../images/garten/ (Grundbild grund.jpg und Einzelmotive als WebP mit
+   durchsichtigem Hintergrund, gezeichnet mit ChatGPT). Wird ein Bild unter gleichem
+   Namen ersetzt, BV hochzählen. Vorschau aller Stände: garten.html?vorschau */
 :root{--blau:#233D5C;--blau-tief:#1a2e45;--blau-mittel:#33587c;--creme:#F7F3E8;--creme-tief:#efe8d6;--linie:#d9d2c1;
   --honig:#C28A3A;--text:#1c2e42;--grau:#5d6b78;--gruen:#2f7d4f;
   --serif:Georgia,"Times New Roman",serif;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
@@ -36,23 +37,28 @@ h2{font-size:25px;font-weight:normal;line-height:1.2;color:var(--blau);margin:30
 h2::after{content:"";display:block;width:46px;height:3px;margin-top:8px;background:currentColor;border-radius:2px;}
 
 /* ---- Die Szene ---- */
-.szene{position:relative;margin:18px 0 0;border-radius:16px;overflow:hidden;border:1px solid var(--linie);box-shadow:0 6px 22px -10px rgba(35,61,92,.45);aspect-ratio:8/5;background:#dcebf5;}
+.szene{position:relative;margin:18px 0 0;border-radius:16px;overflow:hidden;border:1px solid var(--linie);box-shadow:0 6px 22px -10px rgba(35,61,92,.45);aspect-ratio:3/2;background:#8fc7ee;}
 .szene>svg{position:absolute;inset:0;width:100%;height:100%;display:block;}
-.slot{position:absolute;transform:translate(-50%,-50%);border:0;background:none;padding:0;margin:0;cursor:pointer;line-height:1;font-family:inherit;
+.szene>img.grund{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.karg{position:absolute;left:0;right:0;bottom:0;height:39%;background:linear-gradient(180deg,rgba(176,160,104,0) 0%,rgba(176,160,104,1) 14%);pointer-events:none;mix-blend-mode:multiply;}
+.slot{position:absolute;transform:translate(-50%,-100%);border:0;background:none;padding:0;margin:0;cursor:pointer;line-height:1;font-family:inherit;
   display:grid;place-items:center;-webkit-tap-highlight-color:transparent;}
 .slot .em{font-size:clamp(20px,6.4vw,46px);display:block;}
-.slot svg{display:block;width:100%;height:auto;}
+.slot img{display:block;width:100%;height:auto;}
+.slot.leer{transform:translate(-50%,-50%);}
 .slot.leer .frage{width:clamp(26px,7vw,48px);height:clamp(26px,7vw,48px);border-radius:50%;border:2px dashed rgba(35,61,92,.55);background:rgba(255,255,255,.55);
   display:grid;place-items:center;font-family:var(--sans);font-weight:700;color:var(--blau);font-size:clamp(13px,3.4vw,20px);}
 .slot.scheu .bild{opacity:.55;filter:grayscale(1);}
-.slot.scheu::after{content:"";position:absolute;inset:-6%;border:2px dashed rgba(35,61,92,.5);border-radius:50%;}
+.slot.scheu::after{content:"";position:absolute;inset:-6%;border:2px dashed rgba(255,255,255,.9);border-radius:50%;box-shadow:0 0 0 1px rgba(35,61,92,.35);}
 .slot.neu .bild{animation:plopp .9s cubic-bezier(.2,1.6,.4,1) both;}
 @keyframes plopp{0%{transform:scale(0);}100%{transform:scale(1);}}
 .slot.daheim .wackel{animation:wackel 3.2s ease-in-out infinite;transform-origin:50% 90%;}
 @keyframes wackel{0%,100%{transform:rotate(-4deg);}50%{transform:rotate(4deg);}}
-.flatter{position:absolute;font-size:clamp(14px,4vw,28px);transform:translate(-50%,-50%);pointer-events:none;animation:flatter 6s ease-in-out infinite;}
+.flatter{position:absolute;width:5.5%;transform:translate(-50%,-50%);pointer-events:none;animation:flatter 6s ease-in-out infinite;}
 @keyframes flatter{0%,100%{transform:translate(-50%,-50%) translate(0,0);}25%{transform:translate(-50%,-50%) translate(14px,-10px);}50%{transform:translate(-50%,-50%) translate(26px,4px);}75%{transform:translate(-50%,-50%) translate(8px,10px);}}
-.blume{position:absolute;font-size:clamp(11px,3.2vw,22px);transform:translate(-50%,-100%);pointer-events:none;}
+.flatter img,.blume img,.deko img{display:block;width:100%;height:auto;}
+.blume{position:absolute;width:3.2%;transform:translate(-50%,-100%);pointer-events:none;}
+.deko{position:absolute;transform:translate(-50%,-100%);pointer-events:none;}
 .stand-chip{position:absolute;left:10px;top:10px;background:rgba(26,46,69,.84);color:var(--creme);font-family:var(--sans);font-size:13px;border-radius:999px;padding:6px 12px;}
 .stand-chip b{color:#ffd98a;}
 .unter{font-family:var(--sans);font-size:15px;color:var(--grau);text-align:center;margin:10px 0 0;}
@@ -138,62 +144,43 @@ const GKEY = "mibaso.fauna.garten";
 const lies = k => { try { return JSON.parse(localStorage.getItem(k) || "{}") || {}; } catch (e) { return {}; } };
 const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-/* Platzhalter-Zeichnungen (später durch Bilder ersetzen) */
-const Z = {
-  nest: (voll) => `<svg viewBox="0 0 100 70"><path d="M8 34 Q50 78 92 34 Q50 46 8 34Z" fill="#8a6a43"/><path d="M10 34 Q50 20 90 34" fill="none" stroke="#6b4f2e" stroke-width="5" stroke-linecap="round"/>${voll
-    ? `<circle cx="34" cy="26" r="11" fill="#f2d16b"/><circle cx="52" cy="22" r="12" fill="#f5da7e"/><circle cx="69" cy="27" r="11" fill="#f2d16b"/><path d="M30 24l6 3-6 3z M49 20l7 3-7 3z M66 25l6 3-6 3z" fill="#e0862f"/><circle cx="31" cy="23" r="1.6"/><circle cx="50" cy="19" r="1.6"/><circle cx="67" cy="24" r="1.6"/>`
-    : `<ellipse cx="38" cy="30" rx="8" ry="10" fill="#dfeaf0"/><ellipse cx="54" cy="29" rx="8" ry="10" fill="#e9f1f5"/><ellipse cx="68" cy="31" rx="7" ry="9" fill="#dfeaf0"/>`}</svg>`,
-  zweige: `<svg viewBox="0 0 100 70"><path d="M12 40 Q50 56 88 40" fill="none" stroke="#8a6a43" stroke-width="5" stroke-linecap="round"/><path d="M20 46l22-8 M48 50l26-9 M30 52l18-3" stroke="#6b4f2e" stroke-width="3" stroke-linecap="round"/></svg>`,
-  horst: `<svg viewBox="0 0 120 60"><ellipse cx="60" cy="42" rx="46" ry="12" fill="#7a5c38"/><path d="M16 40l22-9 M40 46l30-13 M66 44l34-11 M22 48l40-5" stroke="#5d4426" stroke-width="3" stroke-linecap="round"/></svg>`,
-  storch: `<svg viewBox="0 0 120 130"><ellipse cx="60" cy="112" rx="46" ry="12" fill="#7a5c38"/><path d="M16 110l22-9 M40 116l30-13 M66 114l34-11" stroke="#5d4426" stroke-width="3" stroke-linecap="round"/>
-    <path d="M52 104V78 M66 104V78" stroke="#d2452f" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="58" cy="62" rx="24" ry="17" fill="#fff" stroke="#c9c9c9"/><path d="M40 66 Q62 86 84 60 Q64 70 40 66Z" fill="#1d1d1d"/>
-    <path d="M72 52 Q80 30 76 18" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/><circle cx="76" cy="15" r="8" fill="#fff" stroke="#c9c9c9"/><path d="M82 14l30 7-30 3z" fill="#d2452f"/><circle cx="78" cy="13" r="1.8"/></svg>`,
-  pfahl: `<svg viewBox="0 0 100 130"><rect x="46" y="40" width="8" height="90" fill="#8a6a43"/><rect x="30" y="36" width="40" height="6" rx="2" fill="#6b4f2e"/></svg>`,
-  futterhaus: (voegel) => `<svg viewBox="0 0 100 130"><rect x="46" y="52" width="8" height="78" fill="#8a6a43"/><rect x="18" y="46" width="64" height="8" rx="2" fill="#6b4f2e"/><rect x="26" y="26" width="6" height="22" fill="#8a6a43"/><rect x="68" y="26" width="6" height="22" fill="#8a6a43"/>
-    <path d="M10 28 L50 6 L90 28 Z" fill="#b5533c"/><ellipse cx="50" cy="45" rx="20" ry="3" fill="#e8c96a"/>${voegel ? `<text x="20" y="46" font-size="20">🐦</text><text x="60" y="24" font-size="16">🐦</text>` : ""}</svg>`,
-  napf: `<svg viewBox="0 0 100 50"><path d="M14 22h72l-8 22H22z" fill="#c0503a"/><ellipse cx="50" cy="22" rx="36" ry="7" fill="#8f3526"/></svg>`,
-  libelle: `<svg viewBox="0 0 60 40" style="width:1.5em;display:block"><path d="M6 20h44" stroke="#2b6f9c" stroke-width="4" stroke-linecap="round"/><circle cx="52" cy="20" r="5" fill="#2b6f9c"/><ellipse cx="36" cy="10" rx="13" ry="5" fill="#cfe9f7" stroke="#6aa3c4"/><ellipse cx="36" cy="30" rx="13" ry="5" fill="#cfe9f7" stroke="#6aa3c4"/></svg>`,
-  beetLeer: `<svg viewBox="0 0 120 50"><ellipse cx="60" cy="36" rx="54" ry="12" fill="#8a6a43"/><path d="M30 34v-9 M30 27q-6-4-8 0 M60 33v-11 M60 25q6-5 9 0 M90 34v-8 M90 28q-6-4-8 0" stroke="#5f9e4f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
-  beet: `<svg viewBox="0 0 120 70"><ellipse cx="60" cy="58" rx="56" ry="11" fill="#8a6a43"/><g stroke="#4f8a4a" stroke-width="3" stroke-linecap="round"><path d="M18 56V34 M40 56V24 M62 56V30 M84 56V22 M104 56V36"/></g>
-    <g><circle cx="18" cy="30" r="9" fill="#e8674f"/><circle cx="18" cy="30" r="3.5" fill="#f3e06a"/><circle cx="40" cy="19" r="10" fill="#f0b64a"/><circle cx="40" cy="19" r="4" fill="#7b5a36"/><circle cx="62" cy="25" r="9" fill="#c77fd1"/><circle cx="62" cy="25" r="3.5" fill="#f3e06a"/><circle cx="84" cy="17" r="10" fill="#e8674f"/><circle cx="84" cy="17" r="4" fill="#f3e06a"/><circle cx="104" cy="31" r="9" fill="#fff" stroke="#d9d2c1"/><circle cx="104" cy="31" r="3.5" fill="#f0b64a"/></g></svg>`,
-  setzlinge: `<svg viewBox="0 0 140 60"><g fill="#6aa35a"><path d="M24 54l10-26 10 26z"/><path d="M66 54l8-20 8 20z"/><path d="M104 54l10-24 10 24z"/></g><g fill="#7b5a36"><rect x="32" y="52" width="4" height="8"/><rect x="72" y="52" width="4" height="8"/><rect x="112" y="52" width="4" height="8"/></g></svg>`,
-  wald: `<svg viewBox="0 0 140 100"><g fill="#7b5a36"><rect x="20" y="70" width="7" height="30"/><rect x="52" y="64" width="8" height="36"/><rect x="88" y="70" width="7" height="30"/><rect x="118" y="74" width="6" height="26"/></g>
-    <path d="M23 16l22 58H2z" fill="#3f7d4c"/><circle cx="56" cy="40" r="28" fill="#5c9a50"/><path d="M92 22l20 52H72z" fill="#4a8a52"/><circle cx="121" cy="56" r="20" fill="#6aa35a"/><text x="60" y="98" font-size="22">🐿️</text></svg>`,
-  laub: `<svg viewBox="0 0 120 60"><ellipse cx="60" cy="42" rx="52" ry="18" fill="#a9713a"/><ellipse cx="40" cy="34" rx="26" ry="14" fill="#c08a45"/><ellipse cx="78" cy="32" rx="28" ry="15" fill="#b57b3d"/><path d="M30 30l10 6 M70 26l12 6 M52 40l10-4" stroke="#7b5226" stroke-width="2" stroke-linecap="round"/></svg>`
-};
+/* Bilder: Ordner und Versionsnummer (bei ersetzten Bildern hochzählen) */
+const BILD = "../images/garten/", BV = "?v=1";
+const img = (name, kl = "") => `<img src="${BILD}${name}.webp${BV}" alt="" class="${kl}" draggable="false">`;
 
-/* Jeder Bewohner: woher der Fortschritt kommt, wo er im Bild sitzt (x/y in Prozent), Draußen-Auftrag */
+/* Jeder Bewohner: woher der Fortschritt kommt, wo er im Bild steht (x = Mitte, y = Unterkante, in Prozent),
+   bilder = [unterwegs, eingezogen, zu Hause] mit Breite in Prozent, Draußen-Auftrag */
 const BEWOHNER = [
   { id: "wiese", em: "🦋", titel: "Die Wiese blüht", wer: "Falter und Bienen", pass: "Wiesenpass", href: "wiesenpass.html",
-    x: 30, y: 84, b: 0, typ: "wiese", key: "mibaso.fauna.expedition", teile: ["grundlagen", "verwandlung", "bestaeubung", "lebensraum", "nahrungsnetz", "wiese", "boden"],
+    x: 22, y: 80, bilder: [], typ: "wiese", key: "mibaso.fauna.expedition", teile: ["grundlagen", "verwandlung", "bestaeubung", "lebensraum", "nahrungsnetz", "wiese", "boden"],
     da: "Die Wiese ist bunt, die ersten Falter sind da.", heim: "Auf deiner Wiese summt und flattert es.",
     auftrag: "Setz dich zehn Minuten an eine Wiese oder ein Blumenbeet. Zähle, wie viele verschiedene Tiere eine Blüte besuchen." },
   { id: "vogel", em: "🪺", titel: "Ein Nest im Baum", wer: "die Vogelfamilie", pass: "Vogelpass", href: "vogelpass.html",
-    x: 20, y: 36, b: 15, typ: "pass", key: "mibaso.fauna.vogelpass", teile: { v1: ["s1", "s2", "s3", "s4", "s5"], v2: ["s1", "s2", "s3", "s4", "s5"] },
+    x: 14.5, y: 36.5, bilder: [["nest-1", 10], ["nest-2", 10], ["nest-3", 10]], typ: "pass", key: "mibaso.fauna.vogelpass", teile: { v1: ["s1", "s2", "s3", "s4", "s5"], v2: ["s1", "s2", "s3", "s4", "s5"] },
     da: "Im Baum liegt ein Nest mit Eiern.", heim: "Im Nest sperren drei Junge die Schnäbel auf.",
     auftrag: "Beobachte draußen einen Vogel beim Fressen. Welche Schnabelform hat er – und was frisst er damit?" },
   { id: "zug", em: "🧭", titel: "Der Storch auf dem Dach", wer: "der Storch", pass: "Zugvogelpass", href: "zugvogelpass.html",
-    x: 79, y: 26, b: 17, typ: "pass", key: "mibaso.fauna.zugvogelpass", teile: { z1: ["s1", "s2", "s3", "s4", "s5"] },
+    x: 82, y: 23.5, bilder: [["storch-1", 13], ["storch-2", 13], ["storch-2", 13]], typ: "pass", key: "mibaso.fauna.zugvogelpass", teile: { z1: ["s1", "s2", "s3", "s4", "s5"] },
     da: "Der Storch ist gelandet, aber noch misstrauisch.", heim: "Der Storch klappert auf seinem Horst.",
     auftrag: "Schau zehn Minuten in den Himmel und auf die Leitungen. Entdeckst du Vögel, die im Trupp ziehen oder sich sammeln? Oder finde heraus, wo in deiner Nähe ein Storchennest ist." },
   { id: "winter", em: "🦔", titel: "Der Igel im Laubhaufen", wer: "der Igel", pass: "Winterpass", href: "winterpass.html",
-    x: 41, y: 68, b: 15, typ: "pass", key: "mibaso.fauna.winterpass", teile: { w1: ["s1", "s2", "s3", "s4", "s5"], w2: ["s1", "s2", "s3", "s4", "s5"] },
+    x: 43, y: 67, bilder: [["igel-1", 17], ["igel-2", 17], ["igel-2", 17]], typ: "pass", key: "mibaso.fauna.winterpass", teile: { w1: ["s1", "s2", "s3", "s4", "s5"], w2: ["s1", "s2", "s3", "s4", "s5"] },
     da: "Ein Igel schnuppert am Laubhaufen.", heim: "Der Igel hat sein Winterquartier bezogen.",
     auftrag: "Finde draußen eine Tierspur – im Schnee, im Matsch oder im Sand. Lege einen Stift daneben und fotografiere sie." },
   { id: "futter", em: "🏠", titel: "Das Futterhaus", wer: "die Meisen", pass: "Futterhauspass", href: "futterhauspass.html",
-    x: 56, y: 59, b: 13, typ: "pass", key: "mibaso.fauna.futterhauspass", teile: { f1: ["s1", "s2", "s3", "s4", "s5"] },
+    x: 63, y: 82, bilder: [["futter-1", 9], ["futter-2", 8.5], ["futter-3", 8.5]], typ: "pass", key: "mibaso.fauna.futterhauspass", teile: { f1: ["s1", "s2", "s3", "s4", "s5"] },
     da: "Das Futterhaus steht – noch traut sich keiner hin.", heim: "Am Futterhaus herrscht Betrieb.",
     auftrag: "Zähle zehn Minuten lang die Vögel an einem Futterhaus, im Garten oder im Park. Schreib auf, wen du erkannt hast." },
   { id: "haustier", em: "🐕", titel: "Der Hund vor der Tür", wer: "der Hund", pass: "Haustierpass", href: "haustierpass.html",
-    x: 72, y: 80, b: 12, typ: "pass", key: "mibaso.fauna.haustierpass", teile: { h1: ["s1", "s2", "s3", "s6", "s4", "s5"], h2: ["s1", "s2", "s4", "s5"] },
+    x: 78, y: 74, bilder: [["hund-1", 6], ["hund-2", 8.5], ["hund-2", 8.5]], typ: "pass", key: "mibaso.fauna.haustierpass", teile: { h1: ["s1", "s2", "s3", "s6", "s4", "s5"], h2: ["s1", "s2", "s4", "s5"] },
     da: "Ein Hund schaut vorsichtig um die Ecke.", heim: "Der Hund wedelt dir entgegen.",
     auftrag: "Beobachte einen Hund – mit Abstand! Was verraten Ohren, Schwanz und Körper über seine Stimmung?" },
   /* Die beiden Pflanzen-Pässe: ohne Draußen-Auftrag – wer den Pass schafft, bekommt den Zuwachs sofort. */
   { id: "pflanze", em: "🌷", titel: "Das Blumenbeet", wer: "das Blumenbeet", pass: "Pflanzenpass", href: "../../flora/pflanzenpass.html", ohneAuftrag: true,
-    x: 88.5, y: 77, b: 13, typ: "wiese", key: "mibaso.flora.expedition", teile: ["aufbau", "bestaeubung", "reise", "jahr", "strategien", "energie"],
+    x: 92, y: 80, bilder: [["beet-1", 13], ["beet-2", 13], ["beet-2", 13]], typ: "wiese", key: "mibaso.flora.expedition", teile: ["aufbau", "bestaeubung", "reise", "jahr", "strategien", "energie"],
     heim: "Vor dem Haus blüht es in allen Farben." },
   { id: "wald", em: "🌲", titel: "Der Waldrand", wer: "der Waldrand", pass: "Waldpass", href: "../../flora/waldpass.html", ohneAuftrag: true,
-    x: 39, y: 49, b: 17, typ: "wiese", key: "mibaso.flora.wald", teile: ["stockwerke", "jahreslauf", "erkennen", "baeume", "fruehblueher", "waldboden", "eindringlinge", "nutzen"],
+    x: 41, y: 51.5, bilder: [["wald-1", 13], ["wald-2", 15], ["wald-2", 15]], typ: "wiese", key: "mibaso.flora.wald", teile: ["stockwerke", "jahreslauf", "erkennen", "baeume", "fruehblueher", "waldboden", "eindringlinge", "nutzen"],
     heim: "Hinter dem Zaun wächst ein kleiner Wald – das Eichhörnchen ist schon da." }
 ];
 const SPIELE = [["mibaso.fauna.sammelflug", ["sand", "schere", "hummel"]], ["mibaso.flora.pollenpost", ["fruehling", "sommer", "nacht"]], ["mibaso.fauna.falterspiel", ["spiel"]],
@@ -202,10 +189,10 @@ const SPIELE = [["mibaso.fauna.sammelflug", ["sand", "schere", "hummel"]], ["mib
   ["mibaso.fauna.nestbau", ["amsel", "schwalbe", "buchfink"]], ["mibaso.fauna.zuchtspiel", ["hueten"]]];
 const EXTRAS = [
   { ab: 10, em: "💧", titel: "Ein Teich", txt: "Wasser zieht Leben an." },
-  { ab: 25, em: "🪽", titel: "Libellen am Teich", txt: "Sie jagen über dem Wasser." },
+  { ab: 25, em: "💠", titel: "Libellen am Teich", txt: "Sie jagen über dem Wasser." },
   { ab: 50, em: "🌈", titel: "Ein Regenbogen", txt: "Für echte Spielecken-Profis." }
 ];
-const BLUMEN = [[6, 96, "🌼"], [14, 90, "🌸"], [22, 98, "🌼"], [31, 93, "🌺"], [38, 99, "🌼"], [66, 98, "🌸"], [10, 82, "🌼"], [78, 96, "🌼"], [26, 86, "🌸"], [3, 88, "🌺"], [88, 97, "🌼"], [94, 90, "🌸"], [18, 79, "🌼"], [83, 91, "🌼"]];
+const BLUMEN = [[5, 97, 1], [12, 88, 2], [20, 98, 3], [29, 90, 1], [9, 78, 3], [52, 96, 2], [60, 90, 1], [72, 97, 3], [84, 92, 2], [95, 98, 1], [47, 82, 3], [26, 76, 2], [89, 86, 1], [16, 71, 1]];
 
 /* ============ Stand auslesen ============ */
 let vorschau = null;   // null = echter Stand; sonst Vorschau-Stand (nur mit ?vorschau)
@@ -236,68 +223,32 @@ function stand() {
 }
 
 /* ============ Die Szene ============ */
-function landschaft(gruen, bogen) {
-  // gruen 0…1: wie saftig die Wiese ist
-  const mix = (a, b) => Math.round(a + (b - a) * gruen);
-  const wiese = `rgb(${mix(176, 124)},${mix(170, 182)},${mix(128, 96)})`, wiese2 = `rgb(${mix(160, 98)},${mix(154, 160)},${mix(112, 80)})`;
-  return `<svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs><linearGradient id="hi" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe0f4"/><stop offset="1" stop-color="#eef7fc"/></linearGradient></defs>
-    <rect width="800" height="500" fill="url(#hi)"/>
-    <circle cx="690" cy="70" r="34" fill="#ffe28a"/>
-    ${bogen ? `<g fill="none" stroke-width="9" opacity=".6"><path d="M250 300 A200 200 0 0 1 650 300" stroke="#e8674f"/><path d="M260 300 A190 190 0 0 1 640 300" stroke="#f0b64a"/><path d="M270 300 A180 180 0 0 1 630 300" stroke="#f3e06a"/><path d="M280 300 A170 170 0 0 1 620 300" stroke="#7fc27a"/><path d="M290 300 A160 160 0 0 1 610 300" stroke="#6aa9dd"/></g>` : ""}
-    <path d="M0 300 Q160 230 330 290 T640 270 T800 290 V500 H0Z" fill="#c9dcc0"/>
-    <path d="M0 330 Q200 290 420 330 T800 320 V500 H0Z" fill="${wiese2}"/>
-    <path d="M0 380 Q220 350 430 378 T800 372 V500 H0Z" fill="${wiese}"/>
-    <!-- Zaun -->
-    <g stroke="#b9a27c" stroke-width="5" stroke-linecap="round"><path d="M250 352 H520 M250 372 H520"/><path d="M262 340V384 M300 340V384 M338 340V384 M376 340V384 M414 340V384 M452 340V384 M490 340V384"/></g>
-    <!-- Baum -->
-    <rect x="146" y="230" width="28" height="170" rx="6" fill="#7b5a36"/>
-    <path d="M160 300 Q130 270 110 262 M160 280 Q190 250 214 246" stroke="#7b5a36" stroke-width="10" fill="none" stroke-linecap="round"/>
-    <g fill="#6aa35a"><circle cx="110" cy="190" r="62"/><circle cx="190" cy="170" r="70"/><circle cx="160" cy="120" r="64"/><circle cx="230" cy="220" r="48"/><circle cx="90" cy="240" r="40"/></g>
-    <g fill="#7bb56a"><circle cx="150" cy="150" r="40"/><circle cx="205" cy="190" r="34"/></g>
-    <!-- Haus -->
-    <rect x="556" y="232" width="172" height="150" fill="#f4ead2" stroke="#d6c7a3" stroke-width="2"/>
-    <path d="M538 236 L642 150 L746 236 Z" fill="#b5533c"/>
-    <rect x="620" y="300" width="44" height="82" rx="3" fill="#7b5a36"/><circle cx="656" cy="344" r="3" fill="#e8c96a"/>
-    <rect x="574" y="262" width="34" height="34" fill="#cfe6f5" stroke="#8aa7bd" stroke-width="2"/><rect x="676" y="262" width="34" height="34" fill="#cfe6f5" stroke="#8aa7bd" stroke-width="2"/>
-  </svg>`;
-}
-function bildFuer(b, stufe) {
-  switch (b.id) {
-    case "vogel": return stufe === 1 ? Z.zweige : Z.nest(stufe === 3);
-    case "zug": return stufe === 1 ? Z.horst : Z.storch;
-    case "winter": return stufe === 1 ? Z.laub : `<span style="position:relative;display:block">${Z.laub}<span class="em wackel" style="position:absolute;left:50%;top:-18%;transform:translateX(-50%)">🦔</span></span>`;
-    case "futter": return stufe === 1 ? Z.pfahl : Z.futterhaus(stufe === 3);
-    case "haustier": return stufe === 1 ? Z.napf : `<span class="em wackel">🐕</span>`;
-    case "pflanze": return stufe === 1 ? Z.beetLeer : Z.beet;
-    case "wald": return stufe === 1 ? Z.setzlinge : Z.wald;
-    default: return "";
-  }
-}
 function zeichne() {
   const { liste, sterne } = stand(), sz = document.getElementById("szene");
   const G = lies(GKEY), gesehen = G.gesehen || {};
-  const w = liste[0];
-  let h = landschaft(w.f.gesamt ? w.f.fertig / w.f.gesamt : 0, sterne >= EXTRAS[2].ab);
+  const w = liste[0], gruen = w.f.gesamt ? w.f.fertig / w.f.gesamt : 0;
+  let h = `<img class="grund" src="${BILD}grund.jpg${BV}" alt="Dein Garten: ein Baum, ein Zaun und ein altes Bauernhaus">`;
+  // Die Wiese ist anfangs karg und wird mit dem Wiesenpass saftig grün
+  if (gruen < 1) h += `<span class="karg" style="opacity:${(0.62 * (1 - gruen)).toFixed(2)}"></span>`;
   // Extras aus der Spielecke
-  if (sterne >= EXTRAS[0].ab) h += `<svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><ellipse cx="455" cy="452" rx="92" ry="26" fill="#8fc3e0" stroke="#6aa3c4" stroke-width="3"/><path d="M400 448 q16 -8 32 0 M462 458 q18 -8 36 0" stroke="#fff" stroke-width="2.5" fill="none" opacity=".8"/><path d="M372 446 v-30 M380 448 v-22 M536 450 v-28" stroke="#4f8a4a" stroke-width="4" stroke-linecap="round"/></svg>`;
+  if (sterne >= EXTRAS[2].ab) h += `<svg viewBox="0 0 1280 853" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"><defs><clipPath id="himmel"><path d="M665 0H1010L900 178 783 343V372H330V345L550 330 560 250 665 240Z"/></clipPath></defs>
+    <g fill="none" stroke-width="13" opacity=".55" clip-path="url(#himmel)"><circle cx="655" cy="385" r="196" stroke="#e8674f"/><circle cx="655" cy="385" r="183" stroke="#f0b64a"/><circle cx="655" cy="385" r="170" stroke="#f3e06a"/><circle cx="655" cy="385" r="157" stroke="#7fc27a"/><circle cx="655" cy="385" r="144" stroke="#6aa9dd"/></g></svg>`;
+  if (sterne >= EXTRAS[0].ab) h += `<span class="deko" style="left:37%;top:97%;width:21%">${img("teich")}</span>`;
   // Blumen wachsen mit dem Wiesenpass
-  const nBl = w.stufe >= 2 ? BLUMEN.length : Math.round(BLUMEN.length * (w.f.gesamt ? w.f.fertig / w.f.gesamt : 0));
-  BLUMEN.slice(0, nBl).forEach(([x, y, e]) => { h += `<span class="blume" style="left:${x}%;top:${y}%">${e}</span>`; });
+  const nBl = w.stufe >= 2 ? BLUMEN.length : Math.round(BLUMEN.length * gruen);
+  BLUMEN.slice(0, nBl).forEach(([x, y, n]) => { h += `<span class="blume" style="left:${x}%;top:${y}%">${img("blume-" + n)}</span>`; });
   if (w.stufe >= 2) {
-    const tiere = w.stufe === 3 ? [[16, 70, "🦋", 0], [34, 76, "🐝", 1.5], [50, 82, "🦋", 3], [8, 78, "🐝", 2.2]] : [[16, 70, "🦋", 0], [34, 76, "🐝", 1.5]];
-    tiere.forEach(([x, y, e, d]) => { h += `<span class="flatter" style="left:${x}%;top:${y}%;animation-delay:-${d}s;${w.stufe === 2 ? "opacity:.55;filter:grayscale(1);" : ""}">${e}</span>`; });
+    const tiere = w.stufe === 3 ? [[15, 66, "falter", 0], [31, 72, "hummel", 1.5], [56, 78, "falter", 3], [7, 74, "hummel", 2.2]] : [[15, 66, "falter", 0], [31, 72, "hummel", 1.5]];
+    tiere.forEach(([x, y, e, d]) => { h += `<span class="flatter" style="left:${x}%;top:${y}%;animation-delay:-${d}s;${w.stufe === 2 ? "opacity:.6;filter:grayscale(1);" : ""}">${img(e)}</span>`; });
   }
-  if (sterne >= EXTRAS[1].ab) h += `<span class="flatter" style="left:58%;top:84%;animation-duration:4s">${Z.libelle}</span>`;
+  if (sterne >= EXTRAS[1].ab) h += `<span class="flatter" style="left:43%;top:80%;width:7%;animation-duration:4s">${img("libelle")}</span>`;
   // Bewohner
   liste.forEach(({ b, stufe }) => {
     const neu = vorschau === null && (gesehen[b.id] || 0) < stufe && stufe >= 2;
-    if (b.id === "wiese") {
-      h += `<button class="slot ${stufe === 0 ? "leer" : ""}" data-id="${b.id}" style="left:${b.x}%;top:${b.y}%;width:${stufe === 0 ? "auto" : "30%"};height:${stufe === 0 ? "auto" : "22%"}" aria-label="${b.titel}">${stufe === 0 ? '<span class="frage">?</span>' : ""}</button>`;
-      return;
-    }
-    const kl = stufe === 0 ? "leer" : stufe === 1 ? "unterwegs" : stufe === 2 ? "scheu" : "daheim";
-    h += `<button class="slot ${kl}${neu ? " neu" : ""}" data-id="${b.id}" style="left:${b.x}%;top:${b.y}%;width:${stufe === 0 ? "auto" : b.b + "%"}" aria-label="${b.titel}">${stufe === 0 ? '<span class="frage">?</span>' : `<span class="bild" style="display:block;width:100%">${bildFuer(b, stufe)}</span>`}</button>`;
+    if (stufe === 0) { h += `<button class="slot leer" data-id="${b.id}" style="left:${b.x}%;top:${b.y - (b.id === "wiese" ? 0 : 7)}%" aria-label="${b.titel}"><span class="frage">?</span></button>`; return; }
+    if (b.id === "wiese") { h += `<button class="slot" data-id="${b.id}" style="left:${b.x}%;top:${b.y + 10}%;width:34%;height:22%" aria-label="${b.titel}"></button>`; return; }
+    const kl = stufe === 1 ? "unterwegs" : stufe === 2 ? "scheu" : "daheim", [name, breit] = b.bilder[stufe - 1];
+    h += `<button class="slot ${kl}${neu ? " neu" : ""}" data-id="${b.id}" style="left:${b.x}%;top:${b.y}%;width:${breit}%" aria-label="${b.titel}"><span class="bild" style="display:block;width:100%">${img(name, b.id === "haustier" && stufe > 1 ? "wackel" : "")}</span></button>`;
   });
   const da = liste.filter(x => x.stufe >= 2).length, heim = liste.filter(x => x.stufe === 3).length;
   h += `<span class="stand-chip"><b>${da}</b> von ${liste.length} eingezogen</span>`;
