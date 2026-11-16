@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Mein Naturgarten · Bio Mibaso</title>
-<meta name="description" content="Dein eigener Naturgarten: Mit jedem Forscherpass zieht ein neuer Bewohner ein. Richtig zu Hause fühlt er sich nach einem Auftrag draußen.">
+<meta name="description" content="Dein eigener Naturgarten: Mit jedem der acht Forscherpässe kommt neues Leben hinein – Tiere ziehen ein, Blumen und Bäume wachsen.">
 <meta name="theme-color" content="#233D5C">
 <link rel="icon" href="../assets/icon.svg">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
@@ -100,25 +100,25 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
 </head>
 <body>
 <header class="app-head">
-  <a class="zurueck-kopf" href="../index.html">‹ Fauna</a>
+  <a class="zurueck-kopf" href="../../index.html">‹ Bio Mibaso</a>
   <div class="logo">🏡🌳</div><h1>Mein Naturgarten</h1><div class="untertitel">Mit jedem Pass zieht jemand ein</div>
 </header>
 <div class="huelle">
-  <p class="lead">Noch ist dein Garten ziemlich leer. Jeder Forscherpass bringt einen neuen Bewohner. Richtig zu Hause fühlt er sich aber erst, wenn du draußen einen kleinen Auftrag erledigt hast.</p>
+  <p class="lead">Noch ist dein Garten ziemlich leer. Jeder Forscherpass bringt neues Leben hinein: Tiere ziehen ein, Blumen und Bäume wachsen. Die Tiere fühlen sich aber erst richtig zu Hause, wenn du draußen einen kleinen Auftrag erledigt hast.</p>
 
   <div class="szene" id="szene"></div>
   <p class="unter" id="unter"></p>
   <div class="vorschau" id="vorschau"></div>
 
-  <h2>Deine Bewohner</h2>
+  <h2>Wer und was schon da ist</h2>
   <div class="karten" id="karten"></div>
 
   <h2>Extras aus der Spielecke</h2>
   <div class="karten" id="extras"></div>
 
   <details class="lehrer"><summary>Für Lehrkräfte: Was der Garten soll</summary>
-    <p>Der Garten fasst alle Fauna-Pässe zusammen. Er zeigt auf einen Blick, welche Pässe ein Kind geschafft hat, und macht Lust auf den nächsten.</p>
-    <p>Zu jedem Pass gehört ein <b>Draußen-Auftrag</b>: eine kurze Beobachtung im Freien, die das Kind selbst abhakt. Geprüft wird das nicht – es ist Ehrensache. Die Aufträge eignen sich als Hausaufgabe oder für einen Unterrichtsgang.</p>
+    <p>Der Garten fasst alle acht Forscherpässe von Bio Mibaso zusammen – sechs zu den Tieren, zwei zu den Pflanzen. Er zeigt auf einen Blick, welche Pässe ein Kind geschafft hat, und macht Lust auf den nächsten.</p>
+    <p>Zu jedem der sechs Tier-Pässe gehört ein <b>Draußen-Auftrag</b>: eine kurze Beobachtung im Freien, die das Kind selbst abhakt. Geprüft wird das nicht – es ist Ehrensache. Die Aufträge eignen sich als Hausaufgabe oder für einen Unterrichtsgang.</p>
     <p>Gespeichert wird nur auf diesem Gerät. Keine Anmeldung, keine Datensammlung.</p>
   </details>
 
@@ -153,6 +153,12 @@ const Z = {
     <path d="M10 28 L50 6 L90 28 Z" fill="#b5533c"/><ellipse cx="50" cy="45" rx="20" ry="3" fill="#e8c96a"/>${voegel ? `<text x="20" y="46" font-size="20">🐦</text><text x="60" y="24" font-size="16">🐦</text>` : ""}</svg>`,
   napf: `<svg viewBox="0 0 100 50"><path d="M14 22h72l-8 22H22z" fill="#c0503a"/><ellipse cx="50" cy="22" rx="36" ry="7" fill="#8f3526"/></svg>`,
   libelle: `<svg viewBox="0 0 60 40" style="width:1.5em;display:block"><path d="M6 20h44" stroke="#2b6f9c" stroke-width="4" stroke-linecap="round"/><circle cx="52" cy="20" r="5" fill="#2b6f9c"/><ellipse cx="36" cy="10" rx="13" ry="5" fill="#cfe9f7" stroke="#6aa3c4"/><ellipse cx="36" cy="30" rx="13" ry="5" fill="#cfe9f7" stroke="#6aa3c4"/></svg>`,
+  beetLeer: `<svg viewBox="0 0 120 50"><ellipse cx="60" cy="36" rx="54" ry="12" fill="#8a6a43"/><path d="M30 34v-9 M30 27q-6-4-8 0 M60 33v-11 M60 25q6-5 9 0 M90 34v-8 M90 28q-6-4-8 0" stroke="#5f9e4f" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
+  beet: `<svg viewBox="0 0 120 70"><ellipse cx="60" cy="58" rx="56" ry="11" fill="#8a6a43"/><g stroke="#4f8a4a" stroke-width="3" stroke-linecap="round"><path d="M18 56V34 M40 56V24 M62 56V30 M84 56V22 M104 56V36"/></g>
+    <g><circle cx="18" cy="30" r="9" fill="#e8674f"/><circle cx="18" cy="30" r="3.5" fill="#f3e06a"/><circle cx="40" cy="19" r="10" fill="#f0b64a"/><circle cx="40" cy="19" r="4" fill="#7b5a36"/><circle cx="62" cy="25" r="9" fill="#c77fd1"/><circle cx="62" cy="25" r="3.5" fill="#f3e06a"/><circle cx="84" cy="17" r="10" fill="#e8674f"/><circle cx="84" cy="17" r="4" fill="#f3e06a"/><circle cx="104" cy="31" r="9" fill="#fff" stroke="#d9d2c1"/><circle cx="104" cy="31" r="3.5" fill="#f0b64a"/></g></svg>`,
+  setzlinge: `<svg viewBox="0 0 140 60"><g fill="#6aa35a"><path d="M24 54l10-26 10 26z"/><path d="M66 54l8-20 8 20z"/><path d="M104 54l10-24 10 24z"/></g><g fill="#7b5a36"><rect x="32" y="52" width="4" height="8"/><rect x="72" y="52" width="4" height="8"/><rect x="112" y="52" width="4" height="8"/></g></svg>`,
+  wald: `<svg viewBox="0 0 140 100"><g fill="#7b5a36"><rect x="20" y="70" width="7" height="30"/><rect x="52" y="64" width="8" height="36"/><rect x="88" y="70" width="7" height="30"/><rect x="118" y="74" width="6" height="26"/></g>
+    <path d="M23 16l22 58H2z" fill="#3f7d4c"/><circle cx="56" cy="40" r="28" fill="#5c9a50"/><path d="M92 22l20 52H72z" fill="#4a8a52"/><circle cx="121" cy="56" r="20" fill="#6aa35a"/><text x="60" y="98" font-size="22">🐿️</text></svg>`,
   laub: `<svg viewBox="0 0 120 60"><ellipse cx="60" cy="42" rx="52" ry="18" fill="#a9713a"/><ellipse cx="40" cy="34" rx="26" ry="14" fill="#c08a45"/><ellipse cx="78" cy="32" rx="28" ry="15" fill="#b57b3d"/><path d="M30 30l10 6 M70 26l12 6 M52 40l10-4" stroke="#7b5226" stroke-width="2" stroke-linecap="round"/></svg>`
 };
 
@@ -181,7 +187,14 @@ const BEWOHNER = [
   { id: "haustier", em: "🐕", titel: "Der Hund vor der Tür", wer: "der Hund", pass: "Haustierpass", href: "haustierpass.html",
     x: 72, y: 80, b: 12, typ: "pass", key: "mibaso.fauna.haustierpass", teile: { h1: ["s1", "s2", "s3", "s6", "s4", "s5"], h2: ["s1", "s2", "s4", "s5"] },
     da: "Ein Hund schaut vorsichtig um die Ecke.", heim: "Der Hund wedelt dir entgegen.",
-    auftrag: "Beobachte einen Hund – mit Abstand! Was verraten Ohren, Schwanz und Körper über seine Stimmung?" }
+    auftrag: "Beobachte einen Hund – mit Abstand! Was verraten Ohren, Schwanz und Körper über seine Stimmung?" },
+  /* Die beiden Pflanzen-Pässe: ohne Draußen-Auftrag – wer den Pass schafft, bekommt den Zuwachs sofort. */
+  { id: "pflanze", em: "🌷", titel: "Das Blumenbeet", wer: "das Blumenbeet", pass: "Pflanzenpass", href: "../../flora/pflanzenpass.html", ohneAuftrag: true,
+    x: 88.5, y: 77, b: 13, typ: "wiese", key: "mibaso.flora.expedition", teile: ["aufbau", "bestaeubung", "reise", "jahr", "strategien", "energie"],
+    heim: "Vor dem Haus blüht es in allen Farben." },
+  { id: "wald", em: "🌲", titel: "Der Waldrand", wer: "der Waldrand", pass: "Waldpass", href: "../../flora/waldpass.html", ohneAuftrag: true,
+    x: 39, y: 49, b: 17, typ: "wiese", key: "mibaso.flora.wald", teile: ["stockwerke", "jahreslauf", "erkennen", "baeume", "fruehblueher", "waldboden", "eindringlinge", "nutzen"],
+    heim: "Hinter dem Zaun wächst ein kleiner Wald – das Eichhörnchen ist schon da." }
 ];
 const SPIELE = [["mibaso.fauna.sammelflug", ["sand", "schere", "hummel"]], ["mibaso.flora.pollenpost", ["fruehling", "sommer", "nacht"]], ["mibaso.fauna.falterspiel", ["spiel"]],
   ["mibaso.fauna.libellenspiel", ["spiel"]], ["mibaso.flora.haehersaat", ["eichen", "buchen", "rand"]], ["mibaso.flora.lichtrennen", ["windroeschen", "scharbock", "baerlauch"]],
@@ -209,9 +222,10 @@ function sterneGesamt() {
 function stand() {
   const G = lies(GKEY), m = G.missionen || {};
   const liste = BEWOHNER.map((b, i) => {
-    let f = fortschritt(b), stufe = f.fertig === 0 ? 0 : f.fertig < f.gesamt ? 1 : (m[b.id] ? 3 : 2);
+    let f = fortschritt(b), stufe = f.fertig === 0 ? 0 : f.fertig < f.gesamt ? 1 : (m[b.id] || b.ohneAuftrag ? 3 : 2);
     if (vorschau !== null) {
-      stufe = vorschau === "halb" ? [3, 2, 1, 0, 2, 1][i] : vorschau === "fast" ? [3, 3, 2, 3, 2, 3][i] : vorschau;
+      stufe = vorschau === "halb" ? [3, 2, 1, 0, 2, 1, 3, 1][i] : vorschau === "fast" ? [3, 3, 2, 3, 2, 3, 3, 3][i] : vorschau;
+      if (b.ohneAuftrag && stufe === 2) stufe = 3;
       f = { gesamt: f.gesamt, fertig: stufe === 0 ? 0 : stufe === 1 ? Math.ceil(f.gesamt / 2) : f.gesamt };
     }
     return { b, f, stufe };
@@ -255,6 +269,8 @@ function bildFuer(b, stufe) {
     case "winter": return stufe === 1 ? Z.laub : `<span style="position:relative;display:block">${Z.laub}<span class="em wackel" style="position:absolute;left:50%;top:-18%;transform:translateX(-50%)">🦔</span></span>`;
     case "futter": return stufe === 1 ? Z.pfahl : Z.futterhaus(stufe === 3);
     case "haustier": return stufe === 1 ? Z.napf : `<span class="em wackel">🐕</span>`;
+    case "pflanze": return stufe === 1 ? Z.beetLeer : Z.beet;
+    case "wald": return stufe === 1 ? Z.setzlinge : Z.wald;
     default: return "";
   }
 }
@@ -293,12 +309,12 @@ function zeichne() {
   const fehlt = liste.find(x => x.stufe < 2), offen = liste.find(x => x.stufe === 2);
   document.getElementById("unter").innerHTML = da === 0 ? "Noch wohnt hier niemand. Fang mit einem Pass an – die Fragezeichen zeigen, wer fehlt."
     : heim === liste.length ? "<b>Alle sind zu Hause.</b> Dein Garten ist ein kleines Naturparadies! 🎉"
-    : `<b>${heim}</b> von ${liste.length} fühlen sich schon zu Hause.` + (offen ? ` Als Nächstes: der Draußen-Auftrag für ${offen.b.wer}.` : fehlt ? ` Als Nächstes: ${fehlt.b.pass}.` : "");
+    : `<b>${heim}</b> von ${liste.length} sind schon ganz zu Hause.` + (offen ? ` Als Nächstes: der Draußen-Auftrag für ${offen.b.wer}.` : fehlt ? ` Als Nächstes: ${fehlt.b.pass}.` : "");
 
   /* Karten */
   document.getElementById("karten").innerHTML = liste.map(({ b, f, stufe }) => {
     const status = stufe === 0 ? "Noch nicht da" : stufe === 1 ? `Unterwegs · ${f.fertig} von ${f.gesamt} Stationen` : stufe === 2 ? b.da : b.heim;
-    const auftrag = stufe < 2 ? `<div class="auftrag zu">🔒 Der Draußen-Auftrag kommt, sobald du den ${b.pass} geschafft hast.</div>`
+    const auftrag = b.ohneAuftrag ? "" : stufe < 2 ? `<div class="auftrag zu">🔒 Der Draußen-Auftrag kommt, sobald du den ${b.pass} geschafft hast.</div>`
       : stufe === 2 ? `<div class="auftrag offen"><span class="eb">Draußen-Auftrag</span><span>${b.auftrag}</span><span class="zeile"><button class="btn gruen" data-ok="${b.id}">✔ Habe ich gemacht</button><span class="klein">Ehrensache!</span></span></div>`
       : `<div class="auftrag fertig">✔ Draußen-Auftrag erledigt. <button class="link-btn" data-zurueck="${b.id}">zurücknehmen</button></div>`;
     return `<div class="karte s${stufe}" id="k-${b.id}"><div class="oben"><span class="ke">${b.em}</span><span><span class="kt">${b.titel}</span><span class="ks">${status}</span></span></div>
@@ -317,7 +333,7 @@ function zeichne() {
   /* Neuankömmlinge feiern, dann als gesehen merken */
   if (vorschau === null) {
     const neue = liste.filter(x => x.stufe >= 2 && (gesehen[x.b.id] || 0) < x.stufe);
-    if (neue.length) toast(neue[0].stufe === 3 ? `🎉 Zu Hause: ${neue[0].b.wer}!` : `🎉 Neu im Garten: ${neue[0].b.wer}!`);
+    if (neue.length) toast(neue[0].stufe === 3 && !neue[0].b.ohneAuftrag ? `🎉 Zu Hause: ${neue[0].b.wer}!` : `🎉 Neu im Garten: ${neue[0].b.wer}!`);
     const g = lies(GKEY); g.gesehen = Object.fromEntries(liste.map(x => [x.b.id, x.stufe]));
     try { localStorage.setItem(GKEY, JSON.stringify(g)); } catch (e) {}
   }

@@ -34,6 +34,10 @@ if not BIO:
 
 REPOS = [
     {"key": "flora", "label": "Flora Mibaso", "emoji": "🌼", "akzent": "#2F4F3E",
+     "reihenfolge": ["garten", "pass", "pass2"],
+     "garten": {"href": "../fauna/interaktiv/garten.html", "emoji": "🏡",
+                "eyebrow": "Dein Garten · für alle Pässe", "titel": "Mein Naturgarten",
+                "sub": "Mit jedem Pass kommt neues Leben in deinen Garten. Schau nach, was schon wächst und wer noch fehlt."},
      "pass": {"href": "pflanzenpass.html", "img": "images/wiese-banner.jpg",
               "eyebrow": "Dein Forscherpass", "titel": "Expedition Wiese",
               "sub": "Die Pflanzen der Wiese — spiel dich zum Wiesen-Meister."},
@@ -67,7 +71,7 @@ REPOS = [
                "sub": "Als Kohlmeise, Rauchschwalbe oder Igel zwölf Monate überstehen — Nest und Junge, Feinde, Vogelzug und Winterschlaf."},
      "garten": {"href": "interaktiv/garten.html", "emoji": "🏡",
                 "eyebrow": "Dein Garten · für alle Pässe", "titel": "Mein Naturgarten",
-                "sub": "Mit jedem Pass zieht ein neuer Bewohner ein. Schau nach, wer schon da ist und wer noch fehlt."},
+                "sub": "Mit jedem Pass kommt neues Leben in deinen Garten. Schau nach, wer schon da ist und wer noch fehlt."},
      "spiele": {"href": "../spiele/", "emoji": "🎲",
                 "eyebrow": "Spielecke · Klasse 5/6", "titel": "Alle Lernspiele und dein Diplom",
                 "sub": "Elf Lernspiele auf einen Blick: Sterne sammeln, Rang verbessern und das Naturforscher-Diplom holen."}},
@@ -674,6 +678,7 @@ CSS = """
   .k-flora{background:linear-gradient(150deg,#3A5F4A,#2F4F3E);}
   .k-fauna{background:linear-gradient(150deg,#33587c,#233D5C);}
   .k-spiel{background:linear-gradient(150deg,#c9953f,#a9762c);grid-column:1/-1;}
+  .k-garten{background:linear-gradient(150deg,#4f8a4a,#2f6b45);grid-column:1/-1;}
   @media (max-width:520px){.kacheln{grid-template-columns:1fr;}}
   .subkopf{font-family:var(--sans);margin:2px 0 4px;}
   .zurueck{font-size:13px;font-weight:600;color:var(--akzent);text-decoration:none;}
@@ -790,6 +795,7 @@ def write_hub(listing):
         '<span class="kt">Flora verstehen</span><span class="kb">Forscherpässe Wiese &amp; Wald · Pflanzen bestimmen</span></a>'
         '<a class="kachel k-fauna" href="fauna/"><span class="ke">🦋</span>'
         '<span class="kt">Fauna verstehen</span><span class="kb">Forscherpass Wiese · Bestimmen &amp; Verwandtschaft</span></a>'
+        '<a class="kachel k-garten" href="fauna/interaktiv/garten.html"><span class="ke">🏡</span><span class="kt">Mein Naturgarten</span><span class="kb">Wächst mit jedem der acht Forscherpässe · Tiere ziehen ein, Blumen und Bäume wachsen</span></a>'
         '<a class="kachel k-spiel" href="spiele/"><span class="ke">🎲</span><span class="kt">Spielecke</span><span class="kb">Elf Lernspiele · Sterne sammeln · Naturforscher-Diplom</span></a>'
         '</div>' + _footer("") +
         '<script>if(window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone)'
