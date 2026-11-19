@@ -579,7 +579,7 @@ function renderQuiz(s){
         }
         Array.from(wrap.children).forEach(x=>x.disabled=true);
         melde();
-        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?2700:4800);
+        setTimeout(()=>{ if(!b.isConnected) return; q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?2700:4800);
       });
       wrap.appendChild(b);
     });

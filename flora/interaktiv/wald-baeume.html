@@ -621,7 +621,7 @@ function renderBildwahl(s){
         if(richtig){ score++; fb.textContent="✓ Richtig – "+ziel.name+"!"; }
         else{ b.classList.add("no"); fb.textContent="✗ Das war "+o.name+". Gesucht: "+ziel.name+"."; }
         melde();
-        setTimeout(()=>{ q++; if(q<fragen.length) zeige(); else ende(); }, richtig?2600:4400);
+        setTimeout(()=>{ if(!b.isConnected) return; q++; if(q<fragen.length) zeige(); else ende(); }, richtig?2600:4400);
       });
       wrap.appendChild(b);
     });
@@ -674,7 +674,7 @@ function renderQuiz(s){
         if(richtig){ score++; fb.textContent="✓ Richtig! "+f.fb; }
         else{ b.classList.add("no"); fb.textContent="✗ "+f.fb; }
         melde();
-        setTimeout(()=>{ q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?3300:5700);
+        setTimeout(()=>{ if(!b.isConnected) return; q++; if(q<fragen.length) zeigeFrage(); else ende(); }, richtig?3300:5700);
       });
       wrap.appendChild(b);
     });
