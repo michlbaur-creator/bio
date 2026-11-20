@@ -431,10 +431,14 @@ const SAMEN = `<g><circle cx="80" cy="20" r="14" fill="#2f6a45" stroke="#fff" st
 /* Gemalte Bilder (ChatGPT, Nov. 2026). Viele stammen aus Sammelflug und werden von dort mitbenutzt.
    Bei Austausch unter gleichem Namen BV erhöhen. */
 const SF = "../../fauna/images/sammelflug/", PP = "../images/pollenpost/", BV = "?v=2";
-const FOTO = { loewe: SF, hahn: SF, gaense: SF, schluessel: SF, glocke: SF, storch: SF, salbei: SF, rotklee: SF, marg: SF };
+const FOTO = { loewe: SF, hahn: SF, gaense: SF, schluessel: SF, glocke: SF, storch: SF, salbei: SF, rotklee: SF, marg: SF,
+  schaum: PP, witwe: PP, nachtkerze: PP, lichtnelke: PP, seifenkraut: PP };
 const FELD = { glocke: 1 };   // eigener Ausschnitt fürs Spielfeld (nur der blühende Teil)
-const FIGUR = { hummel: [SF + "biene-hummel", 66, 61.9] };
-const TITEL = {};   // Titelbilder je Stufe, sobald vorhanden: id: [Datei, Beschreibung]
+const FIGUR = { hummel: [SF + "biene-hummel", 66, 61.9], falter: [PP + "falter", 74, 48.3] };
+const TITEL = {   // Titelbild je Stufe: id: [Datei, Beschreibung]
+  fruehling: ["titel-fruehling.webp", "Eine Hummelkönigin mit Pollen im Pelz landet an einem Wiesen-Schaumkraut"],
+  sommer: ["titel-sommer.webp", "Eine Gartenhummel am Wiesensalbei: Die Staubblätter tupfen ihr Pollen auf den Rücken"],
+  nacht: ["titel-nacht.webp", "Ein Weinschwärmer schwirrt in der Abenddämmerung vor einer Nachtkerze"] };
 const feldBild = (t, i) => FOTO[t] ? `<image href="${FOTO[t]}${FELD[t] ? "feld" : "bluete"}-${t}.webp${BV}" x="5" y="3" width="90" height="94" preserveAspectRatio="xMidYMax meet"/>` : BILD[t](i);
 const bluetenBild = (t, gr = 44) => FOTO[t] ? `<img class="foto" src="${FOTO[t]}bluete-${t}.webp${BV}" width="${gr + 18}" height="${gr + 18}" alt="" loading="lazy">`
   : `<svg viewBox="0 0 100 100" width="${gr}" height="${gr}" aria-hidden="true">${BILD[t](0)}</svg>`;
@@ -548,13 +552,13 @@ function seiteSpiel(id) {
       const leuchtet = dunkel && b && b.nacht;
       return `<g class="feld${fern ? " fern" : ""}${i === st.pos ? " hier" : ""}" data-i="${i}" transform="translate(${X(i)} ${Y(i)})" tabindex="0" role="button" aria-label="${name}, ${d} Felder entfernt${fern ? ", zu weit" : ""}${i === st.fleder ? ", Fledermaus!" : ""}">
         <rect width="100" height="100" fill="${f.weg ? ((spalte(i) + zeile(i)) % 2 ? "#ddd396" : "#d6cb8a") : rand ? ((spalte(i) + zeile(i)) % 2 ? "#86b65c" : "#7fb055") : ((spalte(i) + zeile(i)) % 2 ? "#a3cc73" : "#9bc66b")}"${L.hg && !f.weg ? ` fill-opacity="${rand ? .5 : .3}"` : ""}/>
-        ${dunkel && !leuchtet ? `<rect width="100" height="100" fill="#0f1c33" opacity=".55"/>` : ""}
+        ${dunkel ? `<rect width="100" height="100" fill="#0f1c33" opacity="${leuchtet ? (L.hg ? .3 : 0) : .55}"/>` : ""}
         ${f.weg ? BILD.stoppel(i) : f.t === "nest" ? BILD.nest(falter) : b ? `<g class="${f.fertig || !auf ? "leer" : f.leer ? "matt" : ""}">${feldBild(f.t, i)}</g>${f.fertig ? SAMEN : ph === "p" || ph === "n" ? SCHILD[ph] : ""}` : BILD.gras(i)}
         ${leuchtet && auf && !f.fertig ? `<circle cx="50" cy="52" r="40" fill="none" stroke="#fff7c2" stroke-width="2" opacity=".55"/>` : ""}
         ${fern ? `<rect width="100" height="100" fill="#22301c" opacity=".42"/>` : ""}<rect class="treffer" width="100" height="100" fill="transparent"/></g>`; }).join("")
       + `<path d="M500 70 V570" stroke="#5b8a3c" stroke-width="3" stroke-dasharray="3 9" stroke-linecap="round"/>`
       + (ms >= 0 ? `<rect x="${ms * 100}" y="70" width="100" height="500" fill="url(#gefahr)" stroke="#B23B2E" stroke-width="4" stroke-dasharray="12 8" pointer-events="none"/>` : "")
-      + (st.fleder >= 0 ? `<g pointer-events="none"><rect x="${X(st.fleder)}" y="${Y(st.fleder)}" width="100" height="100" fill="url(#gefahr)" stroke="#B23B2E" stroke-width="4" stroke-dasharray="12 8"/><text x="${X(st.fleder) + 50}" y="${Y(st.fleder) + 64}" font-size="40" text-anchor="middle">🦇</text></g>` : "");
+      + (st.fleder >= 0 ? `<g pointer-events="none"><rect x="${X(st.fleder)}" y="${Y(st.fleder)}" width="100" height="100" fill="url(#gefahr)" stroke="#B23B2E" stroke-width="4" stroke-dasharray="12 8"/><image href="${PP}fledermaus.webp${BV}" x="${X(st.fleder) + 4}" y="${Y(st.fleder) + 28}" width="92" height="44.3"/></g>` : "");
   }
   function pult() {
     $("#rest").textContent = vorbei(st) ? (falter ? "Morgengrauen" : "Sonnenuntergang") : "noch " + (L.zuege - st.zug) + (L.zuege - st.zug === 1 ? " Zug" : " Züge");
