@@ -179,7 +179,7 @@ details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
 .m-info{background:var(--tile);border:1px solid var(--linie)}.m-info .urteil{color:var(--blau)}
 details.kunde{background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:8px 12px;font-size:14px}
 details.kunde summary{cursor:pointer;color:var(--blau);font-weight:bold}
-#kunde{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;padding-top:8px}
+#kunde{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;padding-top:8px}
 #kunde .be{padding:4px 8px;font-size:12.5px;gap:8px}
 .ende .held{display:flex;justify-content:center;padding-top:14px}
 .ende .held svg{background:#a3cc73;border-radius:50%;border:3px solid var(--blau-hell)}
@@ -190,6 +190,9 @@ details.kunde summary{cursor:pointer;color:var(--blau);font-weight:bold}
 /* Nestwerk */
 .planrahmen{background:#adc382}
 .be svg{background:#b4c98a}
+.be img.foto{display:block;background:#eef3e2;border-radius:10px;object-fit:contain;padding:3px;box-sizing:border-box}
+.kopfbild{margin:18px 0 4px;border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(35,61,92,.16);line-height:0}
+.kopfbild img{width:100%;height:auto;display:block}
 .pips.kraft i{border-radius:4px;width:16px;height:16px;transform:none;border-color:#9db7d3}
 .pips.kraft i.an{background:#3f86d6;border-color:#2a68b0}
 .pips.kraft.knapp i.an{background:#e0623f;border-color:#b8452a}
@@ -422,7 +425,24 @@ const BILD = {
   leer: i => [[22, 80, -8], [44, 86, 6], [70, 78, -4]].map(([x, y, w]) => `<path d="M${x} ${y} q${w / 2} -12 ${w} -18" stroke="#8aa868" stroke-width="2" fill="none" stroke-linecap="round"/>`).join("")
 };
 // Nestplatz mit wachsendem Nest
+/* Gemalte Bilder (ChatGPT, 20. 11. 2026) in ../images/nestwerk/; die Katze stammt aus Kalte Kost.
+   Bei Austausch unter gleichem Namen BV erhöhen. */
+const NW = "../images/nestwerk/", KK = "../images/kaltekost/", BV = "?v=1";
+const TITEL = { amsel: ["titel-amsel.webp", "Ein Amselweibchen fliegt mit einem Zweig im Schnabel in eine Hecke"],
+  schwalbe: ["titel-schwalbe.webp", "Eine Rauchschwalbe holt Lehm an einer Pfütze vor einem Fachwerkstall"],
+  buchfink: ["titel-buchfink.webp", "Ein Buchfinkweibchen baut im blühenden Apfelbaum ein Nest, eine Elster schaut zu"] };
+const VOGEL = { amsel: [70, 62.3], schwalbe: [74, 70.5], buchfink: [68, 59] };    // Breite, Höhe im Plan
+const ORTBILD = { busch: "ort-busch", gras: "ort-gras", moos: "ort-moos", huhn: "ort-huhn", baum: "ort-baum", zaun: "ort-zaun", wurm: "ort-wurm", muecke: "ort-muecke", raupe: "ort-raupe" };
+const ortFeld = (t, f) => t === "pfuetze" ? `<image href="${NW}ort-pfuetze${f.wasser > 0 ? "" : "-trocken"}.webp${BV}" x="4" y="14" width="92" height="72"/>`
+  : ORTBILD[t] ? `<image href="${NW}${ORTBILD[t]}.webp${BV}" x="4" y="4" width="92" height="92" preserveAspectRatio="xMidYMax meet"/>` : "";
+const flaeche = i => `<image clip-path="url(#feldclip)" href="${NW}boden-rasen.webp${BV}" x="${-((i * 37) % 3 * 50)}" y="${-((i * 53 + 1) % 3 * 50)}" width="200" height="200"/>`;
+const bildMarke = (x, y, href, w, h) => `<g pointer-events="none"><ellipse cx="${x}" cy="${y}" rx="${w / 2 + 6}" ry="${h / 2 + 6}" fill="#fff" opacity=".6"/><image href="${href}" x="${x - w / 2}" y="${y - h / 2}" width="${w}" height="${h}"/></g>`;
 function nestBild(L, anteil) {
+  const nest = anteil <= 0 ? `<circle cx="50" cy="48" r="14" fill="none" stroke="#fff" stroke-width="2.5" stroke-dasharray="5 4"/>`
+    : `<image href="${NW}nest-${L.id}${anteil >= 1 ? "" : "-halb"}.webp${BV}" x="4" y="${L.id === "schwalbe" ? 18 : 2}" width="92" height="${L.id === "schwalbe" ? 60 : 84}" opacity="${anteil >= 1 ? 1 : (.55 + .45 * anteil).toFixed(2)}"/>`;
+  return nest + `<text x="50" y="96" text-anchor="middle" ${SCHRIFT} font-size="11.5" font-weight="bold" fill="#fff" stroke="#3d2c1a" stroke-width="3" paint-order="stroke">Dein Nest</text>`;
+}
+function nestBildAlt(L, anteil) {
   const grund = L.id === "schwalbe"
     ? `<rect width="100" height="100" fill="#c9b08a"/><rect x="0" y="10" width="100" height="16" fill="#7a5a3a"/><path d="M0 40 H100 M0 70 H100 M30 26 V40 M70 40 V70 M40 70 V100" stroke="#b39770" stroke-width="1.5"/>`
     : L.id === "buchfink"
@@ -434,10 +454,14 @@ function nestBild(L, anteil) {
     + (anteil >= 1 ? `<ellipse cx="50" cy="${y - h + 14}" rx="${26}" ry="5" fill="#f2ead8" stroke="#4a3420" stroke-width="1"/>` : "") : `<circle cx="50" cy="${y}" r="10" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 3"/>`;
   return grund + nest + `<text x="50" y="96" text-anchor="middle" ${SCHRIFT} font-size="11.5" font-weight="bold" fill="#fff" stroke="#3d2c1a" stroke-width="3" paint-order="stroke">Dein Nest</text>`;
 }
-const ortBild = (t, gr = 44) => `<svg viewBox="0 0 100 100" width="${gr}" height="${gr}" aria-hidden="true" style="background:#b4c98a">${t === "pfuetze" ? BILD.pfuetze({ wasser: 2 }) : BILD[t](0)}</svg>`;
+const ortBild = (t, gr = 44) => `<img class="foto" src="${NW}${t === "pfuetze" ? "ort-pfuetze" : ORTBILD[t]}.webp${BV}" width="${gr + 18}" height="${gr + 18}" alt="" loading="lazy">`;
+const ortBildAlt = (t, gr = 44) => `<svg viewBox="0 0 100 100" width="${gr}" height="${gr}" aria-hidden="true" style="background:#b4c98a">${t === "pfuetze" ? BILD.pfuetze({ wasser: 2 }) : BILD[t](0)}</svg>`;
 const matBild = (s, gr = 22) => `<svg viewBox="-10 -10 20 20" width="${gr}" height="${gr}" aria-hidden="true">${MAT[s]}</svg>`;
 // Die Vögel von oben (Mitte bei 0,0)
 function vogelSVG(id) {
+  const [w, h] = VOGEL[id];
+  return `<image href="${NW}vogel-${id}.webp${BV}" x="${-w / 2}" y="${-h / 2}" width="${w}" height="${h}"/>
+    <g class="hoeschen"><path d="M-7 ${(-h / 2 + 1).toFixed(1)} L7 ${(-h / 2 + 4).toFixed(1)}" stroke="#b8923e" stroke-width="3.2" stroke-linecap="round"/></g>`;
   const F = { amsel: { leib: "#2a2522", fl: "#1d1917", kopf: "#2a2522", schnabel: "#f2a516" }, schwalbe: { leib: "#24345e", fl: "#1c2848", kopf: "#24345e", schnabel: "#222" }, buchfink: { leib: "#8a6e5a", fl: "#4c5a4a", kopf: "#5d7590", schnabel: "#8c97a8" } }[id];
   const fl = s => id === "schwalbe"
     ? `<g transform="scale(${s} 1)"><path d="M-4 -4 Q-24 -10 -38 -2 Q-22 2 -4 5 Z" fill="${F.fl}"/></g>`
@@ -454,10 +478,12 @@ const rahmen = (X, Y, i, farbe) => { const x1 = Math.max(0, X(i) - 100) + 3, y1 
 /* ============ Übersicht ============ */
 function seiteStart() {
   const alle = LEVEL.every((L, i) => offen(i)), B = Object.keys(ORTE).filter(t => t !== "leer" && t !== "nest"), kenn = buch();
+  const oben = LEVEL.filter((L, i) => offen(i) && TITEL[L.id]).pop();   // Titelbild: neueste offene Stufe
   app.innerHTML = `<header class="app-head">
     <a class="zurueck-kopf" href="vogelpass.html">‹ Vogelpass</a>
     <div class="logo">🪺🐦🌿</div><h1>Nestwerk</h1><div class="untertitel">Drei Vögel, drei Nester</div></header>
   <div class="huelle">
+    ${oben ? `<figure class="kopfbild"><img src="${NW}${TITEL[oben.id][0]}${BV}" width="1040" height="693" alt="${TITEL[oben.id][1]}"></figure>` : ""}
     <section>
       <p class="lead">Bald kommen die Eier – höchste Zeit für ein Nest! Sammle Baumaterial, bring es zum Nestplatz und bau Schicht für Schicht. Jede Vogelart hat ihren eigenen Bauplan.</p>
       <div class="regeln">
@@ -511,7 +537,7 @@ function seiteSpiel(id) {
   app.innerHTML = `<div class="spielkopf"><div class="innen"><div class="sk-zeile"><a href="#">‹ Beenden</a><span><b>${L.titel}</b> · ${L.zeit}</span><span id="rest"></span></div></div></div>
     <div class="spiel"><div class="planrahmen" id="rahmen">
       <svg id="plan" viewBox="0 0 700 570" role="group" aria-label="Plan mit ${BREIT * HOCH} Feldern">
-        <defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd0f2"/><stop offset="1" stop-color="#dff0fb"/></linearGradient></defs>
+        <defs><clipPath id="feldclip"><rect width="100" height="100"/></clipPath><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd0f2"/><stop offset="1" stop-color="#dff0fb"/></linearGradient></defs>
         <g id="himmel"></g><g id="felder"></g><g id="biene" class="biene">${vogelSVG(L.id)}</g><g id="fx"></g><g id="wetter"></g>
       </svg></div>
       <aside class="pult">
@@ -536,11 +562,11 @@ function seiteSpiel(id) {
       const name = (f.t === "nest" ? "Dein Nest" : o.n) + (o.nass ? (f.wasser > 0 ? ", Lehm da" : ", ausgetrocknet") : leer ? ", gerade leer" : "") + (kn ? ", die Katze lauert" : "");
       const grund = f.t === "nest" ? "#7da04e" : (spalte(i) + zeile(i)) % 2 ? "#b4c98a" : "#adc382";
       return `<g class="feld${fern ? " fern" : ""}${i === st.pos ? " hier" : ""}" data-i="${i}" transform="translate(${X(i)} ${Y(i)})" tabindex="0" role="button" aria-label="${name}, ${d} Felder entfernt${fern ? ", zu weit" : ""}">
-        <rect width="100" height="100" fill="${grund}"/>
-        ${f.t === "nest" ? nestBild(L, anteil) : `<g class="${leer && !o.nass ? "leer" : ""}">${f.t === "pfuetze" ? BILD.pfuetze(f) : BILD[f.t](i)}</g>`}
+        <rect width="100" height="100" fill="${grund}"/>${flaeche(i)}
+        ${f.t === "nest" ? nestBild(L, anteil) : `<g class="${leer && !o.nass ? "leer" : ""}">${ortFeld(f.t, f)}</g>`}
         ${fern ? `<rect width="100" height="100" fill="#22301c" opacity=".42"/>` : ""}<rect class="treffer" width="100" height="100" fill="transparent"/></g>`; }).join("")
-      + (st.katze >= 0 ? rahmen(X, Y, st.katze, "#e08a1e") + markeSVG(X(st.katze) + 50, Y(st.katze) + 46, "🐈") : "")
-      + (st.elster >= 0 ? `<rect x="${X(st.elster) + 3}" y="${Y(st.elster) + 3}" width="94" height="94" rx="10" fill="none" stroke="#B23B2E" stroke-width="3.5" stroke-dasharray="8 6" pointer-events="none"/>` + markeSVG(X(st.elster) + 50, Y(st.elster) + 46, "👀")
+      + (st.katze >= 0 ? rahmen(X, Y, st.katze, "#e08a1e") + bildMarke(X(st.katze) + 50, Y(st.katze) + 50, `${KK}katze.webp${BV}`, 64, 45) : "")
+      + (st.elster >= 0 ? `<rect x="${X(st.elster) + 3}" y="${Y(st.elster) + 3}" width="94" height="94" rx="10" fill="none" stroke="#B23B2E" stroke-width="3.5" stroke-dasharray="8 6" pointer-events="none"/>` + bildMarke(X(st.elster) + 50, Y(st.elster) + 48, `${NW}elster.webp${BV}`, 52, 52)
         + (elsterSieht(st) ? `<rect x="${X(NEST) + 3}" y="${Y(NEST) + 3}" width="94" height="94" rx="10" fill="rgba(178,59,46,.18)" stroke="#B23B2E" stroke-width="4" pointer-events="none"/><text x="${X(NEST) + 50}" y="${Y(NEST) + 20}" text-anchor="middle" class="plantext rot">beobachtet!</text>` : "") : "");
   }
   function pult() {
