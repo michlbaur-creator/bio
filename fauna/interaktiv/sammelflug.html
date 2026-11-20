@@ -376,6 +376,8 @@ const BILD = {
 /* Gemalte Bilder (ChatGPT, 20. 11. 2026) in ../images/sammelflug/ – bei Austausch unter gleichem Namen BV erhöhen */
 const BIMG = "../images/sammelflug/", BV = "?v=1";
 const FOTO = { loewe: 1, gaense: 1, hahn: 1, taub: 1, schluessel: 1 };   // Blütenbuch: gemalte Blüte statt Zeichnung
+// Spielfeld: gemalte Blüte (freigestellt, unten ausgerichtet) statt Zeichnung, sonst die Zeichnung
+const feldBild = (t, i) => FOTO[t] ? `<image href="${BIMG}bluete-${t}.webp${BV}" x="5" y="3" width="90" height="94" preserveAspectRatio="xMidYMax meet"/>` : BILD[t](i);
 const bluetenBild = (t, gr = 44) => FOTO[t] ? `<img class="foto" src="${BIMG}bluete-${t}.webp${BV}" width="${gr + 18}" height="${gr + 18}" alt="" loading="lazy">`
   : `<svg viewBox="0 0 100 100" width="${gr}" height="${gr}" aria-hidden="true">${BILD[t](0)}</svg>`;
 // Die Biene von oben (Mitte bei 0,0)
@@ -476,7 +478,7 @@ function seiteSpiel(id) {
       const name = f.weg ? "Gemäht" : f.t === "nest" ? "Nest" : b ? b.n + (f.leer ? ", leer" : "") : "Gras";
       return `<g class="feld${fern ? " fern" : ""}${i === st.pos ? " hier" : ""}" data-i="${i}" transform="translate(${X(i)} ${Y(i)})" tabindex="0" role="button" aria-label="${name}, ${d} Felder entfernt${fern ? ", zu weit" : ""}">
         <rect width="100" height="100" fill="${f.weg ? ((spalte(i) + zeile(i)) % 2 ? "#ddd396" : "#d6cb8a") : rand ? ((spalte(i) + zeile(i)) % 2 ? "#86b65c" : "#7fb055") : ((spalte(i) + zeile(i)) % 2 ? "#a3cc73" : "#9bc66b")}"${L.hg && !f.weg ? ` fill-opacity="${rand ? .5 : .3}"` : ""}/>
-        ${f.weg ? BILD.stoppel(i) : f.t === "nest" ? BILD.nest() : b ? `<g class="${f.leer ? "leer" : ""}">${BILD[f.t](i)}</g>${f.spinne ? BILD.spinne() : ""}` : BILD.gras(i)}
+        ${f.weg ? BILD.stoppel(i) : f.t === "nest" ? BILD.nest() : b ? `<g class="${f.leer ? "leer" : ""}">${feldBild(f.t, i)}</g>${f.spinne ? BILD.spinne() : ""}` : BILD.gras(i)}
         ${fern ? `<rect width="100" height="100" fill="#22301c" opacity=".42"/>` : ""}<rect class="treffer" width="100" height="100" fill="transparent"/></g>`; }).join("")
       + `<path d="M500 70 V570" stroke="#5b8a3c" stroke-width="3" stroke-dasharray="3 9" stroke-linecap="round"/>`
       + (ms >= 0 ? `<rect x="${ms * 100}" y="70" width="100" height="500" fill="url(#gefahr)" stroke="#B23B2E" stroke-width="4" stroke-dasharray="12 8" pointer-events="none"/>` : "");
