@@ -37,7 +37,7 @@ REPOS = [
      "reihenfolge": ["garten", "pass", "pass2"],
      "garten": {"href": "../garten/", "emoji": "🏡",
                 "eyebrow": "Dein Garten · für Flora und Fauna", "titel": "Mein Naturgarten",
-                "sub": "Ein Garten für alle acht Pässe. Pflanzenpass und Waldpass lassen Blumenbeet und Waldrand wachsen, die Tier-Pässe holen Tiere dazu."},
+                "sub": "Ein Garten für alle acht Pässe. Pflanzenpass und Waldpass lassen Wiesenblumen und Waldrand wachsen, die Tier-Pässe holen Tiere dazu."},
      "pass": {"href": "pflanzenpass.html", "img": "images/wiese-banner.jpg",
               "eyebrow": "Dein Pflanzenpass · Klasse 5–8", "titel": "Expedition Wiese",
               "sub": "Sechs Stationen zu den Pflanzen der Wiese. Spiel dich zum Wiesen-Meister."},

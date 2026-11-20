@@ -37,6 +37,16 @@ h2{font-size:25px;font-weight:normal;line-height:1.2;color:var(--blau);margin:30
 h2::after{content:"";display:block;width:46px;height:3px;margin-top:8px;background:currentColor;border-radius:2px;}
 
 h3.gruppe{grid-column:1/-1;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--grau);margin:8px 0 0;}
+/* Farben nach Bereich: Fauna blau, Flora grün */
+.app-head{background:linear-gradient(120deg,#1a2e45 0%,#33587c 45%,#3e7a55 70%,#24452f 100%)!important;}
+.karte.fauna{--blau:#233D5C;}
+.karte.fauna .balken i{background:linear-gradient(90deg,#7fa6c9,#233D5C);}
+.karte.fauna .ke{background:#e6edf4;}
+.karte.flora{--blau:#2F4F3E;}
+.karte.flora .balken i{background:linear-gradient(90deg,#8fbf7a,#2F4F3E);}
+.karte.flora .ke{background:#e8f0e2;}
+h3.gruppe.fauna{color:#233D5C;}
+h3.gruppe.flora{color:#2F4F3E;}
 /* ---- Die Szene ---- */
 .szene{position:relative;margin:18px 0 0;border-radius:16px;overflow:hidden;border:1px solid var(--linie);box-shadow:0 6px 22px -10px rgba(35,61,92,.45);aspect-ratio:3/2;background:#8fc7ee;}
 .szene>svg{position:absolute;inset:0;width:100%;height:100%;display:block;}
@@ -122,7 +132,7 @@ footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;t
   <div class="logo">🏡🌳</div><h1>Mein Naturgarten</h1><div class="untertitel">Ein Garten für Flora und Fauna</div>
 </header>
 <div class="huelle">
-  <p class="lead">Noch ist dein Garten ziemlich leer. Jeder der acht Forscherpässe bringt neues Leben hinein: Die sechs Tier-Pässe aus der Fauna holen Tiere in deinen Garten, die zwei Pflanzen-Pässe aus der Flora lassen Blumenbeet und Waldrand wachsen. Die Tiere fühlen sich erst richtig zu Hause, wenn du draußen einen kleinen Auftrag erledigt hast.</p>
+  <p class="lead">Noch ist dein Garten ziemlich leer. Jeder der acht Forscherpässe bringt neues Leben hinein: Die sechs Tier-Pässe aus der Fauna holen Tiere in deinen Garten, die zwei Pflanzen-Pässe aus der Flora lassen Wiesenblumen und einen Waldrand wachsen. Die Tiere fühlen sich erst richtig zu Hause, wenn du draußen einen kleinen Auftrag erledigt hast.</p>
 
   <div class="szene" id="szene"></div>
   <p class="unter" id="unter"></p>
@@ -169,9 +179,9 @@ const img = (name, kl = "") => `<img src="${BILD}${name}.webp${BV}" alt="" class
 /* Jeder Bewohner: woher der Fortschritt kommt, wo er im Bild steht (x = Mitte, y = Unterkante, in Prozent),
    bilder = [unterwegs, eingezogen, zu Hause] mit Breite in Prozent, Draußen-Auftrag */
 const BEWOHNER = [
-  { id: "wiese", em: "🦋", titel: "Die Wiese blüht", wer: "Falter und Bienen", pass: "Wiesenpass", href: "../fauna/interaktiv/wiesenpass.html",
+  { id: "wiese", em: "🦋", titel: "Die Wiese lebt", wer: "Falter und Bienen", pass: "Wiesenpass", href: "../fauna/interaktiv/wiesenpass.html",
     x: 22, y: 80, bilder: [], typ: "wiese", key: "mibaso.fauna.expedition", teile: ["grundlagen", "verwandlung", "bestaeubung", "lebensraum", "nahrungsnetz", "wiese", "boden"],
-    da: "Die Wiese ist bunt, die ersten Falter sind da.", heim: "Auf deiner Wiese summt und flattert es.",
+    da: "Die ersten Falter und Bienen sind da.", heim: "Auf deiner Wiese summt und flattert es.",
     auftrag: "Setz dich zehn Minuten an eine Wiese oder ein Blumenbeet. Zähle, wie viele verschiedene Tiere eine Blüte besuchen." },
   { id: "vogel", em: "🪺", titel: "Ein Nest im Baum", wer: "die Vogelfamilie", pass: "Vogelpass", href: "../fauna/interaktiv/vogelpass.html",
     x: 14.5, y: 36.5, bilder: [["nest-1", 10], ["nest-2", 10], ["nest-3", 10]], typ: "pass", key: "mibaso.fauna.vogelpass", teile: { v1: ["s1", "s2", "s3", "s4", "s5"], v2: ["s1", "s2", "s3", "s4", "s5"] },
@@ -194,7 +204,7 @@ const BEWOHNER = [
     da: "Ein Hund schaut vorsichtig um die Ecke.", heim: "Der Hund wedelt dir entgegen.",
     auftrag: "Beobachte einen Hund – mit Abstand! Was verraten Ohren, Schwanz und Körper über seine Stimmung?" },
   /* Die beiden Pflanzen-Pässe: ohne Draußen-Auftrag – wer den Pass schafft, bekommt den Zuwachs sofort. */
-  { id: "pflanze", em: "🌷", titel: "Das Blumenbeet", wer: "das Blumenbeet", pass: "Pflanzenpass", href: "../flora/pflanzenpass.html", ohneAuftrag: true,
+  { id: "pflanze", em: "🌷", titel: "Die Wiesenblumen", wer: "die Wiesenblumen", pass: "Pflanzenpass", href: "../flora/pflanzenpass.html", ohneAuftrag: true,
     x: 92, y: 80, bilder: [["beet-1", 13], ["beet-2", 13], ["beet-2", 13]], typ: "wiese", key: "mibaso.flora.expedition", teile: ["aufbau", "bestaeubung", "reise", "jahr", "strategien", "energie"],
     heim: "Vor dem Haus blüht es in allen Farben." },
   { id: "wald", em: "🌲", titel: "Der Waldrand", wer: "der Waldrand", pass: "Waldpass", href: "../flora/waldpass.html", ohneAuftrag: true,
@@ -286,15 +296,15 @@ function zeichne() {
     const auftrag = b.ohneAuftrag ? "" : stufe < 2 ? `<div class="auftrag zu">🔒 Der Draußen-Auftrag kommt, sobald du den ${b.pass} geschafft hast.</div>`
       : stufe === 2 ? `<div class="auftrag offen"><span class="eb">Draußen-Auftrag</span><span>${b.auftrag}</span><span class="zeile"><button class="btn gruen" data-ok="${b.id}">✔ Habe ich gemacht</button><span class="klein">Ehrensache!</span></span></div>`
       : `<div class="auftrag fertig">✔ Draußen-Auftrag erledigt. <button class="link-btn" data-zurueck="${b.id}">zurücknehmen</button></div>`;
-    return `<div class="karte s${stufe}" id="k-${b.id}"><div class="oben"><span class="ke">${b.em}</span><span><span class="kt">${b.titel}</span><span class="ks">${status}</span></span></div>
+    return `<div class="karte s${stufe} ${b.ohneAuftrag ? "flora" : "fauna"}" id="k-${b.id}"><div class="oben"><span class="ke">${b.em}</span><span><span class="kt">${b.titel}</span><span class="ks">${status}</span></span></div>
       <div class="balken"><i style="width:${f.gesamt ? f.fertig / f.gesamt * 100 : 0}%"></i></div>
       ${auftrag}
       ${stufe < 2 ? `<a class="btn" href="${b.href}">${stufe === 0 ? "Los geht’s:" : "Weiter im"} ${b.pass} ›</a>` : `<a class="btn hell" href="${b.href}">Zum ${b.pass} ›</a>`}</div>`;
   };
   const flora = e => e.b.ohneAuftrag;
   document.getElementById("karten").innerHTML =
-    `<h3 class="gruppe">🦋 Tiere · aus der Fauna</h3>` + liste.filter(e => !flora(e)).map(karte).join("") +
-    `<h3 class="gruppe">🌼 Pflanzen · aus der Flora</h3>` + liste.filter(flora).map(karte).join("");
+    `<h3 class="gruppe fauna">🦋 Tiere · aus der Fauna</h3>` + liste.filter(e => !flora(e)).map(karte).join("") +
+    `<h3 class="gruppe flora">🌼 Pflanzen · Wiese und Wald aus der Flora</h3>` + liste.filter(flora).map(karte).join("");
   document.getElementById("extras").innerHTML = EXTRAS.map(x => {
     const hat = sterne >= x.ab;
     return `<div class="karte s${hat ? 3 : 0}"><div class="oben"><span class="ke">${x.em}</span><span><span class="kt">${x.titel}</span><span class="ks">${hat ? x.txt : `Ab ${x.ab} Sternen – du hast ${sterne}.`}</span></span></div>
