@@ -222,11 +222,11 @@ const LEVEL = [
     motto: "Kurzer Rüssel, Frühlingswiese – und am Himmel braut sich etwas zusammen.",
     intro: "Du bist eine Sandbiene. Dein Rüssel ist kurz! Sammle Pollen für deine Brut und bring ihn ins Nest am Wegrand. Tippe auf ein Feld, um hinzufliegen.", ruessel: 1, kap: 4, emax: 8, zuege: 26, regen: [9, 15], ziel: [10, 15, 21],
     feld: { loewe: 5, gaense: 6, hahn: 5, taub: 4, schluessel: 4 } },
-  { id: "schere", em: "🔔", titel: "Die Scherenbiene", kurz: "Glockenblumen-Scherenbiene", zeit: "Ein Junitag", was: "mittellanger Rüssel · Pollen nur von Glockenblumen",
+  { id: "schere", hg: "wiese-sommer.webp", em: "🔔", titel: "Die Scherenbiene", kurz: "Glockenblumen-Scherenbiene", zeit: "Ein Junitag", was: "mittellanger Rüssel · Pollen nur von Glockenblumen",
     motto: "Eine Spezialistin: Ihre Brut frisst nur Pollen von Glockenblumen. Und heute wird gemäht …",
     intro: "Du bist eine Glockenblumen-Scherenbiene. Nektar trinkst du an vielen Blüten – aber deine Brut braucht Pollen von Glockenblumen, sonst nichts!", ruessel: 2, kap: 4, emax: 8, zuege: 28, nurPollen: "glocke", mahd: [12, 16], ziel: [6, 9, 12],
     feld: { glocke: 7, marg: 5, storch: 4, rotklee: 4, salbei: 4 }, imStreifen: { glocke: 2 } },
-  { id: "hummel", em: "🌺", titel: "Die Gartenhummel", kurz: "Gartenhummel", zeit: "Ein Julitag", was: "langer Rüssel",
+  { id: "hummel", hg: "wiese-sommer.webp", em: "🌺", titel: "Die Gartenhummel", kurz: "Gartenhummel", zeit: "Ein Julitag", was: "langer Rüssel",
     motto: "Langer Rüssel, großer Hunger: Regen, Mahd und eine lauernde Spinne an einem einzigen Tag.",
     intro: "Du bist eine Gartenhummel mit langem Rüssel. Dein ganzes Volk wartet auf Pollen! Die offenen Blüten haben andere meist schon leer getrunken.", ruessel: 3, kap: 6, emax: 10, zuege: 32, regen: [6, 10], mahd: [16, 20], spinnen: 2, flachKarg: true, ziel: [12, 18, 25],
     feld: { rotklee: 5, salbei: 4, glocke: 3, flocke: 4, marg: 4, moehre: 3, mohn: 3 } }
@@ -375,14 +375,22 @@ const BILD = {
 };
 /* Gemalte Bilder (ChatGPT, 20. 11. 2026) in ../images/sammelflug/ – bei Austausch unter gleichem Namen BV erhöhen */
 const BIMG = "../images/sammelflug/", BV = "?v=2";
-const FOTO = { loewe: 1, gaense: 1, hahn: 1, taub: 1, schluessel: 1 };   // Blütenbuch: gemalte Blüte statt Zeichnung
+const FOTO = { loewe: 1, gaense: 1, hahn: 1, taub: 1, schluessel: 1, glocke: 1, marg: 1, storch: 1, rotklee: 1, salbei: 1, flocke: 1, moehre: 1, mohn: 1 };   // gemalte Blüte statt Zeichnung
+// Spielfigur von oben (Breite, Höhe im Plan) und Titelbild je Stufe
+const FIGUR = { sand: [60, 50.6], schere: [50, 46.3], hummel: [66, 61.9] };
+const TITEL = { sand: "Eine Sandbiene sitzt auf einer Löwenzahnblüte am Rand einer Frühlingswiese",
+  schere: "Eine Glockenblumen-Scherenbiene schaut aus einer blauen Glockenblume",
+  hummel: "Eine Gartenhummel saugt mit ihrem langen Rüssel an einem Rotkleekopf" };
 // Spielfeld: gemalte Blüte (freigestellt, unten ausgerichtet) statt Zeichnung, sonst die Zeichnung
-const feldBild = (t, i) => FOTO[t] ? `<image href="${BIMG}bluete-${t}.webp${BV}" x="5" y="3" width="90" height="94" preserveAspectRatio="xMidYMax meet"/>` : BILD[t](i);
+const FELD = { glocke: 1 };   // eigener Ausschnitt fürs Spielfeld (nur der blühende Teil, damit er groß genug ist)
+const feldBild = (t, i) => FOTO[t] ? `<image href="${BIMG}${FELD[t] ? "feld" : "bluete"}-${t}.webp${BV}" x="5" y="3" width="90" height="94" preserveAspectRatio="xMidYMax meet"/>` : BILD[t](i);
+BILD.spinne = () => `<image href="${BIMG}spinne.webp${BV}" x="52" y="20" width="42" height="36.5"/>`;
 const bluetenBild = (t, gr = 44) => FOTO[t] ? `<img class="foto" src="${BIMG}bluete-${t}.webp${BV}" width="${gr + 18}" height="${gr + 18}" alt="" loading="lazy">`
   : `<svg viewBox="0 0 100 100" width="${gr}" height="${gr}" aria-hidden="true">${BILD[t](0)}</svg>`;
 // Die Biene von oben (Mitte bei 0,0)
 function bieneSVG(id) {
-  if (id === "sand") return `<image href="${BIMG}biene-sand.webp${BV}" x="-30" y="-25" width="60" height="50.6"/><g class="hoeschen"><image href="${BIMG}biene-sand-pollen.webp${BV}" x="-30" y="-25" width="60" height="50.6"/></g>`;
+  if (FIGUR[id]) { const [w, h] = FIGUR[id], box = `x="${-w / 2}" y="${-h / 2}" width="${w}" height="${h}"`;
+    return `<image href="${BIMG}biene-${id}.webp${BV}" ${box}/><g class="hoeschen"><image href="${BIMG}biene-${id}-pollen.webp${BV}" ${box}/></g>`; }
   const F = { sand: { r: 1, brust: "#b4621e", leib: "#2b2118", band: "#d9c9a8" }, schere: { r: .85, brust: "#3a3a3a", leib: "#1e1e1e", band: "#e6e0cf" }, hummel: { r: 1.3, brust: "#f2c21a", leib: "#22201c", band: "#f2c21a" } }[id];
   return `<g transform="scale(${F.r})"><g class="fluegel"><ellipse cx="-13" cy="-4" rx="15" ry="7" fill="#fff" opacity=".72" stroke="#9aa7b5" stroke-width=".8" transform="rotate(24 -13 -4)"/><ellipse cx="13" cy="-4" rx="15" ry="7" fill="#fff" opacity=".72" stroke="#9aa7b5" stroke-width=".8" transform="rotate(-24 13 -4)"/></g>
     <ellipse cx="0" cy="9" rx="${id === "hummel" ? 10.5 : 8}" ry="13" fill="${F.leib}"/><path d="M-7.5 5 H7.5 M-8 11 H8" stroke="${F.band}" stroke-width="${id === "hummel" ? 4.5 : 2}" />${id === "hummel" ? `<ellipse cx="0" cy="19" rx="6.5" ry="4" fill="#f4f1e6"/>` : ""}
@@ -393,11 +401,12 @@ function bieneSVG(id) {
 /* ============ Übersicht ============ */
 function seiteStart() {
   const alle = LEVEL.every((L, i) => offen(i)), B = Object.keys(BLUETEN), kenn = buch();
+  const oben = LEVEL.filter((L, i) => offen(i)).pop();   // Titelbild: die neueste offene Biene
   app.innerHTML = `<header class="app-head">
     <a class="zurueck-kopf" href="wiesenpass.html">‹ Wiesenpass</a>
     <div class="logo">🌼🐝🌦️</div><h1>Sammelflug</h1><div class="untertitel">Ein Tag als Wildbiene auf der Wiese</div></header>
   <div class="huelle">
-    <figure class="titelbild"><img src="${BIMG}titel-sand.webp${BV}" width="1040" height="693" alt="Eine Sandbiene sitzt auf einer Löwenzahnblüte am Rand einer Frühlingswiese"></figure>
+    <figure class="titelbild"><img src="${BIMG}titel-${oben.id}.webp${BV}" width="1040" height="693" alt="${TITEL[oben.id]}"></figure>
     <section>
       <p class="lead">Du bist eine Wildbiene – und deine Brut hat Hunger. Flieg über die Wiese, trink Nektar und trag so viel Pollen ins Nest, wie du schaffst, bevor die Sonne untergeht!</p>
       <div class="regeln">
