@@ -127,6 +127,11 @@ details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
 .buch{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
 .be{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:6px 10px;font-family:var(--sans);font-size:13.5px;line-height:1.35}
 .be svg{display:block;background:#a3cc73;border-radius:10px}
+.be img.foto{display:block;background:#f1f6e8;border-radius:10px;object-fit:contain;padding:3px;box-sizing:border-box}
+.be img.flaeche{display:block;border-radius:10px;object-fit:cover}
+.kopfrund{display:block;border-radius:50%;background:#e9dfc9;object-fit:contain;padding:4px;box-sizing:border-box}
+.kopfbild{margin:18px 0 4px;border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(47,79,62,.16);line-height:0}
+.kopfbild img{width:100%;height:auto;display:block}
 .be.zu{color:var(--ink-soft);border-style:dashed;background:transparent}
 .be.zu span:first-child{font-size:26px;width:52px;text-align:center}
 .be b{color:var(--blau)}
@@ -179,7 +184,7 @@ details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
 .m-info{background:var(--tile);border:1px solid var(--linie)}.m-info .urteil{color:var(--blau)}
 details.kunde{background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:8px 12px;font-size:14px}
 details.kunde summary{cursor:pointer;color:var(--blau);font-weight:bold}
-#kunde{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;padding-top:8px}
+#kunde{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;padding-top:8px}
 #kunde .be{padding:4px 8px;font-size:12.5px;gap:8px}
 .ende .held{display:flex;justify-content:center;padding-top:14px}
 .ende .held svg{background:#a3cc73;border-radius:50%;border:3px solid var(--blau-hell)}
@@ -191,7 +196,7 @@ details.kunde summary{cursor:pointer;color:var(--blau);font-weight:bold}
 .planrahmen{background:#a88a5e}
 .feld.kann{cursor:pointer}
 .feld:not(.kann):not(.mein) .treffer{cursor:default}
-.be .bk{font-size:30px;width:52px;text-align:center}
+.be .bk{font-size:30px;min-width:52px;text-align:center}
 #warten{width:100%}
 #warten:disabled{opacity:.5}
 .anz .lab b{font-size:17px}
@@ -387,15 +392,30 @@ const PFLANZE = {
 };
 const SAMEN = `<g><circle cx="86" cy="86" r="10" fill="#2f6a45" stroke="#fff" stroke-width="2"/><text x="86" y="90.5" text-anchor="middle" ${SCHRIFT} font-size="11" font-weight="bold" fill="#fff">+2</text></g>`;
 const markeSVG = (x, y, em) => `<g transform="translate(${x} ${y})" pointer-events="none"><circle cx="0" cy="0" r="17" fill="#fff" opacity=".88"/><text x="0" y="8" font-size="22" text-anchor="middle">${em}</text></g>`;
-const kopfBild = (id, gr = 60) => `<svg viewBox="0 0 100 100" width="${gr}" height="${gr}" aria-hidden="true" style="background:#c9a97a;border-radius:50%">${PFLANZE[id](true)}</svg>`;
+/* Gemalte Bilder (ChatGPT, 20. 11. 2026). Bäume und Wildschwein stammen aus Hähersaat.
+   Bei Austausch unter gleichem Namen BV erhöhen. */
+const LR = "../images/lichtrennen/", HS = "../images/haehersaat/", BV = "?v=1";
+const TITEL = { windroeschen: ["titel-windroeschen.webp", "Ein weißer Teppich aus Buschwindröschen im kahlen Buchenwald"],
+  scharbock: ["titel-scharbock.webp", "Glänzend gelbes Scharbockskraut am Bach, im Hintergrund wühlen Wildschweine"],
+  baerlauch: ["titel-baerlauch.webp", "Ein dichter Bärlauch-Teppich mit weißen Blütendolden, am Wanderweg steht ein Korb"] };
+const pflanzeBild = (id, bl) => `<image href="${LR}pflanze-${id}${bl ? "-bluete" : ""}.webp${BV}" x="3" y="6" width="94" height="90" preserveAspectRatio="xMidYMax meet"/>`;
+// Boden als gemalte Fläche, je Feld ein anderer Ausschnitt (ein <image>, damit der Wind ihn nicht bewegt)
+const flaeche = (datei, i) => `<image clip-path="url(#feldclip)" href="${LR}${datei}.webp${BV}" x="${-((i * 37) % 3 * 50)}" y="${-((i * 53 + 1) % 3 * 50)}" width="200" height="200"/>`;
+const DACHBILD = { hasel: [HS, "baum-hasel"], buche: [HS, "baum-buche"], eiche: [HS, "baum-eiche"], ahorn: [LR, "baum-ahorn"] };
+const dachBild = (t, gr) => DACHBILD[t] ? `<img class="foto" src="${DACHBILD[t][0]}${DACHBILD[t][1]}.webp${BV}" width="${gr}" height="${gr}" alt="" loading="lazy">`
+  : `<img class="flaeche" src="${t === "bach" ? LR + "boden-bach" : HS + "boden-licht"}.webp${BV}" width="${gr}" height="${gr}" alt="" loading="lazy">`;
+const kopfBild = (id, gr = 60) => `<img class="kopfrund" src="${LR}pflanze-${id}-bluete.webp${BV}" width="${gr}" height="${gr}" alt="">`;
+const kopfBildAlt = (id, gr = 60) => `<svg viewBox="0 0 100 100" width="${gr}" height="${gr}" aria-hidden="true" style="background:#c9a97a;border-radius:50%">${PFLANZE[id](true)}</svg>`;
 
 /* ============ Übersicht ============ */
 function seiteStart() {
   const alle = LEVEL.every((L, i) => offen(i)), B = Object.keys(DACH), kenn = buch();
+  const oben = LEVEL.filter((L, i) => offen(i) && TITEL[L.id]).pop();   // Titelbild: neueste offene Stufe
   app.innerHTML = `<header class="app-head">
     <a class="zurueck-kopf" href="../waldpass.html">‹ Waldpass</a>
     <div class="logo">🌸☀️🌳</div><h1>Wettlauf ums Licht</h1><div class="untertitel">Frühblüher gegen das Blätterdach</div></header>
   <div class="huelle">
+    ${oben ? `<figure class="kopfbild"><img src="${LR}${TITEL[oben.id][0]}${BV}" width="1040" height="693" alt="${TITEL[oben.id][1]}"></figure>` : ""}
     <section>
       <p class="lead">Im März ist der Wald noch kahl, und die Sonne scheint bis auf den Boden. Diese Chance nutzt du als Frühblüher: Wachse, blühe und füll deinen Vorrat – bevor die Bäume ihre Blätter bekommen und es dunkel wird!</p>
       <div class="regeln">
@@ -415,7 +435,7 @@ function seiteStart() {
     <section>
       <h2 class="h-blau">📖 Dein Waldboden-Buch <span class="klein">${kenn.length} von ${B.length}</span></h2>
       <p class="klein">Unter welchen Bäumen bist du schon gewachsen?</p>
-      <div class="buch">${B.map(t => kenn.includes(t) ? `<div class="be"><span class="bk">${t === "bach" ? "💧" : t === "luecke" ? "☀️" : "🌳"}</span><span><b>${DACH[t].n}</b><br>${DACH[t].info}</span></div>` : `<div class="be zu"><span>❓</span><span>Noch nicht entdeckt</span></div>`).join("")}</div>
+      <div class="buch">${B.map(t => kenn.includes(t) ? `<div class="be"><span class="bk">${dachBild(t, 62)}</span><span><b>${DACH[t].n}</b><br>${DACH[t].info}</span></div>` : `<div class="be zu"><span>❓</span><span>Noch nicht entdeckt</span></div>`).join("")}</div>
     </section>
     <section>
       <details class="lehrer"><summary>Für Lehrkräfte: Einsatz in Klasse 5/6</summary><div class="grid">
@@ -449,7 +469,7 @@ function seiteSpiel(id) {
   app.innerHTML = `<div class="spielkopf"><div class="innen"><div class="sk-zeile"><a href="#">‹ Beenden</a><span><b>${L.kurz}</b> · <span id="datum"></span></span><span id="rest"></span></div></div></div>
     <div class="spiel"><div class="planrahmen" id="rahmen">
       <svg id="plan" viewBox="0 0 700 570" role="group" aria-label="Waldboden mit ${BREIT * HOCH} Feldern">
-        <defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd0f2"/><stop offset="1" stop-color="#dff0fb"/></linearGradient>
+        <defs><clipPath id="feldclip"><rect width="100" height="100"/></clipPath><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd0f2"/><stop offset="1" stop-color="#dff0fb"/></linearGradient>
           <pattern id="gefahr" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="14" fill="rgba(178,59,46,.30)"/></pattern></defs>
         <g id="himmel"></g><g id="felder"></g><g id="fx"></g>
       </svg></div>
@@ -474,14 +494,14 @@ function seiteSpiel(id) {
       const grund = D.wasser ? ((spalte(i) + zeile(i)) % 2 ? "#6f9cc0" : "#7aa6c8") : (spalte(i) + zeile(i)) % 2 ? "#a88a5e" : "#b09264";
       const dunkel = D.wasser ? 0 : l >= L.licht ? 0 : l > 0 ? .25 : .5;
       return `<g class="feld${kann ? " kann" : ""}${f.mein ? " mein" : ""}" data-i="${i}" transform="translate(${X(i)} ${Y(i)})" tabindex="0" role="button" aria-label="${name}">
-        <rect width="100" height="100" fill="${grund}"/>${D.wasser ? `<path d="M10 40 q10 -6 20 0 t20 0 t20 0 t20 0 M10 66 q10 -6 20 0 t20 0 t20 0 t20 0" stroke="#d6ebf7" stroke-width="2" fill="none"/>` : streu(i)}
-        ${f.mein ? `<g class="${f.gepflueckt ? "leer" : ""}">${PFLANZE[L.id](f.bluete)}</g>` : f.weg ? `<ellipse cx="50" cy="66" rx="30" ry="14" fill="#6b4a2a" opacity=".7"/>` : ""}
+        <rect width="100" height="100" fill="${grund}"/>${flaeche(D.wasser ? "boden-bach" : "boden-fruehling", i)}
+        ${f.mein ? `<g class="${f.gepflueckt ? "leer" : ""}">${pflanzeBild(L.id, f.bluete)}</g>` : f.weg ? `<ellipse cx="50" cy="66" rx="30" ry="14" fill="#6b4a2a" opacity=".7"/>` : ""}
         ${dunkel ? `<rect width="100" height="100" fill="#14240f" opacity="${dunkel}"/>` : ""}${krone(st, f)}${f.samen ? SAMEN : ""}
         ${D.wasser ? "" : `<text x="6" y="94" ${SCHRIFT} font-size="11" font-weight="bold" fill="#fff" stroke="#3d2c1a" stroke-width="2.6" paint-order="stroke">${D.n}</text>`}
         ${kann ? `<rect x="4" y="4" width="92" height="92" rx="8" fill="none" stroke="#fff" stroke-width="2.5" stroke-dasharray="7 6" opacity=".9"/>` : ""}
         <rect class="treffer" width="100" height="100" fill="transparent"/></g>`; }).join("")
-      + (rz >= 0 ? `<rect x="0" y="${70 + rz * 100}" width="700" height="100" fill="url(#gefahr)" stroke="#B23B2E" stroke-width="4" stroke-dasharray="12 8" pointer-events="none"/><text x="350" y="${70 + rz * 100 + 62}" font-size="40" text-anchor="middle" pointer-events="none">🐗</text>` : "")
-      + (L.sammler && st.sammler >= 0 && !vorbei(st) ? `<rect x="${X(st.sammler) + 3}" y="${Y(st.sammler) + 3}" width="94" height="94" rx="10" fill="none" stroke="#e08a1e" stroke-width="3.5" stroke-dasharray="8 6" pointer-events="none"/>` + markeSVG(X(st.sammler) + 50, Y(st.sammler) + 46, "🧺") : "");
+      + (rz >= 0 ? `<rect x="0" y="${70 + rz * 100}" width="700" height="100" fill="url(#gefahr)" stroke="#B23B2E" stroke-width="4" stroke-dasharray="12 8" pointer-events="none"/><image href="${HS}wildschwein.webp${BV}" x="305" y="${70 + rz * 100 + 18}" width="90" height="64" pointer-events="none"/>` : "")
+      + (L.sammler && st.sammler >= 0 && !vorbei(st) ? `<rect x="${X(st.sammler) + 3}" y="${Y(st.sammler) + 3}" width="94" height="94" rx="10" fill="none" stroke="#e08a1e" stroke-width="3.5" stroke-dasharray="8 6" pointer-events="none"/>` + `<g pointer-events="none"><circle cx="${X(st.sammler) + 50}" cy="${Y(st.sammler) + 48}" r="27" fill="#fff" opacity=".6"/><image href="${LR}korb.webp${BV}" x="${X(st.sammler) + 26}" y="${Y(st.sammler) + 24}" width="48" height="50"/></g>` : "");
   }
   function pult() {
     $("#datum").textContent = datum(L, st.zug);
