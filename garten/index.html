@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mein Naturgarten · Bio Mibaso</title>
+<meta name="description" content="Dein eigener Naturgarten: Mit jedem der acht Forscherpässe kommt neues Leben hinein – Tiere ziehen ein, Blumen und Bäume wachsen.">
+<meta name="theme-color" content="#233D5C">
+<link rel="icon" href="../assets/icon.svg">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<style>
+/* ============ Mein Naturgarten ============
+   Ein Garten, der über alle acht Forscherpässe aus Flora und Fauna hinweg wächst. Jeder Pass bringt einen
+   Bewohner; richtig zu Hause fühlt er sich erst nach einem Auftrag draußen.
+   Die Seite liest nur die vorhandenen Spielstände (localStorage) und speichert selbst
+   nur die erledigten Draußen-Aufträge unter „mibaso.fauna.garten“.
+   Bilder: ../fauna/images/garten/ (Grundbild grund.jpg und Einzelmotive als WebP mit
+   durchsichtigem Hintergrund, gezeichnet mit ChatGPT). Wird ein Bild unter gleichem
+   Namen ersetzt, BV hochzählen. Vorschau aller Stände: garten/?vorschau */
+:root{--blau:#2f5a3c;--blau-tief:#24452f;--blau-mittel:#4f8a4a;--creme:#F7F3E8;--creme-tief:#efe8d6;--linie:#d9d2c1;
+  --honig:#C28A3A;--text:#1c2e42;--grau:#5d6b78;--gruen:#2f7d4f;
+  --serif:Georgia,"Times New Roman",serif;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+*{box-sizing:border-box;}
+html{background:var(--blau-tief);-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--creme);color:var(--text);font-family:var(--serif);line-height:1.5;}
+a{color:var(--blau);}
+.app-head{background:linear-gradient(180deg,var(--blau-tief) 0%,var(--blau-mittel) 100%);color:var(--creme);text-align:center;
+  padding:calc(env(safe-area-inset-top,0px) + 22px) max(20px,env(safe-area-inset-right,0px)) 24px;border-bottom:4px double #c6dcc3;position:relative;}
+.app-head .zurueck-kopf{position:absolute;left:12px;top:calc(env(safe-area-inset-top,0px) + 10px);color:#e3f0e0;font-family:var(--sans);font-size:14px;text-decoration:none;padding:6px;}
+.app-head .logo{font-size:44px;line-height:1;margin:14px 0 6px;}
+.app-head h1{font-size:clamp(28px,8vw,40px);letter-spacing:.02em;margin:0;line-height:1.2;font-weight:normal;}
+.app-head .untertitel{font-style:italic;color:#e3f0e0;margin-top:8px;font-size:clamp(13px,3.6vw,16px);}
+.huelle{max-width:760px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px));}
+.entwurf{margin:16px 0 0;background:#fff7e6;border:1px dashed var(--honig);border-radius:12px;padding:10px 14px;font-family:var(--sans);font-size:14px;color:#6b4d16;}
+.lead{font-size:19px;line-height:1.55;margin:22px 0 0;}
+h2{font-size:25px;font-weight:normal;line-height:1.2;color:var(--blau);margin:30px 0 14px;}
+h2::after{content:"";display:block;width:46px;height:3px;margin-top:8px;background:currentColor;border-radius:2px;}
+
+h3.gruppe{grid-column:1/-1;font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--grau);margin:8px 0 0;}
+/* ---- Die Szene ---- */
+.szene{position:relative;margin:18px 0 0;border-radius:16px;overflow:hidden;border:1px solid var(--linie);box-shadow:0 6px 22px -10px rgba(35,61,92,.45);aspect-ratio:3/2;background:#8fc7ee;}
+.szene>svg{position:absolute;inset:0;width:100%;height:100%;display:block;}
+.szene>img.grund{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.karg{position:absolute;left:0;right:0;bottom:0;height:39%;background:linear-gradient(180deg,rgba(176,160,104,0) 0%,rgba(176,160,104,1) 14%);pointer-events:none;mix-blend-mode:multiply;}
+.slot{position:absolute;transform:translate(-50%,-100%);border:0;background:none;padding:0;margin:0;cursor:pointer;line-height:1;font-family:inherit;
+  display:grid;place-items:center;-webkit-tap-highlight-color:transparent;}
+.slot .em{font-size:clamp(20px,6.4vw,46px);display:block;}
+.slot img{display:block;width:100%;height:auto;}
+.slot.leer{transform:translate(-50%,-50%);}
+.slot.leer .frage{width:clamp(26px,7vw,48px);height:clamp(26px,7vw,48px);border-radius:50%;border:2px dashed rgba(35,61,92,.55);background:rgba(255,255,255,.55);
+  display:grid;place-items:center;font-family:var(--sans);font-weight:700;color:var(--blau);font-size:clamp(13px,3.4vw,20px);}
+.slot.scheu .bild{opacity:.55;filter:grayscale(1);}
+.slot.scheu::after{content:"";position:absolute;inset:-6%;border:2px dashed rgba(255,255,255,.9);border-radius:50%;box-shadow:0 0 0 1px rgba(35,61,92,.35);}
+.slot.neu .bild{animation:plopp .9s cubic-bezier(.2,1.6,.4,1) both;}
+@keyframes plopp{0%{transform:scale(0);}100%{transform:scale(1);}}
+.slot.daheim .wackel{animation:wackel 3.2s ease-in-out infinite;transform-origin:50% 90%;}
+@keyframes wackel{0%,100%{transform:rotate(-4deg);}50%{transform:rotate(4deg);}}
+.flatter{position:absolute;width:5.5%;transform:translate(-50%,-50%);pointer-events:none;animation:flatter 6s ease-in-out infinite;}
+@keyframes flatter{0%,100%{transform:translate(-50%,-50%) translate(0,0);}25%{transform:translate(-50%,-50%) translate(14px,-10px);}50%{transform:translate(-50%,-50%) translate(26px,4px);}75%{transform:translate(-50%,-50%) translate(8px,10px);}}
+.flatter img,.blume img,.deko img{display:block;width:100%;height:auto;}
+.blume{position:absolute;width:3.2%;transform:translate(-50%,-100%);pointer-events:none;}
+.deko{position:absolute;transform:translate(-50%,-100%);pointer-events:none;}
+.stand-chip{position:absolute;left:10px;top:10px;background:rgba(26,46,69,.84);color:var(--creme);font-family:var(--sans);font-size:13px;border-radius:999px;padding:6px 12px;}
+.stand-chip b{color:#ffd98a;}
+.unter{font-family:var(--sans);font-size:15px;color:var(--grau);text-align:center;margin:10px 0 0;}
+.unter b{color:var(--blau);}
+@media (prefers-reduced-motion:reduce){.slot .wackel,.flatter,.slot.neu .bild{animation:none!important;}}
+
+/* ---- Vorschau-Schalter (nur im Entwurf) ---- */
+.vorschau{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;margin:12px 0 0;font-family:var(--sans);font-size:13px;color:var(--grau);}
+.vorschau button{font:inherit;border:1px solid var(--linie);background:#fff;color:var(--blau);border-radius:999px;padding:6px 12px;cursor:pointer;}
+.vorschau button.an{background:var(--blau);color:#fff;border-color:var(--blau);}
+
+/* ---- Karten der Bewohner ---- */
+.karten{display:grid;gap:12px;}
+.karte{background:#fff;border:1px solid var(--linie);border-radius:14px;padding:14px 16px;display:grid;gap:10px;box-shadow:0 1px 4px rgba(35,61,92,.07);scroll-margin-top:14px;}
+.karte.blitz{animation:blitz 1.2s ease-out;}
+@keyframes blitz{0%{box-shadow:0 0 0 4px rgba(194,138,58,.75);}100%{box-shadow:0 1px 4px rgba(35,61,92,.07);}}
+.karte .oben{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;}
+.karte .ke{font-size:30px;width:48px;height:48px;display:grid;place-items:center;border-radius:12px;background:var(--creme-tief);}
+.karte.s0 .ke,.karte.s1 .ke{filter:grayscale(1);opacity:.6;}
+.karte .kt{font-size:19px;color:var(--blau);font-weight:bold;display:block;line-height:1.25;}
+.karte .ks{font-family:var(--sans);font-size:14px;color:var(--grau);}
+.balken{height:8px;border-radius:99px;background:var(--creme-tief);overflow:hidden;}
+.balken i{display:block;height:100%;background:linear-gradient(90deg,#7fb069,var(--gruen));border-radius:99px;}
+.auftrag{border-radius:12px;padding:12px 14px;font-size:16px;line-height:1.45;display:grid;gap:8px;}
+.auftrag .eb{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;}
+.auftrag.zu{background:var(--creme);border:1px dashed var(--linie);color:var(--grau);font-family:var(--sans);font-size:14px;}
+.auftrag.offen{background:#f3f9f1;border:1.5px dashed var(--gruen);}
+.auftrag.offen .eb{color:var(--gruen);}
+.auftrag.fertig{background:#eef6ea;border:1px solid #b9d6b0;font-family:var(--sans);font-size:15px;color:#24583a;}
+.btn{font-family:var(--sans);font-size:15px;font-weight:600;border-radius:12px;padding:11px 16px;border:1px solid var(--blau);background:var(--blau);color:#fff;cursor:pointer;text-decoration:none;display:inline-block;text-align:center;}
+.btn.hell{background:#fff;color:var(--blau);}
+.btn.gruen{background:var(--gruen);border-color:var(--gruen);}
+.zeile{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.klein{font-family:var(--sans);font-size:13px;color:var(--grau);}
+.link-btn{background:none;border:0;padding:0;font:inherit;color:var(--grau);text-decoration:underline;cursor:pointer;}
+details.lehrer{background:#fff;border:1px solid var(--linie);border-radius:14px;padding:10px 14px;margin-top:26px;font-size:17px;}
+details.lehrer summary{cursor:pointer;color:var(--blau);font-family:var(--sans);font-size:16px;}
+details.lehrer[open] summary{margin-bottom:8px;}
+details.lehrer p{margin:0 0 8px;}
+footer.fuss{border-top:1px solid var(--linie);margin-top:34px;padding-top:18px;text-align:center;font-family:var(--sans);font-size:13px;color:var(--grau);display:grid;gap:6px;}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);transform:translate(-50%,30px);background:var(--blau);color:#fff;font-family:var(--sans);font-size:15px;font-weight:600;
+  padding:11px 20px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:20;max-width:92vw;text-align:center;}
+.toast.an{opacity:1;transform:translate(-50%,0);}
+/* ---- Garten als Bild teilen oder drucken ---- */
+.teilen{justify-content:center;margin:14px 0 0;}
+.szene.still *{animation:none!important;}
+#druck{display:none;}
+@media print{
+  @page{margin:14mm;}
+  html,body{background:#fff!important;}
+  body.drucken>*{display:none!important;}
+  body.drucken>#druck{display:block!important;}
+  #druck img{display:block;width:100%;height:auto;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+</style>
+</head>
+<body>
+<header class="app-head">
+  <a class="zurueck-kopf" href="../index.html">‹ Bio Mibaso</a>
+  <div class="logo">🏡🌳</div><h1>Mein Naturgarten</h1><div class="untertitel">Ein Garten für Flora und Fauna</div>
+</header>
+<div class="huelle">
+  <p class="lead">Noch ist dein Garten ziemlich leer. Jeder der acht Forscherpässe bringt neues Leben hinein: Die sechs Tier-Pässe aus der Fauna holen Tiere in deinen Garten, die zwei Pflanzen-Pässe aus der Flora lassen Blumenbeet und Waldrand wachsen. Die Tiere fühlen sich erst richtig zu Hause, wenn du draußen einen kleinen Auftrag erledigt hast.</p>
+
+  <div class="szene" id="szene"></div>
+  <p class="unter" id="unter"></p>
+  <div class="zeile teilen">
+    <button class="btn hell" id="teilenBtn" type="button">📤 Garten als Bild teilen</button>
+    <button class="btn hell" id="druckBtn" type="button">🖨️ Drucken</button>
+  </div>
+  <div class="vorschau" id="vorschau"></div>
+
+  <h2>Wer und was schon da ist</h2>
+  <div class="karten" id="karten"></div>
+
+  <h2>Extras aus der Spielecke</h2>
+  <div class="karten" id="extras"></div>
+
+  <details class="lehrer"><summary>Für Lehrkräfte: Was der Garten soll</summary>
+    <p>Der Garten fasst alle acht Forscherpässe von Bio Mibaso zusammen – sechs zu den Tieren, zwei zu den Pflanzen. Er zeigt auf einen Blick, welche Pässe ein Kind geschafft hat, und macht Lust auf den nächsten.</p>
+    <p>Zu jedem der sechs Tier-Pässe gehört ein <b>Draußen-Auftrag</b>: eine kurze Beobachtung im Freien, die das Kind selbst abhakt. Geprüft wird das nicht – es ist Ehrensache. Die Aufträge eignen sich als Hausaufgabe oder für einen Unterrichtsgang.</p>
+    <p>Mit „Garten als Bild teilen“ oder „Drucken“ lässt sich der aktuelle Stand festhalten – etwa fürs Heft oder für die Klassenwand. Auf dem Bild steht kein Name.</p>
+    <p>Gespeichert wird nur auf diesem Gerät. Keine Anmeldung, keine Datensammlung.</p>
+  </details>
+
+  <footer class="fuss">
+    <div>Fortschritt wird nur auf diesem Gerät gespeichert. Keine Anmeldung, keine Datensammlung.</div>
+    <div><a href="../index.html">⌂ Bio Mibaso</a> · <a href="../ueber/">Über mich</a> · <a href="../impressum/">Impressum &amp; Datenschutz</a></div>
+    <div>© 2026 Michael Baur · Mein Naturgarten</div>
+  </footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="druck"><img id="druckbild" alt="Mein Naturgarten"></div>
+<script>window.goatcounter={path:function(p){return location.host+p}};</script><script data-goatcounter="https://mibaso.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+<script>
+"use strict";
+/* ============ Daten ============ */
+const GKEY = "mibaso.fauna.garten";
+const lies = k => { try { return JSON.parse(localStorage.getItem(k) || "{}") || {}; } catch (e) { return {}; } };
+const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+/* Bilder: Ordner und Versionsnummer (bei ersetzten Bildern hochzählen) */
+const BILD = "../fauna/images/garten/", BV = "?v=1";
+const img = (name, kl = "") => `<img src="${BILD}${name}.webp${BV}" alt="" class="${kl}" draggable="false">`;
+
+/* Jeder Bewohner: woher der Fortschritt kommt, wo er im Bild steht (x = Mitte, y = Unterkante, in Prozent),
+   bilder = [unterwegs, eingezogen, zu Hause] mit Breite in Prozent, Draußen-Auftrag */
+const BEWOHNER = [
+  { id: "wiese", em: "🦋", titel: "Die Wiese blüht", wer: "Falter und Bienen", pass: "Wiesenpass", href: "../fauna/interaktiv/wiesenpass.html",
+    x: 22, y: 80, bilder: [], typ: "wiese", key: "mibaso.fauna.expedition", teile: ["grundlagen", "verwandlung", "bestaeubung", "lebensraum", "nahrungsnetz", "wiese", "boden"],
+    da: "Die Wiese ist bunt, die ersten Falter sind da.", heim: "Auf deiner Wiese summt und flattert es.",
+    auftrag: "Setz dich zehn Minuten an eine Wiese oder ein Blumenbeet. Zähle, wie viele verschiedene Tiere eine Blüte besuchen." },
+  { id: "vogel", em: "🪺", titel: "Ein Nest im Baum", wer: "die Vogelfamilie", pass: "Vogelpass", href: "../fauna/interaktiv/vogelpass.html",
+    x: 14.5, y: 36.5, bilder: [["nest-1", 10], ["nest-2", 10], ["nest-3", 10]], typ: "pass", key: "mibaso.fauna.vogelpass", teile: { v1: ["s1", "s2", "s3", "s4", "s5"], v2: ["s1", "s2", "s3", "s4", "s5"] },
+    da: "Im Baum liegt ein Nest mit Eiern.", heim: "Im Nest sperren drei Junge die Schnäbel auf.",
+    auftrag: "Beobachte draußen einen Vogel beim Fressen. Welche Schnabelform hat er – und was frisst er damit?" },
+  { id: "zug", em: "🧭", titel: "Der Storch auf dem Dach", wer: "der Storch", pass: "Zugvogelpass", href: "../fauna/interaktiv/zugvogelpass.html",
+    x: 82, y: 23.5, bilder: [["storch-1", 13], ["storch-2", 13], ["storch-2", 13]], typ: "pass", key: "mibaso.fauna.zugvogelpass", teile: { z1: ["s1", "s2", "s3", "s4", "s5"] },
+    da: "Der Storch ist gelandet, aber noch misstrauisch.", heim: "Der Storch klappert auf seinem Horst.",
+    auftrag: "Schau zehn Minuten in den Himmel und auf die Leitungen. Entdeckst du Vögel, die im Trupp ziehen oder sich sammeln? Oder finde heraus, wo in deiner Nähe ein Storchennest ist." },
+  { id: "winter", em: "🦔", titel: "Der Igel im Laubhaufen", wer: "der Igel", pass: "Winterpass", href: "../fauna/interaktiv/winterpass.html",
+    x: 43, y: 67, bilder: [["igel-1", 17], ["igel-2", 17], ["igel-2", 17]], typ: "pass", key: "mibaso.fauna.winterpass", teile: { w1: ["s1", "s2", "s3", "s4", "s5"], w2: ["s1", "s2", "s3", "s4", "s5"] },
+    da: "Ein Igel schnuppert am Laubhaufen.", heim: "Der Igel hat sein Winterquartier bezogen.",
+    auftrag: "Finde draußen eine Tierspur – im Schnee, im Matsch oder im Sand. Lege einen Stift daneben und fotografiere sie." },
+  { id: "futter", em: "🏠", titel: "Das Futterhaus", wer: "die Meisen", pass: "Futterhauspass", href: "../fauna/interaktiv/futterhauspass.html",
+    x: 63, y: 82, bilder: [["futter-1", 9], ["futter-2", 8.5], ["futter-3", 8.5]], typ: "pass", key: "mibaso.fauna.futterhauspass", teile: { f1: ["s1", "s2", "s3", "s4", "s5"] },
+    da: "Das Futterhaus steht – noch traut sich keiner hin.", heim: "Am Futterhaus herrscht Betrieb.",
+    auftrag: "Zähle zehn Minuten lang die Vögel an einem Futterhaus, im Garten oder im Park. Schreib auf, wen du erkannt hast." },
+  { id: "haustier", em: "🐕", titel: "Der Hund vor der Tür", wer: "der Hund", pass: "Haustierpass", href: "../fauna/interaktiv/haustierpass.html",
+    x: 78, y: 74, bilder: [["hund-1", 6], ["hund-2", 8.5], ["hund-2", 8.5]], typ: "pass", key: "mibaso.fauna.haustierpass", teile: { h1: ["s1", "s2", "s3", "s6", "s4", "s5"], h2: ["s1", "s2", "s4", "s5"] },
+    da: "Ein Hund schaut vorsichtig um die Ecke.", heim: "Der Hund wedelt dir entgegen.",
+    auftrag: "Beobachte einen Hund – mit Abstand! Was verraten Ohren, Schwanz und Körper über seine Stimmung?" },
+  /* Die beiden Pflanzen-Pässe: ohne Draußen-Auftrag – wer den Pass schafft, bekommt den Zuwachs sofort. */
+  { id: "pflanze", em: "🌷", titel: "Das Blumenbeet", wer: "das Blumenbeet", pass: "Pflanzenpass", href: "../flora/pflanzenpass.html", ohneAuftrag: true,
+    x: 92, y: 80, bilder: [["beet-1", 13], ["beet-2", 13], ["beet-2", 13]], typ: "wiese", key: "mibaso.flora.expedition", teile: ["aufbau", "bestaeubung", "reise", "jahr", "strategien", "energie"],
+    heim: "Vor dem Haus blüht es in allen Farben." },
+  { id: "wald", em: "🌲", titel: "Der Waldrand", wer: "der Waldrand", pass: "Waldpass", href: "../flora/waldpass.html", ohneAuftrag: true,
+    x: 41, y: 51.5, bilder: [["wald-1", 13], ["wald-2", 15], ["wald-2", 15]], typ: "wiese", key: "mibaso.flora.wald", teile: ["stockwerke", "jahreslauf", "erkennen", "baeume", "fruehblueher", "waldboden", "eindringlinge", "nutzen"],
+    heim: "Hinter dem Zaun wächst ein kleiner Wald – das Eichhörnchen ist schon da." }
+];
+const SPIELE = [["mibaso.fauna.sammelflug", ["sand", "schere", "hummel"]], ["mibaso.flora.pollenpost", ["fruehling", "sommer", "nacht"]], ["mibaso.fauna.falterspiel", ["spiel"]],
+  ["mibaso.fauna.libellenspiel", ["spiel"]], ["mibaso.flora.haehersaat", ["eichen", "buchen", "rand"]], ["mibaso.flora.lichtrennen", ["windroeschen", "scharbock", "baerlauch"]],
+  ["mibaso.fauna.kaltekost", ["dezember", "januar", "februar"]], ["mibaso.fauna.faehrtenleser", ["eich", "fuchs", "hase"]], ["mibaso.fauna.durchsjahr", ["meise", "schwalbe", "igel"]],
+  ["mibaso.fauna.nestbau", ["amsel", "schwalbe", "buchfink"]], ["mibaso.fauna.zuchtspiel", ["hueten"]]];
+const EXTRAS = [
+  { ab: 10, em: "💧", titel: "Ein Teich", txt: "Wasser zieht Leben an." },
+  { ab: 25, em: "💠", titel: "Libellen am Teich", txt: "Sie jagen über dem Wasser." },
+  { ab: 50, em: "🌈", titel: "Ein Regenbogen", txt: "Für echte Spielecken-Profis." }
+];
+const BLUMEN = [[5, 97, 1], [12, 88, 2], [20, 98, 3], [29, 90, 1], [9, 78, 3], [52, 96, 2], [60, 90, 1], [72, 97, 3], [84, 92, 2], [95, 98, 1], [47, 82, 3], [26, 76, 2], [89, 86, 1], [16, 71, 1]];
+
+/* ============ Stand auslesen ============ */
+let vorschau = null;   // null = echter Stand; sonst Vorschau-Stand (nur mit ?vorschau)
+function fortschritt(b) {
+  const d = lies(b.key); let fertig = 0, gesamt = 0;
+  if (b.typ === "wiese") b.teile.forEach(t => { gesamt++; if (d[t] && d[t].done) fertig++; });
+  else Object.keys(b.teile).forEach(e => b.teile[e].forEach(s => { gesamt++; if (d[e] && d[e][s] && d[e][s].done) fertig++; }));
+  return { fertig, gesamt };
+}
+function sterneGesamt() {
+  return SPIELE.reduce((sum, [k, st]) => { const d = lies(k); return sum + st.reduce((a, s) => a + Math.max(0, Math.min(3, (d[s] && d[s].sterne) || 0)), 0); }, 0);
+}
+/* Stufe: 0 leer · 1 unterwegs · 2 eingezogen (Pass geschafft) · 3 zu Hause (Draußen-Auftrag erledigt) */
+function stand() {
+  const G = lies(GKEY), m = G.missionen || {};
+  const liste = BEWOHNER.map((b, i) => {
+    let f = fortschritt(b), stufe = f.fertig === 0 ? 0 : f.fertig < f.gesamt ? 1 : (m[b.id] || b.ohneAuftrag ? 3 : 2);
+    if (vorschau !== null) {
+      stufe = vorschau === "halb" ? [3, 2, 1, 0, 2, 1, 3, 1][i] : vorschau === "fast" ? [3, 3, 2, 3, 2, 3, 3, 3][i] : vorschau;
+      if (b.ohneAuftrag && stufe === 2) stufe = 3;
+      f = { gesamt: f.gesamt, fertig: stufe === 0 ? 0 : stufe === 1 ? Math.ceil(f.gesamt / 2) : f.gesamt };
+    }
+    return { b, f, stufe };
+  });
+  let sterne = sterneGesamt();
+  if (vorschau !== null) sterne = vorschau === 0 ? 0 : vorschau === "halb" ? 14 : vorschau === "fast" ? 32 : vorschau === 3 ? 60 : 0;
+  return { liste, sterne };
+}
+
+/* ============ Die Szene ============ */
+function zeichne() {
+  const { liste, sterne } = stand(), sz = document.getElementById("szene");
+  const G = lies(GKEY), gesehen = G.gesehen || {};
+  const w = liste[0], gruen = w.f.gesamt ? w.f.fertig / w.f.gesamt : 0;
+  let h = `<img class="grund" src="${BILD}grund.jpg${BV}" alt="Dein Garten: ein Baum, ein Zaun und ein altes Bauernhaus">`;
+  // Die Wiese ist anfangs karg und wird mit dem Wiesenpass saftig grün
+  if (gruen < 1) h += `<span class="karg" style="opacity:${(0.62 * (1 - gruen)).toFixed(2)}"></span>`;
+  // Extras aus der Spielecke
+  if (sterne >= EXTRAS[2].ab) h += `<svg viewBox="0 0 1280 853" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none"><defs><clipPath id="himmel"><path d="M665 0H1010L900 178 783 343V372H330V345L550 330 560 250 665 240Z"/></clipPath></defs>
+    <g fill="none" stroke-width="13" opacity=".55" clip-path="url(#himmel)"><circle cx="655" cy="385" r="196" stroke="#e8674f"/><circle cx="655" cy="385" r="183" stroke="#f0b64a"/><circle cx="655" cy="385" r="170" stroke="#f3e06a"/><circle cx="655" cy="385" r="157" stroke="#7fc27a"/><circle cx="655" cy="385" r="144" stroke="#6aa9dd"/></g></svg>`;
+  if (sterne >= EXTRAS[0].ab) h += `<span class="deko" style="left:37%;top:97%;width:21%">${img("teich")}</span>`;
+  // Blumen wachsen mit dem Wiesenpass
+  const nBl = w.stufe >= 2 ? BLUMEN.length : Math.round(BLUMEN.length * gruen);
+  BLUMEN.slice(0, nBl).forEach(([x, y, n]) => { h += `<span class="blume" style="left:${x}%;top:${y}%">${img("blume-" + n)}</span>`; });
+  if (w.stufe >= 2) {
+    const tiere = w.stufe === 3 ? [[15, 66, "falter", 0], [31, 72, "hummel", 1.5], [56, 78, "falter", 3], [7, 74, "hummel", 2.2]] : [[15, 66, "falter", 0], [31, 72, "hummel", 1.5]];
+    tiere.forEach(([x, y, e, d]) => { h += `<span class="flatter" style="left:${x}%;top:${y}%;animation-delay:-${d}s;${w.stufe === 2 ? "opacity:.6;filter:grayscale(1);" : ""}">${img(e)}</span>`; });
+  }
+  if (sterne >= EXTRAS[1].ab) h += `<span class="flatter" style="left:43%;top:80%;width:7%;animation-duration:4s">${img("libelle")}</span>`;
+  // Bewohner
+  liste.forEach(({ b, stufe }) => {
+    const neu = vorschau === null && (gesehen[b.id] || 0) < stufe && stufe >= 2;
+    if (stufe === 0) { h += `<button class="slot leer" data-id="${b.id}" style="left:${b.x}%;top:${b.y - (b.id === "wiese" ? 0 : 7)}%" aria-label="${b.titel}"><span class="frage">?</span></button>`; return; }
+    if (b.id === "wiese") { h += `<button class="slot" data-id="${b.id}" style="left:${b.x}%;top:${b.y + 10}%;width:34%;height:22%" aria-label="${b.titel}"></button>`; return; }
+    const kl = stufe === 1 ? "unterwegs" : stufe === 2 ? "scheu" : "daheim", [name, breit] = b.bilder[stufe - 1];
+    h += `<button class="slot ${kl}${neu ? " neu" : ""}" data-id="${b.id}" style="left:${b.x}%;top:${b.y}%;width:${breit}%" aria-label="${b.titel}"><span class="bild" style="display:block;width:100%">${img(name, b.id === "haustier" && stufe > 1 ? "wackel" : "")}</span></button>`;
+  });
+  const da = liste.filter(x => x.stufe >= 2).length, heim = liste.filter(x => x.stufe === 3).length;
+  h += `<span class="stand-chip"><b>${da}</b> von ${liste.length} eingezogen</span>`;
+  sz.innerHTML = h;
+  sz.querySelectorAll(".slot").forEach(el => el.onclick = () => {
+    const k = document.getElementById("k-" + el.dataset.id); if (!k) return;
+    k.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" }); k.classList.remove("blitz"); void k.offsetWidth; k.classList.add("blitz");
+  });
+  const fehlt = liste.find(x => x.stufe < 2), offen = liste.find(x => x.stufe === 2);
+  document.getElementById("unter").innerHTML = da === 0 ? "Noch wohnt hier niemand. Fang mit einem Pass an – die Fragezeichen zeigen, wer fehlt."
+    : heim === liste.length ? "<b>Alle sind zu Hause.</b> Dein Garten ist ein kleines Naturparadies! 🎉"
+    : `<b>${heim}</b> von ${liste.length} sind schon ganz zu Hause.` + (offen ? ` Als Nächstes: der Draußen-Auftrag für ${offen.b.wer}.` : fehlt ? ` Als Nächstes: ${fehlt.b.pass}.` : "");
+
+  /* Karten */
+  const karte = ({ b, f, stufe }) => {
+    const status = stufe === 0 ? "Noch nicht da" : stufe === 1 ? `Unterwegs · ${f.fertig} von ${f.gesamt} Stationen` : stufe === 2 ? b.da : b.heim;
+    const auftrag = b.ohneAuftrag ? "" : stufe < 2 ? `<div class="auftrag zu">🔒 Der Draußen-Auftrag kommt, sobald du den ${b.pass} geschafft hast.</div>`
+      : stufe === 2 ? `<div class="auftrag offen"><span class="eb">Draußen-Auftrag</span><span>${b.auftrag}</span><span class="zeile"><button class="btn gruen" data-ok="${b.id}">✔ Habe ich gemacht</button><span class="klein">Ehrensache!</span></span></div>`
+      : `<div class="auftrag fertig">✔ Draußen-Auftrag erledigt. <button class="link-btn" data-zurueck="${b.id}">zurücknehmen</button></div>`;
+    return `<div class="karte s${stufe}" id="k-${b.id}"><div class="oben"><span class="ke">${b.em}</span><span><span class="kt">${b.titel}</span><span class="ks">${status}</span></span></div>
+      <div class="balken"><i style="width:${f.gesamt ? f.fertig / f.gesamt * 100 : 0}%"></i></div>
+      ${auftrag}
+      ${stufe < 2 ? `<a class="btn" href="${b.href}">${stufe === 0 ? "Los geht’s:" : "Weiter im"} ${b.pass} ›</a>` : `<a class="btn hell" href="${b.href}">Zum ${b.pass} ›</a>`}</div>`;
+  };
+  const flora = e => e.b.ohneAuftrag;
+  document.getElementById("karten").innerHTML =
+    `<h3 class="gruppe">🦋 Tiere · aus der Fauna</h3>` + liste.filter(e => !flora(e)).map(karte).join("") +
+    `<h3 class="gruppe">🌼 Pflanzen · aus der Flora</h3>` + liste.filter(flora).map(karte).join("");
+  document.getElementById("extras").innerHTML = EXTRAS.map(x => {
+    const hat = sterne >= x.ab;
+    return `<div class="karte s${hat ? 3 : 0}"><div class="oben"><span class="ke">${x.em}</span><span><span class="kt">${x.titel}</span><span class="ks">${hat ? x.txt : `Ab ${x.ab} Sternen – du hast ${sterne}.`}</span></span></div>
+      <div class="balken"><i style="width:${Math.min(100, sterne / x.ab * 100)}%"></i></div></div>`;
+  }).join("") + `<a class="btn hell" href="../spiele/">Zur Spielecke ›</a>`;
+  document.querySelectorAll("[data-ok]").forEach(el => el.onclick = () => auftragSetzen(el.dataset.ok, true));
+  document.querySelectorAll("[data-zurueck]").forEach(el => el.onclick = () => auftragSetzen(el.dataset.zurueck, false));
+
+  /* Neuankömmlinge feiern, dann als gesehen merken */
+  if (vorschau === null) {
+    const neue = liste.filter(x => x.stufe >= 2 && (gesehen[x.b.id] || 0) < x.stufe);
+    if (neue.length) toast(neue[0].stufe === 3 && !neue[0].b.ohneAuftrag ? `🎉 Zu Hause: ${neue[0].b.wer}!` : `🎉 Neu im Garten: ${neue[0].b.wer}!`);
+    const g = lies(GKEY); g.gesehen = Object.fromEntries(liste.map(x => [x.b.id, x.stufe]));
+    try { localStorage.setItem(GKEY, JSON.stringify(g)); } catch (e) {}
+  }
+}
+function auftragSetzen(id, wert) {
+  if (vorschau !== null) { toast("In der Vorschau wird nichts gespeichert."); return; }
+  const g = lies(GKEY); g.missionen = g.missionen || {}; if (wert) g.missionen[id] = true; else delete g.missionen[id];
+  try { localStorage.setItem(GKEY, JSON.stringify(g)); } catch (e) {}
+  zeichne();
+}
+let toastT = 0;
+function toast(t) { const el = document.getElementById("toast"); el.textContent = t; el.classList.add("an"); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove("an"), 3200); }
+
+/* ============ Garten als Bild: teilen oder drucken ============
+   Das Bild wird aus der Szene nachgezeichnet (Positionen aus dem Bildschirm abgelesen). Nichts verlässt das Gerät,
+   bis das Kind selbst auf „Teilen“ tippt. Im Bild steht kein Name. */
+async function gartenBild() {
+  const sz = document.getElementById("szene"), W = 1500, H = 1000, FUSS = 120;
+  sz.classList.add("still");
+  try {
+    const bilder = [...sz.querySelectorAll("img")];
+    await Promise.all(bilder.map(i => i.decode ? i.decode().catch(() => {}) : 0));
+    const r = sz.getBoundingClientRect(), f = W / r.width;
+    const c = document.createElement("canvas"); c.width = W; c.height = H + FUSS;
+    const x = c.getContext("2d");
+    x.fillStyle = "#8fc7ee"; x.fillRect(0, 0, W, H);
+    const deckend = (bw, bh) => { const m = Math.max(W / bw, H / bh); return [(W - bw * m) / 2, (H - bh * m) / 2, bw * m, bh * m, m]; };
+    const grau = im => {   // Graustufen von Hand – klappt in jedem Browser
+      const t = document.createElement("canvas"); t.width = im.naturalWidth; t.height = im.naturalHeight;
+      const tx = t.getContext("2d"); tx.drawImage(im, 0, 0);
+      const d = tx.getImageData(0, 0, t.width, t.height), p = d.data;
+      for (let i = 0; i < p.length; i += 4) { const g = p[i] * .3 + p[i + 1] * .59 + p[i + 2] * .11; p[i] = p[i + 1] = p[i + 2] = g; }
+      tx.putImageData(d, 0, 0); return t;
+    };
+    for (const el of sz.children) {
+      if (el.classList.contains("stand-chip")) continue;
+      if (el.tagName === "IMG") { if (el.naturalWidth) { const [a, b, w, h] = deckend(el.naturalWidth, el.naturalHeight); x.drawImage(el, a, b, w, h); } continue; }
+      if (el.classList.contains("karg")) {
+        const o = H * .61, g = x.createLinearGradient(0, o, 0, H);
+        g.addColorStop(0, "rgba(176,160,104,0)"); g.addColorStop(.14, "rgba(176,160,104,1)"); g.addColorStop(1, "rgba(176,160,104,1)");
+        x.save(); x.globalCompositeOperation = "multiply"; x.globalAlpha = parseFloat(el.style.opacity) || 0; x.fillStyle = g; x.fillRect(0, o, W, H - o); x.restore(); continue;
+      }
+      if (el.tagName.toLowerCase() === "svg") {   // Regenbogen
+        const [a, b, , , m] = deckend(1280, 853);
+        x.save(); x.translate(a, b); x.scale(m, m); x.clip(new Path2D("M665 0H1010L900 178 783 343V372H330V345L550 330 560 250 665 240Z"));
+        x.globalAlpha = .55; x.lineWidth = 13;
+        [[196, "#e8674f"], [183, "#f0b64a"], [170, "#f3e06a"], [157, "#7fc27a"], [144, "#6aa9dd"]].forEach(([rad, farbe]) => { x.strokeStyle = farbe; x.beginPath(); x.arc(655, 385, rad, 0, Math.PI * 2); x.stroke(); });
+        x.restore(); continue;
+      }
+      const q = el.getBoundingClientRect(), mx = (q.left + q.width / 2 - r.left) * f, my = (q.top + q.height / 2 - r.top) * f;
+      if (el.classList.contains("leer")) {
+        x.save(); x.beginPath(); x.arc(mx, my, 30, 0, Math.PI * 2); x.fillStyle = "rgba(255,255,255,.55)"; x.fill();
+        x.setLineDash([8, 6]); x.lineWidth = 3; x.strokeStyle = "rgba(35,61,92,.55)"; x.stroke();
+        x.fillStyle = "#233D5C"; x.font = "700 30px sans-serif"; x.textAlign = "center"; x.textBaseline = "middle"; x.fillText("?", mx, my + 2); x.restore(); continue;
+      }
+      const im = el.querySelector("img"); if (!im || !im.naturalWidth) continue;
+      const blass = el.classList.contains("scheu") || /grayscale/.test(el.style.filter);
+      const p = im.getBoundingClientRect();
+      x.save(); x.globalAlpha = el.classList.contains("scheu") ? .55 : parseFloat(el.style.opacity) || 1;
+      x.drawImage(blass ? grau(im) : im, (p.left - r.left) * f, (p.top - r.top) * f, p.width * f, p.height * f); x.restore();
+      if (el.classList.contains("scheu")) {
+        x.save(); x.setLineDash([9, 7]); x.lineWidth = 3; x.strokeStyle = "rgba(255,255,255,.9)";
+        x.beginPath(); x.ellipse(mx, my, q.width * f * .56, q.height * f * .56, 0, 0, Math.PI * 2); x.stroke(); x.restore();
+      }
+    }
+    /* Fußzeile */
+    const { liste } = stand(), da = liste.filter(e => e.stufe >= 2).length, heim = liste.filter(e => e.stufe === 3).length;
+    x.fillStyle = "#F7F3E8"; x.fillRect(0, H, W, FUSS); x.fillStyle = "#C28A3A"; x.fillRect(0, H, W, 5);
+    x.textBaseline = "middle"; x.textAlign = "left"; x.fillStyle = "#233D5C"; x.font = "44px Georgia,serif"; x.fillText("Mein Naturgarten", 36, H + 46);
+    x.font = "26px sans-serif"; x.fillStyle = "#5d6b78";
+    x.fillText(heim === liste.length ? "Alle acht sind zu Hause – ein kleines Naturparadies!" : `${da} von ${liste.length} eingezogen · ${heim} ganz zu Hause`, 36, H + 90);
+    x.textAlign = "right"; x.fillStyle = "#233D5C"; x.fillText("bio.mibaso.de", W - 36, H + 90);
+    return c;
+  } finally { sz.classList.remove("still"); }
+}
+document.getElementById("teilenBtn").onclick = async () => {
+  try {
+    const c = await gartenBild(), blob = await new Promise(r => c.toBlob(r, "image/png"));
+    const datei = new File([blob], "mein-naturgarten.png", { type: "image/png" });
+    if (navigator.canShare && navigator.canShare({ files: [datei] })) {
+      try { await navigator.share({ files: [datei], title: "Mein Naturgarten" }); } catch (e) { if (!e || e.name !== "AbortError") toast("Teilen klappte nicht."); }
+      return;
+    }
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "mein-naturgarten.png";
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    toast("Bild gespeichert: mein-naturgarten.png");
+  } catch (e) { toast("Das Bild konnte nicht erstellt werden."); }
+};
+document.getElementById("druckBtn").onclick = async () => {
+  try {
+    const c = await gartenBild(), b = document.getElementById("druckbild");
+    b.src = c.toDataURL("image/jpeg", .92); if (b.decode) await b.decode().catch(() => {});
+    document.body.classList.add("drucken"); window.print();
+  } catch (e) { toast("Das Bild konnte nicht erstellt werden."); }
+};
+addEventListener("afterprint", () => document.body.classList.remove("drucken"));
+
+/* ============ Vorschau aller Stände: nur mit garten/?vorschau ============ */
+function vorschauLeiste() {
+  if (!/[?&]vorschau/.test(location.search)) return;
+  const opt = [[null, "Mein Stand"], [0, "leer"], ["halb", "halb"], ["fast", "fast fertig"], [3, "alle zu Hause"]];
+  const el = document.getElementById("vorschau");
+  el.innerHTML = "<span>Vorschau:</span>" + opt.map(([v, t], i) => `<button data-i="${i}" class="${vorschau === v ? "an" : ""}">${t}</button>`).join("");
+  el.querySelectorAll("button").forEach(b => b.onclick = () => { vorschau = opt[+b.dataset.i][0]; vorschauLeiste(); zeichne(); });
+}
+vorschauLeiste(); zeichne();
+addEventListener("pageshow", e => { if (e.persisted) zeichne(); });
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") zeichne(); });
+
+/* ============ Automatische Aktualisierung ============
+   Prüft beim Zurückkehren zur Seite (und alle 15 Minuten), ob es eine neuere Fassung gibt. */
+(() => {
+  let stand = null;
+  async function pruefen() {
+    try {
+      const r = await fetch(location.pathname, { method: "HEAD", cache: "no-store" });
+      const s = r.ok && (r.headers.get("etag") || r.headers.get("last-modified"));
+      if (!s) return;
+      if (stand === null) stand = s; else if (s !== stand) location.reload();
+    } catch (e) {}
+  }
+  pruefen();
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) pruefen(); });
+  window.addEventListener("pageshow", e => { if (e.persisted) pruefen(); });
+  setInterval(() => { if (!document.hidden) pruefen(); }, 15 * 60 * 1000);
+})();
+</script>
+</body>
+</html>

@@ -35,9 +35,9 @@ if not BIO:
 REPOS = [
     {"key": "flora", "label": "Flora Mibaso", "emoji": "🌼", "akzent": "#2F4F3E",
      "reihenfolge": ["garten", "pass", "pass2"],
-     "garten": {"href": "../fauna/interaktiv/garten.html", "emoji": "🏡",
-                "eyebrow": "Dein Garten · für alle Pässe", "titel": "Mein Naturgarten",
-                "sub": "Mit jedem Pass kommt neues Leben in deinen Garten. Schau nach, was schon wächst und wer noch fehlt."},
+     "garten": {"href": "../garten/", "emoji": "🏡",
+                "eyebrow": "Dein Garten · für Flora und Fauna", "titel": "Mein Naturgarten",
+                "sub": "Ein Garten für alle acht Pässe. Pflanzenpass und Waldpass lassen Blumenbeet und Waldrand wachsen, die Tier-Pässe holen Tiere dazu."},
      "pass": {"href": "pflanzenpass.html", "img": "images/wiese-banner.jpg",
               "eyebrow": "Dein Pflanzenpass · Klasse 5–8", "titel": "Expedition Wiese",
               "sub": "Sechs Stationen zu den Pflanzen der Wiese. Spiel dich zum Wiesen-Meister."},
@@ -69,9 +69,9 @@ REPOS = [
      "pass7": {"href": "interaktiv/durchs-jahr.html", "img": "images/durchsjahr/banner.jpg",
                "eyebrow": "Lernspiel · Klasse 5/6", "titel": "Durchs Jahr! – Das Überlebensspiel",
                "sub": "Als Kohlmeise, Rauchschwalbe oder Igel zwölf Monate überstehen — Nest und Junge, Feinde, Vogelzug und Winterschlaf."},
-     "garten": {"href": "interaktiv/garten.html", "emoji": "🏡",
-                "eyebrow": "Dein Garten · für alle Pässe", "titel": "Mein Naturgarten",
-                "sub": "Mit jedem Pass kommt neues Leben in deinen Garten. Schau nach, wer schon da ist und wer noch fehlt."},
+     "garten": {"href": "../garten/", "emoji": "🏡",
+                "eyebrow": "Dein Garten · für Flora und Fauna", "titel": "Mein Naturgarten",
+                "sub": "Ein Garten für alle acht Pässe. Die Tier-Pässe holen Tiere hinein, Pflanzenpass und Waldpass lassen Beet und Waldrand wachsen."},
      "spiele": {"href": "../spiele/", "emoji": "🎲",
                 "eyebrow": "Spielecke · Klasse 5/6", "titel": "Alle Lernspiele und dein Diplom",
                 "sub": "Elf Lernspiele auf einen Blick: Sterne sammeln, Rang verbessern und das Naturforscher-Diplom holen."}},
@@ -796,7 +796,7 @@ def write_hub(listing):
         '<span class="kt">Flora verstehen</span><span class="kb">Pflanzenpass und Waldpass · Pflanzen bestimmen</span></a>'
         '<a class="kachel k-fauna" href="fauna/"><span class="ke">🦋</span>'
         '<span class="kt">Fauna verstehen</span><span class="kb">Sechs Pässe von der Wiese bis zum Winter · Bestimmen &amp; Verwandtschaft</span></a>'
-        '<a class="kachel k-garten" href="fauna/interaktiv/garten.html"><span class="ke">🏡</span><span class="kt">Mein Naturgarten</span><span class="kb">Wächst mit jedem der acht Forscherpässe · Tiere ziehen ein, Blumen und Bäume wachsen</span></a>'
+        '<a class="kachel k-garten" href="garten/"><span class="ke">🏡</span><span class="kt">Mein Naturgarten</span><span class="kb">Wächst mit jedem der acht Forscherpässe · Tiere ziehen ein, Blumen und Bäume wachsen</span></a>'
         '<a class="kachel k-spiel" href="spiele/"><span class="ke">🎲</span><span class="kt">Spielecke</span><span class="kb">Elf Lernspiele · Sterne sammeln · Naturforscher-Diplom</span></a>'
         '</div>' + _footer("") +
         '<script>if(window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone)'

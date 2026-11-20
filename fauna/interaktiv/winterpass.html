@@ -1077,7 +1077,7 @@ function seiteStart() {
       <div class="kacheln"><a class="kachel" href="kalte-kost.html"><span class="ke">🐦</span><span><span class="kt">Kalte Kost</span><span class="kb">Ein Wintertag als Kohlmeise: Futter finden, Fett anlegen, rechtzeitig in den Nistkasten · drei Tage · je ca. 3 Min</span></span><span class="pf">›</span></a><a class="kachel" href="faehrtenleser.html"><span class="ke"><img src="../images/faehrte/kachel.jpg" alt="" style="display:block;width:56px;height:56px;border-radius:12px;object-fit:cover"></span><span><span class="kt">Fährtenleser</span><span class="kb">Wer war das im Schnee? Folge der Spur, bevor es dunkel wird · drei Fälle · ca. 10 Min</span></span><span class="pf">›</span></a></div>
     </section>
     <section>
-      <a class="kachel" href="garten.html" style="margin-top:22px"><span class="ke">🏡</span><span><span class="kt">Mein Naturgarten</span><span class="kb">Mit jedem Pass kommt neues Leben in deinen Garten. Schau nach, wer schon da ist.</span></span><span class="pf">›</span></a>
+      <a class="kachel" href="../../garten/" style="margin-top:22px"><span class="ke">🏡</span><span><span class="kt">Mein Naturgarten</span><span class="kb">Mit jedem Pass kommt neues Leben in deinen Garten. Schau nach, wer schon da ist.</span></span><span class="pf">›</span></a>
       <details class="lehrer"><summary>Für Lehrkräfte: Einsatz in Klasse 5/6</summary><div class="grid">
         <div class="ablauf"><b>Teil 1</b><span>Kalt erwischt? – gleichwarm/wechselwarm, Winterschlaf, Winterruhe, Winterstarre, Fell, Federn, Fett (ca. 45 Min)</span>
           <b>Teil 2</b><span>Fortfliegen oder bleiben? – Zugvögel, Vorräte, Spuren, Naturschutz im Winter (ca. 45 Min)</span></div>
@@ -1209,7 +1209,7 @@ function feier(eid) {
   const o = document.createElement("div"); o.className = "overlay"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
   o.innerHTML = `<div class="feierkarte"><div class="fmed">${rang.med}</div><h3>Teil ${IDS.indexOf(eid) + 1} geschafft!</h3>
     <p>Du hast alle Stationen von „${X.titel}“ gemeistert und ${h.summe} von ${MAXN(eid)} Nüssen gesammelt. Dein Rang: <b>${rang.name}</b>.</p>
-    <div class="knopfreihe"><button type="button" class="knopf honig" id="fUrk">📜 Zur Urkunde</button><a class="knopf" href="garten.html">🏡 Zum Naturgarten</a><button type="button" class="knopf" id="fZu">Weiter</button></div></div>`;
+    <div class="knopfreihe"><button type="button" class="knopf honig" id="fUrk">📜 Zur Urkunde</button><a class="knopf" href="../../garten/">🏡 Zum Naturgarten</a><button type="button" class="knopf" id="fZu">Weiter</button></div></div>`;
   document.body.appendChild(o);
   $("#fUrk", o).onclick = () => { o.remove(); urkunde(eid); };
   $("#fZu", o).onclick = () => o.remove();
