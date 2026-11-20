@@ -127,6 +127,9 @@ details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
 .buch{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
 .be{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:6px 10px;font-family:var(--sans);font-size:13.5px;line-height:1.35}
 .be svg{display:block;background:#a3cc73;border-radius:10px}
+.be img.foto{display:block;background:#f1f6e8;border-radius:10px;object-fit:contain;padding:3px;box-sizing:border-box}
+.kopfbild{margin:18px 0 4px;border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(47,79,62,.16);line-height:0}
+.kopfbild img{width:100%;height:auto;display:block}
 .be.zu{color:var(--ink-soft);border-style:dashed;background:transparent}
 .be.zu span:first-child{font-size:26px;width:52px;text-align:center}
 .be b{color:var(--blau)}
@@ -179,7 +182,7 @@ details.lehrer .grid{display:grid;gap:10px;padding-top:10px}
 .m-info{background:var(--tile);border:1px solid var(--linie)}.m-info .urteil{color:var(--blau)}
 details.kunde{background:var(--tile);border:1px solid var(--linie);border-radius:12px;padding:8px 12px;font-size:14px}
 details.kunde summary{cursor:pointer;color:var(--blau);font-weight:bold}
-#kunde{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;padding-top:8px}
+#kunde{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px;padding-top:8px}
 #kunde .be{padding:4px 8px;font-size:12.5px;gap:8px}
 .ende .held{display:flex;justify-content:center;padding-top:14px}
 .ende .held svg{background:#a3cc73;border-radius:50%;border:3px solid var(--blau-hell)}
@@ -224,17 +227,17 @@ const BLUETEN = {
   seifenkraut: { n: "Seifenkraut",        nektar: 2, nacht: true, wechsel: true, info: "Duftet abends besonders stark. Den Nektar tief in der Röhre erreichen nur Falter mit langem Rüssel." }
 };
 const LEVEL = [
-  { id: "fruehling", tier: "hummel", em: "🌼", titel: "Die Frühlingswiese", kurz: "Hummelkönigin", zeit: "Ein Apriltag", was: "Pollen bestäubt nur die eigene Art",
+  { id: "fruehling", hg: "wiese-april.webp", tier: "hummel", em: "🌼", titel: "Die Frühlingswiese", kurz: "Hummelkönigin", zeit: "Ein Apriltag", was: "Pollen bestäubt nur die eigene Art",
     motto: "Fünf Blumen blühen um die Wette – aber Pollen hilft nur der eigenen Art.",
     intro: "Du bist eine Hummelkönigin. Wo du landest, bleibt Pollen an deinem Pelz hängen. Trag ihn zu einer anderen Blüte derselben Art – dann ist sie bestäubt und bildet Samen. Tippe auf ein Feld, um hinzufliegen.",
     kap: 4, emax: 8, zuege: 26, regen: [10, 15], ziel: [6, 9, 12],
     feld: { loewe: 6, schaum: 5, hahn: 5, gaense: 4, schluessel: 4 } },
-  { id: "sommer", tier: "hummel", em: "🔔", titel: "Die Sommerwiese", kurz: "Gartenhummel", zeit: "Ein Junitag", was: "erst Pollen, dann Narbe",
+  { id: "sommer", hg: "wiese-sommer.webp", tier: "hummel", em: "🔔", titel: "Die Sommerwiese", kurz: "Gartenhummel", zeit: "Ein Junitag", was: "erst Pollen, dann Narbe",
     motto: "Glockenblume, Witwenblume und Storchschnabel spielen ein Geduldsspiel. Und heute wird gemäht …",
     intro: "Du bist eine Gartenhummel. Manche Blüten geben erst Pollen ab und öffnen ihre Narbe später. Hol den Pollen bei „Pollen“-Blüten und bring ihn zu „Narbe“-Blüten derselben Art!",
     kap: 4, emax: 8, zuege: 28, mahd: [13, 17], ziel: [6, 10, 13],
     feld: { glocke: 6, witwe: 5, storch: 4, salbei: 4, rotklee: 4, marg: 3 }, imStreifen: { glocke: 2, witwe: 1 } },
-  { id: "nacht", tier: "falter", em: "🌙", titel: "Die Sommernacht", kurz: "Weinschwärmer", zeit: "Ein Juliabend", was: "Nachtfalter mit langem Rüssel",
+  { id: "nacht", hg: "wiese-sommer.webp", tier: "falter", em: "🌙", titel: "Die Sommernacht", kurz: "Weinschwärmer", zeit: "Ein Juliabend", was: "Nachtfalter mit langem Rüssel",
     motto: "Wenn die Sonne sinkt, gehen andere Blüten auf. Doch im Dunkeln jagt die Fledermaus.",
     intro: "Du bist ein Weinschwärmer, ein Nachtfalter mit langem Rüssel. Noch ist es hell – die Nachtblüten sind zu. Sobald es dämmert, öffnen sie sich. Achte auf die Fledermaus!",
     kap: 3, emax: 9, zuege: 28, dunkel: 6, ziel: [6, 9, 12],
@@ -425,9 +428,20 @@ const SCHILD = {
   n: `<g><rect x="4" y="4" width="56" height="19" rx="9.5" fill="#e3f1e3" stroke="#3f8a4f" stroke-width="1.2"/><path d="M14 18 v-5 m0 0 l-3 -3 m3 3 l3 -3" stroke="#2f6a45" stroke-width="1.6" fill="none" stroke-linecap="round"/><text x="20" y="18" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="11.5" font-weight="bold" fill="#2f6a45">Narbe</text></g>`
 };
 const SAMEN = `<g><circle cx="80" cy="20" r="14" fill="#2f6a45" stroke="#fff" stroke-width="2"/><path d="M73 20 l5 5 l9 -10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>`;
-const bluetenBild = (t, gr = 44) => `<svg viewBox="0 0 100 100" width="${gr}" height="${gr}" aria-hidden="true">${BILD[t](0)}</svg>`;
+/* Gemalte Bilder (ChatGPT, Nov. 2026). Viele stammen aus Sammelflug und werden von dort mitbenutzt.
+   Bei Austausch unter gleichem Namen BV erhöhen. */
+const SF = "../../fauna/images/sammelflug/", PP = "../images/pollenpost/", BV = "?v=2";
+const FOTO = { loewe: SF, hahn: SF, gaense: SF, schluessel: SF, glocke: SF, storch: SF, salbei: SF, rotklee: SF, marg: SF };
+const FELD = { glocke: 1 };   // eigener Ausschnitt fürs Spielfeld (nur der blühende Teil)
+const FIGUR = { hummel: [SF + "biene-hummel", 66, 61.9] };
+const TITEL = {};   // Titelbilder je Stufe, sobald vorhanden: id: [Datei, Beschreibung]
+const feldBild = (t, i) => FOTO[t] ? `<image href="${FOTO[t]}${FELD[t] ? "feld" : "bluete"}-${t}.webp${BV}" x="5" y="3" width="90" height="94" preserveAspectRatio="xMidYMax meet"/>` : BILD[t](i);
+const bluetenBild = (t, gr = 44) => FOTO[t] ? `<img class="foto" src="${FOTO[t]}bluete-${t}.webp${BV}" width="${gr + 18}" height="${gr + 18}" alt="" loading="lazy">`
+  : `<svg viewBox="0 0 100 100" width="${gr}" height="${gr}" aria-hidden="true">${BILD[t](0)}</svg>`;
 // Hummel oder Falter von oben (Mitte bei 0,0)
 function tierSVG(tier) {
+  if (FIGUR[tier]) { const [d, w, h] = FIGUR[tier], box = `x="${-w / 2}" y="${-h / 2}" width="${w}" height="${h}"`;
+    return `<image href="${d}.webp${BV}" ${box}/><g class="hoeschen"><image href="${d}-pollen.webp${BV}" ${box}/></g>`; }
   if (tier === "falter") return `<g transform="scale(1.05)"><g class="fluegel"><path d="M-3 -7 L-33 -12 L-27 3 L-4 4 Z" fill="#9c8a52" stroke="#6f5f33" stroke-width=".8"/><path d="M3 -7 L33 -12 L27 3 L4 4 Z" fill="#9c8a52" stroke="#6f5f33" stroke-width=".8"/>
     <path d="M-20 -9 L-28 -1 M20 -9 L28 -1" stroke="#e78fb3" stroke-width="2.4" stroke-linecap="round"/><path d="M-3 3 L-19 13 L-6 13 Z" fill="#e0709e"/><path d="M3 3 L19 13 L6 13 Z" fill="#e0709e"/></g>
     <ellipse cx="0" cy="4" rx="4.6" ry="15" fill="#a99a5c"/><path d="M-4 0 H4 M-4 6 H4 M-3.5 12 H3.5" stroke="#e0709e" stroke-width="1.8"/><circle cx="0" cy="-12" r="4" fill="#8a7a44"/>
@@ -441,10 +455,12 @@ function tierSVG(tier) {
 /* ============ Übersicht ============ */
 function seiteStart() {
   const alle = LEVEL.every((L, i) => offen(i)), B = Object.keys(BLUETEN), kenn = buch();
+  const oben = LEVEL.filter((L, i) => offen(i) && TITEL[L.id]).pop();   // Titelbild: neueste offene Stufe mit Bild
   app.innerHTML = `<header class="app-head">
-    <a class="zurueck-kopf" href="../pflanzenpass.html">‹ Forscherpass</a>
+    <a class="zurueck-kopf" href="../pflanzenpass.html">‹ Pflanzenpass</a>
     <div class="logo">🌼🐝🌙</div><h1>Pollenpost</h1><div class="untertitel">Wie Blumen zu ihren Samen kommen</div></header>
   <div class="huelle">
+    ${oben ? `<figure class="kopfbild"><img src="${PP}${TITEL[oben.id][0]}${BV}" width="1040" height="693" alt="${TITEL[oben.id][1]}"></figure>` : ""}
     <section>
       <p class="lead">Blumen können nicht laufen. Damit Samen entstehen, muss Pollen von einer Blüte zur anderen – und das übernimmst du! Bestäube so viele Blüten wie möglich, bevor der Tag zu Ende geht.</p>
       <div class="regeln">
@@ -500,7 +516,7 @@ function seiteSpiel(id) {
       <svg id="plan" viewBox="0 0 700 570" role="group" aria-label="Wiesenplan mit ${BREIT * HOCH} Feldern">
         <defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd0f2"/><stop offset="1" stop-color="#dff0fb"/></linearGradient>
           <pattern id="gefahr" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="14" fill="rgba(178,59,46,.30)"/></pattern></defs>
-        <g id="himmel"></g><g id="felder"></g><g id="biene" class="biene">${tierSVG(L.tier)}</g><g id="fx"></g><g id="wetter"></g>
+        ${L.hg ? `<image href="${SF}${L.hg}${BV}" x="0" y="0" width="700" height="570" preserveAspectRatio="xMidYMin slice"/>` : ""}<g id="himmel"></g><g id="felder"></g><g id="biene" class="biene">${tierSVG(L.tier)}</g><g id="fx"></g><g id="wetter"></g>
       </svg></div>
       <aside class="pult">
         <div class="anz"><span class="lab">💧 Nektar</span><div class="pips" id="pE"></div></div>
@@ -531,9 +547,9 @@ function seiteSpiel(id) {
       const name = f.weg ? "Gemäht" : f.t === "nest" ? (falter ? "Hecke" : "Nest") : b ? b.n + (f.fertig ? ", bestäubt" : !auf ? ", geschlossen" : (ph === "p" ? ", nur Pollen" : ph === "n" ? ", nur Narbe" : "") + (f.leer ? ", Nektar leer" : "")) : "Gras";
       const leuchtet = dunkel && b && b.nacht;
       return `<g class="feld${fern ? " fern" : ""}${i === st.pos ? " hier" : ""}" data-i="${i}" transform="translate(${X(i)} ${Y(i)})" tabindex="0" role="button" aria-label="${name}, ${d} Felder entfernt${fern ? ", zu weit" : ""}${i === st.fleder ? ", Fledermaus!" : ""}">
-        <rect width="100" height="100" fill="${f.weg ? ((spalte(i) + zeile(i)) % 2 ? "#ddd396" : "#d6cb8a") : rand ? ((spalte(i) + zeile(i)) % 2 ? "#86b65c" : "#7fb055") : ((spalte(i) + zeile(i)) % 2 ? "#a3cc73" : "#9bc66b")}"/>
+        <rect width="100" height="100" fill="${f.weg ? ((spalte(i) + zeile(i)) % 2 ? "#ddd396" : "#d6cb8a") : rand ? ((spalte(i) + zeile(i)) % 2 ? "#86b65c" : "#7fb055") : ((spalte(i) + zeile(i)) % 2 ? "#a3cc73" : "#9bc66b")}"${L.hg && !f.weg ? ` fill-opacity="${rand ? .5 : .3}"` : ""}/>
         ${dunkel && !leuchtet ? `<rect width="100" height="100" fill="#0f1c33" opacity=".55"/>` : ""}
-        ${f.weg ? BILD.stoppel(i) : f.t === "nest" ? BILD.nest(falter) : b ? `<g class="${f.fertig || !auf ? "leer" : f.leer ? "matt" : ""}">${BILD[f.t](i)}</g>${f.fertig ? SAMEN : ph === "p" || ph === "n" ? SCHILD[ph] : ""}` : BILD.gras(i)}
+        ${f.weg ? BILD.stoppel(i) : f.t === "nest" ? BILD.nest(falter) : b ? `<g class="${f.fertig || !auf ? "leer" : f.leer ? "matt" : ""}">${feldBild(f.t, i)}</g>${f.fertig ? SAMEN : ph === "p" || ph === "n" ? SCHILD[ph] : ""}` : BILD.gras(i)}
         ${leuchtet && auf && !f.fertig ? `<circle cx="50" cy="52" r="40" fill="none" stroke="#fff7c2" stroke-width="2" opacity=".55"/>` : ""}
         ${fern ? `<rect width="100" height="100" fill="#22301c" opacity=".42"/>` : ""}<rect class="treffer" width="100" height="100" fill="transparent"/></g>`; }).join("")
       + `<path d="M500 70 V570" stroke="#5b8a3c" stroke-width="3" stroke-dasharray="3 9" stroke-linecap="round"/>`
