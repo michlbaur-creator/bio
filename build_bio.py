@@ -493,7 +493,9 @@ self.addEventListener("fetch", (e) => {
   const isPage = req.mode === "navigate" || accept.includes("text/html");
   if (isPage) {
     e.respondWith(
-      fetch(req).then((res) => {
+      /* cache:"no-cache": nicht 10 Minuten lang die alte Fassung aus dem Browser-Speicher
+         nehmen (GitHub Pages sendet max-age=600), sondern beim Server nachfragen */
+      fetch(req, { cache: "no-cache" }).then((res) => {
         const copy = res.clone(); caches.open(CACHE).then((c) => c.put(req, copy)); return res;
       }).catch(() => caches.match(req).then((r) => r || caches.match("/index.html")))
     );
