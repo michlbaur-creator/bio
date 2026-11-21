@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bildtafel für Beamer/Smartboard · Bio Mibaso</title>
+<meta name="description" content="Über 100 gemalte Naturbilder groß für Beamer/Smartboard bzw. Activeboard: Vollbild, Vergleich, Rätsel, Zuordnen und Herunterladen. Frei für Unterricht und Lehrerbildung.">
+<meta name="theme-color" content="#233D5C">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<style>
+:root{
+  --blau:#233D5C; --blau-tief:#1a2f47; --blau-hell:#bcd0e2;
+  --creme:#F7F3E8; --creme-tief:#EEE7D5; --honig:#C28A3A; --honig-tief:#a9762c;
+  --ink:#1c2e42; --ink-soft:#5d6b78; --linie:#d9d2c1; --gruen:#2f6a45;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --gr:clamp(15px,1vw + 8px,26px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--blau-tief)}
+body{margin:0;background:var(--creme);color:var(--ink);font-family:var(--sans);font-size:var(--gr);line-height:1.45;min-height:100vh}
+button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
+.kopf{background:var(--blau);color:#fff;padding:.7em 2vw .9em}
+.kopf .zeile{display:flex;align-items:center;gap:1em;flex-wrap:wrap}
+.kopf a{color:#fff;text-decoration:none;opacity:.85;font-size:.85em}
+.kopf h1{font-family:var(--serif);font-weight:normal;font-size:1.9em;margin:.15em 0 0;line-height:1.15}
+.kopf p{margin:.2em 0 0;opacity:.85;font-size:.9em}
+.leiste{position:sticky;top:0;z-index:5;background:var(--creme);border-bottom:1px solid var(--linie);padding:.6em 2vw;display:flex;flex-wrap:wrap;gap:.5em;align-items:center}
+.chip{border:2px solid var(--linie);background:#fff;border-radius:999px;padding:.45em .95em;font-size:.88em;font-weight:600;color:var(--ink)}
+.chip[aria-pressed=true]{background:var(--blau);border-color:var(--blau);color:#fff}
+.suche{flex:1 1 9em;min-width:8em;max-width:16em;border:2px solid var(--linie);border-radius:999px;padding:.45em .95em;font:inherit;font-size:.88em;background:#fff}
+.raster{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(150px,11vw,260px),1fr));gap:clamp(10px,1vw,22px);padding:1.2em 2vw 9em}
+.gruppe-titel{grid-column:1/-1;font-family:var(--serif);font-size:1.35em;margin:.6em 0 -.2em;color:var(--blau)}
+.karte{position:relative;background:#fff;border:2px solid var(--linie);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.karte.gewaehlt{border-color:var(--honig);box-shadow:0 0 0 3px var(--honig)}
+.karte .bild{all:unset;cursor:pointer;display:block;aspect-ratio:1/1;background:radial-gradient(circle at 50% 45%,#fffdf6,#efe8d6);position:relative}
+.karte .bild img{position:absolute;inset:7%;width:86%;height:86%;object-fit:contain}
+.karte.szene .bild{aspect-ratio:3/2}
+.karte.szene .bild img{inset:0;width:100%;height:100%;object-fit:cover}
+.karte .name{padding:.45em .6em .55em;font-size:.86em;font-weight:600;min-height:2.9em;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2}
+.waehlen{position:absolute;top:6px;right:6px;width:2.4em;height:2.4em;border-radius:50%;border:2px solid var(--linie);background:rgba(255,255,255,.92);font-weight:700;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;font-size:.9em}
+.karte.gewaehlt .waehlen{background:var(--honig);border-color:var(--honig);color:#fff}
+.verdeckt{background:var(--creme-tief);color:var(--ink-soft);border:0;width:100%;border-radius:0;font-weight:600}
+.unten{position:fixed;left:0;right:0;bottom:0;z-index:6;display:flex;gap:.6em;justify-content:center;flex-wrap:wrap;padding:.7em 1em calc(.7em + env(safe-area-inset-bottom));background:linear-gradient(rgba(26,47,71,0),rgba(26,47,71,.85) 40%)}
+.knopf{border:0;border-radius:999px;padding:.75em 1.25em;font-weight:700;background:#fff;color:var(--blau);box-shadow:0 2px 10px rgba(0,0,0,.22)}
+.knopf.haupt{background:var(--honig);color:#fff}
+.knopf.dunkel{background:var(--blau);color:#fff}
+.knopf:disabled{opacity:.6;cursor:default;background:#c9d3dd;color:#5d6b78;box-shadow:none}
+.fuss{background:var(--blau-tief);color:#d8e2ec;padding:1.2em 2vw 7em;font-size:.8em}
+.fuss a{color:#fff}
+/* Ebenen */
+.ebene{position:fixed;inset:0;z-index:20;display:none;flex-direction:column;background:var(--bg,#f7f3e8)}
+.ebene.offen{display:flex}
+.ebene[data-bg=dunkel]{--bg:#16232f;color:#fff}
+.ebene[data-bg=gruen]{--bg:#2a4a33;color:#fff}
+.ebene[data-bg=weiss]{--bg:#fff}
+.buehne{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:2vh 2vw 0;gap:2vw}
+.buehne figure{margin:0;flex:1;min-width:0;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.buehne img{max-width:100%;min-height:0;flex:1 1 auto;object-fit:contain;width:100%;filter:drop-shadow(0 6px 18px rgba(0,0,0,.18))}
+.buehne .szene img{filter:none;border-radius:10px}
+.buehne figcaption{font-family:var(--serif);font-size:clamp(26px,3.2vw,72px);line-height:1.15;text-align:center;padding:.25em .3em .1em;min-height:1.5em}
+.vergleich figcaption{font-size:clamp(20px,2.2vw,52px)}
+.aufloesen{font-family:var(--sans);font-size:.55em;border:3px dashed currentColor;background:transparent;border-radius:999px;padding:.3em 1em;opacity:.85}
+.ebene .unten{position:static;background:none;padding:1.2vh 1em calc(1.6vh + env(safe-area-inset-bottom))}
+.ebene .knopf{font-size:clamp(15px,1.2vw,30px)}
+/* Zuordnen */
+.brett{flex:1;position:relative;min-height:0;overflow:hidden;touch-action:none}
+.felder{position:absolute;inset:1.5vh 1.5vw 30vh;display:grid;gap:1.2vw}
+.feld{border:4px dashed rgba(35,61,92,.35);border-radius:18px;background:rgba(255,255,255,.55);display:flex;justify-content:center;padding-top:.4em}
+.feld h2{margin:0;font-family:var(--serif);font-weight:normal;font-size:clamp(22px,2.2vw,52px);color:var(--blau);outline:none;min-width:3em;text-align:center;height:fit-content;border-bottom:2px dotted transparent}
+.feld h2:focus{border-bottom-color:var(--honig)}
+.zkarte{position:absolute;width:var(--k,150px);background:#fff;border-radius:14px;box-shadow:0 3px 12px rgba(0,0,0,.2);touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;padding:6px}
+.zkarte img{display:block;width:100%;aspect-ratio:1/1;object-fit:contain;pointer-events:none}
+.zkarte.szene img{object-fit:cover;border-radius:8px}
+.zkarte span{display:block;text-align:center;font-size:clamp(12px,.85vw,22px);font-weight:600;line-height:1.15;padding:3px 2px 2px}
+.zkarte.zieht{cursor:grabbing;box-shadow:0 10px 28px rgba(0,0,0,.3);z-index:3}
+.hinweis-leer{padding:2em 2vw;color:var(--ink-soft)}
+@media (prefers-reduced-motion:no-preference){.karte{transition:box-shadow .15s,border-color .15s}}
+@media print{.leiste,.unten,.waehlen{display:none}}
+</style>
+</head>
+<body>
+<header class="kopf">
+  <div class="zeile"><a href="../">‹ Bio Mibaso</a><a href="../spiele/">Spielecke</a></div>
+  <h1>Bildtafel</h1>
+  <p>Die gemalten Bilder aus den Spielen, groß für Beamer/Smartboard bzw. Activeboard. Antippen zeigt ein Bild im Vollbild. Mit ＋ wählst du Bilder für Vergleich und Zuordnen.</p>
+</header>
+<nav class="leiste" id="leiste" aria-label="Themen"></nav>
+<main class="raster" id="raster" aria-live="polite"></main>
+<footer class="fuss">
+  <p><strong>Nutzung:</strong> Frei für Unterricht und Lehrerbildung, Quelle: bio.mibaso.de. Die Bilder sind von Michael Baur mit KI (ChatGPT) gemalt. „Herunterladen“ speichert ein Bild als PNG mit durchsichtigem Hintergrund, zum Einfügen in SMART Notebook, ActivInspire oder ein Arbeitsblatt.</p>
+  <p><a href="../">Bio Mibaso</a> · <a href="../impressum/">Impressum &amp; Datenschutz</a></p>
+</footer>
+<div class="unten" id="hauptknoepfe">
+  <button class="knopf" id="kRaetsel" aria-pressed="false">❓ Rätsel: aus</button>
+  <button class="knopf dunkel" id="kVergleich" disabled>⇆ Vergleichen</button>
+  <button class="knopf dunkel" id="kZuordnen" disabled>▦ Zuordnen</button>
+  <button class="knopf" id="kLeeren" disabled>Auswahl leeren</button>
+  <button class="knopf" id="kVoll">⛶ Vollbild</button>
+</div>
+
+<section class="ebene" id="ansicht" role="dialog" aria-modal="true" aria-label="Bild groß" data-bg="creme">
+  <div class="buehne" id="aBuehne"></div>
+  <div class="unten">
+    <button class="knopf" id="aZurueck" aria-label="Voriges Bild">‹</button>
+    <button class="knopf" id="aWeiter" aria-label="Nächstes Bild">›</button>
+    <button class="knopf" id="aWahl">＋ Auswählen</button>
+    <button class="knopf" id="aBg">Hintergrund wechseln</button>
+    <button class="knopf" id="aLaden">⤓ Herunterladen</button>
+    <button class="knopf haupt" id="aZu">✕ Schließen</button>
+  </div>
+</section>
+
+<section class="ebene" id="vergleich" role="dialog" aria-modal="true" aria-label="Bilder vergleichen" data-bg="creme">
+  <div class="buehne vergleich" id="vBuehne"></div>
+  <div class="unten">
+    <button class="knopf" id="vBg">Hintergrund wechseln</button>
+    <button class="knopf haupt" id="vZu">✕ Schließen</button>
+  </div>
+</section>
+
+<section class="ebene" id="zuordnen" role="dialog" aria-modal="true" aria-label="Bilder zuordnen" data-bg="creme">
+  <div class="brett" id="brett"><div class="felder" id="felder"></div></div>
+  <div class="unten">
+    <button class="knopf" data-felder="2">2 Felder</button>
+    <button class="knopf" data-felder="3">3 Felder</button>
+    <button class="knopf" data-felder="4">4 Felder</button>
+    <button class="knopf" id="zMischen">↺ Neu verteilen</button>
+    <button class="knopf haupt" id="zZu">✕ Schließen</button>
+  </div>
+</section>
+
+<script>
+var DATEN = {"gruppen":["Blüten","Frühblüher","Bäume und Sträucher","Früchte und Samen","Insekten und Spinnen","Vögel","Nester und Nistmaterial","Säugetiere","Winterfütterung","Szenen"],"bilder":[{"id":"bluete-loewe","name":"Löwenzahn","gruppe":"Blüten","klein":"../fauna/images/sammelflug/bluete-loewe.webp","gross":"bilder/bluete-loewe.webp","frei":1,"w":1190,"h":1200},{"id":"bluete-gaense","name":"Gänseblümchen","gruppe":"Blüten","klein":"../fauna/images/sammelflug/bluete-gaense.webp","gross":"bilder/bluete-gaense.webp","frei":1,"w":897,"h":1200},{"id":"bluete-hahn","name":"Scharfer Hahnenfuß","gruppe":"Blüten","klein":"../fauna/images/sammelflug/bluete-hahn.webp","gross":"bilder/bluete-hahn.webp","frei":1,"w":812,"h":1200},{"id":"bluete-taub","name":"Gefleckte Taubnessel","gruppe":"Blüten","klein":"../fauna/images/sammelflug/bluete-taub.webp","gross":"bilder/bluete-taub.webp","frei":1,"w":708,"h":1200},{"id":"bluete-schluessel","name":"Echte Schlüsselblume","gruppe":"Blüten","klein":"../fauna/images/sammelflug/bluete-schluessel.webp","gross":"bilder/bluete-schluessel.webp","frei":1,"w":971,"h":1200},{"id":"bluete-glocke","name":"Glockenblume","gruppe":"Blüten","klein":"../fauna/images/sammelflug/bluete-glocke.webp","gross":"bilder/bluete-glocke.webp","frei":1,"w":668,"h":1200},{"id":"bluete-marg","name":"Margerite","gruppe":"Blüten","klein":"../fauna/images/sammelflug/bluete-marg.webp","gross":"bilder/bluete-marg.webp","frei":1,"w":564,"h":1200},{"id":"bluete-storch","name":"Wiesen-Storchschnabel","gruppe":"Blüten","klein":"../fauna/images/sammelflug/bluete-storch.webp","gross":"bilder/bluete-storch.webp","frei":1,"w":866,"h":1200},{"id":"bluete-rotklee","name":"Rotklee","gruppe":"Blüten","klein":"../fauna/images/sammelflug/bluete-rotklee.webp","gross":"bilder/bluete-rotklee.webp","frei":1,"w":757,"h":1200},{"id":"bluete-salbei","name":"Wiesensalbei","gruppe":"Blüten","klein":"../fauna/images/sammelflug/bluete-salbei.webp","gross":"bilder/bluete-salbei.webp","frei":1,"w":753,"h":1200},{"id":"bluete-flocke","name":"Flockenblume","gruppe":"Blüten","klein":"../fauna/images/sammelflug/bluete-flocke.webp","gross":"bilder/bluete-flocke.webp","frei":1,"w":722,"h":1200},{"id":"bluete-moehre","name":"Wilde Möhre","gruppe":"Blüten","klein":"../fauna/images/sammelflug/bluete-moehre.webp","gross":"bilder/bluete-moehre.webp","frei":1,"w":806,"h":1200},{"id":"bluete-mohn","name":"Klatschmohn","gruppe":"Blüten","klein":"../fauna/images/sammelflug/bluete-mohn.webp","gross":"bilder/bluete-mohn.webp","frei":1,"w":729,"h":1200},{"id":"bluete-schaum","name":"Wiesenschaumkraut","gruppe":"Blüten","klein":"../flora/images/pollenpost/bluete-schaum.webp","gross":"bilder/bluete-schaum.webp","frei":1,"w":650,"h":1200},{"id":"bluete-witwe","name":"Witwenblume","gruppe":"Blüten","klein":"../flora/images/pollenpost/bluete-witwe.webp","gross":"bilder/bluete-witwe.webp","frei":1,"w":888,"h":1200},{"id":"bluete-nachtkerze","name":"Nachtkerze","gruppe":"Blüten","klein":"../flora/images/pollenpost/bluete-nachtkerze.webp","gross":"bilder/bluete-nachtkerze.webp","frei":1,"w":689,"h":1200},{"id":"bluete-lichtnelke","name":"Weiße Lichtnelke","gruppe":"Blüten","klein":"../flora/images/pollenpost/bluete-lichtnelke.webp","gross":"bilder/bluete-lichtnelke.webp","frei":1,"w":859,"h":1200},{"id":"bluete-seifenkraut","name":"Seifenkraut","gruppe":"Blüten","klein":"../flora/images/pollenpost/bluete-seifenkraut.webp","gross":"bilder/bluete-seifenkraut.webp","frei":1,"w":803,"h":1200},{"id":"pflanze-windroeschen","name":"Buschwindröschen, Blätter","gruppe":"Frühblüher","klein":"../flora/images/lichtrennen/pflanze-windroeschen.webp","gross":"bilder/pflanze-windroeschen.webp","frei":1,"w":1129,"h":1167},{"id":"pflanze-windroeschen-bluete","name":"Buschwindröschen, blühend","gruppe":"Frühblüher","klein":"../flora/images/lichtrennen/pflanze-windroeschen-bluete.webp","gross":"bilder/pflanze-windroeschen-bluete.webp","frei":1,"w":1128,"h":1193},{"id":"pflanze-scharbock","name":"Scharbockskraut, Blätter","gruppe":"Frühblüher","klein":"../flora/images/lichtrennen/pflanze-scharbock.webp","gross":"bilder/pflanze-scharbock.webp","frei":1,"w":1170,"h":1072},{"id":"pflanze-scharbock-bluete","name":"Scharbockskraut, blühend","gruppe":"Frühblüher","klein":"../flora/images/lichtrennen/pflanze-scharbock-bluete.webp","gross":"bilder/pflanze-scharbock-bluete.webp","frei":1,"w":1170,"h":1071},{"id":"pflanze-baerlauch","name":"Bärlauch, Blätter","gruppe":"Frühblüher","klein":"../flora/images/lichtrennen/pflanze-baerlauch.webp","gross":"bilder/pflanze-baerlauch.webp","frei":1,"w":1182,"h":1185},{"id":"pflanze-baerlauch-bluete","name":"Bärlauch, blühend","gruppe":"Frühblüher","klein":"../flora/images/lichtrennen/pflanze-baerlauch-bluete.webp","gross":"bilder/pflanze-baerlauch-bluete.webp","frei":1,"w":1179,"h":1200},{"id":"baum-eiche","name":"Stieleiche","gruppe":"Bäume und Sträucher","klein":"../flora/images/haehersaat/baum-eiche.webp","gross":"bilder/baum-eiche.webp","frei":1,"w":1198,"h":1200},{"id":"baum-buche","name":"Rotbuche","gruppe":"Bäume und Sträucher","klein":"../flora/images/haehersaat/baum-buche.webp","gross":"bilder/baum-buche.webp","frei":1,"w":1147,"h":1200},{"id":"baum-hasel","name":"Haselstrauch","gruppe":"Bäume und Sträucher","klein":"../flora/images/haehersaat/baum-hasel.webp","gross":"bilder/baum-hasel.webp","frei":1,"w":1200,"h":1195},{"id":"baum-fichte","name":"Fichte","gruppe":"Bäume und Sträucher","klein":"../flora/images/haehersaat/baum-fichte.webp","gross":"bilder/baum-fichte.webp","frei":1,"w":726,"h":1200},{"id":"baum-ahorn","name":"Bergahorn","gruppe":"Bäume und Sträucher","klein":"../flora/images/lichtrennen/baum-ahorn.webp","gross":"bilder/baum-ahorn.webp","frei":1,"w":862,"h":1200},{"id":"ort-baum","name":"Alter Apfelbaum","gruppe":"Bäume und Sträucher","klein":"../fauna/images/nestwerk/ort-baum.webp","gross":"bilder/ort-baum.webp","frei":1,"w":1190,"h":1200},{"id":"ort-busch","name":"Gebüsch","gruppe":"Bäume und Sträucher","klein":"../fauna/images/nestwerk/ort-busch.webp","gross":"bilder/ort-busch.webp","frei":1,"w":1176,"h":1200},{"id":"ort-hecke","name":"Hecke im Winter","gruppe":"Bäume und Sträucher","klein":"../fauna/images/kaltekost/ort-hecke.webp","gross":"bilder/ort-hecke.webp","frei":1,"w":1200,"h":895},{"id":"ort-fichte","name":"Fichte im Winter","gruppe":"Bäume und Sträucher","klein":"../fauna/images/kaltekost/ort-fichte.webp","gross":"bilder/ort-fichte.webp","frei":1,"w":823,"h":1200},{"id":"samen-eichel","name":"Eichel","gruppe":"Früchte und Samen","klein":"../flora/images/haehersaat/samen-eichel.webp","gross":"bilder/samen-eichel.webp","frei":1,"w":354,"h":639},{"id":"samen-buchecker","name":"Buchecker","gruppe":"Früchte und Samen","klein":"../flora/images/haehersaat/samen-buchecker.webp","gross":"bilder/samen-buchecker.webp","frei":1,"w":375,"h":468},{"id":"samen-nuss","name":"Haselnuss","gruppe":"Früchte und Samen","klein":"../flora/images/haehersaat/samen-nuss.webp","gross":"bilder/samen-nuss.webp","frei":1,"w":442,"h":451},{"id":"keimling","name":"Eichenkeimling","gruppe":"Früchte und Samen","klein":"../flora/images/haehersaat/keimling.webp","gross":"bilder/keimling.webp","frei":1,"w":924,"h":1200},{"id":"ort-buche","name":"Bucheckern im Laub","gruppe":"Früchte und Samen","klein":"../fauna/images/kaltekost/ort-buche.webp","gross":"bilder/ort-buche.webp","frei":1,"w":1200,"h":1163},{"id":"ort-karde","name":"Samenstände im Winter","gruppe":"Früchte und Samen","klein":"../fauna/images/kaltekost/ort-karde.webp","gross":"bilder/ort-karde.webp","frei":1,"w":1109,"h":1200},{"id":"biene-sand","name":"Sandbiene","gruppe":"Insekten und Spinnen","klein":"../fauna/images/sammelflug/biene-sand.webp","gross":"bilder/biene-sand.webp","frei":1,"w":1200,"h":1011},{"id":"biene-sand-pollen","name":"Sandbiene mit Pollen","gruppe":"Insekten und Spinnen","klein":"../fauna/images/sammelflug/biene-sand-pollen.webp","gross":"bilder/biene-sand-pollen.webp","frei":1,"w":1200,"h":1012},{"id":"biene-schere","name":"Scherenbiene","gruppe":"Insekten und Spinnen","klein":"../fauna/images/sammelflug/biene-schere.webp","gross":"bilder/biene-schere.webp","frei":1,"w":1200,"h":1112},{"id":"biene-schere-pollen","name":"Scherenbiene mit Pollen","gruppe":"Insekten und Spinnen","klein":"../fauna/images/sammelflug/biene-schere-pollen.webp","gross":"bilder/biene-schere-pollen.webp","frei":1,"w":1200,"h":1117},{"id":"biene-hummel","name":"Gartenhummel","gruppe":"Insekten und Spinnen","klein":"../fauna/images/sammelflug/biene-hummel.webp","gross":"bilder/biene-hummel.webp","frei":1,"w":1200,"h":1126},{"id":"biene-hummel-pollen","name":"Gartenhummel mit Pollen","gruppe":"Insekten und Spinnen","klein":"../fauna/images/sammelflug/biene-hummel-pollen.webp","gross":"bilder/biene-hummel-pollen.webp","frei":1,"w":1200,"h":1126},{"id":"falter","name":"Mittlerer Weinschwärmer","gruppe":"Insekten und Spinnen","klein":"../flora/images/pollenpost/falter.webp","gross":"bilder/falter.webp","frei":1,"w":1200,"h":781},{"id":"falter-pollen","name":"Weinschwärmer mit Pollen","gruppe":"Insekten und Spinnen","klein":"../flora/images/pollenpost/falter-pollen.webp","gross":"bilder/falter-pollen.webp","frei":1,"w":1200,"h":781},{"id":"spinne","name":"Krabbenspinne","gruppe":"Insekten und Spinnen","klein":"../fauna/images/sammelflug/spinne.webp","gross":"bilder/spinne.webp","frei":1,"w":1200,"h":1048},{"id":"ort-muecke","name":"Mückenschwarm","gruppe":"Insekten und Spinnen","klein":"../fauna/images/nestwerk/ort-muecke.webp","gross":"bilder/ort-muecke.webp","frei":1,"w":1110,"h":1200},{"id":"ort-raupe","name":"Zweig mit Raupen","gruppe":"Insekten und Spinnen","klein":"../fauna/images/nestwerk/ort-raupe.webp","gross":"bilder/ort-raupe.webp","frei":1,"w":1200,"h":1171},{"id":"ort-wurm","name":"Regenwurm","gruppe":"Insekten und Spinnen","klein":"../fauna/images/nestwerk/ort-wurm.webp","gross":"bilder/ort-wurm.webp","frei":1,"w":1191,"h":924},{"id":"haeher","name":"Eichelhäher","gruppe":"Vögel","klein":"../flora/images/haehersaat/haeher.webp","gross":"bilder/haeher.webp","frei":1,"w":1200,"h":988},{"id":"haeher-eichel","name":"Eichelhäher mit Eichel","gruppe":"Vögel","klein":"../flora/images/haehersaat/haeher-eichel.webp","gross":"bilder/haeher-eichel.webp","frei":1,"w":1200,"h":1003},{"id":"habicht","name":"Habicht","gruppe":"Vögel","klein":"../flora/images/haehersaat/habicht.webp","gross":"bilder/habicht.webp","frei":1,"w":1200,"h":731},{"id":"meise","name":"Kohlmeise","gruppe":"Vögel","klein":"../fauna/images/kaltekost/meise.webp","gross":"bilder/meise.webp","frei":1,"w":1200,"h":899},{"id":"meise-rund","name":"Kohlmeise, aufgeplustert","gruppe":"Vögel","klein":"../fauna/images/kaltekost/meise-rund.webp","gross":"bilder/meise-rund.webp","frei":1,"w":1200,"h":899},{"id":"trupp","name":"Gemischter Meisentrupp","gruppe":"Vögel","klein":"../fauna/images/kaltekost/trupp.webp","gross":"bilder/trupp.webp","frei":1,"w":1200,"h":804},{"id":"sperber","name":"Sperber","gruppe":"Vögel","klein":"../fauna/images/kaltekost/sperber.webp","gross":"bilder/sperber.webp","frei":1,"w":1200,"h":971},{"id":"vogel-amsel","name":"Amsel (Weibchen)","gruppe":"Vögel","klein":"../fauna/images/nestwerk/vogel-amsel.webp","gross":"bilder/vogel-amsel.webp","frei":1,"w":1200,"h":1068},{"id":"vogel-schwalbe","name":"Rauchschwalbe","gruppe":"Vögel","klein":"../fauna/images/nestwerk/vogel-schwalbe.webp","gross":"bilder/vogel-schwalbe.webp","frei":1,"w":1200,"h":1143},{"id":"vogel-buchfink","name":"Buchfink (Weibchen)","gruppe":"Vögel","klein":"../fauna/images/nestwerk/vogel-buchfink.webp","gross":"bilder/vogel-buchfink.webp","frei":1,"w":1200,"h":1041},{"id":"elster","name":"Elster","gruppe":"Vögel","klein":"../fauna/images/nestwerk/elster.webp","gross":"bilder/elster.webp","frei":1,"w":1200,"h":1193},{"id":"ort-huhn","name":"Haushuhn","gruppe":"Vögel","klein":"../fauna/images/nestwerk/ort-huhn.webp","gross":"bilder/ort-huhn.webp","frei":1,"w":1114,"h":1200},{"id":"nest-amsel-halb","name":"Amselnest, im Bau","gruppe":"Nester und Nistmaterial","klein":"../fauna/images/nestwerk/nest-amsel-halb.webp","gross":"bilder/nest-amsel-halb.webp","frei":1,"w":1193,"h":1200},{"id":"nest-amsel","name":"Amselnest mit Eiern","gruppe":"Nester und Nistmaterial","klein":"../fauna/images/nestwerk/nest-amsel.webp","gross":"bilder/nest-amsel.webp","frei":1,"w":1194,"h":1200},{"id":"nest-schwalbe-halb","name":"Schwalbennest, im Bau","gruppe":"Nester und Nistmaterial","klein":"../fauna/images/nestwerk/nest-schwalbe-halb.webp","gross":"bilder/nest-schwalbe-halb.webp","frei":1,"w":1200,"h":784},{"id":"nest-schwalbe","name":"Schwalbennest mit Eiern","gruppe":"Nester und Nistmaterial","klein":"../fauna/images/nestwerk/nest-schwalbe.webp","gross":"bilder/nest-schwalbe.webp","frei":1,"w":1200,"h":784},{"id":"nest-buchfink-halb","name":"Buchfinkennest, im Bau","gruppe":"Nester und Nistmaterial","klein":"../fauna/images/nestwerk/nest-buchfink-halb.webp","gross":"bilder/nest-buchfink-halb.webp","frei":1,"w":1197,"h":1200},{"id":"nest-buchfink","name":"Buchfinkennest mit Eiern","gruppe":"Nester und Nistmaterial","klein":"../fauna/images/nestwerk/nest-buchfink.webp","gross":"bilder/nest-buchfink.webp","frei":1,"w":1196,"h":1200},{"id":"ort-gras","name":"Altgras (Halme)","gruppe":"Nester und Nistmaterial","klein":"../fauna/images/nestwerk/ort-gras.webp","gross":"bilder/ort-gras.webp","frei":1,"w":1200,"h":514},{"id":"ort-moos","name":"Moospolster","gruppe":"Nester und Nistmaterial","klein":"../fauna/images/nestwerk/ort-moos.webp","gross":"bilder/ort-moos.webp","frei":1,"w":1200,"h":891},{"id":"ort-pfuetze","name":"Lehmpfütze","gruppe":"Nester und Nistmaterial","klein":"../fauna/images/nestwerk/ort-pfuetze.webp","gross":"bilder/ort-pfuetze.webp","frei":1,"w":1200,"h":870},{"id":"ort-pfuetze-trocken","name":"Ausgetrocknete Pfütze","gruppe":"Nester und Nistmaterial","klein":"../fauna/images/nestwerk/ort-pfuetze-trocken.webp","gross":"bilder/ort-pfuetze-trocken.webp","frei":1,"w":1200,"h":871},{"id":"ort-zaun","name":"Zaun mit Spinnweben","gruppe":"Nester und Nistmaterial","klein":"../fauna/images/nestwerk/ort-zaun.webp","gross":"bilder/ort-zaun.webp","frei":1,"w":1200,"h":865},{"id":"eichhoernchen","name":"Eichhörnchen","gruppe":"Säugetiere","klein":"../flora/images/haehersaat/eichhoernchen.webp","gross":"bilder/eichhoernchen.webp","frei":1,"w":905,"h":1200},{"id":"wildschwein","name":"Wildschwein","gruppe":"Säugetiere","klein":"../flora/images/haehersaat/wildschwein.webp","gross":"bilder/wildschwein.webp","frei":1,"w":1187,"h":846},{"id":"fledermaus","name":"Fledermaus","gruppe":"Säugetiere","klein":"../flora/images/pollenpost/fledermaus.webp","gross":"bilder/fledermaus.webp","frei":1,"w":1200,"h":577},{"id":"katze","name":"Hauskatze","gruppe":"Säugetiere","klein":"../fauna/images/kaltekost/katze.webp","gross":"bilder/katze.webp","frei":1,"w":1153,"h":811},{"id":"ort-futter","name":"Futterhaus","gruppe":"Winterfütterung","klein":"../fauna/images/kaltekost/ort-futter.webp","gross":"bilder/ort-futter.webp","frei":1,"w":1136,"h":1200},{"id":"ort-knoedel","name":"Meisenknödel","gruppe":"Winterfütterung","klein":"../fauna/images/kaltekost/ort-knoedel.webp","gross":"bilder/ort-knoedel.webp","frei":1,"w":450,"h":1195},{"id":"ort-netz","name":"Meisenknödel im Netz","gruppe":"Winterfütterung","klein":"../fauna/images/kaltekost/ort-netz.webp","gross":"bilder/ort-netz.webp","frei":1,"w":851,"h":1200},{"id":"ort-brot","name":"Brotreste","gruppe":"Winterfütterung","klein":"../fauna/images/kaltekost/ort-brot.webp","gross":"bilder/ort-brot.webp","frei":1,"w":1200,"h":835},{"id":"ort-rinde","name":"Eichenrinde","gruppe":"Winterfütterung","klein":"../fauna/images/kaltekost/ort-rinde.webp","gross":"bilder/ort-rinde.webp","frei":1,"w":716,"h":1200},{"id":"ort-hoehle","name":"Nistkasten","gruppe":"Winterfütterung","klein":"../fauna/images/kaltekost/ort-hoehle.webp","gross":"bilder/ort-hoehle.webp","frei":1,"w":822,"h":1200},{"id":"szene-titel","name":"Frühlingswiese mit Sandbiene","gruppe":"Szenen","klein":"bilder/szene-titel-k.webp","gross":"bilder/szene-titel.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-schere","name":"Scherenbiene in der Glockenblume","gruppe":"Szenen","klein":"bilder/szene-titel-schere-k.webp","gross":"bilder/szene-titel-schere.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-hummel","name":"Gartenhummel am Rotklee","gruppe":"Szenen","klein":"bilder/szene-titel-hummel-k.webp","gross":"bilder/szene-titel-hummel.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-fruehling","name":"Hummelkönigin am Löwenzahn","gruppe":"Szenen","klein":"bilder/szene-titel-fruehling-k.webp","gross":"bilder/szene-titel-fruehling.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-sommer","name":"Gartenhummel am Wiesensalbei","gruppe":"Szenen","klein":"bilder/szene-titel-sommer-k.webp","gross":"bilder/szene-titel-sommer.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-nacht","name":"Weinschwärmer an der Nachtkerze","gruppe":"Szenen","klein":"bilder/szene-titel-nacht-k.webp","gross":"bilder/szene-titel-nacht.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-eichen","name":"Eichelhäher und Eichhörnchen im Eichenwald","gruppe":"Szenen","klein":"bilder/szene-titel-eichen-k.webp","gross":"bilder/szene-titel-eichen.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-buchen","name":"Eichelhäher und Wildschweine im Buchenwald","gruppe":"Szenen","klein":"bilder/szene-titel-buchen-k.webp","gross":"bilder/szene-titel-buchen.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-rand","name":"Eichelhäher und Habicht am Waldrand","gruppe":"Szenen","klein":"bilder/szene-titel-rand-k.webp","gross":"bilder/szene-titel-rand.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-windroeschen","name":"Buschwindröschen im Buchenwald","gruppe":"Szenen","klein":"bilder/szene-titel-windroeschen-k.webp","gross":"bilder/szene-titel-windroeschen.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-scharbock","name":"Scharbockskraut am Bach","gruppe":"Szenen","klein":"bilder/szene-titel-scharbock-k.webp","gross":"bilder/szene-titel-scharbock.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-baerlauch","name":"Bärlauch im Frühlingswald","gruppe":"Szenen","klein":"bilder/szene-titel-baerlauch-k.webp","gross":"bilder/szene-titel-baerlauch.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-garten","name":"Garten im Winter","gruppe":"Szenen","klein":"bilder/szene-titel-garten-k.webp","gross":"bilder/szene-titel-garten.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-januar","name":"Kohlmeise und Sperber","gruppe":"Szenen","klein":"bilder/szene-titel-januar-k.webp","gross":"bilder/szene-titel-januar.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-wald","name":"Meisentrupp im Winterwald","gruppe":"Szenen","klein":"bilder/szene-titel-wald-k.webp","gross":"bilder/szene-titel-wald.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-amsel","name":"Amsel beim Nestbau","gruppe":"Szenen","klein":"bilder/szene-titel-amsel-k.webp","gross":"bilder/szene-titel-amsel.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-schwalbe","name":"Rauchschwalbe holt Lehm","gruppe":"Szenen","klein":"bilder/szene-titel-schwalbe-k.webp","gross":"bilder/szene-titel-schwalbe.webp","frei":0,"w":1200,"h":800},{"id":"szene-titel-buchfink","name":"Buchfink im blühenden Apfelbaum","gruppe":"Szenen","klein":"bilder/szene-titel-buchfink-k.webp","gross":"bilder/szene-titel-buchfink.webp","frei":0,"w":1200,"h":800}]};
+(function () {
+  "use strict";
+  var B = DATEN.bilder, G = DATEN.gruppen;
+  var $ = function (id) { return document.getElementById(id); };
+  var gruppe = "Alle", suche = "", raetsel = false, gewaehlt = [], liste = [], pos = 0;
+  var aufgedeckt = {};
+  var HG = ["creme", "weiss", "dunkel", "gruen"], hg = 0;
+
+  function el(t, a, kinder) {
+    var e = document.createElement(t);
+    if (a) for (var k in a) { if (k === "text") e.textContent = a[k]; else e.setAttribute(k, a[k]); }
+    (kinder || []).forEach(function (c) { if (c) e.appendChild(c); });
+    return e;
+  }
+  function byId(id) { for (var i = 0; i < B.length; i++) if (B[i].id === id) return B[i]; }
+
+  // Themenleiste
+  var leiste = $("leiste");
+  ["Alle"].concat(G).forEach(function (g) {
+    var c = el("button", { class: "chip", type: "button", "aria-pressed": g === gruppe ? "true" : "false", text: g });
+    c.addEventListener("click", function () { gruppe = g; zeichnen(); });
+    leiste.appendChild(c);
+  });
+  var feld = el("input", { class: "suche", type: "search", placeholder: "Suchen …", "aria-label": "Bild suchen" });
+  feld.addEventListener("input", function () { suche = feld.value.trim().toLowerCase(); zeichnen(); });
+  leiste.appendChild(feld);
+
+  function sichtbar() {
+    return B.filter(function (b) {
+      return (gruppe === "Alle" || b.gruppe === gruppe) && (!suche || b.name.toLowerCase().indexOf(suche) >= 0);
+    });
+  }
+  function nameEl(b, klasse) {
+    if (raetsel && !aufgedeckt[b.id]) {
+      var k = el("button", { class: klasse || "verdeckt", type: "button", text: "? Auflösen" });
+      k.addEventListener("click", function (ev) { ev.stopPropagation(); aufgedeckt[b.id] = 1; zeichnen(); ansichtNeu(); vergleichNeu(); });
+      return k;
+    }
+    return document.createTextNode(b.name);
+  }
+
+  function zeichnen() {
+    leiste.querySelectorAll(".chip").forEach(function (c) { c.setAttribute("aria-pressed", c.textContent === gruppe ? "true" : "false"); });
+    var r = $("raster"); r.textContent = "";
+    liste = sichtbar();
+    var letzte = "";
+    if (!liste.length) r.appendChild(el("p", { class: "hinweis-leer", text: "Kein Bild gefunden." }));
+    liste.forEach(function (b, i) {
+      if (gruppe === "Alle" && b.gruppe !== letzte) { r.appendChild(el("h2", { class: "gruppe-titel", text: b.gruppe })); letzte = b.gruppe; }
+      var bild = el("button", { class: "bild", type: "button", "aria-label": (raetsel && !aufgedeckt[b.id]) ? "Bild groß zeigen" : b.name + " groß zeigen" },
+        [el("img", { src: b.klein, alt: "", loading: "lazy", decoding: "async" })]);
+      bild.addEventListener("click", function () { oeffnen(i); });
+      var w = gewaehlt.indexOf(b.id);
+      var wahl = el("button", { class: "waehlen", type: "button", "aria-pressed": w >= 0 ? "true" : "false",
+        "aria-label": "Für Vergleich auswählen", text: w >= 0 ? String(w + 1) : "＋" });
+      wahl.addEventListener("click", function () { umschalten(b.id); });
+      var name = el("div", { class: "name" }, [nameEl(b)]);
+      r.appendChild(el("article", { class: "karte" + (b.frei ? "" : " szene") + (w >= 0 ? " gewaehlt" : "") }, [bild, wahl, name]));
+    });
+    knoepfe();
+  }
+  function umschalten(id) {
+    var i = gewaehlt.indexOf(id);
+    if (i >= 0) gewaehlt.splice(i, 1);
+    else { if (gewaehlt.length >= 12) gewaehlt.shift(); gewaehlt.push(id); }
+    zeichnen(); ansichtNeu();
+  }
+  function knoepfe() {
+    var n = gewaehlt.length;
+    $("kVergleich").disabled = n < 2;
+    $("kVergleich").textContent = "⇆ Vergleichen" + (n >= 2 ? " (" + Math.min(n, 4) + ")" : "");
+    $("kZuordnen").disabled = n < 2;
+    $("kZuordnen").textContent = "▦ Zuordnen" + (n >= 2 ? " (" + n + ")" : "");
+    $("kLeeren").disabled = !n;
+    $("kRaetsel").textContent = raetsel ? "❓ Rätsel: an" : "❓ Rätsel: aus";
+    $("kRaetsel").setAttribute("aria-pressed", raetsel ? "true" : "false");
+  }
+
+  // Ebenen
+  var offen = null, zuvor = null;
+  function zeigen(id) {
+    zuvor = document.activeElement; offen = $(id);
+    offen.classList.add("offen"); offen.setAttribute("data-bg", HG[hg]);
+    document.body.style.overflow = "hidden";
+    var z = offen.querySelector(".haupt"); if (z) z.focus({ preventScroll: true });
+  }
+  function schliessen() {
+    if (!offen) return;
+    offen.classList.remove("offen"); offen = null;
+    document.body.style.overflow = "";
+    if (zuvor && zuvor.focus) zuvor.focus({ preventScroll: true });
+  }
+  function hgWechsel() { hg = (hg + 1) % HG.length; if (offen) offen.setAttribute("data-bg", HG[hg]); }
+
+  function figur(b) {
+    var cap = el("figcaption", null, [nameEl(b, "aufloesen")]);
+    return el("figure", { class: b.frei ? "" : "szene" }, [el("img", { src: b.gross, alt: (raetsel && !aufgedeckt[b.id]) ? "" : b.name }), cap]);
+  }
+  function oeffnen(i) { pos = i; zeigen("ansicht"); ansichtNeu(); }
+  function ansichtNeu() {
+    if (!offen || offen.id !== "ansicht") return;
+    var b = liste[pos], st = $("aBuehne"); st.textContent = "";
+    st.appendChild(figur(b));
+    var w = gewaehlt.indexOf(b.id) >= 0;
+    $("aWahl").textContent = w ? "✓ Ausgewählt" : "＋ Auswählen";
+    var n = liste[pos + 1]; if (n) { var v = new Image(); v.src = n.gross; }
+  }
+  function blaettern(d) { pos = (pos + d + liste.length) % liste.length; ansichtNeu(); }
+  $("aZurueck").addEventListener("click", function () { blaettern(-1); });
+  $("aWeiter").addEventListener("click", function () { blaettern(1); });
+  $("aWahl").addEventListener("click", function () { umschalten(liste[pos].id); });
+  $("aZu").addEventListener("click", schliessen);
+  $("aBg").addEventListener("click", hgWechsel);
+  $("aLaden").addEventListener("click", function () { laden(liste[pos]); });
+
+  // Wischen in der Ansicht
+  var x0 = null;
+  $("aBuehne").addEventListener("pointerdown", function (e) { x0 = e.clientX; });
+  $("aBuehne").addEventListener("pointerup", function (e) {
+    if (x0 === null) return; var d = e.clientX - x0; x0 = null;
+    if (Math.abs(d) > 60) blaettern(d < 0 ? 1 : -1);
+  });
+
+  // Vergleich
+  function vergleichNeu() {
+    if (!offen || offen.id !== "vergleich") return;
+    var st = $("vBuehne"); st.textContent = "";
+    gewaehlt.slice(0, 4).forEach(function (id) { st.appendChild(figur(byId(id))); });
+  }
+  $("kVergleich").addEventListener("click", function () { zeigen("vergleich"); vergleichNeu(); });
+  $("vZu").addEventListener("click", schliessen);
+  $("vBg").addEventListener("click", hgWechsel);
+
+  // Zuordnen
+  var nFelder = 2, titel = ["Gruppe A", "Gruppe B", "Gruppe C", "Gruppe D"];
+  function felderBauen() {
+    var f = $("felder"); f.textContent = "";
+    f.style.gridTemplateColumns = "repeat(" + nFelder + ",1fr)";
+    for (var i = 0; i < nFelder; i++) {
+      (function (i) {
+        var h = el("h2", { contenteditable: "true", spellcheck: "false", text: titel[i] });
+        h.addEventListener("input", function () { titel[i] = h.textContent; });
+        f.appendChild(el("div", { class: "feld" }, [h]));
+      })(i);
+    }
+    document.querySelectorAll("[data-felder]").forEach(function (k) {
+      k.className = "knopf" + (+k.dataset.felder === nFelder ? " dunkel" : "");
+    });
+  }
+  function verteilen() {
+    var br = $("brett"), W = br.clientWidth, H = br.clientHeight;
+    br.querySelectorAll(".zkarte").forEach(function (k) { k.remove(); });
+    var n = gewaehlt.length;
+    var kb = Math.max(90, Math.min(W * 0.11, (W - 40) / n - 12, H * 0.22));
+    br.style.setProperty("--k", kb + "px");
+    var reihe = Math.max(1, Math.floor((W - 20) / (kb + 12)));
+    var ids = gewaehlt.slice().sort(function () { return Math.random() - 0.5; });
+    ids.forEach(function (id, i) {
+      var b = byId(id);
+      var k = el("div", { class: "zkarte" + (b.frei ? "" : " szene"), role: "img", "aria-label": raetsel && !aufgedeckt[b.id] ? "Bildkarte" : b.name },
+        [el("img", { src: b.gross, alt: "", draggable: "false" }), (raetsel && !aufgedeckt[b.id]) ? null : el("span", { text: b.name })]);
+      var r = Math.floor(i / reihe), s = i % reihe;
+      var proReihe = Math.min(reihe, n - r * reihe);
+      var x0 = (W - proReihe * (kb + 12)) / 2;
+      k.style.left = (x0 + s * (kb + 12)) + "px";
+      k.style.top = Math.max(10, H - (r + 1) * (kb * 1.25 + 14) - 6) + "px";
+      ziehbar(k); br.appendChild(k);
+    });
+  }
+  var oben = 10;
+  function ziehbar(k) {
+    var dx = 0, dy = 0, id = null;
+    k.addEventListener("pointerdown", function (e) {
+      id = e.pointerId; k.setPointerCapture(id); k.classList.add("zieht"); k.style.zIndex = ++oben;
+      dx = e.clientX - k.offsetLeft; dy = e.clientY - k.offsetTop; e.preventDefault();
+    });
+    k.addEventListener("pointermove", function (e) {
+      if (e.pointerId !== id) return;
+      var br = $("brett");
+      var x = Math.max(0, Math.min(br.clientWidth - k.offsetWidth, e.clientX - dx));
+      var y = Math.max(0, Math.min(br.clientHeight - k.offsetHeight, e.clientY - dy));
+      k.style.left = x + "px"; k.style.top = y + "px";
+    });
+    function ende(e) { if (e.pointerId !== id) return; id = null; k.classList.remove("zieht"); }
+    k.addEventListener("pointerup", ende); k.addEventListener("pointercancel", ende);
+  }
+  $("kZuordnen").addEventListener("click", function () { zeigen("zuordnen"); felderBauen(); requestAnimationFrame(verteilen); });
+  document.querySelectorAll("[data-felder]").forEach(function (k) {
+    k.addEventListener("click", function () { nFelder = +k.dataset.felder; felderBauen(); });
+  });
+  $("zMischen").addEventListener("click", verteilen);
+  $("zZu").addEventListener("click", schliessen);
+
+  // Hauptknöpfe
+  $("kRaetsel").addEventListener("click", function () { raetsel = !raetsel; aufgedeckt = {}; zeichnen(); });
+  $("kLeeren").addEventListener("click", function () { gewaehlt = []; zeichnen(); });
+  function vollbild() {
+    var d = document, h = d.documentElement;
+    if (d.fullscreenElement || d.webkitFullscreenElement) (d.exitFullscreen || d.webkitExitFullscreen).call(d);
+    else if (h.requestFullscreen || h.webkitRequestFullscreen) {
+      var p = (h.requestFullscreen || h.webkitRequestFullscreen).call(h); if (p && p.catch) p.catch(function () {});
+    }
+  }
+  if (!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen)) $("kVoll").hidden = true;
+  $("kVoll").addEventListener("click", vollbild);
+
+  // Herunterladen als PNG
+  function laden(b) {
+    var img = new Image();
+    img.onload = function () {
+      var c = document.createElement("canvas"); c.width = img.naturalWidth; c.height = img.naturalHeight;
+      c.getContext("2d").drawImage(img, 0, 0);
+      c.toBlob(function (blob) {
+        if (!blob) return;
+        var a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+        a.download = b.id + "_bio-mibaso.png"; document.body.appendChild(a); a.click();
+        setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+      }, "image/png");
+    };
+    img.src = b.gross;
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if (!offen) return;
+    if (e.target && e.target.isContentEditable) return;
+    if (e.key === "Escape") schliessen();
+    else if (offen.id === "ansicht" && e.key === "ArrowRight") blaettern(1);
+    else if (offen.id === "ansicht" && e.key === "ArrowLeft") blaettern(-1);
+  });
+
+  zeichnen();
+})();
+</script>
+<script>(function(){if("serviceWorker" in navigator)navigator.serviceWorker.register("/sw.js").catch(function(){});})();</script>
+</body>
+</html>
