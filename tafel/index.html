@@ -148,6 +148,7 @@ button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
     <button class="knopf" data-felder="2">2 Felder</button>
     <button class="knopf" data-felder="3">3 Felder</button>
     <button class="knopf" data-felder="4">4 Felder</button>
+    <button class="knopf" data-felder="5">5 Felder</button>
     <button class="knopf" id="zMischen">↺ Neu verteilen</button>
     <button class="knopf haupt" id="zZu">✕ Schließen</button>
   </div>
@@ -289,7 +290,7 @@ var DATEN = {"gruppen":["Blüten","Frühblüher","Bäume und Sträucher","Früch
   $("vBg").addEventListener("click", hgWechsel);
 
   // Zuordnen
-  var nFelder = 2, titel = ["Gruppe A", "Gruppe B", "Gruppe C", "Gruppe D"];
+  var nFelder = 2, titel = ["Gruppe A", "Gruppe B", "Gruppe C", "Gruppe D", "Gruppe E"];
   function felderBauen() {
     var f = $("felder"); f.textContent = "";
     f.style.gridTemplateColumns = "repeat(" + nFelder + ",1fr)";
