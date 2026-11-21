@@ -388,6 +388,26 @@ var DATEN = {"gruppen":["Blüten","Frühblüher","Bäume und Sträucher","Früch
   window.addEventListener("resize", function () { if (offen && offen.id === "zuordnen") verteilen(); });
 
   zeichnen();
+
+  // Direkt-Links aus den Spielen: ?vergleich=a,b,c  ?zuordnen=a,b&felder=X|Y  ?bild=a  ?raetsel=1  ?gruppe=Vögel
+  (function () {
+    var q = new URLSearchParams(location.search);
+    if (q.get("gruppe") && G.indexOf(q.get("gruppe")) >= 0) gruppe = q.get("gruppe");
+    if (q.get("raetsel")) raetsel = true;
+    var roh = q.get("vergleich") || q.get("zuordnen") || "";
+    var ids = roh.split(",").filter(function (id) { return byId(id); });
+    if (ids.length) gewaehlt = ids;
+    zeichnen();
+    if (q.get("vergleich") && ids.length) { zeigen("vergleich"); vergleichNeu(); }
+    else if (q.get("zuordnen") && ids.length) {
+      var f = (q.get("felder") || "").split("|").filter(Boolean).slice(0, 5);
+      if (f.length >= 2) { nFelder = f.length; f.forEach(function (t, i) { titel[i] = t; }); }
+      zeigen("zuordnen"); felderBauen(); requestAnimationFrame(verteilen);
+    } else if (q.get("bild")) {
+      var i = liste.indexOf(byId(q.get("bild")));
+      if (i >= 0) oeffnen(i);
+    }
+  })();
 })();
 </script>
 <script>(function(){if("serviceWorker" in navigator)navigator.serviceWorker.register("/sw.js").catch(function(){});})();</script>
