@@ -683,6 +683,7 @@ CSS = """
   .k-spiel{background:linear-gradient(150deg,#c9953f,#a9762c);grid-column:1/-1;}
   .k-garten{background:linear-gradient(150deg,#4f8a4a,#2f6b45);grid-column:1/-1;}
   .k-tafel{background:linear-gradient(150deg,#3d7a7a,#245757);grid-column:1/-1;}
+  .k-schule{background:linear-gradient(150deg,#9c4f3c,#6e3326);grid-column:1/-1;}
   @media (max-width:520px){.kacheln{grid-template-columns:1fr;}}
   .subkopf{font-family:var(--sans);margin:2px 0 4px;}
   .zurueck{font-size:13px;font-weight:600;color:var(--akzent);text-decoration:none;}
@@ -801,6 +802,7 @@ def write_hub(listing):
         '<span class="kt">Fauna verstehen</span><span class="kb">Sechs Pässe von der Wiese bis zum Winter · Bestimmen &amp; Verwandtschaft</span></a>'
         '<a class="kachel k-garten" href="garten/"><span class="ke">🏡</span><span class="kt">Mein Naturgarten</span><span class="kb">Wächst mit jedem der acht Forscherpässe · Tiere ziehen ein, Blumen und Bäume wachsen</span></a>'
         '<a class="kachel k-spiel" href="spiele/"><span class="ke">🎲</span><span class="kt">Spielecke</span><span class="kb">Elf Lernspiele · Sterne sammeln · Naturforscher-Diplom</span></a>'
+        '<a class="kachel k-schule" href="schule/"><span class="ke">🏫</span><span class="kt">Für die Schule</span><span class="kb">Vertretungsstunde, ausgearbeitete Einheiten und Handreichungen für Lehrkräfte</span></a>'
         '<a class="kachel k-tafel" href="tafel/"><span class="ke">🖼️</span><span class="kt">Bildtafel für die Schule</span><span class="kb">Über 110 gemalte Bilder groß für Beamer/Smartboard · Vergleichen, Rätseln, Zuordnen</span></a>'
         '</div>' + _footer("") +
         '<script>if(window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone)'
